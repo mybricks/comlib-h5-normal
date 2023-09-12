@@ -1,7 +1,8 @@
 import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react';
-import { useInterval, useNodeBoundingRect, useTouch } from './../../utils/hooks';
 import { CarouselProps, SLIDER_TYPE } from './type';
 import css from './index.less';
+import useNodeBoundingRect from './useNodeBoundingRect';
+import useInterval from './useInterval'
 
 const CarouselItem = ({ children, ...others }: any) => {
   return (
@@ -21,10 +22,7 @@ const Carousel = ({
   touchable = true,
   autoplay = false,
   pagination = true,
-  showIndexPicker = false,
-  items = [],
   onInit,
-  onChange,
 }: CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -194,7 +192,6 @@ const Carousel = ({
     autoplay && isInfinite ? autoplay.delay || 3000 : null,
   );
 
-  const touch = useTouch();
 
   const onTouchStart = (event: React.TouchEvent | TouchEvent | React.MouseEvent) => {
     if (!touchable || isAnimating.current) return;
@@ -245,7 +242,6 @@ const Carousel = ({
   }, [children, isInfinite]);
 
   useEffect(() => {
-    typeof onChange === 'function' && onChange(state.curIndex);
   }, [state.curIndex]);
 
   return (

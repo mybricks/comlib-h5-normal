@@ -4,16 +4,6 @@ import Swipe from './../components/swipe';
 import { SLIDER_TYPE } from './const';
 import { Data } from './types';
 
-const getExposeParams = ({ title, index, url = '' }) => {
-  return {
-    action: 'OP_ACTIVITY_BANNER',
-    params: {
-      module_name: title,
-      pos: index + 1,
-      url,
-    },
-  };
-};
 
 export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimeParams<Data>) => {
   const carouselRef = useRef(null);
@@ -115,26 +105,7 @@ export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimePar
       {...configs}
     >
       {(data.items || []).map((item, index) => {
-        const webloggerParam = JSON.stringify([
-          {
-            triggerTime: 'SHOW',
-            action: 'OP_ACTIVITY_BANNER',
-            params: {
-              module_name: title,
-              pos: index + 1,
-              url: item.evtType == EVT_TYPE.JUMP ? item.jumpUrl : '',
-            },
-          },
-          {
-            triggerTime: 'CLICK',
-            action: 'OP_ACTIVITY_BANNER',
-            params: {
-              module_name: title,
-              pos: index + 1,
-              url: item.evtType == EVT_TYPE.JUMP ? item.jumpUrl : '',
-            },
-          },
-        ]);
+
         return (
           <Carousel.Item key={`carousel_item_${index}`} data-carousel-item={index} onClick={() => onClick(index)}>
             {!item.url ? (
@@ -160,7 +131,6 @@ export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimePar
               </div>
             ) : (
               <img
-                data-weblogger={webloggerParam}
                 style={{ width: '100%', height: '100%' }}
                 src={item.url}
                 alt="轮播图"
