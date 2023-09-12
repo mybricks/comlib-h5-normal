@@ -1,0 +1,20 @@
+{
+  "title": "新人/秒杀商品",
+  "enable": true,
+  "namespace": "fangzhou.normal-h5.good-card.t0",
+  "schema": "fangzhou/eshop/entity/good-card",
+  "icon": "https://f2.eckwai.com/kos/nlav11092/u_8zn0a9.ec8407640deb03f0.png",
+  "preview": "https://f2.eckwai.com/kos/nlav11092/u_8zn0a9.ec8407640deb03f0.png",
+  "author": "yangxian05",
+  "version": "1.0.43",
+  "description": "",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "install",
+      "title": "安装"
+    }
+  ]
+}

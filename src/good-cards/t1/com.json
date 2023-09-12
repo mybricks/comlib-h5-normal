@@ -1,0 +1,20 @@
+{
+  "title": "通用/常规商品",
+  "enable": true,
+  "namespace": "fangzhou.normal-h5.good-card.t1",
+  "schema": "fangzhou/eshop/entity/good-card",
+  "icon": "https://f2.eckwai.com/kos/nlav11092/u_d87n56.9940f85ca5b0495f.png",
+  "preview":"https://f2.eckwai.com/kos/nlav11092/u_d87n56.9940f85ca5b0495f.png",
+  "author": "yangxian05",
+  "version": "1.0.29",
+  "description": "",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "install",
+      "title": "安装"
+    }
+  ]
+}

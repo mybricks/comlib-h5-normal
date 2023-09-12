@@ -1,0 +1,28 @@
+{
+  "title": "货架(氛围版)",
+  "enable": true,
+  "namespace": "fangzhou.normal-h5.good-list",
+  "schema": "fangzhou/eshop/entity/good-template",
+  "icon": "https://f2.eckwai.com/kos/nlav11092/u_p2rwtx.ade92cf45905697d.png",
+  "author": "yangxian05",
+  "version": "1.1.16",
+  "description": "",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "install",
+      "title": "安装"
+    }
+  ],
+  "slots": [
+    {
+      "id": "card",
+      "title": "商品卡片",
+      "capacity": 1,
+      "schema": "fangzhou/eshop/entity/good-card",
+      "editableSlot": true
+    }
+  ]
+}

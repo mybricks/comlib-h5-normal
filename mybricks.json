@@ -1,0 +1,28 @@
+{
+  "content": "",
+  "commitInfo": "初始化",
+  "componentType": "KH5",
+  "comAry": [
+    {
+      "title": "常规",
+      "comAry": [
+        "./src/header-image/com.json",
+        "./src/image/com.json",
+        "./src/text/com.json",
+        "./src/carousel/com.json",
+        "./src/good-list/com.json"
+      ]
+    },
+    {
+      "title": "卡片",
+      "visibility": false,
+      "comAry": [
+        "./src/good-cards/t0/com.json",
+        "./src/good-cards/t1/com.json",
+        "./src/good-cards/t2/com.json"
+      ]
+    }
+  ],
+  "folderId": 45233,
+  "folderIdStaging": 2931
+}

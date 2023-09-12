@@ -1,0 +1,166 @@
+import { ICommodity } from "./constant";
+
+export const mockCommodityList:ICommodity[] = [
+  {
+    itemId: 4470514957016,
+    sellerId: 1412312,
+    itemName: "DZ23248-长度120CM 飘逸优雅真丝连衣裙",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemListPrice: 0,
+    itemCouponPrice: 62301,
+    itemCouponPriceDoc: "3909",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 64300,
+    itemOriginalPriceDoc: "643",
+    itemSoldNum: 376,
+    itemSoldNumDoc: "已售376",
+    itemStock: 593,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=4470514957016&hyId=kwaishop&layoutType=4",
+    itemIcon:
+      "https://u1-203.ecukwai.com/udata/pkg/ks-merchant/jiangsuting/zhendesheng16.png",
+    itemIcons: [
+      "https://u1-203.ecukwai.com/udata/pkg/ks-merchant/jiangsuting/zhendesheng16.png",
+      "https://u2-203.ecukwai.com/kos/nlav12031/xiaohuangchexinban/pinp16.png",
+    ],
+    itemTagList: ["七天无理由退货", "七天", "七天无理由退货"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 757999,
+    rank: 1,
+    itemHasDropPriceDoc: "8.09",
+  },
+  {
+    itemId: 3654738528194,
+    sellerId: 0,
+    itemName: "10代禾森二娃子页面肥",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemListPrice: 0,
+    itemCouponPrice: 62301,
+    itemCouponPriceDoc: "6232.22",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 64300,
+    itemOriginalPriceDoc: "643",
+    itemSoldNum: 6153,
+    itemStock: 993755,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=3654738528194&hyId=kwaishop&layoutType=4",
+    itemIcon:
+      "https://u1-203.ecukwai.com/kos/nlav12031/xiaohuangchexinban/pinp16.png",
+    itemIcons: [
+      "https://u1-203.ecukwai.com/udata/pkg/ks-merchant/jiangsuting/zhendesheng16.png",
+    ],
+    itemTagList: ["七天无理由退货"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 632974,
+    rank: 2,
+    itemHasDropPriceDoc: "220",
+  },
+  {
+    itemId: 4154002247280,
+    sellerId: 0,
+    itemName: "【科学护眼 释放疲劳】芝人堂蓝莓叶黄素酯压片糖果5mg*30片",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemListPrice: 0,
+    itemCouponPrice: 13990,
+    itemCouponPriceDoc: "139.9",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 13990,
+    itemOriginalPriceDoc: "139.9",
+    itemSoldNum: 3836,
+    itemStock: 1,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=4154002247280&hyId=kwaishop&layoutType=4",
+    itemIcon:
+      "https://p1.eckwai.com/udata/pkg/KS-Merchant-Ops/sucai/biaoqian/pinpai1622.png",
+    itemTagList: ["七天无理由退货", "假一赔九"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 324035,
+    rank: 3
+  },
+  {
+    itemId: 4258032442078,
+    itemName: "新款冰丝麻小衫",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemCouponPrice: 5900,
+    itemCouponPriceDoc: "59",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 5900,
+    itemOriginalPriceDoc: "59",
+    itemSoldNum: 3672,
+    itemStock: 9176,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=4258032442078&hyId=kwaishop&layoutType=4",
+    itemIcon: "https://p1.eckwai.com/udata/pkg/ks-kph/presell160822.png",
+    itemIcons: [
+      "https://u2-203.ecukwai.com/kos/nlav12031/xiaohuangchexinban/pinp16.png",
+    ],
+    itemTagList: ["七天无理由退货"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 317230,
+    rank: 4,
+    priceBaseImage:
+      "https://f2.eckwai.com/kos/nlav11092/u_djh8kw.9c18204d1c1fcdbe.png",
+  },
+  {
+    itemId: 42580324420781,
+    itemName: "新款冰丝麻小衫",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemCouponPrice: 5900,
+    itemCouponPriceDoc: "59",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 5900,
+    itemOriginalPriceDoc: "59",
+    itemSoldNum: 3672,
+    itemStock: 9176,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=4258032442078&hyId=kwaishop&layoutType=4",
+    itemIcon: "https://p1.eckwai.com/udata/pkg/ks-kph/presell160822.png",
+    itemTagList: ["七天无理由退货"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 317230,
+    rank: 4,
+    itemHasDropPriceDoc: "8.09",
+    priceBaseImage:
+      "https://f2.eckwai.com/kos/nlav11092/u_djh8kw.9c18204d1c1fcdbe.png",
+  },
+  {
+    itemId: 42580324420782,
+    itemName: "新款冰丝麻小衫",
+    itemImage:
+      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+    itemCouponPrice: 5900,
+    itemCouponPriceDoc: "59",
+    itemCouponPriceTitle: "券后价",
+    itemOriginalPrice: 5900,
+    itemOriginalPriceDoc: "59",
+    itemSoldNum: 3672,
+    itemStock: 9176,
+    itemUrl:
+      "https://app2.kwaixiaodian.com/merchant/shop/detail?id=4258032442078&hyId=kwaishop&layoutType=4",
+    itemIcon: "https://p1.eckwai.com/udata/pkg/ks-kph/presell160822.png",
+    itemTagList: ["七天无理由退货"],
+    serverExpTag: null,
+    recoReason: 0,
+    trackingInfo: '{"op":70,"dp":2267}',
+    itemHeatScore: 317230,
+    rank: 4,
+    itemHasDropPriceDoc: "8.09",
+    priceBaseImage:
+      "https://f2.eckwai.com/kos/nlav11092/u_djh8kw.9c18204d1c1fcdbe.png",
+  },
+];

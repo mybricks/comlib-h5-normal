@@ -1,0 +1,43 @@
+{
+  "title": "文本",
+  "namespace": "fangzhou.normal-h5.text",
+  "author": "yangzhao03",
+  "author_name": "杨钊",
+  "version": "1.0.17",
+  "description": "文本组件",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.ts",
+  "icon": "https://cdnfile.corp.kuaishou.com/kc/files/a/fangzhou/text-555.svg",
+  "preview": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-02415aa1-c290-4b37-b575-e8c9a40572ef.png",
+  "inputs": [
+    {
+      "id": "update",
+      "title": "更新文本"
+    },
+    {
+      "id": "install",
+      "title": "安装"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击"
+    },
+    {
+      "id": "change",
+      "title": "内容发生变化"
+    }
+  ],
+  "configs": [
+    {
+      "id": "text-content",
+      "title": "文本内容",
+      "schema": {
+        "type": "string"
+      },
+      "binding": "data.text"
+    }
+  ]
+}

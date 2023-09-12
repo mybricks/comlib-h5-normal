@@ -1,0 +1,42 @@
+{
+  "type": "normal",
+  "slideIndex": 0,
+  "items": [
+    {
+      "url": "https://f2.eckwai.com/kos/nlav11092/u_i46ke0.cab2e43351da9f90.png",
+      "evtType": "JUMP"
+    },
+    {
+      "url": "https://f2.eckwai.com/kos/nlav11092/u_ts0xh2.1577557ad77734e6.png",
+      "evtType": "JUMP"
+    },
+    {
+      "url": "https://f2.eckwai.com/kos/nlav11092/u_i46ke0.cab2e43351da9f90.png",
+      "evtType": "JUMP"
+    }
+  ],
+  "autoplay": {
+    "reverseDirection": false,
+    "delay": 3000
+  },
+  "pagination": true,
+  "style": {
+    "width": "100%",
+    "height": "100%"
+  },
+  "cardWidth": "160",
+  "dotStyle": {
+    "width": "6px",
+    "height": "6px",
+    "backgroundColor": "rgba(255,255,255,0.5)",
+    "borderRadius": "6px"
+  },
+  "dotActiveStyle": {
+    "width": "12px",
+    "height": "6px",
+    "backgroundColor": "#ffffff",
+    "borderRadius": "6px"
+  },
+  "dotColGap": 6,
+  "dotOffset": 6
+}

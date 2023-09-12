@@ -1,0 +1,45 @@
+{
+  "title": "图片",
+  "namespace": "fangzhou.normal-h5.image",
+  "author": "CheMingjun",
+  "author_name": "车明君",
+  "icon": "./icon.svg",
+  "preview": "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+  "version": "1.0.25",
+  "description": "图片",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "image",
+      "title": "图片链接",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "click",
+      "title": "点击",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "id": "change",
+      "title": "链接发生变化"
+    }
+  ],
+  "configs": [
+    {
+      "id": "imagesrc",
+      "title": "图片链接",
+      "schema": {
+        "type": "string"
+      },
+      "binding": "data.src"
+    }
+  ]
+}

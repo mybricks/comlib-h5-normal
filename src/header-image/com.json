@@ -1,0 +1,13 @@
+{
+  "title": "头图",
+  "namespace": "fangzhou.normal-h5.header-image",
+  "author": "zhanlin",
+  "author_name": "湛林",
+  "version": "1.0.12",
+  "description": "头图组件",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "preview": "https://f2.eckwai.com/kos/nlav11092/u_i46ke0.cab2e43351da9f90.png",
+  "editors": "./editors.ts"
+}

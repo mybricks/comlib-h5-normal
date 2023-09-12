@@ -1,0 +1,123 @@
+.coverMask {
+  position: absolute;
+  background-color: #00000005;
+  z-index: 999;
+  border-radius: 6px;
+  width: 120px;
+  height: 120px;
+}
+
+.card {
+  position: relative;
+  width: 120px;
+  // height: 216px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cover {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+}
+
+.title {
+  .nameTag {
+    vertical-align: top;
+    display: inline-block;
+    height: 16px;
+    margin-top: 2px;
+    margin-right: 2px;
+    object-fit: contain;
+  }
+
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 3px;
+  padding: 0 6px;
+}
+
+.priceWrapper {
+  position: relative;
+  top: -2px;
+  width: 118px;
+  height: 62px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-image: url(https://f2.eckwai.com/kos/nlav11092/u_dfxh8w.f9ac2b64c5cdc2d9.png);
+  background-size: 100% 100%;
+}
+
+.itemOriginalPriceWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.soldNum {
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 400;
+  color: rgb(153, 153, 153);
+  margin-top: 14px;
+  margin-left: 6px;
+}
+
+.itemHasDropPriceDoc {
+  margin-top: 9px;
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ff3c6d;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.itemHasDropPriceDocPrefix {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+.itemCouponPriceWrapper {
+  width: 46px;
+  height: 32px;
+  margin-right: 9px;
+  display: flex;
+  align-self: flex-start;
+  white-space: nowrap;
+  flex-direction: column;
+  align-items: center;
+  // letter-spacing: -0.5px;
+  .prefix {
+    display: block;
+    color: #fff;
+    text-shadow: 0px 0.5px 0px rgba(0, 0, 0, 0.09);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+    height: 12px;
+    margin-top: 11px;
+    margin-bottom: 1px;
+  }
+}
+
+.itemCouponPriceDoc {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+}
