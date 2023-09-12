@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState , useRef, useMemo } from 'react';
-import { isNumber } from '@fangzhou/utils';
+import { isNumber } from './../utils/core';
 import css from './runtime.less';
 
 export default function ({ env, data, inputs, outputs, title, style }: RuntimeParams) {
