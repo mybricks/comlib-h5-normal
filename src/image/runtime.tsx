@@ -1,35 +1,32 @@
-import { useComputed, useObservable } from '@mybricks/rxui';
-import React, { useCallback, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, useEffect, useState , useRef, useMemo } from 'react';
 import { isNumber } from '@fangzhou/utils';
 import css from './runtime.less';
 
 export default function ({ env, data, inputs, outputs, title, style }: RuntimeParams) {
-  const model = useObservable({
-    loaded: false,
-    imageUrl: data.src,
-  });
+  const [loaded,setLoaded] = useState(false);
+  const [imageUrl,setImageUrl] = useState(data.src);
   const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     inputs['image']?.((url: string) => {
       if (typeof url === 'string') {
-        model.imageUrl = url;
+        setImageUrl(url);
       }
     });
   }, []);
 
   useEffect(() => {
-    model.imageUrl = data.src;
+    setImageUrl(data.src);
   }, [data.src]);
 
   useEffect(() => {
-    outputs?.change?.(model.imageUrl);
-  }, [model.imageUrl]);
+    outputs?.change?.(imageUrl);
+  }, [imageUrl]);
 
   const onLoad = useCallback(() => {
     const naturalWidth = ref.current?.naturalWidth;
     const naturalHeight = ref.current?.naturalHeight;
-    model.loaded = true;
+    setLoaded(true);
     if (naturalWidth && naturalHeight) {
       data.naturalWidth = naturalWidth;
       data.naturalHeight = naturalHeight;
@@ -66,7 +63,7 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
         className={css.img}
         style={{ width, height }}
         ref={ref}
-        src={model.imageUrl}
+        src={imageUrl}
         onLoad={onLoad}
         alt="加载中..."
       />
