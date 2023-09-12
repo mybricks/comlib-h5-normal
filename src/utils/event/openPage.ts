@@ -69,24 +69,6 @@ function resolvePathname(to, from) {
 /**
  * 打开新页面
  */
-export default function openPage(url: string, yoda: any, openOnNewPage: boolean = true): void {
-  if (openOnNewPage == false || /^kwai:\/\/.+/.test(url)) {
-    location.href = url;
-    return;
-  }
-  if (url[0] === '.') {
-    url = resolvePathname(url, location.pathname);
-  }
-  if (url[0] === '/') {
-    url = location.protocol + '//' + location.host + url;
-  }
-  if (yoda && yoda.kwai && yoda.kwai.loadUrlOnNewPage && url.indexOf('http') === 0) {
-    yoda.kwai.loadUrlOnNewPage({
-      url,
-      type: 'back',
-      ignoreHalfScreenDisplay: 1,
-    });
-  } else {
-    location.href = url;
-  }
+export default function openPage(url: string, openOnNewPage: boolean = true): void {
+  location.href = url;
 }

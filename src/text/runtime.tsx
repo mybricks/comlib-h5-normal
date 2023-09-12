@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import css from './runtime.less';
 import cx from 'classnames';
-import { useCardFeild } from '../utils/cardUtils';
 
 export default function ({ env, data, inputs, outputs }) {
-  useCardFeild(data, inputs, 'text');
   useEffect(() => {
     inputs.update?.((val: string) => {
       data.text = val;

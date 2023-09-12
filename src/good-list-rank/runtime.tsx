@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useModuleExpose } from '../utils/hooks/useModuleExpose';
+// import { useModuleExpose } from '../utils/hooks/useModuleExpose';
 import { parseModuleAndActionFromTitle } from '../utils/track';
 import styles from './styles.less';
 import TitleWithIcon from '../components/title-with-icon';
-import useGoodShelve from '../utils/hooks/useGoodShelve';
+// import useGoodShelve from '../utils/hooks/useGoodShelve';
 import { Price } from '../components/price';
 
 export enum STATUS {
@@ -23,7 +23,7 @@ const topTags = [
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, title } = props;
-  const { itemList, onPress, loadRanking } = useGoodShelve({ ...props, rankingId: data.rankId });
+  // const { itemList, onPress, loadRanking } = useGoodShelve({ ...props, rankingId: data.rankId });
 
   const renderTagList = (itemTagList: string[] = []) => {
     let sum = 0,
