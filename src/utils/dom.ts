@@ -4,5 +4,5 @@
  * @returns
  */
 export const refineSize = (x) => {
-  return (x / 414) * window.innerWidth;
+  return (x / 375) * window.innerWidth;
 };

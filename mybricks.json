@@ -10,16 +10,7 @@
         "./src/image/com.json",
         "./src/text/com.json",
         "./src/carousel/com.json",
-        "./src/good-list/com.json"
-      ]
-    },
-    {
-      "title": "卡片",
-      "visibility": false,
-      "comAry": [
-        "./src/good-cards/t0/com.json",
-        "./src/good-cards/t1/com.json",
-        "./src/good-cards/t2/com.json"
+        "./src/good-list-rank/com.json"
       ]
     }
   ],

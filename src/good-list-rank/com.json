@@ -1,0 +1,21 @@
+{
+  "title": "榜单货架(氛围版)",
+  "namespace": "fangzhou.normal-h5.good-list-rank",
+  "author": "yangxian05",
+  "author_name": "杨显",
+  "version": "1.1.13",
+  "description": "货架",
+  "icon": "https://f2.eckwai.com/kos/nlav11092/u_3jsc34.9ac2a92743c63556.png",
+  "data": "./data.json",
+  "runtime": "./runtime.tsx",
+  "editors": "./editors.tsx",
+  "slots": [
+    {
+      "id": "card",
+      "title": "商品卡片",
+      "capacity": 1,
+      "schema": "fangzhou/eshop/entity/rank-good",
+      "editableSlot": true
+    }
+  ]
+}

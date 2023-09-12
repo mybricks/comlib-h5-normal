@@ -1,3 +1,5 @@
+import imgUrlToBase64 from './../utils/imgUrlToBase64';
+import isValidURL from '../utils/isValidURL';
 export default {
   '@init'({ style, data, output }) {
     style.width = '100%';
@@ -19,19 +21,19 @@ export default {
         },
       },
     },
-    {
-      title: '动效图层地址',
-      type: 'imageSelector',
-      description: '设计产出的动效图，申请头图时一起申请',
-      value: {
-        get({ data }) {
-          return data.animate;
-        },
-        set({ data }, val: string) {
-          data.animate = val;
-        },
-      },
-    },
+    // {
+    //   title: '动效图层地址',
+    //   type: 'imageSelector',
+    //   description: '设计产出的动效图，申请头图时一起申请',
+    //   value: {
+    //     get({ data }) {
+    //       return data.animate;
+    //     },
+    //     set({ data }, val: string) {
+    //       data.animate = val;
+    //     },
+    //   },
+    // },
     {
       title: '返回按钮图标',
       type: 'imageSelector',
@@ -57,19 +59,19 @@ export default {
         },
       },
     },
-    {
-      title: '开启分享',
-      description: '开启后需要在页面配置分享内容',
-      type: 'switch',
-      value: {
-        get({ data }) {
-          return data.openShare;
-        },
-        set({ data }, val: boolean) {
-          data.openShare = val;
-        },
-      },
-    },
+    // {
+    //   title: '开启分享',
+    //   description: '开启后需要在页面配置分享内容',
+    //   type: 'switch',
+    //   value: {
+    //     get({ data }) {
+    //       return data.openShare;
+    //     },
+    //     set({ data }, val: boolean) {
+    //       data.openShare = val;
+    //     },
+    //   },
+    // },
     {
       title: '开启下滑吸顶',
       description: '大促类会场建议开启',

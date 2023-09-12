@@ -6,7 +6,7 @@ export const mockCommodityList:ICommodity[] = [
     sellerId: 1412312,
     itemName: "DZ23248-长度120CM 飘逸优雅真丝连衣裙",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemListPrice: 0,
     itemCouponPrice: 62301,
     itemCouponPriceDoc: "3909",
@@ -37,7 +37,7 @@ export const mockCommodityList:ICommodity[] = [
     sellerId: 0,
     itemName: "10代禾森二娃子页面肥",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemListPrice: 0,
     itemCouponPrice: 62301,
     itemCouponPriceDoc: "6232.22",
@@ -66,7 +66,7 @@ export const mockCommodityList:ICommodity[] = [
     sellerId: 0,
     itemName: "【科学护眼 释放疲劳】芝人堂蓝莓叶黄素酯压片糖果5mg*30片",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemListPrice: 0,
     itemCouponPrice: 13990,
     itemCouponPriceDoc: "139.9",
@@ -90,7 +90,7 @@ export const mockCommodityList:ICommodity[] = [
     itemId: 4258032442078,
     itemName: "新款冰丝麻小衫",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemCouponPrice: 5900,
     itemCouponPriceDoc: "59",
     itemCouponPriceTitle: "券后价",
@@ -117,7 +117,7 @@ export const mockCommodityList:ICommodity[] = [
     itemId: 42580324420781,
     itemName: "新款冰丝麻小衫",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemCouponPrice: 5900,
     itemCouponPriceDoc: "59",
     itemCouponPriceTitle: "券后价",
@@ -142,7 +142,7 @@ export const mockCommodityList:ICommodity[] = [
     itemId: 42580324420782,
     itemName: "新款冰丝麻小衫",
     itemImage:
-      "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+      "https://f2.eckwai.com/kos/nlav11092/u_a0dwez.ba13d1bae25f2dc9.png",
     itemCouponPrice: 5900,
     itemCouponPriceDoc: "59",
     itemCouponPriceTitle: "券后价",

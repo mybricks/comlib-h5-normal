@@ -6,7 +6,7 @@ const isObject = (o: any) => Object.prototype.toString.call(o).slice(8, -1) === 
 
 export default {
   '@init'({ data, style, input, output }) {
-    style.width = 414;
+    style.width = 375;
     style.height = 204;
     data.items = data.items.map((item, index) => {
       // const id = uuid();

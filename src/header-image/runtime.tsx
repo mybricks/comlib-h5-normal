@@ -32,7 +32,7 @@ export default function ({ env, data, inputs, style, outputs }) {
 
   const onScroll = useCallback(() => {
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
-    const offset = (100 / 414) * window.innerWidth;
+    const offset = (100 / 375) * window.innerWidth;
     const rate = 0.5;
     console.log('--滚动--');
     //
@@ -75,7 +75,7 @@ export default function ({ env, data, inputs, style, outputs }) {
     const naturalWidth = ref.current?.naturalWidth;
     const naturalHeight = ref.current?.naturalHeight;
     if (naturalHeight && naturalWidth) {
-      data.height = (naturalHeight * 414) / naturalWidth;
+      data.height = (naturalHeight * 375) / naturalWidth;
     }
   }, []);
 

@@ -1,12 +1,21 @@
+import imgUrlToBase64 from './../utils/imgUrlToBase64';
+import isValidURL from '../utils/isValidURL';
 export default {
   '@init'({ style }) {
-    style.width = 414;
+    style.width = 375;
     style.height = 'auto';
   },
   '@resize': {
     options: ['width', 'height'],
   },
   ':root'({ data, output, style }, cate0, cate1, cate2) {
+    style = [
+      {
+        title: '标题',
+        options: ['font'],
+        target: ({ id }: EditorResult<Data>) => `.card  .ant-card-head-title${getFilterSelector(id)}`,
+      },
+    ];
     cate0.title = '常规';
     cate0.items = [
       {
@@ -33,27 +42,7 @@ export default {
           },
         },
       },
-      // {
-      //   title: '图片填充方式',
-      //   type: 'Select',
-      //   options: [
-      //     { label: '拉伸', value: 'fill' },
-      //     { label: '铺满', value: 'cover' },
-      //     { label: '包含', value: 'contain' },
-      //   ],
-      //   value: {
-      //     get({ data }) {
-      //       return data.imgStyle?.objectFit || 'fill';
-      //     },
-      //     set({ data }, objectFit: string) {
-      //       if (!data.imgStyle) {
-      //         data.imgStyle = { objectFit };
-      //       } else {
-      //         data.imgStyle.objectFit = objectFit;
-      //       }
-      //     },
-      //   },
-      // },
+      {},
     ];
 
     cate1.title = '高级';

@@ -53,7 +53,7 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
       return [style.width + 'px', (style.width / data.naturalWidth) * data.naturalHeight + 'px'];
     } else if (isNumber(style.height)) {
       return [(style.height / data.naturalHeight) * data.naturalWidth + 'px', style.height + 'px'];
-    } else if (style.width === 'auto' && data.naturalWidth < 414) {
+    } else if (style.width === 'auto' && data.naturalWidth < 375) {
       return [data.naturalWidth + 'px', data.nauralHeight + 'px'];
     } else {
       return ['100%', 'auto'];
