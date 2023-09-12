@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { parseModuleAndActionFromTitle } from '../utils/track';
 import styles from './styles.less';
 import TitleWithIcon from '../components/title-with-icon';
-// import useGoodShelve from '../utils/hooks/useGoodShelve';
+import { mockCommodityList } from '../mock/mockCommodityList';
 import { Price } from '../components/price';
 
 export enum STATUS {
@@ -22,7 +22,7 @@ const topTags = [
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, title } = props;
-  // const { itemList, onPress, loadRanking } = useGoodShelve({ ...props, rankingId: data.rankId });
+  const itemList = mockCommodityList;
 
   const renderTagList = (itemTagList: string[] = []) => {
     let sum = 0,
@@ -48,13 +48,9 @@ export default function (props) {
     );
   };
 
-  useEffect(() => {
-  }, [data.rankId, data.size]);
+  useEffect(() => {}, [data.rankId, data.size]);
 
   const { moduleName, actionName } = parseModuleAndActionFromTitle(title);
-
-
-
 
   return (
     <>
@@ -68,7 +64,7 @@ export default function (props) {
                 {itemList && itemList.length > 0 ? (
                   <div className={styles.goodList}>
                     {(itemList || []).map((commodity, index) => (
-                      <div className={styles.goodCard} onClick={() => onPress(commodity, index)}>
+                      <div className={styles.goodCard}>
                         <div className={styles.coverWrapper}>
                           <img style={{ objectFit: 'cover' }} className={styles.cover} data-src={commodity.itemImage} />
                           {index < 3 ? (
