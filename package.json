@@ -26,7 +26,9 @@
     "classnames": "^2.3.1",
     "color": "^4.2.3",
     "dayjs": "^1.10.7",
-    "intersection-observer": "^0.12.2"
+    "intersection-observer": "^0.12.2",
+    "mock-json-schema": "^1.1.1",
+    "to-json-schema": "^0.2.5"
   },
   "devDependencies": {
     "@fangzhou/cli": "0.0.12",
