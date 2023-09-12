@@ -2,9 +2,6 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import Carousel from './../components/carousel';
 import Swipe from './../components/swipe';
 import { SLIDER_TYPE } from './const';
-import { EVT_TYPE } from '../utils/event-editor/const';
-import handleEvent from '../utils/event-editor/handleEvent';
-import { openPage } from '../utils/event';
 import { Data } from './types';
 
 const getExposeParams = ({ title, index, url = '' }) => {
@@ -65,55 +62,7 @@ export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimePar
     (index) => {
       const item = data.items[index];
 
-      if (env.runtime) {
-        if (item.evtType === EVT_TYPE.AUTHOR) {
-          env
-            .ajax(
-              '/rest/h5/activity/traffic/c/delivery/resource/h5',
-              {
-                method: 'post',
-                data: {
-                  pageCode: 'itemListPage',
-                  resource: [
-                    {
-                      resourceCode: 'sellerList',
-                      param: {
-                        cursor: 0,
-                        firstRequest: true,
-                        idList: [+item.authorId],
-                        pageCode: env.getPageCode(),
-                      },
-                    },
-                  ],
-                },
-              },
-              true,
-            )
-            .then((res) => {
-              let list = res?.data?.sellerList?.extInfo?.list;
-              let liveStatus = list.length ? list[0].liveStatus : false;
-              if (liveStatus) {
-                openPage(`kwai://live/play/~${item.authorId}`, env.yoda);
-              } else {
-                openPage(`kwai://profile/${item.authorId}`, env.yoda);
-              }
-            });
-          return;
-        }
 
-        handleEvent({
-          env,
-          logger,
-          evtType: item.evtType,
-          jumpUrl: item.jumpUrl,
-          customHandler: () => {
-            const ouputFn = outputs[item.id];
-            typeof ouputFn === 'function' && ouputFn(true);
-          },
-        });
-        // const ouputFn = outputs[item.id];
-        // typeof ouputFn === 'function' && ouputFn(true);
-      }
     },
     [env.runtime, data.items, title],
   );
@@ -135,26 +84,6 @@ export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimePar
     return (
       <Swipe style={data.style} onInit={onInit} onChange={handleChange} {...configs}>
         {(data.items || []).map((item, index) => {
-          const webloggerParam = JSON.stringify([
-            {
-              triggerTime: 'SHOW',
-              action: 'OP_ACTIVITY_BANNER',
-              params: {
-                module_name: title,
-                pos: index + 1,
-                url: item.evtType == EVT_TYPE.JUMP ? item.jumpUrl : '',
-              },
-            },
-            {
-              triggerTime: 'CLICK',
-              action: 'OP_ACTIVITY_BANNER',
-              params: {
-                module_name: title,
-                pos: index + 1,
-                url: item.evtType == EVT_TYPE.JUMP ? item.jumpUrl : '',
-              },
-            },
-          ]);
           return (
             <Swipe.Item
               key={`carousel_item_${index}`}
@@ -163,7 +92,6 @@ export default ({ env, data, inputs, outputs, title, slots, logger }: RuntimePar
               style={{ width: `${data.cardWidth || 160}px`, height: '100%', padding: '0px 0px' }}
             >
               <img
-                data-weblogger={webloggerParam}
                 style={{ width: '100%', height: '100%' }}
                 src={item.url}
                 alt="轮播图"

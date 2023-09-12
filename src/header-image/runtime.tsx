@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { openPage, share, back, close } from '../utils/event';
+import { openPage, back, close } from '../utils/event';
 import cls from 'classnames';
 import css from './style.less';
 

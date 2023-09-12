@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-// import { useModuleExpose } from '../utils/hooks/useModuleExpose';
 import { parseModuleAndActionFromTitle } from '../utils/track';
 import styles from './styles.less';
 import TitleWithIcon from '../components/title-with-icon';
@@ -50,38 +49,12 @@ export default function (props) {
   };
 
   useEffect(() => {
-    loadRanking(data.rankId, data.size);
   }, [data.rankId, data.size]);
 
   const { moduleName, actionName } = parseModuleAndActionFromTitle(title);
 
-  const onExpose = (commodity, index) => {
-    if (!itemList || !itemList.length) return;
 
-    if (!env.runtime) {
-      return;
-    }
 
-    if (env.runtime) {
-      env.weblog.collect('SHOW', {
-        action: 'OP_ACTIVITY_COMMODITY_CARD',
-        params: {
-          commodity_id: commodity.itemId,
-          action_name: actionName,
-          module_name: moduleName,
-          pos: index + 1,
-          server_exp_tag: commodity.serverExpTag,
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (!itemList || itemList.length === 0) return;
-    (itemList || []).forEach((commodity, index) => {
-      onExpose(commodity, index);
-    });
-  }, [itemList]);
 
   return (
     <>

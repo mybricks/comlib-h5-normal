@@ -1,6 +1,4 @@
-import { uuid } from '../utils';
 import { SLIDER_TYPE } from './const';
-import { EVT_TYPE } from '../utils/event-editor/const';
 
 const isObject = (o: any) => Object.prototype.toString.call(o).slice(8, -1) === 'Object';
 
@@ -60,34 +58,10 @@ export default {
                 value: 'url',
               },
               {
-                title: '类型',
-                type: 'select',
-                options: [
-                  { label: '页面跳转', value: EVT_TYPE.JUMP },
-                  { label: '跳转主播', value: EVT_TYPE.AUTHOR },
-                  { label: '自定义', value: EVT_TYPE.CUSTOM },
-                ],
-                value: 'evtType',
-              },
-              {
-                title: '主播ID',
-                type: 'textarea',
-                options: {
-                  placeholder: '请输入当前主播ID',
-                },
-                ifVisible: (item) => {
-                  return item.evtType === EVT_TYPE.AUTHOR;
-                },
-                value: 'authorId',
-              },
-              {
                 title: '跳转链接',
                 type: 'textarea',
                 options: {
-                  placeholder: '目前支持http、https、kwai链接',
-                },
-                ifVisible: (item) => {
-                  return item.evtType === EVT_TYPE.JUMP;
+                  placeholder: '目前支持http、https链接',
                 },
                 value: 'jumpUrl',
               },

@@ -7,18 +7,6 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
-        title: "商品榜单ID",
-        type: "rankingSelector",
-        value: {
-          get({ data }) {
-            return data.rankId;
-          },
-          set({ data }, value) {
-            data.rankId = value;
-          },
-        },
-      },
-      {
         title: "最大展示数量 (上限20)",
         type: "text",
         options: {

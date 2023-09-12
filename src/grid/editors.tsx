@@ -1,5 +1,4 @@
 import { CSSProperties } from "react";
-import { uuid } from "../utils";
 
 export default {
   "@init"({ style, data, slot }) {

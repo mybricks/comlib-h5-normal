@@ -1,5 +1,4 @@
 import React, { useRef, useState, useMemo, useEffect, useCallback } from 'react';
-import { useInterval, useNodeBoundingRect, useTouch } from './../../utils/hooks';
 import { CarouselProps } from './type';
 
 import css from './index.less';
