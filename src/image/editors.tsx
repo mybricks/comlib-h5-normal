@@ -1,5 +1,4 @@
-import imgUrlToBase64 from './../utils/imgUrlToBase64';
-import isValidURL from '../utils/isValidURL';
+
 export default {
   '@init'({ style }) {
     style.width = 375;
