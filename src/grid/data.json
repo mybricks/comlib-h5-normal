@@ -1,0 +1,16 @@
+{
+  "tree": {
+    "id": "default",
+    "size": {
+      "fixedWidth": false,
+      "width": 30,
+      "fixedHeight": false,
+      "height": 30
+    },
+    "style": {},
+    "layout": {},
+    "direction": "",
+    "isLeaf": true,
+    "children": []
+  }
+}
