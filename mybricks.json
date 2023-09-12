@@ -3,15 +3,15 @@
   "commitInfo": "初始化",
   "componentType": "KH5",
   "comAry": [
+    "./src/_code-segment/com.json",
+    "./src/_pick/com.json",
     {
       "title": "常规",
       "comAry": [
-        "./src/header-image/com.json",
         "./src/image/com.json",
         "./src/text/com.json",
-        "./src/carousel/com.json",
         "./src/grid/com.json",
-        "./src/good-list-rank/com.json"
+        "./"
       ]
     }
   ],
