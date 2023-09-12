@@ -1,0 +1,28 @@
+{
+  "title": "按钮",
+  "namespace": "fangzhou.normal-h5.button",
+  "author": "liubiao03",
+  "author_name": "刘彪",
+  "icon": "./icon.svg",
+  "version": "1.0.18",
+  "description": "按钮",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "btnText",
+      "title": "修改按钮文本"
+    },
+    {
+      "id": "btnStyle",
+      "title": "修改按钮样式"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "click",
+      "title": "点击"
+    }
+  ]
+}
