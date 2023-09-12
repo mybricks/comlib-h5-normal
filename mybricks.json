@@ -10,6 +10,7 @@
         "./src/image/com.json",
         "./src/text/com.json",
         "./src/carousel/com.json",
+        "./src/grid/com.json",
         "./src/good-list-rank/com.json"
       ]
     }
