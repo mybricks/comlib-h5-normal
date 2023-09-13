@@ -9,9 +9,7 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
 
   useEffect(() => {
     inputs['image']?.((url: string) => {
-      console.warn('input imageUrl', url)
       if (typeof url === 'string') {
-        console.log(11111)
         setImageUrl(url);
       }
     });
@@ -21,9 +19,9 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
   //   setImageUrl(data.src);
   // }, [data.src]);
 
-  useEffect(() => {
-    outputs?.change?.(imageUrl);
-  }, [imageUrl]);
+  // useEffect(() => {
+  //   outputs?.change?.(imageUrl);
+  // }, [imageUrl]);
 
   const onLoad = useCallback(() => {
     const naturalWidth = ref.current?.naturalWidth;
