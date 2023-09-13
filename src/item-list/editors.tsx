@@ -1,16 +1,16 @@
 export default {
-  "@init"({ style, data, output }) {
-    style.width = "100%";
-    style.height = "auto";
+  '@init'({ style, data, output }) {
+    style.width = '100%';
+    style.height = 'auto';
   },
-  ":root"({ data, output, slot }, cate0, cate1, cate2) {
-    cate0.title = "常规";
+  ':root'({ data, output, slot }, cate0, cate1, cate2) {
+    cate0.title = '常规';
     cate0.items = [
       {
-        title: "最大展示数量 (上限20)",
-        type: "text",
+        title: '最大展示数量 (上限20)',
+        type: 'text',
         options: {
-          type: "number",
+          type: 'number',
         },
         value: {
           get({ data }) {
@@ -26,7 +26,7 @@ export default {
         title: '商品样式',
         type: 'comSelector',
         options: {
-          schema: 'mybricks/entity/item',
+          schema: 'mybricks/good-card',
         },
         value: {
           get({ data }) {
