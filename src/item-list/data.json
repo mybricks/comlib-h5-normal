@@ -1,5 +1,6 @@
 {
   "schema": "mybricks/good-card",
+  "selectComNameSpace":"mybricks.normal-h5.good-card.s0",
   "style": {},
   "deliveryPackId": "",
   "size": 10,

@@ -1,7 +1,6 @@
 {
   "title": "货架列表",
   "namespace": "mybricks.normal-h5.item-list",
-  "schema": "mybricks/entity/good-template",
   "author": "mybricks",
   "author_name": "mybricks",
   "version": "1.0.0",
