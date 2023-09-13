@@ -16,6 +16,7 @@ export default function ({ env, data, inputs, outputs }) {
   const textCx = cx({
     [css.text]: true,
     [css['ellipsis-line']]: !!data.ellipsis,
+    'mybricks-text': true,
   });
 
   const onClick = () => {
@@ -26,7 +27,7 @@ export default function ({ env, data, inputs, outputs }) {
   };
 
   return (
-    <p className={textCx} style={{ ...data.style }} onClick={onClick}>
+    <p className={textCx} onClick={onClick}>
       {data.text}
     </p>
   );

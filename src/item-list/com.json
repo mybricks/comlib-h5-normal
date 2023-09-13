@@ -1,6 +1,7 @@
 {
   "title": "货架列表",
   "namespace": "mybricks.normal-h5.item-list",
+  "schema": "mybricks/entity/item",
   "author": "mybricks",
   "author_name": "mybricks",
   "version": "1.0.0",
@@ -13,7 +14,7 @@
       "id": "card",
       "title": "商品卡片",
       "capacity": 1,
-      "schema": "mybricks/item-card",
+      "schema": "mybricks/entity/item",
       "editableSlot": true
     }
   ]

@@ -7,8 +7,13 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
   const [imageUrl,setImageUrl] = useState(data.src);
   const ref = useRef<HTMLImageElement>(null);
 
+
+  console.log('imageUrl', imageUrl)
+
   useEffect(() => {
     inputs['image']?.((url: string) => {
+
+      console.log('input imageUrl', url)
       if (typeof url === 'string') {
         setImageUrl(url);
       }

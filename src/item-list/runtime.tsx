@@ -55,60 +55,27 @@ export default function (props) {
       {itemList && itemList.length > 0 ? (
         <div>
           <div className={styles.goodListWrapper}>
-            <div className={styles.goodList} style={{ backgroundColor: data.backgroundColor }}>
-              <img className={styles.banner} src={data.banner} />
-
-              <div>
-                {itemList && itemList.length > 0 ? (
-                  <div className={styles.goodList}>
-                    {(itemList || []).map((commodity, index) => (
-                      // <div className={styles.goodCard}>
-                      //   <div className={styles.coverWrapper}>
-                      //     <img style={{ objectFit: 'cover' }} className={styles.cover} data-src={commodity.itemImage} />
-                      //     {index < 3 ? (
-                      //       <img className={styles.top3Tag} src={topTags[index]} />
-                      //     ) : (
-                      //       <div className={styles.otherTag}>
-                      //         <span className={styles.otherTagText}>{index + 1}</span>
-                      //       </div>
-                      //     )}
-                      //   </div>
-                      //   <div className={styles.content}>
-                      //     <div>
-                      //       <TitleWithIcon
-                      //         key={index}
-                      //         numberOfLines={2}
-                      //         icons={commodity?.itemIcons || []}
-                      //         iconStyle={{ marginRight: '3px' }}
-                      //         env={env}
-                      //       >
-                      //         {commodity.itemName}
-                      //       </TitleWithIcon>
-                      //       {renderTagList(commodity.itemTagList)}
-                      //     </div>
-                      //     <div className={styles.buyWrapper} style={{ backgroundImage: `url(${data.buyBg})` }}>
-                      //       <div className={styles.priceWrapper}>
-                      //         <div className={styles.price}>
-                      //           <span className={styles.itemCouponPrice}>
-                      //             <Price>{commodity.itemCouponPrice / 100}</Price>
-                      //           </span>
-                      //           {commodity.itemCouponPrice !== commodity.itemOriginalPrice ? (
-                      //             <span className={styles.itemOriginalPrice}>
-                      //               ￥{commodity.itemOriginalPrice / 100}
-                      //             </span>
-                      //           ) : null}
-                      //         </div>
-                      //       </div>
-                      //       <div className={styles.buyBtn}>去抢购</div>
-                      //     </div>
-                      //   </div>
-                      // </div>
-                      slots['card']?.render()
-                    ))}
+            <div className={`${styles.banner} item-list-banner`} />
+            {itemList && itemList.length > 0 ? (
+              <div className={`${styles.cardList} item-list-card`}>
+                {(itemList || []).map((commodity, index) => (
+                  <div className={styles.card}>
+                    {
+                      slots['card']?.render({
+                        inputs: {
+                          install(fn) {
+                            fn(commodity);
+                          },
+                        },
+                        style: {
+                          backgound: 'transparent'
+                        }
+                      })
+                    }
                   </div>
-                ) : null}
+                ))}
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       ) : null}

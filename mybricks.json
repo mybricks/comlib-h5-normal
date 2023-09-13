@@ -8,6 +8,7 @@
     {
       "title": "常规",
       "comAry": [
+        "./src/button/com.json",
         "./src/image/com.json",
         "./src/text/com.json",
         "./src/grid/com.json",
