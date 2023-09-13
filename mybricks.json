@@ -11,7 +11,7 @@
         "./src/image/com.json",
         "./src/text/com.json",
         "./src/grid/com.json",
-        "./"
+        "./src/item-list/com.json"
       ]
     }
   ],
