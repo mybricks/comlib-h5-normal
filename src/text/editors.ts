@@ -17,6 +17,10 @@ export default {
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
 
+      if (!output.get('click')) {
+        output.add('click', '点击', { type: 'any' })
+      }
+
       cate0.title = '常规';
       cate0.items = [
         {
@@ -56,6 +60,14 @@ export default {
             set({ data }, val: boolean) {
               data.ellipsis = val;
             },
+          },
+        },
+        {},
+        {
+          title: '单击',
+          type: '_event',
+          options: {
+            outputId: 'click',
           },
         },
       ];
