@@ -9,16 +9,17 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
 
   useEffect(() => {
     inputs['image']?.((url: string) => {
-      console.log('input imageUrl', url)
+      console.warn('input imageUrl', url)
       if (typeof url === 'string') {
+        console.log(11111)
         setImageUrl(url);
       }
     });
   }, []);
 
-  useEffect(() => {
-    setImageUrl(data.src);
-  }, [data.src]);
+  // useEffect(() => {
+  //   setImageUrl(data.src);
+  // }, [data.src]);
 
   useEffect(() => {
     outputs?.change?.(imageUrl);

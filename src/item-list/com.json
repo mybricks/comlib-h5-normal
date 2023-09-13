@@ -1,10 +1,10 @@
 {
-  "title": "货架列表",
+  "title": "商品列表",
   "namespace": "mybricks.normal-h5.item-list",
   "author": "mybricks",
   "author_name": "mybricks",
   "version": "1.0.0",
-  "icon": "https://f2.eckwai.com/kos/nlav11092/u_3jsc34.9ac2a92743c63556.png",
+  "icon": "./icon.svg",
   "data": "./data.json",
   "runtime": "./runtime.tsx",
   "editors": "./editors.tsx",

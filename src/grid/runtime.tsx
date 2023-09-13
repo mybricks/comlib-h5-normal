@@ -21,13 +21,13 @@ export default ({ id, data, outputs, slots }) => {
           //
           if (parentNode.direction === 'row') {
             if (node.size.fixedWidth) {
-              leafSize.width = node.size.width;
+              leafSize.width = `${node.size.width}px`;
             } else {
               leafSize.flex = 1;
             }
 
             if (node.size.fixedHeight) {
-              leafSize.height = node.size.height;
+              leafSize.height = `${node.size.height}px`;
             } else {
               leafSize.height = '100%';
             }
@@ -35,13 +35,13 @@ export default ({ id, data, outputs, slots }) => {
 
           if (parentNode.direction === 'col') {
             if (node.size.fixedHeight) {
-              leafSize.height = node.size.height;
+              leafSize.height = `${node.size.height}px`;
             } else {
               leafSize.flex = 1;
             }
 
             if (node.size.fixedWidth) {
-              leafSize.width = node.size.width;
+              leafSize.width = `${node.size.width}px`;
             } else {
               leafSize.width = '100%';
             }

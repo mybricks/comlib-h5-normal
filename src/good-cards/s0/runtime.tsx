@@ -23,7 +23,7 @@ export default function ({ data, inputs, env }) {
     <>
       <div className={styles.goodCard}>
         <div className={styles.coverWrapper}>
-          <img style={{ objectFit: 'cover' }} className={styles.cover} data-src={model.itemImage} />
+          <img style={{ objectFit: 'cover' }} className={styles.cover} src={model.itemImage} />
         </div>
         <div className={styles.content}>
           <div>

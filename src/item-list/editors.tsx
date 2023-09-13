@@ -6,9 +6,14 @@ export default {
   ':root': {
     style: [
       {
-        title: '氛围图',
+        title: '顶部区域',
         options: ['background'],
         target: `.item-list-banner`
+      },
+      {
+        title: '商品区域',
+        options: ['background'],
+        target: `.item-list-cards`
       },
     ],
     items: [

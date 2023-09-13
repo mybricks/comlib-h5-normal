@@ -10,12 +10,20 @@
       "comAry": [
         "./src/button/com.json",
         "./src/image/com.json",
+        "./src/header-image/com.json",
         "./src/text/com.json",
-        "./src/grid/com.json",
+        "./src/grid/com.json"
+      ]
+    },
+    {
+      "title": "商品",
+      "comAry": [
         "./src/item-list/com.json"
       ]
-    },{
+    },
+    {
       "title":"商品卡片",
+      "visible": false,
       "comAry": [
         "./src/good-cards/s0/com.json"
       ]

@@ -14,21 +14,9 @@ function ButtonBlock({ title = '' }) {
 }
 
 export default function ({ env, data, inputs, style, outputs }) {
-  const [isHalf, setIsHalf] = useState(false); // 半屏页
-  const [isSearch, setIsSearch] = useState(false); // 搜索页
   const [opacity, setOpacity] = useState(0); // 顶部栏透明度
   const [isScroll, setIsScroll] = useState(false); // 是否滚动
   const ref = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    const searchParams = new URL(location.href).searchParams;
-    setIsHalf(!!searchParams.get('isHalf'));
-    setIsSearch(!!searchParams.get('isSearch'));
-  }, []);
-
-  // 半屏、搜索页禁用吸顶
-  const isCeiling = useMemo(() => {
-    return data.isCeiling && !isHalf && !isSearch;
-  }, [data.isCeiling, isHalf, isSearch]);
 
   const onScroll = useCallback(() => {
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
@@ -50,24 +38,9 @@ export default function ({ env, data, inputs, style, outputs }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (isCeiling) {
-      window.addEventListener('scroll', onScroll, false);
-      return () => {
-        window.removeEventListener('scroll', onScroll, false);
-      };
-    }
-  }, [isCeiling]);
-
   const imageUrl = useMemo(() => {
-    if (isHalf && data.halfSrc) {
-      return data.halfSrc;
-    } else if (isSearch && data.tabSrc) {
-      return data.tabSrc;
-    } else {
-      return data.src;
-    }
-  }, [isHalf, isSearch, data.src, data.halfSrc, data.tabSrc]);
+    return data.src;
+  }, [data.src]);
 
   console.log('imageUrl: ', imageUrl);
 
@@ -82,16 +55,13 @@ export default function ({ env, data, inputs, style, outputs }) {
   const onBack = useCallback(() => {
   }, []);
 
-  const onShare = useCallback(() => {
-  }, []);
-
   const onJumpRule = useCallback(() => {
     openPage(data.ruleLink, env.yoda);
   }, []);
 
   return (
     <div>
-      {isCeiling && isScroll ? (
+      {isScroll ? (
         <div className={css.topBar} style={{ opacity }}>
           <ButtonBlock title={document.title} />
         </div>
@@ -99,24 +69,21 @@ export default function ({ env, data, inputs, style, outputs }) {
       <div className={css.wrapper}>
         <img onLoad={onLoad} ref={ref} className={css.bg} src={imageUrl}></img>
         {data.animate ? <img className={css.animate} src={data.animate} /> : null}
-        {isSearch ? null : (
-          <img
-            src={data.leftImg}
-            className={cls(css.leftBlock, css.icon, isCeiling && isScroll ? css.fixedLeftBlock : '')}
-            style={{
-              top: isHalf || isSearch ? '30px' : '50px',
-            }}
-            onClick={onBack}
-          />
-        )}
-        <div
-          className={cls(css.rightBlock, isCeiling && isScroll ? css.fixedRightBlock : '')}
+        <img
+          src={data.leftImg}
+          className={cls(css.leftBlock, css.icon, isScroll ? css.fixedLeftBlock : '')}
           style={{
-            top: isHalf || isSearch ? '30px' : '50px',
+            top: '30px',
+          }}
+          onClick={onBack}
+        />
+        <div
+          className={cls(css.rightBlock,isScroll ? css.fixedRightBlock : '')}
+          style={{
+            top: '30px',
           }}
         >
           {data.ruleLink ? <img src={Images.rule} className={css.icon} onClick={onJumpRule}></img> : null}
-          {data.openShare && !isSearch ? <img src={Images.share} className={css.icon} onClick={onShare}></img> : null}
         </div>
       </div>
     </div>
