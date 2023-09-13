@@ -14,7 +14,6 @@ export default function ({ data, inputs, env }) {
 
   useEffect(() => {
     inputs['install']((model) => {
-      console.log('安装时的model', model);
       setModel(model);
     });
   }, []);
