@@ -3,9 +3,15 @@ export default {
     style.width = '100%';
     style.height = 'auto';
   },
-  ':root'({ data, output, slot }, cate0, cate1, cate2) {
-    cate0.title = '常规';
-    cate0.items = [
+  ':root': {
+    style: [
+      {
+        title: '氛围图',
+        options: ['background'],
+        target: `.item-list-banner`
+      },
+    ],
+    items: [
       {
         title: '最大展示数量 (上限20)',
         type: 'text',
@@ -26,7 +32,7 @@ export default {
         title: '商品样式',
         type: 'comSelector',
         options: {
-          schema: 'mybricks/item-card',
+          schema: 'mybricks/entity/item',
         },
         value: {
           get({ data }) {
@@ -63,6 +69,6 @@ export default {
       //     },
       //   },
       // },
-    ];
+    ]
   },
 };

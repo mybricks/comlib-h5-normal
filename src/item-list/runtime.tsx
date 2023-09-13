@@ -55,25 +55,27 @@ export default function (props) {
       {itemList && itemList.length > 0 ? (
         <div>
           <div className={styles.goodListWrapper}>
-            <div className={styles.goodList} style={{ backgroundColor: data.backgroundColor }}>
-              <img className={styles.banner} src={data.banner} />
-
-              <div>
-                {itemList && itemList.length > 0 ? (
-                  <div className={styles.goodList}>
-                    {(itemList || []).map((commodity, index) => (
+            <div className={`${styles.banner} item-list-banner`} />
+            {itemList && itemList.length > 0 ? (
+              <div className={`${styles.cardList} item-list-card`}>
+                {(itemList || []).map((commodity, index) => (
+                  <div className={styles.card}>
+                    {
                       slots['card']?.render({
                         inputs: {
                           install(fn) {
                             fn(commodity);
                           },
                         },
+                        style: {
+                          backgound: 'transparent'
+                        }
                       })
-                    ))}
+                    }
                   </div>
-                ) : null}
+                ))}
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
       ) : null}

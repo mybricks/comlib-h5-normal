@@ -4,59 +4,73 @@ export default {
   '@resize': {
     options: ['width'],
   },
-  ':root'({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = '常规';
-    cate0.items = [
+  ':root': {
+    style: [
       {
-        title: '内容',
-        type: 'textarea',
-        value: {
-          get({ data }) {
-            return data.text;
-          },
-          set({ data }, value: string) {
-            data.text = value;
-          },
+        title: '默认',
+        ifVisible({ data }: EditorResult<any>) {
+          return !data.asMapArea;
         },
-      },
-      {
-        type: 'Style',
         options: ['font'],
-        value: {
-          get({ data }) {
-            return data.style;
-          },
-          set({ data }, val) {
-            data.style = {
-              ...data.style,
-              ...val,
-            };
-          },
-        },
+        target: `.mybricks-text`
       },
-      {
-        title: '禁用换行',
-        type: 'Switch',
-        value: {
-          get({ data }) {
-            return data.ellipsis;
-          },
-          set({ data }, val: boolean) {
-            data.ellipsis = val;
-          },
-        },
-      },
-    ];
+    ],
+    items: ({ data, output, style }, cate0, cate1, cate2) => {
 
-    cate1.title = '高级';
-    cate1.items = [
-      {
-        title: '点击',
-        type: '_event',
-        options: {
-          outputId: 'onClick',
+      cate0.title = '常规';
+      cate0.items = [
+        {
+          title: '内容',
+          type: 'textarea',
+          value: {
+            get({ data }) {
+              return data.text;
+            },
+            set({ data }, value: string) {
+              data.text = value;
+            },
+          },
         },
-      },
-    ];
-  },
+        // {
+        //   type: 'Style',
+        //   options: ['font'],
+        //   value: {
+        //     get({ data }) {
+        //       return data.style;
+        //     },
+        //     set({ data }, val) {
+        //       data.style = {
+        //         ...data.style,
+        //         ...val,
+        //       };
+        //     },
+        //   },
+        // },
+        {
+          title: '禁用换行',
+          type: 'Switch',
+          value: {
+            get({ data }) {
+              return data.ellipsis;
+            },
+            set({ data }, val: boolean) {
+              data.ellipsis = val;
+            },
+          },
+        },
+      ];
+  
+      // cate1.title = '高级';
+      // cate1.items = [
+      //   {
+      //     title: '点击',
+      //     type: '_event',
+      //     options: {
+      //       outputId: 'onClick',
+      //     },
+      //   },
+      // ];
+    },
+  }
+  
 };
