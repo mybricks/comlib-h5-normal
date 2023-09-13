@@ -1,8 +1,8 @@
 {
   "title": "按钮",
   "namespace": "mybricks.normal-h5.button",
-  "author": "liubiao03",
-  "author_name": "刘彪",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
   "icon": "./icon.svg",
   "version": "1.0.18",
   "description": "按钮",
