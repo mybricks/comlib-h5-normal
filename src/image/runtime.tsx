@@ -7,12 +7,8 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
   const [imageUrl,setImageUrl] = useState(data.src);
   const ref = useRef<HTMLImageElement>(null);
 
-
-  console.log('imageUrl', imageUrl)
-
   useEffect(() => {
     inputs['image']?.((url: string) => {
-
       console.log('input imageUrl', url)
       if (typeof url === 'string') {
         setImageUrl(url);
@@ -63,9 +59,9 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
   }, [style.width, style.height, data.naturalWidth, data.naturalHeight]);
 
   return (
-    <div className={css.imgWrapper} style={{ ...data.imgStyle }} onClick={onClick}>
+    <div className={`${css.imgWrapper}`} onClick={onClick}>
       <img
-        className={css.img}
+        className={`${css.img} mybricks-image`}
         style={{ width, height }}
         ref={ref}
         src={imageUrl}
