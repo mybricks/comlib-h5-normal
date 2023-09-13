@@ -7,52 +7,63 @@ export default {
   '@resize': {
     options: ['width', 'height'],
   },
-  ':root'({ data, output, style }, cate0, cate1, cate2) {
-    style = [
+  ':root': {
+    style: [
       {
-        title: '标题',
-        options: ['font'],
-        target: ({ id }: EditorResult<Data>) => `.card  .ant-card-head-title${getFilterSelector(id)}`,
-      },
-    ];
-    cate0.title = '常规';
-    cate0.items = [
-      {
-        title: '地址',
-        type: 'imageSelector',
-        value: {
-          get({ data }) {
-            return data.src;
-          },
-          set({ data }, src: string) {
-            data.src = src;
-          },
-        },
-      },
-      {
-        type: 'style',
+        title: '基本',
         options: ['border'],
-        value: {
-          get({ data }) {
-            return data.imgStyle;
-          },
-          set({ env, data }, val) {
-            data.imgStyle = { ...data.imgStyle, ...val };
+        target: '.mybricks-image'
+      }
+    ],
+    items: ({ data, output, style }, cate0, cate1, cate2) => {
+      cate0.title = '常规';
+      cate0.items = [
+        {
+          title: '地址',
+          type: 'imageSelector',
+          value: {
+            get({ data }) {
+              return data.src;
+            },
+            set({ data }, src: string) {
+              data.src = src;
+            },
           },
         },
-      },
-      {},
-    ];
-
-    cate1.title = '高级';
-    cate1.items = [
-      {
-        title: '单击',
-        type: '_event',
-        options: {
-          outputId: 'click',
+        {},
+        {
+          title: '单击',
+          type: '_event',
+          options: {
+            outputId: 'click',
+          },
         },
-      },
-    ];
-  },
+        // {
+        //   type: 'style',
+        //   options: ['border'],
+        //   value: {
+        //     get({ data }) {
+        //       return data.imgStyle;
+        //     },
+        //     set({ env, data }, val) {
+        //       data.imgStyle = { ...data.imgStyle, ...val };
+        //     },
+        //   },
+        // },
+        {},
+      ];
+  
+      // cate2.title = '高级';
+      // cate2.items = [
+      //   {
+      //     title: '单击',
+      //     type: '_event',
+      //     options: {
+      //       outputId: 'click',
+      //     },
+      //   },
+      // ];
+    },
+  }
+  
 };
