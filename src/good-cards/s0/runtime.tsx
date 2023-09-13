@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import TitleWithIcon from '../../components/title-with-icon';
+import TitleWithIcon from '../title-with-icon';
 import styles from './styles.less';
 import { GoodModel, ICommodity } from '../constant';
-import { wFormat } from '../../utils';
-import { Price } from '../../components/price';
+import { Price } from '../price';
 
 export default function ({ inputs, env }) {
   const [model, setModel] = useState<GoodModel>({

@@ -2,7 +2,7 @@
   "title": "Feed商品",
   "enable": true,
   "namespace": "mybricks.normal-h5.good-card.s0",
-  "schema": "mybricks/good-feed-card",
+  "schema": "mybricks/item-card",
   "icon": "https://f2.eckwai.com/kos/nlav11092/u_s0hm90.787d37da8e267437.png",
   "preview": "https://f2.eckwai.com/kos/nlav11092/u_s0hm90.787d37da8e267437.png",
   "author": "mybricks",

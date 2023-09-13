@@ -26,7 +26,7 @@ export default {
         title: '商品样式',
         type: 'comSelector',
         options: {
-          schema: 'mybricks/good-card',
+          schema: 'mybricks/item-card',
         },
         value: {
           get({ data }) {
