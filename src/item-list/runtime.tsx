@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { parseModuleAndActionFromTitle } from '../utils/track';
 import styles from './styles.less';
-import TitleWithIcon from '../components/title-with-icon';
-import { mockCommodityList } from '../mock/mockCommodityList';
-import { Price } from '../components/price';
+import { mockCommodityList } from '../../mock/mockCommodityList';
 
 export enum STATUS {
   INITIAL = 'initial',

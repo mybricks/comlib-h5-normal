@@ -14,6 +14,11 @@
         "./src/grid/com.json",
         "./src/item-list/com.json"
       ]
+    },{
+      "title":"商品卡片",
+      "comAry": [
+        "./src/good-cards/s0/com.json"
+      ]
     }
   ],
   "folderId": 45233,

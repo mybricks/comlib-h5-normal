@@ -1,8 +1,8 @@
 {
   "title": "文本",
-  "namespace": "fangzhou.normal-h5.text",
-  "author": "yangzhao03",
-  "author_name": "杨钊",
+  "namespace": "mybricks.normal-h5.text",
+  "author": "mybricks",
+  "author_name": "板砖团队",
   "version": "1.0.17",
   "description": "文本组件",
   "runtime": "./runtime.tsx",
