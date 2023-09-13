@@ -13,7 +13,7 @@
       "id": "card",
       "title": "商品卡片",
       "capacity": 1,
-      "schema": "mybricks/item-card",
+      "schema": "mybricks/entity/item",
       "editableSlot": true
     }
   ]
