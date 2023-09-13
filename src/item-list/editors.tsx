@@ -32,7 +32,7 @@ export default {
         title: '商品样式',
         type: 'comSelector',
         options: {
-          schema: 'mybricks/entity/item',
+          schema: 'mybricks/item-card',
         },
         value: {
           get({ data }) {
