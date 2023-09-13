@@ -6,14 +6,14 @@ interface Props {
   numberOfLines?: number;
   style?: React.CSSProperties;
   iconStyle?: React.CSSProperties;
-  icons: string[];
+  icons?: string[];
   env: string;
 }
 export default function TitleWithIcon(props: Props) {
   const { children, numberOfLines, style, iconStyle, icons, env } = props;
   return (
     <span style={style} className={localStyle.text}>
-      {icons.map((item, index) => {
+      {icons?.map((item, index) => {
         return (
           <img
             style={{
