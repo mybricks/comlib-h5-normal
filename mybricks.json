@@ -12,7 +12,8 @@
         "./src/image/com.json",
         "./src/header-image/com.json",
         "./src/text/com.json",
-        "./src/grid/com.json"
+        "./src/grid/com.json",
+        "./src/container-condition/com.json"
       ]
     },
     {
