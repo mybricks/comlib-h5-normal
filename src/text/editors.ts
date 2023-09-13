@@ -1,4 +1,4 @@
-import { createCardEditorItem } from '../utils/cardUtils';
+// import { createCardEditorItem } from '../utils/cardUtils';
 
 export default {
   '@resize': {
