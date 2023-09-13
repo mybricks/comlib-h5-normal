@@ -80,11 +80,9 @@ export default function ({ env, data, inputs, style, outputs }) {
   }, []);
 
   const onBack = useCallback(() => {
-    back(env.yoda);
   }, []);
 
   const onShare = useCallback(() => {
-    share(env);
   }, []);
 
   const onJumpRule = useCallback(() => {
