@@ -7,6 +7,11 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
   const [imageUrl,setImageUrl] = useState(data.src);
   const ref = useRef<HTMLImageElement>(null);
 
+
+  useEffect(() => {
+    setImageUrl(data.src);
+  }, [data.src]);
+
   useEffect(() => {
     inputs['image']?.((url: string) => {
       if (typeof url === 'string') {
@@ -14,10 +19,6 @@ export default function ({ env, data, inputs, outputs, title, style }: RuntimePa
       }
     });
   }, []);
-
-  // useEffect(() => {
-  //   setImageUrl(data.src);
-  // }, [data.src]);
 
   // useEffect(() => {
   //   outputs?.change?.(imageUrl);
