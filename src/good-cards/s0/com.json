@@ -1,5 +1,5 @@
 {
-  "title": "Feed商品",
+  "title": "商品卡片",
   "enable": true,
   "namespace": "mybricks.normal-h5.good-card.s0",
   "schema": "mybricks/entity/item",
