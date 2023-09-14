@@ -21,8 +21,13 @@ export default function ({ env, data, slots, inputs, outputs }) {
     })
   }, [data.items]);
 
+
+  const onClick = useCallback(() => {
+    outputs['onClick']?.()
+  }, [])
+
   return (
-    <div className={css.condition}>
+    <div className={css.condition} onClick={onClick}>
       {data.items.map((item) => {
         if (activeId !== item.id) {
           return null
