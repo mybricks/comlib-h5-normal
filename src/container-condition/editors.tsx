@@ -188,6 +188,24 @@ export default {
           },
         },
       },
+      {},
+      {
+        title: '单击',
+        type: '_event',
+        options: ({ data, focusArea, output }) => {
+          if (!output) {
+            return;
+          }
+   
+          if (!output.get('onClick')) {
+            output.add('onClick', `点击`, { type: 'any' })
+          }
+    
+          return {
+            outputId: 'onClick',
+          };
+        }
+      },
     ];
   }
 };
