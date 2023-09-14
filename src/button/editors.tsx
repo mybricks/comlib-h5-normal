@@ -19,6 +19,7 @@ export default {
     ],
     items: [
       {
+        id: '文字标题',
         title: '文字标题',
         type: 'text',
         value: {
