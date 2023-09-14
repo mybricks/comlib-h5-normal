@@ -22,7 +22,7 @@
   ],
   "outputs": [
     {
-      "id": "onClick",
+      "id": "click",
       "title": "单击"
     },
     {

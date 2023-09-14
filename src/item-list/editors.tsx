@@ -33,7 +33,7 @@ export default {
         },
       },
       {
-        id: '商品样式',
+        // id: '商品样式',
         title: '商品样式',
         type: 'comSelector',
         options: {

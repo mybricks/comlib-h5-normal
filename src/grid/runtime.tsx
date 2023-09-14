@@ -3,6 +3,11 @@ import cx from 'classnames';
 import css from './style.less';
 
 export default ({ id, data, outputs, slots }) => {
+  const onClickNode = useCallback((node) => {
+    console.log('`click_node_${node.id}`', node, `click_node_${node.id}`)
+    outputs?.[`click_node_${node.id}`]?.();
+  }, []);
+
   /**
    * 递归处理 dom tree
    */
@@ -58,6 +63,7 @@ export default ({ id, data, outputs, slots }) => {
               ...leafSize,
             }}
             key={node.id}
+            onClick={() => onClickNode(node)}
           >
             {slots[node.id]?.render({
               style: {
@@ -83,7 +89,7 @@ export default ({ id, data, outputs, slots }) => {
         </div>
       );
     },
-    [slots],
+    [slots, onClickNode],
   );
 
   const tree = useMemo(() => {

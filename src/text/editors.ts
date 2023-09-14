@@ -67,7 +67,7 @@ export default {
           title: '单击',
           type: '_event',
           options: {
-            outputId: 'click',
+            outputId: 'onClick',
           },
         },
       ];

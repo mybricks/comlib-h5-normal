@@ -23,7 +23,7 @@ export default function ({ env, data, inputs, outputs }) {
     if (!env.runtime) {
       return;
     }
-    outputs?.onClick?.(data.text);
+    outputs?.click?.(data.text);
   };
 
   return (
