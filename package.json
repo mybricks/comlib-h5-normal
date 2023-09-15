@@ -1,18 +1,11 @@
 {
-  "name": "@fangzhou/h5-common-lib",
-  "version": "1.0.00",
-  "description": "h5-C端通用组件库",
+  "name": "@mybricks/comlib-h5-normal",
+  "version": "1.0.0",
+  "description": "C端通用组件库",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test-w": "jest --watch",
-    "start": "fangzhou dev",
-    "publish": "fangzhou publish",
-    "build:compiler-web": "node localtest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@git.corp.kuaishou.com:plateco-dev/kwaishop-power/comlibs/h5-common-lib.git"
+    "start": "mybricks dev",
+    "publish": "mybricks publish"
   },
   "author": "CheMingjun",
   "license": "ISC",
@@ -31,7 +24,7 @@
     "to-json-schema": "^0.2.5"
   },
   "devDependencies": {
-    "@fangzhou/cli": "0.0.12",
+    "mybricks-cli": "^0.0.6",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5"
   }
