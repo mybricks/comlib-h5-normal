@@ -4,6 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
+  "runtime.edit": "./../h5/runtime.tsx",
   "runtime": "./runtime.vue",
   "data": "./../data.json",
   "editors": "./../editors.tsx",

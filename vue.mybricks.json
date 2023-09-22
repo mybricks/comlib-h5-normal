@@ -18,11 +18,6 @@
                 "./src/tabs/vue/com.json",
                 "./src/richText/vue/com.json"
             ]
-        },{
-            "title":"营销活动",
-            "comAry": [
-                "./src/draw-prize/nine-block/vue/com.json"
-            ]
         },
         {
             "title": "容器",
@@ -38,6 +33,12 @@
                 "./src/safeArea/vue/com.json",
                 "./src/support/vue/com.json",
                 "./src/divider/vue/com.json"
+            ]
+        },
+        {
+            "title":"营销活动",
+            "comAry": [
+                "./src/draw-prize/nine-block/vue/com.json"
             ]
         }
     ]
