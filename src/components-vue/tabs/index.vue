@@ -18,14 +18,15 @@
 <script setup>
 import styles from "./index.less";
 
+const emit = defineEmits(['change'])
+
 const props = defineProps({
     value: String,
     items: Array,
-    onChange: Function
 });
 
 const tabClick = (id) => {
-    props.onChange(id);
+    emit('change', id)
 };
 </script>
 

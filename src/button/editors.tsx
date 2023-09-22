@@ -7,7 +7,7 @@ export default {
     style.height = 35;
   },
   "@resize": {
-    options: ["width"],
+    options: ["width", "height"],
   },
   ":root": {
     style: [

@@ -1,6 +1,6 @@
 <template>
     <div :class="textCx" :style="style" @click="onClick" @longpress="onLongPress">
-        {{ text }}
+        <span>{{ text }}</span>
     </div>
 </template>
 
@@ -63,20 +63,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.text {
-    word-break: break-word;
-    white-space: pre-wrap;
-    display: block;
-    font-size: 12px;
-    line-height: 16px;
-    color: #333;
-}
-
-.ellipsis-line {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-}
+<style lang="less" scoped>
+@import './../style.less';
 </style>
