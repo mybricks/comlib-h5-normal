@@ -10,5 +10,27 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "inputs": [],
-  "outputs": []
+  "outputs": [
+    {
+      "id": "priceResult",
+      "title": "抽奖结果",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "priceId": {
+            "type": "string",
+            "title": "奖品Id"
+          },
+          "priceName": {
+            "type": "string",
+            "title": "奖品名称"
+          },
+          "priceImg": {
+            "type": "string",
+            "title": "奖品图片"
+          }
+        }
+      }
+    }
+  ]
 }

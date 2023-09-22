@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props: ["data"],
+    props: ["data","outputs"],
     data() {
         return {
             prizeList: [],
@@ -67,6 +67,14 @@ export default {
                     console.log("抽中时候的activeIndex", this.activeIndex)
                     clearInterval(this.timer);
                     alert(`你赢得了${currentPrize.name}！`);
+                    console.log(this.outputs)
+                    let result = {
+                        prizeId: currentPrize.id,
+                        prizeName: currentPrize.name,
+                        prizeImg: currentPrize.awardOpenedImg
+                    }
+                    console.log(result)
+                    this.outputs["priceResult"](result)
                     this.timer = null
                     this.activeIndex = null;
                 }
@@ -83,7 +91,7 @@ export default {
             return new Promise((resolve) => {
                 setTimeout(() => {
                     resolve(this.prizeList[7]);
-                }, 900);
+                }, 300);
             });
         },
         //vue页面渲染的id比预期左偏一位，需要向右一位纠正
@@ -103,9 +111,6 @@ export default {
             .catch(() => {
                 this.status = 'ERROR';
             });
-    },
-    unmounted() {
-        clearInterval(this.timer);
     },
     beforeDestroy() {
         if (this.timer) {
