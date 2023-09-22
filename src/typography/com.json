@@ -1,0 +1,13 @@
+{
+  "title": "文本排版",
+  "namespace": "mybricks.taro.typography",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [],
+  "outputs": []
+}

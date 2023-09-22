@@ -1,0 +1,38 @@
+{
+  "title": "写入剪贴板",
+  "namespace": "mybricks.taro._setClipboardData",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "写入剪贴板",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "setClipboardData",
+      "title": "复制",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "复制成功",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "复制失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

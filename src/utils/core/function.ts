@@ -1,6 +1,6 @@
-import { toArray } from './array';
+import { toArray } from './array'
 
-export function noop(..._args: unknown[]): any;
+export function noop(..._args: unknown[]): any
 /**
  * 空函数
  */
@@ -14,16 +14,16 @@ export function noop(): void {}
  * @returns 防抖函数
  */
 export function debounce(fn: (...args: unknown[]) => any, delay = 200) {
-  let timer: any;
-  return function (this: any) {
-    const args = arguments;
+    let timer: any
+    return function(this: any) {
+        const args = arguments
 
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, toArray(args));
-    }, delay);
-    return timer;
-  } as (...args: unknown[]) => NodeJS.Timeout;
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.apply(this, toArray(args))
+        }, delay)
+        return timer
+    } as (...args: unknown[]) => NodeJS.Timeout
 }
 
 /**
@@ -33,19 +33,19 @@ export function debounce(fn: (...args: unknown[]) => any, delay = 200) {
  * @returns 节流函数
  */
 export function throttle(fn: (...args: unknown[]) => any, delay = 200) {
-  let timer: any;
-  return function (this: any) {
-    if (timer) {
-      return;
-    }
+    let timer: any
+    return function(this: any) {
+        if (timer) {
+            return
+        }
 
-    const args = arguments;
-    timer = setTimeout(() => {
-      fn.apply(this, toArray(args));
-      timer = null;
-    }, delay);
-    return timer;
-  } as (...args: unknown[]) => NodeJS.Timeout;
+        const args = arguments
+        timer = setTimeout(() => {
+            fn.apply(this, toArray(args))
+            timer = null
+        }, delay)
+        return timer
+    } as (...args: unknown[]) => NodeJS.Timeout
 }
 
 /**
@@ -54,10 +54,10 @@ export function throttle(fn: (...args: unknown[]) => any, delay = 200) {
  * @returns function
  */
 export function cached<T>(fn: (value: string) => T): (value: string) => T {
-  // create no prototype object
-  const cache = Object.create(null);
-  return function cachedFn(value: string) {
-    const hit = cache[value];
-    return hit || (cache[value] = fn(value));
-  };
+    // create no prototype object
+    const cache = Object.create(null)
+    return function cachedFn(value: string) {
+        const hit = cache[value]
+        return hit || (cache[value] = fn(value))
+    }
 }

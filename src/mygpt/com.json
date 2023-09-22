@@ -1,0 +1,11 @@
+{
+  "title": "MyGPT",
+  "namespace": "mybricks.taro.mygpt",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/12312312.svg"
+}

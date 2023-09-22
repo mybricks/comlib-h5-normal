@@ -1,0 +1,21 @@
+{
+  "title": "自定义内容项",
+  "namespace": "mybricks.taro.formSlot",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-d6c1418a-e1ce-44b8-829f-86fa1512b207.png",
+  "inputs": [],
+  "outputs": [],
+  "slots": [
+    {
+      "id": "formSlot",
+      "title": "自定义内容"
+    }
+  ],
+  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+}

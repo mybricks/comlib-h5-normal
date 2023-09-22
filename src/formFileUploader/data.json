@@ -1,0 +1,9 @@
+{
+  "formFieldStyle": {
+    "background": "#ffffff"
+  },
+  "label": "表单项",
+  "name": "字段",
+  "placeholder": "",
+  "type": "text"
+}

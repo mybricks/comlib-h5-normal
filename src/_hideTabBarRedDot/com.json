@@ -1,0 +1,31 @@
+{
+  "title": "隐藏 tabBar 某一项的右上角的红点",
+  "namespace": "mybricks.taro._hideTabBarRedDot",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "隐藏 tabBar 某一项的右上角的红点",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "hideTabBarRedDot",
+      "title": "隐藏",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterHideTabBarRedDot",
+      "title": "隐藏后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "mode": "topbar",
+  "navBarListStyle": {
+    "paddingTop": "8px",
+    "paddingBottom": "8px",
+    "paddingLeft": "12px",
+    "paddingRight": "12px",
+    "justifyContent": "center"
+  },
+  "normalNavItemStyle": {
+    "width": "22%",
+    "height": "32px"
+  },
+  "activeNavItemStyle": {
+    "width": "22%",
+    "height": "32px"
+  },
+  "tabs": [
+    {
+      "_id": "tabName1",
+      "tabName": "标签项1",
+      "useIndependentStyle": false,
+      "normalNavItemStyle": {
+        "width": "22%",
+        "height": "32px"
+      },
+      "activeNavItemStyle": {
+        "width": "22%",
+        "height": "32px"
+      }
+    },
+    {
+      "_id": "tabName2",
+      "tabName": "标签项2",
+      "useIndependentStyle": false,
+      "normalNavItemStyle": {
+        "width": "22%",
+        "height": "32px"
+      },
+      "activeNavItemStyle": {
+        "width": "22%",
+        "height": "32px"
+      }
+    }
+  ],
+  "edit": {
+    "currentItemId": ""
+  },
+  "initChangeTab": false,
+  "navBarGutter": 12,
+  "hideContent": false
+}

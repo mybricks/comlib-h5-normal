@@ -1,0 +1,36 @@
+{
+  "title": "手机输入框",
+  "namespace": "mybricks.taro.formPhoneNumber",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.2",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/1111sddfs.d1257ee9d720b12b.svg",
+  "inputs": [],
+  "outputs": [
+    {
+      "id": "onSubmit",
+      "title": "提交"
+    },
+    {
+      "id": "onReset",
+      "title": "重置"
+    },
+    {
+      "id": "onGetPhoneSuccess",
+      "title": "获取手机号成功"
+    },
+    {
+      "id": "onGetPhoneError",
+      "title": "获取手机号失败"
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ]
+}

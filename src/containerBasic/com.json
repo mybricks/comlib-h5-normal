@@ -1,0 +1,24 @@
+{
+  "title": "基础容器",
+  "namespace": "mybricks.taro.containerBasic",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [],
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "点击"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+.list {
+  width: 100%;
+  display: inline-block; // BFC 保证内部的margin不会被拦截掉
+  .item {
+  }
+
+  .placeholder {
+    height: 120px;
+  }
+}
+
+.scroll {
+  :global {
+    .taroify-list__placeholder {
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.normal {
+  :global {
+    .taroify-list__placeholder {
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

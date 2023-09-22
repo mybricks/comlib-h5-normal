@@ -1,0 +1,26 @@
+.com{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.place {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 1;
+  background: #f0f0f0;
+  transition: all 0.3s ease-in-out;
+  z-index: 3;
+
+  &.none {
+    z-index: -1;
+    opacity: 0;
+  }
+}

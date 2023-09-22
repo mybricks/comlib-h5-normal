@@ -1,0 +1,31 @@
+{
+  "title": "显示 Loading",
+  "namespace": "mybricks.taro._showLoading",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "显示 Loading",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "showLoading",
+      "title": "显示",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterShowLoading",
+      "title": "显示后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

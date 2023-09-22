@@ -1,0 +1,38 @@
+{
+  "title": "拨打电话",
+  "namespace": "mybricks.taro._call-phone",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "扫码",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "拨打电话",
+      "schema": {
+        "type": "number"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "拨打成功",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "拨打失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

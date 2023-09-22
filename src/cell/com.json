@@ -1,0 +1,43 @@
+{
+  "title": "单元格",
+  "namespace": "mybricks.taro.cell",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "value",
+      "title": "修改内容",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "brief": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击"
+    }
+  ],
+  "slots": [
+    {
+      "id": "children",
+      "title": "内容"
+    }
+  ]
+}

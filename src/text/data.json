@@ -1,4 +1,5 @@
 {
+  "text": "文本内容",
   "ellipsis": false,
-  "text": "文本"
+  "maxLines": 1
 }

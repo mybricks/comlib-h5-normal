@@ -1,0 +1,44 @@
+{
+    "namespace": "mybricks.normal-h5-comlib.vue",
+    "componentType": "KH5",
+    "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
+    "comAry": [
+        "./src/_connector/h5/com.json",
+        "./src/_muilt-inputJs/h5/com.json",
+        "./src/_code-segment/h5/com.json",
+        "./src/_pick/h5/com.json",
+        "./src/_navigateBack/h5/com.json",
+        {
+            "title": "基础",
+            "comAry": [
+                "./src/header-image/vue/com.json",
+                "./src/button/vue/com.json",
+                "./src/image/vue/com.json",
+                "./src/text/vue/com.json",
+                "./src/tabs/vue/com.json",
+                "./src/richText/vue/com.json"
+            ]
+        },{
+            "title":"营销活动",
+            "comAry": [
+                "./src/draw-prize/nine-block/vue/com.json"
+            ]
+        },
+        {
+            "title": "容器",
+            "comAry": [
+                "./src/containerGrid2/vue/com.json",
+                "./src/popup/vue/com.json",
+                "./src/containerCondition/vue/com.json"
+            ]
+        },
+        {
+            "title": "其他",
+            "comAry": [
+                "./src/safeArea/vue/com.json",
+                "./src/support/vue/com.json",
+                "./src/divider/vue/com.json"
+            ]
+        }
+    ]
+}

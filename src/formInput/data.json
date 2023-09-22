@@ -1,0 +1,11 @@
+{
+  "hideLabel": false,
+  "label": "单行输入",
+  "name": "单行输入",
+  "value": "",
+  "placeholder": "请输入内容",
+  "type": "text",
+  "disabled": false,
+  "required": false,
+  "hidden": false
+}

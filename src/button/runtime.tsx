@@ -1,68 +1,53 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import css from './runtime.less';
-import { parseModuleAndActionFromTitle } from '../utils/track';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import css from "./style.less";
+// import { Button, View } from "@tarojs/components";
+import { ButtonType } from "./constant";
+import cx from "classnames";
+import { View, Text } from "@tarojs/components";
 
-export default function ({ env, data, logger, slots, inputs, outputs, title }: RuntimeParams) {
-  const [subText, setSubText] = useState('');
-
-  const ele = useRef(null);
-
-  const { moduleName, actionName } = parseModuleAndActionFromTitle(title);
-  const clickParam = JSON.stringify([
-    {
-      triggerTime: 'CLICK',
-      action: 'OP_ACTIVITY_BUTTON',
-      params: {
-        action_name: actionName,
-        module_name: moduleName,
-      },
-    },
-  ]);
-
+export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   const onClick = useCallback((ev) => {
     if (env.runtime) {
       ev.stopPropagation();
-      outputs['click'](true);
+      outputs["onClick"](true);
     }
   }, []);
 
-  useEffect(() => {
-    inputs['btnText']((val: string) => {
-      if (typeof val === 'object') {
-        data.text = val[0];
-        setSubText(val[1]);
-      } else {
-        data.text = val;
-      }
-    });
-    inputs['btnStyle']((val: any) => {
-      if (!val || typeof val !== 'object') return;
-      data.style = {
-        ...data.style,
-        ...val,
-      };
+  /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
+  useMemo(() => {
+    inputs["buttonText"]((val: string) => {
+      data.text = val;
     });
   }, []);
 
-  return (
-    <div
-      className={`${css.button} ${data.asMapArea && env.edit ? css.asMapArea : 'mybricks-button'}`}
-      ref={ele}
-      onClick={onClick}
-      data-weblogger={clickParam}
-    >
-      {!data.asMapArea ? data.text : null}
+  const btnConfig = useMemo(() => {
+    switch (true) {
+      case data.type === ButtonType.Normal: {
+        return {};
+      }
+      case data.type === ButtonType.GetPhoneNumber: {
+        return {
+          openType: "getphonenumber",
+        };
+      }
+      default: {
+        return {};
+      }
+    }
+  }, [data.type]);
 
-      {subText ? (
-        <div
-          style={{
-            color: data.style.color || '#222222',
-            fontSize: (parseInt(data.style.fontSize) / 5) * 4 + 'px',
-          }}
-        >
-          {subText}
-        </div>
-      ) : null}
-    </div>
+  return (
+    <View className={cx(css.button, "mybricks-button")} onClick={onClick}>
+      <Text className={css.text}>{data.text}</Text>
+    </View>
+    // <Button className={cx(css.button, "mybricks-button")} onClick={onClick} {...btnConfig}>
+    //   {data.text}
+    // </Button>
   );
 }

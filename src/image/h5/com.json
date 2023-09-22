@@ -1,0 +1,44 @@
+{
+  "title": "图片",
+  "namespace": "mybricks.normal-h5.image",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./../icon.svg",
+  "version": "1.0.0",
+  "description": "图片",
+  "runtime": "./runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "inputs": [
+    {
+      "id": "setSrc",
+      "title": "修改图片链接",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onLoad",
+      "title": "加载完毕",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onError",
+      "title": "加载失败",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ]
+}

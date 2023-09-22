@@ -1,0 +1,24 @@
+{
+  "label": "单选",
+  "hideLabel": false,
+  "name": "单选",
+  "direction": "vertical",
+  "value": "",
+  "options": [
+    {
+      "label": "公开",
+      "value": "公开",
+      "icon": ""
+    },
+    {
+      "label": "仅好友可见",
+      "value": "仅好友可见",
+      "icon": ""
+    },
+    {
+      "label": "保密",
+      "value": "保密",
+      "icon": ""
+    }
+  ]
+}

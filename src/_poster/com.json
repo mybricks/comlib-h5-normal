@@ -1,0 +1,37 @@
+{
+  "title": "图片绘制",
+  "namespace": "mybricks.taro.poster",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "修改内容",
+      "schema": {
+        "type": "array"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onLongPress",
+      "title": "长按",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ]
+}

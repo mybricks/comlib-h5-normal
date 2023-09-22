@@ -1,0 +1,100 @@
+.page {
+  width: 375px;
+  // min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  height: 100vh; // scrollView相关，必须指定高度
+  overflow: hidden;
+
+  .contentPlaceholder {
+    flex: 1;
+  }
+
+  .contentScrollView {
+    // background: red;
+    flex: 1;
+    overflow: scroll; // scrollView相关，必须要
+    height: 1px; // scrollView相关，必须要
+  }
+}
+
+.fixedTop {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 375px;
+}
+
+.fixedBottom {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  bottom: 0;
+  width: 375px;
+}
+
+.tabBarPlaceholder {
+  width: 375px;
+  height: calc(54px + constant(safe-area-inset-bottom));
+  height: calc(54px + env(safe-area-inset-bottom));
+}
+
+.footerPlaceholder {
+  width: 100%;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}
+
+.footer {
+  width: 100%;
+  position: relative;
+  transform: scale(1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+
+  .safearea {
+    width: 100%;
+    height: constant(safe-area-inset-bottom);
+    height: env(safe-area-inset-bottom);
+  }
+}
+
+.skeleton {
+  width: 100%;
+  .thumbnail {
+    margin: 12px auto;
+    width: 90%;
+    height: 197px;
+    background: rgba(0, 0, 0, 0.06);
+  }
+  .title {
+    margin: 24px 5%;
+    width: 50%;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.06);
+  }
+  .paragraph {
+    margin: 24px 5%;
+    .line {
+      margin-bottom: 12px;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.06);
+    }
+    .shortLine {
+      margin-bottom: 12px;
+      content: "";
+      display: block;
+      width: 30%;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.06);
+    }
+  }
+}

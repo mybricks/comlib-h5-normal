@@ -1,0 +1,13 @@
+{
+  "useLoading": true,
+  "loadingTip": "加载中...",
+  "errorTip": "加载失败，请重试",
+  "emptyTip": "没有更多了",
+  "scrollRefresh": false,
+  "pullRefresh": false,
+  "grid": {
+    "column": 0,
+    "gutter": [8, 8]
+  },
+  "rowKey": "id"
+}

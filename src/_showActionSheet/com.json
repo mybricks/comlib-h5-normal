@@ -1,0 +1,60 @@
+{
+  "title": "显示操作菜单",
+  "namespace": "mybricks.taro._showActionSheet",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "显示 Loading",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "showActionSheet",
+      "title": "显示",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSelect",
+      "title": "点击按钮",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onCancel",
+      "title": "点击取消",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

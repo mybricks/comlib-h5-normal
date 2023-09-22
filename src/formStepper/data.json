@@ -1,0 +1,9 @@
+{
+  "label": "数字输入",
+  "hideLabel": false,
+  "name": "数字输入",
+  "value": 6,
+  "step": 1,
+  "min": 0,
+  "max": 999
+}

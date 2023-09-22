@@ -1,0 +1,19 @@
+{
+  "width": 4,
+  "color": "#40ac44",
+  "dottedLine": false,
+  "arrowLine": true,
+  "borderColor": "#2f693c",
+  "borderWidth": 1,
+  "autofit": true,
+  "start": {
+    "icon": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-34b18ccb-2ca3-44cd-84e3-f1421bc7b91d.png",
+    "width": 24,
+    "height": 28
+  },
+  "end": {
+    "icon": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-38f6968b-784f-44a0-9f07-613f94555c18.png",
+    "width": 24,
+    "height": 28
+  }
+}

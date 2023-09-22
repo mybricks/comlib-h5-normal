@@ -1,0 +1,60 @@
+{
+  "title": "Tabs",
+  "namespace": "mybricks.normal-vue.tabs",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "tabs",
+  "runtime": "./runtime.vue",
+  "data": "./../data.json",
+  "icon": "./../icon.svg",
+  "editors": "./../editors.tsx",
+  "inputs": [
+    {
+      "id": "tabList",
+      "title": "更新tab数据",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "tabId": {
+              "title": "标签项id",
+              "type": "string"
+            },
+            "tabName": {
+              "title": "标签项名称",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "activeTabId",
+      "title": "激活tab项",
+      "schema": {
+        "type": "number"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "changeTab",
+      "title": "切换tab",
+      "schema": {
+        "type": "number"
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "tabName1",
+      "title": "标签项1"
+    },
+    {
+      "id": "tabName2",
+      "title": "标签项2"
+    }
+  ]
+}

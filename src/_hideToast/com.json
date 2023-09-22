@@ -1,0 +1,31 @@
+{
+  "title": "隐藏 Toast",
+  "namespace": "mybricks.taro._hideToast",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "隐藏 Toast",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "hideToast",
+      "title": "隐藏",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterHideToast",
+      "title": "隐藏后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

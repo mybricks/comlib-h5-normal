@@ -1,0 +1,6 @@
+{
+  "label": "密码输入",
+  "name": "密码输入",
+  "placeholder": "密码为XX的格式",
+  "type": "text"
+}

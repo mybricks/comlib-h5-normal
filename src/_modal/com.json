@@ -1,0 +1,38 @@
+{
+  "title": "模态对话框",
+  "namespace": "mybricks.taro._modal",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "modal",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "show",
+      "title": "展示",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onConfirm",
+      "title": "确认",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "onCancel",
+      "title": "取消",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "获取路由参数",
+  "namespace": "mybricks.taro._getCurrentInstance",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.2",
+  "description": "获取路由参数",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "data": "./data.json",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js-autorun",
+  "inputs": [
+    {
+      "id": "keys",
+      "title": "调用"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "result",
+      "title": "键值对"
+    }
+  ]
+}

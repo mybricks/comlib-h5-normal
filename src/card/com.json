@@ -1,0 +1,27 @@
+{
+  "title": "卡片",
+  "namespace": "mybricks.taro.card",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://f2.eckwai.com/udata/pkg/ks-merchant/fangzhou/static_picture/card.ee9a0bc3eefdad95.svg",
+  "slots": [
+    {
+      "id": "extra",
+      "title": "卡片操作容器"
+    },
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "extraClick",
+      "title": "右上角区域点击"
+    }
+  ]
+}

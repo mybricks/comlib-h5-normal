@@ -1,0 +1,146 @@
+.editor-icon {
+  &__button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: none;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px -1px #777;
+    cursor: pointer;
+    &-editIcon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.iconBody {
+  height: 100%;
+  :global {
+    .ant-modal-body {
+      div:hover {
+        background-color: #ffd1d6;
+        color: #fff;
+        span {
+          transform: scale(1.2);
+          transition: transform 0.3s ease-in-out;
+          will-change: transform;
+        }
+      }
+    }
+  }
+
+  .iconWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    height: 100%;
+    overflow-y: auto;
+    :hover {
+      background-color: #fa6400;
+      color: #fff;
+      border-radius: 4px;
+    }
+
+    .icon {
+      margin: 0px 8px 8px 8px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+.wrap {
+  left: inherit;
+  right: 281px;
+  bottom: 25px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.drawerTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  width: 100%;
+  height: 32px;
+  border-bottom: 1px solid #d8d8d8;
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+}
+
+.classTitle {
+  padding: 10px 10px;
+  width: 100%;
+  height: 42px;
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+}
+
+.sticky {
+  position: sticky;
+  z-index: 1020;
+  top: 0;
+  background-color: rgb(247, 247, 247);
+}
+
+.styleChoose {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 0 10px;
+}
+
+.icon-list {
+  margin: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 66px;
+    margin-top: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    box-shadow: 0 1px 3px -1px #777;
+    :hover {
+      span {
+        transform: scale(1.2);
+        transition: transform 0.3s ease-in-out;
+        will-change: transform;
+      }
+    }
+    span {
+      font-size: 24px;
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
+    }
+    .icon-name {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+
+  .icon-item-placeholder {
+    width: 60px;
+    height: 0;
+  }
+}

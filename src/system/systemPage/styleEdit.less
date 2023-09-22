@@ -1,0 +1,45 @@
+.page {
+  width: 375px;
+  // height: 667px;
+  min-height: 667px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+
+  .navigationBar {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      flex: 1;
+    }
+
+    .placeholder {
+      display: block;
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    position: relative;
+    transform: scale(1);
+    .safearea {
+      height: 34px;
+    }
+  }
+}

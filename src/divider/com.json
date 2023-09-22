@@ -1,0 +1,14 @@
+{
+  "title": "分割线",
+  "namespace": "mybricks.taro.divider",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "分割线",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [],
+  "outputs": []
+}

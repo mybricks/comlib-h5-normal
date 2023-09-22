@@ -1,0 +1,10 @@
+{
+  "placeholderText": "请输入关键词",
+  "searchBarStyle": {
+    "background": "#f4f5f7",
+    "borderRadius": "30px"
+  },
+
+  "label":"",
+  "disabled": false
+}

@@ -1,49 +1,42 @@
-import { runJs, utils } from '../../package/com-utils';
+import { runJs, utils } from './sandbox';
 import { Data } from './constants';
 
-export default function ({ env, data, inputs, outputs, logger, onError }: RuntimeParams<Data>) {
-  const { transformCode, fnBody, fns, fnParams, runImmediate } = data;
-
-  const runJSParams = {
-    outputs
-  };
-  const inputKeys = new Set();
-  const inputCount = Object.keys(inputs).length;
-  let inputValueMap = {};
-
-  try {
-    if (runImmediate) {
-      if (env.runtime) {
-        runJs(fns, [runJSParams]);
-      }
-    }
-
-    Object.keys(inputs).forEach((key, index) => {
-      inputs[key]((val) => {
-        inputKeys.add(key);
-        inputValueMap[key.replace('input', 'inputValue')] = val;
-        if (inputKeys.size === inputCount) {
-          inputKeys.clear();
-          try {
-            runJs(fns, [
-              {
-                ...runJSParams,
-                inputs: { ...inputValueMap },
-                inputValue: inputValueMap['inputValue0']
-              }
-            ]);
-            inputValueMap = {};
-          } catch (ex) {
-            onError?.(ex);
-            console.error('js计算组件运行错误.', ex);
-            logger.error(`${ex}`);
-          }
+export default function ({ env, data, inputs, outputs, logger }: RuntimeParams<Data>) {
+    const { runtime } = env;
+    if (runtime) {
+        const { fns, runImmediate } = data;
+        if (fns) {
+            try {
+                if (runImmediate) {
+                    runJs(fns, [{ undefined, outputs }, { ...env, utils}]);
+                }
+                inputs.input0(val => {
+                    try {
+                        let inputValue = val;
+                        // fn.run({inputValue, outputs}, env);
+                        runJs(fns, [{ inputValue, outputs }, { ...env, utils }]);
+                    } catch (ex) {
+                        console.error('js计算组件运行错误.', ex)
+                        logger.error(`${ex}`);
+                    }
+                })
+            } catch (ex) {
+                console.error('js计算组件运行错误.', ex)
+                logger.error(`${ex}`);
+            }
         }
-      });
-    });
-  } catch (ex) {
-    onError?.(ex);
-    console.error('js计算组件运行错误.', ex);
-    logger.error(`${ex}`);
-  }
+    } else {
+        // 兼容区块在 edit 状态时的逻辑处理
+        if (data.fns) {
+            inputs.input0(val => {
+                try {
+                    let inputValue = val;
+                    runJs(data.fns, [{ inputValue, outputs }, { ...env, utils }]);
+                } catch (ex) {
+                    console.error('js计算组件运行错误.', ex)
+                    logger.error(`${ex}`);
+                }
+            })
+        }
+    }
 }

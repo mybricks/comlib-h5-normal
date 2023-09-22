@@ -1,0 +1,138 @@
+.card {
+  width: 351px;
+  height: 246px;
+  background: #ffffff;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+
+  .head {
+    position: relative;
+    width: 351px;
+    height: 160px;
+    overflow: hidden;
+
+    .tag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #ea732e;
+      border-bottom-right-radius: 2px;
+      z-index: 1;
+      padding: 2px 8px;
+      font-size: 12px;
+      line-height: 16px;
+      color: #ffffff;
+    }
+
+    .thumbnail {
+      display: block;
+      width: 351px;
+      height: 160px;
+    }
+  }
+
+  .body {
+    padding: 6px 12px 12px;
+    position: relative;
+    width: 100%;
+
+    .title {
+      font-weight: 500;
+      color: #333333;
+      font-size: 16px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .meta {
+      margin-top: 8px;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      .left {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100px;
+        height: 32px;
+        border-radius: 2px;
+        border: 1px solid #fa6d25;
+
+        font-size: 14px;
+        color: #fa6d25;
+        line-height: 16px;
+
+        &::after {
+          display: block;
+          margin-left: 6px;
+          content: "";
+          width: 14px;
+          height: 14px;
+          background: url("https://admin.alialumni.com/mfs/LDSWMxLfHoRVxlqguEcSzt2kzt697IUZ-1689058018953.png")
+            no-repeat center center / contain;
+        }
+      }
+
+      .datetime {
+        font-size: 13px;
+        line-height: 17px;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.4);
+
+        .text {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://admin.alialumni.com/mfs/n4aHBYikakkddHnJjv6YbPbjDrVmkmfy-1689058413409.png")
+            no-repeat center center ~"/" contain;
+          margin-right: 6px;
+        }
+      }
+
+      .address {
+        margin-top: 6px;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 13px;
+        line-height: 17px;
+        display: flex;
+        align-items: center;
+
+        .text {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://admin.alialumni.com/mfs/t8R9immOvwPdOho3jqOZbzLhIPQdfzr2-1689058450485.png")
+            no-repeat center center ~"/" contain;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "title": "登出",
+  "namespace": "mybricks.taro._logout",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "登出",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "logout",
+      "title": "触发"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "result",
+      "title": "结果"
+    }
+  ]
+}

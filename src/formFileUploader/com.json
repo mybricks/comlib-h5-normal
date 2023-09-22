@@ -1,0 +1,23 @@
+{
+  "title": "文件上传",
+  "namespace": "mybricks.taro.formFileUploader",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/adafadsf.9c4267d32a661af5.svg",
+  "inputs": [
+    {
+      "id": "value",
+      "title": "值"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "值变化"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "title": "写入本地缓存",
+  "namespace": "mybricks.taro._setStorage",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "写入本地缓存",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "setStorage",
+      "title": "写入",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "键名"
+          },
+          "value": {
+            "type": "any",
+            "title": "值"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "写入成功"
+    },
+    {
+      "id": "onFail",
+      "title": "写入失败"
+    }
+  ]
+}

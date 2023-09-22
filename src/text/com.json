@@ -1,43 +1,36 @@
 {
   "title": "文本",
-  "namespace": "mybricks.normal-h5.text",
-  "author": "mybricks",
+  "namespace": "mybricks.taro.text",
+  "author": "mybricks-team",
   "author_name": "板砖团队",
-  "version": "1.0.17",
-  "description": "文本组件",
+  "version": "1.0.0",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
-  "editors": "./editors.ts",
-  "icon": "https://cdnfile.corp.kuaishou.com/kc/files/a/fangzhou/text-555.svg",
-  "preview": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-02415aa1-c290-4b37-b575-e8c9a40572ef.png",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
   "inputs": [
     {
-      "id": "update",
-      "title": "更新文本"
-    },
-    {
-      "id": "install",
-      "title": "安装"
+      "id": "value",
+      "title": "修改内容",
+      "schema": {
+        "type": "string"
+      }
     }
   ],
   "outputs": [
     {
-      "id": "click",
-      "title": "单击"
-    },
-    {
-      "id": "change",
-      "title": "内容发生变化"
-    }
-  ],
-  "configs": [
-    {
-      "id": "text-content",
-      "title": "文本内容",
+      "id": "onClick",
+      "title": "单击",
       "schema": {
         "type": "string"
-      },
-      "binding": "data.text"
+      }
+    },
+    {
+      "id": "onLongPress",
+      "title": "长按",
+      "schema": {
+        "type": "string"
+      }
     }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "title": "路由跳转",
+  "namespace": "mybricks.taro._goto",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.5",
+  "description": "路由跳转",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "data": "./data.json",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "goto",
+      "title": "跳转到",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

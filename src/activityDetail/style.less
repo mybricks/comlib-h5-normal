@@ -1,0 +1,434 @@
+.detail {
+  width: 100%;
+  height: 100%;
+  min-height: 667px;
+  overflow: hidden;
+  background: #f1f1f1;
+
+  .head {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    // height: 270px;
+
+    .thumbnailSlot {
+      width: 375px;
+      height: 171px;
+      position: relative;
+
+      .thumbnail {
+        display: block;
+        width: 375px;
+        height: 171px;
+      }
+    }
+
+    .meta {
+      padding: 12px;
+      overflow: hidden;
+
+      .title {
+        font-weight: 500;
+        color: #000000;
+        font-size: 18px;
+        line-height: 26px;
+        // height: 26px;
+      }
+
+      .datetime {
+        margin-top: 6px;
+
+        color: #666666;
+        font-size: 12px;
+        line-height: 18px;
+        // height: 18px;
+        display: flex;
+        align-items: flex-start;
+
+        .text {
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
+          // overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233138823.2901fa9743bd2f04.png") no-repeat center center ~"/" contain;
+          margin-top: 3px;
+          margin-right: 6px;
+        }
+      }
+
+      .address {
+        margin-top: 6px;
+        color: #666666;
+        font-size: 12px;
+        line-height: 18px;
+        // height: 18px;
+        display: flex;
+        align-items: flex-start;
+
+        .text {
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
+          // overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233164827.c7a82fc656dae1d7.png") no-repeat center center ~"/" contain;
+          margin-top: 3px;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  margin-top: 24px;
+
+  image,
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.bannerSlot,
+.footerSlot {
+  margin-top: 24px;
+}
+
+.bannerSlot.empty,
+.footerSlot.empty {
+  height: 90px;
+}
+
+.placeholder {
+  width: 100%;
+  height: 52px;
+  margin-top: constant(safe-area-inset-bottom);
+  margin-top: env(safe-area-inset-bottom);
+}
+
+.signupBar {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(52px + constant(safe-area-inset-bottom));
+  height: calc(52px + env(safe-area-inset-bottom));
+
+  // padding-bottom: constant(safe-area-inset-bottom);
+  // padding-bottom: env(safe-area-inset-bottom);
+  background: #ffffff;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  padding-top: 6px;
+  // align-items: center;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  .share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 54px;
+    height: 40px;
+    background: transparent;
+    padding: 0;
+
+    &::after {
+      display: none;
+    }
+
+    .shareButton {
+      width: 24px;
+      height: 24px;
+      background: url("https://admin.alialumni.com/mfs/UE2uxcBhkdT8JJvDLLLXcCzAt3bkAalP-1689235341298.png") no-repeat center center ~"/" contain;
+    }
+
+    .shareText {
+      margin-top: 4px;
+      font-size: 10px;
+      line-height: 12px;
+      height: 12px;
+      color: #333333;
+      opacity: 0.6;
+      width: 100%;
+    }
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 54px;
+    height: 40px;
+    margin-right: 12px;
+    position: relative;
+
+    .contactTips {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(250, 109, 37, 1);
+      transform: translateY(-48px);
+      border-radius: 4px;
+      color: #ffffff;
+      font-size: 12px;
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 0;
+        height: 0;
+        border: 6px solid transparent;
+        border-top-color: rgba(250, 109, 37, 1);
+        transform: translateX(21px);
+      }
+    }
+
+    .avatar {
+      display: block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    .nickname {
+      margin-top: 4px;
+      font-size: 10px;
+      line-height: 12px;
+      height: 12px;
+      color: #333333;
+      opacity: 0.6;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+    }
+  }
+
+  .signupButton {
+    margin-left: 18px;
+    flex: 1;
+    height: 40px;
+    background: #fa6d25;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: opacity 0.3s ease;
+
+    &.disabled {
+      opacity: 0.7;
+    }
+  }
+}
+
+.userList {
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  margin-top: 8px;
+  overflow-x: auto;
+  height: 60px;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+
+  .item {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 42px;
+    height: 60px;
+    margin-right: 12px;
+    overflow: hidden;
+
+    .avatarWrapper {
+      width: 42px;
+      height: 42px;
+      position: relative;
+    }
+
+    .avatar {
+      display: block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .nickname {
+      color: #666666;
+      font-size: 12px;
+      line-height: 18px;
+      height: 18px;
+      // margin-top: 4px;
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.card {
+  margin-top: 12px;
+  padding: 12px;
+  background: #ffffff;
+
+  .label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 19px;
+
+    &::before {
+      margin-right: 4px;
+      display: block;
+      content: "";
+      width: 8px;
+      height: 13px;
+      background: #fa6d25;
+      border-radius: 0px 10px 10px 0px;
+    }
+  }
+
+  .content {
+    margin-top: 12px;
+
+    font-size: 14px;
+    color: #383838;
+    line-height: 20px;
+  }
+}
+
+
+.errorResult {
+  background: #ffffff;
+
+  .text {
+    text-align: center;
+    margin-top: 240px;
+    font-size: 14px;
+    color: #383838;
+  }
+}
+
+
+.groupCard {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  // padding: 12px;
+  background: #ffffff;
+  border-radius: 2px;
+
+  .head {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      margin-right: 12px;
+      overflow: hidden;
+
+      .logo {
+        display: block;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .meta {
+        flex: 1;
+        overflow: hidden;
+
+        .title {
+          font-weight: 500;
+          color: #000000;
+          font-size: 14px;
+          line-height: 22px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .condition {
+          color: #666666;
+          font-size: 12px;
+          line-height: 18px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .button {
+      width: 58px;
+      height: 24px;
+      font-size: 12px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      color: #ffffff;
+      background: #fa6d23;
+
+      &::before {
+        margin-right: 6px;
+        content: "";
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: url("https://admin.alialumni.com/mfs/StgSChIfCvcX7WMx3wxt2QydJbiJ5w1U-1689059996219.png") no-repeat center center ~"/" contain;
+      }
+
+
+    }
+  }
+}

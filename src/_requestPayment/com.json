@@ -1,0 +1,31 @@
+{
+  "title": "发起微信支付",
+  "namespace": "mybricks.taro._requestPayment",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "发起微信支付",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "showToast",
+      "title": "显示",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterShowToast",
+      "title": "显示后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "title": "搜索框",
+  "namespace": "mybricks.taro.searchBar",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "当单击时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onChange",
+      "title": "输入框内容变化时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onClear",
+      "title": "点击清除按钮时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCancel",
+      "title": "当点击取消时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onSearch",
+      "title": "当触发搜索时",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "gutter": 0,
+  "direction": "row",
+  "wrap": "wrap",
+  "justify": "start",
+  "align": "stretch",
+  "items": [
+    {
+      "id": "slot_0",
+      "span": 8,
+      "offset": 0
+    },
+    {
+      "id": "slot_1",
+      "span": 8,
+      "offset": 0
+    },
+    {
+      "id": "slot_2",
+      "span": 8,
+      "offset": 0
+    }
+  ]
+}

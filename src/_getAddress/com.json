@@ -1,0 +1,74 @@
+{
+  "title": "查询地址信息",
+  "namespace": "mybricks.taro.mapservice.geocoder",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "扫码",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "get",
+      "title": "经纬度",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "title": "经度",
+            "type": "string"
+          },
+          "latitude": {
+            "title": "纬度",
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "title": "具体地址",
+            "type": "string"
+          },
+          "name": {
+            "title": "更可读的具体地址",
+            "type": "string"
+          },
+          "nation": {
+            "title": "国家",
+            "type": "string"
+          },
+          "province": {
+            "title": "省份",
+            "type": "string"
+          },
+          "city": {
+            "title": "城市",
+            "type": "string"
+          },
+          "district": {
+            "title": "区划",
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

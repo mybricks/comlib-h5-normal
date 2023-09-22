@@ -1,0 +1,16 @@
+{
+  "style": {},
+  "rows": [
+    {
+      "id": "row0",
+      "height": "auto",
+      "cols": [
+        {
+          "id": "col0",
+          "title": "内容",
+          "width": "auto"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "title": "获取路由信息",
+  "namespace": "mybricks.taro._getRouter",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "获取路由信息",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "getRouter",
+      "title": "获取",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onComplete",
+      "title": "路由信息",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "query": {
+            "type": "object"
+          },
+          "scene": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "调起扫一扫",
+  "namespace": "mybricks.taro._scanCode",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "登录",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "login",
+      "title": "触发"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onComplete",
+      "title": "完成"
+    }
+  ]
+}

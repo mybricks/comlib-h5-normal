@@ -1,0 +1,23 @@
+{
+  "title": "折叠面板",
+  "namespace": "mybricks.taro.collapse",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "inputs": [
+   
+  ],
+  "outputs": [
+   
+  ],
+  "slots": [
+    {
+      "id": "cont_default",
+      "title": "标题"
+    }
+  ]
+}

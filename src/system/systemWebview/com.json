@@ -1,0 +1,46 @@
+{
+  "title": "网页",
+  "namespace": "mybricks.taro.systemWebview",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setUrl",
+      "title": "修改网页链接",
+      "desc": "可打开关联的公众号的文章，其它网页需登录小程序管理后台配置业务域名。",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onLoad",
+      "title": "网页加载成功时",
+      "schema": {
+        "type": "string",
+        "title": "网页链接"
+      }
+    },
+    {
+      "id": "onError",
+      "title": "网页加载失败时",
+      "schema": {
+        "type": "string",
+        "title": "网页链接"
+      }
+    },
+    {
+      "id": "onMessage",
+      "title": "网页向小程序 postMessage 时",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

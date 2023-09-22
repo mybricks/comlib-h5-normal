@@ -1,0 +1,32 @@
+{
+  "title": "读取本地缓存",
+  "namespace": "mybricks.taro._getStorage",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "读取本地缓存",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "getStorage",
+      "title": "读取",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "读取成功"
+    },
+    {
+      "id": "onFail",
+      "title": "读取失败"
+    }
+  ]
+}

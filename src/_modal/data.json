@@ -1,0 +1,9 @@
+{
+  "title": "对话框标题",
+  "content": "对话框内容",
+  "showCancel": true,
+  "cancelColor": "",
+  "cancelText": "取消",
+  "confirmColor": "",
+  "confirmText": "确认"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "布局",
+  "namespace": "mybricks.normal-h5.container-grid",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "布局",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./../edit/runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "icon": "./../icon.svg",
+  "slots": [
+    {
+      "id": "default",
+      "title": "内容_default"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "click_layout",
+      "title": "点击"
+    }
+  ]
+}

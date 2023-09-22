@@ -1,0 +1,31 @@
+{
+  "title": "显示 Toast",
+  "namespace": "mybricks.taro._showToast",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "description": "显示 Toast",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "showToast",
+      "title": "显示",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterShowToast",
+      "title": "显示后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

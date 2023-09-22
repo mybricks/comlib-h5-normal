@@ -1,0 +1,147 @@
+{
+  "title": "表单容器",
+  "namespace": "mybricks.taro.formContainer",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setFieldsValue",
+      "title": "设置表单数据",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "desc": "给表单设置数据"
+    },
+    {
+      "id": "getFieldsValue",
+      "title": "获取表单数据",
+      "rels": ["returnValues"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "获取表单数据（不会触发校验）"
+    },
+    {
+      "id": "submit",
+      "title": "提交表单",
+      "rels": ["onSubmit"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "触发表单进行校验并且提交数据"
+    },
+    {
+      "id": "submitAndMerge",
+      "title": "提交表单(合并输入项)",
+      "rels": ["onMergeSubmit"],
+      "schema": {
+        "type": "object"
+      },
+      "desc": "触发表单进行校验并且提交数据，同时透传输入的数据"
+    },
+    {
+      "id": "resetFields",
+      "title": "重置表单",
+      "rels": ["onReset"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "触发表单所有字段进行重置"
+    },
+    {
+      "id": "setFormItemsProps",
+      "title": "设置表单项配置",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "desc": "动态配置表单项标题、提示语、必填样式等"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "returnValues",
+      "title": "表单数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onSubmit",
+      "title": "提交数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onMergeSubmit",
+      "title": "提交数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onReset",
+      "title": "重置"
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "表单容器",
+      "schema": "mybricks.taro.formContainer/formItem",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "setFieldsValue",
+          "title": "表单数据输入",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      ],
+      "_inputs": [
+        {
+          "id": "validateTrigger",
+          "title": "触发校验",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              }
+            }
+          }
+        },
+        {
+          "id": "onChange",
+          "title": "表单项值变化",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

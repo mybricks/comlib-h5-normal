@@ -1,0 +1,27 @@
+{
+  "title": "按钮",
+  "namespace": "mybricks.normal-h5.button",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./../icon.svg",
+  "version": "1.0.0",
+  "description": "按钮",
+  "runtime": "./runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "inputs": [
+    {
+      "id": "buttonText",
+      "title": "修改按钮文本",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "点击"
+    }
+  ]
+}

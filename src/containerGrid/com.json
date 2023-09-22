@@ -1,0 +1,26 @@
+{
+  "visibility": false,
+  "title": "布局",
+  "namespace": "mybricks.taro.containerGrid",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "布局",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./edit/runtime.tsx",
+  "data": "./data.json",
+  "editors": "./edit/editors.tsx",
+  "icon": "./icon.svg",
+  "slots": [
+    {
+      "id": "col0",
+      "title": "内容（竖向排列）"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "click",
+      "title": "点击"
+    }
+  ]
+}

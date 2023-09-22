@@ -1,0 +1,29 @@
+{
+  "title": "登录用户信息",
+  "namespace": "mybricks.taro._getUserInfo",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "登录用户信息",
+  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js-autorun",
+  "inputs": [
+    {
+      "id": "get",
+      "title": "获取"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "已登录"
+    },
+    {
+      "id": "onFail",
+      "title": "未登录"
+    }
+  ]
+}

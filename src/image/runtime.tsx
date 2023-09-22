@@ -1,73 +1,70 @@
-import React, { useCallback, useEffect, useState , useRef, useMemo } from 'react';
-import { isNumber } from './../utils/core';
-import css from './runtime.less';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+  useState,
+} from "react";
+import css from "./style.less";
+import cx from "classnames";
+import { View, Image } from "@tarojs/components";
+import SkeletonImage from './../components/skeleton-image';
 
-export default function ({ env, data, inputs, outputs, title, style }: RuntimeParams) {
-  const [loaded,setLoaded] = useState(false);
-  const [imageUrl,setImageUrl] = useState(data.src);
-  const ref = useRef<HTMLImageElement>(null);
-
+export default function ({ env, data, inputs, outputs, title, style }) {
+  const ele = useRef(null)
+  const [h5PolyfillClass, setH5PolyfillClass]  = useState(css['h5-polyfill-aspectfill-width'])
 
   useEffect(() => {
-    setImageUrl(data.src);
-  }, [data.src]);
+    if (data.mode !== 'aspectFill') {
+      return
+    }
+    if (!ele.current && !ele.current.getBoundingClientRect) {
+      return
+    }
+    const { width, height } = ele.current.getBoundingClientRect?.() ?? {};
+    setH5PolyfillClass(width > height ? css['h5-polyfill-aspectfill-width'] : css['h5-polyfill-aspectfill-height'])
+  }, [style.width, style.height, data.mode])
 
-  useEffect(() => {
-    inputs['image']?.((url: string) => {
-      if (typeof url === 'string') {
-        setImageUrl(url);
-      }
+  /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
+  useMemo(() => {
+    inputs["setSrc"]((src) => {
+      data.src = src;
     });
   }, []);
 
-  // useEffect(() => {
-  //   outputs?.change?.(imageUrl);
-  // }, [imageUrl]);
-
   const onLoad = useCallback(() => {
-    const naturalWidth = ref.current?.naturalWidth;
-    const naturalHeight = ref.current?.naturalHeight;
-    setLoaded(true);
-    if (naturalWidth && naturalHeight) {
-      data.naturalWidth = naturalWidth;
-      data.naturalHeight = naturalHeight;
+    if (!env.runtim) {
+      return;
     }
+    outputs["onLoad"]();
   }, []);
 
-  const onClick: () => void = useCallback(() => {
-    if (env.runtime) {
-      outputs['click'](true);
+  const onClick = useCallback(() => {
+    if (!env.runtime) {
+      return;
     }
-  }, [env.runtime, title]);
+    outputs["onClick"]();
+  }, []);
 
-  const [width, height] = useMemo(() => {
-    if (isNumber(style.width) && isNumber(style.height)) {
-      if (data.naturalWidth / data.naturalHeight > style.width / style.height) {
-        return [style.width + 'px', (style.width / data.naturalWidth) * data.naturalHeight + 'px'];
-      } else {
-        return [(style.height / data.naturalHeight) * data.naturalWidth + 'px', style.height + 'px'];
-      }
-    } else if (isNumber(style.width)) {
-      return [style.width + 'px', (style.width / data.naturalWidth) * data.naturalHeight + 'px'];
-    } else if (isNumber(style.height)) {
-      return [(style.height / data.naturalHeight) * data.naturalWidth + 'px', style.height + 'px'];
-    } else if (style.width === 'auto' && data.naturalWidth < 375) {
-      return [data.naturalWidth + 'px', data.nauralHeight + 'px'];
-    } else {
-      return ['100%', 'auto'];
+  const onError = useCallback(() => {
+    if (!env.runtime) {
+      return;
     }
-  }, [style.width, style.height, data.naturalWidth, data.naturalHeight]);
+    outputs["onError"]();
+  }, []);
 
   return (
-    <div className={`${css.imgWrapper}`} onClick={onClick}>
-      <img
-        className={`${css.img} mybricks-image`}
-        style={{ width, height }}
-        ref={ref}
-        src={imageUrl}
+    <View className={css.com} ref={ele}>
+      <SkeletonImage
+        skeleton={env.edit ? false : !!data?.loadSmooth}
+        className={cx(css.image, h5PolyfillClass, "mybricks-image")}
+        src={data.src}
+        mode={data.mode}
+        onClick={onClick}
         onLoad={onLoad}
-        alt="加载中..."
+        onError={onError}
+        showMenuByLongpress={data.showMenuByLongpress ?? false}
       />
-    </div>
+    </View>
   );
 }

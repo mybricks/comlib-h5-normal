@@ -1,0 +1,31 @@
+{
+  "title": "HTTPS请求",
+  "namespace": "mybricks.taro._request",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "_request",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "调用",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterHideToast",
+      "title": "隐藏后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { SuggestionType } from './types';
-import { ExpressionSandbox } from '../../package/com-utils';
+import { ExpressionSandbox } from './../utils/com-utils';
 import { mock } from 'mock-json-schema';
 import toJsonSchema from 'to-json-schema';
 export const getCodeFromTemplate = (template: string) => {

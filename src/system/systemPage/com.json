@@ -1,0 +1,35 @@
+{
+  "title": "页面",
+  "namespace": "mybricks.taro.systemPage",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./runtimeEdit.tsx",
+  "data": "./data.json",
+  "upgrade": "./upgrade.ts",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "cancelPulldown",
+      "title": "停止下拉刷新"
+    },
+    {
+      "id": "setShare",
+      "title": "设置分享内容"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "pulldown",
+      "title": "当下拉刷新时"
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ]
+}

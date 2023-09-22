@@ -1,0 +1,56 @@
+{
+  "useTabBar": true,
+  "tabBar": [
+    {
+      "scene": {},
+      "text": "首页",
+      "selectedIconPath": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233650258.9704e1e89a8fb9df.png",
+      "selectedIconStyle": {
+        "width": "22px",
+        "height": "22px"
+      },
+      "selectedTextStyle": {
+        "color": "#FD6A00",
+        "fontSize": "12px",
+        "lineHeight": "14px"
+      },
+      "normalIconPath": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233684211.273c63d1fdce80dc.png",
+      "normalIconStyle": {
+        "width": "22px",
+        "height": "22px"
+      },
+      "normalTextStyle": {
+        "color": "#909093",
+        "fontSize": "12px",
+        "lineHeight": "14px"
+      }
+    },
+    {
+      "scene": {},
+      "text": "我的",
+      "selectedIconPath": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233714898.5ae0c43a30cd764c.png",
+      "selectedIconStyle": {
+        "width": "22px",
+        "height": "22px"
+      },
+      "selectedTextStyle": {
+        "color": "#FD6A00",
+        "fontSize": "12px",
+        "lineHeight": "14px"
+      },
+      "normalIconPath": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233742771.499296fd3c884e8b.png",
+      "normalIconStyle": {
+        "width": "22px",
+        "height": "22px"
+      },
+      "normalTextStyle": {
+        "color": "#909093",
+        "fontSize": "12px",
+        "lineHeight": "14px"
+      }
+    }
+  ],
+
+  "selectedTabItemIndex": 0,
+  "selectedTabItemCatelog": "激活样式"
+}

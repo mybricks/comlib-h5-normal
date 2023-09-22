@@ -1,144 +1,130 @@
-import { CODE_TEMPLATE, COMMENTS, Data, IMMEDIATE_CODE_TEMPLATE } from './constants';
-import { jsonToSchema } from './util';
+import { CODE_TEMPLATE, COMMENTS, Data } from "./constants";
+
+let outputId = "";
 
 export default {
-  '@init': ({ data, setAutoRun, isAutoRun, output }: EditorResult<Data>) => {
-    const autoRun = isAutoRun ? isAutoRun() : false;
-    if (autoRun || data.runImmediate) {
-      setAutoRun(true);
+  "@init"({ data, isAutoRun }: EditorResult<Data>) {
+    if (isAutoRun()) {
       data.runImmediate = true;
-      output.get('output0').setSchema({ type: 'number' });
     }
-    data.fns = data.fns || (data.runImmediate ? IMMEDIATE_CODE_TEMPLATE : CODE_TEMPLATE);
-  },
-  '@inputConnected'({ data, output }, fromPin) {
-    if (data.fns === CODE_TEMPLATE) {
-      output.get('output0').setSchema({ type: 'unknown' });
+    if (!data.fns) {
+      data.fns = encodeURIComponent(CODE_TEMPLATE);
     }
   },
-  ':root': [
+  ":root": [
     {
-      title: '添加输入项',
-      type: 'Button',
-      ifVisible({ data }: EditorResult<Data>) {
-        return !data.runImmediate;
+      title: "自定义 outputId",
+      ifVisible({ data }) {
+        return data.advanced;
       },
+      type: "text",
       value: {
-        set({ data, input }: EditorResult<Data>) {
-          const idx = getIoOrder(input);
-          const hostId = `input${idx}`;
-          const title = `输入项${idx}`;
-          input.add({
-            id: hostId,
-            title,
-            schema: {
-              type: 'follow'
-            },
-            deletable: true
-          });
-        }
-      }
+        get: ({ data }) => {
+          return outputId;
+        },
+        set({ data }, value: string) {
+          outputId = value;
+        },
+      },
     },
     {
-      title: '添加输出项',
-      type: 'Button',
+      title: "添加输出项",
+      type: "Button",
       value: {
-        set({ output }: EditorResult<Data>) {
-          const idx = getIoOrder(output);
-          const hostId = `output${idx}`;
-          const title = `输出项${idx}`;
-          output.add({
-            id: hostId,
-            title,
-            schema: {
-              type: 'unknown'
-            },
-            editable: true,
-            deletable: true
-          });
-          // data.fnParams = getFnParams({ data, outputs: output });
-          // forceRender.run();
-        }
-      }
-    },
-    {
-      type: 'code',
-      options: ({ data, output }) => {
-        const option = {
-          babel: true,
-          comments: COMMENTS,
-          theme: 'light',
-          minimap: {
-            enabled: false
-          },
-          lineNumbers: 'on',
-          // forceRender,
-          eslint: {
-            parserOptions: {
-              ecmaVersion: '2020',
-              sourceType: 'module'
+        set({ data, output }: EditorResult<Data>) {
+          let idx = getOutputOrder({ data, output });
+          let title = `输出项${idx}`;
+          let hostId = `output${idx}`;
+
+          // 高级模式下，必须设置 outputId，且不为空
+          if (data.advanced) {
+            if (!isUnique({ outputId: outputId, output })) {
+              alert("请输入唯一的 outputId");
+              return;
             }
-          },
-          autoSave: false,
-          onBlur: () => {
-            updateOutputSchema(output, data.fns);
+
+            title = `输出项${outputId}`;
+            hostId = `${outputId}`;
+            outputId = "";
           }
-        };
-        // Object.defineProperty(option, 'fnParams', {
-        //   get() {
-        //     return getFnParams({data, outputs });
-        //   },
-        //   configurable: true
-        // });
-        // Object.defineProperty(option, 'extraLib', {
-        //   get() {
-        //     return getExtralib({ outputs });
-        //   },
-        //   configurable: true
-        // });
-        return option;
+
+          output.add(hostId, title, { type: "follow" }, true, 1);
+        },
       },
-      title: '代码编辑',
+    },
+    {
+      title: "高级模式",
+      type: "switch",
+      value: {
+        get({ data }) {
+          return data.advanced;
+        },
+        set({ data }, value) {
+          data.advanced = value;
+        },
+      },
+    },
+    {
+      type: "code",
+      options: {
+        comments: COMMENTS,
+        theme: "light",
+        suggestions: {
+          context: [
+            {
+              label: "weblog",
+              value: `weblog.collect("SHOW", {})`,
+              kind: 1,
+              detail: "埋点上报",
+            },
+            {
+              label: "ajax",
+              value: `ajax('/aaa', {})`,
+              kind: 1,
+              detail: "发送请求",
+            },
+          ],
+        },
+        minimap: {
+          enabled: false,
+        },
+        eslint: {
+          parseOptions: {
+            ecmaVersion: "2020",
+            sourceType: "module",
+          },
+        },
+      },
+      title: "代码编辑",
       value: {
         get({ data }: EditorResult<Data>) {
-          return data.fns;
+          return data.fns || CODE_TEMPLATE;
         },
-        set({ data }: EditorResult<Data>, fns: any) {
+
+        set({ data }: EditorResult<Data>, fns) {
           data.fns = fns;
-        }
-      }
-    }
-  ]
+        },
+      },
+    },
+  ],
 };
 
-function updateOutputSchema(output, code) {
-  const outputs = {};
-  const inputs = {};
-  output.get().forEach(({ id }) => {
-    outputs[id] = (v: any) => {
-      try {
-        const schema = jsonToSchema(v);
-        output.get(id).setSchema(schema);
-      } catch (error) {
-        output.get(id).setSchema({ type: 'unknown' });
-      }
-    };
-  });
-
-  try {
-    setTimeout(() => {
-      const fn = eval(decodeURIComponent(code.code || code));
-      fn({
-        inputValue: void 0,
-        outputs,
-        inputs
-      });
-    });
-  } catch (error) {}
+function getOutputOrder({ data, output }) {
+  if (data.outputCount === void 0) {
+    const c = Object.keys(output.get()).length;
+    data.outputCount = c;
+  }
+  return data.outputCount++;
 }
 
-function getIoOrder(io) {
-  const ports = io.get();
-  const { id } = ports.pop();
-  return Number(id.replace(/\D+/, '')) + 1;
+function isUnique({ outputId, output }) {
+  if (!outputId) {
+    return false;
+  }
+
+  let isExist = !!output.get().filter((raw) => {
+    return raw.id === outputId;
+  }).length;
+
+  return !isExist;
 }

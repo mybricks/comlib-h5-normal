@@ -1,0 +1,48 @@
+{
+  "title": "获取scheme",
+  "namespace": "mybricks.taro._generateScheme",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "获取scheme",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "generate",
+      "title": "获取",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "env_version": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "获取成功",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "获取失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

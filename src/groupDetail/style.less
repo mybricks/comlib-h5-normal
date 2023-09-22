@@ -1,0 +1,343 @@
+.detail {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .head {
+    width: 375px;
+    height: 268px;
+    background: url("https://admin.alialumni.com/mfs/hlJst4vIYzqktMkdsxXTtqGkVFXlY7E1-1689081529147.png") no-repeat center center ~"/" cover;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      display: block;
+      width: 150px;
+      height: 150px;
+      border: 2px solid #ffffff;
+      border-radius: 16px;
+      box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-size: 18px;
+      color: #000000;
+      line-height: 25px;
+      font-weight: 500;
+      margin-top: 18px;
+    }
+
+    .membersCount {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 18px;
+      color: #fa6d25;
+
+      &::before {
+        content: "会员人数";
+        color: #595959;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .card {
+    padding: 12px;
+    background: #ffffff;
+
+    .label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.9);
+      line-height: 19px;
+
+      &::before {
+        margin-right: 4px;
+        display: block;
+        content: "";
+        width: 8px;
+        height: 13px;
+        background: #fa6d25;
+        border-radius: 0px 10px 10px 0px;
+      }
+    }
+
+    .content {
+      margin-top: 12px;
+
+      font-size: 14px;
+      color: #383838;
+      line-height: 20px;
+    }
+  }
+
+  .applyInfo {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .qrcode {
+      display: block;
+      width: 180px;
+      // height: 150px;
+    }
+
+    .admin {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+
+      .avatar {
+        display: block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .nickname {
+        font-size: 12px;
+        color: #333333;
+        line-height: 18px;
+      }
+    }
+
+    .tips {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #999;
+      line-height: 18px;
+      text-align: center;
+
+      .copy {
+        display: flex;
+        align-items: center;
+        color: 666666;
+        font-weight: 500;
+
+        &::after {
+          content: "";
+          width: 12px;
+          height: 12px;
+          background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAVFBMVEUAAAD6ZAD4ZAD5ZAD5ZAD6ZAD7ZQD6ZAD6YwD7ZQD6ZAD6YwD6ZAD6ZAD5ZAD6ZAD6ZAD7ZAD5ZAD8ZQD7ZAD6ZAD/ZAD3aAD0ZADtWwD/gAD6ZAD8IgLTAAAAG3RSTlMAwEB/gKGPhNWpm5b27OPGvbOKTkUzKSAXDgTVCHlQAAAAk0lEQVRIx+3QSw6DMAxF0YdbSCn9/0v2v0/kjJDhIWcAo9xZHB9FCmwhzgZWE/NAF0n7FGy13lU2+k7f6rCFjYH/XWc1vOB3I/sJiFjwverkCAIAAz4Hsk/AO+138AK56LGBF7zOZJ+A50kPD7hB1ALyQEAmQAEFFFDAumC30BQ42hhISgdCGwPXXxFQLTQFjjYBA7ssUqei8VR4AAAAAElFTkSuQmCC") no-repeat center center ~"/" contain;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.placeholder {
+  width: 100%;
+  // height: 52px;
+  height: 30px;
+  margin-top: constant(safe-area-inset-bottom);
+  margin-top: env(safe-area-inset-bottom);
+}
+
+.signupBar {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(52px + constant(safe-area-inset-bottom));
+  height: calc(52px + env(safe-area-inset-bottom));
+
+  // padding-bottom: constant(safe-area-inset-bottom);
+  // padding-bottom: env(safe-area-inset-bottom);
+  background: #ffffff;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  padding-top: 6px;
+  // align-items: center;
+  padding-left: 12px;
+  padding-right: 12px;
+
+  .share {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .shareText {
+      font-size: 10px;
+      color: #333333;
+      opacity: 0.6;
+    }
+  }
+
+  .shareButton {
+    width: 24px;
+    height: 24px;
+    background: url("https://admin.alialumni.com/mfs/UE2uxcBhkdT8JJvDLLLXcCzAt3bkAalP-1689235341298.png") no-repeat center center ~"/" contain;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .signupButton {
+    margin-left: 24px;
+    flex: 1;
+    height: 40px;
+    background: #fa6d25;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: opacity 0.3s ease;
+
+    &.disabled {
+      opacity: 0.7;
+    }
+  }
+}
+
+
+.activityCard {
+  width: 351px;
+  height: 246px;
+  background: #ffffff;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+
+  .head {
+    position: relative;
+    width: 351px;
+    height: 160px;
+    overflow: hidden;
+
+    .tag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #ea732e;
+      border-bottom-right-radius: 2px;
+      z-index: 1;
+      padding: 2px 8px;
+      font-size: 12px;
+      line-height: 16px;
+      color: #ffffff;
+    }
+
+    .thumbnail {
+      display: block;
+      width: 351px;
+      height: 160px;
+    }
+  }
+
+  .body {
+    padding: 6px 12px 12px;
+    position: relative;
+    width: 100%;
+
+    .title {
+      font-weight: 500;
+      color: #333333;
+      font-size: 16px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .meta {
+      margin-top: 8px;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      .left {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100px;
+        height: 32px;
+        border-radius: 2px;
+        border: 1px solid #fa6d25;
+
+        font-size: 14px;
+        color: #fa6d25;
+        line-height: 16px;
+
+        &::after {
+          display: block;
+          margin-left: 6px;
+          content: "";
+          width: 14px;
+          height: 14px;
+          background: url("https://admin.alialumni.com/mfs/LDSWMxLfHoRVxlqguEcSzt2kzt697IUZ-1689058018953.png") no-repeat center center / contain;
+        }
+      }
+
+      .datetime {
+        font-size: 13px;
+        line-height: 17px;
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.4);
+
+        .text {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://admin.alialumni.com/mfs/n4aHBYikakkddHnJjv6YbPbjDrVmkmfy-1689058413409.png") no-repeat center center ~"/" contain;
+          margin-right: 6px;
+        }
+      }
+
+      .address {
+        margin-top: 6px;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 13px;
+        line-height: 17px;
+        display: flex;
+        align-items: center;
+
+        .text {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background: url("https://admin.alialumni.com/mfs/t8R9immOvwPdOho3jqOZbzLhIPQdfzr2-1689058450485.png") no-repeat center center ~"/" contain;
+          margin-right: 6px;
+        }
+      }
+    }
+  }
+}

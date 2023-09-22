@@ -1,19 +1,18 @@
 {
   "title": "图片",
-  "namespace": "mybricks.normal-h5.image",
-  "author": "mybricks",
-  "author_name": "mybricks-team",
+  "namespace": "mybricks.taro.image",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
   "icon": "./icon.svg",
-  "preview": "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
-  "version": "1.0.25",
+  "version": "1.0.0",
   "description": "图片",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
   "inputs": [
     {
-      "id": "image",
-      "title": "图片链接",
+      "id": "setSrc",
+      "title": "修改图片链接",
       "schema": {
         "type": "string"
       }
@@ -21,25 +20,25 @@
   ],
   "outputs": [
     {
-      "id": "click",
-      "title": "点击",
+      "id": "onClick",
+      "title": "单击",
       "schema": {
-        "type": "boolean"
+        "type": "string"
       }
     },
     {
-      "id": "change",
-      "title": "链接发生变化"
-    }
-  ],
-  "configs": [
-    {
-      "id": "imagesrc",
-      "title": "图片链接",
+      "id": "onLoad",
+      "title": "加载完毕",
       "schema": {
         "type": "string"
-      },
-      "binding": "data.src"
+      }
+    },
+    {
+      "id": "onError",
+      "title": "加载失败",
+      "schema": {
+        "type": "string"
+      }
     }
   ]
 }

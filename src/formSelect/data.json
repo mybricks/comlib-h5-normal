@@ -1,0 +1,20 @@
+{
+  "label": "下拉选择",
+  "name": "下拉选择",
+  "placeholder": "点击选择",
+  "value": "",
+  "options": [
+    {
+      "label": "公开",
+      "value": "公开"
+    },
+    {
+      "label": "仅好友可见",
+      "value": "仅好友可见"
+    },
+    {
+      "label": "保密",
+      "value": "保密"
+    }
+  ]
+}

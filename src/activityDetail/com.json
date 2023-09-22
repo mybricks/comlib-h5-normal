@@ -1,0 +1,31 @@
+{
+  "title": "活动详情",
+  "namespace": "mybricks.taro.activityDetail",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.4",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/aadfadf.950522ffe02b4741.svg",
+  "inputs": [
+    {
+      "id": "value",
+      "title": "活动内容"
+    },
+    {
+      "id": "status",
+      "title": "报名状态"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSignup",
+      "title": "报名"
+    },
+    {
+      "id": "onCancelSignup",
+      "title": "取消报名"
+    }
+  ]
+}

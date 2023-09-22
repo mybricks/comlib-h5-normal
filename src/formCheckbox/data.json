@@ -1,0 +1,24 @@
+{
+  "label": "多选",
+  "hideLabel": false,
+  "name": "多选",
+  "direction": "vertical",
+  "value": [],
+  "options": [
+    {
+      "label": "邮箱",
+      "value": "邮箱",
+      "icon": ""
+    },
+    {
+      "label": "手机",
+      "value": "手机",
+      "icon": ""
+    },
+    {
+      "label": "微信",
+      "value": "微信",
+      "icon": ""
+    }
+  ]
+}

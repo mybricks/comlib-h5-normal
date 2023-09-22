@@ -1,0 +1,36 @@
+{
+  "title": "测试",
+  "namespace": "mybricks.normal-h5.test",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "inputs": [
+    {
+      "id": "value",
+      "title": "修改内容",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onLongPress",
+      "title": "长按",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ]
+}

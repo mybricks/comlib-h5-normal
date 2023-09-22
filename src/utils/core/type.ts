@@ -1,7 +1,7 @@
-type IsType = (value: any) => boolean;
+type IsType = (value: any) => boolean
 
 function isType(type: string): IsType {
-  return (value) => Object.prototype.toString.call(value) === `[object ${type}]`;
+    return value => Object.prototype.toString.call(value) === `[object ${type}]`
 }
 
 /**
@@ -10,7 +10,7 @@ function isType(type: string): IsType {
  * @returns true/false，undefined、null返回true
  */
 export function isUndef(value: unknown): value is undefined | null {
-  return value === undefined || value === null;
+    return value === undefined || value === null
 }
 
 /**
@@ -18,7 +18,7 @@ export function isUndef(value: unknown): value is undefined | null {
  * @param value 入参
  */
 export function isEmpty(value: unknown): value is undefined | null | '' {
-  return value === undefined || value === null || value === '';
+    return value === undefined || value === null || value === ''
 }
 
 /**
@@ -26,7 +26,7 @@ export function isEmpty(value: unknown): value is undefined | null | '' {
  * @param value 入参
  */
 export function isNumber(value: unknown): value is number {
-  return isType('Number')(value);
+    return isType('Number')(value)
 }
 
 /**
@@ -34,7 +34,7 @@ export function isNumber(value: unknown): value is number {
  * @param value 入参
  */
 export function isString(value: unknown): value is string {
-  return isType('String')(value);
+    return isType('String')(value)
 }
 
 /**
@@ -42,7 +42,7 @@ export function isString(value: unknown): value is string {
  * @param value 入参
  */
 export function isError(value: unknown): value is Error {
-  return isType('Error')(value);
+    return isType('Error')(value)
 }
 
 /**
@@ -50,7 +50,7 @@ export function isError(value: unknown): value is Error {
  * @param value 入参
  */
 export function isArray(value: unknown): value is unknown[] {
-  return isType('Array')(value);
+    return isType('Array')(value)
 }
 
 /**
@@ -58,7 +58,7 @@ export function isArray(value: unknown): value is unknown[] {
  * @param value 入参
  */
 export function isFunction(value: unknown): value is Function {
-  return typeof value === 'function';
+    return typeof value === 'function'
 }
 
 /**
@@ -66,7 +66,7 @@ export function isFunction(value: unknown): value is Function {
  * @param value 入参
  */
 export function isDate(value: unknown): value is Date {
-  return isType('Date')(value);
+    return isType('Date')(value)
 }
 
 /**
@@ -74,7 +74,7 @@ export function isDate(value: unknown): value is Date {
  * @param value 入参
  */
 export function isBoolean(value: unknown): value is boolean {
-  return isType('Boolean')(value);
+    return isType('Boolean')(value)
 }
 
 /**
@@ -82,7 +82,7 @@ export function isBoolean(value: unknown): value is boolean {
  * @param value 入参
  */
 export function isObject(value: unknown): value is Object {
-  return isType('Object')(value);
+    return isType('Object')(value)
 }
 
 /**
@@ -90,7 +90,7 @@ export function isObject(value: unknown): value is Object {
  * @param value 入参
  */
 export function isWideObject(value: unknown): boolean {
-  return value !== null && typeof value === 'object';
+    return value !== null && typeof value === 'object'
 }
 
 /**
@@ -98,7 +98,7 @@ export function isWideObject(value: unknown): boolean {
  * @param value - 入参
  */
 export function isFormData(value: unknown): value is FormData {
-  return typeof FormData !== 'undefined' && value instanceof FormData;
+    return typeof FormData !== 'undefined' && value instanceof FormData
 }
 
 /**
@@ -106,5 +106,8 @@ export function isFormData(value: unknown): value is FormData {
  * @param value - 入参
  */
 export function isURLSearchParams(value: unknown): value is URLSearchParams {
-  return typeof URLSearchParams !== 'undefined' && value instanceof URLSearchParams;
+    return (
+        typeof URLSearchParams !== 'undefined' &&
+        value instanceof URLSearchParams
+    )
 }

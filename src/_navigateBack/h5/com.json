@@ -1,0 +1,27 @@
+{
+  "title": "页面返回",
+  "namespace": "mybricks.normal-h5._navigateBack",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "页面返回",
+  "icon": "./../icon.svg",
+  "data": "./../data.json",
+  "editors": "./../editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "navigateBack",
+      "title": "返回",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "delta": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ]
+}

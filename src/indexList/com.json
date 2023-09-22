@@ -1,0 +1,78 @@
+{
+  "title": "索引栏",
+  "namespace": "mybricks.taro.indexList",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime.edit": "./runtime.edit.tsx",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setDataSource",
+      "title": "设置内容",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "anchor": {
+              "type": "string"
+            },
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "单击",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "item",
+      "capacity": 1,
+      "title": "索引项",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项",
+          "desc": "当前项展示内容",
+          "schema": {
+            "type": "any"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "desc": "当前项展示的序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

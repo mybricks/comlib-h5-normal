@@ -1,0 +1,14 @@
+{
+  "title": "九宫格抽奖",
+  "namespace": "mybricks.vue.nine-block",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "九宫格抽奖组件",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [],
+  "outputs": []
+}

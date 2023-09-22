@@ -1,34 +1,69 @@
-import React, { useEffect, useMemo } from 'react';
-import css from './runtime.less';
-import cx from 'classnames';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { View, Text } from "@tarojs/components";
+import { transformStyle } from "./../utils/transformStyle";
+import cx from "classnames";
+import css from "./style.less";
 
 export default function ({ env, data, inputs, outputs }) {
-  useEffect(() => {
-    inputs.update?.((val: string) => {
+  /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
+  useMemo(() => {
+    inputs["value"]((val) => {
       data.text = val;
     });
-  }, []);
+  }, [])
 
-  useEffect(() => {
-    outputs?.change?.(data.text);
-  }, [data.text]);
+  const textCx = useMemo(() => {
+    return cx({
+      [css.text]: true,
+      ["mybricks-text"]: true,
+      [css["ellipsis-line"]]: !!data.ellipsis,
+    });
+  }, [data.ellipsis]);
 
-  const textCx = cx({
-    [css.text]: true,
-    [css['ellipsis-line']]: !!data.ellipsis,
-    'mybricks-text': true,
-  });
+  const style = useMemo(() => {
+    if (data.ellipsis) {
+      return { WebkitLineClamp: data.maxLines };
+    } else {
+      return {};
+    }
+  }, [data.ellipsis, data.maxLines]);
 
-  const onClick = () => {
+  const maxLines = useMemo(() => {
+    if (data.ellipsis) {
+      return { maxLines: data.maxLines };
+    } else {
+      return {}
+    }
+  }, [data.ellipsis, data.maxLines]);
+
+  const onClick = useCallback(() => {
     if (!env.runtime) {
       return;
     }
-    outputs?.click?.(data.text);
-  };
+    console.warn("onClick");
+    outputs["onClick"](data.text);
+  }, []);
+
+  const onLongPress = useCallback(() => {
+    if (!env.runtime) {
+      return;
+    }
+    console.warn("onLongPress");
+    outputs["onLongPress"](data.text);
+  }, []);
+
+  const text = useMemo(() => {
+    let text = data.text ?? "";
+
+    if (typeof text === "object") {
+      return JSON.stringify(text);
+    }
+    return text;
+  }, [data.text]);
 
   return (
-    <p className={textCx} onClick={onClick}>
-      {data.text}
-    </p>
+    <View className={textCx} style={style} onClick={onClick} onLongPress={onLongPress}>
+      {text}
+    </View>
   );
 }

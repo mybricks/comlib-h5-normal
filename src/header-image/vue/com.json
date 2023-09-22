@@ -1,0 +1,12 @@
+{
+    "title": "头图",
+    "namespace": "mybricks.normal-vue.header-image",
+    "author": "mybricks",
+    "author_name": "板砖团队",
+    "version": "1.0.0",
+    "description": "头图组件",
+    "runtime": "./runtime.vue",
+    "data": "./../data.json",
+    "icon": "./../icon.svg",
+    "editors": "./../editors.tsx"
+}

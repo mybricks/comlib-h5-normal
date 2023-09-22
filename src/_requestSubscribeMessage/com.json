@@ -1,0 +1,29 @@
+{
+  "title": "订阅消息",
+  "namespace": "mybricks.taro._requestSubscribeMessage",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "订阅消息",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "requestSubscribeMessage",
+      "title": "订阅"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "同意订阅"
+    },
+    {
+      "id": "onFail",
+      "title": "拒绝订阅"
+    }
+  ]
+}

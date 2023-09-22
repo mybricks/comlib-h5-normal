@@ -1,0 +1,15 @@
+{
+  "autoplay": true,
+  "circular": false,
+  "showIndicator": true,
+  "items": [
+    {
+      "_id": "cont_1",
+      "title": "轮播项1"
+    },
+    {
+      "_id": "cont_2",
+      "title": "轮播项2"
+    }
+  ]
+}

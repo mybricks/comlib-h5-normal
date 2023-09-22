@@ -1,12 +1,18 @@
 {
-  "asMapArea": false,
+  "variant": "text",
+  "color": "primary",
+  "size": "",
+  "shape": "",
+  "block": true,
+  "loading": false,
+  "icon": "",
+  "disabled": false,
+  "hairline": true,
   "style": {
-    "borderColor": "#AAA",
-    "borderWidth": "1px",
-    "borderStyle": "solid",
-    "borderRadius": "10px",
-    "backgroundColor": "#FFF"
+    "background": "#ea732e",
+    "color": "#ffffff",
+    "border-radius": "0px",
+    "border-width": "0px"
   },
-  "text": "按钮",
-  "evtType": "JUMP"
+  "text": "按钮"
 }

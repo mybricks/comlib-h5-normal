@@ -1,0 +1,23 @@
+{
+  "title": "系统登录",
+  "namespace": "mybricks.taro.systemLogin",
+  "author": "mybricks-team",
+  "author_name": "系统登录",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "登录成功"
+    },
+    {
+      "id": "onFail",
+      "title": "登录失败"
+    }
+  ],
+  "slots": []
+}

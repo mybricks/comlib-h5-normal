@@ -1,0 +1,43 @@
+{
+  "title": "弹出层",
+  "namespace": "mybricks.normal-h5.popup",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "icon": "./../icon.svg",
+  "inputs": [
+    {
+      "id": "onShow",
+      "title": "打开弹层",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onHide",
+      "title": "关闭弹层",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClose",
+      "title": "关闭"
+    },
+    {
+      "id": "onClickOverlay",
+      "title": "点击遮罩时"
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "轮播容器",
+  "namespace": "mybricks.taro.containerSwiper",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+   
+  ],
+  "slots": [
+    {
+      "id": "cont_1",
+      "title": "轮播项1"
+    },
+    {
+      "id": "cont_2",
+      "title": "轮播项2"
+    }
+  ]
+}

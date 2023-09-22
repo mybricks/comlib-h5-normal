@@ -1,0 +1,35 @@
+{
+  "title": "组织详情",
+  "namespace": "mybricks.taro.groupDetail",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/aadfadf.950522ffe02b4741.svg",
+  "inputs": [
+    {
+      "id": "setDataSource",
+      "title": "设置内容"
+    },
+    {
+      "id": "status",
+      "title": "申请状态"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onCopy",
+      "title": "点击复制"
+    },
+    {
+      "id": "onApplyGroup",
+      "title": "加入组织"
+    },
+    {
+      "id": "onQuitGroup",
+      "title": "退出组织"
+    }
+  ]
+}

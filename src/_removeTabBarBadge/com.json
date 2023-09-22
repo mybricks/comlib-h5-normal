@@ -1,0 +1,38 @@
+{
+  "title": "删除底导红点",
+  "namespace": "mybricks.taro._removeTabBarBadge",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "删除底导红点",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "delete",
+      "title": "删除",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "success",
+      "title": "成功",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "fail",
+      "title": "成功",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

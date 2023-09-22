@@ -1,0 +1,30 @@
+{
+  "title": "隐藏 Loading",
+  "namespace": "mybricks.taro._hideLoading",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "隐藏 Loading",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "hideLoading",
+      "title": "隐藏",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "afterHideLoading",
+      "title": "隐藏后",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

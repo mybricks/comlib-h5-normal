@@ -1,0 +1,32 @@
+{
+  "visibility": false,
+  "title": "Toast",
+  "namespace": "mybricks.taro._toast",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "description": "toast",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "onTrigger",
+      "title": "触发",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onComplete",
+      "title": "完成",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

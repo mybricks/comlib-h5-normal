@@ -1,0 +1,38 @@
+{
+  "title": "设置底导红点",
+  "namespace": "mybricks.taro._setTabbarBadge",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "设置Tabbar红点",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "show",
+      "title": "设置",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "success",
+      "title": "成功",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "fail",
+      "title": "成功",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

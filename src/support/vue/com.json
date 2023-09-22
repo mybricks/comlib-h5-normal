@@ -1,0 +1,12 @@
+{
+  "title": "技术支持",
+  "namespace": "mybricks.normal-vue.support",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "https://my.mybricks.world/icon.png",
+  "version": "1.0.0",
+  "description": "Mybricks 技术支持",
+  "runtime": "./runtime.vue",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx"
+}

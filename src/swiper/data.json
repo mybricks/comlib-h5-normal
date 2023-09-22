@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "_id": "u_1",
+      "thumbnail": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+      "useCustomLink": false,
+      "customLink": "",
+      "scene": {}
+    },
+    {
+      "_id": "u_2",
+      "thumbnail": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+      "useCustomLink": false,
+      "customLink": "",
+      "scene": {}
+    }
+  ],
+  "autoplay": true,
+  "duration": 500,
+  "slideIndex": 0,
+  "showIndicator": true,
+  "circular": true
+}

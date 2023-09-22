@@ -1,0 +1,81 @@
+{
+  "title": "获取收货地址",
+  "namespace": "mybricks.taro._chooseAddress",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "获取收货地址",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "chooseAddress",
+      "title": "获取用户收货地址",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "获取成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "provinceName": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "countyName": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string"
+          },
+          "detailInfo": {
+            "type": "string"
+          },
+          "detailInfoNew": {
+            "type": "string"
+          },
+          "nationalCode": {
+            "type": "string"
+          },
+          "nationalCodeFull": {
+            "type": "string"
+          },
+          "telNumber": {
+            "type": "string"
+          },
+          "errMsg": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "获取失败",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errMsg": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

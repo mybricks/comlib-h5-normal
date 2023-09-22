@@ -1,0 +1,21 @@
+{
+  "skus": [
+    {
+      "id": "xxxx",
+      "skuId": "xxx",
+      "properties": [
+        {
+          "label": "颜色",
+          "value": "hongse",
+          "thumbnail": "https://www.baidu.com"
+        },
+        {
+          "label": "容量",
+          "value": "hongse",
+          "thumbnail": "https://www.baidu.com"
+        }
+      ],
+      "hold": 99
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "title": "滚动容器",
+  "namespace": "mybricks.taro.containerScroll",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "滚动容器",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ],
+  "inputs": [
+  ],
+  "outputs": [
+  ]
+}

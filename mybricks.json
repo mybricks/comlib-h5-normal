@@ -1,36 +1,121 @@
 {
-  "content": "",
-  "commitInfo": "初始化",
-  "componentType": "KH5",
+  "componentType": "MP",
+  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
-    "./src/_code-segment/com.json",
-    "./src/_pick/com.json",
+    "./src/_connector/com.json",
+    "./src/_muilt-inputJs/com.json",
+    "./src/_getCurrentInstance/com.json",
+    "./src/_timer-delay/com.json",
+    "./src/_getOpenid/com.json",
+    "./src/_getRouter/com.json",
+    "./src/_generateScheme/com.json",
+    "./src/_logout/com.json",
+    "./src/_getUserInfo/com.json",
+    "./src/_goto/com.json",
+    "./src/_navigateBack/com.json",
+    "./src/_setClipboardData/com.json",
+    "./src/_showActionSheet/com.json",
+    "./src/_toast/com.json",
+    "./src/_showToast/com.json",
+    "./src/_hideToast/com.json",
+    "./src/_showLoading/com.json",
+    "./src/_hideLoading/com.json",
+    "./src/_modal/com.json",
+    "./src/_scan-qrcode/com.json",
+    "./src/_navigateToMiniProgram/com.json",
+    "./src/_call-phone/com.json",
+    "./src/_get-location/com.json",
+    "./src/_chooseLocation/com.json",
+    "./src/_getAddress/com.json",
+    "./src/_get-drive-path/com.json",
+    "./src/_chooseAddress/com.json",
+    "./src/_previewImage/com.json",
+    "./src/_requestSubscribeMessage/com.json",
+    "./src/_setStorage/com.json",
+    "./src/_getStorage/com.json",
+    "./src/_setTabbarBadge/com.json",
+    "./src/_removeTabBarBadge/com.json",
+    "./src/_subscribeMessage/com.json",
+    "./src/_poster/com.json",
     {
-      "title": "常规",
-      "comAry": [
-        "./src/button/com.json",
-        "./src/image/com.json",
-        "./src/header-image/com.json",
-        "./src/text/com.json",
-        "./src/grid/com.json",
-        "./src/container-condition/com.json",
-        "./src/carousel/com.json"
-      ]
-    },
-    {
-      "title": "商品",
-      "comAry": [
-        "./src/item-list/com.json"
-      ]
-    },
-    {
-      "title":"商品卡片",
+      "title": "系统",
       "visible": false,
       "comAry": [
-        "./src/good-cards/s0/com.json"
+        "./src/system/systemTabbar/com.json",
+        "./src/system/systemPage/com.json",
+        "./src/system/systemWebview/com.json",
+        "./src/system/systemLogin/com.json"
+      ]
+    },
+    {
+      "title": "基础",
+      "comAry": [
+        "./src/image/com.json",
+        "./src/video/com.json",
+        "./src/button/com.json",
+        "./src/text/com.json",
+        "./src/typography/com.json",
+        "./src/richText/com.json",
+        "./src/swiper/com.json"
+      ]
+    },
+    {
+      "title": "容器",
+      "comAry": [
+        "./src/containerGrid/com.json",
+        "./src/containerGrid2/com.json",
+        "./src/containerList/com.json",
+        "./src/containerListHorizontal/com.json",
+        "./src/containerCondition/com.json",
+        "./src/tabs/com.json",
+        "./src/sidebar/com.json",
+        "./src/popup/com.json",
+        "./src/containerSwiper/com.json",
+        "./src/collapse/com.json"
+      ]
+    },
+    {
+      "title": "数据录入",
+      "comAry": [
+        "./src/formContainer/com.json",
+        "./src/formInput/com.json",
+        "./src/formStepper/com.json",
+        "./src/formTextarea/com.json",
+        "./src/formPassword/com.json",
+        "./src/formRadio/com.json",
+        "./src/formCheckbox/com.json",
+        "./src/formSwitch/com.json",
+        "./src/formRate/com.json",
+        "./src/formSelect/com.json",
+        "./src/formDatetime/com.json",
+        "./src/formLocation/com.json",
+        "./src/formImageUploader/com.json",
+        "./src/searchBar/com.json"
+      ]
+    },
+    {
+      "title": "其它",
+      "comAry": [
+        "./src/cell/com.json",
+        "./src/indexList/com.json",
+        "./src/safeArea/com.json",
+        "./src/map/com.json",
+        "./src/noticeBar/com.json",
+        "./src/anchor/com.json",
+        "./src/mygpt/com.json",
+        "./src/support/com.json"
+      ]
+    },
+    {
+      "title": "校友录",
+      "comAry": [
+        "./src/activityCard/com.json",
+        "./src/activityDetail/com.json",
+        "./src/groupCard/com.json",
+        "./src/groupDetail/com.json"
       ]
     }
   ],
-  "folderId": 45233,
-  "folderIdStaging": 2931
+  "fileId": 37166,
+  "folderId": 37171
 }

@@ -1,0 +1,28 @@
+{
+  "title": "图标",
+  "namespace": "mybricks.taro.icon",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "按钮",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "setBadgeContent",
+      "title": "设置徽标内容",
+      "description": "徽标内容",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "点击时"
+    }
+  ]
+}

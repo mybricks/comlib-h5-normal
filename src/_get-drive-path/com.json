@@ -1,0 +1,111 @@
+{
+  "title": "路线规划",
+  "namespace": "mybricks.taro.mapservice.drive",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "扫码",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "getWithPos",
+      "title": "根据经纬度",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "title": "起点",
+            "type": "object",
+            "properties": {
+              "longitude": {
+                "title": "经度",
+                "type": "string"
+              },
+              "latitude": {
+                "title": "纬度",
+                "type": "string"
+              }
+            }
+          },
+          "to": {
+            "title": "终点",
+            "type": "object",
+            "properties": {
+              "longitude": {
+                "title": "经度",
+                "type": "string"
+              },
+              "latitude": {
+                "title": "纬度",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "成功",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "title": "坐标点列表",
+              "type": "object",
+              "properties": {
+                "longitude": {
+                  "title": "经度",
+                  "type": "string"
+                },
+                "latitude": {
+                  "title": "纬度",
+                  "type": "string"
+                }
+              }
+            },
+            "color": {
+              "title": "线的颜色",
+              "type": "string"
+            },
+            "width": {
+              "title": "线宽",
+              "type": "number"
+            },
+            "dottedLine": {
+              "title": "是否虚线",
+              "type": "boolean"
+            },
+            "arrowLine": {
+              "title": "带箭头的线",
+              "type": "boolean"
+            },
+            "borderColor": {
+              "title": "边框颜色",
+              "type": "string"
+            },
+            "borderWidth": {
+              "title": "边框宽度",
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "title": "获取用户定位",
+  "namespace": "mybricks.taro._get-location",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "扫码",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "get",
+      "title": "获取"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "title": "经度",
+            "type": "string"
+          },
+          "latitude": {
+            "title": "纬度",
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

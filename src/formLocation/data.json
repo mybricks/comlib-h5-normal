@@ -1,0 +1,7 @@
+{
+  "label": "省市区选择",
+  "name": "省市区选择",
+  "type": "select",
+  "value": "",
+  "placeholder": "点击选择地址"
+}

@@ -1,0 +1,66 @@
+{
+  "title": "视频",
+  "namespace": "mybricks.taro.video",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "preview": "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+  "version": "1.0.0",
+  "description": "视频",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "setSrc",
+      "title": "修改视频资源地址",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onPlay",
+      "title": "当开始/继续播放时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onPause",
+      "title": "当暂停播放时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onEnded",
+      "title": "当播放到末尾时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onTimeUpdate",
+      "title": "当播放进度改变时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onWaiting",
+      "title": "当视频出现缓冲时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onError",
+      "title": "当视频出错时",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

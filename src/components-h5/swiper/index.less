@@ -1,0 +1,32 @@
+.wrapper {
+  position: relative !important;
+  width: 100%;
+  overflow: hidden;
+  // height: 100%;
+
+  :global {
+    .indicators {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 999;
+
+      .indicator {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+
+        margin: 0 3px;
+
+        background-color: rgb(235, 237, 240);
+
+        &.indicator-active {
+          background-color: rgb(25, 137, 250);
+        }
+      }
+    }
+  }
+}

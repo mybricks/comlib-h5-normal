@@ -1,0 +1,31 @@
+{
+  "title": "轮播",
+  "namespace": "mybricks.normal-h5.swiper",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.6",
+  "runtime": "./runtime.tsx",
+  "data": "./../data.json",
+  "editors": "./../editors.tsx",
+  "icon": "./../icon.svg",
+  "inputs": [
+    {
+      "id": "setItems",
+      "title": "设置轮播内容",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "thumbnail": {
+              "type": "string"
+            },
+            "customLink": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

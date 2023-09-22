@@ -4,5 +4,5 @@
  * @returns 数组
  */
 export function toArray(value: unknown) {
-  return Array.prototype.slice.call(value);
+    return Array.prototype.slice.call(value)
 }

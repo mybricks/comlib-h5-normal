@@ -1,0 +1,8 @@
+{
+  "namespace": "mybricks.normal-h5-comlib",
+  "componentType": "KH5",
+  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
+  "comAry": [
+    "./src/test/h5/com.json"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "title": "地图",
+  "namespace": "mybricks.taro.map",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime.edit": "./edit/runtime.tsx",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setPos",
+      "title": "设置地图中心点",
+      "description": "通过经纬度设置地图中心点",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "title": "经度",
+            "type": "string"
+          },
+          "latitude": {
+            "title": "纬度",
+            "type": "string"
+          }
+        }
+      },
+      "rels": ["onSetPosOk"]
+    },
+    {
+      "id": "draw",
+      "title": "绘制图形",
+      "description": "清空已有的图形，绘制新的图形",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "addDraw",
+      "title": "添加图形",
+      "description": "保留已有的图形，添加新的图形",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "includePoints",
+      "title": "根据点位缩放视野",
+      "description": "根据所有点位坐标缩放视野",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "points": {
+            "title": "坐标点列表",
+            "type": "object",
+            "properties": {
+              "longitude": {
+                "title": "经度",
+                "type": "string"
+              },
+              "latitude": {
+                "title": "纬度",
+                "type": "string"
+              }
+            }
+          },
+          "padding": {
+            "title": "纬度",
+            "type": "array"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSetPosOk",
+      "title": "设置中心点成功",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "内容"
+    }
+  ]
+}
