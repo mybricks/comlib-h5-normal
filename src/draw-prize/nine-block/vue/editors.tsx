@@ -48,6 +48,19 @@ export default {
               },
             },
           },
+          {},
+          {
+            title: "动作",
+            items: [
+              {
+                title: "抽奖成功后",
+                type: "_event",
+                options: {
+                  outputId: "priceResult",
+                },
+              },
+            ],
+          },
         ],
       },
     ];
