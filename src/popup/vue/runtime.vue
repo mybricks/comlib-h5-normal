@@ -11,6 +11,7 @@
 
 <script>
 import { ref, computed, watchEffect } from "vue";
+import { isEdit, isDesigner } from "../../utils/env";
 import css from "./../style.less";
 
 export default {
@@ -42,7 +43,8 @@ export default {
 
         const popupCx = computed(() => ({
             [css.popup]: true,
-            [css.show]: show.value,
+            // [css.show]: show.value,
+            [css.show]: true
         }));
 
         const mainCx = computed(() => ({
@@ -62,7 +64,7 @@ export default {
 
         const contentClasses = computed(() => ({
             [css.content]: true,
-            [css.empty]: !props.slots["content"],
+            // [css.empty]: !props.slots["content"],
             "mybricks-content": true,
         }));
 

@@ -1,6 +1,6 @@
 <template>
-    <div :class="css.layout" :style="data.style" @click="onClickLayout">
-        <div v-for="child in renderSlot(data.tree, null)" :key="child.id">
+    <div class="layout" :style="data.style" @click="onClickLayout">
+        <div v-for="child in renderSlot(data.tree, null)" :key="child.id" :class="child.cssClass">
             <!-- Content will be rendered using render functions -->
         </div>
     </div>
@@ -8,7 +8,6 @@
 
 <script>
 import cx from 'classnames';
-import css from './../style.less';
 
 export default {
     props: ['id', 'data', 'outputs', 'slots'],
@@ -33,14 +32,14 @@ export default {
                 // ... (rest of the code as in React, but converted to Vue syntax)
                 return {
                     ...node,
-                    cssClass: css.node,
+                    cssClass: 'node',
                     style: { ...node.style, ...leafSize }
                 };
             }
 
             const nodeCx = cx({
-                [css.row]: node.direction === 'row',
-                [css.col]: node.direction === 'col',
+                ['row']: node.direction === 'row',
+                ['col']: node.direction === 'col',
             });
 
             // ... (rest of the code as in React, but converted to Vue syntax)
@@ -61,6 +60,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 @import './../style.less';
 </style>

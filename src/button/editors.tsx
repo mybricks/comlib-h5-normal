@@ -15,17 +15,6 @@ export default {
         title: "按钮",
         options: ["font", "border", "background", "padding"],
         target: ".mybricks-button",
-        initValue: {
-          color: "white",
-          fontWeight: "bold",
-          backgroundColor: "#FA6400",
-          textAlign: "center",
-          fontSize: "15px",
-          borderRadius: "5px",
-          height: "35px",
-          display: "flex",
-          lineHeight: "35px",
-        },
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

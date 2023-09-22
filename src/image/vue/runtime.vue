@@ -7,7 +7,7 @@
 <script>
 
 export default {
-    props: ["env", "data", "inputs", "outputs", "title", "style"],
+    props: ["env", "data", "inputs", "outputs", "title", "propsStyle"],
     setup(props) {
         const onLoad = () => {
             if (!props.env.runtime) {
