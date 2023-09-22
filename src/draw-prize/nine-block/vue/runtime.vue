@@ -65,7 +65,7 @@ export default {
                 }
                 if (stepsAfterWinning >= additionalSteps) {
                     clearInterval(this.timer);
-                    alert(`你赢得了${currentPrize.name}！`);
+                    // alert(`你赢得了${currentPrize.name}！`);
                     let result = {
                         prizeId: currentPrize.id,
                         prizeName: currentPrize.name,
