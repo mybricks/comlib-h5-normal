@@ -11,6 +11,7 @@
 
 <script>
 import { ref, computed, watchEffect } from "vue";
+import { isEdit, isDesigner } from "../../utils/env";
 import css from "./../style.less";
 
 export default {
