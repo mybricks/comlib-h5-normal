@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-if="status === 'LOADING'">Loading...</div>
-        <div v-if="status === 'ERROR'">Error</div>
+        <div v-if="status === 'LOADING'" class="loading">加载中…</div>
+        <div v-if="status === 'ERROR'" class="loading">组件出错</div>
         <div v-if="status === 'SUCCESS'" class="outer_box">
             <div class="title">{{ data.title }}</div>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;" class="inner_box">
@@ -59,8 +59,6 @@ export default {
             let stepsAfterWinning = 0;
             this.timer = setInterval(() => {
                 this.activeIndex = this.clockwiseOrder[this.counter % 8];
-                // this.activeIndex = this.clockwiseOrder[(this.counter + 1) % 8]
-                // console.log("activeIndex", this.activeIndex, "当前激活礼物id", this.prizeList[this.activeIndex].id)
                 const currentPrize = this.prizeList[this.activeIndex];
                 if (currentPrize.id === targetPrizeId.id) {
                     stepsAfterWinning++;
@@ -118,6 +116,16 @@ export default {
 </script>
 
 <style scoped>
+.loading{
+    background-color: rgb(250, 84, 28);
+    width: 100%;
+    height: 400px;
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
 .inner_box {
     background-color: #d9221f;
     width: 95%;
