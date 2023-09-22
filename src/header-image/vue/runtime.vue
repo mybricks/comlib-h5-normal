@@ -9,7 +9,7 @@
 import { ref, computed, onMounted } from 'vue';
 import css from './../style.less';
 
-const { env, data, inputs, style, outputs } = defineProps(['env', 'data', 'inputs', 'style', 'outputs']);
+const { env, data, inputs, propsStyle, outputs } = defineProps(['env', 'data', 'inputs', 'propsStyle', 'outputs']);
 
 const imageRef = ref(null);
 
