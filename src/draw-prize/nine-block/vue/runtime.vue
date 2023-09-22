@@ -66,7 +66,7 @@ export default {
                 if (stepsAfterWinning >= additionalSteps) {
                     console.log("抽中时候的activeIndex", this.activeIndex)
                     clearInterval(this.timer);
-                    alert(`你赢得了${currentPrize.name}！`);
+                    // alert(`你赢得了${currentPrize.name}！`);
                     console.log(this.outputs)
                     let result = {
                         prizeId: currentPrize.id,
