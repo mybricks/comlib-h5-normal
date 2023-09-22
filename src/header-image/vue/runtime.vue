@@ -1,6 +1,6 @@
 <template>
     <div :class="wrapperClass">
-        <img :src="imageUrl" @load="onLoad" ref="imageRef" :class="bgClass" />
+        <img :src="data.src" @load="onLoad" ref="imageRef" :class="bgClass" />
         <img :src="data.leftImg" :class="[leftBlockClass, iconClass]" :style="{ top: '50px' }" @click="onBack" />
     </div>
 </template>
@@ -13,7 +13,6 @@ const { env, data, inputs, propsStyle, outputs } = defineProps(['env', 'data', '
 
 const imageRef = ref(null);
 
-const imageUrl = computed(() => data.src);
 
 const onLoad = () => {
     const naturalWidth = imageRef.value?.naturalWidth;
