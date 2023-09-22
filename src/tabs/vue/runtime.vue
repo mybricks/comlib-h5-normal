@@ -2,8 +2,8 @@
     <div v-if="emptyView" :class="css.empty">暂无内容，请配置标签项</div>
     <Tabs v-else :value="currentTabId" :items="data.tabs" @change="setCurrentTabId">
         <template v-for="tab in data.tabs">
-            <div v-if="currentTabId === tab._id">
-                <div v-if="!data.hideContent">
+            <div v-show="currentTabId === tab._id">
+                <div v-show="!data.hideContent">
                     <slot :name="tab._id"></slot>
                 </div>
             </div>
@@ -56,7 +56,7 @@ const setCurrentTabId = (newTabId) => {
 };
 
 onMounted(() => {
-
+    console.log("mounted id",data.edit.currentTabId)
     inputs['tabList']?.((ds) => {
         if (Array.isArray(ds)) {
             data.tabs = ds;
@@ -70,15 +70,14 @@ onMounted(() => {
     });
 });
 
-watch(() => [env.edit, data.edit.currentTabId], () => {
-    if (env.edit && data.edit.currentTabId) {
-        currentTabId.value = data.edit.currentTabId;
-    }
-});
+// watch(() => [env.edit, data.edit.currentTabId], () => {
+//     if (env.edit && data.edit.currentTabId) {
+//         currentTabId.value = data.edit.currentTabId;
+//     }
+// });
 
 
 const emptyView = computed(() => env.edit && data.tabs.length === 0);
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
