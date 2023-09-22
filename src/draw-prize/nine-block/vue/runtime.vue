@@ -64,16 +64,13 @@ export default {
                     stepsAfterWinning++;
                 }
                 if (stepsAfterWinning >= additionalSteps) {
-                    console.log("抽中时候的activeIndex", this.activeIndex)
                     clearInterval(this.timer);
                     alert(`你赢得了${currentPrize.name}！`);
-                    console.log(this.outputs)
                     let result = {
                         prizeId: currentPrize.id,
                         prizeName: currentPrize.name,
                         prizeImg: currentPrize.awardOpenedImg
                     }
-                    console.log(result)
                     this.outputs["priceResult"](result)
                     this.timer = null
                     this.activeIndex = null;
@@ -82,7 +79,6 @@ export default {
             }, this.speed);
         },
         async handleDraw() {
-            console.log("this.timer", this.timer)
             if (this.timer) return;
             const targetPrizeId = await this.fetchPrizeFromBackend();
             this.startTimer(targetPrizeId);
