@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 .loading{
-    background-color: rgb(250, 84, 28);
+    background-color: #EACCCC;
     width: 100%;
     height: 400px;
     font-size: 23px;
@@ -136,17 +136,23 @@ export default {
 }
 
 .outer_box {
-    background-color: rgb(250, 84, 28);
+    background-color: #EACCCC;
     padding-bottom: 10px;
 }
 
 .title {
+    margin: 0 auto;
     font-weight: bold;
     color: white;
-    font-size: 20px;
+    width: 70%;
+    background-color: #D05D58;
+    font-size: 15px;
     text-align: center;
-    padding-top: 9px;
-    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    margin-bottom: 13px;
+    border-radius: 50px;
+    font-weight: bold;
 }
 
 .active {

@@ -15,7 +15,6 @@
                 "./src/button/vue/com.json",
                 "./src/image/vue/com.json",
                 "./src/text/vue/com.json",
-                "./src/tabs/vue/com.json",
                 "./src/richText/vue/com.json"
             ]
         },
@@ -23,7 +22,15 @@
             "title": "容器",
             "comAry": [
                 "./src/popup/vue/com.json",
-                "./src/containerCondition/vue/com.json"
+                "./src/containerCondition/vue/com.json",
+                "./src/tabs/vue/com.json"
+            ]
+        },
+        {
+            "title": "招联",
+            "comAry": [
+                "./src/CMB/coupon-card/com.json",
+                "./src/CMB/item-card/com.json"
             ]
         },
         {
@@ -35,7 +42,7 @@
             ]
         },
         {
-            "title":"营销活动",
+            "title": "营销活动",
             "comAry": [
                 "./src/draw-prize/nine-block/vue/com.json"
             ]
