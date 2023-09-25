@@ -1,0 +1,60 @@
+.shopList {
+    display: flex;
+    flex-wrap: wrap;
+    /* 允许子元素换行 */
+    justify-content: flex-start;
+    gap: 5px;
+    margin: 0 5px;
+
+
+    .shopItem {
+        flex: 0 0 calc(52% - 10px);
+        /* 固定宽度为25%，减去间距 */
+        background-color: #fff;
+        border-radius: 5px;
+        margin-right: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        .shopImage {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .shopTitle {
+            margin: 0 auto;
+            font-size: 14px;
+            margin-bottom: 6px;
+            width: 90%;
+        }
+
+        .shopPrice {
+            margin: 0 auto;
+            font-size: 15px;
+            color: #808080;
+            margin-bottom: 8px;
+            width: max-content;
+            font-weight: normal;
+        }
+
+        .button {
+            background-color: #244274;
+            color: white;
+            font-weight: normal;
+            width: 80%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 3px;
+            margin-bottom: 17px;
+        }
+
+
+
+    }
+}

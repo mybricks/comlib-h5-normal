@@ -9,17 +9,13 @@
   "data": "./data.json",
   "icon": "./icon.svg",
   "editors": "./editors.tsx",
-  "inputs": [
-  ],
-  "outputs": [
-  ],
+  "inputs": [],
+  "outputs": [],
   "slots": [
     {
-      "id": "card",
-      "title": "商品卡片",
+      "id": "shop_card",
       "capacity": 1,
-      "schema": "mybricks/t2-shop-card",
-      "editableSlot": true
+      "schema": "mybricks/shop_card:1.0"
     }
   ]
 }
