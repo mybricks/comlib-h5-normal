@@ -26,29 +26,35 @@ export default {
     data() {
         return {
             list: [{
-                title: '满20元使用',
-                text: '3期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥1234',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }, {
-                title: '满100元使用',
-                text: '6期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥5678',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }, {
-                title: '满100元使用',
-                text: '6期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥2234',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }, {
-                title: '满100元使用',
-                text: '6期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥5678',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }, {
-                title: '满100元使用',
-                text: '6期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥6429',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }, {
-                title: '满100元使用',
-                text: '6期及以上享用',
-                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                price: '￥6429',
+                img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
+                buttonText: '月供 ￥305.81起'
             }]
         }
     },
@@ -56,7 +62,7 @@ export default {
     },
     computed: {
         hasCard() {
-            return !!this.slots['card']?.size;
+            return !!this.slots?.['card']?.size;
         },
         itemClass() {
             switch (+this.data.column) {

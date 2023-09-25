@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         hasCard() {
-            return !!this.slots['card']?.size;
+            return !!this.slots?.['card']?.size;
         }
     }
 }

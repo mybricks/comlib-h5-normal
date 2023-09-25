@@ -10,7 +10,6 @@ import { ref, watch, computed } from "vue";
 export default {
     props: ["env", "data", "inputs", "outputs"],
     setup(props) {
-
         const textCx = computed(() => {
             let classes = {
                 'text': true,
