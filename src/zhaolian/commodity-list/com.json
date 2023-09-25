@@ -1,10 +1,10 @@
 {
-  "title": "双列商品栏",
-  "namespace": "mybricks.vue.zl.shop-card",
+  "title": "商品列表",
+  "namespace": "mybricks.vue.commodity-list",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "双列商品栏",
+  "description": "商品栏",
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "icon": "./icon.svg",
@@ -13,9 +13,9 @@
   "outputs": [],
   "slots": [
     {
-      "id": "shop_card",
+      "id": "card",
       "capacity": 1,
-      "schema": "mybricks/shop_card:1.0"
+      "schema": "mybricks/commodity:1.0"
     }
   ]
 }

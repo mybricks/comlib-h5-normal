@@ -4,7 +4,8 @@
             <img :class="css.title"
                 :src="headerSrc"
                 alt="">
-            <div :class="css.content" :style="{width: '375px',backgroundColor: bgColor}">
+            <div :class="css.padding_top"></div>
+            <div :class="css.content" style="width: 375px;">
                 <slot></slot>
  
             </div>
@@ -21,10 +22,7 @@ export default {
         headerSrc: {
             type: String,
             default: 'http://my.mybricks.world/mfs/files/1695561706060/FyQHBHJ3gRvOGA9EZCX5fpbs9dfiO9qg-1695561706303.png',
-        },
-        bgColor:{
-            type:String,
-            default:'#000'
+            
         }
     },
     data() {

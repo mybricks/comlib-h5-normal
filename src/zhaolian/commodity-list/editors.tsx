@@ -3,15 +3,12 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
-  // "@resize": {
-  //   options: ["width", "height"],
-  // },
   ":root": [
     {
       title: "选择组件",
       type: "comSelector",
       options: {
-        schema: "mybricks/shop_card:1.0",
+        schema: "mybricks/commodity:1.0",
       },
       value: {
         get({ data }) {
@@ -19,10 +16,27 @@ export default {
         },
         set({ data, slot }, namespace) {
           data.selectComNameSpace = namespace;
-          slot.get("shop_card").clear();
+          slot.get("card").clear();
           if (namespace) {
-            slot.get("shop_card").addCom(namespace);
+            slot.get("card").addCom(namespace);
           }
+        },
+      },
+    },
+    {
+      title: "列数",
+      type: "slider",
+      options: {
+        max: 3,
+        min: 2,
+        step: 1,
+      },
+      value: {
+        get({ data }) {
+          return data.column;
+        },
+        set({ data }, value) {
+          data.column = value;
         },
       },
     },
