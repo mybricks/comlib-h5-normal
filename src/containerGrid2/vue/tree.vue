@@ -1,12 +1,12 @@
 <template>
-  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...node.layout, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
-    <slot name="nodeSlots" v-bind="[node]"></slot>
+  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
+    <slot name="nodeSlots" :nodes="[node]"></slot>
   </div>
   <div v-else-if="Array.isArray(node.children)" :class="nodeCx" :key="node.id" :data-id="node.id">
     <template v-for="child in node.children">
       <Tree v-if="child" :node="child" :parentNode="node" :key="child.id" @onClickNode="treeClick" :env="{env}">
-        <template #nodeSlots="nodes">
-          <slot name="nodeSlots" v-bind="nodes"></slot>
+        <template #nodeSlots="{ nodes }">
+          <slot name="nodeSlots" :nodes="nodes"></slot>
         </template>
       </Tree>
     </template>
