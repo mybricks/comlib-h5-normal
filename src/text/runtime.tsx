@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text } from "@tarojs/components";
-import { transformStyle } from "./../utils/transformStyle";
 import cx from "classnames";
 import css from "./style.less";
 

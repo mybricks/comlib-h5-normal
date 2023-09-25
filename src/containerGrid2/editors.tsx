@@ -250,7 +250,6 @@ export default {
               }
               let id = focusArea.dataset.id;
               let node = findNode(id, data.tree);
-              console.warn("固定高度 get", node);
               return node?.size.fixedHeight;
             },
             set({}, value) {
@@ -385,7 +384,6 @@ export default {
 
             const nodeId = focusArea.dataset.id;
             const clickId = `click_node_${nodeId}`;
-            console.log("clickId", clickId, output.get(clickId));
             if (!output.get(clickId)) {
               output.add(clickId, `${nodeId}_点击`, { type: "any" });
             }
@@ -545,14 +543,12 @@ function updateNode(node, tree) {
   let cloneTree = JSON.parse(JSON.stringify(tree));
 
   let newTree = traverseTree(cloneTree);
-  console.error("newTree", newTree);
 
   return JSON.parse(JSON.stringify(newTree));
 
   function traverseTree(node) {
     if (node.isLeaf === true) {
       if (node.id === cloneNode.id) {
-        console.error("找到了", node, cloneNode);
         return cloneNode;
       } else {
         return node;

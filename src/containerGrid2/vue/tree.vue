@@ -1,23 +1,24 @@
 <template>
-  <div v-if="node.isLeaf" class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" @click="onClickNode">
-    {{ node.id }}
-    <slot :name="node.id" :style="{ background: 'red' }"></slot>
+  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
+    <slot name="nodeSlots" v-bind="[node]"></slot>
   </div>
-  <div v-else :class="nodeCx" :key="node.id">
+  <div v-else-if="Array.isArray(node.children)" :class="nodeCx" :key="node.id" :data-id="node.id">
     <template v-for="child in node.children">
-      <Tree :node="child" :parentNode="node" />
+      <Tree v-if="child" :node="child" :parentNode="node" :key="child.id" @onClickNode="treeClick" :env="{env}">
+        <template #nodeSlots="nodes">
+          <slot name="nodeSlots" v-bind="nodes"></slot>
+        </template>
+      </Tree>
     </template>
   </div>
 </template>
 <script>
 import cx from 'classnames';
+import { transformStylePxToVw } from './../../utils/transformStyle';
 
 export default {
   name: 'Tree',
-  props: ['node', 'parentNode', 'slots', 'outputs'],
-  created() {
-    console.log(this.node);
-  },
+  props: ['node', 'env', 'parentNode', 'transformStyle'],
   computed: {
     leafSize() {
       let result = {};
@@ -54,7 +55,8 @@ export default {
           }
         }
       }
-      return result;
+
+      return transformStylePxToVw(this.env, result);
     },
     nodeCx() {
       return cx({
@@ -64,8 +66,11 @@ export default {
     }
   },
   methods: {
-    onClickNode() {
-      console.error(this.node.id);
+    clickNode(id) {
+      this.$emit('onClickNode', id)
+    },
+    treeClick(id) {
+      this.$emit('onClickNode', id)
     }
   }
 }

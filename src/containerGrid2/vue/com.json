@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "description": "布局",
   "runtime": "./runtime.vue",
-  "runtime.edit": "./../edit/runtime.tsx",
   "data": "./../data.json",
   "editors": "./../editors.tsx",
   "icon": "./../icon.svg",
