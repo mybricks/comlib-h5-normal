@@ -27,12 +27,19 @@
             ]
         },
         {
-            "title": "招联",
+            "title": "招联(老)",
             "comAry": [
                 "./src/CMB/coupon-card/com.json",
                 "./src/CMB/bottom-notice/com.json",
                 "./src/CMB/shop-card/com.json"
             ]
+        },
+        {
+            "title":"招联(新)",
+            "comAry":[
+                "./src/CMB-ZL/shop-card/com.json"
+            ]
+
         },
         {
             "title": "其他",
