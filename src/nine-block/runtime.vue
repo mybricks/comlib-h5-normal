@@ -14,7 +14,7 @@
         <template v-if="status === 'SUCCESS'">
             <div class="outer_box">
                 <!-- 在 title 这里设置一个特殊的 css selector「mybricks-title」,在 editors.tsx 里添加对应的配置项后便支持了局部编辑能力 -->
-                <div class="title mybricks-title">{{ data.title }}</div>
+                <div v-if="!!data.title" class="title mybricks-title">{{ data.title }}</div>
 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;" class="inner_box mybricks-box">
                     <div v-for="(item, index) in prizeList" :key="index" class="prize">

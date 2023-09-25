@@ -1,5 +1,5 @@
 <template>
-    <div class="couponList">
+    <div class="couponList mybricks-couponList">
         <template v-if="hasCard">
             <template v-for="(item, index) in list">
                 <div class="item" :key="index">

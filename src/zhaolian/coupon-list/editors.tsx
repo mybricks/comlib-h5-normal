@@ -6,25 +6,34 @@ export default {
   // "@resize": {
   //   options: ["width", "height"],
   // },
-  ":root": [
-    {
-      title: "选择组件",
-      type: "comSelector",
-      options: {
-        schema: "mybricks/coupon:1.0",
+  ":root": {
+    style: [
+      {
+        title: "",
+        options: ["margin", "padding", "background"],
+        target: `.mybricks-couponList`,
       },
-      value: {
-        get({ data }) {
-          return data.selectComNameSpace;
+    ],
+    items: [
+      {
+        title: "选择组件",
+        type: "comSelector",
+        options: {
+          schema: "mybricks/coupon:1.0",
         },
-        set({ data, slot }, namespace) {
-          data.selectComNameSpace = namespace;
-          slot.get("card").clear();
-          if (namespace) {
-            slot.get("card").addCom(namespace);
-          }
+        value: {
+          get({ data }) {
+            return data.selectComNameSpace;
+          },
+          set({ data, slot }, namespace) {
+            data.selectComNameSpace = namespace;
+            slot.get("card").clear();
+            if (namespace) {
+              slot.get("card").addCom(namespace);
+            }
+          },
         },
       },
-    },
-  ],
+    ],
+  },
 };

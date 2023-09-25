@@ -35,6 +35,7 @@
       ]
     },
     {
+      "visible": false,
       "title": "卡片",
       "comAry": [
         "./src/zhaolian/commodity-card1/com.json",
