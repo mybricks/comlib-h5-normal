@@ -2,7 +2,7 @@
     <div>
         <div :class="css.card">
             <img :class="css.title"
-                src="http://my.mybricks.world/mfs/files/1695561706060/FyQHBHJ3gRvOGA9EZCX5fpbs9dfiO9qg-1695561706303.png"
+                :src="headerSrc"
                 alt="">
             <div :class="css.padding_top"></div>
             <div :class="css.content" style="width: 375px;">
@@ -18,6 +18,13 @@ import css from "./index.less";
 
 export default {
     name: 'ItemCard',
+    props: {
+        headerSrc: {
+            type: String,
+            default: 'http://my.mybricks.world/mfs/files/1695561706060/FyQHBHJ3gRvOGA9EZCX5fpbs9dfiO9qg-1695561706303.png',
+            
+        }
+    },
     data() {
         return {
             css: css

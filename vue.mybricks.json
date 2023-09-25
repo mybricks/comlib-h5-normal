@@ -30,7 +30,7 @@
             "title": "招联",
             "comAry": [
                 "./src/CMB/coupon-card/com.json",
-                "./src/CMB/item-card/com.json"
+                "./src/CMB/bottom-notice/com.json"
             ]
         },
         {

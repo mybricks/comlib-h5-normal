@@ -1,10 +1,10 @@
 {
-  "title": "内容卡片",
+  "title": "底部知晓栏",
   "namespace": "mybricks.vue.item-card",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "承载内容的带标题卡片",
+  "description": "底部知晓栏",
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "icon": "./icon.svg",
