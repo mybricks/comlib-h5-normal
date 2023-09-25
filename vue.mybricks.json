@@ -1,51 +1,57 @@
 {
-    "namespace": "mybricks.normal-h5-comlib.vue",
-    "componentType": "KH5",
-    "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
-    "comAry": [
-        "./src/_connector/h5/com.json",
-        "./src/_muilt-inputJs/h5/com.json",
-        "./src/_code-segment/h5/com.json",
-        "./src/_pick/h5/com.json",
-        "./src/_navigateBack/h5/com.json",
-        {
-            "title": "基础",
-            "comAry": [
-                "./src/header-image/vue/com.json",
-                "./src/button/vue/com.json",
-                "./src/image/vue/com.json",
-                "./src/text/vue/com.json",
-                "./src/richText/vue/com.json"
-            ]
-        },
-        {
-            "title": "容器",
-            "comAry": [
-                "./src/popup/vue/com.json",
-                "./src/containerCondition/vue/com.json",
-                "./src/tabs/vue/com.json"
-            ]
-        },
-        {
-            "title": "招联",
-            "comAry": [
-                "./src/CMB/coupon-card/com.json",
-                "./src/CMB/bottom-notice/com.json"
-            ]
-        },
-        {
-            "title": "其他",
-            "comAry": [
-                "./src/safeArea/vue/com.json",
-                "./src/support/vue/com.json",
-                "./src/divider/vue/com.json"
-            ]
-        },
-        {
-            "title": "营销活动",
-            "comAry": [
-                "./src/nine-block/com.json"
-            ]
-        }
-    ]
+  "namespace": "mybricks.normal-h5-comlib.vue",
+  "componentType": "KH5",
+  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
+  "comAry": [
+    "./src/_connector/h5/com.json",
+    "./src/_muilt-inputJs/h5/com.json",
+    "./src/_code-segment/h5/com.json",
+    "./src/_pick/h5/com.json",
+    "./src/_navigateBack/h5/com.json",
+    {
+      "title": "基础",
+      "comAry": [
+        "./src/header-image/vue/com.json",
+        "./src/button/vue/com.json",
+        "./src/image/vue/com.json",
+        "./src/text/vue/com.json",
+        "./src/richText/vue/com.json"
+      ]
+    },
+    {
+      "title": "容器",
+      "comAry": [
+        "./src/popup/vue/com.json",
+        "./src/containerCondition/vue/com.json",
+        "./src/tabs/vue/com.json"
+      ]
+    },
+    {
+      "title": "招联",
+      "comAry": [
+        "./src/CMB/coupon-list/com.json",
+        "./src/CMB/bottom-notice/com.json",
+        "./src/CMB/footerBar/com.json"
+      ]
+    },
+    {
+      "title": "优惠券卡片",
+      "comAry": [
+        "./src/CMB/coupon-card1/com.json",
+        "./src/CMB/coupon-card2/com.json"
+      ]
+    },
+    {
+      "title": "其他",
+      "comAry": [
+        "./src/safeArea/vue/com.json",
+        "./src/support/vue/com.json",
+        "./src/divider/vue/com.json"
+      ]
+    },
+    {
+      "title": "营销活动",
+      "comAry": ["./src/nine-block/com.json"]
+    }
+  ]
 }

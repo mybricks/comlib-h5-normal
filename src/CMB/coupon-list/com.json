@@ -1,0 +1,21 @@
+{
+  "title": "优惠券列表",
+  "namespace": "mybricks.vue.coupon-list",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "优惠券卡片",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "inputs": [],
+  "outputs": [],
+  "slots": [
+    {
+      "id": "card",
+      "capacity": 1,
+      "schema": "mybricks/coupon:1.0"
+    }
+  ]
+}
