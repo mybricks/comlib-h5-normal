@@ -2,84 +2,53 @@
     <div :class="popupCx" :style="popupStyle">
         <div class="overlay" @click="handleOverlayClick"></div>
         <div :class="mainCx">
-            <div v-if="data.popupTitle" class="title ">{{ data.popupTitle }}</div>
-            <div :class="contentClasses" :style="data.contentStyle">
-                <slot name="content"></slot>
+            <div class="entry">
+                <div v-if="data.popupTitle" class="title mybricks-title">{{ data.popupTitle }}</div>
+                <div :class="contentClasses" :style="data.contentStyle">
+                    <slot name="content"></slot>
+                </div>
             </div>
+            <div v-if="data.visibleClose" class="close" @click="handleCloseClick"></div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, computed, watchEffect } from "vue";
 import { isEdit, isDesigner } from "../../utils/env";
-import css from "./../style.less";
 
 export default {
-    props: {
-        env: Object,
-        _env: Object,
-        data: Object,
-        inputs: Object,
-        outputs: Object,
-        slots: Object,
-        createPortal: Function,
-    },
-    setup(props) {
-        const show = ref(props.env.edit ? true : false);
-
-        const handleClose = () => {
-            props._env?.currentScenes?.close?.();
-            show.value = false;
-        };
-
-        watchEffect(() => {
-            props.inputs["onShow"]?.(() => {
-                show.value = true;
-            });
-            props.inputs["onHide"]?.(() => {
-                handleClose();
-            });
-        });
-
-        const popupCx = computed(() => ({
-            [css.popup]: true,
-            // [css.show]: show.value,
-            [css.show]: true
-        }));
-
-        const mainCx = computed(() => ({
-            [css.main]: true,
-            [css.center]: props.data.position === "center",
-            [css.top]: props.data.position === "top",
-            [css.bottom]: props.data.position === "bottom",
-            [css.left]: props.data.position === "left",
-            [css.right]: props.data.position === "right",
-        }));
-
-        const handleOverlayClick = () => {
-            if (props.data.maskClose) {
-                handleClose();
-            }
-        };
-
-        const contentClasses = computed(() => ({
-            [css.content]: true,
-            [css.empty]: props.slots["content"]?.size === 0,
-            "mybricks-content": true,
-        }));
-
+    props: ["data", "inputs", "outputs", "env", "_env", "slots", "createPortal"],
+    data() {
         return {
-            popupCx,
-            mainCx,
-            handleOverlayClick,
-            contentClasses,
-            show,
-            handleClose,
-            css
-        };
+            // show: null
+        }
     },
     computed: {
+        popupCx() {
+            return {
+                "popup": true,
+                "show": true
+            }
+        },
+        mainCx() {
+            return {
+                main: true,
+                "mybricks-main": true,
+                center: this.data.position === "center",
+                top: this.data.position === "top",
+                bottom: this.data.position === "bottom",
+                left: this.data.position === "left",
+                right: this.data.position === "right",
+            }
+
+        },
+        contentClasses() {
+            return {
+                content: true,
+                empty: this.slots["content"]?.size === 0,
+                "mybricks-content": true,
+            }
+        },
         popupStyle() {
             if (isEdit(this.env)) {
                 /** 新场景需要一个宽高 */
@@ -98,6 +67,32 @@ export default {
             }
             return {};
         }
+    },
+
+    created() {
+        // this.show = this.env.edit ? true : false;
+        // this.inputs["onShow"]?.(() => {
+        //     this.show = true;
+        // });
+
+        this.inputs["onHide"]?.(() => {
+            this.handleClose();
+        });
+    },
+    methods: {
+        handleOverlayClick() {
+            if (this.data.maskClose) {
+                this.handleClose();
+            }
+        },
+        handleCloseClick() {
+            this.handleClose();
+        },
+        handleClose() {
+            this._env?.currentScenes?.close?.();
+            // this.show.value = false;
+        }
+
     }
 };
 

@@ -9,6 +9,7 @@
     {
       "title": "基础",
       "comAry": [
+        "./src/header-image/vue/com.json",
         "./src/text/vue/com.json",
         "./src/richText/vue/com.json",
         "./src/image/vue/com.json",
@@ -27,9 +28,9 @@
     {
       "title": "招联",
       "comAry": [
+        "./src/nine-block/com.json",
         "./src/zhaolian/coupon-list/com.json",
         "./src/zhaolian/commodity-list/com.json",
-        "./src/zhaolian/bottom-notice/com.json",
         "./src/zhaolian/footerBar/com.json"
       ]
     },
@@ -43,14 +44,9 @@
       ]
     },
     {
-      "title": "营销活动",
-      "comAry": ["./src/nine-block/com.json"]
-    },
-    {
       "title": "其他",
       "comAry": [
         "./src/safeArea/vue/com.json",
-        "./src/support/vue/com.json",
         "./src/divider/vue/com.json"
       ]
     }

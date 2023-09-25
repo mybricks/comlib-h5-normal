@@ -1,7 +1,7 @@
 export default {
   "@init"({ style }) {
     style.width = "fit-content";
-    style.height = 'auto';
+    style.height = "auto";
   },
   "@resize": {
     options: ["width", "height"],
@@ -10,7 +10,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["font", "border", "background"],
+        options: ["font", "padding", "border", "background"],
         target: ".mybricks-text",
       },
       {
@@ -31,9 +31,7 @@ export default {
         },
         title: "最大行数",
         type: "InputNumber",
-        options: [
-          { min: 1 },
-        ],
+        options: [{ min: 1 }],
         value: {
           get({ data }) {
             return [data.maxLines];
@@ -68,11 +66,10 @@ export default {
               options: {
                 outputId: "onClick",
               },
-            }
+            },
           ],
         },
       ];
     },
   },
-
 };

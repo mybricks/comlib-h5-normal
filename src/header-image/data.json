@@ -1,7 +1,8 @@
 {
-    "src": "http://my.mybricks.world/mfs/files/1695030681475/FWrUwQXEkCY6QJiQmbUdy4LHs6WdcEJY-1695030682288.png",
-    "leftImg": "http://my.mybricks.world/mfs/files/1695030435945/NHqBN7ourudHAmdxcJaMB0LcXpOwjZXA-1695030436521.png",
-    "leftButtonType": "back",
-    "rightButtonType": "none",
-    "isCeiling": false
+  "src": "http://my.mybricks.world/mfs/files/1695030681475/FWrUwQXEkCY6QJiQmbUdy4LHs6WdcEJY-1695030682288.png",
+  "leftImg": "http://my.mybricks.world/mfs/files/1695030435945/NHqBN7ourudHAmdxcJaMB0LcXpOwjZXA-1695030436521.png",
+  "leftButtonType": "back",
+  "rightButtonType": "none",
+  "isCeiling": false,
+  "hotareaList": []
 }

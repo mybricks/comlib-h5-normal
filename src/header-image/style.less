@@ -1,28 +1,32 @@
 .wrapper {
-    position: relative;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  font-size: 0;
+  line-height: 0;
+
+  .bg {
     display: block;
-    overflow: hidden;
     width: 100%;
     height: auto;
-    font-size: 0;
+  }
+
+  .leftBlock {
+    position: absolute;
     line-height: 0;
+    left: 12px;
+  }
 
-    .bg {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
+  .icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 6px;
+  }
 
-
-    .leftBlock {
-        position: absolute;
-        line-height: 0;
-        left: 12px;
-    }
-
-    .icon {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 6px;
-    }
+  .hotarea {
+    background: red;
+    position: absolute;
+  }
 }

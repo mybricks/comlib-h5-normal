@@ -19,19 +19,18 @@
   .main {
     position: absolute;
     max-height: 70%;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-
+    .entry {
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
     .title {
-      height: 30px;
-      line-height: 30px;
-      font-size: 20px;
+      line-height: 42px;
+      font-size: 16px;
       text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
+      font-weight: 500;
     }
 
     .content {
@@ -42,6 +41,17 @@
       &::-webkit-scrollbar {
         display: none;
       }
+    }
+
+    .close {
+      position: absolute;
+      bottom: -72px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      background: url("http://my.mybricks.world/mfs/files/1695653728233/JzVwhKRQzkLu8bqo9vOe4EQo8aLeoc9o-1695653728444.png")
+        no-repeat center center ~"/" 36px 36px;
     }
 
     &.center {
@@ -74,8 +84,6 @@
       height: 100%;
     }
   }
-
-
 
   .main.center .content.empty {
     width: 240px;

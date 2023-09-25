@@ -27,6 +27,19 @@ export default {
           },
         },
         {
+          title: "显示关闭按钮",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.visibleClose;
+            },
+            set({ data }, val) {
+              data.visibleClose = val;
+            },
+          },
+        },
+
+        {
           title: "弹出位置",
           type: "Select",
           options: [
@@ -113,7 +126,25 @@ export default {
       //   }
       // ]
     },
-  }
+  },
+  ".mybricks-main": {
+    style: [
+      {
+        title: "",
+        options: ["size", "padding", "border", "background"],
+        target: ".mybricks-main",
+      },
+    ],
+  },
+  ".mybricks-title": {
+    style: [
+      {
+        title: "",
+        options: ["font", "padding", "background"],
+        target: ".mybricks-title",
+      },
+    ],
+  },
   // ".mybricks-content": {
   //   style: [
   //     {
