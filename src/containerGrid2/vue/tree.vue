@@ -4,7 +4,7 @@
   </div>
   <div v-else-if="Array.isArray(node.children)" :class="nodeCx" :key="node.id" :data-id="node.id">
     <template v-for="child in node.children">
-      <Tree v-if="child" :node="child" :parentNode="node" :key="child.id" @onClickNode="treeClick">
+      <Tree v-if="child" :node="child" :parentNode="node" :key="child.id" @onClickNode="treeClick" :env="{env}">
         <template #nodeSlots="nodes">
           <slot name="nodeSlots" v-bind="nodes"></slot>
         </template>
@@ -14,10 +14,11 @@
 </template>
 <script>
 import cx from 'classnames';
+import { transformStylePxToVw } from './../../utils/transformStyle';
 
 export default {
   name: 'Tree',
-  props: ['node', 'parentNode'],
+  props: ['node', 'env', 'parentNode', 'transformStyle'],
   computed: {
     leafSize() {
       let result = {};
@@ -55,7 +56,7 @@ export default {
         }
       }
 
-      return result;
+      return transformStylePxToVw(this.env, result);
     },
     nodeCx() {
       return cx({
