@@ -1,9 +1,9 @@
 <template>
     <div class="layout" :style="data.style" @click="onClickLayout">
         <Tree :node="tree" :parentNode="null" @onClickNode="onClickNode" :transformStyle="transformStyle" :env="env" >
-            <template #nodeSlots="nodes">
+            <template #nodeSlots="{ nodes }">
                 <template v-for="node in nodes">
-                    <slot :name="node.id"></slot>
+                    <slot :name="node.id" :m="{ style: node.layout }"></slot>
                 </template>
             </template>
         </Tree>

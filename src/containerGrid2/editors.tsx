@@ -363,6 +363,10 @@ export default {
               let id = focusArea.dataset.id;
               let node = findNode(id, data.tree);
 
+              const slot = slots.get(node.id)
+              /** 根据最终生效的CSS设置布局 */
+              setSlotLayoutByCss(slot, value)
+
               data.tree = updateNode(
                 {
                   ...node,
@@ -569,20 +573,23 @@ function updateNode(node, tree) {
  * @param cssStyles
  */
 function setSlotLayoutByCss(slot: any, cssStyles: CSSProperties) {
+
+  console.log('cssStyles', slot, cssStyles)
+
   switch (true) {
     case cssStyles.position === "absolute": {
       slot.setLayout("absolute");
-      slot.setTitle("列（自由排列）");
+      // slot.setTitle("列（自由排列）");
       break;
     }
     case cssStyles.position !== "absolute" && cssStyles.display === "flex": {
       if (cssStyles.flexDirection === "row") {
         slot.setLayout("flex-row");
-        slot.setTitle("列（横向排列）");
+        // slot.setTitle("列（横向排列）");
       }
       if (cssStyles.flexDirection === "column") {
         slot.setLayout("flex-column");
-        slot.setTitle("列（竖向排列）");
+        // slot.setTitle("列（竖向排列）");
       }
       break;
     }
