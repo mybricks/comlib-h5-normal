@@ -4,8 +4,8 @@
             headerSrc="http://my.mybricks.world/mfs/files/1695623624389/AisY26zJAxvA8xxg87rHNDscyCj1IsDZ-1695623625003.png">
             <div :class="css.shopList">
                 <template v-if="hasCard">
-                    <template v-for="(item, index) in list" :class="css.shopItem" >
-                        <div class="item" :key="index">
+                    <template v-for="(item, index) in list">
+                        <div :class="css.shopItem" :key="index">
                             <slot name="shop_card" :env="env" :inputs="{
                                 install(fn) {
                                     fn(item)
