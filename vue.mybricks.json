@@ -21,6 +21,7 @@
         {
             "title": "容器",
             "comAry": [
+                "./src/containerGrid2/vue/com.json",
                 "./src/popup/vue/com.json",
                 "./src/containerCondition/vue/com.json",
                 "./src/tabs/vue/com.json"
