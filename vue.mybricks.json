@@ -3,11 +3,6 @@
     "componentType": "KH5",
     "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
     "comAry": [
-        "./src/_connector/h5/com.json",
-        "./src/_muilt-inputJs/h5/com.json",
-        "./src/_code-segment/h5/com.json",
-        "./src/_pick/h5/com.json",
-        "./src/_navigateBack/h5/com.json",
         {
             "title": "基础",
             "comAry": [
@@ -30,7 +25,8 @@
             "title": "招联",
             "comAry": [
                 "./src/CMB/coupon-card/com.json",
-                "./src/CMB/bottom-notice/com.json"
+                "./src/CMB/bottom-notice/com.json",
+                "./src/CMB/shop-card/com.json"
             ]
         },
         {
