@@ -5,17 +5,15 @@
   "comAry": [
     "./src/_connector/h5/com.json",
     "./src/_muilt-inputJs/h5/com.json",
-    "./src/_code-segment/h5/com.json",
     "./src/_pick/h5/com.json",
-    "./src/_navigateBack/h5/com.json",
     {
       "title": "基础",
       "comAry": [
         "./src/header-image/vue/com.json",
-        "./src/button/vue/com.json",
-        "./src/image/vue/com.json",
         "./src/text/vue/com.json",
-        "./src/richText/vue/com.json"
+        "./src/richText/vue/com.json",
+        "./src/image/vue/com.json",
+        "./src/button/vue/com.json"
       ]
     },
     {
@@ -31,25 +29,23 @@
       "title": "招联",
       "comAry": [
         "./src/zhaolian/coupon-list/com.json",
-        "./src/zhaolian/shop-card/com.json",
+        "./src/zhaolian/commodity-list/com.json",
         "./src/zhaolian/bottom-notice/com.json",
         "./src/zhaolian/footerBar/com.json"
       ]
     },
     {
-        "title":"招联-新",
-        "comAry" :[
-            "./src/CMB-ZL/shop-card/com.json",
-            "./src/CMB-ZL/shop-card-1/com.json"
-        ]
-    },
-    {
       "visible": false,
-      "title": "优惠券卡片",
+      "title": "卡片",
       "comAry": [
+        "./src/zhaolian/commodity-card1/com.json",
         "./src/zhaolian/coupon-card1/com.json",
         "./src/zhaolian/coupon-card2/com.json"
       ]
+    },
+    {
+      "title": "营销活动",
+      "comAry": ["./src/nine-block/com.json"]
     },
     {
       "title": "其他",
@@ -58,10 +54,6 @@
         "./src/support/vue/com.json",
         "./src/divider/vue/com.json"
       ]
-    },
-    {
-      "title": "营销活动",
-      "comAry": ["./src/nine-block/com.json"]
     }
   ]
 }

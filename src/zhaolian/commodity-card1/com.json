@@ -1,7 +1,7 @@
 {
   "title": "商品卡片样式1",
-  "namespace": "mybricks.vue.shop-card1",
-  "schema": "mybricks/shop_card:1.0",
+  "namespace": "mybricks.vue.commodity-card1",
+  "schema": "mybricks/commodity:1.0",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",

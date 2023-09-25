@@ -1,5 +1,5 @@
 <template>
-    <div class="couponList">
+    <div class="couponList mybricks-couponList">
         <template v-if="hasCard">
             <template v-for="(item, index) in list">
                 <div class="item" :key="index">
@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         hasCard() {
-            return !!this.slots['card']?.size;
+            return !!this.slots?.['card']?.size;
         }
     }
 }
@@ -56,7 +56,6 @@ export default {
     // padding-bottom: 20px;
 
     .emptyCard {
-        background: red;
         width: 100%;
         height: 90px;
     }
@@ -65,100 +64,5 @@ export default {
         width: 100%;
         height: 100%;
     }
-
-    .box {
-        width: 170px;
-        height: 130px;
-        border-radius: 8px;
-        position: relative;
-
-        .inner_box {
-            width: 170px;
-            height: 101px;
-            background: linear-gradient(180deg, #F4E3E0 0%, #CF504A 100%);
-            position: absolute;
-            bottom: 0px;
-            border-radius: 8px;
-
-        }
-
-        .coupon {
-            background: radial-gradient(50% 50% at 50% 50%, #FFFEFE 0%, #FAECEE 100%);
-            width: 148px;
-            height: 110px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            position: absolute;
-            top: 13px;
-            left: 10px;
-            border: #ffffff 2px solid;
-
-            .top_icon {
-                width: 100px;
-                top: 0px;
-                left: 22px;
-                position: absolute;
-            }
-
-            .container {
-                width: 90%;
-                height: 50px;
-                margin: 0 auto;
-                margin-top: 25px;
-                display: flex;
-                flex-direction: row;
-
-                .round {
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 100%;
-                    background-color: #fff;
-                    filter: drop-shadow(-3px 1px 2px #F6E0E2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-
-                    img {
-                        width: 40px;
-                        object-fit: contain;
-
-                    }
-                }
-
-                .desc {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    margin-left: 6px;
-
-                    .title {
-                        font-size: 13px;
-                        font-weight: bold;
-                    }
-
-                    .text {
-                        font-size: 11px;
-                        font-weight: bold;
-                        color: #CA4D35;
-                    }
-                }
-
-            }
-        }
-
-        .button {
-            width: 170px;
-            height: 33px;
-            object-fit: cover;
-            background-color: orange;
-            position: absolute;
-            bottom: 0px;
-            border-radius: 8px;
-            overflow: hidden;
-            z-index: 10;
-        }
-    }
-
-
 }
 </style>
