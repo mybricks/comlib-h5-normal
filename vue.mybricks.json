@@ -44,7 +44,7 @@
         {
             "title": "营销活动",
             "comAry": [
-                "./src/draw-prize/nine-block/vue/com.json"
+                "./src/nine-block/com.json"
             ]
         }
     ]
