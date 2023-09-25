@@ -15,6 +15,18 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
+          title: "弹窗标题",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.popupTitle;
+            },
+            set({ data }, title: string) {
+              data.popupTitle = title;
+            },
+          },
+        },
+        {
           title: "弹出位置",
           type: "Select",
           options: [

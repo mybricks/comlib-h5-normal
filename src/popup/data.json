@@ -3,5 +3,6 @@
   "contentStyle": {
     "background": "#ffffff"
   },
-  "maskClose": true
+  "maskClose": true,
+  "popupTitle":"标题"
 }

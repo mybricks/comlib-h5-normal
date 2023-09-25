@@ -19,7 +19,30 @@
   .main {
     position: absolute;
     max-height: 70%;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .title {
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .content {
+      overflow-y: auto;
+      max-height: 400px;
+
+      //不显示滚动条
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
 
     &.center {
       top: 50%;
@@ -52,10 +75,7 @@
     }
   }
 
-  .content {
-    background: #ffffff;
-    overflow: hidden;
-  }
+
 
   .main.center .content.empty {
     width: 240px;
