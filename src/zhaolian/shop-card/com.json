@@ -1,0 +1,25 @@
+{
+  "title": "三列商品栏",
+  "namespace": "mybricks.vue.shop-card",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "三列商品栏",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "inputs": [
+  ],
+  "outputs": [
+  ],
+  "slots": [
+    {
+      "id": "card",
+      "title": "商品卡片",
+      "capacity": 1,
+      "schema": "mybricks/t3-shop-card",
+      "editableSlot": true
+    }
+  ]
+}

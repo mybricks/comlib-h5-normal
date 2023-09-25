@@ -1,27 +1,43 @@
 <template>
-    <div>
-        <div v-if="status === 'LOADING'" class="loading">加载中…</div>
-        <div v-if="status === 'ERROR'" class="loading">组件出错</div>
-        <div v-if="status === 'SUCCESS'" class="outer_box">
-            <div class="title">{{ data.title }}</div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;" class="inner_box">
-                <div v-for="(item, index) in prizeList" :key="index" class="prize">
-                    <div @click="handleDraw" v-if="item.type === 'MAIN_BTN'">
-                        <img class="button" :src="data.buttonImg" alt="Main Button" />
-                    </div>
-                    <div v-else>
-                        <img class="button" :src="item.awardDefaultImg" alt="Prize" v-show="viewIndex(activeIndex) !== index" />
-                        <img class="button" :src="item.awardOpenedImg" alt="Prize" v-show="viewIndex(activeIndex) === index" />
+    <div class="mybricks-com">
+        <!-- loading 状态 -->
+        <template v-if="status === 'LOADING'">
+            <div class="loading">加载中…</div>
+        </template>
+
+        <!-- error 状态 -->
+        <template v-if="status === 'ERROR'">
+            <div class="loading">组件出错</div>
+        </template>
+
+        <!-- success 状态 -->
+        <template v-if="status === 'SUCCESS'">
+            <div class="outer_box">
+                <!-- 在 title 这里设置一个特殊的 css selector「mybricks-title」,在 editors.tsx 里添加对应的配置项后便支持了局部编辑能力 -->
+                <div class="title mybricks-title">{{ data.title }}</div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;" class="inner_box mybricks-box">
+                    <div v-for="(item, index) in prizeList" :key="index" class="prize">
+                        <div @click="handleDraw" v-if="item.type === 'MAIN_BTN'">
+                            <img class="button" :src="data.buttonImg" alt="Main Button" />
+                        </div>
+                        <div v-else>
+                            <img class="button" :src="item.awardDefaultImg" alt="Prize"
+                                v-show="viewIndex(activeIndex) !== index" />
+                            <img class="button" :src="item.awardOpenedImg" alt="Prize"
+                                v-show="viewIndex(activeIndex) === index" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
+
     </div>
 </template>
 
 <script>
 export default {
-    props: ["data","outputs"],
+    props: ["data", "outputs"],
     data() {
         return {
             prizeList: [],
@@ -92,7 +108,7 @@ export default {
         },
         //vue页面渲染的id比预期左偏一位，需要向右一位纠正
         viewIndex(activeIndex) {
-            if(activeIndex === null) return null
+            if (activeIndex === null) return null
             const i = this.clockwiseOrder.indexOf(activeIndex);
             const nextIndex = (i + 1) % this.clockwiseOrder.length;
             return this.clockwiseOrder[nextIndex];
@@ -117,16 +133,16 @@ export default {
 </script>
 
 <style scoped>
-.loading{
-    background-color: #EACCCC;
+.loading {
     width: 100%;
     height: 400px;
-    font-size: 23px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
 }
+
 .inner_box {
     background-color: #d9221f;
     width: 95%;
@@ -136,7 +152,6 @@ export default {
 }
 
 .outer_box {
-    background-color: #EACCCC;
     padding-bottom: 10px;
 }
 

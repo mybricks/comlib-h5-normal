@@ -1,0 +1,22 @@
+{
+  "title": "优惠券卡片样式1",
+  "namespace": "mybricks.vue.coupon-card1",
+  "schema": "mybricks/coupon:1.0",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "优惠券卡片",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "install",
+      "title": "安装",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

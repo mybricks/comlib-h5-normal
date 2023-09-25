@@ -1,0 +1,12 @@
+{
+  "title": "页尾",
+  "namespace": "mybricks.vue.footerBar",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "优惠券卡片",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx"
+}

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted, computed, onRenderTracked } from 'vue';
 import css from '../style.less';
 import Tabs from '../../components-vue/tabs/index.vue';
 
