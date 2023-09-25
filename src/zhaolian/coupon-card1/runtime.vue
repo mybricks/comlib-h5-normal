@@ -56,6 +56,8 @@ export default {
     height: 130px;
     border-radius: 8px;
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
 
     .inner_box {
         width: 170px;
@@ -64,7 +66,6 @@ export default {
         position: absolute;
         bottom: 0px;
         border-radius: 8px;
-
     }
 
     .coupon {
