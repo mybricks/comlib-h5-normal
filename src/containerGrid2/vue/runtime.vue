@@ -1,6 +1,6 @@
 <template>
     <div class="layout" :style="data.style" @click="onClickLayout">
-        <Tree :node="tree" :parentNode="null" @onClickNode="onClickNode" >
+        <Tree :node="tree" :parentNode="null" @onClickNode="onClickNode" :transformStyle="transformStyle" :env="env" >
             <template #nodeSlots="nodes">
                 <template v-for="node in nodes">
                     <slot :name="node.id"></slot>
@@ -35,7 +35,7 @@ export default {
     computed: {
         tree() {
             return this.data.tree;
-        }
+        },
     }
 };
 </script>

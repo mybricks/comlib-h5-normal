@@ -1,33 +1,26 @@
-import Taro from "@tarojs/taro";
-
-// @ts-ignore
-const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === 'Unknown';
+import { isDesigner } from './env'
 
 /**
- * @description Taro的动态适配rpx逻辑
+ * @description 
  */
-function adjustTaroStyle(style) {
-  if (!style) {
+function pxToVw(env, style) {
+  if (!style || isDesigner(env)) {
     return {}
   }
 
-  if (isH5) {
-    return style
-  }
-
-  const taroStyle = {}
+  const cssStyle = {}
 
   const matchKeys = ['marginTop', 'marginBottom', 'marginLeft', 'marginRight', 'paddingLeft', 'paddingRight', 'width', 'height', 'fontSize', 'lineHieght'];
 
   Object.keys(style).forEach(property => {
     const newVal = parseFloat(style[property])
     if (matchKeys.includes(property) && !isNaN(newVal) && style[property] !== '100%') {
-      taroStyle[property] = Taro.pxTransform(newVal)
+      cssStyle[property] = env.pxToVw(`${newVal}px`)
     } else {
-      taroStyle[property] = style[property]
+      cssStyle[property] = style[property]
     }
   })
-  return taroStyle
+  return cssStyle
 }
 
-export const transformStyle = adjustTaroStyle
+export const transformStylePxToVw = pxToVw
