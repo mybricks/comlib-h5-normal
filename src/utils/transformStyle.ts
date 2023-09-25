@@ -4,8 +4,12 @@ import { isDesigner } from './env'
  * @description 
  */
 function pxToVw(env, style) {
-  if (!style || isDesigner(env)) {
+  if (!style) {
     return {}
+  }
+
+  if (isDesigner(env)) {
+    return style
   }
 
   const cssStyle = {}
