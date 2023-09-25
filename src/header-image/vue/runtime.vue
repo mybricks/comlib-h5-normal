@@ -1,37 +1,36 @@
 <template>
-    <div :class="wrapperClass">
-        <img :src="data.src" @load="onLoad" ref="imageRef" :class="bgClass" />
-        <img :src="data.leftImg" :class="[leftBlockClass, iconClass]" :style="{ top: '50px' }" @click="onBack" />
+    <div class="wrapper">
+        <img class="bg" :src="data.src" @load="onLoad" ref="imageRef" />
+        <div class="hotarea" :style="item.style" @click="($event) => { onClickHotarea($event, item); }"
+            v-for="(item, index) in list" :key="index"></div>
+        <!-- <img :src="data.leftImg" :class="[leftBlockClass, iconClass]" :style="{ top: '50px' }" @click="onBack" /> -->
     </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from 'vue';
-import css from './../style.less';
-
-const { env, data, inputs, propsStyle, outputs } = defineProps(['env', 'data', 'inputs', 'propsStyle', 'outputs']);
-
-const imageRef = ref(null);
-
-
-const onLoad = () => {
-    const naturalWidth = imageRef.value?.naturalWidth;
-    const naturalHeight = imageRef.value?.naturalHeight;
-    if (naturalHeight && naturalWidth) {
-        data.height = (naturalHeight * 414) / naturalWidth;
+<script>
+export default {
+    props: ['env', 'data', 'inputs', 'propsStyle', 'outputs'],
+    data() {
+        return {
+        }
+    },
+    created() {
+    },
+    methods: {
+        onLoad() {
+            const naturalWidth = this.$refs.imageRef?.naturalWidth;
+            const naturalHeight = this.$refs.imageRef?.naturalHeight;
+            if (naturalHeight && naturalWidth) {
+                this.data.height = (naturalHeight * 375) / naturalWidth;
+            }
+        },
+        onClickHotarea(e, item) {
+        }
     }
-};
+}
 
-const onBack = () => {
-    console.log('点击了返回按钮');
-};
-
-const wrapperClass = css.wrapper;
-const bgClass = css.bg;
-const leftBlockClass = css.leftBlock;
-const iconClass = css.icon;
 </script>
 
-<style scoped>
-
+<style lang="less" scoped >
+@import './../style.less';
 </style>

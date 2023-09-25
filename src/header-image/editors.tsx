@@ -19,18 +19,5 @@ export default {
         },
       },
     },
-    {
-      title: "返回按钮图标",
-      type: "imageSelector",
-      description: "尺寸为32x32",
-      value: {
-        get({ data }) {
-          return data.leftImg;
-        },
-        set({ data }, val: string) {
-          data.leftImg = val;
-        },
-      },
-    }
   ],
 };
