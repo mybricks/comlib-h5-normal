@@ -41,7 +41,6 @@ export default {
         hasCard() {
             return !!this.slots['card']?.size;
         }
-
     }
 }
 </script>

@@ -36,6 +36,13 @@
       ]
     },
     {
+        "title":"招联-新",
+        "comAry" :[
+            "./src/CMB-ZL/shop-card/com.json",
+            "./src/CMB-ZL/shop-card-1/com.json"
+        ]
+    },
+    {
       "visible": false,
       "title": "优惠券卡片",
       "comAry": [

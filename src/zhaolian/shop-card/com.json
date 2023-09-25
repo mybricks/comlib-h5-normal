@@ -15,8 +15,11 @@
   ],
   "slots": [
     {
-      "id": "contant",
-      "title": "内容"
+      "id": "card",
+      "title": "商品卡片",
+      "capacity": 1,
+      "schema": "mybricks/t3-shop-card",
+      "editableSlot": true
     }
   ]
 }
