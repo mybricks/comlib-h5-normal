@@ -1,12 +1,13 @@
 <template>
-  <div :class="popupCx" :style="popupStyle">
-    <div :class="css.overlay" @click="handleOverlayClick"></div>
-    <div :class="mainCx">
-      <div :class="contentClasses" :style="data.contentStyle">
-        <slot name="content"></slot>
-      </div>
+    <div :class="popupCx" :style="popupStyle">
+        <div class="overlay" @click="handleOverlayClick"></div>
+        <div :class="mainCx">
+            <div v-if="data.popupTitle" class="title ">{{ data.popupTitle }}</div>
+            <div :class="contentClasses" :style="data.contentStyle">
+                <slot name="content"></slot>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -79,7 +80,7 @@ export default {
         };
     },
     computed: {
-        popupStyle () {
+        popupStyle() {
             if (isEdit(this.env)) {
                 /** 新场景需要一个宽高 */
                 return {
@@ -102,5 +103,6 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@import "./../style.less";
 </style>
