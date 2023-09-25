@@ -1,12 +1,12 @@
 <template>
-    <div :class="popupCx">
-        <div :class="css.overlay" @click="handleOverlayClick"></div>
-        <div :class="mainCx">
-            <div :class="contentClasses" :style="data.contentStyle">
-                <slot name="content"></slot>
-            </div>
-        </div>
+  <div :class="popupCx" :style="popupStyle">
+    <div :class="css.overlay" @click="handleOverlayClick"></div>
+    <div :class="mainCx">
+      <div :class="contentClasses" :style="data.contentStyle">
+        <slot name="content"></slot>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
 
         const contentClasses = computed(() => ({
             [css.content]: true,
-            // [css.empty]: !props.slots["content"],
+            [css.empty]: props.slots["content"]?.size === 0,
             "mybricks-content": true,
         }));
 
@@ -78,6 +78,26 @@ export default {
             css
         };
     },
+    computed: {
+        popupStyle () {
+            if (isEdit(this.env)) {
+                /** 新场景需要一个宽高 */
+                return {
+                    width: '375px',
+                    height: '667px',
+                    position: "relative",
+                };
+            }
+            if (isDesigner(this.env)) {
+                /** 设计器runtime时需要fixed会相对于更上层的元素 */
+                return {
+                    // position: 'absolute',
+                    width: '375px',
+                };
+            }
+            return {};
+        }
+    }
 };
 
 </script>
