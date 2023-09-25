@@ -30,6 +30,7 @@
       "title": "招联",
       "comAry": [
         "./src/CMB/coupon-list/com.json",
+        "./src/CMB/shop-card/com.json",
         "./src/CMB/bottom-notice/com.json",
         "./src/CMB/footerBar/com.json"
       ]
