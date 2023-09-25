@@ -1,15 +1,19 @@
 <template>
     <div class="layout" :style="data.style" @click="onClickLayout">
-        <div v-for="child in renderSlot(data.tree, null)" :key="child.id" :class="child.cssClass">
-            <!-- Content will be rendered using render functions -->
-        </div>
+        <Tree :node="data.tree" :parentNode="null" :slots="slots" :outputs="outputs" >
+        <!-- <template v-for="" v-slot:[]></template>     -->
+        </Tree>
     </div>
 </template>
 
 <script>
 import cx from 'classnames';
+import Tree from './tree.vue';
 
 export default {
+    components: {
+        Tree
+    },
     props: ['id', 'data', 'outputs', 'slots'],
 
     methods: {
