@@ -1,8 +1,8 @@
 <template>
     <div class="couponList">
         <template v-if="hasCard">
-            <template v-for="(item, index) in list">
-                <div class="item" :key="index">
+            <template v-for="(item, index) in list" :key="index">
+                <div class="item">
                     <slot name="card" :env="env" :inputs="{
                         install(fn) {
                             fn(item)
