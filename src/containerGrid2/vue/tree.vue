@@ -1,5 +1,6 @@
 <template>
-  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
+  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.layout, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
+    {{  node.style  }}
     <slot name="nodeSlots" v-bind="[node]"></slot>
   </div>
   <div v-else-if="Array.isArray(node.children)" :class="nodeCx" :key="node.id" :data-id="node.id">
