@@ -13,7 +13,6 @@ export default {
   methods: {},
   computed: {
     cls() {
-      console.log('this.mode', this.mode)
       const cls = classNames(
         "h5-img",
         {
