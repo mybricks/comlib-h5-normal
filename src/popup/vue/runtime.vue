@@ -43,9 +43,13 @@ export default {
 
         },
         contentClasses() {
+            console.log(this.slots);
+            console.log(this.slots?.["content"]);
+            console.log(this.slots?.["content"]?.size);
+            
             return {
                 content: true,
-                empty: this.slots["content"]?.size === 0,
+                empty: this.slots?.["content"]?.size === 0,
                 "mybricks-content": true,
             }
         },
