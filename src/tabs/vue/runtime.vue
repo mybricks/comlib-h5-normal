@@ -23,7 +23,7 @@ export default {
     },
     data() {
         return {
-            currentTabId: ''
+            currentTabId: 'tabName1'
         }
     },
     computed: {
