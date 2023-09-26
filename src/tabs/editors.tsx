@@ -115,7 +115,6 @@ export default {
           type: "array",
           options: {
             selectable: true,
-            editable: false,
             getTitle: (item, index) => {
               return [`${item.tabName || ""}`];
             },
