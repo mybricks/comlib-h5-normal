@@ -5,42 +5,38 @@
 </template>
 
 <script>
-
 export default {
     props: ["env", "data", "inputs", "outputs", "title", "propsStyle"],
-    setup(props) {
-        const onLoad = () => {
-            if (!props.env.runtime) {
+    created() {
+        this.inputs["setSrc"]?.((val) => {
+            this.data.src = val;
+        })
+    },
+    methods: {
+        onLoad() {
+            if (!this.env.runtime) {
                 return;
             }
-            props.inputs["setSrc"]
-            props.outputs["onLoad"]();
-        };
-
-        const onClick = () => {
-            if (!props.env.runtime) {
+            this.inputs["setSrc"]
+            this.outputs["onLoad"]();
+        },
+        onClick() {
+            if (!this.env.runtime) {
                 return;
             }
-            props.outputs["onClick"]();
-        };
-
-        const onError = () => {
-            if (!props.env.runtime) {
+            this.outputs["onClick"]();
+        },
+        onError() {
+            if (!this.env.runtime) {
                 return;
             }
-            props.outputs["onError"]();
-        };
-
-        return {
-            onLoad,
-            onClick,
-            onError,
-        };
+            this.outputs["onError"]();
+        }
     },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .com {
     width: 100%;
     height: 100%;
