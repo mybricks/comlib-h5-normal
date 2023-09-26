@@ -4,25 +4,33 @@
     </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
+<script>
 
-const { env, data, inputs, outputs } = defineProps([
-    'env', 'data', 'inputs', 'outputs'
-]);
-
-const handleClick = (ev) => {
-    if (env.runtime) {
-        ev.stopPropagation();
-        outputs["onClick"](true);
+export default {
+    props: ['env', 'data', 'inputs', 'outputs'],
+    data() {
+        return {
+            text: '按钮'
+        }
+    },
+    methods: {
+        handleClick(ev) {
+            if (this.env.runtime) {
+                ev.stopPropagation();
+                this.outputs["onClick"](true);
+            }
+        }
+    },
+    mounted() {
+        this.inputs["buttonText"]?.((val) => {
+            this.data.text = val;
+        });
     }
 }
 
-onMounted(() => {
-    inputs["buttonText"]?.((val) => {
-        data.text = val;
-    });
-});
+
+
+
 </script>
 
 
