@@ -17,8 +17,8 @@
   }
 
   .main {
-    position: absolute;
-    max-height: 70%;
+    position: absolute !important;
+    max-height: 60%;
     .entry {
       background: #ffffff;
       border-radius: 10px;
@@ -35,8 +35,6 @@
 
     .content {
       overflow-y: auto;
-      max-height: 400px;
-
       //不显示滚动条
       &::-webkit-scrollbar {
         display: none;
@@ -58,6 +56,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 240px;
     }
 
     &.top {

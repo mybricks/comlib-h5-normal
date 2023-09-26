@@ -20,7 +20,7 @@ export default {
     props: ["data", "inputs", "outputs", "env", "_env", "slots", "createPortal"],
     data() {
         return {
-            // show: null
+            show: false
         }
     },
     computed: {
@@ -70,10 +70,19 @@ export default {
     },
 
     created() {
-        // this.show = this.env.edit ? true : false;
-        // this.inputs["onShow"]?.(() => {
-        //     this.show = true;
-        // });
+        console.warn(this.env)
+        this.show = this.env.edit ? true : false;
+
+        this.inputs["open"]?.(() => {
+            console.log("open");
+            console.log("open");
+            console.log("open");
+            this.show = true;
+        });
+
+        this.inputs["onShow"]?.(() => {
+            this.show = true;
+        });
 
         this.inputs["onHide"]?.(() => {
             this.handleClose();
@@ -90,7 +99,7 @@ export default {
         },
         handleClose() {
             this._env?.currentScenes?.close?.();
-            // this.show.value = false;
+            this.show = false;
         }
 
     }

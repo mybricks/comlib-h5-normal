@@ -10,6 +10,13 @@
   "icon": "./../icon.svg",
   "inputs": [
     {
+      "id": "open",
+      "title": "打开",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
       "id": "onShow",
       "title": "打开弹层",
       "schema": {
