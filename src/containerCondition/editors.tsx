@@ -91,9 +91,7 @@ export default {
             };
           },
           onSelect(_id) {
-            console.log('onSelect', _id);
             data._editSelectId_ = findItemByInnerId(_id, data)?.id ?? data._editSelectId_;
-            console.log("data._editSelectId_", data._editSelectId_);
           },
           onRemove(_id) {
             const id = findItemByInnerId(_id, data)?.id
