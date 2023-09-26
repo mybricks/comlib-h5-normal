@@ -1,12 +1,17 @@
 <template>
     <div class="com">
-        <img class="image" :src="data.src" @click="onClick">
+        <MyImage class="image" :src="m.data.src" :mode="m.data.mode" @click="onClick" />
     </div>
 </template>
 
 <script>
+import MyImage from './../../components-vue/image/index.vue';
+
 export default {
-    props: ["env", "data", "inputs", "outputs", "title", "propsStyle"],
+    components: {
+        MyImage,
+    },
+    props: ["env", "data", "inputs", "outputs", "title", "m"],
     created() {
         this.inputs["setSrc"]?.((val) => {
             this.data.src = val;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <!-- <div>
         <div :class="styles.tabs">
             <div :class="styles.tab_line">
                 <div v-for="item in items" :key="item._id" @click="tabClick(item._id)"
@@ -12,7 +12,8 @@
         <div>
             <slot></slot>
         </div>
-    </div>
+    </div> -->
+    <span>TABS</span>
 </template>
 
 <script setup>
