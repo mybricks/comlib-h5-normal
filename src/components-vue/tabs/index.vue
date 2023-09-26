@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div :class="styles.tabs">
-            <div :class="styles.tab_line">
+        <div class="tabs">
+            <div class="tab_line">
                 <div v-for="item in items" :key="item._id" @click="tabClick(item._id)"
-                    :class="[styles.tabItem_line, item._id === value ? styles.active : '']" style="flex-grow: 0">
+                    :class="['tabItem_line',isActive(item._id)]" style="flex-grow: 0;">
                     {{ item.tabName }}
-                    <div v-if="item._id === value" :class="styles.line" style="background-color: #FA6400"></div>
+                    <div v-if="item._id === value" class="line" style="background-color: #FA6400"></div>
                 </div>
             </div>
         </div>
@@ -14,22 +14,36 @@
         </div>
     </div>
 </template>
+<script>
 
-<script setup>
-import styles from "./index.less";
+export default {
+    name: 'Tabs',
+    props: {
+        value: {
+            type: String,
+        },
+        items: {
+            type: String,
+        },
+    },
+    data() {
+        return {
 
-const emit = defineEmits(['change'])
+        }
+    },
+    methods: {
+        tabClick(id) {
+            // emit('change', id)
+            this.$emit('change', id)
+        },
+        isActive(itemId){
+            return itemId === this.value ? 'active' : '';
+        }
+    }
+}
 
-const props = defineProps({
-    value: String,
-    items: Array,
-});
-
-const tabClick = (id) => {
-    emit('change', id)
-};
 </script>
 
 <style scoped lang="less">
-
+@import "./index.less";
 </style>
