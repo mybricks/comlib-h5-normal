@@ -1,0 +1,20 @@
+{
+  "title": "楼层卡片",
+  "namespace": "mybricks.vue.floor_card",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "楼层卡片",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "preview": "./icon.svg",
+  "editors": "./editors.tsx",
+  "slots": [
+    {
+      "id": "card",
+      "name":"card",
+      "title": "请拖放组件到当前楼层卡片"
+    }
+  ]
+}
