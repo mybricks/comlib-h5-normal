@@ -574,8 +574,6 @@ function updateNode(node, tree) {
  */
 function setSlotLayoutByCss(slot: any, cssStyles: CSSProperties) {
 
-  console.log('cssStyles', slot, cssStyles)
-
   switch (true) {
     case cssStyles.position === "absolute": {
       slot.setLayout("absolute");

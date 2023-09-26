@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="tabs">
-            <div class="tab_line">
+        <div :class="styles.tabs">
+            <div :class="styles.tab_line">
                 <div v-for="item in items" :key="item._id" @click="tabClick(item._id)"
                     :class="['tabItem_line',isActive(item._id)]" style="flex-grow: 0;">
                     {{ item.tabName }}
