@@ -3,14 +3,27 @@
         <template v-if="hasCard">
             <template v-for="(item, index) in list">
                 <div :class="itemClass" :key="index">
-                    <slot name="card" :env="env" :inputs="{
-                        install(fn) {
-                            fn(item)
-                        }
-                    }"></slot>
+                    <slot
+                        name="card"
+                        :env="env" 
+                        :inputs="{
+                            install(fn) {
+                                fn(item)
+                            }
+                        }"
+                        :m="{
+                            env,
+                            inputs: { 
+                                install (fn) {
+                                    fn(item)
+                                }
+                            }
+                        }"
+                    >
+                    </slot>
                 </div>
             </template>
-            <div :class="placeholderClass" v-for="item in 3"></div>
+            <div :class="placeholderClass" v-for="item in 3" :key="item"></div>
         </template>
         <template v-else>
             <div class="emptyCard">
