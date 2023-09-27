@@ -3,9 +3,9 @@
         <div class="card">
             <div class="top">
                 <div class="left">
-                    <div class="title">积分抽奖</div>
+                    <div class="title">{{m.data.title}}</div>
                     <img class="icon"
-                        src="http://my.mybricks.world/mfs/files/1695735267201/uh8M6lZXGToHxEZxIO1J4HvqENrj05JK-1695735267793.png" />
+                        :src="m.data.icon" @click="iconClick" />
                 </div>
                 <div class="right"></div>
             </div>
@@ -18,7 +18,13 @@
 
 <script>
 export default {
-    props: ["data"],
+    props: ["data","m"],
+    methods:{
+        iconClick(){
+            console.log("iconClick",this.m.data.iconJumpUrl)
+            window.open(this.m.data.iconJumpUrl);
+        }
+    }
 }
 </script>
 

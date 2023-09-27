@@ -1,29 +1,29 @@
 <template>
     <div>
         <div v-if="emptyView" class="empty">暂无内容，请配置标签项</div>
-        <Tabs v-else :value="currentTabId" :items="data.tabs" @change="setCurrentTabId">
-            <template v-for="tab in data.tabs">
+        <Tabs v-else :value="currentTabId" :items="m.data.tabs" @change="setCurrentTabId">
+            <div v-for="tab in m.data.tabs">
                 <div v-show="currentTabId === tab._id">
-                    <div v-show="!data.hideContent">
+                    <div v-show="!m.data.hideContent">
                         <slot :name="tab._id"></slot>
                     </div>
                 </div>
-            </template>
+            </div>
         </Tabs>
     </div>
 </template>
 
 <script>
-import Tabs from '../../components-vue/tabs/index.vue';
+import Tabs from './../../components-vue/tabs/index.vue';
 
 export default {
-    props: ['data', 'inputs', 'outputs', 'env', 'title'],
+    props: ['data', 'inputs', 'outputs', 'env', 'title','m'],
     components: {
         Tabs
     },
     data() {
         return {
-            currentTabId: 'tabName1'
+            currentTabId: 'tabName1',
         }
     },
     computed: {
@@ -43,10 +43,10 @@ export default {
     },
     created() {
         this.currentTabId = this.getDefaultCurrTabId(this.data.tabs);
-        console.log("this.data", this.data)
+        console.log("this", this)
     },
     mounted() {
-        console.log("mounted id", this.data.edit.currentTabId)
+        console.log("mounted id", this.currentTabId)
         this.inputs['tabList']?.((ds) => {
             if (Array.isArray(ds)) {
                 this.data.tabs = ds;

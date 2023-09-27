@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div :class="styles.tabs">
-            <div :class="styles.tab_line">
+        <div class="tabs">
+            <div class="tab_line">
                 <div v-for="item in items" :key="item._id" @click="tabClick(item._id)"
-                    :class="['tabItem_line',isActive(item._id)]" style="flex-grow: 0;">
+                    :class="['tabItem_line', isActive(item._id)]" style="flex-grow: 0;">
                     {{ item.tabName }}
                     <div v-if="item._id === value" class="line taroify-tabs__line"></div>
                 </div>
@@ -17,26 +17,25 @@
 <script>
 
 export default {
-    name: 'Tabs',
-    props: {
-        value: {
-            type: String,
-        },
-        items: {
-            type: String,
-        },
-    },
+    inheritAttrs: true,
+    props: ['value', 'items'],
     data() {
         return {
 
         }
+    },
+    created() {
+        console.log("tabs created", this)
+    },
+    mounted() {
+        console.log("tabs mounted", this)
     },
     methods: {
         tabClick(id) {
             // emit('change', id)
             this.$emit('change', id)
         },
-        isActive(itemId){
+        isActive(itemId) {
             return itemId === this.value ? 'active taroify-tabs__tab--active' : 'taroify-tabs__tab';
         }
     }

@@ -17,10 +17,32 @@ export default {
           },
           set({ data }, val) {
             data.title = val;
-
           },
         },
       },
+      {
+        title: "图标",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.icon;
+          },
+          set({ data }, val) {
+            data.icon = val;
+          },
+        },
+      },{
+        title:"图标跳转地址",
+        type:"text",
+        value: {
+          get({ data }) {
+            return data.iconJumpUrl;
+          },
+          set({ data }, val) {
+            data.iconJumpUrl = val;
+          },
+        }
+      }
     ],
   },
 };
