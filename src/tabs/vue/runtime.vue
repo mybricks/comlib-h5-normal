@@ -82,7 +82,6 @@ export default {
             });
         },
         handleTabChange() {
-            console.log("进来handle")
             const index = this.data.tabs.findIndex(tab => tab._id == this.currentTabId);
             if (index === -1) {
                 return;
