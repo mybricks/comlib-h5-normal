@@ -19,6 +19,7 @@ export default {
       cate0.items = [
         {
           items: [
+            
             {
               title: "抽奖栏标题",
               type: "text",
@@ -52,6 +53,18 @@ export default {
                 },
                 set({ data }, prizeId: string) {
                   data.prizeId = prizeId;
+                },
+              },
+            },
+            {
+              title: "动画快慢..",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.loop;
+                },
+                set({ data }, loop: string) {
+                  data.loop = loop;
                 },
               },
             },

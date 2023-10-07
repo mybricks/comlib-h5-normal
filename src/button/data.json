@@ -14,5 +14,6 @@
     "border-radius": "0px",
     "border-width": "0px"
   },
-  "text": "按钮"
+  "text": "按钮",
+  "asHotarea": false
 }
