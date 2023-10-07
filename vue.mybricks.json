@@ -31,8 +31,7 @@
         "./src/nine-block/com.json",
         "./src/zhaolian/coupon-list/com.json",
         "./src/zhaolian/commodity-list/com.json",
-        "./src/zhaolian/footerBar/com.json",
-        "./src/zhaolian/floor-card/com.json"
+        "./src/zhaolian/footerBar/com.json"
       ]
     },
     {

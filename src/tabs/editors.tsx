@@ -86,7 +86,7 @@ export default {
         options: [
           'border',
           { type: 'background', config: { disableBackgroundImage: true } },
-          { type: 'size', config: { disableWidth: true } }
+          { type: 'size', config: { disableWidth: false } }
         ],
         target: '.taroify-tabs__line'
       }
@@ -135,6 +135,16 @@ export default {
                 type: "text",
                 value: "tabName",
               },
+              {
+                title:"tab图标(可选)",
+                type:"imageSelector",
+                value:"tabPic"
+              },
+              {
+                title:"tab图标-选中(可选)",
+                type:"imageSelector",
+                value:"tabPicActive"
+              }
             ],
           },
           value: {
@@ -142,24 +152,26 @@ export default {
               return data.tabs;
             },
             set({ data, slot }, value) {
-              let action = computedAction({
-                before: data.tabs,
-                after: value,
-              });
+              console.log("data",data)
+              console.log("value",value)
+              // let action = computedAction({
+              //   before: data.tabs,
+              //   after: value,
+              // });
   
-              switch (action?.name) {
-                case "remove":
-                  slot.remove(action?.value._id);
-                  break;
-                case "add":
-                  slot.add(action?.value._id);
-                  break;
-                case "update":
-                  slot.setTitle(action?.value._id, action?.value.tabName);
-                  break;
-              }
-  
+              // switch (action?.name) {
+              //   case "remove":
+              //     slot.remove(action?.value._id);
+              //     break;
+              //   case "add":
+              //     slot.add(action?.value._id);
+              //     break;
+              //   case "update":
+              //     slot.setTitle(action?.value._id, action?.value.tabName);
+              //     break;
+              // }
               data.tabs = value;
+              console.log("data.tabs",data.tabs)
             },
           },
         },

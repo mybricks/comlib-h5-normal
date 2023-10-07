@@ -19,6 +19,8 @@
     {
       "_id": "tabName1",
       "tabName": "标签项1",
+      "tabPic":"http://my.mybricks.world/mfs/files/1696650610502/gwGD3Jap0uc31EwrAX9Plu9mId6co4UB-1696650610964.png",
+      "tabPicActive":"http://my.mybricks.world/mfs/files/1696650580832/SuJuz1tzzUMD9kyRPgP82ACdjBfWIInc-1696650581313.png",
       "useIndependentStyle": false,
       "normalNavItemStyle": {
         "width": "22%",
