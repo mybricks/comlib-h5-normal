@@ -4,6 +4,7 @@
   "wrap": "wrap",
   "justify": "start",
   "align": "stretch",
+  "_editSelectId_": "condition_1",
   "items": [
     {
       "_id": "condition_1",

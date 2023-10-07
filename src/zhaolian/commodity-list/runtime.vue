@@ -39,15 +39,15 @@ export default {
     data() {
         return {
             list: [{
-                title: '【12期免息】苹果Apple iPhone 14 Pro Max',
+                title: '【12期免息】苹果Apple iPhone 14 Pro Max 111',
                 price: '￥1234',
                 img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
-                buttonText: '月供 ￥305.81起'
+                buttonText: '月供 ￥105.81起'
             }, {
                 title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                 price: '￥5678',
                 img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
-                buttonText: '月供 ￥305.81起'
+                buttonText: '月供 ￥205.81起'
             }, {
                 title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                 price: '￥2234',
@@ -57,12 +57,12 @@ export default {
                 title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                 price: '￥5678',
                 img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
-                buttonText: '月供 ￥305.81起'
+                buttonText: '月供 ￥405.81起'
             }, {
                 title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                 price: '￥6429',
                 img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
-                buttonText: '月供 ￥305.81起'
+                buttonText: '月供 ￥505.81起'
             }, {
                 title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                 price: '￥6429',

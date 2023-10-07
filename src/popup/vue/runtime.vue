@@ -43,10 +43,6 @@ export default {
 
         },
         contentClasses() {
-            console.log(this.slots);
-            console.log(this.slots?.["content"]);
-            console.log(this.slots?.["content"]?.size);
-            
             return {
                 content: true,
                 empty: this.slots?.["content"]?.size === 0,
@@ -74,7 +70,6 @@ export default {
     },
 
     created() {
-        console.warn(this.env)
         this.show = this.env.edit ? true : false;
 
         this.inputs["open"]?.(() => {
