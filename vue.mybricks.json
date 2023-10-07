@@ -22,7 +22,8 @@
         "./src/containerGrid2/vue/com.json",
         "./src/popup/vue/com.json",
         "./src/containerCondition/vue/com.json",
-        "./src/tabs/vue/com.json"
+        "./src/tabs/vue/com.json",
+        "./src/containerList/vue/com.json"
       ]
     },
     {
@@ -45,10 +46,7 @@
     },
     {
       "title": "其他",
-      "comAry": [
-        "./src/safeArea/vue/com.json",
-        "./src/divider/vue/com.json"
-      ]
+      "comAry": ["./src/safeArea/vue/com.json", "./src/divider/vue/com.json"]
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "title": "列表",
+  "namespace": "mybricks.vue.containerList",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.72494422385ad276.png",
+  "inputs": [
+    {
+      "id": "setDatasource",
+      "title": "设置数据",
+      "schema": {
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "item",
+      "capacity": 1,
+      "title": "列表项",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项",
+          "desc": "当前项展示内容",
+          "schema": {
+            "type": "any"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "desc": "当前项展示的序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
+    }
+  ]
+}
