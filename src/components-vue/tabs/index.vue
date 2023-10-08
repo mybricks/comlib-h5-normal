@@ -11,6 +11,7 @@
                                 <img :src="item.tabPicActive" class="tabItem_pic" alt="" />
                             </div>
                             <div v-show="!item.tabPicActive">{{ item.tabName }}</div>
+                            <div v-show="item._id === value" class="line taroify-tabs__line"></div>
                         </div>
                         <!-- 非激活的情况 -->
                         <div v-show="!isActive(item._id)">

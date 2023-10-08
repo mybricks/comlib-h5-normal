@@ -152,24 +152,22 @@ export default {
               return data.tabs;
             },
             set({ data, slot }, value) {
-              console.log("data",data)
-              console.log("value",value)
-              // let action = computedAction({
-              //   before: data.tabs,
-              //   after: value,
-              // });
+              let action = computedAction({
+                before: data.tabs,
+                after: value,
+              });
   
-              // switch (action?.name) {
-              //   case "remove":
-              //     slot.remove(action?.value._id);
-              //     break;
-              //   case "add":
-              //     slot.add(action?.value._id);
-              //     break;
-              //   case "update":
-              //     slot.setTitle(action?.value._id, action?.value.tabName);
-              //     break;
-              // }
+              switch (action?.name) {
+                case "remove":
+                  slot.remove(action?.value._id);
+                  break;
+                case "add":
+                  slot.add(action?.value._id);
+                  break;
+                case "update":
+                  slot.setTitle(action?.value._id, action?.value.tabName);
+                  break;
+              }
               data.tabs = value;
               console.log("data.tabs",data.tabs)
             },
