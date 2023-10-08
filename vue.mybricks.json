@@ -1,7 +1,9 @@
 {
+  "domain": "https://my.mybricks.world",
+  "email":"stuzhaoxing@gmail.com",
+
   "namespace": "mybricks.normal-h5-comlib.vue",
   "componentType": "KH5",
-  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
     "./src/_connector/h5/com.json",
     "./src/_muilt-inputJs/h5/com.json",
@@ -24,24 +26,6 @@
         "./src/containerCondition/vue/com.json",
         "./src/tabs/vue/com.json",
         "./src/containerList/vue/com.json"
-      ]
-    },
-    {
-      "title": "招联",
-      "comAry": [
-        "./src/nine-block/com.json",
-        "./src/zhaolian/coupon-list/com.json",
-        "./src/zhaolian/commodity-list/com.json",
-        "./src/zhaolian/footerBar/com.json"
-      ]
-    },
-    {
-      "visible": false,
-      "title": "卡片",
-      "comAry": [
-        "./src/zhaolian/commodity-card1/com.json",
-        "./src/zhaolian/coupon-card1/com.json",
-        "./src/zhaolian/coupon-card2/com.json"
       ]
     },
     {
