@@ -28,6 +28,24 @@
       ]
     },
     {
+      "title": "招联",
+      "comAry": [
+        "./src/zhaolian/bottom-notice/com.json",
+        "./src/zhaolian/commodity-list/com.json",
+        "./src/zhaolian/coupon-list/com.json",
+        "./src/zhaolian/floor-card/com.json",
+        "./src/zhaolian/footerBar/com.json"
+      ]
+    },
+    {
+      "visible": false,
+      "comAry": [
+        "./src/zhaolian/commodity-card1/com.json",
+        "./src/zhaolian/coupon-card1/com.json",
+        "./src/zhaolian/coupon-card2/com.json"
+      ]
+    },
+    {
       "title": "其他",
       "comAry": ["./src/safeArea/vue/com.json", "./src/divider/vue/com.json"]
     }

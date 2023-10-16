@@ -57,11 +57,13 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 18px;
-    height: 18px;
+    width: 10%;
+    height: 10%;
+    min-width: 18px;
+    min-height: 18px;
     cursor: pointer;
     background: #cccccc;
-    border-bottom-left-radius: 18px;
+    border-bottom-left-radius: 9999px;
 
     &::after {
       content: "X";
@@ -70,8 +72,13 @@
       line-height: 1;
       font-weight: 500;
       position: absolute;
-      top: 2px;
-      left: 7px;
+      // top: 2px;
+      // left: 7px;
+      margin-top: -1px;
+      margin-left: 3px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

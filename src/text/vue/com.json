@@ -3,12 +3,11 @@
   "namespace": "mybricks.normal-vue.text",
   "author": "mybricks-team",
   "author_name": "板砖团队",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "runtime": "./runtime.vue",
   "data": "./../data.json",
   "editors": "./editors.tsx",
   "icon": "../icon.svg",
-  "pxToVw": {},
   "inputs": [
     {
       "id": "value",
