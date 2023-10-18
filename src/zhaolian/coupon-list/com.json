@@ -8,10 +8,15 @@
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "icon": "./icon.svg",
-  "preview":"./icon.svg",
+  "preview": "./icon.svg",
   "editors": "./editors.tsx",
   "inputs": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "id": "afterFetch",
+      "title": "获取数据后"
+    }
+  ],
   "slots": [
     {
       "id": "card",

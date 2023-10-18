@@ -3,9 +3,6 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
-  // "@resize": {
-  //   options: ["width", "height"],
-  // },
   ":root": {
     style: [
       {
@@ -15,6 +12,21 @@ export default {
       },
     ],
     items: [
+      {
+        title: "券id",
+        type: "text",
+        options: {
+          placeholder: "请输入券id",
+        },
+        value: {
+          get({ data }) {
+            return data.couponId;
+          },
+          set({ data }, value) {
+            data.couponId = value;
+          },
+        },
+      },
       {
         title: "选择组件",
         type: "comSelector",
@@ -32,6 +44,28 @@ export default {
               slot.get("card").addCom(namespace);
             }
           },
+        },
+      },
+      {
+        title: "领券后使用自定义事件",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useAfterFetch;
+          },
+          set({ data, slot }, value) {
+            data.useAfterFetch = value;
+          },
+        },
+      },
+      {
+        ifVisible({ data }) {
+          return data.useAfterFetch;
+        },
+        title: "自定义事件名称",
+        type: "_event",
+        options: {
+          outputId: "afterFetch",
         },
       },
     ],

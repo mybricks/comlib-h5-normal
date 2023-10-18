@@ -41,7 +41,7 @@ export default {
           maxWidth: `${100 / column}%`,
           flexBasis: `${100 / column}%`,
           paddingRight: `12px`,
-          background: "red",
+          // background: "red",
         }
       }
     },

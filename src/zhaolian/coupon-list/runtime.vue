@@ -3,9 +3,13 @@
         <template v-if="hasCard">
             <template v-for="(item, index) in list">
                 <div class="item" :key="index">
-                    <slot name="card" :env="env" :inputs="{
+                    <slot name="card" :inputs="{
                         install(fn) {
-                            fn(item)
+                            fn({
+                                dataSource: item,
+                                m: m,
+                                fetch: fetch
+                            })
                         }
                     }"></slot>
                 </div>
@@ -21,7 +25,7 @@
 
 <script>
 export default {
-    props: ["data", "slots", "outputs", "env"],
+    props: ["m"],
     data() {
         return {
             list: [{
@@ -29,7 +33,7 @@ export default {
                 text: '3期及以上享用',
                 img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
             }, {
-                title: '满100元使用',
+                title: '满50元使用',
                 text: '6期及以上享用',
                 img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
             }]
@@ -39,7 +43,16 @@ export default {
     },
     computed: {
         hasCard() {
-            return !!this.slots?.['card']?.size;
+            return !!this.m.slots?.['card']?.size;
+        }
+    },
+    methods: {
+        fetch(params) {
+            if (this.m.data.useAfterFetch) {
+                this.m.outputs['afterFetch'](params);
+            } else {
+                alert(`mock 调用领券接口，参数：${JSON.stringify(params)}`);
+            }
         }
     }
 }

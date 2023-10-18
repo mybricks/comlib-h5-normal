@@ -363,9 +363,9 @@ export default {
               let id = focusArea.dataset.id;
               let node = findNode(id, data.tree);
 
-              const slot = slots.get(node.id)
+              const slot = slots.get(node.id);
               /** 根据最终生效的CSS设置布局 */
-              setSlotLayoutByCss(slot, value)
+              setSlotLayoutByCss(slot, value);
 
               data.tree = updateNode(
                 {
@@ -435,6 +435,18 @@ export default {
                 } else {
                   data.tree = anthorNode;
                 }
+              }
+
+              /**
+               * 如果父节点超过 2 个子节点，则删除本节点
+               */
+              if (parentNode.children.length > 2) {
+                let index = parentNode.children.findIndex(
+                  (item) => item.id === id
+                );
+                parentNode.children.splice(index, 1);
+
+                data.tree = JSON.parse(JSON.stringify(data.tree));
               }
             },
           },
@@ -573,7 +585,6 @@ function updateNode(node, tree) {
  * @param cssStyles
  */
 function setSlotLayoutByCss(slot: any, cssStyles: CSSProperties) {
-
   switch (true) {
     case cssStyles.position === "absolute": {
       slot.setLayout("absolute");

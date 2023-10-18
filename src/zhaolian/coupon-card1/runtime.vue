@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props: ["inputs", "env"],
+    props: ["m", "inputs"],
     data() {
         return {
             dataSource: {}
@@ -35,7 +35,7 @@ export default {
     },
     computed: {
         _dataSource() {
-            if (this.env.runtime) {
+            if (this.m.env.runtime) {
                 return this.dataSource;
             } else {
                 return {

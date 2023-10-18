@@ -1,5 +1,5 @@
 <template>
-    <div class="couponCard">
+    <div class="couponCard" @click="fetch(dataSource)">
         <div class="smallView">
             <div class="priceArea">
                 <div class="price">
@@ -20,27 +20,41 @@
 
 <script>
 export default {
-    props: ["data", "inputs", "env"],
+    // props: ["m", "fetch", "inputs"],
+    props: ["inputs"],
     data() {
-        return { dataSource: {} }
+        return {
+            dataSource: {},
+            m: {},
+            fetch: () => { },
+        }
     },
     created() {
         this.inputs.install?.((val) => {
-            console.log(val);
-            this.dataSource = val;
+            console.error("inputttt", val);
+
+            this.dataSource = val.dataSource;
+            this.m = val.m;
+            this.fetch = val.fetch;
         })
     },
     computed: {
         _dataSource() {
-            if (this.env.runtime) {
-                return this.dataSource;
-            } else {
-                return {
-                    title: "券信息",
-                    text: "使用条件",
-                    img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
-                }
+            return {
+                title: "券信息",
+                text: "使用条件",
+                img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
             }
+
+            // if (this.m.env.runtime) {
+            //     return this.dataSource;
+            // } else {
+            //     return {
+            //         title: "券信息",
+            //         text: "使用条件",
+            //         img: 'http://my.mybricks.world/mfs/files/1695558631680/M42d54ywDW41zjSOmUGJw6dbzzidO3oU-1695558631865.png'
+            //     }
+            // }
         }
     }
 }

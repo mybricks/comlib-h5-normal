@@ -1,8 +1,9 @@
 {
   "domain": "https://my.mybricks.world",
   "email":"stuzhaoxing@gmail.com",
+  "namespace": "mybricks.normal-h5-comlib.vue",
   "pxToVw": {},
-  "componentType": "H5",
+  "componentType": "KH5",
   "comAry": [
     "./src/_connector/h5/com.json",
     "./src/_muilt-inputJs/h5/com.json",
@@ -30,10 +31,9 @@
     {
       "title": "招联",
       "comAry": [
-        "./src/zhaolian/bottom-notice/com.json",
+        "./src/nine-block/com.json",
         "./src/zhaolian/commodity-list/com.json",
         "./src/zhaolian/coupon-list/com.json",
-        "./src/zhaolian/floor-card/com.json",
         "./src/zhaolian/footerBar/com.json"
       ]
     },

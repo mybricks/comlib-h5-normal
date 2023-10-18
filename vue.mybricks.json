@@ -1,8 +1,9 @@
 {
   "domain": "https://my.mybricks.world",
   "email":"stuzhaoxing@gmail.com",
+  "namespace": "mybricks.normal-h5-comlib.vue",
   "pxToVw": {},
-  "componentType": "H5",
+  "componentType": "KH5",
   "comAry": [
     "./src/_connector/h5/com.json",
     "./src/_muilt-inputJs/h5/com.json",

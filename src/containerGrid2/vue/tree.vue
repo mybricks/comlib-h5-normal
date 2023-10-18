@@ -1,10 +1,14 @@
 <template>
-  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" :data-id="node.id" @click="() => clickNode(node.id)">
+  <!-- 叶子节点 -->
+  <div v-if="node.isLeaf" data-leaf class="node" :style="{ ...node.style, ...leafSize }" :key="node.id" :data-id="node.id"
+    @click="() => clickNode(node.id)">
     <slot name="nodeSlots" :nodes="[node]"></slot>
   </div>
+
+  <!-- 非叶子节点 -->
   <div v-else-if="Array.isArray(node.children)" :class="nodeCx" :key="node.id" :data-id="node.id">
     <template v-for="child in node.children">
-      <Tree v-if="child" :node="child" :parentNode="node" :key="child.id" @onClickNode="treeClick" :env="{env}">
+      <Tree v-if="child" :node="child" :parentNode="node" @onClickNode="treeClick" :env="env">
         <template #nodeSlots="{ nodes }">
           <slot name="nodeSlots" :nodes="nodes"></slot>
         </template>
@@ -18,7 +22,7 @@ import { transformStylePxToVw } from './../../utils/transformStyle';
 
 export default {
   name: 'Tree',
-  props: ['node', 'env', 'parentNode', 'transformStyle'],
+  props: ['node', 'env', 'parentNode'],
   computed: {
     leafSize() {
       let result = {};
@@ -29,13 +33,13 @@ export default {
       } else {
         if (this.parentNode.direction === "row") {
           if (this.node.size.fixedWidth) {
-            result.width = this.node.size.width;
+            result.width = `${this.node.size.width}px`;
           } else {
             result.flex = 1;
           }
 
           if (this.node.size.fixedHeight) {
-            result.height = this.node.size.height;
+            result.height = `${this.node.size.height}px`;
           } else {
             result.height = "100%";
           }
@@ -43,20 +47,21 @@ export default {
 
         if (this.parentNode.direction === "col") {
           if (this.node.size.fixedHeight) {
-            result.height = this.node.size.height;
+            result.height = `${this.node.size.height}px`;
           } else {
             result.flex = 1;
           }
 
           if (this.node.size.fixedWidth) {
-            result.width = this.node.size.width;
+            result.width = `${this.node.size.width}px`;
           } else {
             result.width = "100%";
           }
         }
       }
 
-      return transformStylePxToVw(this.env, result);
+      result = transformStylePxToVw(this.env, result);
+      return result;
     },
     nodeCx() {
       return cx({
