@@ -18,7 +18,10 @@
     },
     {
       "title": "容器",
-      "comAry": ["./src/containerGrid2/vue/com.json", "./src/tabs/vue/com.json"]
+      "comAry": [
+        "./src/containerGrid2/vue/com.json",
+        "./src/tabs/vue/com.json"
+      ]
     },
     {
       "title": "招联",
@@ -40,7 +43,11 @@
     },
     {
       "title": "其他",
-      "comAry": ["./src/safeArea/vue/com.json"]
+      "comAry": [
+        "./src/safeArea/vue/com.json"
+      ]
     }
-  ]
+  ],
+  "userName": "stuzhaoxing@gmail.com",
+  "tags": "react"
 }

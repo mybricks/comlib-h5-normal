@@ -11,7 +11,6 @@
     {
       "title": "基础",
       "comAry": [
-        "./src/header-image/vue/com.json",
         "./src/text/vue/com.json",
         "./src/richText/vue/com.json",
         "./src/image/vue/com.json",
@@ -22,14 +21,8 @@
       "title": "容器",
       "comAry": [
         "./src/containerGrid2/vue/com.json",
-        "./src/containerCondition/vue/com.json",
-        "./src/tabs/vue/com.json",
-        "./src/containerList/vue/com.json"
+        "./src/tabs/vue/com.json"
       ]
-    },
-    {
-      "visible": false,
-      "comAry": ["./src/popup/vue/com.json"]
     },
     {
       "title": "其他",
@@ -39,7 +32,11 @@
     },
     {
       "visible": false,
-      "comAry":["./src/popup/vue/com.json"]
+      "comAry": [
+        "./src/popup/vue/com.json"
+      ]
     }
-  ]
+  ],
+  "userName": "stuzhaoxing@gmail.com",
+  "tags": "vue"
 }
