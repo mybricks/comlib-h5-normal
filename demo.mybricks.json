@@ -1,0 +1,10 @@
+{
+  "domain": "https://my.mybricks.world",
+  "email": "stuzhaoxing@gmail.com",
+  "namespace": "mybricks.normal-h5-comlib.vue",
+  "pxToVw": {},
+  "componentType": "KH5",
+  "comAry": [
+    "./src/demo/com.json"
+  ]
+}

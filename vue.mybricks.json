@@ -1,6 +1,6 @@
 {
   "domain": "https://my.mybricks.world",
-  "email":"stuzhaoxing@gmail.com",
+  "email": "stuzhaoxing@gmail.com",
   "namespace": "mybricks.normal-h5-comlib.vue",
   "pxToVw": {},
   "componentType": "KH5",
@@ -22,11 +22,14 @@
       "title": "容器",
       "comAry": [
         "./src/containerGrid2/vue/com.json",
-        "./src/popup/vue/com.json",
         "./src/containerCondition/vue/com.json",
         "./src/tabs/vue/com.json",
         "./src/containerList/vue/com.json"
       ]
+    },
+    {
+      "visible": false,
+      "comAry": ["./src/popup/vue/com.json"]
     },
     {
       "title": "其他",
