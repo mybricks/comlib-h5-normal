@@ -8,7 +8,7 @@
   "description": "图片",
   "runtime": "./runtime.vue",
   "data": "./../data.json",
-  "editors": "./../editors.tsx",
+  "editors": "./editors.tsx",
   "inputs": [
     {
       "id": "setSrc",
