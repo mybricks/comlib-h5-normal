@@ -1,6 +1,6 @@
 <template>
     <div class="com">
-        <MyImage class="image" :src="m.data.src" :mode="m.data.mode" @click="onClick" />
+        <MyImage class="image mybricks-image" :src="m.data.src" :mode="m.data.mode" @click="onClick" />
     </div>
 </template>
 
