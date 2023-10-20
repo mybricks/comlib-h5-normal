@@ -33,7 +33,13 @@
     },
     {
       "title": "其他",
-      "comAry": ["./src/safeArea/vue/com.json"]
+      "comAry": [
+        "./src/safeArea/vue/com.json"
+      ]
+    },
+    {
+      "visible": false,
+      "comAry":["./src/popup/vue/com.json"]
     }
   ]
 }
