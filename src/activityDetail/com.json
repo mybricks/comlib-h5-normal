@@ -7,7 +7,7 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/aadfadf.950522ffe02b4741.svg",
+  "icon": "./icon.svg",
   "inputs": [
     {
       "id": "value",

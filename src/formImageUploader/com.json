@@ -7,8 +7,8 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/adafadsf.9c4267d32a661af5.svg",
-  "preview": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-7dfd081d-1711-416c-9d72-b4711c17ecf3.png",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
   "inputs": [
     {
       "id": "setValue",

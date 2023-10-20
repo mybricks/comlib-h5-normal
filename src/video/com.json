@@ -4,7 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "icon": "./icon.svg",
-  "preview": "https://js-ec.static.yximgs.com/udata/pkg/ks-merchant/cps-hybrid/empty_position.9b16b85c5a152402.png",
+  "preview": "./preview.png",
   "version": "1.0.0",
   "description": "视频",
   "runtime": "./runtime.tsx",

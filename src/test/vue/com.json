@@ -7,7 +7,7 @@
   "runtime": "./runtime.vue",
   "data": "./../data.json",
   "editors": "./../editors.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "icon": "../icon.svg",
   "inputs": [
     {
       "id": "value",

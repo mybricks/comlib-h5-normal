@@ -8,7 +8,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "preview": "https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/compress/image-15d4ef26-d8a1-4e03-828e-5f80ecb68122.png",
+  "preview": "./preview.png",
   "inputs": [
     {
       "id": "setValue",

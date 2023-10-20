@@ -5,7 +5,7 @@
   "author_name": "板砖团队",
   "version": "1.0.0",
   "runtime": "./runtime.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "icon": "./icon.svg",
   "inputs": [],
   "outputs": []
 }

@@ -7,8 +7,8 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://f2.beckwai.com/udata/pkg/eshop/fangzhou/icons/password.svg",
-  "preview": "https://f2.eckwai.com/kos/nlav11092/u_7wb0fm.69116618d11b2917.png",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
   "inputs": [
     {
       "id": "setValue",

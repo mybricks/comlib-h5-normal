@@ -7,7 +7,7 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://f2.eckwai.com/udata/pkg/ks-merchant/fangzhou/static_picture/card.ee9a0bc3eefdad95.svg",
+  "icon": "./icon.svg",
   "slots": [
     {
       "id": "extra",

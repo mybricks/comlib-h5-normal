@@ -7,7 +7,7 @@
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.72494422385ad276.png",
+  "icon": "../icon.png",
   "inputs": [
     {
       "id": "setDatasource",

@@ -5,7 +5,7 @@
   "maxCount": 2,
   "useValueString": false,
   "placeholderText": "",
-  "placeholder": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+  "placeholder": "./preview2.png",
   "required": false,
   "chooseAvatar": false
 }
