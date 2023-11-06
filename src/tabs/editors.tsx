@@ -94,6 +94,18 @@ export default {
     items({ data }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
+        {
+          title: "动态标签",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.defaultTab;
+            },
+            set({ data }, value) {
+              data.defaultTab = value;
+            },
+          },
+        },
         // {
         //   title: '模式',
         //   type: 'select',
