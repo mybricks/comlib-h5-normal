@@ -1,0 +1,46 @@
+{
+  "title": "微信支付弹窗",
+  "namespace": "mybricks.taro._wxPay",
+  "author": "",
+  "author_name": "",
+  "version": "1.0.0",
+  "description": "根据prepayID调起微信支付",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js-autorun",
+  "inputs": [
+    {
+      "id": "wx_requestPayment_body",
+      "title": "弹窗支付参数",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "prepay_id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "nonce_str": {
+            "type": "string"
+          },
+          "pay_sign": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "支付完成"
+    },
+    {
+      "id": "onFail",
+      "title": "取消支付"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
   "componentType": "MP",
   "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
+    "./src/_wxPay/com.json",
     "./src/_connector/com.json",
     "./src/_muilt-inputJs/com.json",
     "./src/_getCurrentInstance/com.json",
@@ -117,5 +118,8 @@
     }
   ],
   "fileId": 37166,
-  "folderId": 37171
+  "folderId": 37171,
+  "namespace": "@mybricks/ktaro-common-lib",
+  "userName": "moyukai05",
+  "tags": "react"
 }
