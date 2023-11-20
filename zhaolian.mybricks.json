@@ -10,6 +10,7 @@
     {
       "title": "基础",
       "comAry": [
+        "./src/demo/com.json",
         "./src/text/vue/com.json",
         "./src/richText/vue/com.json",
         "./src/image/vue/com.json",

@@ -6,5 +6,6 @@
   "componentType": "KH5",
   "comAry": [
     "./src/demo/com.json"
-  ]
+  ],
+  "tags": "vue"
 }

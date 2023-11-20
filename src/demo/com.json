@@ -6,7 +6,13 @@
   "icon": "./icon.svg",
   "version": "1.0.0",
   "description": "demo",
-  "runtime": "./runtime.tsx",
+  "runtime": "./runtime.vue",
   "data": "./data.json",
-  "editors": "./editors.tsx"
+  "editors": "./editors.tsx",
+  "outputs": [
+    {
+      "id": "result",
+      "title": "结果"
+    }
+  ]
 }

@@ -1,3 +1,16 @@
+const setSlotLayout = (slot, val) => {
+  if (!slot) return;
+  if (val.position === "absolute") {
+    slot.setLayout(val.position);
+  } else if (val.display === "flex") {
+    if (val.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (val.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
+
 export default {
   ".mybricks-navigation": {
     title: "导航栏",
@@ -31,21 +44,22 @@ export default {
                 data.navigationStyle = "default";
                 try {
                   slot.remove("mainSlot");
-                  slot.remove("leftSlot");
-                } catch (e) { }
+                  // slot.remove("leftSlot");
+                } catch (e) {}
                 break;
               case "custom":
                 data.navigationStyle = "custom";
-                slot.add("mainSlot", "导航栏主区域");
-                slot.add("leftSlot", "导航栏左区域");
+                slot.add("mainSlot", "导航栏标题区域");
+                // slot.add("mainSlot", "导航栏主区域");
+                // slot.add("leftSlot", "导航栏左区域");
                 break;
 
               case "none":
                 data.navigationStyle = "custom";
                 try {
                   slot.remove("mainSlot");
-                  slot.remove("leftSlot");
-                } catch (e) { }
+                  // slot.remove("leftSlot");
+                } catch (e) {}
                 break;
             }
           },
@@ -162,6 +176,34 @@ export default {
           },
           set({ data }, value) {
             data.customNavigation.style = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-mainSlot": {
+    title: "导航栏标题区域",
+    items: [
+      {
+        title: "列布局",
+        type: "layout",
+        value: {
+          get({ data, slots }) {
+            const { mainSlotStyle = {} } = data.customNavigation;
+            const slotInstance = slots.get("mainSlot");
+            setSlotLayout(slotInstance, mainSlotStyle);
+            return mainSlotStyle;
+          },
+          set({ data, slots }, val: any) {
+            if (!data.customNavigation.mainSlotStyle) {
+              data.customNavigation.mainSlotStyle = {};
+            }
+            data.customNavigation.mainSlotStyle = {
+              ...data.customNavigation.mainSlotStyle,
+              ...val,
+            };
+            const slotInstance = slots.get("mainSlot");
+            setSlotLayout(slotInstance, val);
           },
         },
       },

@@ -9,6 +9,7 @@
     "style": {
       "backgroundColor": "#464646"
     },
+    "mainSlotStyle": {},
     "useFixed": true
   },
 

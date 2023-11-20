@@ -69,6 +69,8 @@ export default {
         title: '默认Tab',
         options: [
           { type: 'font', config: { disableTextAlign: true } },
+          { type: 'size'},
+          { type: 'border'},
           { type: 'background', config: { disableBackgroundImage: true } }
         ],
         target: '.taroify-tabs__tab:not(.taroify-tabs__tab--active)',
@@ -77,6 +79,8 @@ export default {
         title: '选中Tab',
         options: [
           { type: 'font', config: { disableTextAlign: true } },
+          { type: 'size'},
+          { type: 'border'},
           { type: 'background', config: { disableBackgroundImage: true } }
         ],
         target: '.taroify-tabs__tab--active',

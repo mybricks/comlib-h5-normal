@@ -13,28 +13,38 @@ const defaultMenuButtonBoundingClientRect = {
   top: 48,
   right: 368,
   bottom: 80,
-  left: 281
+  left: 281,
 };
 
 export default function (props) {
   let { env, data, slots } = props;
 
-  // 获取菜单按钮的布局位置信息
-  const menuButtonBoundingClientRect = isDesigner(env)
-    ? defaultMenuButtonBoundingClientRect
-    : Taro.getMenuButtonBoundingClientRect();
+  const safeareaHeight = isDesigner(env)
+    ? 44
+    : Taro.getMenuButtonBoundingClientRect().top - 4;
 
   // 自定义导航栏
   return (
-    <View className={css.customNavigation} style={{ ...data.customNavigation.style }}>
+    <View
+      className={css.customNavigation}
+      style={{ ...data.customNavigation.style }}
+    >
       <View
         className={css.safearea}
-        style={{ height: menuButtonBoundingClientRect.top - 4 }}
+        style={{
+          height: safeareaHeight,
+        }}
       ></View>
+
       <View
         className={css.main}
-        style={{ height: menuButtonBoundingClientRect.height + 8 }}
+        style={{
+          marginLeft: 7,
+          marginRight: 7,
+          height: 40,
+        }}
       >
+        {/* 
         <View
           className={css.left}
           style={{
@@ -54,29 +64,29 @@ export default function (props) {
               }
               : {},
           })}
-        </View>
+        </View> 
+        */}
 
         {/* 仅在设计器中展示 */}
         {isDesigner(env) && (
           <Image
             className={css.right}
-            src={data.navigationBarTextStyle === "white" ? menuButtonWhite : menuButtonBlack}
+            src={
+              data.navigationBarTextStyle === "white"
+                ? menuButtonWhite
+                : menuButtonBlack
+            }
           />
         )}
 
-        <View className={css.title}>
+        <View className={cx("mybricks-mainSlot", css.title)}>
           {slots["mainSlot"]?.render({
-            style: env.edit
-              ? {
-                background: "transparent",
-                minHeight: "auto",
-                overflow: "hidden",
-              }
-              : {},
+            style: {
+              ...(data.customNavigation?.mainSlotStyle || {}),
+            },
           })}
         </View>
       </View>
     </View>
   );
-
 }

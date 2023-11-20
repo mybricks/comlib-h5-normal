@@ -84,6 +84,10 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   const footerRef = useRef(null);
 
   useEffect(() => {
+    if(isDesigner(env)){
+      return;
+    }
+
     if (!footerRef.current) {
       return;
     }
