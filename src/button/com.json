@@ -23,5 +23,6 @@
       "id": "onClick",
       "title": "点击"
     }
-  ]
+  ],
+  "slots": []
 }

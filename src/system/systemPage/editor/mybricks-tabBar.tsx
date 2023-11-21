@@ -8,6 +8,7 @@ export default {
     items: [
       {
         title: "显示底部标签栏",
+        description: "当应用中开启的页面数量小于2或者大于5时，将不显示底部标签栏",
         type: "switch",
         value: {
           get({ data }) {

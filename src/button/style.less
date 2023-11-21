@@ -8,20 +8,25 @@
 
   display: flex;
   align-items: center;
-
   text-align: center;
-  
   background: #fa6400;
   color: #ffffff;
   border-radius: 60px;
   border-width: 0px;
   border-style: solid;
   font-size: 14px;
-  &::after{
+  &::after {
     display: none;
   }
 
   .text {
-    width: 100%;
+    // width: 100%;
+    flex: 1;
+  }
+
+  .icon {
+    display: block;
+    width: 16px;
+    height: 16px;
   }
 }

@@ -174,50 +174,50 @@ export default {
             },
           ],
         },
-        {
-          title: "骨架屏",
-          items: [
-            {
-              title: "开启",
-              description: "开启后，必须连接初始化完成才会隐藏骨架屏",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.useSkeleton;
-                },
-                set({ data, input }, value) {
-                  data.useSkeleton = value;
+        // {
+        //   title: "骨架屏",
+        //   items: [
+        //     {
+        //       title: "开启",
+        //       description: "开启后，必须连接初始化完成才会隐藏骨架屏",
+        //       type: "switch",
+        //       value: {
+        //         get({ data }) {
+        //           return data.useSkeleton;
+        //         },
+        //         set({ data, input }, value) {
+        //           data.useSkeleton = value;
 
-                  if (value) {
-                    input.add("ready", "初始化完成", { type: "any" });
-                  } else {
-                    input.remove("ready");
-                  }
-                },
-              },
-            },
-            // {
-            //   ifVisible({ data }) {
-            //     return data.useSkeleton;
-            //   },
-            //   title: "配置",
-            //   type: "editorRender",
-            //   options: {
-            //     render: (props) => {
-            //       return <SkeletonEditor {...props} />;
-            //     },
-            //   },
-            //   value: {
-            //     get({ data }) {
-            //       return data.skeleton;
-            //     },
-            //     set({ data }, value) {
-            //       data.skeleton = value;
-            //     },
-            //   },
-            // },
-          ],
-        },
+        //           if (value) {
+        //             input.add("ready", "初始化完成", { type: "any" });
+        //           } else {
+        //             input.remove("ready");
+        //           }
+        //         },
+        //       },
+        //     },
+        //     // {
+        //     //   ifVisible({ data }) {
+        //     //     return data.useSkeleton;
+        //     //   },
+        //     //   title: "配置",
+        //     //   type: "editorRender",
+        //     //   options: {
+        //     //     render: (props) => {
+        //     //       return <SkeletonEditor {...props} />;
+        //     //     },
+        //     //   },
+        //     //   value: {
+        //     //     get({ data }) {
+        //     //       return data.skeleton;
+        //     //     },
+        //     //     set({ data }, value) {
+        //     //       data.skeleton = value;
+        //     //     },
+        //     //   },
+        //     // },
+        //   ],
+        // },
       ];
 
       cate1.title = "样式";

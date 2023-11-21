@@ -13,38 +13,106 @@ export default {
     style: [
       {
         title: "按钮",
-        options: ["font", "border", "background", "padding"],
+        options: ["font", "border", "padding", "background"],
         target: ".mybricks-button",
       },
     ],
-    items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
-      cate0.items = [
-        {
-          title: "文字标题",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.text;
-            },
-            set({ data }, value: string) {
-              data.text = value;
-            },
+    items: [
+      {
+        title: "按钮文案",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.text;
+          },
+          set({ data }, value: string) {
+            data.text = value;
           },
         },
-        {
-          title: "事件",
-          items: [
-            {
-              title: "单击",
-              type: "_event",
-              options: {
-                outputId: "onClick",
-              },
-            },
-          ],
+      },
+      {
+        title: "展示前置图标",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useBeforeIcon;
+          },
+          set({ data }, value) {
+            data.useBeforeIcon = value;
+          },
         },
-      ];
-    },
+      },
+      {
+        title: "展示后置图标",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useAfterIcon;
+          },
+          set({ data }, value) {
+            data.useAfterIcon = value;
+          },
+        },
+      },
+      {
+        title: "事件",
+        items: [
+          {
+            title: "单击",
+            type: "_event",
+            options: {
+              outputId: "onClick",
+            },
+          },
+        ],
+      },
+    ],
   },
+  ".mybricks-beforeIcon": {
+    style: [
+      {
+        title: "前置图标",
+        options: ["size", "margin"],
+        target: ".mybricks-beforeIcon"
+      },
+    ],
+    items: [
+      {
+        title: "图片",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.beforeIconUrl;
+          },
+          set({ data }, value) {
+            data.beforeIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-afterIcon": {
+    style: [
+      {
+        title: "后置图标",
+        options: ["size", "margin"],
+        target: ".mybricks-afterIcon"
+      },
+    ],
+    items: [
+      {
+        title: "图片",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.afterIconUrl;
+          },
+          set({ data }, value) {
+            data.afterIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
+
 };
