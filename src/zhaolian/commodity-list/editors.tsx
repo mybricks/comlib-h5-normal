@@ -6,8 +6,13 @@ export default {
   ":root": {
     style: [
       {
-        title: "",
-        options: ["margin", "padding", "background"],
+        title: "顶部横幅",
+        options: ["size", "background"],
+        target: `.banner`
+      },
+      {
+        title: "列表",
+        options: ["padding", "background", "border"],
         target: `.mybricks-itemList`,
       },
     ],
@@ -24,6 +29,11 @@ export default {
           },
           set({ data, slot }, namespace) {
             data.selectComNameSpace = namespace;
+            const colTag = namespace.split('.').slice(-1)[0];
+            if (colTag) {
+              data.column = parseFloat(colTag);
+            }
+            console.log('data.column', data.column)
             slot.get("card").clear();
             if (namespace) {
               slot.get("card").addCom(namespace);
@@ -32,12 +42,26 @@ export default {
         },
       },
       {
+        title: '卡片间隔',
+        type: 'inputnumber',
+        options: [
+          { title: '横', min: 0, width: 80 },
+          { title: '竖', min: 0, width: 80 },
+        ],
+        value: {
+          get({ data }) {
+            return data.gutter;
+          },
+          set({ data }, value: number[]) {
+            data.gutter = [...value];
+          },
+        },
+      },
+      {
         title: "列数",
-        type: "slider",
+        type: 'Text',
         options: {
-          max: 3,
-          min: 2,
-          step: 1,
+          type: 'number',
         },
         value: {
           get({ data }) {

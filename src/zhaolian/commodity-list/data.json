@@ -1,3 +1,4 @@
 {
-  "column": 2
+  "column": 2,
+  "gutter": [8, 8]
 }

@@ -1,6 +1,6 @@
 {
-  "title": "商品卡片样式1",
-  "namespace": "mybricks.vue.commodity-card1",
+  "title": "三排商品卡片",
+  "namespace": "mybricks.vue.commodity-card-three.col.3",
   "schema": "mybricks/commodity:1.0",
   "author": "mybricks-team",
   "author_name": "板砖团队",
@@ -9,6 +9,7 @@
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "icon": "./icon.svg",
+  "preview": "./preview.png",
   "editors": "./editors.tsx",
   "inputs": [
     {

@@ -36,7 +36,9 @@
       "visible": false,
       "comAry": [
         "./src/popup/vue/com.json",
-        "./src/zhaolian/commodity-card1/com.json",
+        "./src/zhaolian/commodity-card-col1/com.json",
+        "./src/zhaolian/commodity-card-col2/com.json",
+        "./src/zhaolian/commodity-card-col3/com.json",
         "./src/zhaolian/coupon-card1/com.json",
         "./src/zhaolian/coupon-card2/com.json"
       ]

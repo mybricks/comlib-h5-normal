@@ -1,0 +1,23 @@
+{
+  "title": "双排商品卡片",
+  "namespace": "mybricks.vue.commodity-card-two.col.2",
+  "schema": "mybricks/commodity:1.0",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "优惠券卡片",
+  "runtime": "./runtime.vue",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "install",
+      "title": "安装",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

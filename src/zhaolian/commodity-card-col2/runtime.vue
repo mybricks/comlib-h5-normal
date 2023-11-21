@@ -3,7 +3,7 @@
         <img class="shopImage" :src="_dataSource.img" alt="商品图片">
         <div class="shopTitle">{{ _dataSource.title }}</div>
         <div class="shopPrice">{{ _dataSource.price }}</div>
-        <div class="button">{{ _dataSource.buttonText }}</div>
+        <div class="button">月供 ¥{{ _dataSource.monthPrice }} 起</div>
     </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
                     title: '【12期免息】苹果Apple iPhone 14 Pro Max',
                     price: '￥6429',
                     img: 'http://my.mybricks.world/mfs/files/1695624752921/aiPwHdAh7BhYROKafnd5sINyDsBPl8hE-1695624753798.png',
-                    buttonText: '月供 ￥305.81起'
+                    monthPrice: '305.81',
                 }
             }
         }
@@ -45,7 +45,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 6px;
 
     .shopImage {
         width: 100%;
