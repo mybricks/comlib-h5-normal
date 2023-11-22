@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "description": "连接器",
   "runtime": "./runtime.ts",
-  "editors": "./../editors.tsx",
+  "editors": "./editors.tsx",
   "icon": "./../icon.svg",
   "rtType": "js-autorun",
   "inputs": [

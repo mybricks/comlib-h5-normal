@@ -72,6 +72,41 @@ export default {
           },
         },
       },
+      {
+        title: '商品最大数量',
+        type: 'text',
+        options: {
+          type: 'number',
+        },
+        value: {
+          get({ data }) {
+            return data.size;
+          },
+          set({ data }, value) {
+            data.size = Number(value);
+          },
+        },
+      },
+      {
+        title: "事件",
+        items: [
+          {
+            title: '加载更多',
+            type: '_event',
+            options: {
+              outputId: 'loadMore',
+            },
+          },
+          {
+            title: '异常',
+            type: '_event',
+            options: {
+              outputId: 'error',
+            },
+          },
+        ]
+      },
+
     ],
   },
 };
