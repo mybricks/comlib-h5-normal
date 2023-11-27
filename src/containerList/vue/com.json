@@ -7,7 +7,7 @@
   "runtime": "./runtime.vue",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "../icon.png",
+  "icon": "../icon.svg",
   "inputs": [
     {
       "id": "setDatasource",
