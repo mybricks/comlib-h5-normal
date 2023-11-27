@@ -18,6 +18,24 @@ export default {
     ],
     items: [
       {
+        title: "商品数据",
+        type: 'select',
+        options: [
+          { label: '双十一活动', value: 0 },
+          { label: '双十二活动', value: 1 },
+          { label: '春节活动', value: 2 },
+        ],
+        value: {
+          get({ data }) {
+            return data.randomIndex;
+          },
+          set({ data }, value) {
+            data.randomIndex = value;
+          },
+        },
+      },
+      {},
+      {
         title: "选择组件",
         type: "comSelector",
         options: {

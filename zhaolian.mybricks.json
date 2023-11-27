@@ -1,55 +1,27 @@
 {
   "domain": "https://my.mybricks.world",
   "email": "stuzhaoxing@gmail.com",
-  "namespace": "mybricks.normal-h5-comlib.vue",
+  "namespace": "mybricks.normal-h5-demo-zl.vue",
   "pxToVw": {},
   "componentType": "KH5",
   "comAry": [
-    "./src/_connector/h5/com.json",
-    "./src/_muilt-inputJs/h5/com.json",
     {
-      "title": "基础",
-      "comAry": [
-        "./src/text/vue/com.json",
-        "./src/richText/vue/com.json",
-        "./src/image/vue/com.json",
-        "./src/button/vue/com.json"
-      ]
-    },
-    {
-      "title": "容器",
-      "comAry": [
-        "./src/containerGrid2/vue/com.json",
-        "./src/tabs/vue/com.json"
-      ]
-    },
-    {
-      "title": "招联",
+      "title": "商品",
       "comAry": [
         "./src/zhaolian/commodity-list/com.json",
-        "./src/zhaolian/coupon-list/com.json",
         "./src/zhaolian/footerBar/com.json"
       ]
     },
     {
       "visible": false,
       "comAry": [
-        "./src/popup/vue/com.json",
         "./src/zhaolian/commodity-card-col1/com.json",
         "./src/zhaolian/commodity-card-col2/com.json",
-        "./src/zhaolian/commodity-card-col3/com.json",
-        "./src/zhaolian/coupon-card1/com.json",
-        "./src/zhaolian/coupon-card2/com.json"
+        "./src/zhaolian/commodity-card-col3/com.json"
       ]
     },
     {
-      "title": "其他",
-      "comAry": [
-        "./src/safeArea/vue/com.json"
-      ]
-    },
-    {
-      "title": "Demo",
+      "title": "抽奖",
       "comAry": [
         "./src/demo/com.json"
       ]
