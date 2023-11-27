@@ -2,7 +2,6 @@
   "componentType": "MP",
   "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
-    "./src/_wxPay/com.json",
     "./src/_connector/com.json",
     "./src/_muilt-inputJs/com.json",
     "./src/_getCurrentInstance/com.json",
@@ -38,6 +37,7 @@
     "./src/_removeTabBarBadge/com.json",
     "./src/_subscribeMessage/com.json",
     "./src/_poster/com.json",
+    "./src/_wxPay/com.json",
     {
       "title": "系统",
       "visible": false,

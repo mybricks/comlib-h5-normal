@@ -10,6 +10,9 @@ export default {
       {
         title: "输入框",
         options: ["font", "border", "size", "padding", "background"],
+        initValue: {
+          paddingLeft: "8px",
+        },
         target: ".taroify-input",
       },
     ],
@@ -91,7 +94,7 @@ export default {
         },
         {
           title: "展示清除图标",
-          description: '当输入框有内容时可点击图标清除所有文字',
+          description: "当输入框有内容时可点击图标清除所有文字",
           type: "Switch",
           value: {
             get({ data }) {
@@ -112,8 +115,8 @@ export default {
                 outputId: "onChange",
               },
             },
-          ]
-        }
+          ],
+        },
       ];
     },
   },
