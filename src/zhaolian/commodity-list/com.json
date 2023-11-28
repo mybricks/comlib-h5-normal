@@ -13,6 +13,7 @@
   "slots": [
     {
       "id": "card",
+      "title": "请选择商品",
       "capacity": 1,
       "schema": "mybricks/commodity:1.0"
     }

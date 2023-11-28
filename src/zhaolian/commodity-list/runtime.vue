@@ -2,8 +2,8 @@
   <div class="itemListWrapper">
     <div class="banner"></div>
     <div class="itemListCard mybricks-itemList">
-      <div class="itemList" :style="listStyle">
-        <template v-if="hasCard">
+      <template v-if="hasCard">
+        <div class="itemList" :style="listStyle">
           <template v-for="(item, index) in list">
             <div :key="index" :style="itemStyle">
               <slot
@@ -27,13 +27,13 @@
             </div>
           </template>
           <div :class="placeholderClass" v-for="item in 3" :key="item"></div>
-        </template>
-        <template v-else>
-          <div class="emptyCard">
-            <slot name="card" title="请选择"></slot>
-          </div>
-        </template>
-      </div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="emptyCard">
+          <slot name="card" :m="{ title: '请选择' }"></slot>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ function randomNum(minNum, maxNum) {
 }
 
 function getRamdomList() {
-  return new Array(6).fill(true).map((t) => {
+  return new Array(20).fill(true).map((t) => {
     const originPrice = parseFloat(`${randomNum(1, 9)}0${randomNum(1, 9)}0`);
     return {
       title: "【12期免息】苹果Apple iPhone 14 Pro Max",
@@ -69,16 +69,20 @@ function getRamdomList() {
 }
 
 export default {
-  props: ["data", "slots", "outputs", "env"],
+  props: ["data", "slots", "outputs", "env", "m"],
   data() {
     return {
-      list: getRamdomList(),
+      list: getRamdomList().slice(0, this.getListSize()),
     };
   },
   mounted() {
-    this.$watch('data.randomIndex', () => {
-        this.list = getRamdomList();
-    })
+    this.$watch("data.randomIndex", () => {
+      this.list = getRamdomList().slice(0, this.getListSize());
+    });
+
+    this.$watch("data.size", () => {
+      this.list = Array.from(getRamdomList()).slice(0, this.getListSize());
+    });
   },
   computed: {
     hasCard() {
@@ -111,6 +115,12 @@ export default {
         case 4:
           return "placeholder4";
       }
+    },
+  },
+  methods: {
+    getListSize() {
+      const size = parseFloat(this.data?.size || 6);
+      return !isNaN(size) ? size : 6;
     },
   },
 };
@@ -150,11 +160,6 @@ export default {
   display: flex;
   flex-flow: row wrap;
 
-  .emptyCard {
-    width: 100%;
-    height: 90px;
-  }
-
   .placeholder2 {
     overflow: hidden;
 
@@ -175,5 +180,11 @@ export default {
     width: 25%;
     height: 0;
   }
+}
+
+.emptyCard {
+  flex: 1;
+  width: 100%;
+  height: 90px;
 }
 </style>

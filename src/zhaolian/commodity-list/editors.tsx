@@ -47,13 +47,12 @@ export default {
           },
           set({ data, slot }, namespace) {
             data.selectComNameSpace = namespace;
-            const colTag = namespace.split('.').slice(-1)[0];
-            if (colTag) {
-              data.column = parseFloat(colTag);
-            }
-            console.log('data.column', data.column)
             slot.get("card").clear();
             if (namespace) {
+              const colTag = namespace.split('.').slice(-1)[0];
+              if (colTag) {
+                data.column = parseFloat(colTag);
+              }
               slot.get("card").addCom(namespace);
             }
           },
