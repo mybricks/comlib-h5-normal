@@ -3,7 +3,7 @@ import { uuid } from "../utils";
 
 export default {
   "@init"({ style, data, slot }) {
-    style.width = "100%";
+    style.width = 375;
     style.height = 90;
   },
   "@resize": {
@@ -401,6 +401,10 @@ export default {
         {
           title: "删除",
           type: "button",
+          ifVisible: ({ data, focusArea }) => {
+            let id = focusArea.dataset.id;
+            return !!findParentNode(id, data.tree);
+          },
           value: {
             set({ data, focusArea, slots }) {
               if (!focusArea) {
@@ -413,6 +417,8 @@ export default {
               // 根节点不可删除
               let parentNode = findParentNode(id, data.tree);
               if (!parentNode) {
+                console.log("根节点不可删除");
+                alert("根节点不可删除");
                 return;
               }
 
