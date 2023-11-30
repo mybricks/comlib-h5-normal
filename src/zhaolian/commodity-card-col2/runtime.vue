@@ -22,6 +22,8 @@ export default {
     },
     computed: {
         _dataSource() {
+            return this.dataSource;
+            
             if (this.env.runtime) {
                 return this.dataSource;
             } else {
