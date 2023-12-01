@@ -18,7 +18,7 @@
     "@tarojs/components": "3.6.13",
     "@tarojs/react": "^3.6.13",
     "@tarojs/taro-h5": "3.6.13",
-    "brickd-mobile": "^0.0.34",
+    "brickd-mobile": "^0.0.35",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.8",
     "lodash": "^4.17.21",

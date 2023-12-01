@@ -6,10 +6,9 @@ import cx from "classnames";
 
 export default function ({ env, data, slots, inputs, outputs }) {
   inputs["value"]((val) => {
-    data = {
-      ...data,
-      ...val,
-    };
+    Object.keys(val).forEach((key) => {
+      data[key] = val[key];
+    });
   });
 
   const onClick = useCallback((raw) => {
