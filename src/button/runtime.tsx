@@ -9,7 +9,7 @@ import css from "./style.less";
 // import { Button, View } from "@tarojs/components";
 import { ButtonType } from "./constant";
 import cx from "classnames";
-import { View, Text, Image } from "@tarojs/components";
+import { Button, Text, Image } from "@tarojs/components";
 
 export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   const onClick = useCallback((ev) => {
@@ -26,21 +26,18 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
     });
   }, []);
 
-  // const btnConfig = useMemo(() => {
-  //   switch (true) {
-  //     case data.type === ButtonType.Normal: {
-  //       return {};
-  //     }
-  //     case data.type === ButtonType.GetPhoneNumber: {
-  //       return {
-  //         openType: "getphonenumber",
-  //       };
-  //     }
-  //     default: {
-  //       return {};
-  //     }
-  //   }
-  // }, [data.type]);
+  const openType = useMemo(() => {
+    switch (true) {
+      case data.openType === "share": {
+        return {
+          openType: "share",
+        };
+      }
+      default: {
+        return {};
+      }
+    }
+  }, [data.openType]);
 
   const useBeforeIcon = useMemo(() => {
     if (env.edit) {
@@ -59,7 +56,11 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   }, [env, data.useAfterIcon, data.afterIconUrl]);
 
   return (
-    <View className={cx(css.button, "mybricks-button")} onClick={onClick}>
+    <Button
+      className={cx(css.button, "mybricks-button")}
+      {...openType}
+      onClick={onClick}
+    >
       {/* 前置 */}
       {useBeforeIcon ? (
         <Image
@@ -79,6 +80,6 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
           mode="scaleToFill"
         />
       ) : null}
-    </View>
+    </Button>
   );
 }

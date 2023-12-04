@@ -8,22 +8,28 @@ import React, {
 import css from "./style.less";
 import cx from "classnames";
 import { View, Image } from "@tarojs/components";
-import SkeletonImage from './../components/skeleton-image';
+import SkeletonImage from "./../components/skeleton-image";
 
 export default function ({ env, data, inputs, outputs, title, style }) {
-  const ele = useRef(null)
-  const [h5PolyfillClass, setH5PolyfillClass]  = useState(css['h5-polyfill-aspectfill-width'])
+  const ele = useRef(null);
+  const [h5PolyfillClass, setH5PolyfillClass] = useState(
+    css["h5-polyfill-aspectfill-width"]
+  );
 
   useEffect(() => {
-    if (data.mode !== 'aspectFill') {
-      return
+    if (data.mode !== "aspectFill") {
+      return;
     }
     if (!ele.current && !ele.current.getBoundingClientRect) {
-      return
+      return;
     }
     const { width, height } = ele.current.getBoundingClientRect?.() ?? {};
-    setH5PolyfillClass(width > height ? css['h5-polyfill-aspectfill-width'] : css['h5-polyfill-aspectfill-height'])
-  }, [style.width, style.height, data.mode])
+    setH5PolyfillClass(
+      width > height
+        ? css["h5-polyfill-aspectfill-width"]
+        : css["h5-polyfill-aspectfill-height"]
+    );
+  }, [style.width, style.height, data.mode]);
 
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
@@ -36,21 +42,21 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     if (!env.runtim) {
       return;
     }
-    outputs["onLoad"]();
+    outputs["onLoad"](data.src);
   }, []);
 
   const onClick = useCallback(() => {
     if (!env.runtime) {
       return;
     }
-    outputs["onClick"]();
+    outputs["onClick"](data.src);
   }, []);
 
   const onError = useCallback(() => {
     if (!env.runtime) {
       return;
     }
-    outputs["onError"]();
+    outputs["onError"](data.src);
   }, []);
 
   return (

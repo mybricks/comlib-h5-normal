@@ -58,6 +58,64 @@ export default {
         title: "事件",
         items: [
           {
+            title: "openType",
+            type: "select",
+            options: [
+              {
+                label: "无",
+                value: "",
+              },
+              {
+                label: "打开客服会话",
+                value: "contact",
+              },
+              {
+                label: "触发用户转发",
+                value: "share",
+              },
+              {
+                label: "手机号快速验证",
+                value: "getPhoneNumber",
+              },
+              {
+                label: "手机号实时验证",
+                value: "getRealtimePhoneNumber",
+              },
+              {
+                label: "获取用户信息",
+                value: "getUserInfo",
+              },
+              {
+                label: "打开APP",
+                value: "launchApp",
+              },
+              {
+                label: "打开授权设置页",
+                value: "openSetting",
+              },
+              {
+                label: "打开“意见反馈”页面",
+                value: "feedback",
+              },
+              {
+                label: "获取用户头像",
+                value: "chooseAvatar",
+              },
+              {
+                label: "用户同意隐私协议按钮",
+                value: "agreePrivacyAuthorization",
+              },
+            ],
+            value: {
+              get({ data }) {
+                return data.openType;
+              },
+              set({ data }, value) {
+                data.openType = value;
+              },
+            },
+          },
+          {
             title: "单击",
             type: "_event",
             options: {
@@ -73,7 +131,7 @@ export default {
       {
         title: "前置图标",
         options: ["size", "margin"],
-        target: ".mybricks-beforeIcon"
+        target: ".mybricks-beforeIcon",
       },
     ],
     items: [
@@ -96,7 +154,7 @@ export default {
       {
         title: "后置图标",
         options: ["size", "margin"],
-        target: ".mybricks-afterIcon"
+        target: ".mybricks-afterIcon",
       },
     ],
     items: [
@@ -114,5 +172,4 @@ export default {
       },
     ],
   },
-
 };
