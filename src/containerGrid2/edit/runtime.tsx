@@ -8,6 +8,9 @@ export default ({ id, data, outputs, slots }) => {
    */
   const renderSlot = useCallback(
     (node, { parentNode }) => {
+      // 检查是否是唯一的子节点
+      const isOnlyChild = !!!parentNode;
+
       // 渲染叶子结点
       if (node.isLeaf) {
         // console.warn("node", node.size);
@@ -52,7 +55,7 @@ export default ({ id, data, outputs, slots }) => {
           <div
             className={css.node}
             data-id={node.id}
-            data-leaf
+            {...(!isOnlyChild ? { "data-leaf": true } : {})}
             style={{
               ...node.style,
               ...leafSize,
@@ -89,13 +92,13 @@ export default ({ id, data, outputs, slots }) => {
 
   const tree = useMemo(() => {
     return renderSlot(data.tree, {
-      parentNode: null,
-    });
-  }, [data.tree]);
+    parentNode: null,
+  });
+}, [data.tree]);
 
-  return (
-    <div className={css.layout} style={data.style}>
-      {tree}
-    </div>
-  );
+return (
+  <div className={css.layout} style={data.style}>
+    {tree}
+  </div>
+);
 };

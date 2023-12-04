@@ -3,15 +3,155 @@ import { uuid } from "../utils";
 
 export default {
   "@init"({ style, data, slot }) {
-    style.width = 375;
-    style.height = 90;
+    style.width = "90%";
+    style.height = 100;
   },
   "@resize": {
     options: ["width", "height"],
   },
-  ":root"({ data, output, style }, cate0, cate1, cate2) {
+  ":root"({ data, output, style, slots }, cate0, cate1, cate2) {
     cate0.title = "布局";
     cate0.items = [
+      {
+        title: "拆分为两列",
+        type: "button",
+        ifVisible: ({ data, focusArea }) => {
+          if (data.tree.children.length > 1) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+        value: {
+          set({ data, focusArea }) {
+            let id = data.tree.id;
+            let node = findNode(id, data.tree); // 当前节点
+            let cloneNode = JSON.parse(JSON.stringify(node)); // 当前节点的克隆节点
+
+            let newNode = generateNode(slots); // 新节点
+            let parentNode = findParentNode(id, data.tree); // 父节点，可能为空
+
+            /**
+             * 如果当前节点是根节点，
+             * 则生成一个 row 父节点，然后将本节点作为第一个子节点，再增加一个子节点
+             */
+            if (!parentNode) {
+              let newParentNode = generateRow([cloneNode, newNode]);
+              data.tree = newParentNode;
+              return;
+            }
+
+            /**
+             * 如果父节点是 row，则在后面增加一个子节点
+             */
+            if (parentNode?.direction === "row") {
+              parentNode.children.push(newNode);
+            }
+
+            /**
+             * 如果父节点是 col，
+             * 则生成一个 row 父节点，然后将本节点作为第一个子节点，再增加一个子节点
+             * 将本节点替换为新生成的父节点
+             */
+            if (parentNode?.direction === "col") {
+              let newParentNode = generateRow([cloneNode, newNode]);
+              let index = parentNode?.children.findIndex(
+                (item) => item.id === id
+              );
+              parentNode.children[index] = newParentNode;
+            }
+
+            data.tree = JSON.parse(JSON.stringify(data.tree));
+          },
+        },
+      },
+      {
+        title: "拆分为两行",
+        type: "button",
+        ifVisible: ({ data, focusArea }) => {
+          if (data.tree.children.length > 1) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+        value: {
+          set({ data, focusArea }) {
+            let id = data.tree.id;
+            let node = findNode(id, data.tree); // 当前节点
+            let cloneNode = JSON.parse(JSON.stringify(node)); // 当前节点的克隆节点
+
+            let newNode = generateNode(slots); // 新节点
+            let parentNode = findParentNode(id, data.tree); // 父节点，可能为空
+
+            /**
+             * 如果当前节点是根节点，
+             * 则生成一个 col 父节点，然后将本节点作为第一个子节点，再增加一个子节点
+             */
+            if (!parentNode) {
+              let newParentNode = generateCol([cloneNode, newNode]);
+              data.tree = newParentNode;
+              return;
+            }
+
+            /**
+             * 如果父节点是 col，则在后面增加一个子节点
+             */
+            if (parentNode?.direction === "col") {
+              parentNode.children.push(newNode);
+            }
+
+            /**
+             * 如果父节点是 row，
+             * 则生成一个 col 父节点，然后将本节点作为第一个子节点，再增加一个子节点
+             * 将本节点替换为新生成的父节点
+             */
+            if (parentNode?.direction === "row") {
+              let newParentNode = generateCol([cloneNode, newNode]);
+              let index = parentNode?.children.findIndex(
+                (item) => item.id === id
+              );
+              parentNode.children[index] = newParentNode;
+            }
+
+            data.tree = JSON.parse(JSON.stringify(data.tree));
+          },
+        },
+      },
+      {
+        title: "布局",
+        type: "layout",
+        ifVisible: ({ data, focusArea }) => {
+          if (data.tree.children.length > 1) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+        value: {
+          get({ data, focusArea }) {
+            let id = data.tree.id;
+            let node = findNode(id, data.tree);
+            return node?.layout;
+          },
+          set({ data, focusArea }, value) {
+            let id = data.tree.id;
+            let node = findNode(id, data.tree);
+
+            const slot = slots.get(node.id);
+            /** 根据最终生效的CSS设置布局 */
+            setSlotLayoutByCss(slot, value);
+
+            data.tree = updateNode(
+              {
+                ...node,
+                layout: value,
+              },
+              data.tree
+            );
+          },
+        },
+      },
       {
         title: "单击",
         type: "_Event",
@@ -25,7 +165,10 @@ export default {
       {
         title: "样式",
         type: "styleNew",
-        options: ["background", "border", "padding", "boxshadow"],
+        options: {
+          defaultOpen: true,
+          plugins: ["background", "border", "padding", "boxshadow"],
+        },
         value: {
           get({ data }) {
             return (
@@ -48,6 +191,7 @@ export default {
   "div[data-leaf]": {
     title: "内容",
     items: ({ data, output, style, focusArea, slots }, cate0, cate1, cate2) => {
+      console.log("data-leaf-focusArea", focusArea);
       cate0.title = "常规";
       cate0.items = [
         {
@@ -314,37 +458,6 @@ export default {
         },
         {},
         {
-          title: "样式",
-          type: "styleNew",
-          options: ["border", "padding", "background"],
-          value: {
-            get({ data, focusArea }) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-              return node?.style;
-            },
-            set({ data, focusArea }, value) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-
-              data.tree = updateNode(
-                {
-                  ...node,
-                  style: value,
-                },
-                data.tree
-              );
-            },
-          },
-        },
-
-        {
           title: "布局",
           type: "layout",
           value: {
@@ -458,6 +571,43 @@ export default {
           },
         },
       ];
+      cate1.title = "样式";
+      cate1.items = [
+        {
+          title: "样式",
+          type: "styleNew",
+          options: {
+            defaultOpen: true,
+            plugins: ["background", "border", "padding", "boxshadow"],
+          },
+          value: {
+            get({ data, focusArea }) {
+              if (!focusArea) {
+                return;
+              }
+              let id = focusArea.dataset.id;
+              let node = findNode(id, data.tree);
+              return node?.style;
+            },
+            set({ data, focusArea }, value) {
+              if (!focusArea) {
+                return;
+              }
+              let id = focusArea.dataset.id;
+              let node = findNode(id, data.tree);
+
+              data.tree = updateNode(
+                {
+                  ...node,
+                  style: value,
+                },
+                data.tree
+              );
+            },
+          },
+        },
+      ];
+        
     },
   },
 };
