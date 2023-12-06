@@ -16,7 +16,7 @@ export default function ({
   const [show, setShow] = useState(env.edit ? true : false);
 
   const handleClose = useCallback(() => {
-    _env?.currentScenes?.close?.();
+    // _env?.currentScenes?.close?.();
     setShow(false);
   }, [_env]);
 
@@ -62,6 +62,12 @@ export default function ({
 
   /** hack style 设计器下面一些需要hack的样式 */
   const popupStyle = useMemo(() => {
+    if (isInDesignerRuntime) { // 在设计器里模拟不超过小程序header的效果
+      return {
+        position: 'absolute'
+      }
+    }
+
     return {};
 
     if (isInEdit) {
@@ -84,7 +90,7 @@ export default function ({
 
   let popupView = (
     <View className={popupCx} style={{ ...popupStyle }}>
-      <View className={css.overlay} onClick={handleOverlayClick}></View>
+      <View className={`${css.overlay} mybricks-overlay`} onClick={handleOverlayClick}></View>
       <View className={mainCx}>
         <View
           className={cx({
@@ -92,7 +98,7 @@ export default function ({
             [css.empty]: slots["content"]?.size === 0,
             "mybricks-content": true,
           })}
-          style={data.contentStyle}
+          // style={data.contentStyle}
         >
           {slots["content"]?.render?.()}
         </View>

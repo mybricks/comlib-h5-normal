@@ -66,24 +66,33 @@ export default {
   ":root": {
     style: [
       {
-        title: '默认Tab',
-        options: [
-          { type: 'font', config: { disableTextAlign: true } },
-          { type: 'size'},
-          { type: 'border'},
-          { type: 'background', config: { disableBackgroundImage: true } }
-        ],
-        target: '.taroify-tabs__tab:not(.taroify-tabs__tab--active)',
-      },
-      {
-        title: '选中Tab',
-        options: [
-          { type: 'font', config: { disableTextAlign: true } },
-          { type: 'size'},
-          { type: 'border'},
-          { type: 'background', config: { disableBackgroundImage: true } }
-        ],
-        target: '.taroify-tabs__tab--active',
+        title: '标签项',
+        items: [
+          {
+            title: '默认Tab',
+            catelog: '默认',
+            options: [
+              { type: 'font', config: { disableTextAlign: true } },
+              { type: 'size'},
+              { type: 'border'},
+              { type: 'padding' },
+              { type: 'background' }
+            ],
+            target: '.taroify-tabs__tab:not(.taroify-tabs__tab--active)',
+          },
+          {
+            title: '选中Tab',
+            catelog: '选中',
+            options: [
+              { type: 'font', config: { disableTextAlign: true } },
+              { type: 'size'},
+              { type: 'border'},
+              { type: 'padding' },
+              { type: 'background' }
+            ],
+            target: '.taroify-tabs__tab--active',
+          },
+        ]
       },
       {
         title: '选中条',
@@ -185,7 +194,6 @@ export default {
                   break;
               }
               data.tabs = value;
-              console.log("data.tabs",data.tabs)
             },
           },
         },

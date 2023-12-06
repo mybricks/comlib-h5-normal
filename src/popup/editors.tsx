@@ -6,39 +6,19 @@ export default {
   ":root": {
     style: [
       {
-        title: "样式",
-        options: ["border", "padding", "background"],
+        title: "遮罩样式",
+        options: ["background"],
+        target: ".mybricks-overlay",
+      },
+      {
+        title: "内容样式",
+        options: ["border", "background"],
         target: ".mybricks-content",
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
-        {
-          title: "弹窗标题",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.popupTitle;
-            },
-            set({ data }, title: string) {
-              data.popupTitle = title;
-            },
-          },
-        },
-        {
-          title: "显示关闭按钮",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.visibleClose;
-            },
-            set({ data }, val) {
-              data.visibleClose = val;
-            },
-          },
-        },
-
         {
           title: "弹出位置",
           type: "Select",
@@ -70,6 +50,23 @@ export default {
             },
           },
         },
+        {
+          title: '关闭按钮',
+          items: [
+            {
+              title: "显示",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.visibleClose;
+                },
+                set({ data }, val) {
+                  data.visibleClose = val;
+                },
+              },
+            },
+          ]
+        }
         // {
         //   title: "样式",
         //   type: "Style",
@@ -127,24 +124,16 @@ export default {
       // ]
     },
   },
-  ".mybricks-main": {
-    style: [
-      {
-        title: "",
-        options: ["size", "padding", "border", "background"],
-        target: ".mybricks-main",
-      },
-    ],
-  },
-  ".mybricks-title": {
-    style: [
-      {
-        title: "",
-        options: ["font", "padding", "background"],
-        target: ".mybricks-title",
-      },
-    ],
-  },
+  // ".mybricks-content": {
+  //   title: '内容',
+  //   style: [
+  //     {
+  //       title: "",
+  //       options: ["border", "background"],
+  //       target: ".mybricks-content",
+  //     },
+  //   ],
+  // },
   // ".mybricks-content": {
   //   style: [
   //     {
