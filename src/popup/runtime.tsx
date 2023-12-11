@@ -110,7 +110,7 @@ export default function ({
     return createPortal(popupView);
   }
 
-  if (env.runtime?.debug) {
+  if (env.runtime) {
     if (show) {
       return createPortal(popupView);
     } else {
@@ -118,5 +118,9 @@ export default function ({
     }
   }
 
-  return popupView;
+  // if (env.runtime?.debug) {
+    
+  // }
+
+  // return popupView;
 }
