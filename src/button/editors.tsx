@@ -116,10 +116,33 @@ export default {
             },
           },
           {
+            ifVisible({ data }) {
+              return !data.openType;
+            },
             title: "单击",
             type: "_event",
             options: {
               outputId: "onClick",
+            },
+          },
+          {
+            ifVisible({ data }) {
+              return data.openType === "getPhoneNumber";
+            },
+            title: "手机号快速验证成功",
+            type: "_event",
+            options: {
+              outputId: "getPhoneNumberSuccess",
+            },
+          },
+          {
+            ifVisible({ data }) {
+              return data.openType === "getPhoneNumber";
+            },
+            title: "手机号快速验证失败",
+            type: "_event",
+            options: {
+              outputId: "getPhoneNumberFail",
             },
           },
         ],

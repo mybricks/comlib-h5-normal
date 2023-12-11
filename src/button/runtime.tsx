@@ -6,10 +6,10 @@ import React, {
   useState,
 } from "react";
 import css from "./style.less";
-// import { Button, View } from "@tarojs/components";
 import { ButtonType } from "./constant";
 import cx from "classnames";
 import { Button, Text, Image } from "@tarojs/components";
+import * as Taro from "@tarojs/taro";
 
 export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   const onClick = useCallback((ev) => {
@@ -33,11 +33,63 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
           openType: "share",
         };
       }
+
+      case data.openType === "getPhoneNumber": {
+        return {
+          openType: "getPhoneNumber",
+          onGetPhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getPhoneNumberFail"]({
+                errcode: e.detail.errno,
+                errmsg: e.detail.errMsg,
+              });
+              return;
+            }
+            const app = Taro.getApp();
+            const status = app?.mybricks?.status || {};
+            Taro.request({
+              url: `${status.callServiceHost}/runtime/api/domain/service/run`,
+              method: "POST",
+              data: {
+                projectId: status?.appid,
+                fileId: status?.appid,
+                serviceId: "getPhoneNumber",
+                params: {
+                  code: e.detail.code,
+                },
+              },
+              success: (res) => {
+                if (
+                  res?.data?.code === 1 &&
+                  res.data.data &&
+                  res.data.data.phone_info
+                ) {
+                  outputs["getPhoneNumberSuccess"]({
+                    ...res.data.data.phone_info,
+                  });
+                } else {
+                  outputs["getPhoneNumberFail"]({
+                    errcode: res.data.data.errcode,
+                    errmsg: res.data.data.errmsg,
+                  });
+                }
+              },
+            });
+          },
+        };
+      }
       default: {
-        return {};
+        return {
+          onClick: (e) => {
+            if (env.runtime) {
+              e.stopPropagation();
+              outputs["onClick"](data.text);
+            }
+          },
+        };
       }
     }
-  }, [data.openType]);
+  }, [data.openType, data.text, env.runtime]);
 
   const useBeforeIcon = useMemo(() => {
     if (env.edit) {
@@ -56,11 +108,7 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   }, [env, data.useAfterIcon, data.afterIconUrl]);
 
   return (
-    <Button
-      className={cx(css.button, "mybricks-button")}
-      {...openType}
-      onClick={onClick}
-    >
+    <Button className={cx(css.button, "mybricks-button")} {...openType}>
       {/* 前置 */}
       {useBeforeIcon ? (
         <Image

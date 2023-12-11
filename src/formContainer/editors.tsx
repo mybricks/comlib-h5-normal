@@ -43,16 +43,13 @@ const defaultRules = [
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    // style.marginTop = 12;
-    // style.marginRight = 12;
-    // style.marginBottom = 12;
-    // style.marginLeft = 12;
   },
   "@resize": {
     options: ["width", "height"],
   },
   '@childAdd'({ data, inputs, outputs, logs, slots }, child, curSlot) {
     if (curSlot.id === 'content') {
+      console.warn("child", child);
       const { id, inputDefs, outputDefs, name } = child;
       if (!Array.isArray(data.items)) {
         data.items = []

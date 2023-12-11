@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { isNumber, isObject, isString, isEmpty } from './../utils/core/type';
 import { Input } from "brickd-mobile";
 import css from './style.less'
-import * as Taro from "@tarojs/taro";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;

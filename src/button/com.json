@@ -22,6 +22,14 @@
     {
       "id": "onClick",
       "title": "点击"
+    },
+    {
+      "id": "getPhoneNumberFail",
+      "title": "手机号快速验证失败"
+    },
+    {
+      "id": "getPhoneNumberSuccess",
+      "title": "手机号快速验证成功"
     }
   ],
   "slots": []
