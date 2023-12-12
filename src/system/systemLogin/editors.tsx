@@ -1,3 +1,16 @@
+const setSlotLayout = (slot, val) => {
+  if (!slot) return;
+  if (val.position === "absolute") {
+    slot.setLayout(val.position);
+  } else if (val.display === "flex") {
+    if (val.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (val.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
+
 export default {
   "@init": ({ style, data }) => {
     style.width = 375;
@@ -34,28 +47,71 @@ export default {
       },
 
       {
-        title: "自定义登录成功后行为",
+        title: "自定义登录",
         type: "switch",
         value: {
           get: ({ data }) => {
-            return data.myOnSuccess;
+            return data.useLoginSlot;
           },
-          set: ({ data }, value) => {
-            data.myOnSuccess = value;
+          set: ({ data, slot }, value) => {
+            data.useLoginSlot = value;
+
+            if (value) {
+              slot.add("loginSlot", "自定义登录");
+            } else {
+              slot.remove("loginSlot");
+            }
           },
         },
       },
       {
         ifVisible({ data }) {
-          return data.myOnSuccess;
+          return data.useLoginSlot;
         },
-        title: "登录成功",
-        type: "_event",
-        options: {
-          outputId: "onSuccess",
+        title: "自定义登录插槽布局",
+        type: "layout",
+        value: {
+          get({ data, slots }) {
+            const { loginSlotStyle = {} } = data;
+            const slotInstance = slots.get("loginSlot");
+            setSlotLayout(slotInstance, loginSlotStyle);
+            return loginSlotStyle;
+          },
+          set({ data, slots }, val: any) {
+            if (!data.loginSlotStyle) {
+              data.loginSlotStyle = {};
+            }
+            data.loginSlotStyle = {
+              ...data.loginSlotStyle,
+              ...val,
+            };
+            const slotInstance = slots.get("loginSlot");
+            setSlotLayout(slotInstance, val);
+          },
         },
       },
-
+      // {
+      //   title: "自定义登录成功后行为",
+      //   type: "switch",
+      //   value: {
+      //     get: ({ data }) => {
+      //       return data.myOnSuccess;
+      //     },
+      //     set: ({ data }, value) => {
+      //       data.myOnSuccess = value;
+      //     },
+      //   },
+      // },
+      // {
+      //   ifVisible({ data }) {
+      //     return data.myOnSuccess;
+      //   },
+      //   title: "登录成功",
+      //   type: "_event",
+      //   options: {
+      //     outputId: "onSuccess",
+      //   },
+      // },
       // {
       //   title: "登录失败",
       //   type: "_event",
@@ -79,7 +135,6 @@ export default {
       //     }
       //   }
       // }
-
     ];
   },
   ".mybricks-logo": {
@@ -137,11 +192,11 @@ export default {
         title: "按钮",
         options: ["font", "border", "background"],
         initValue: {
-          textAlign: "center"
+          textAlign: "center",
         },
         target: ".mybricks-button",
       },
-    ]
+    ],
   },
   ".mybricks-exit": {
     title: "返回",
@@ -150,10 +205,10 @@ export default {
         title: "返回",
         options: ["font", "border", "background"],
         initValue: {
-          textAlign: "center"
+          textAlign: "center",
         },
         target: ".mybricks-exit",
       },
-    ]
-  }
+    ],
+  },
 };

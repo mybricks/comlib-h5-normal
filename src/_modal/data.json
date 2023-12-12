@@ -2,8 +2,8 @@
   "title": "对话框标题",
   "content": "对话框内容",
   "showCancel": true,
-  "cancelColor": "",
+  "cancelColor": "#000000",
   "cancelText": "取消",
-  "confirmColor": "",
+  "confirmColor": "#576B95",
   "confirmText": "确认"
 }

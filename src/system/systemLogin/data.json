@@ -5,5 +5,7 @@
     "width": 200,
     "height": 200
   },
+  "useLoginSlot": false,
+  "loginSlotStyle": {},
   "myOnSuccess": false
 }
