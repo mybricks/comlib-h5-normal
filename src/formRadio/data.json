@@ -7,16 +7,19 @@
   "options": [
     {
       "label": "公开",
+      "brief": "",
       "value": "公开",
       "icon": ""
     },
     {
       "label": "仅好友可见",
+      "brief": "",
       "value": "仅好友可见",
       "icon": ""
     },
     {
       "label": "保密",
+      "brief": "",
       "value": "保密",
       "icon": ""
     }

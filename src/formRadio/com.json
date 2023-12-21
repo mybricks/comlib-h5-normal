@@ -64,6 +64,10 @@
               "title": "标签",
               "type": "string"
             },
+            "brief": {
+              "title": "描述",
+              "type": "string"
+            },
             "value": {
               "title": "值",
               "type": "any"

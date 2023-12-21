@@ -10,70 +10,52 @@ export default {
   ":root": {
     style: [
       {
-        title: "未激活状态",
-        options: ["border", "padding", "background"],
-        target: `.mybricks-inactive`,
-      },
-      {
-        title: "未激活状态字体",
-        options: ["font"],
-        target: `.mybricks-inactive .taroify-radio__label`,
-      },
-      {
-        title: "激活状态",
-        options: ["border", "padding", "background"],
-        target: `.mybricks-active`,
-      },
-      {
-        title: "激活状态字体",
-        options: ["font"],
-        target: `.mybricks-active .taroify-radio__label`,
+        catelogChange: {
+          value: {},
+        },
+        items: [
+          {
+            catelog: "未激活样式",
+            title: "未激活状态",
+            options: ["border", "padding", "background"],
+            target: `.mybricks-inactive`,
+          },
+          {
+            catelog: "未激活样式",
+            title: "未激活状态标签项",
+            options: ["font"],
+            target: `.mybricks-inactive .mybricks-label`,
+          },
+          {
+            catelog: "未激活样式",
+            title: "未激活状态描述",
+            options: ["font"],
+            target: `.mybricks-inactive .mybricks-brief`,
+          },
+          {
+            catelog: "激活样式",
+            title: "激活状态",
+            options: ["border", "padding", "background"],
+            target: `.mybricks-active`,
+          },
+          {
+            catelog: "激活样式",
+            title: "激活状态标签项",
+            options: ["font"],
+            target: `.mybricks-active .mybricks-label`,
+          },
+          {
+            catelog: "激活样式",
+            title: "激活状态描述",
+            options: ["font"],
+            target: `.mybricks-inactive .mybricks-brief`,
+          },
+        ],
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
-        // {
-        //   title: "标题",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.label;
-        //     },
-        //     set({ data }, value) {
-        //       if (data.label === data.name) {
-        //         data.label = value;
-        //         data.name = value;
-        //       } else {
-        //         data.label = value;
-        //       }
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "隐藏标题",
-        //   type: "switch",
-        //   value: {
-        //     get({ data }) {
-        //       return data.hideLabel;
-        //     },
-        //     set({ data }, value) {
-        //       data.hideLabel = value;
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "字段",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.name;
-        //     },
-        //     set({ data }, value) {
-        //       return (data.name = value);
-        //     },
-        //   },
-        // },
         {
           title: "选项排列方向",
           type: "radio",
@@ -110,6 +92,11 @@ export default {
                 title: "标签项",
                 type: "text",
                 value: "label",
+              },
+              {
+                title: "描述",
+                type: "text",
+                value: "brief",
               },
               {
                 title: "标签值",

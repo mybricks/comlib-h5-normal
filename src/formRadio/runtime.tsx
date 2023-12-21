@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Field, Radio, Image } from "brickd-mobile";
 import cx from "classnames";
-import { isObject, isString, isEmpty } from './../utils/core/type';
+import { isObject, isString, isEmpty } from "./../utils/core/type";
+import css from "./style.less";
+import { View } from "@tarojs/components";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -15,7 +17,7 @@ export default function (props) {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setValue('');
+          setValue("");
           break;
         }
         case isString(val):
@@ -31,14 +33,12 @@ export default function (props) {
       }
     });
 
-
     // 设置数据源
-    inputs['setOptions']((val) => {
+    inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
         data.options = val;
       }
     });
-
   }, []);
 
   useEffect(() => {
@@ -53,7 +53,11 @@ export default function (props) {
     }
 
     setValue(value);
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
     outputs["onChange"](value);
   }, []);
 
@@ -74,7 +78,14 @@ export default function (props) {
             name={item.value}
             {...restProps}
           >
-            {item.label}
+            <View className={cx("mybricks-label", css.label)}>
+              {item.label}
+            </View>
+            {item.brief ? (
+              <View className={cx("mybricks-brief", css.brief)}>
+                {item.brief}
+              </View>
+            ) : null}
           </Radio>
         );
       })}
