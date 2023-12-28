@@ -41,6 +41,7 @@
       "title": "系统",
       "visible": false,
       "comAry": [
+        "./src/system/systemTabbar/com.json",
         "./src/system/systemPage/com.json",
         "./src/system/systemWebview/com.json",
         "./src/system/systemLogin/com.json"
@@ -102,10 +103,22 @@
         "./src/map/com.json",
         "./src/noticeBar/com.json",
         "./src/anchor/com.json",
+        "./src/mygpt/com.json",
         "./src/support/com.json"
+      ]
+    },
+    {
+      "title": "校友录",
+      "comAry": [
+        "./src/activityCard/com.json",
+        "./src/activityDetail/com.json",
+        "./src/groupCard/com.json",
+        "./src/groupDetail/com.json"
       ]
     }
   ],
+  "fileId": 37166,
+  "folderId": 37171,
   "namespace": "@mybricks/ktaro-common-lib",
   "userName": "moyukai05",
   "tags": "react"

@@ -5,7 +5,7 @@
   "author_name": "板砖团队",
   "version": "1.0.0",
   "description": "写入本地缓存",
-  "icon": "https://ali2.a.kwimgs.com/udata/pkg/ks-merchant/fangzhou/static_picture/java-script.dd6d0de51f7fc441.svg",
+  "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",
   "runtime": "./runtime.tsx",
