@@ -191,7 +191,6 @@ export default {
   "div[data-leaf]": {
     title: "内容",
     items: ({ data, output, style, focusArea, slots }, cate0, cate1, cate2) => {
-      console.log("data-leaf-focusArea", focusArea);
       cate0.title = "常规";
       cate0.items = [
         {
