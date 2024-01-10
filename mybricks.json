@@ -63,13 +63,12 @@
       "comAry": [
         "./src/containerGrid/com.json",
         "./src/containerGrid2/com.json",
-        "./src/containerList/com.json",
-        "./src/containerListHorizontal/com.json",
-        "./src/containerCondition/com.json",
         "./src/tabs/com.json",
+        "./src/containerSwiper/com.json",
+        "./src/containerList/com.json",
+        "./src/containerCondition/com.json",
         "./src/sidebar/com.json",
         "./src/popup/com.json",
-        "./src/containerSwiper/com.json",
         "./src/collapse/com.json"
       ]
     },
@@ -106,7 +105,7 @@
       ]
     }
   ],
-  "namespace": "@mybricks/ktaro-common-lib",
+  "namespace": "mybricks.normal-miniapp.taro",
   "userName": "moyukai05",
   "tags": "react"
 }

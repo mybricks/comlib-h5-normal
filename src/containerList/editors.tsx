@@ -1,3 +1,5 @@
+import { Direction } from './constant'
+
 export default {
   "@inputConnected"({ data, input, output, slots }, fromPin, toPin) {
     if (toPin.id === "dataSource") {
@@ -12,6 +14,23 @@ export default {
   ":root"({ data, output, style }, cate0, cate1, cate2) {
     cate0.title = "常规";
     cate0.items = [
+      {
+        title: '排列方向',
+        type: 'select',
+        options: [
+          { label: '竖向排列', value: Direction.Column },
+          { label: '横向排列', value: Direction.Row }
+        ],
+        value: {
+          get({ data }) {
+            return data.direction ?? Direction.Column;
+          },
+          set({ data }, value) {
+            data.direction = value;
+          },
+        },
+      },
+      {},
       {
         title: "加载文案",
         type: "text",
@@ -54,6 +73,9 @@ export default {
           {
             title: "开启滚动加载",
             type: "switch",
+            ifVisible({ data }) {
+              return data.direction !== Direction.Row;
+            },
             value: {
               get({ data }) {
                 return data.scrollRefresh;

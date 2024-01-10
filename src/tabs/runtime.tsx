@@ -16,27 +16,27 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     getDefaultCurrTabId(data.tabs)
   );
 
-  useEffect(() => {
-    if (data.initChangeTab) {
-      const index = data.tabs.findIndex(tab => tab._id == currentTabId)
-      if (index === -1) {
-        return
-      }
-      const findItem = data.tabs[index];
+  // useEffect(() => {
+  //   if (data.initChangeTab) {
+  //     const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
+  //     if (index === -1) {
+  //       return;
+  //     }
+  //     const findItem = data.tabs[index];
 
-      outputs.changeTab?.({
-        id: findItem._id,
-        title: findItem.tabName,
-        index,
-      });
-    }
-  }, []);
+  //     outputs.changeTab?.({
+  //       id: findItem._id,
+  //       title: findItem.tabName,
+  //       index,
+  //     });
+  //   }
+  // }, []);
 
   const _setCurrentTabId = useCallback((currentTabId) => {
     setCurrentTabId(currentTabId);
-    const index = data.tabs.findIndex(tab => tab._id == currentTabId)
+    const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
     if (index === -1) {
-      return
+      return;
     }
     const findItem = data.tabs[index];
     outputs.changeTab?.({
@@ -47,18 +47,23 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }, []);
 
   useEffect(() => {
-    inputs['tabList']?.((ds) => {
+    inputs["dataSource"]?.((ds) => {
       if (Array.isArray(ds)) {
-        data.tabs = ds
+        data.tabs = ds.map(item => {
+          return {
+            _id: item.id,
+            tabName: item.tabName,
+          }
+        });
       }
-    })
+    });
 
-    inputs['activeTabId']?.(tabId => {
+    inputs["activeTabId"]?.((tabId) => {
       if (tabId !== undefined || tabId !== null) {
-        _setCurrentTabId(tabId)
+        _setCurrentTabId(tabId);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   // 编辑模式下，切换tab
   // useEffect(() => {
@@ -82,7 +87,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         onChange={_setCurrentTabId}
         swipeable={data.swipeable}
       >
-        {data.tabs.map((tab) => {
+        {data.tabs.map((tab, index) => {
           // let style = {};
           // if (tab.useIndependentStyle) {
           //   style = tab._id == currentTabId ? tab.activeNavItemStyle : tab.normalNavItemStyle;
@@ -97,7 +102,15 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               title={tab.tabName}
               value={tab._id}
             >
-              {data.hideContent ? null : slots[tab._id]?.render?.()}
+              {data.hideContent
+                ? null
+                : slots[data.tabs_dynamic ? "item" : tab._id].render?.({
+                    inputValues: {
+                      itemData: tab,
+                      index: index,
+                    },
+                    key: tab._id,
+                  })}
             </Tabs.TabPane>
           );
         })}

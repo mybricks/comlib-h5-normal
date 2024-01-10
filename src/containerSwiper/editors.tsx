@@ -1,3 +1,9 @@
+import { DynamicArrayData } from "./../utils/dynamic-array";
+import comJson from "./com.json";
+
+const ScopeSlotInputs = comJson.slots[0].inputs;
+const dynamicArrayData = new DynamicArrayData({ keyName: "items" });
+
 function getTabItem(data, focusArea) {
   const tabId = focusArea.dataset.tabId;
   for (let item of data.tabList) {
@@ -58,7 +64,7 @@ function computedAction({ before, after }) {
 
 export default {
   "@init": ({ style, data }) => {
-    style.width = '100%';
+    style.width = "100%";
     style.height = 114;
 
     // style.marginTop = 12;
@@ -72,28 +78,26 @@ export default {
   ":root": {
     style: [
       {
-        title: '轮播',
-        options: [
-          'border'
-        ],
-        target: '.mybricks-swiper-wrapper'
+        title: "轮播",
+        options: ["border"],
+        target: ".mybricks-swiper-wrapper",
       },
       {
-        title: '默认指示器',
+        title: "默认指示器",
         options: [
-          { type: 'background', config: { disableBackgroundImage: true } },
+          { type: "background", config: { disableBackgroundImage: true } },
         ],
-        target: '.mybricks-swiper-wrapper .indicator:not(.indicator-active)',
+        target: ".mybricks-swiper-wrapper .indicator:not(.indicator-active)",
       },
       {
-        title: '高亮指示器',
+        title: "高亮指示器",
         options: [
-          { type: 'background', config: { disableBackgroundImage: true } }
+          { type: "background", config: { disableBackgroundImage: true } },
         ],
-        target: '.mybricks-swiper-wrapper .indicator.indicator-active',
+        target: ".mybricks-swiper-wrapper .indicator.indicator-active",
       },
     ],
-    items({ data }, cate0, cate1, cate2) {
+    items({ data, slot }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
         // {
@@ -112,69 +116,151 @@ export default {
         //     },
         //   },
         // },
-        {
-          title: "轮播项",
-          type: "array",
-          options: {
-            selectable: true,
-            editable: false,
-            getTitle: (item, index) => {
-              return [`${item.title || ""}`];
-            },
-            onAdd() {
-              let defaultItem = {
-                title: "轮播项",
-              };
-              return defaultItem;
-            },
-            onSelect(_id, index) {
-              if (index !== -1) {
-                if (!data.edit) {
-                  data.edit = {}
-                }
-                data.edit.currentTabId = data.items[index]?._id;
-              }
-            },
-            items: [
-              {
-                title: "名称",
-                type: "text",
-                value: "title",
+        // {
+        //   title: "轮播项",
+        //   type: "array",
+        //   options: {
+        //     selectable: true,
+        //     editable: false,
+        //     getTitle: (item, index) => {
+        //       return [`${item.title || ""}`];
+        //     },
+        //     onAdd() {
+        //       let defaultItem = {
+        //         title: "轮播项",
+        //       };
+        //       return defaultItem;
+        //     },
+        //     onSelect(_id, index) {
+        //       if (index !== -1) {
+        //         if (!data.edit) {
+        //           data.edit = {};
+        //         }
+        //         data.edit.currentTabId = data.items[index]?._id;
+        //       }
+        //     },
+        //     items: [
+        //       {
+        //         title: "名称",
+        //         type: "text",
+        //         value: "title",
+        //       },
+        //     ],
+        //   },
+        //   value: {
+        //     get({ data }) {
+        //       return data.items;
+        //     },
+        //     set({ data, slot }, value) {
+        //       let action = computedAction({
+        //         before: data.items,
+        //         after: value,
+        //       });
+
+        //       switch (action?.name) {
+        //         case "remove":
+        //           slot.remove(action?.value._id);
+        //           break;
+        //         case "add":
+        //           slot.add(action?.value._id);
+        //           break;
+        //         case "update":
+        //           slot.setTitle(action?.value._id, action?.value.title);
+        //           break;
+        //       }
+
+        //       data.items = value;
+        //     },
+        //   },
+        // },
+        dynamicArrayData.editors(
+          { data },
+          {
+            title: "轮播项",
+            array: {
+              options: {
+                selectable: true,
+                editable: false,
+                getTitle: (item, index) => {
+                  return [`${item.title || ""}`];
+                },
+                onAdd() {
+                  let defaultItem = {
+                    title: "轮播项",
+                  };
+                  return defaultItem;
+                },
+                onSelect(_id, index) {
+                  if (index !== -1) {
+                    if (!data.edit) {
+                      data.edit = {};
+                    }
+                    data.edit.currentTabId = data.items[index]?._id;
+                  }
+                },
+                items: [
+                  {
+                    title: "名称",
+                    type: "text",
+                    value: "title",
+                  },
+                ],
               },
-            ],
-          },
-          value: {
-            get({ data }) {
-              return data.items;
             },
-            set({ data, slot }, value) {
-              let action = computedAction({
-                before: data.items,
-                after: value,
-              });
-  
-              switch (action?.name) {
-                case "remove":
-                  slot.remove(action?.value._id);
-                  break;
-                case "add":
-                  slot.add(action?.value._id);
-                  break;
-                case "update":
-                  slot.setTitle(action?.value._id, action?.value.title);
-                  break;
-              }
-  
-              data.items = value;
+            effects: {
+              onRemove: ({ slot }, action) => {
+                slot.remove(action?.value._id);
+              },
+              onAdd: ({ slot }, action) => {
+                slot.add({
+                  id: action?.value._id,
+                  title: action?.value.title,
+                  type: "scope",
+                  inputs: ScopeSlotInputs,
+                });
+              },
+              onUpdate: ({ slot }, action) => {
+                slot.setTitle(action?.value._id, action?.value.title);
+              },
+              onSwitchToDynamic: (datasource) => {
+                // 增加动态插槽
+                if (!slot.get("item")) {
+                  slot.add({
+                    id: "item",
+                    title: "内容项",
+                    type: "scope",
+                    inputs: ScopeSlotInputs,
+                  });
+                }
+                // 删除静态插槽
+                datasource.forEach((item) => {
+                  slot.remove(item._id);
+                });
+              },
+              onSwitchToStatic: (datasource) => {
+                // 增加静态插槽
+                datasource.forEach((item) => {
+                  if (!slot.get(item._id)) {
+                    slot.add({
+                      id: item._id,
+                      title: item.title,
+                      type: "scope",
+                      inputs: ScopeSlotInputs,
+                    });
+                  }
+                });
+                // 删除动态插槽
+                slot.remove("item");
+              },
             },
-          },
-        },
+          }
+        ),
         {
-          title: '轮播设置',
+          title: "轮播设置",
           items: [
             {
               title: "循环轮播",
-              description: '滑动到最后一项后可以继续滑动到第一项',
+              description: "滑动到最后一项后可以继续滑动到第一项",
               type: "switch",
               value: {
                 get({ data }) {
@@ -209,11 +295,11 @@ export default {
             //     },
             //   },
             // },
-          ]
+          ],
         },
         {
-          title: '展示指示器',
-          type: 'switch',
+          title: "展示指示器",
+          type: "switch",
           value: {
             get({ data }) {
               return data.showIndicator ?? true;
@@ -221,8 +307,8 @@ export default {
             set({ data }, value) {
               data.showIndicator = value;
             },
-          }
-        }
+          },
+        },
         // {
         //   title: '内容最小高度（0表示不限制高度）',
         //   type: 'text',
@@ -263,7 +349,7 @@ export default {
         //   ],
         // },
       ];
-  
+
       // cate1.title = "样式";
       // cate1.items = [
       //   // {
@@ -331,7 +417,7 @@ export default {
       //     },
       //   },
       // ];
-  
+
       // cate2.title = '标签栏'
       // cate2.items = [
       //   {

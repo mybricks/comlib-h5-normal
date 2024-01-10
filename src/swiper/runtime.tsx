@@ -24,17 +24,18 @@ export default function ({ env, data, inputs, outputs, style }) {
   }, []);
 
   const onClick = useCallback(({ item, index }) => {
-    if (item.customLink) {
-      Taro.navigateTo({
-        url: item.customLink,
-        fail: () => {
-          Taro.switchTab({
-            url: item.customLink,
-          });
-        },
-      });
-      return;
-    }
+    // if (item.customLink) {
+    //   Taro.navigateTo({
+    //     url: item.customLink,
+    //     fail: () => {
+    //       Taro.switchTab({
+    //         url: item.customLink,
+    //       });
+    //     },
+    //   });
+    //   return;
+    // }
+    outputs["onClick"]?.({ item, index });
   }, []);
 
   const showIndicator = useMemo(() => {

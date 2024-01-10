@@ -58,11 +58,11 @@ export default {
         title: "事件",
         items: [
           {
-            title: "openType",
+            title: "类型",
             type: "select",
             options: [
               {
-                label: "无",
+                label: "自定义",
                 value: "",
               },
               {

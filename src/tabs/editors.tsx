@@ -1,4 +1,9 @@
 import { uuid } from "../utils";
+import { DynamicArrayData } from './../utils/dynamic-array'
+import comJson from './com.json'
+
+const ScopeSlotInputs = comJson.slots[0].inputs;
+const dynamicArrayData = new DynamicArrayData({ keyName: 'tabs' });
 
 function getTabItem(data, focusArea) {
   const tabId = focusArea.dataset.tabId;
@@ -17,49 +22,8 @@ const getFocusTab = (props) => {
   return data.tabs[index];
 };
 
-function computedAction({ before, after }) {
-  let beforeIds = before.map((item) => item._id);
-  let afterIds = after.map((item) => item._id);
-
-  switch (true) {
-    case before.length > after.length: {
-      let diffId = beforeIds.filter((x) => !afterIds.includes(x))[0];
-      let diffItem = before.filter((x) => diffId.includes(x._id))[0];
-      return {
-        name: "remove",
-        value: diffItem,
-      };
-    }
-    case before.length < after.length: {
-      let diffId = afterIds.filter((x) => !beforeIds.includes(x))[0];
-      let diffItem = after.filter((x) => diffId.includes(x._id))[0];
-      return {
-        name: "add",
-        value: diffItem,
-      };
-    }
-
-    case before.length === after.length: {
-      let diffItem = null;
-
-      for (let i = 0; i < before.length; i++) {
-        if (before[i].tabName !== after[i].tabName) {
-          diffItem = after[i];
-          console.warn("diffItem", diffItem);
-          break;
-        }
-      }
-
-      return {
-        name: "update",
-        value: diffItem,
-      };
-    }
-  }
-}
-
 export default {
-  "@init"({ style }) {
+  "@init"({ style, data, ...opt }) {
     style.width = "100%";
     style.height = "auto";
   },
@@ -104,21 +68,21 @@ export default {
         target: '.taroify-tabs__line'
       }
     ],
-    items({ data }, cate0, cate1, cate2) {
+    items({ data, slot }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
-        {
-          title: "动态标签",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.defaultTab;
-            },
-            set({ data }, value) {
-              data.defaultTab = value;
-            },
-          },
-        },
+        // {
+        //   title: "动态标签",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.defaultTab;
+        //     },
+        //     set({ data }, value) {
+        //       data.defaultTab = value;
+        //     },
+        //   },
+        // },
         // {
         //   title: '模式',
         //   type: 'select',
@@ -135,68 +99,139 @@ export default {
         //     },
         //   },
         // },
-        {
-          title: "标签项",
-          type: "array",
-          options: {
-            selectable: true,
-            getTitle: (item, index) => {
-              return [`${item.tabName || ""}`];
-            },
-            onAdd() {
-              let defaultItem = {
-                tabName: "标签名",
-              };
-              return defaultItem;
-            },
-            onSelect(_id, index) {
-              if (index !== -1) {
-                data.edit.currentTabId = data.tabs[index]?._id;
-              }
-            },
-            items: [
-              {
-                title: "标签名",
-                type: "text",
-                value: "tabName",
-              },
-              {
-                title:"tab图标(可选)",
-                type:"imageSelector",
-                value:"tabPic"
-              },
-              {
-                title:"tab图标-选中(可选)",
-                type:"imageSelector",
-                value:"tabPicActive"
-              }
-            ],
-          },
-          value: {
-            get({ data }) {
-              return data.tabs;
-            },
-            set({ data, slot }, value) {
-              let action = computedAction({
-                before: data.tabs,
-                after: value,
-              });
+        // {
+        //   title: "标签项",
+        //   type: "array",
+        //   options: {
+        //     selectable: true,
+        //     getTitle: (item, index) => {
+        //       return [`${item.tabName || ""}`];
+        //     },
+        //     onAdd() {
+        //       let defaultItem = {
+        //         tabName: "标签名",
+        //       };
+        //       return defaultItem;
+        //     },
+        //     onSelect(_id, index) {
+        //       if (index !== -1) {
+        //         data.edit.currentTabId = data.tabs[index]?._id;
+        //       }
+        //     },
+        //     items: [
+        //       {
+        //         title: "标签名",
+        //         type: "text",
+        //         value: "tabName",
+        //       },
+        //       {
+        //         title:"tab图标(可选)",
+        //         type:"imageSelector",
+        //         value:"tabPic"
+        //       },
+        //       {
+        //         title:"tab图标-选中(可选)",
+        //         type:"imageSelector",
+        //         value:"tabPicActive"
+        //       }
+        //     ],
+        //   },
+        //   value: {
+        //     get({ data }) {
+        //       return data.tabs;
+        //     },
+        //     set({ data, slot }, value) {
+        //       let action = computedAction({
+        //         before: data.tabs,
+        //         after: value,
+        //       });
   
-              switch (action?.name) {
-                case "remove":
-                  slot.remove(action?.value._id);
-                  break;
-                case "add":
-                  slot.add(action?.value._id);
-                  break;
-                case "update":
-                  slot.setTitle(action?.value._id, action?.value.tabName);
-                  break;
-              }
-              data.tabs = value;
-            },
+        //       switch (action?.name) {
+        //         case "remove":
+        //           slot.remove(action?.value._id);
+        //           break;
+        //         case "add":
+        //           slot.add(action?.value._id);
+        //           break;
+        //         case "update":
+        //           slot.setTitle(action?.value._id, action?.value.tabName);
+        //           break;
+        //       }
+        //       data.tabs = value;
+        //     },
+        //   },
+        // },
+        dynamicArrayData.editors({ data }, {
+          title: '标签项',
+          array: {
+            options: {
+              selectable: true,
+              getTitle: (item, index) => {
+                return [`${item.tabName || ""}`];
+              },
+              onAdd() {
+                let defaultItem = {
+                  tabName: "标签名",
+                };
+                return defaultItem;
+              },
+              onSelect(_id, index) {
+                if (index !== -1) {
+                  data.edit.currentTabId = data.tabs[index]?._id;
+                }
+              },
+              items: [
+                {
+                  title: "标签名",
+                  type: "text",
+                  value: "tabName",
+                },
+                // {
+                //   title:"tab图标(可选)",
+                //   type:"imageSelector",
+                //   value:"tabPic"
+                // },
+                // {
+                //   title:"tab图标-选中(可选)",
+                //   type:"imageSelector",
+                //   value:"tabPicActive"
+                // }
+              ],
+            }
           },
-        },
+          effects: {
+            onRemove: ({ slot }, action) => {
+              slot.remove(action?.value._id);
+            },
+            onAdd: ({ slot }, action) => {
+              slot.add({ id: action?.value._id, title: action?.value.tabName, type: 'scope', inputs: ScopeSlotInputs })
+            },
+            onUpdate: ({ slot }, action) => {
+              slot.setTitle(action?.value._id, action?.value.tabName);
+            },
+            onSwitchToDynamic: (datasource) => {
+              // 增加动态插槽
+              if (!slot.get('item')) {
+                slot.add({ id: 'item', title: '内容项', type: 'scope', inputs: ScopeSlotInputs })
+              }
+              // 删除静态插槽
+              datasource.forEach(item => {
+                slot.remove(item._id);
+              });
+            },
+            onSwitchToStatic: (datasource) => {
+              // 增加静态插槽
+              datasource.forEach(item => {
+                if (!slot.get(item._id)) {
+                  slot.add({ id: item._id, title: item.tabName, type: 'scope', inputs: ScopeSlotInputs })
+                }
+              });
+              // 删除动态插槽
+              slot.remove('item');
+            }
+            // onSwitchTo
+          }
+        }),
         {
           title: "支持滑动",
           type: "switch",
@@ -246,18 +281,18 @@ export default {
                 outputId: "changeTab",
               },
             },
-            {
-              title: "初始化时触发一次「标签切换」事件",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.initChangeTab;
-                },
-                set({ data }, value) {
-                  data.initChangeTab = value;
-                },
-              },
-            },
+            // {
+            //   title: "初始化时触发一次「标签切换」事件",
+            //   type: "switch",
+            //   value: {
+            //     get({ data }) {
+            //       return data.initChangeTab;
+            //     },
+            //     set({ data }, value) {
+            //       data.initChangeTab = value;
+            //     },
+            //   },
+            // },
           ],
         },
       ];
