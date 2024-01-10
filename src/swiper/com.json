@@ -27,5 +27,14 @@
         }
       }
     }
+  ],
+  "outputs": [
+    {
+      "id": "onClick",
+      "title": "当单击时",
+      "schema": {
+        "type": "object"
+      }
+    }
   ]
 }

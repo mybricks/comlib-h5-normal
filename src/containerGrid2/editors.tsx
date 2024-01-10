@@ -3,7 +3,7 @@ import { uuid } from "../utils";
 
 export default {
   "@init"({ style, data, slot }) {
-    style.width = "90%";
+    style.width = "100%";
     style.height = 100;
   },
   "@resize": {
@@ -167,7 +167,7 @@ export default {
         type: "styleNew",
         options: {
           defaultOpen: true,
-          plugins: ["background", "border", "padding", "boxshadow"],
+          plugins: ["background", "border", "padding", "boxshadow", "overflow"],
         },
         value: {
           get({ data }) {
@@ -577,7 +577,7 @@ export default {
           type: "styleNew",
           options: {
             defaultOpen: true,
-            plugins: ["background", "border", "padding", "boxshadow"],
+            plugins: ["background", "border", "padding", "boxshadow", "overflow"],
           },
           value: {
             get({ data, focusArea }) {

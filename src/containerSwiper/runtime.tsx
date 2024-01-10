@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
-import { Swiper, SwiperItem } from './../components/swiper'
+import { Swiper, SwiperItem } from "./../components/swiper";
 // import { Swiper } from "brickd-mobile";
 import css from "./style.less";
 
@@ -28,13 +28,16 @@ export default function ({ env, data, inputs, outputs, style, slots }) {
     return data.items.findIndex((t) => t._id === currentTabId);
   }, [currentTabId, data.items]);
 
-  const onChange = useCallback((e) => {
-    if (env?.edit) {
-      return
-    }
-    const findItem = data.items[e.detail?.current]
-    setCurrentTabId(findItem._id)
-  }, [data.items]);
+  const onChange = useCallback(
+    (e) => {
+      if (env?.edit) {
+        return;
+      }
+      const findItem = data.items[e.detail?.current];
+      setCurrentTabId(findItem._id);
+    },
+    [data.items]
+  );
 
   return (
     <Swiper
@@ -47,7 +50,13 @@ export default function ({ env, data, inputs, outputs, style, slots }) {
       {data.items.map((raw, index) => {
         return (
           <SwiperItem key={raw._id} className={css.swiperItem}>
-            {slots[raw._id]?.render?.()}
+            {slots[data.items_dynamic ? "item" : raw._id].render?.({
+              inputValues: {
+                itemData: raw,
+                index: index,
+              },
+              key: raw._id,
+            })}
           </SwiperItem>
         );
       })}

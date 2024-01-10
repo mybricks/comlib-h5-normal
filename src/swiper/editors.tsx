@@ -72,27 +72,27 @@ export default {
                 type: "imageSelector",
                 value: "thumbnail",
               },
-              {
-                title: "使用自定义跳转链接",
-                type: "switch",
-                value: "useCustomLink",
-              },
-              {
-                ifVisible(itemValue, editIndex) {
-                  return itemValue?.useCustomLink;
-                },
-                title: "自定义跳转链接",
-                type: "text",
-                value: "customLink",
-              },
-              {
-                ifVisible(itemValue, editIndex) {
-                  return !itemValue?.useCustomLink;
-                },
-                title: "跳转场景",
-                type: "_sceneSelect",
-                value: "scene",
-              },
+              // {
+              //   title: "使用自定义跳转链接",
+              //   type: "switch",
+              //   value: "useCustomLink",
+              // },
+              // {
+              //   ifVisible(itemValue, editIndex) {
+              //     return itemValue?.useCustomLink;
+              //   },
+              //   title: "自定义跳转链接",
+              //   type: "text",
+              //   value: "customLink",
+              // },
+              // {
+              //   ifVisible(itemValue, editIndex) {
+              //     return !itemValue?.useCustomLink;
+              //   },
+              //   title: "跳转场景",
+              //   type: "_sceneSelect",
+              //   value: "scene",
+              // },
             ],
           },
           value: {
@@ -157,6 +157,18 @@ export default {
               data.showIndicator = value;
             },
           }
+        },
+        {
+          title: '事件',
+          items: [
+            {
+              title: "单击",
+              type: "_event",
+              options: {
+                outputId: "onClick",
+              },
+            },
+          ]
         }
       ];
     }

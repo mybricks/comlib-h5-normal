@@ -11,15 +11,15 @@
   "editors": "./editors.tsx",
   "inputs": [
     {
-      "id": "tabList",
-      "title": "更新tab数据",
+      "id": "dataSource",
+      "title": "设置数据源",
       "schema": {
         "type": "array",
         "items": {
           "type": "object",
           "properties": {
-            "tabId": {
-              "title": "标签项id",
+            "id": {
+              "title": "标签项ID",
               "type": "string"
             },
             "tabName": {
@@ -50,11 +50,47 @@
   "slots": [
     {
       "id": "tabName1",
-      "title": "标签项1"
+      "capacity": 1,
+      "title": "内容项1",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项数据",
+          "schema": {
+            "type": "object"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
     },
     {
       "id": "tabName2",
-      "title": "标签项2"
+      "capacity": 1,
+      "title": "内容项2",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项数据",
+          "schema": {
+            "type": "object"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
     }
   ]
 }

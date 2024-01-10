@@ -9,6 +9,7 @@ import { View } from "@tarojs/components";
 import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import { List, Loading } from "brickd-mobile";
+import { Direction } from './constant'
 
 const rowKey = "_itemKey";
 
@@ -86,7 +87,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         return s;
       });
     },
-    { env, enable: !!data.scrollRefresh }
+    { env, enable: !!data.scrollRefresh && data.direction !== Direction.Row }
   );
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
@@ -149,13 +150,19 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     return ListStatus.ERROR === status;
   }, [status]);
 
-  return (
-    <View
-      className={`${
-        data.scrollRefresh
+  const wrapperCls = useMemo(() => {
+    if (data.direction === Direction.Row) {
+      return `${css.list} ${css.row}`
+    }
+
+    return data.scrollRefresh
           ? `${css.list} ${css.scroll}`
           : `${css.list} ${css.normal}`
-      }`}
+  }, [data.scrollRefresh, data.direction])
+
+  return (
+    <View
+      className={wrapperCls}
     >
       {$placeholder || (
         <>
