@@ -43,7 +43,8 @@
       "comAry": [
         "./src/system/systemPage/com.json",
         "./src/system/systemWebview/com.json",
-        "./src/system/systemLogin/com.json"
+        "./src/system/systemLogin/com.json",
+        "./src/containerListHorizontal/com.json"
       ]
     },
     {
