@@ -39,14 +39,14 @@ const formatRulesFromItem = (item) => {
 
 /** 去除value为undefined场景的对象 */
 const omitUndefinedKeys = (obj) => {
-  const resWithoutUndefined = {}
-  Object.keys(obj).forEach(key => {
+  const resWithoutUndefined = {};
+  Object.keys(obj).forEach((key) => {
     if (obj[key] !== undefined) {
-      resWithoutUndefined[key] = obj[key]
+      resWithoutUndefined[key] = obj[key];
     }
-  })
-  return resWithoutUndefined
-}
+  });
+  return resWithoutUndefined;
+};
 
 /** 代理fomrRef，因为组件库的setValues居然是增量的，不合理，这里代理成全量的 */
 const useForm = ({ items, childrenInputs }) => {
@@ -55,43 +55,52 @@ const useForm = ({ items, childrenInputs }) => {
   const ref = useMemo(() => {
     return {
       getValues: () => {
-        const res = formRef?.current?.getValues()
-        return omitUndefinedKeys(res)
-      },
-      setFieldValue: ((name, value) => {
         const res = formRef?.current?.getValues();
-        res[name] = value
-        formRef?.current?.setValues(res)
-      }),
-      setValues: (val) => {
-        const valuesWithUndefined = {}
-        /** 设置表单项的value */
-        items.forEach(item => {
-          const itemValue = {...(val ?? {})}[item.name ?? item.id];
-          childrenInputs.current[item.comName ?? item.id]?.['setValue']?.(itemValue);
-          valuesWithUndefined[item.name ?? item.id] = itemValue !== undefined ? itemValue : undefined
-        })
-
-        formRef?.current?.setValues(valuesWithUndefined)
+        return omitUndefinedKeys(res);
       },
-      validate: () => new Promise((resolve, reject) => {
-        formRef?.current?.validate()?.then(res => {
-          resolve(omitUndefinedKeys(res))
-        }).catch(e => reject(e))
-      }) 
-    }
-  }, [])
+      setFieldValue: (name, value) => {
+        const res = formRef?.current?.getValues();
+        res[name] = value;
+        formRef?.current?.setValues(res);
+      },
+      setValues: (val) => {
+        const valuesWithUndefined = {};
+        /** 设置表单项的value */
+        items.forEach((item) => {
+          const itemValue = { ...(val ?? {}) }[item.name ?? item.id];
+          childrenInputs.current[item.comName ?? item.id]?.["setValue"]?.(
+            itemValue
+          );
+          valuesWithUndefined[item.name ?? item.id] =
+            itemValue !== undefined ? itemValue : undefined;
+        });
 
-  return [ref, formRef]
-}
+        formRef?.current?.setValues(valuesWithUndefined);
+      },
+      validate: () =>
+        new Promise((resolve, reject) => {
+          formRef?.current
+            ?.validate()
+            ?.then((res) => {
+              resolve(omitUndefinedKeys(res));
+            })
+            .catch((e) => reject(e));
+        }),
+    };
+  }, []);
+
+  return [ref, formRef];
+};
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const childrenInputs = useRef({});
-  const [form, formRef] = useForm({ items: data.items, childrenInputs })
+  const [form, formRef] = useForm({ items: data.items, childrenInputs });
+  const [loading, setLoading] = useState(false);
 
   // 提交表单
-  inputs['submit']((val, outputRels) => {
-    form?.validate()
+  inputs["submit"]((val, outputRels) => {
+    form
+      ?.validate()
       .then((res) => {
         outputRels["onSubmit"](res);
       })
@@ -100,15 +109,26 @@ export default function ({ env, data, inputs, outputs, slots }) {
       });
   });
 
+  // 重置表单
+  inputs["resetFields"]((val, outputRels) => {
+    form.setValues({});
+    outputRels["onReset"]();
+  });
+
+  // 异步提交完成
+  inputs["finishLoading"]?.(() => {
+    setLoading(false);
+  });
+
   //设置值
   useEffect(() => {
     inputs["setFieldsValue"]((val) => {
       if (isEmpty(val) || !isObject(val)) {
         return;
       }
-      form.setValues(val)
+      form.setValues(val);
       // 触发「表单数据输入」
-      slots['content'].inputs["setFieldsValue"](val);
+      slots["content"].inputs["setFieldsValue"](val);
     });
 
     inputs["getFieldsValue"]((val, outputRels) => {
@@ -121,7 +141,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       const item = getFormItem(data.items, { id, name });
 
       if (item) {
-        form.setFieldValue(item.name || item.label, value)
+        form.setFieldValue(item.name || item.label, value);
       }
     });
   }, []);
@@ -190,9 +210,17 @@ export default function ({ env, data, inputs, outputs, slots }) {
     );
   }, []);
 
-
   const onCustomSubmit = useCallback(() => {
     if (env.runtime) {
+      // 异步提交中
+      if (data.useLoading && loading) {
+        return;
+      }
+
+      if (data.useLoading) {
+        setLoading(true);
+      }
+
       if (data.skipValidation) {
         outputs["onSubmit"](form?.getValues());
       } else {
@@ -202,22 +230,30 @@ export default function ({ env, data, inputs, outputs, slots }) {
             outputs["onSubmit"](res);
           })
           .catch((err) => {
+            // 遇到异常，自动回滚 loading 状态
+            setLoading(false);
             console.error("validate", err);
           });
       }
     }
-  }, [data.skipValidation]);
+  }, [data.useLoading, loading, data.skipValidation]);
 
   return (
     <Form className={cx(css.form, { [css.h5]: isH5 })} ref={formRef}>
       <Cell.Group bordered={false}>{content}</Cell.Group>
       {data.useSubmitButton ? (
         <View className={cx(css.foot, "mybricks-submit")}>
-          <Button
-            className="taroify-button"
-            onClick={onCustomSubmit}
-          >
-            {data.submitButtonText}
+          <Button className="taroify-button" onClick={onCustomSubmit}>
+            {loading ? (
+              // ... 的动画
+              <View className={css.loading}>
+                <View className={css.dot1}></View>
+                <View className={css.dot2}></View>
+                <View className={css.dot3}></View>
+              </View>
+            ) : (
+              data.submitButtonText
+            )}
           </Button>
         </View>
       ) : null}

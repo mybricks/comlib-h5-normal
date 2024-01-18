@@ -2,8 +2,8 @@ import { CSSProperties } from "react";
 import { uuid } from "../utils";
 
 enum UnitEnum {
-  Px = 'px',
-  Auto = 'auto'
+  Px = "px",
+  Auto = "auto",
 }
 
 export default {
@@ -50,7 +50,7 @@ export default {
              * 如果父节点是 row，则在后面增加一个子节点
              */
             if (parentNode?.direction === "row") {
-              parentNode.children.push(newNode);
+              parentNode.children.splice(node.index + 1, 0, newNode);
             }
 
             /**
@@ -103,7 +103,8 @@ export default {
              * 如果父节点是 col，则在后面增加一个子节点
              */
             if (parentNode?.direction === "col") {
-              parentNode.children.push(newNode);
+              // parentNode.children.push(newNode);
+              parentNode.children.splice(node.index + 1, 0, newNode);
             }
 
             /**
@@ -228,7 +229,8 @@ export default {
                * 如果父节点是 row，则在后面增加一个子节点
                */
               if (parentNode?.direction === "row") {
-                parentNode.children.push(newNode);
+                // parentNode.children.push(newNode);
+                parentNode.children.splice(node.index + 1, 0, newNode);
               }
 
               /**
@@ -278,7 +280,7 @@ export default {
                * 如果父节点是 col，则在后面增加一个子节点
                */
               if (parentNode?.direction === "col") {
-                parentNode.children.push(newNode);
+                parentNode.children.splice(node.index + 1, 0, newNode);
               }
 
               /**
@@ -299,7 +301,7 @@ export default {
           },
         },
         {
-          title: '尺寸',
+          title: "尺寸",
           ifVisible({ data, focusArea }) {
             if (!focusArea) {
               return;
@@ -335,12 +337,20 @@ export default {
                   let id = focusArea.dataset.id;
                   let node = findNode(id, data.tree);
 
+                  //计算宽度
+                  let eleWidth = focusArea.ele.getBoundingClientRect().width;
+                  let artboardWidth = focusArea.ele
+                    .closest("[class^=artboard-]")
+                    .getBoundingClientRect().width;
+                  let width = eleWidth / (artboardWidth / 375);
+
                   data.tree = updateNode(
                     {
                       ...node,
                       size: {
                         ...node.size,
                         fixedWidth: val === UnitEnum.Px,
+                        width: width,
                       },
                     },
                     data.tree
@@ -374,7 +384,7 @@ export default {
                   }
                   let id = focusArea.dataset.id;
                   let node = findNode(id, data.tree);
-    
+
                   data.tree = updateNode(
                     {
                       ...node,
@@ -412,12 +422,20 @@ export default {
                   let id = focusArea.dataset.id;
                   let node = findNode(id, data.tree);
 
+                  //计算宽度
+                  let eleHeight = focusArea.ele.getBoundingClientRect().height;
+                  let artboardWidth = focusArea.ele
+                    .closest("[class^=artboard-]")
+                    .getBoundingClientRect().width;
+                  let height = eleHeight / (artboardWidth / 375);
+
                   data.tree = updateNode(
                     {
                       ...node,
                       size: {
                         ...node.size,
                         fixedHeight: val === UnitEnum.Px,
+                        height: height,
                       },
                     },
                     data.tree
@@ -451,7 +469,7 @@ export default {
                   }
                   let id = focusArea.dataset.id;
                   let node = findNode(id, data.tree);
-    
+
                   data.tree = updateNode(
                     {
                       ...node,
@@ -465,7 +483,7 @@ export default {
                 },
               },
             },
-          ]
+          ],
         },
         // {
         //   ifVisible({ data, focusArea }) {
@@ -750,7 +768,13 @@ export default {
           type: "styleNew",
           options: {
             defaultOpen: true,
-            plugins: ["background", "border", "padding", "boxshadow", "overflow"],
+            plugins: [
+              "background",
+              "border",
+              "padding",
+              "boxshadow",
+              "overflow",
+            ],
           },
           value: {
             get({ data, focusArea }) {
@@ -779,7 +803,6 @@ export default {
           },
         },
       ];
-        
     },
   },
 };
@@ -858,7 +881,10 @@ function findNode(id, tree) {
   for (let i = 0; i < tree.children.length; i++) {
     let node = findNode(id, tree.children[i]);
     if (node) {
-      return node;
+      return {
+        ...node,
+        index: i,
+      };
     }
   }
 
