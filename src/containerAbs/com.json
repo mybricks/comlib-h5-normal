@@ -13,7 +13,7 @@
   "slots": [
     {
       "id": "content",
-      "title": "将组件拖拽到这里，拖拽修改位置",
+      "title": "将组件拖拽到这里，通过拖拽调整位置",
       "layout": "absolute"
     }
   ],
