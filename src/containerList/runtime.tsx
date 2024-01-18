@@ -160,13 +160,48 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           : `${css.list} ${css.normal}`
   }, [data.scrollRefresh, data.direction])
 
+
+  const didMount = useRef(false)
+  useEffect(() => {
+    if (!didMount.current) { // 不管上次配置的如何，第一次渲染必须配置成默认
+      data._edit_status_ = '默认';
+      didMount.current = true;
+    }
+    if (env.edit) {
+      switch(true) {
+        case data._edit_status_ === '加载中': {
+          setStatus(ListStatus.LOADING);
+          break;
+        }
+        case data._edit_status_ === '加载失败': {
+          setStatus(ListStatus.ERROR);
+          break;
+        }
+        case data._edit_status_ === '没有更多': {
+          setStatus(ListStatus.NOMORE);
+          break;
+        }
+        default: {
+          setStatus(ListStatus.IDLE);
+        }
+      }
+    }
+  }, [data._edit_status_])
+
+  const showDateSource = useMemo(() => {
+    if (env.edit && status !== ListStatus.IDLE && !data.scrollRefresh) {
+      return false
+    }
+    return true
+  }, [status])
+
   return (
     <View
       className={wrapperCls}
     >
       {$placeholder || (
         <>
-          {dataSource.map(
+          {showDateSource && dataSource.map(
             ({ [rowKey]: key, index: index, item: item }, _idx) => {
               return (
                 <View
