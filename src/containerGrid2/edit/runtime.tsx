@@ -32,7 +32,7 @@ export default ({ id, data, outputs, slots }) => {
             if (node.size.fixedHeight) {
               leafSize.height = node.size.height;
             } else {
-              leafSize.height = "100%";
+              // leafSize.height = "100%";
             }
           }
 
@@ -46,7 +46,7 @@ export default ({ id, data, outputs, slots }) => {
             if (node.size.fixedWidth) {
               leafSize.width = node.size.width;
             } else {
-              leafSize.width = "100%";
+              // leafSize.width = "100%";
             }
           }
         }

@@ -1,6 +1,11 @@
 import { CSSProperties } from "react";
 import { uuid } from "../utils";
 
+enum UnitEnum {
+  Px = 'px',
+  Auto = 'auto'
+}
+
 export default {
   "@init"({ style, data, slot }) {
     style.width = "100%";
@@ -293,8 +298,8 @@ export default {
             },
           },
         },
-        {},
         {
+          title: '尺寸',
           ifVisible({ data, focusArea }) {
             if (!focusArea) {
               return;
@@ -305,156 +310,324 @@ export default {
             let parentNode = findParentNode(id, data.tree);
             return !!parentNode;
           },
-          title: "固定宽度",
-          type: "Switch",
-          value: {
-            get({ data, focusArea }) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-              return node?.size.fixedWidth;
-            },
-            set({ data, focusArea }, value) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
+          items: [
+            {
+              title: "宽度填充",
+              type: "Select",
+              options: [
+                { value: UnitEnum.Auto, label: "自动填充" },
+                { value: UnitEnum.Px, label: "固定宽度" },
+              ],
+              value: {
+                get({ data, focusArea }) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
 
-              data.tree = updateNode(
-                {
-                  ...node,
-                  size: {
-                    ...node.size,
-                    fixedWidth: value,
-                  },
+                  return node?.size.fixedWidth ? UnitEnum.Px : UnitEnum.Auto;
                 },
-                data.tree
-              );
-            },
-          },
-        },
-        {
-          ifVisible({ data, focusArea }) {
-            if (!focusArea) {
-              return;
-            }
-            let id = focusArea.dataset.id;
-            let node = findNode(id, data.tree);
-            return node?.size.fixedWidth;
-          },
-          title: "宽度值",
-          type: "text",
-          value: {
-            get({ data, focusArea }) {
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-              return node?.size.width;
-            },
-            set({ data, focusArea }, value) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
+                set({ data, focusArea }, val) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
 
-              data.tree = updateNode(
-                {
-                  ...node,
-                  size: {
-                    ...node.size,
-                    width: +value,
-                  },
+                  data.tree = updateNode(
+                    {
+                      ...node,
+                      size: {
+                        ...node.size,
+                        fixedWidth: val === UnitEnum.Px,
+                      },
+                    },
+                    data.tree
+                  );
                 },
-                data.tree
-              );
+              },
             },
-          },
-        },
-        {
-          ifVisible({ data, focusArea }) {
-            if (!focusArea) {
-              return;
-            }
-            let id = focusArea.dataset.id;
-
-            // 非根节点
-            let parentNode = findParentNode(id, data.tree);
-            return !!parentNode;
-          },
-          title: "固定高度",
-          type: "Switch",
-          value: {
-            get({ data, focusArea }) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-              return node?.size.fixedHeight;
-            },
-            set({}, value) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-
-              data.tree = updateNode(
-                {
-                  ...node,
-                  size: {
-                    ...node.size,
-                    fixedHeight: value,
-                  },
+            {
+              title: "指定宽度(px)",
+              type: "Text",
+              options: {
+                type: "Number",
+              },
+              ifVisible({ data, focusArea }) {
+                if (!focusArea) {
+                  return;
+                }
+                let id = focusArea.dataset.id;
+                let node = findNode(id, data.tree);
+                return node?.size.fixedWidth;
+              },
+              value: {
+                get({ data, focusArea }) {
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+                  return node?.size.width;
                 },
-                data.tree
-              );
-            },
-          },
-        },
-        {
-          ifVisible({ data, focusArea }) {
-            if (!focusArea) {
-              return;
-            }
-            let id = focusArea.dataset.id;
-            let node = findNode(id, data.tree);
-            return node?.size.fixedHeight;
-          },
-          title: "高度值",
-          type: "text",
-          value: {
-            get({ data, focusArea }) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-              return node?.size.height;
-            },
-            set({ data, focusArea }, value) {
-              if (!focusArea) {
-                return;
-              }
-              let id = focusArea.dataset.id;
-              let node = findNode(id, data.tree);
-
-              data.tree = updateNode(
-                {
-                  ...node,
-                  size: {
-                    ...node.size,
-                    height: +value,
-                  },
+                set({ data, focusArea }, value) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+    
+                  data.tree = updateNode(
+                    {
+                      ...node,
+                      size: {
+                        ...node.size,
+                        width: +value,
+                      },
+                    },
+                    data.tree
+                  );
                 },
-                data.tree
-              );
+              },
             },
-          },
+            {
+              title: "高度填充",
+              type: "Select",
+              options: [
+                { value: UnitEnum.Auto, label: "自动填充" },
+                { value: UnitEnum.Px, label: "固定高度" },
+              ],
+              value: {
+                get({ data, focusArea }) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+
+                  return node?.size.fixedHeight ? UnitEnum.Px : UnitEnum.Auto;
+                },
+                set({ data, focusArea }, val) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+
+                  data.tree = updateNode(
+                    {
+                      ...node,
+                      size: {
+                        ...node.size,
+                        fixedHeight: val === UnitEnum.Px,
+                      },
+                    },
+                    data.tree
+                  );
+                },
+              },
+            },
+            {
+              title: "指定高度(px)",
+              type: "Text",
+              options: {
+                type: "Number",
+              },
+              ifVisible({ data, focusArea }) {
+                if (!focusArea) {
+                  return;
+                }
+                let id = focusArea.dataset.id;
+                let node = findNode(id, data.tree);
+                return node?.size.fixedHeight;
+              },
+              value: {
+                get({ data, focusArea }) {
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+                  return node?.size.height;
+                },
+                set({ data, focusArea }, value) {
+                  if (!focusArea) {
+                    return;
+                  }
+                  let id = focusArea.dataset.id;
+                  let node = findNode(id, data.tree);
+    
+                  data.tree = updateNode(
+                    {
+                      ...node,
+                      size: {
+                        ...node.size,
+                        height: +value,
+                      },
+                    },
+                    data.tree
+                  );
+                },
+              },
+            },
+          ]
         },
+        // {
+        //   ifVisible({ data, focusArea }) {
+        //     if (!focusArea) {
+        //       return;
+        //     }
+        //     let id = focusArea.dataset.id;
+
+        //     // 非根节点
+        //     let parentNode = findParentNode(id, data.tree);
+        //     return !!parentNode;
+        //   },
+        //   title: "固定宽度",
+        //   type: "Switch",
+        //   value: {
+        //     get({ data, focusArea }) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+        //       return node?.size.fixedWidth;
+        //     },
+        //     set({ data, focusArea }, value) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+
+        //       data.tree = updateNode(
+        //         {
+        //           ...node,
+        //           size: {
+        //             ...node.size,
+        //             fixedWidth: value,
+        //           },
+        //         },
+        //         data.tree
+        //       );
+        //     },
+        //   },
+        // },
+        // {
+        //   ifVisible({ data, focusArea }) {
+        //     if (!focusArea) {
+        //       return;
+        //     }
+        //     let id = focusArea.dataset.id;
+        //     let node = findNode(id, data.tree);
+        //     return node?.size.fixedWidth;
+        //   },
+        //   title: "宽度值",
+        //   type: "text",
+        //   value: {
+        //     get({ data, focusArea }) {
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+        //       return node?.size.width;
+        //     },
+        //     set({ data, focusArea }, value) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+
+        //       data.tree = updateNode(
+        //         {
+        //           ...node,
+        //           size: {
+        //             ...node.size,
+        //             width: +value,
+        //           },
+        //         },
+        //         data.tree
+        //       );
+        //     },
+        //   },
+        // },
+        // {
+        //   ifVisible({ data, focusArea }) {
+        //     if (!focusArea) {
+        //       return;
+        //     }
+        //     let id = focusArea.dataset.id;
+
+        //     // 非根节点
+        //     let parentNode = findParentNode(id, data.tree);
+        //     return !!parentNode;
+        //   },
+        //   title: "固定高度",
+        //   type: "Switch",
+        //   value: {
+        //     get({ data, focusArea }) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+        //       return node?.size.fixedHeight;
+        //     },
+        //     set({}, value) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+
+        //       data.tree = updateNode(
+        //         {
+        //           ...node,
+        //           size: {
+        //             ...node.size,
+        //             fixedHeight: value,
+        //           },
+        //         },
+        //         data.tree
+        //       );
+        //     },
+        //   },
+        // },
+        // {
+        //   ifVisible({ data, focusArea }) {
+        //     if (!focusArea) {
+        //       return;
+        //     }
+        //     let id = focusArea.dataset.id;
+        //     let node = findNode(id, data.tree);
+        //     return node?.size.fixedHeight;
+        //   },
+        //   title: "高度值",
+        //   type: "text",
+        //   value: {
+        //     get({ data, focusArea }) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+        //       return node?.size.height;
+        //     },
+        //     set({ data, focusArea }, value) {
+        //       if (!focusArea) {
+        //         return;
+        //       }
+        //       let id = focusArea.dataset.id;
+        //       let node = findNode(id, data.tree);
+
+        //       data.tree = updateNode(
+        //         {
+        //           ...node,
+        //           size: {
+        //             ...node.size,
+        //             height: +value,
+        //           },
+        //         },
+        //         data.tree
+        //       );
+        //     },
+        //   },
+        // },
         {},
         {
           title: "布局",

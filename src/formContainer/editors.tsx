@@ -43,13 +43,13 @@ const defaultRules = [
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
+    style.height = 'fit-content'
   },
   "@resize": {
     options: ["width", "height"],
   },
   '@childAdd'({ data, inputs, outputs, logs, slots }, child, curSlot) {
     if (curSlot.id === 'content') {
-      console.warn("child", child);
       const { id, inputDefs, outputDefs, name } = child;
       if (!Array.isArray(data.items)) {
         data.items = []
@@ -138,8 +138,10 @@ export default {
             outputId: "onSubmit",
           },
         },
+        {},
         {
-          title: "表单提交时跳过校验",
+          title: "跳过校验",
+          description: '开启后，提交表单将不会校验具体内容',
           type: "switch",
           value: {
             get({ data }) {
@@ -333,8 +335,10 @@ export default {
           outputId: "onSubmit",
         },
       },
+      {},
       {
-        title: "表单提交时跳过校验",
+        title: "跳过校验",
+        desc: '开启后，提交表单将不会校验具体内容',
         type: "switch",
         value: {
           get({ data }) {

@@ -41,6 +41,7 @@
       "title": "系统",
       "visible": false,
       "comAry": [
+        "./src/containerGrid/com.json",
         "./src/system/systemPage/com.json",
         "./src/system/systemWebview/com.json",
         "./src/system/systemLogin/com.json",
@@ -62,7 +63,7 @@
     {
       "title": "容器",
       "comAry": [
-        "./src/containerGrid/com.json",
+        "./src/containerAbs/com.json",
         "./src/containerGrid2/com.json",
         "./src/tabs/com.json",
         "./src/containerSwiper/com.json",
@@ -97,7 +98,6 @@
       "title": "其它",
       "comAry": [
         "./src/cell/com.json",
-        "./src/indexList/com.json",
         "./src/safeArea/com.json",
         "./src/map/com.json",
         "./src/noticeBar/com.json",

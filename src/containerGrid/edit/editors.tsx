@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 import { uuid } from "../../utils";
-import { WidthType } from "./ColWidth";
+import ColWidth, { WidthType } from "./ColWidth";
 import { getColOutputId, getRowOutputId } from "./util";
 
 export default {
