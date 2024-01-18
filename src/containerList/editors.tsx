@@ -32,41 +32,68 @@ export default {
       },
       {},
       {
-        title: "加载文案",
-        type: "text",
-        value: {
-          get({ data }) {
-            return data.loadingTip;
-          },
-          set({ data }, value) {
-            data.loadingTip = value;
-          },
-        },
-      },
-      {
-        title: "加载失败文案",
-        type: "text",
-        value: {
-          get({ data }) {
-            return data.errorTip;
-          },
-          set({ data }, value) {
-            data.errorTip = value;
+        catelogChange: {
+          value: {
+            get({ data }) {
+              return data._edit_status_;
+            },
+            set({ data, catelog }) {
+              data._edit_status_ = catelog;
+            },
           },
         },
-      },
-      {
-        title: "没有更多了文案",
-        type: "text",
-        value: {
-          get({ data }) {
-            return data.emptyTip;
+        items: [
+          {
+            title: '',
+            catelog: '默认',
+            type: 'editorRender',
+            options: {
+              render: () => '暂无'
+            },
           },
-          set({ data }, value) {
-            data.emptyTip = value;
+          {
+            title: "提示文案",
+            type: "text",
+            catelog: '加载中',
+            value: {
+              get({ data }) {
+                return data.loadingTip;
+              },
+              set({ data }, value) {
+                data.loadingTip = value;
+              },
+            },
           },
-        },
+          {
+            title: "提示文案",
+            type: "text",
+            catelog: '加载失败',
+            value: {
+              get({ data }) {
+                return data.errorTip;
+              },
+              set({ data }, value) {
+                data.errorTip = value;
+              },
+            },
+          },
+          {
+            title: "提示文案",
+            type: "text",
+            catelog: '没有更多',
+            value: {
+              get({ data }) {
+                return data.emptyTip;
+              },
+              set({ data }, value) {
+                data.emptyTip = value;
+              },
+            },
+          },
+        ]
       },
+      
+      
       {
         title: "",
         items: [

@@ -10,7 +10,12 @@ export default ({ id, data, outputs, slots }) => {
 
   return (
     <View className={css.layout} style={data.style} onClick={onClick}>
-
+      {slots["content"].render({
+        style: {
+          width: "100%",
+          height: "100%",
+        },
+      })}
     </View>
   );
 };
