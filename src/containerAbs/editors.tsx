@@ -46,7 +46,7 @@ export default {
         type: "styleNew",
         options: {
           defaultOpen: true,
-          plugins: ["background", "border", "padding", "boxshadow", "overflow"],
+          plugins: ["background", "border", "padding", "boxshadow"],
         },
         value: {
           get({ data }) {

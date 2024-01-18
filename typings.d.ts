@@ -128,3 +128,5 @@ interface FStreamerCard {
   /** 修改主播列表数据，用于关注修改数据等逻辑 */
   setDataSource?: React.Dispatch<React.SetStateAction<FStreamer[]>>;
 }
+
+type UndoTask = {commit: Function}

@@ -1,8 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import cx from "classnames";
+import Resizable from "./../../components/resizable";
 import css from "../style.less";
 
-export default ({ id, data, outputs, slots }) => {
+export default ({ id, data, outputs, slots, env, undo }) => {
+  const editFinishRef = useRef<Function>();
+  const task = useRef<UndoTask>();
+
   /**
    * 递归处理 dom tree
    */
@@ -52,6 +56,51 @@ export default ({ id, data, outputs, slots }) => {
         }
 
         return (
+          // <Resizable
+          //   key={node.id}
+          //   axis="both"
+          //   zoom={env.canvas?.zoom}
+          //   onResizeStart={() => {
+          //     task.current = undo?.start('开始行拖拽')
+          //     // row.isDragging = true;
+          //     editFinishRef.current = env.edit.focusPaasive();
+          //     // toggleSlotTitle(slots, "");
+          //   }}
+          //   onResize={({ direction, width, height }) => {
+          //     if (direction === 'x') {
+          //       node.size.width = width;
+          //       node.size.fixedWidth = true;
+          //     }
+
+          //     if (direction === 'y') {
+          //       node.size.height = height;
+          //       node.size.fixedHeight = true;
+          //     }
+          //   }}
+          //   onResizeStop={() => {
+          //     // row.isDragging = false;
+          //     editFinishRef.current && editFinishRef.current();
+          //     // toggleSlotTitle(slots, "拖拽组件到这里");
+          //     task.current?.commit()
+          //   }}
+          // >
+          //   <div
+          //     className={css.node}
+          //     data-id={node.id}
+          //     {...(!isOnlyChild ? { "data-leaf": true } : {})}
+          //     style={{
+          //       ...node.style,
+          //       ...leafSize,
+          //     }}
+          //     key={node.id}
+          //   >
+          //     {slots[node.id]?.render({
+          //       style: {
+          //         ...node.layout,
+          //       },
+          //     })}
+          //   </div>
+          // </Resizable>
           <div
             className={css.node}
             data-id={node.id}
@@ -90,15 +139,17 @@ export default ({ id, data, outputs, slots }) => {
     [slots]
   );
 
+  console.log("data.tree", data.tree);
+
   const tree = useMemo(() => {
     return renderSlot(data.tree, {
-    parentNode: null,
-  });
-}, [data.tree]);
+      parentNode: null,
+    });
+  }, [data.tree]);
 
-return (
-  <div className={css.layout} style={data.style}>
-    {tree}
-  </div>
-);
+  return (
+    <div className={css.layout} style={data.style}>
+      {tree}
+    </div>
+  );
 };

@@ -628,7 +628,6 @@ export default {
         //     },
         //   },
         // },
-        {},
         {
           title: "布局",
           type: "layout",
