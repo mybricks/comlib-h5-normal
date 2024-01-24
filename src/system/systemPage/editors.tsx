@@ -105,10 +105,22 @@ export default {
           items: MybricksNavigationEditor[".mybricks-navigation"].items,
         },
         {
+          title: "页面背景色",
+          type: "colorpicker",
+          value: {
+            get({ data }) {
+              return data.background;
+            },
+            set({ data }, value) {
+              data.background = value;
+            },
+          },
+        },
+        {},
+        {
           title: "底部标签栏",
           items: MybricksTabBarEditor[".mybricks-tabBar"].items,
         },
-
         {
           ifVisible({ data }) {
             return !data.useTabBar;
@@ -218,22 +230,6 @@ export default {
         //     // },
         //   ],
         // },
-      ];
-
-      cate1.title = "样式";
-      cate1.items = [
-        {
-          title: "页面背景色",
-          type: "colorpicker",
-          value: {
-            get({ data }) {
-              return data.background;
-            },
-            set({ data }, value) {
-              data.background = value;
-            },
-          },
-        },
       ];
 
       // (cate2.title = "高级"),

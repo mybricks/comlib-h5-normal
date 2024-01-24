@@ -9,6 +9,11 @@ export default function ({ env, data, inputs, outputs }) {
     inputs["value"]((val) => {
       data.text = val;
     });
+
+    inputs["getValue"]?.((val, outputRels) => {
+      outputRels['onGetValue'](data.text);
+    });
+
   }, [])
 
   const textCx = useMemo(() => {

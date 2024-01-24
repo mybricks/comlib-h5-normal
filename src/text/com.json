@@ -15,6 +15,14 @@
       "schema": {
         "type": "string"
       }
+    },
+    {
+      "id": "getValue",
+      "rels": ["onGetValue"],
+      "title": "获取内容",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "outputs": [
@@ -28,6 +36,13 @@
     {
       "id": "onLongPress",
       "title": "长按",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onGetValue",
+      "title": "内容",
       "schema": {
         "type": "string"
       }

@@ -3,8 +3,8 @@ import css from "./style.less";
 
 export default {
   "@init"({ style, data }) {
-    style.width = 70;
-    style.height = 35;
+    style.width = 120;
+    style.height = 42;
   },
   "@resize": {
     options: ["width", "height"],
@@ -15,6 +15,7 @@ export default {
         title: "按钮",
         options: ["font", "border", "padding", "background"],
         target: ".mybricks-button",
+        defaultOpen: true,
       },
     ],
     items: [

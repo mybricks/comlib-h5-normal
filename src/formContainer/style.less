@@ -41,6 +41,43 @@
       // font-size: 15px;
       // font-weight: 500;
     }
+
+    .loading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 30px;
+      height: 8px;
+      .dot1 {
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        animation: dotFlashing 1s infinite 0s linear alternate;
+      }
+      .dot2 {
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        animation: dotFlashing 1s infinite 0.5s linear alternate;
+      }
+      .dot3 {
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        animation: dotFlashing 1s infinite 1s linear alternate;
+      }
+    }
+    @keyframes dotFlashing {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
   }
   .hidden {
     display: none !important;
@@ -62,7 +99,7 @@
 
 .h5 {
   :global {
-    .taroify-cell::after  {
+    .taroify-cell::after {
       border-bottom-width: 1px;
       transform: none;
     }

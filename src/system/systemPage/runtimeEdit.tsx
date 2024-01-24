@@ -4,6 +4,7 @@ import css from "./styleEdit.less";
 import cx from "classnames";
 import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
+import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 
 export default function ({ env, data, inputs, outputs, slots }) {
@@ -72,7 +73,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
         ) : null}
 
         {/* 隐藏导航栏 */}
-        {data.useNavigationStyle === "none" ? null : null}
+        {data.useNavigationStyle === "none" ? (
+          <NoneNavigation data={data} />
+        ) : null}
       </View>
       {/* Header end */}
 
