@@ -139,8 +139,6 @@ export default ({ id, data, outputs, slots, env, undo }) => {
     [slots]
   );
 
-  console.log("data.tree", data.tree);
-
   const tree = useMemo(() => {
     return renderSlot(data.tree, {
       parentNode: null,
