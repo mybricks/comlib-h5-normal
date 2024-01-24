@@ -19,6 +19,7 @@ export default {
 
             // 开启
             let defaultTabBar = window.__tabbar__.get();
+
             let isContain = defaultTabBar.find((item) => {
               return item.scene.id == data.id;
             });
