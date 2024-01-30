@@ -8,7 +8,7 @@ const message = window.antd?.message
 export default {
   "@init": ({ style, data, env }) => {
     style.width = "100%";
-
+    
     data.id = env.canvas.id;
 
     setTimeout(() => {
