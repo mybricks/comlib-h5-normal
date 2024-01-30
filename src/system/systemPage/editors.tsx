@@ -7,7 +7,7 @@ import SkeletonEditor from "./editor/skeleton";
 export default {
   "@init": ({ style, data, env }) => {
     style.width = "100%";
-
+    
     data.id = env.canvas.id;
 
     setTimeout(() => {
@@ -269,7 +269,7 @@ export default {
       //   ]);
     },
   },
-  ...MybricksNavigationEditor,
+  // ...MybricksNavigationEditor,
   ...MybricksTabBarEditor,
 
   ".mybricks-footer": {

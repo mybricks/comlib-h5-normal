@@ -8,6 +8,13 @@ import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 
 export default function ({ env, data, inputs, outputs, slots }) {
+  // console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
+  // setTimeout(() => {
+  //   console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
+  // }, 0);
+
+  console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
+
   // 监听画布被删除
   if (!env.canvas.isValid(env.canvas.id)) {
     console.error("画布被删除", env.canvas.id);
@@ -16,7 +23,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
     let tabBar = defaultTabBar.filter((item) => {
       return item.scene.id != env.canvas.id;
     });
-    window.__tabbar__.set(tabBar);
+
+    console.log("tabBar", tabBar);
+
+    // window.__tabbar__.set(tabBar);
   }
 
   data.id = data.id || env.canvas.id;
