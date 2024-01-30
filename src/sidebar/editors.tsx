@@ -43,7 +43,6 @@ function computedAction({ before, after }) {
       for (let i = 0; i < before.length; i++) {
         if (before[i].tabName !== after[i].tabName) {
           diffItem = after[i];
-          console.warn("diffItem", diffItem);
           break;
         }
       }

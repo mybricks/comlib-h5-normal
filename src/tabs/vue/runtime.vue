@@ -68,7 +68,6 @@ export default {
             return '';
         },
         setCurrentTabId(newTabId) {
-            console.log("点击了tab", newTabId)
             this.currentTabId = newTabId;
             const index = this.data.tabs.findIndex(tab => tab._id == newTabId);
             if (index === -1) {

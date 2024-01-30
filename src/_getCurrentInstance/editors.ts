@@ -27,7 +27,6 @@ export default {
         type: "array",
         options: {
           getTitle: (item, index) => {
-            console.warn("item", item);
             return [`参数名：${item.key || ""}`];
           },
           items: [

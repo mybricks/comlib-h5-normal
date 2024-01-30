@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo, useState } from "react";
 import * as Icons from "@taroify/icons";
 import { Cross } from "@taroify/icons";
-import { Drawer, Radio } from "antd";
 import css from "./index.less";
 import { basicIcons, filledIcons, outlinedIcons } from "./icons";
+
+const { Drawer, Radio } = window.antd ?? {}
 
 const Icon = (props: any) => {
   const { type, size, className } = props;

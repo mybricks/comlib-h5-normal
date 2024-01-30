@@ -99,6 +99,7 @@
       "comAry": [
         "./src/cell/com.json",
         "./src/safeArea/com.json",
+        "./src/ad-popup/com.json",
         "./src/map/com.json",
         "./src/noticeBar/com.json",
         "./src/anchor/com.json",

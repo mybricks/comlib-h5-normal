@@ -40,14 +40,12 @@ export default {
             if (!this.env.runtime) {
                 return;
             }
-            console.warn("onClick");
             this.outputs["onClick"](this.data.text);
         },
         onLongPress() {
             if (!this.env.runtime) {
                 return;
             }
-            console.warn("onLongPress");
             this.outputs["onLongPress"](this.data.text);
         }
     },

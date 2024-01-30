@@ -1,0 +1,57 @@
+{
+  "title": "全屏广告",
+  "namespace": "mybricks.taro.ad-popup",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "覆盖在页面上的广告组件，用户可以自己关闭",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./runtime.edit.tsx",
+  "inputs": [
+    {
+      "id": "showAd",
+      "title": "展示广告",
+      "desc": "将加载好的广告直接弹出全屏展示",
+      "schema": {
+        "type": "any"
+      },
+      "rels": [
+        "onShowSuccess",
+        "onShowError"
+      ]
+    },
+    {
+      "id": "hideAd",
+      "title": "隐藏广告",
+      "desc": "隐藏展示中的广告",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onClose",
+      "title": "用户关闭广告"
+    },
+    {
+      "id": "onLoad",
+      "title": "广告加载成功"
+    },
+    {
+      "id": "onError",
+      "title": "广告加载失败"
+    },
+    {
+      "id": "onShowError",
+      "title": "失败"
+    },
+    {
+      "id": "onShowSuccess",
+      "title": "成功"
+    }
+  ]
+}

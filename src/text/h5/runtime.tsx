@@ -39,7 +39,6 @@ export default function ({ env, data, inputs, outputs }) {
     if (!env.runtime) {
       return;
     }
-    console.warn("onClick");
     outputs["onClick"](data.text);
   }, []);
 
@@ -47,7 +46,6 @@ export default function ({ env, data, inputs, outputs }) {
     if (!env.runtime) {
       return;
     }
-    console.warn("onLongPress");
     outputs["onLongPress"](data.text);
   }, []);
 

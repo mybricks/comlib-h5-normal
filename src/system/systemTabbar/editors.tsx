@@ -1,4 +1,4 @@
-import { message } from "antd";
+const message = window.antd?.message
 
 export default {
   ":root"({ data, output, style }, cate0, cate1, cate2) { }

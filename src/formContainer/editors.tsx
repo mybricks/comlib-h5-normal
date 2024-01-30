@@ -127,8 +127,6 @@ export default {
       const item = data.items.find((item) => item.id === id);
       // const com = outputDefs.find((item) => item.id === 'returnValue');
 
-      console.warn("item", item);
-
       if (isNaN(data.nameCount)) {
         data.nameCount = 0;
       }

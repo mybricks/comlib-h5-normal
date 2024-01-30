@@ -1,8 +1,9 @@
 import MybricksNavigationEditor from "./editor/mybricks-navigation";
 import MybricksTabBarEditor from "./editor/mybricks-tabBar";
 import css from "./editors.less";
-import { message } from "antd";
 import SkeletonEditor from "./editor/skeleton";
+
+const message = window.antd?.message
 
 export default {
   "@init": ({ style, data, env }) => {
@@ -269,7 +270,7 @@ export default {
       //   ]);
     },
   },
-  ...MybricksNavigationEditor,
+  // ...MybricksNavigationEditor,
   ...MybricksTabBarEditor,
 
   ".mybricks-footer": {
