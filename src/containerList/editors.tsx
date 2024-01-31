@@ -30,6 +30,22 @@ export default {
           },
         },
       },
+      {
+        title: "间距",
+        description: "当竖向排列时，为垂直间距；当横向排列时，为水平间距",
+        type: "text",
+        options: {
+          type: "number",
+        },
+        value: {
+          get({ data }) {
+            return data.spacing;
+          },
+          set({ data }, value) {
+            data.spacing = value;
+          },
+        },
+      },
       {},
       {
         catelogChange: {

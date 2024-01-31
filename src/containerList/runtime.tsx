@@ -9,7 +9,7 @@ import { View } from "@tarojs/components";
 import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import { List, Loading } from "brickd-mobile";
-import { Direction } from './constant'
+import { Direction } from "./constant";
 
 const rowKey = "_itemKey";
 
@@ -132,11 +132,29 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const $placeholder = useMemo(() => {
     if (env.edit && !slots["item"].size) {
-      return <View className={css.placeholder}>{slots["item"].render()}</View>;
+      return (
+        <View
+          className={css.placeholder}
+          style={{
+            [data.direction === Direction.Row
+              ? "marginRight"
+              : "marginBottom"]: `${data.spacing}px`,
+          }}
+        >
+          {slots["item"].render()}
+        </View>
+      );
     } else {
       return null;
     }
-  }, [env.edit, dataSource, slots["item"], slots["item"].size]);
+  }, [
+    env.edit,
+    dataSource,
+    slots["item"],
+    slots["item"].size,
+    data.direction,
+    data.spacing,
+  ]);
 
   const hasMore = useMemo(() => {
     return ListStatus.NOMORE !== status;
@@ -152,32 +170,32 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const wrapperCls = useMemo(() => {
     if (data.direction === Direction.Row) {
-      return `${css.list} ${css.row}`
+      return `${css.list} ${css.row}`;
     }
 
     return data.scrollRefresh
-          ? `${css.list} ${css.scroll}`
-          : `${css.list} ${css.normal}`
-  }, [data.scrollRefresh, data.direction])
+      ? `${css.list} ${css.scroll}`
+      : `${css.list} ${css.normal}`;
+  }, [data.scrollRefresh, data.direction]);
 
-
-  const didMount = useRef(false)
+  const didMount = useRef(false);
   useEffect(() => {
-    if (!didMount.current) { // 不管上次配置的如何，第一次渲染必须配置成默认
-      data._edit_status_ = '默认';
+    if (!didMount.current) {
+      // 不管上次配置的如何，第一次渲染必须配置成默认
+      data._edit_status_ = "默认";
       didMount.current = true;
     }
     if (env.edit) {
-      switch(true) {
-        case data._edit_status_ === '加载中': {
+      switch (true) {
+        case data._edit_status_ === "加载中": {
           setStatus(ListStatus.LOADING);
           break;
         }
-        case data._edit_status_ === '加载失败': {
+        case data._edit_status_ === "加载失败": {
           setStatus(ListStatus.ERROR);
           break;
         }
-        case data._edit_status_ === '没有更多': {
+        case data._edit_status_ === "没有更多": {
           setStatus(ListStatus.NOMORE);
           break;
         }
@@ -186,57 +204,73 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         }
       }
     }
-  }, [data._edit_status_])
+  }, [data._edit_status_]);
 
   const showDateSource = useMemo(() => {
     if (env.edit && status !== ListStatus.IDLE && !data.scrollRefresh) {
-      return false
+      return false;
     }
-    return true
-  }, [status])
+    return true;
+  }, [status]);
 
   return (
-    <View
-      className={wrapperCls}
-    >
-      {$placeholder || (
-        <>
-          {showDateSource && dataSource.map(
-            ({ [rowKey]: key, index: index, item: item }, _idx) => {
-              return (
-                <View
-                  className={env.edit && _idx > 0 ? "disabled-area" : css.item}
-                  key={key}
-                >
-                  {/* 当前项数据和索引 */}
-                  {slots["item"].render({
-                    inputValues: {
-                      itemData: item,
-                      index: index,
-                    },
-                    key: key,
-                  })}
-                </View>
-              );
-            }
-          )}
-          {!!data?.scrollRefresh ? (
-            <List.Placeholder>
-              {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
-              {error && (data.errorTip ?? "加载失败，请重试")}
-              {!hasMore && (data.emptyTip ?? "没有更多了")}
-            </List.Placeholder>
-          ) : (
-            status !== ListStatus.IDLE && (
+    <View className={css.listWrapper}>
+      <View
+        className={wrapperCls}
+        style={{
+          [data.direction === Direction.Row
+            ? "marginRight"
+            : "marginBottom"]: `-${data.spacing}px`,
+        }}
+      >
+        {$placeholder || (
+          <>
+            {showDateSource &&
+              dataSource.map(
+                ({ [rowKey]: key, index: index, item: item }, _idx) => {
+                  return (
+                    <View
+                      className={
+                        env.edit && _idx > 0 ? "disabled-area" : css.item
+                      }
+                      key={key}
+                      style={{
+                        [data.direction === Direction.Row
+                          ? "marginRight"
+                          : "marginBottom"]: `${data.spacing}px`,
+                      }}
+                    >
+                      {/* 当前项数据和索引 */}
+                      {slots["item"].render({
+                        inputValues: {
+                          itemData: item,
+                          index: index,
+                        },
+                        key: key,
+                      })}
+                    </View>
+                  );
+                }
+              )}
+
+            {!!data?.scrollRefresh ? (
               <List.Placeholder>
                 {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                 {error && (data.errorTip ?? "加载失败，请重试")}
                 {!hasMore && (data.emptyTip ?? "没有更多了")}
               </List.Placeholder>
-            )
-          )}
-        </>
-      )}
+            ) : (
+              status !== ListStatus.IDLE && (
+                <List.Placeholder>
+                  {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
+                  {error && (data.errorTip ?? "加载失败，请重试")}
+                  {!hasMore && (data.emptyTip ?? "没有更多了")}
+                </List.Placeholder>
+              )
+            )}
+          </>
+        )}
+      </View>
     </View>
   );
 };
