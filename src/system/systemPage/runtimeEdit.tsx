@@ -12,7 +12,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
   // setTimeout(() => {
   //   console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
   // }, 0);
-
   console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
 
   // 监听画布被删除
@@ -26,7 +25,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
     console.log("tabBar", tabBar);
 
-    // window.__tabbar__.set(tabBar);
+    window.__tabbar__.set(tabBar);
   }
 
   data.id = data.id || env.canvas.id;
