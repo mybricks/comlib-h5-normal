@@ -10,22 +10,26 @@ export default {
   ":root": {
     style: [
       {
-        title: "未激活状态",
-        options: ["border", "bgColor"],
-        target: `.mybricks-inactive`,
+        catelog: "未激活样式",
+        title: "图标",
+        options: ["border", "background"],
+        target: `.mybricks-inactive .taroify-icon`,
       },
       {
-        title: "未激活状态字体",
+        catelog: "未激活样式",
+        title: "标题",
         options: ["font"],
         target: `.mybricks-inactive .taroify-checkbox__label`,
       },
       {
-        title: "激活状态",
-        options: ["border", "bgColor"],
-        target: `.mybricks-active`,
+        catelog: "激活样式",
+        title: "图标",
+        options: ["border", "background"],
+        target: `.mybricks-active .taroify-icon`,
       },
       {
-        title: "激活状态字体",
+        catelog: "激活样式",
+        title: "标题",
         options: ["font"],
         target: `.mybricks-active .taroify-checkbox__label`,
       },

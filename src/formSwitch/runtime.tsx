@@ -39,7 +39,7 @@ export default function (props) {
       style={{ marginLeft: "auto" }}
       value={data.value}
       size={24}
-      checked={data.value}
+      checked={env.edit ? true : data.value}
       onChange={onChange}
     />
   );

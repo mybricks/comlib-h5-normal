@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { View } from "@tarojs/components";
-import css from "./style.less";
 import { Tabs } from "brickd-mobile";
+import css from "./style.less";
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -83,6 +83,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   return (
     emptyView || (
       <Tabs
+        className={css.tabs}
         value={currentTabId}
         onChange={_setCurrentTabId}
         swipeable={data.swipeable}

@@ -35,7 +35,7 @@ export default {
           'border',
           { type: 'background', config: { disableBackgroundImage: true } },
         ],
-        target: '.taroify-tabs__nav'
+        target: '.taroify-tabs__wrap'
       },
       {
         title: '标签项',

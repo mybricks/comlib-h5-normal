@@ -16,37 +16,38 @@ export default {
         items: [
           {
             catelog: "未激活样式",
-            title: "未激活状态",
-            options: ["border", "padding", "background"],
-            target: `.mybricks-inactive`,
+            title: "图标",
+            options: ["border", "background"],
+            target: `.mybricks-inactive .taroify-icon`,
           },
           {
             catelog: "未激活样式",
-            title: "未激活状态标签项",
+            title: "标题",
             options: ["font"],
             target: `.mybricks-inactive .mybricks-label`,
           },
           {
             catelog: "未激活样式",
-            title: "未激活状态描述",
+            title: "描述文本",
             options: ["font"],
             target: `.mybricks-inactive .mybricks-brief`,
           },
+
           {
             catelog: "激活样式",
-            title: "激活状态",
-            options: ["border", "padding", "background"],
-            target: `.mybricks-active`,
+            title: "图标",
+            options: ["border", "background"],
+            target: `.mybricks-active .taroify-icon`,
           },
           {
             catelog: "激活样式",
-            title: "激活状态标签项",
+            title: "标题",
             options: ["font"],
             target: `.mybricks-active .mybricks-label`,
           },
           {
             catelog: "激活样式",
-            title: "激活状态描述",
+            title: "描述文本",
             options: ["font"],
             target: `.mybricks-inactive .mybricks-brief`,
           },
