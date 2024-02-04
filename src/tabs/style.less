@@ -1,76 +1,76 @@
-.tabs.sidebar {
-  width: 100%;
-  height: ceil(100vh);
-  display: flex;
-  align-items: stretch;
-  // background: yellow;
+// .tabs.sidebar {
+//   width: 100%;
+//   height: ceil(100vh);
+//   display: flex;
+//   align-items: stretch;
+//   // background: yellow;
 
-  .navView {
-    width: 80px;
-    height: 100%;
-    overflow-y: auto;
+//   .navView {
+//     width: 80px;
+//     height: 100%;
+//     overflow-y: auto;
 
-    .inner {
-      // display: flex;
-      // align-items: center;
-      // min-width: 100%;
+//     .inner {
+//       // display: flex;
+//       // align-items: center;
+//       // min-width: 100%;
 
-      .item {
-        width: auto;
-        flex: 1;
-        text-align: center;
-        padding: 10px 0;
-        background: #f7f8fa;
-        position: relative;
+//       .item {
+//         width: auto;
+//         flex: 1;
+//         text-align: center;
+//         padding: 10px 0;
+//         background: #f7f8fa;
+//         position: relative;
 
-        &.active {
-          background: #ffffff;
+//         &.active {
+//           background: #ffffff;
 
-          &::before {
-            content: "";
-            display: block;
-            width: 4px;
-            height: 16px;
-            background: red;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-          }
-        }
-      }
-    }
+//           &::before {
+//             content: "";
+//             display: block;
+//             width: 4px;
+//             height: 16px;
+//             background: red;
+//             position: absolute;
+//             top: 50%;
+//             left: 0;
+//             transform: translateY(-50%);
+//           }
+//         }
+//       }
+//     }
 
-  }
+//   }
 
-  .contentView {
-    flex: 1;
-    overflow-x: hidden;
-    background: red;
-    height: 100%;
+//   .contentView {
+//     flex: 1;
+//     overflow-x: hidden;
+//     background: red;
+//     height: 100%;
 
-    .item {
-      height: 100%;
-    }
-  }
-}
+//     .item {
+//       height: 100%;
+//     }
+//   }
+// }
 
-.tabs.topbar {
-  width: 100%;
+// .tabs.topbar {
+//   width: 100%;
 
-  .navView {
-    width: 100%;
+//   .navView {
+//     width: 100%;
 
-    .inner {
-      display: flex;
-      align-items: flex-end;
+//     .inner {
+//       display: flex;
+//       align-items: flex-end;
 
-      .item {
-        background: blue;
-        &.active {
-          background: red;
-        }
-      }
-    }
-  }
-}
+//       .item {
+//         background: blue;
+//         &.active {
+//           background: red;
+//         }
+//       }
+//     }
+//   }
+// }
