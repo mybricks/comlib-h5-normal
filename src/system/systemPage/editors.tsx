@@ -136,9 +136,9 @@ export default {
           },
         },
         {
-          title: "页面顶部背景色",
+          title: "顶部下拉背景色",
           type: "colorpicker",
-          description: "ios下生效",
+          description: "页面顶部下拉时外露的背景色",
           value: {
             get({ data }) {
               return data.backgroundColorTop;
@@ -149,9 +149,9 @@ export default {
           },
         },
         {
-          title: "页面底部背景色",
+          title: "底部上滑背景色",
           type: "colorpicker",
-          description: "ios下生效",
+          description: "页面底部上滑时外露的背景色",
           value: {
             get({ data }) {
               return data.backgroundColorBottom;
