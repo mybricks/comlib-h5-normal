@@ -5,6 +5,24 @@ import SkeletonEditor from "./editor/skeleton";
 
 const message = window.antd?.message;
 
+function rgbaToHex(rgba) {
+  const result = rgba.match(
+    /rgba?\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),?\s*(\d*\.?\d+)?\)/
+  );
+
+  if (!result) {
+    return null;
+  }
+
+  const r = parseInt(result[1], 10);
+  const g = parseInt(result[2], 10);
+  const b = parseInt(result[3], 10);
+
+  const toHex = (c) => ("0" + c.toString(16)).slice(-2);
+
+  return "#" + toHex(r) + toHex(g) + toHex(b);
+}
+
 export default {
   "@init": ({ style, data, env }) => {
     style.width = "100%";
@@ -117,6 +135,32 @@ export default {
             },
           },
         },
+        // {
+        //   title: "顶部下拉背景色",
+        //   type: "colorpicker",
+        //   description: "页面顶部下拉时外露的背景色",
+        //   value: {
+        //     get({ data }) {
+        //       return data.backgroundColorTop;
+        //     },
+        //     set({ data }, value) {
+        //       data.backgroundColorTop = rgbaToHex(value);
+        //     },
+        //   },
+        // },
+        // {
+        //   title: "底部上滑背景色",
+        //   type: "colorpicker",
+        //   description: "页面底部上滑时外露的背景色",
+        //   value: {
+        //     get({ data }) {
+        //       return data.backgroundColorBottom;
+        //     },
+        //     set({ data }, value) {
+        //       data.backgroundColorBottom = rgbaToHex(value);
+        //     },
+        //   },
+        // },
         {},
         {
           title: "底部标签栏",

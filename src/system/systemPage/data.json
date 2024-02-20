@@ -4,6 +4,8 @@
   "navigationBarBackgroundColor": "#464646",
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "MyBricks",
+  "backgroundColorTop":"#ffffff",
+  "backgroundColorBottom":"#ffffff",
   "homeButton": false,
   "customNavigation": {
     "style": {
