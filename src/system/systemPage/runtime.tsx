@@ -83,8 +83,27 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   const [footerHeight, setFooterHeight] = useState(0);
   const footerRef = useRef(null);
 
+  /**
+   * 监听页面重新显示、隐藏
+   */
   useEffect(() => {
-    if(isDesigner(env)){
+    Taro.eventCenter.on("pageDidShow", ({ path, query }) => {
+      if (path.indexOf(env.canvas.id) === -1) {
+        return;
+      }
+      outputs["pageDidShow"]?.({ ...query });
+    });
+
+    Taro.eventCenter.on("pageDidHide", ({ path, query }) => {
+      if (path.indexOf(env.canvas.id) === -1) {
+        return;
+      }
+      outputs["pageDidHide"]?.({ ...query });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isDesigner(env)) {
       return;
     }
 

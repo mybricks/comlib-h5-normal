@@ -22,6 +22,20 @@
   ],
   "outputs": [
     {
+      "id": "pageDidShow",
+      "title": "当页面显示时",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "pageDidHide",
+      "title": "当页面隐藏时",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
       "id": "pulldown",
       "title": "当下拉刷新时"
     }

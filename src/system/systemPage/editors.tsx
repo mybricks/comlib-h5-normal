@@ -3,12 +3,12 @@ import MybricksTabBarEditor from "./editor/mybricks-tabBar";
 import css from "./editors.less";
 import SkeletonEditor from "./editor/skeleton";
 
-const message = window.antd?.message
+const message = window.antd?.message;
 
 export default {
   "@init": ({ style, data, env }) => {
     style.width = "100%";
-    
+
     data.id = env.canvas.id;
 
     setTimeout(() => {
@@ -166,6 +166,26 @@ export default {
               type: "_event",
               options: {
                 outputId: "pulldown",
+              },
+            },
+          ],
+        },
+        {
+          title: "页面展示",
+          items: [
+            {
+              title: "当页面重新显示时",
+              description: "请注意，当页面第一次显示时，不会触发该事件。仅当页面被打开后，重新显示/切入前台时触发。",
+              type: "_event",
+              options: {
+                outputId: "pageDidShow",
+              },
+            },
+            {
+              title: "当页面隐藏时",
+              type: "_event",
+              options: {
+                outputId: "pageDidHide",
               },
             },
           ],

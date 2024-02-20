@@ -3,7 +3,7 @@
   "navigationStyle": "default",
   "navigationBarBackgroundColor": "#464646",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText": "Mybricks",
+  "navigationBarTitleText": "MyBricks",
   "homeButton": false,
   "customNavigation": {
     "style": {

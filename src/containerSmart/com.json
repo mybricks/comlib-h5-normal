@@ -14,7 +14,7 @@
     {
       "id": "content",
       "title": "将组件拖拽到这里，通过拖拽调整位置",
-      "layout": "absolute-smart"
+      "layout": "smart"
     }
   ],
   "outputs": [

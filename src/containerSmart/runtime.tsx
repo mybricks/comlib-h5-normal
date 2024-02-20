@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import cx from "classnames";
 import css from "./style.less";
 import { View } from "@tarojs/components";

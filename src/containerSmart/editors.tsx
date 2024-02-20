@@ -11,19 +11,19 @@ export default {
   ":root"({ data, output, style, slots }, cate0, cate1, cate2) {
     cate0.title = "布局";
     cate0.items = [
-      {
-        title: "手动激活",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.active ?? false;
-          },
-          set({ data, slot }, value) {
-            data.active = value;
-            slot.get("content").setLayout("absolute-smart");
-          },
-        },
-      },
+      // {
+      //   title: "手动激活",
+      //   type: "switch",
+      //   value: {
+      //     get({ data }) {
+      //       return data.active ?? false;
+      //     },
+      //     set({ data, slot }, value) {
+      //       data.active = value;
+      //       slot.get("content").setLayout("absolute-smart");
+      //     },
+      //   },
+      // },
       // {
       //   title: "布局",
       //   type: "layout",

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "@tarojs/components";
 import css from "./styleEdit.less";
 import cx from "classnames";
@@ -8,27 +8,51 @@ import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 
 export default function ({ env, data, inputs, outputs, slots }) {
-  // console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
-  // setTimeout(() => {
-  //   console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
-  // }, 0);
-  console.log("isValid", env.canvas.id, env.canvas.isValid(env.canvas.id));
+  let [isValid, setIsValid] = useState(0);
 
+  data.id = data.id || env.canvas.id;
+
+  console.warn("systemPage", env.canvas.id, env.canvas.isValid(env.canvas.id));
+  // useEffect(() => {
   // 监听画布被删除
   if (!env.canvas.isValid(env.canvas.id)) {
-    console.error("画布被删除", env.canvas.id);
+    // 引擎 bug：画布被删除或者回滚时，都会触发 isValid false
+    console.error("画布被删除或者回滚", env.canvas.id);
 
     let defaultTabBar = window.__tabbar__.get();
     let tabBar = defaultTabBar.filter((item) => {
       return item.scene.id != env.canvas.id;
     });
 
-    console.log("tabBar", tabBar);
+    // 如果 data.tabBar 多于 defaultTabBar，则为回滚操作
+    if (data.tabBar.length > defaultTabBar.length) {
+      console.warn(
+        "回滚操作",
+        data.tabBar.length,
+        defaultTabBar.length,
+        tabBar.length
+      );
+      window.__tabbar__.set(data.tabBar);
+      // setIsValid(Math.random());
+    } else {
+      // let tabBar = defaultTabBar.filter((item) => {
+      //   return item.scene.id != env.canvas.id;
+      // });
 
-    window.__tabbar__.set(tabBar);
+      console.warn(
+        "删除操作",
+        data.tabBar.length,
+        defaultTabBar.length,
+        tabBar.length
+      );
+
+      if (defaultTabBar.length !== tabBar.length) {
+        window.__tabbar__.set(tabBar);
+        // setIsValid(Math.random());
+      }
+    }
   }
-
-  data.id = data.id || env.canvas.id;
+  // }, [env.canvas.isValid(env.canvas.id)]);
 
   /**
    * 监听 tabBar 广播，更新 data

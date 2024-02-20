@@ -4,9 +4,8 @@
   "comAry": [
     "./src/_connector/com.json",
     "./src/_muilt-inputJs/com.json",
-    "./src/_getCurrentInstance/com.json",
     "./src/_timer-delay/com.json",
-    "./src/_getOpenid/com.json",
+    "./src/_login/com.json",
     "./src/_getRouter/com.json",
     "./src/_generateScheme/com.json",
     "./src/_logout/com.json",
