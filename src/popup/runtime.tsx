@@ -16,25 +16,26 @@ export default function ({
   const [show, setShow] = useState(env.edit ? true : false);
 
   const handleClose = useCallback(() => {
-    // _env?.currentScenes?.close?.();
-    setShow(false);
+    _env?.currentScenes?.close?.();
+    // setShow(false);
   }, [_env]);
 
   /** setup */
   useEffect(() => {
-    inputs["onShow"]?.(() => {
-      setShow(true);
-    });
+    // inputs["onShow"]?.(() => {
+    //   setShow(true);
+    // });
 
-    inputs["onHide"]?.(() => {
-      setShow(false);
-    });
+    // inputs["onHide"]?.(() => {
+    //   setShow(false);
+    // });
   }, []);
 
   const popupCx = useMemo(() => {
     return cx({
       [css.popup]: true,
-      [css.show]: show,
+      [css.show]: true,
+      // [css.show]: show,
       // [css.edit]: env.edit,
     });
   }, [show, env.edit]);
@@ -62,13 +63,13 @@ export default function ({
 
   /** hack style 设计器下面一些需要hack的样式 */
   const popupStyle = useMemo(() => {
-    if (isInDesignerRuntime) { // 在设计器里模拟不超过小程序header的效果
-      return {
-        position: 'absolute'
-      }
-    }
+    // if (isInDesignerRuntime) { // 在设计器里模拟不超过小程序header的效果
+    //   return {
+    //     position: 'absolute'
+    //   }
+    // }
 
-    return {};
+    // return {};
 
     if (isInEdit) {
       /** 新场景需要一个宽高 */
@@ -106,17 +107,19 @@ export default function ({
     </View>
   );
 
-  if (env.edit) {
-    return createPortal(popupView);
-  }
+  return popupView
 
-  if (env.runtime) {
-    if (show) {
-      return createPortal(popupView);
-    } else {
-      return null;
-    }
-  }
+  // if (env.edit) {
+  //   return createPortal(popupView);
+  // }
+
+  // if (env.runtime) {
+  //   if (show) {
+  //     return createPortal(popupView);
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   // if (env.runtime?.debug) {
     

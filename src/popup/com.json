@@ -8,22 +8,6 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "inputs": [
-    {
-      "id": "onShow",
-      "title": "打开弹层",
-      "schema": {
-        "type": "any"
-      }
-    },
-    {
-      "id": "onHide",
-      "title": "关闭弹层",
-      "schema": {
-        "type": "any"
-      }
-    }
-  ],
   "outputs": [
     {
       "id": "onClose",
