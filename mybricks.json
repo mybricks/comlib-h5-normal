@@ -40,11 +40,17 @@
       "title": "系统",
       "visible": false,
       "comAry": [
+        "./src/activityCard/com.json",
+        "./src/activityDetail/com.json",
+        "./src/groupCard/com.json",
+        "./src/groupDetail/com.json",
         "./src/containerGrid/com.json",
         "./src/system/systemPage/com.json",
         "./src/system/systemWebview/com.json",
         "./src/system/systemLogin/com.json",
-        "./src/containerListHorizontal/com.json"
+        "./src/containerListHorizontal/com.json",
+        "./src/containerAbs/com.json",
+        "./src/containerGrid2/com.json"
       ]
     },
     {
@@ -63,8 +69,6 @@
       "title": "容器",
       "comAry": [
         "./src/containerSmart/com.json",
-        "./src/containerAbs/com.json",
-        "./src/containerGrid2/com.json",
         "./src/tabs/com.json",
         "./src/containerSwiper/com.json",
         "./src/containerList/com.json",
