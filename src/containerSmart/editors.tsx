@@ -8,42 +8,29 @@ export default {
   "@resize": {
     options: ["width", "height"],
   },
+  ":slot": {},
   ":root"({ data, output, style, slots }, cate0, cate1, cate2) {
     cate0.title = "布局";
     cate0.items = [
-      // {
-      //   title: "手动激活",
-      //   type: "switch",
-      //   value: {
-      //     get({ data }) {
-      //       return data.active ?? false;
-      //     },
-      //     set({ data, slot }, value) {
-      //       data.active = value;
-      //       slot.get("content").setLayout("absolute-smart");
-      //     },
-      //   },
-      // },
-      // {
-      //   title: "布局",
-      //   type: "layout",
-      //   options: {
-      //     position: false
-      //   },
-      //   value: {
-      //     get({ data }) {
-      //       return data.layout ?? { flexDirection: 'column' };
-      //     },
-      //     set({ data, slots }, ly) {
-      //       data.layout = ly;
+      {
+        title: "布局",
+        type: "layout",
+        value: {
+          get({ data }) {
+            return (
+              data.layout || {
+                position: "smart",
+              }
+            );
+          },
+          set({ data, slots }, value) {
+            data.layout = value;
 
-      //       const contSlot = slots.get('content')
-      //       if (contSlot) {
-      //         setSlotLayoutByCss(contSlot, ly)
-      //       }
-      //     },
-      //   },
-      // },
+            const slotInstance = slots.get("content");
+            setSlotLayout(slotInstance, value);
+          },
+        },
+      },
       {
         title: "单击",
         type: "_Event",
@@ -82,28 +69,17 @@ export default {
   },
 };
 
-// /**
-//  * 通过layoutEditor返回的CSSProperties设置slot的layout的
-//  * @param slot
-//  * @param cssStyles
-//  */
-// function setSlotLayoutByCss(slot: any, cssStyles: CSSProperties) {
-//   switch (true) {
-//     case cssStyles.position === "absolute": {
-//       slot.setLayout("absolute");
-//       slot.setTitle("列（自由排列）");
-//       break;
-//     }
-//     case cssStyles.position !== "absolute" && cssStyles.display === "flex": {
-//       if (cssStyles.flexDirection === "row") {
-//         slot.setLayout("flex-row");
-//         slot.setTitle("列（横向排列）");
-//       }
-//       if (cssStyles.flexDirection === "column") {
-//         slot.setLayout("flex-column");
-//         slot.setTitle("列（竖向排列）");
-//       }
-//       break;
-//     }
-//   }
-// }
+const setSlotLayout = (slot, value) => {
+  if (!slot) return;
+  if (value.position === "smart") {
+    slot.setLayout("smart");
+  } else if (value.position === "absolute") {
+    slot.setLayout(value.position);
+  } else if (value.display === "flex") {
+    if (value.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (value.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
