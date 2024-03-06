@@ -1,4 +1,20 @@
-function callCon({env, data, outputs, onError}, params = {}) {
+function callCon({env, data, inputs, outputs, onError}, params = {}) {
+
+  inputs["setGlobalHeaders"]((e) => {
+
+  });
+
+
+  inputs["setGlobalParams"]((e) => {
+
+  });
+
+
+  inputs["setGlobalBody"]((e) => {
+
+  });
+
+
   if (data.connector) {
     try {
       env.callConnector(data.connector, params, data.connectorConfig).then(val => {

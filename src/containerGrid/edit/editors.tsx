@@ -224,7 +224,7 @@ export default {
             const colId = focusArea.dataset.colId;
             const col = getCol(data, colId);
   
-            if (!output.get(getColOutputId(colId))) {
+            if (!output.get(getColOutputId(colId)) && col) {
               output.add(getColOutputId(colId), col.title, { type: "any" });
             }
             return {
@@ -397,6 +397,7 @@ export default {
             }
             const rowId = focusArea.dataset.rowId;
             const row = getRow(data, rowId);
+
   
             if (!output.get(getRowOutputId(rowId))) {
               output.add(getRowOutputId(rowId), row.title, { type: "any" });
