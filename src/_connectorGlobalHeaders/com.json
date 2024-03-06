@@ -1,20 +1,19 @@
 {
-  "title": "服务接口",
-  "namespace": "mybricks.taro._connector",
+  "title": "设置全局请求头",
+  "namespace": "mybricks.taro._connectorGlobalHeaders",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
   "description": "连接器",
   "runtime": "./runtime.ts",
   "editors": "./editors.tsx",
-  "data": "./data.json",
   "icon": "./icon.svg",
-  "rtType": "js-autorun",
+  "rtType": "js",
   "inputs": [
     {
       "id": "call",
-      "rels": ["then", "catch"],
-      "title": "调用",
+      "rels": ["then"],
+      "title": "设置",
       "schema": {
         "type": "object"
       }
@@ -23,16 +22,9 @@
   "outputs": [
     {
       "id": "then",
-      "title": "结果",
+      "title": "完成",
       "schema": {
-        "type": "any"
-      }
-    },
-    {
-      "id": "catch",
-      "title": "发生错误",
-      "schema": {
-        "type": "any"
+        "type": "follow"
       }
     }
   ]

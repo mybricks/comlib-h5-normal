@@ -3,6 +3,7 @@
   "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
     "./src/_connector/com.json",
+    "./src/_connectorGlobalHeaders/com.json",
     "./src/_muilt-inputJs/com.json",
     "./src/_timer-delay/com.json",
     "./src/_login/com.json",
@@ -40,7 +41,6 @@
       "title": "系统",
       "visible": false,
       "comAry": [
-        "./src/popup/com.json",
         "./src/activityCard/com.json",
         "./src/activityDetail/com.json",
         "./src/groupCard/com.json",
