@@ -51,7 +51,8 @@
         "./src/system/systemLogin/com.json",
         "./src/containerListHorizontal/com.json",
         "./src/containerAbs/com.json",
-        "./src/containerGrid2/com.json"
+        "./src/containerGrid2/com.json",
+        "./src/popup/com.json"
       ]
     },
     {

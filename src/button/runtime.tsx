@@ -28,56 +28,40 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
 
   const openType = useMemo(() => {
     switch (true) {
-      case data.openType === "share": {
-        return {
-          openType: "share",
-        };
-      }
-
       case data.openType === "getPhoneNumber": {
         return {
           openType: "getPhoneNumber",
           onGetPhoneNumber: (e) => {
             if (!!e.detail.errno) {
               outputs["getPhoneNumberFail"]({
-                errcode: e.detail.errno,
-                errmsg: e.detail.errMsg,
+                ...e.detail,
               });
-              return;
+            } else {
+              outputs["getPhoneNumberSuccess"]({
+                ...e.detail,
+              });
             }
-            const app = Taro.getApp();
-            const status = app?.mybricks?.status || {};
-            Taro.request({
-              url: `${status.callServiceHost}/runtime/api/domain/service/run`,
-              method: "POST",
-              data: {
-                projectId: status?.appid,
-                fileId: status?.appid,
-                serviceId: "getPhoneNumber",
-                params: {
-                  code: e.detail.code,
-                },
-              },
-              success: (res) => {
-                if (
-                  res?.data?.code === 1 &&
-                  res.data.data &&
-                  res.data.data.phone_info
-                ) {
-                  outputs["getPhoneNumberSuccess"]({
-                    ...res.data.data.phone_info,
-                  });
-                } else {
-                  outputs["getPhoneNumberFail"]({
-                    errcode: res.data.data.errcode,
-                    errmsg: res.data.data.errmsg,
-                  });
-                }
-              },
-            });
           },
         };
       }
+
+      case data.openType === "getRealtimePhoneNumber": {
+        return {
+          openType: "getRealtimePhoneNumber",
+          onGetRealtimePhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getRealtimePhoneNumberFail"]({
+                ...e.detail,
+              });
+            } else {
+              outputs["getRealtimePhoneNumberSuccess"]({
+                ...e.detail,
+              });
+            }
+          },
+        };
+      }
+
       default: {
         return {
           onClick: (e) => {
