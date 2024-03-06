@@ -1,16 +1,19 @@
-const defaultSchema = {type: 'any'};
+const defaultSchema = { type: "any" };
 
 export default {
-  '@init': ({data, setDesc, setAutoRun, isAutoRun}) => {
+  "@init": ({ data, setDesc, setAutoRun, isAutoRun }) => {
     data.connectorConfig = data.connectorConfig || {};
     const autoRun = isAutoRun ? isAutoRun() : false;
     if (autoRun || data.immediate) {
       setAutoRun(true);
       data.immediate = true;
     }
-    setDesc(`（连接器为空）`)
+    setDesc(`（连接器为空）`);
   },
-  '@connectorUpdated': ({data, input, output, setDesc, setAutoRun, isAutoRun}, {connector}) => {
+  "@connectorUpdated": (
+    { data, input, output, setDesc, setAutoRun, isAutoRun },
+    { connector }
+  ) => {
     if (!data.connector) return;
 
     if (connector.id === data.connector.id) {
@@ -20,73 +23,83 @@ export default {
         type: connector.type,
         script: connector.script,
         inputSchema: connector.inputSchema,
-        outputSchema: connector.outputSchema
-      }
+        outputSchema: connector.outputSchema,
+      };
 
-      updateIO({input, output}, connector)
+      updateIO({ input, output }, connector);
 
-      setDesc(`已选择：${data.connector.title}`)
+      setDesc(`已选择：${data.connector.title}`);
     }
   },
-  '@connectorRemoved': ({data, input, output, setDesc, setAutoRun, isAutoRun}, {connector}) => {
+  "@connectorRemoved": (
+    { data, input, output, setDesc, setAutoRun, isAutoRun },
+    { connector }
+  ) => {
     if (!data.connector) return;
 
     if (connector.id === data.connector.id) {
-      data.connector = void 0
+      data.connector = void 0;
 
-      const callInt = input.get('call')
+      const callInt = input.get("call");
       if (callInt) {
-        callInt.setSchema(defaultSchema)
+        callInt.setSchema(defaultSchema);
       }
 
-      const thenOut = output.get('then')
-      thenOut.setSchema(defaultSchema)
+      const thenOut = output.get("then");
+      thenOut.setSchema(defaultSchema);
 
-      setDesc(`${connector.title} 已失效`)
+      setDesc(`${connector.title} 已失效`);
     }
   },
-  ':root': [
+  ":root": [
     {
-      title: '连接器',
-      type: '_connectorSelect',
+      title: "连接器",
+      type: "_connectorSelect",
       value: {
-        get({data}) {
+        get({ data }) {
           return data.connector;
         },
-        set({data, input, output, setDesc}, connector) {
-          data.connector = connector
-          updateIO({input, output}, connector)
+        set({ data, input, output, setDesc }, connector) {
+          data.connector = connector;
+          updateIO({ input, output }, connector);
 
-          setDesc(`已选择：${data.connector.title}`)
-        }
-      }
-    }
-  ]
-}
+          setDesc(`已选择：${data.connector.title}`);
+        },
+      },
+    },
+  ],
+};
 
 function isValidSchema(schema) {
   return (
     schema &&
-    ['object', 'array', 'number', 'string', 'boolean', 'any', 'follow', 'unknown'].some(
-      (type) => schema.type === type
-    )
+    [
+      "object",
+      "array",
+      "number",
+      "string",
+      "boolean",
+      "any",
+      "follow",
+      "unknown",
+    ].some((type) => schema.type === type)
   );
 }
 
-function updateIO({input, output}, connector) {
-  const callInt = input.get('call')
+function updateIO({ input, output }, connector) {
+  const callInt = input.get("call");
   if (callInt) {
     if (isValidSchema(connector.inputSchema)) {
-      callInt.setSchema(connector.inputSchema)
+      callInt.setSchema(connector.inputSchema);
     } else {
-      callInt.setSchema(defaultSchema)
+      callInt.setSchema(defaultSchema);
     }
   }
-  const thenOut = output.get('then')
+  const thenOut = output.get("then");
 
   if (isValidSchema(connector.outputSchema)) {
-    thenOut.setSchema(connector.outputSchema)
+    thenOut.setSchema(connector.outputSchema);
   } else {
-    thenOut.setSchema(defaultSchema)
+    thenOut.setSchema(defaultSchema);
   }
 }

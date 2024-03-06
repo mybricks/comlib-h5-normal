@@ -19,5 +19,8 @@
       "title": "登录失败"
     }
   ],
-  "slots": []
+  "slots": [{
+    "id": "loginSlot",
+    "title": "自定义登录"
+  }]
 }

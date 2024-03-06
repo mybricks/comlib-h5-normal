@@ -7,16 +7,35 @@
   "description": "连接器",
   "runtime": "./runtime.ts",
   "editors": "./editors.tsx",
+  "data": "./data.json",
   "icon": "./icon.svg",
   "rtType": "js-autorun",
   "inputs": [
     {
       "id": "call",
-      "rels": [
-        "then",
-        "catch"
-      ],
+      "rels": ["then", "catch"],
       "title": "调用",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "setGlobalHeaders",
+      "title": "全局设置额外请求头",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "setGlobalParams",
+      "title": "全局设置额外请求参数",
+      "schema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "setGlobalBody",
+      "title": "全局设置额外请求体",
       "schema": {
         "type": "object"
       }

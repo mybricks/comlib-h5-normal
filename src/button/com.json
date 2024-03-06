@@ -20,7 +20,7 @@
   ],
   "outputs": [
     {
-      "id": "click",
+      "id": "onClick",
       "title": "单击",
       "schema": {
         "type": "string"
