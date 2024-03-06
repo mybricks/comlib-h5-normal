@@ -40,7 +40,6 @@
       "title": "系统",
       "visible": false,
       "comAry": [
-        "./src/popup/com.json",
         "./src/activityCard/com.json",
         "./src/activityDetail/com.json",
         "./src/groupCard/com.json",
