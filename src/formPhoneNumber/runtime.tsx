@@ -101,15 +101,17 @@ export default function (props) {
         value={data.value}
         placeholder={data.placeholder}
         onChange={onChange}
-        disabled={true}
+        disabled={data.customInput ? false : true}
       />
-      <Button
-        className={cx("mybricks-getphonenumber-button", css.button)}
-        openType="getPhoneNumber"
-        onGetPhoneNumber={onGetPhoneNumber}
-      >
-        {data.buttonText || "点击授权"}
-      </Button>
+      {!data.customInput && (
+        <Button
+          className={cx("mybricks-getphonenumber-button", css.button)}
+          openType="getPhoneNumber"
+          onGetPhoneNumber={onGetPhoneNumber}
+        >
+          {data.buttonText || "点击授权"}
+        </Button>
+      )}
     </View>
   );
 }

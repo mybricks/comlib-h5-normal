@@ -25,6 +25,25 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
+          title: "自定义输入",
+          description:
+            "自定义输入时，将不会显示点击授权按钮，需要用户手动输入手机号",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.customInput;
+            },
+            set({ data }, value) {
+              data.customInput = value;
+              if (data.customInput) {
+                data.placeholder = "请输入手机号";
+              } else {
+                data.placeholder = "请授权手机号";
+              }
+            },
+          },
+        },
+        {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",
           type: "text",
@@ -40,6 +59,9 @@ export default {
         {
           title: "按钮文案",
           type: "text",
+          ifVisible({ data }) {
+            return !data.customInput;
+          },
           value: {
             get({ data }) {
               return data.buttonText;
