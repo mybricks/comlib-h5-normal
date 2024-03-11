@@ -25,7 +25,7 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: "自定义输入",
+          title: "自定义输入手机号",
           description:
             "自定义输入时，将不会显示点击授权按钮，需要用户手动输入手机号",
           type: "switch",
