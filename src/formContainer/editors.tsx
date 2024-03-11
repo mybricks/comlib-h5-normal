@@ -111,12 +111,12 @@ const submitEditorItems = [
 ];
 
 export default {
+  ":slot": {},
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "fit-content";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   "@childAdd"({ data, inputs, outputs, logs, slots }, child, curSlot) {
     if (curSlot.id === "content") {

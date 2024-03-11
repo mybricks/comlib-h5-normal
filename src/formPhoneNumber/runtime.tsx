@@ -104,7 +104,7 @@ export default function (props) {
         disabled={true}
       />
       <Button
-        className={cx("mybricks-button", css.button)}
+        className={cx("mybricks-getphonenumber-button", css.button)}
         openType="getPhoneNumber"
         onGetPhoneNumber={onGetPhoneNumber}
       >

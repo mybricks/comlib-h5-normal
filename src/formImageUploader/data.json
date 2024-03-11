@@ -5,7 +5,7 @@
   "maxCount": 2,
   "useValueString": false,
   "placeholderText": "",
-  "placeholder": "./preview2.png",
+  "placeholder": "",
   "required": false,
   "chooseAvatar": false
 }

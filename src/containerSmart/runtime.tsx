@@ -3,15 +3,18 @@ import cx from "classnames";
 import css from "./style.less";
 import { View } from "@tarojs/components";
 
-export default ({ id, data, outputs, slots }) => {
+export default ({ id, data, outputs, slots, env }) => {
   const onClick = useCallback((node) => {
-    outputs?.[`click`]?.();
+    if (env.runtime) {
+      outputs?.[`click`]?.();
+    }
   }, []);
 
   return (
     <View className={css.layout} style={data.style} onClick={onClick}>
       {slots["content"].render({
         style: {
+          ...data.layout,
           width: "100%",
           height: "100%",
         },

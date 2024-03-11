@@ -3,7 +3,7 @@ export default {
     style.width = "100%";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   ":root": {
     style: [
@@ -18,7 +18,7 @@ export default {
       {
         title: "授权按钮",
         options: ["font", "border", "size", "padding", "background"],
-        target: ".mybricks-button",
+        target: ".mybricks-getphonenumber-button",
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

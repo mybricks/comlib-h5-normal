@@ -17,11 +17,7 @@ export default {
         type: "layout",
         value: {
           get({ data }) {
-            return (
-              data.layout || {
-                position: "smart",
-              }
-            );
+            return data.layout;
           },
           set({ data, slots }, value) {
             data.layout = value;

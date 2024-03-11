@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react";
-import { isNumber, isObject, isString, isEmpty } from './../utils/core/type';
+import { isNumber, isObject, isString, isEmpty } from "./../utils/core/type";
 import { View } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
@@ -7,7 +7,7 @@ import { Input, Field } from "brickd-mobile";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-  
+
   const [value, setValue] = useState(data.value);
   const [paasword, setPassword] = useState(true);
 
@@ -15,14 +15,14 @@ export default function (props) {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setValue('')
+          setValue("");
           break;
         }
         case isString(val) || isNumber(val):
-          setValue(val)
+          setValue(val);
           break;
         case isObject(val):
-          setValue(val[data.name])
+          setValue(val[data.name]);
           break;
         default:
           break;
@@ -34,15 +34,14 @@ export default function (props) {
     });
 
     // 设置禁用
-    inputs['setDisabled'](() => {
+    inputs["setDisabled"](() => {
       data.disabled = true;
     });
 
     // 设置启用
-    inputs['setEnabled'](() => {
+    inputs["setEnabled"](() => {
       data.disabled = false;
     });
-
   }, []);
 
   const buttonCx = useMemo(() => {
@@ -61,12 +60,15 @@ export default function (props) {
     let value = e.detail.value;
     setValue(value);
 
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
     outputs["onChange"](value);
   }, []);
 
   return (
-    // <Field label={data.label} name={data.name}>
     <View className={`${css.password} mybricks-field-password`}>
       <Input
         value={value}
@@ -78,6 +80,5 @@ export default function (props) {
       />
       <View className={buttonCx} onClick={onTogglePassword}></View>
     </View>
-    // </Field>
   );
 }

@@ -11,32 +11,7 @@ import css from './style.less';
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
-  // const [value, setValue] = useState([]);
-  // const [open, setOpen] = useState(false);
-  // const [areaList, setAreaList] = useState({
-  //   province_list: [],
-  //   city_list: [],
-  //   county_list: []
-  // });
-
   useEffect(() => {
-    // 获取地址数据
-    // const app = Taro.getApp();
-
-    // let API = isDesigner(env) ? "/mybricks-app-mpsite/api/mock/areaData" : `${app?.mybricks?.status?.callServiceHost}/runtime/api/domain/service/run`;
-    // Taro.request({
-    //   url: API,
-    //   method: "POST",
-    //   data: {
-    //     "projectId": app?.mybricks?.status?.appid,
-    //     "fileId": app?.mybricks?.status?.appid,
-    //     "serviceId": "areaData",
-    //   },
-    //   success: (res) => {
-    //     setAreaList(res.data.data);
-    //   }
-    // });
-
     //
     inputs["setValue"]((val) => {
       switch (true) {
