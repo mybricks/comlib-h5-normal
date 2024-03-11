@@ -14,14 +14,29 @@
       "schema": {
         "type": "any"
       },
-      "title": "切换到 条件1"
+      "title": "切换到 条件1",
+      "rels": [
+        "changeSuccess"
+      ]
     },
     {
       "id": "condition_2",
       "schema": {
         "type": "any"
       },
-      "title": "切换到 条件2"
+      "title": "切换到 条件2",
+      "rels": [
+        "changeSuccess"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "changeSuccess",
+      "schema": {
+        "type": "boolean"
+      },
+      "title": "切换成功"
     }
   ],
   "slots": [

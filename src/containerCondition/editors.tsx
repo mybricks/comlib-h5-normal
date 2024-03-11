@@ -82,8 +82,9 @@ export default {
               id: id,
               title: `切换到 ${title}`,
               schema: {
-                type: 'any'
-              }
+                type: "any",
+              },
+              rels: ["changeSuccess"],
             });
             return {
               id,
