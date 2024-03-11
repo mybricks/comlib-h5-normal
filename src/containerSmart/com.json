@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "description": "允许在内部自由拖动子元素的布局",
   "runtime": "./runtime.tsx",
-  "runtime.edit": "./edit/runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",

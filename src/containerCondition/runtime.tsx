@@ -16,8 +16,9 @@ export default function ({ env, data, slots, inputs, outputs }) {
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
     data.items.forEach(item => {
-      inputs[item.id]?.((bool) => {
-        setInputId(item.id)
+      inputs[item.id]?.((bool, relOutputs) => {
+        setInputId(item.id);
+        relOutputs["changeSuccess"]?.(true);
       });
     })
   }, [data.items]);

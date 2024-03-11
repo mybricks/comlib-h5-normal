@@ -3,6 +3,7 @@
   "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
     "./src/_connector/com.json",
+    "./src/_connectorGlobalHeaders/com.json",
     "./src/_muilt-inputJs/com.json",
     "./src/_timer-delay/com.json",
     "./src/_login/com.json",
