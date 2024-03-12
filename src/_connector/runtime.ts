@@ -1,8 +1,15 @@
 function callCon({ env, data, inputs, outputs, onError }, params = {}) {
-  if (data.connector) {
+
+  if (data.connector || data.dynamicConfig) {
     try {
+      let finnalConnector = data.connector;
+
+      if (data.dynamicConfig) {
+        finnalConnector = data.dynamicConfig;
+      }
+
       env
-        .callConnector(data.connector, params, data.connectorConfig)
+        .callConnector(finnalConnector, params, data.connectorConfig)
         .then((val) => {
           outputs["then"](val);
         })
@@ -21,37 +28,15 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
 }
 
 export default function ({ env, data, inputs, outputs, onError }) {
-  if (env.runtime) {
-    // //
-    // inputs["setGlobalHeaders"]((e) => {
-    //   if (typeof obj === "object" && obj !== null && !Array.isArray(obj)) {
-    //     Taro.setStorageSync("_MYBRICKS_GLOBAL_HEADERS_", obj);
-    //   }
-    //   return;
-    // });
+  if (!env.runtime) {
+    return;
+  }
 
-    // //
-    // inputs["setGlobalParams"]((e) => {
-    //   if (typeof obj === "object" && obj !== null && !Array.isArray(obj)) {
-    //     Taro.setStorageSync("_MYBRICKS_GLOBAL_PARAMS_", obj);
-    //   }
-    //   return;
-    // });
-
-    // //
-    // inputs["setGlobalBody"]((e) => {
-    //   if (typeof obj === "object" && obj !== null && !Array.isArray(obj)) {
-    //     Taro.setStorageSync("_MYBRICKS_GLOBAL_BODY_", obj);
-    //   }
-    //   return;
-    // });
-
-    if (data.immediate) {
-      callCon({ env, data, outputs });
-    } else {
-      inputs["call"]((params) => {
-        callCon({ env, data, outputs, onError }, params);
-      });
-    }
+  if (data.immediate) {
+    callCon({ env, data, outputs });
+  } else {
+    inputs["call"]((params) => {
+      callCon({ env, data, outputs, onError }, params);
+    });
   }
 }
