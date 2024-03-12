@@ -128,7 +128,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   // 获取菜单按钮的布局位置信息
   const menuButtonBoundingClientRect = isDesigner(env)
     ? defaultMenuButtonBoundingClientRect
-    : Taro.getMenuButtonBoundingClientRect();
+    : Taro.getMenuButtonBoundingClientRect?.();
 
   const useTabBar = useMemo(() => {
     if (!data.useTabBar) {
