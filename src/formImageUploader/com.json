@@ -33,9 +33,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "returnValidate"
-      ]
+      "rels": ["returnValidate"]
     },
     {
       "id": "getValue",
@@ -44,9 +42,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "returnValue"
-      ]
+      "rels": ["returnValue"]
     },
     {
       "id": "resetValue",
@@ -111,8 +107,62 @@
       }
     }
   ],
-  "schema": [
-    "mybricks.taro.formContainer/formItem",
-    "*"
-  ]
+  "slots": [
+    {
+      "id": "customUpload",
+      "title": "自定义上传",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "fileData",
+          "title": "输出文件数据",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "tempFilePaths": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tempFiles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "errMsg": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "id": "setFileInfo",
+          "title": "设置上传结果",
+          "description": "设置文件地址",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "schema": ["mybricks.taro.formContainer/formItem", "*"]
 }

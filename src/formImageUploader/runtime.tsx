@@ -3,11 +3,11 @@ import { Input, View, Button, Image } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
-import { isObject, isString, isEmpty } from './../utils/core/type';
+import { isObject, isString, isEmpty } from "./../utils/core/type";
 import { isDesigner } from "../utils/env";
 
 export default function (props) {
-  const { env, data, inputs, outputs, slots, parentSlot } = props
+  const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -20,7 +20,7 @@ export default function (props) {
           data.value = [val].filter((item) => !!item);
           break;
         case Array.isArray(val):
-          data.value = val
+          data.value = val;
           break;
         case isObject(val):
           let _val = val[data.name];
@@ -34,6 +34,11 @@ export default function (props) {
           break;
       }
     });
+
+    // 上传完成
+    slots["customUpload"]?.outputs["setFileInfo"]?.((files) => {
+      data.value = [...data.value, ...files];
+    });
   }, []);
 
   const onChange = useCallback(
@@ -45,7 +50,11 @@ export default function (props) {
         value = _value[0] || "";
       }
 
-      parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value,
+      });
       outputs["onChange"](value);
     },
     [data.name, data.maxCount, data.useValueString]
@@ -72,37 +81,56 @@ export default function (props) {
       sizeType: ["original", "compressed"],
       sourceType: ["album", "camera"],
       success: async (res) => {
-        env.fileUploader(res.tempFiles[0]).then((url) => {
-          let newValue = JSON.parse(JSON.stringify(data.value));
-          newValue.unshift(url);
-          data.value = newValue;
-          onChange(newValue);
-        });
+        slots["customUpload"]?.inputs["fileData"](res);
+
+        // res.tempFiles.forEach((tempFile) => {
+        //   // 上传
+        //   env.fileUploader(tempFile).then((url) => {
+        //     let newValue = JSON.parse(JSON.stringify(data.value));
+        //     newValue.unshift(url);
+        //     data.value = newValue;
+        //     onChange(newValue);
+        //   });
+        // });
       },
     });
   }, [data.value]);
 
-  const onChooseAvatar = useCallback((res) => {
-    console.error(res);
-    let tempPath = res.detail.avatarUrl;
+  const onChooseAvatar = useCallback(
+    (res) => {
+      console.error(res);
+      let tempPath = res.detail.avatarUrl;
 
-    env.fileUploader({ path: tempPath }).then((url) => {
-      let newValue = JSON.parse(JSON.stringify(data.value));
-      newValue.unshift(url);
-      data.value = newValue;
-      onChange(newValue);
-    });
-  }, [data.value]);
+      env.fileUploader({ path: tempPath }).then((url) => {
+        let newValue = JSON.parse(JSON.stringify(data.value));
+        newValue.unshift(url);
+        data.value = newValue;
+        onChange(newValue);
+      });
+    },
+    [data.value]
+  );
 
   const uploader = useMemo(() => {
     if (data.value.length >= data.maxCount) return null;
 
     if (data.chooseAvatar && !isDesigner(env)) {
-      return (<View className={cx(css.uploader, "mybricks-square")}>
-        <Button className={css.chooseAvatar} openType={"chooseAvatar"} onChooseAvatar={onChooseAvatar}></Button>
-      </View>);
+      return (
+        <View className={cx(css.uploader, "mybricks-square")}>
+          <Button
+            className={css.chooseAvatar}
+            openType={"chooseAvatar"}
+            onChooseAvatar={onChooseAvatar}
+          ></Button>
+        </View>
+      );
     } else {
-      return (<View className={cx(css.uploader, "mybricks-square")} onClick={onChooseImage}></View>);
+      return (
+        <View
+          className={cx(css.uploader, "mybricks-square")}
+          onClick={onChooseImage}
+        ></View>
+      );
     }
   }, [env, data.value, data.maxCount, data.chooseAvatar]);
 
@@ -114,6 +142,7 @@ export default function (props) {
           onClick={(e) => {
             onPreviewImage(e, raw);
           }}
+          key={raw + "_" + index}
         >
           <Image
             className={css.thumbnail}
@@ -149,20 +178,13 @@ export default function (props) {
         <View className={css.text}>示例图片</View>
       </View>
     );
-
   }, [data.placeholder]);
 
   const placeholderText = useMemo(() => {
     if (!data.placeholderText) return null;
 
-    return (
-      <View className={css.placeholderText}>
-        {data.placeholderText}
-      </View>
-    );
+    return <View className={css.placeholderText}>{data.placeholderText}</View>;
   }, [data.placeholderText]);
-
-
 
   return (
     <View className={css.value}>

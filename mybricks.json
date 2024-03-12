@@ -5,6 +5,7 @@
     "./src/_connector/com.json",
     "./src/_connectorGlobalHeaders/com.json",
     "./src/_muilt-inputJs/com.json",
+    "./src/_uploadFile/com.json",
     "./src/_timer-delay/com.json",
     "./src/_login/com.json",
     "./src/_getRouter/com.json",

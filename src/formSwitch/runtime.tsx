@@ -22,6 +22,7 @@ export default function (props) {
           // outputs["onChange"]({ name: data.name, value: val[data.name] });
           break;
         default:
+          data.value = !!val;
           break;
       }
     });

@@ -1,0 +1,49 @@
+{
+  "title": "文件上传",
+  "namespace": "mybricks.taro._uploadFile",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "文件上传",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "upload",
+      "title": "上传",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "formData": {
+            "type": "object"
+          },
+          "filePaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "上传成功",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "上传失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}
