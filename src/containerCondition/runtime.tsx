@@ -23,7 +23,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
       setInputId(item.id);
-      relOutputs["changeDone"]?.(bool);
+      relOutputs["setValueDone"]?.(bool);
     });
 
     //通过连线来切换条件
