@@ -14,7 +14,7 @@
       "schema": {
         "type": "any"
       },
-      "title": "设置条件",
+      "title": "通过条件名来设置条件",
       "rels": [
         "setValueDone"
       ]
