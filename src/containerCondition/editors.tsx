@@ -20,6 +20,7 @@ export default {
   "@resize": {
     options: ["width", "height"],
   },
+  ":slot":{},
   ":root"({ data, output, input, style, slots }, cate0, cate1, cate2) {
     cate0.title = "常规";
     cate0.items = [
@@ -82,10 +83,12 @@ export default {
               id: id,
               title: `切换到 ${title}`,
               schema: {
-                type: "any",
+                type: 'any',
               },
-              rels: ["changeSuccess"],
+              rels: ['changeDone'],
             });
+            input.get(id).setRels(["changeDone"]);
+
             return {
               id,
               title,

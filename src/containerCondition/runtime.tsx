@@ -15,10 +15,22 @@ export default function ({ env, data, slots, inputs, outputs }) {
 
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
-    data.items.forEach(item => {
+
+    // 通过setValue来切换条件
+    inputs["setValue"]?.((bool, relOutputs) => {
+      const item = data.items.find((t) => t.title === bool);
+      if (!item) {
+        return;
+      }
+      setInputId(item.id);
+      relOutputs["changeDone"]?.(bool);
+    });
+
+    //通过连线来切换条件
+    data.items.forEach((item) => {
       inputs[item.id]?.((bool, relOutputs) => {
         setInputId(item.id);
-        relOutputs["changeSuccess"]?.(true);
+        relOutputs["changeDone"]?.(bool);
       });
     })
   }, [data.items]);

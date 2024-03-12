@@ -10,13 +10,23 @@
   "icon": "./icon.svg",
   "inputs": [
     {
+      "id": "setValue",
+      "schema": {
+        "type": "any"
+      },
+      "title": "设置条件",
+      "rels": [
+        "setValueDone"
+      ]
+    },
+    {
       "id": "condition_1",
       "schema": {
         "type": "any"
       },
       "title": "切换到 条件1",
       "rels": [
-        "changeSuccess"
+        "changeDone"
       ]
     },
     {
@@ -26,17 +36,23 @@
       },
       "title": "切换到 条件2",
       "rels": [
-        "changeSuccess"
+        "changeDone"
       ]
     }
   ],
   "outputs": [
     {
-      "id": "changeSuccess",
+      "id": "changeDone",
       "schema": {
-        "type": "boolean"
+        "type": "any"
       },
-      "title": "切换成功"
+      "title": "切换完成"
+    },{
+      "id":"setValueDone",
+      "schema":{
+        "type":"any"
+      },
+      "title":"设置条件完成"
     }
   ],
   "slots": [
