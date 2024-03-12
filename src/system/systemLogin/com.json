@@ -9,18 +9,10 @@
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
   "inputs": [],
-  "outputs": [
+  "slots": [
     {
-      "id": "onSuccess",
-      "title": "登录成功"
-    },
-    {
-      "id": "onFail",
-      "title": "登录失败"
+      "id": "loginSlot",
+      "title": "自定义登录"
     }
-  ],
-  "slots": [{
-    "id": "loginSlot",
-    "title": "自定义登录"
-  }]
+  ]
 }

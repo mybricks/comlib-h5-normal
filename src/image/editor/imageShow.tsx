@@ -156,10 +156,10 @@ const Delete: FC = ({ editConfig }: any) => {
           (isNumber(style.width) || style.width === "100%") &&
           style.height === 'auto'
         ) {
-          // setType(_type)
           setMode(IMAGE_MODE.WIDTHFIX);
           return;
         }
+        
         showToast("保持比例需要固定宽度，高度适应内容");
         return;
       }

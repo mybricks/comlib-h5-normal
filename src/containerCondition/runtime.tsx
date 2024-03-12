@@ -43,8 +43,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         }
         return (
           <View className={css.content}>
-            {slots[item.id]?.render({
-            })}
+            {slots[item.id]?.render({})}
           </View>
         );
       })}
