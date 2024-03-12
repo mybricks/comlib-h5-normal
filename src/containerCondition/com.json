@@ -12,12 +12,13 @@
     {
       "id": "setValue",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
-      "title": "通过条件名来设置条件",
+      "title": "切换到 指定条件",
       "rels": [
         "setValueDone"
-      ]
+      ],
+      "desc": "根据输入的条件名来切换"
     },
     {
       "id": "condition_1",
