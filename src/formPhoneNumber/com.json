@@ -111,7 +111,21 @@
     },
     {
       "id": "onChange",
-      "title": "当值变化",
+      "title": "当输入的手机号变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCodeChange",
+      "title": "当输入的验证码变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCodeSend",
+      "title": "获取验证码",
       "schema": {
         "type": "string"
       }

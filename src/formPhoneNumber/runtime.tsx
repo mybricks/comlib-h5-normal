@@ -76,6 +76,15 @@ export default function (props) {
           },
         };
       }
+      case data.getPhoneNumberMethods === "customInput": {
+        return {
+          onClick: () => {
+            console.log("点击了发送验证码", data.smsCountdown); 
+            countDown();
+            outputs["onCodeSend"](data.value);
+          }
+        }
+      }
 
       default: {
         console.log("命中兜底逻辑");
@@ -83,6 +92,22 @@ export default function (props) {
       }
     }
   }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
+
+  const countDown = () => {
+    if (!data.buttonAvailable) return
+    let count = data.smsCountdown;
+    let _buttonText = data.buttonText;
+    const timer = setInterval(() => {
+      count--;
+      data.buttonText = `${count}s 后重试`;
+      data.buttonAvailable = false
+      if (count <= 0) {
+        clearInterval(timer);
+        data.buttonAvailable = true;
+        data.buttonText = _buttonText;
+      }
+    }, 1000);
+  }
 
   // const onGetPhoneNumber = useCallback(
   //   (e) => {
@@ -137,28 +162,43 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
+  const onCodeChange = useCallback((e) => {
+    let value = e.detail.value;
+    parentSlot?._inputs["onCodeChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
+    outputs["onCodeChange"](value);
+  }, []);
+
+
   return (
-    <View className={css.phoneNumber}>
-      <Input
-        className={css.input}
-        value={data.value}
-        placeholder={data.placeholder}
-        onChange={onChange}
-        disabled={
-          data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
-          data.getPhoneNumberMethods === "getPhoneNumber"
-            ? true
-            : false
-        }
-      />
-      {(data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
-        data.getPhoneNumberMethods === "getPhoneNumber") && (
+    <View className={css.outerPhoneNumber}>
+      <View className={css.phoneNumber}>
+        <Input
+          className={css.input}
+          value={data.value}
+          placeholder={data.placeholder}
+          onChange={onChange}
+          disabled={
+            data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
+            data.getPhoneNumberMethods === "getPhoneNumber"
+              ? true
+              : false
+          }
+        />
         <Button
           className={cx("mybricks-getphonenumber-button", css.button)}
           {...openType}
         >
           {data.buttonText || "点击授权"}
         </Button>
+      </View>
+      {data.getPhoneNumberMethods === "customInput" && (
+        <View className={css.phoneNumber} style={{ marginTop: "12px"}}>
+          <Input onChange={onCodeChange} className={css.input} placeholder="请输入验证码" />
+        </View>
       )}
     </View>
   );

@@ -8,5 +8,7 @@
   "required": false,
   "hidden": false,
   "getPhoneNumberMethods":"getRealtimePhoneNumber",
-  "buttonText": "点击授权"
+  "buttonText": "点击授权",
+  "buttonAvailable": true,
+  "smsCountdown":30
 }

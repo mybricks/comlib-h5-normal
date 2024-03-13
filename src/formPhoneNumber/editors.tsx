@@ -69,6 +69,25 @@ const MAP = {
       },
     ],
   },
+  customInput: {
+    title: "手动输入",
+    output: [
+      {
+        id: "onChange",
+        title: "当值变化",
+        schema: {
+          type: "string",
+        },
+      },
+      {
+        id: "onCodeSend",
+        title:"获取验证码",
+        schema:{
+          type:"number"
+        }
+      }
+    ],
+  },
 };
 
 function clearOutput(getPhoneNumberMethod, output) {
@@ -77,12 +96,14 @@ function clearOutput(getPhoneNumberMethod, output) {
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("onChange");
+      output.remove("onCodeSend");
       break;
 
     case getPhoneNumberMethod === "getRealtimePhoneNumber":
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("onChange");
+      output.remove("onCodeSend");
       break;
 
     case getPhoneNumberMethod === "customInput":
@@ -135,18 +156,24 @@ export default {
               switch (value) {
                 case "getRealtimePhoneNumber":
                   data.placeholder = "请授权手机号";
+                  data.buttonText = "点击授权";
                   MAP["getRealtimePhoneNumber"].output.forEach((item) => {
                     output.add(item);
                   });
                   break;
                 case "getPhoneNumber":
                   data.placeholder = "请授权手机号";
+                  data.buttonText = "点击授权";
                   MAP["getPhoneNumber"].output.forEach((item) => {
                     output.add(item);
                   });
                   break;
                 case "customInput":
                   data.placeholder = "请输入手机号";
+                  data.buttonText = "获取验证码";
+                  MAP["customInput"].output.forEach((item) => {
+                    output.add(item);
+                  });
                   break;
               }
             },
@@ -184,18 +211,24 @@ export default {
           },
         },
         {
+          title: "验证码倒计时",
+          type: "InputNumber",
+          options: [{ min: 30, max: 120 }],
+          ifVisible({ data }) {
+            return data.getPhoneNumberMethods === "customInput";
+          },
+          value: {
+            get({ data }) {
+              return [data.smsCountdown];
+            },
+            set({ data }, value) {
+              data.smsCountdown = value[0];
+            },
+          },
+        },
+        {
           title: "事件",
           items: [
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "customInput";
-              },
-              title: "当值变化",
-              type: "_event",
-              options: {
-                outputId: "onChange",
-              },
-            },
             {
               ifVisible({ data }) {
                 return data.getPhoneNumberMethods === "getPhoneNumber";
@@ -234,6 +267,36 @@ export default {
               type: "_event",
               options: {
                 outputId: "getRealtimePhoneNumberFail",
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.getPhoneNumberMethods === "customInput";
+              },
+              title: "当输入的手机号变化",
+              type: "_event",
+              options: {
+                outputId: "onChange",
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.getPhoneNumberMethods === "customInput";
+              },
+              title: "获取验证码",
+              type: "_event",
+              options: {
+                outputId: "onCodeSend",
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.getPhoneNumberMethods === "customInput";
+              },
+              title: "当输入的验证码变化",
+              type: "_event",
+              options: {
+                outputId: "onCodeChange",
               },
             },
           ],

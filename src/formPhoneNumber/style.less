@@ -1,37 +1,48 @@
-.phoneNumber {
-  // height: 44px;
+.outerPhoneNumber {
   width: 100%;
-  position: relative;
-  
-  :global {
-    // H5的垫片，不能让他有样式
-    .taroify-native-input {
-      border: none;
-      background: transparent;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  .phoneNumber {
+    // height: 44px;
+    width: 100%;
+    position: relative;
 
-  .button {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    width: fit-content;
-    padding: 0 12px;
-    height: 100%;
-    border: none;
-    color: #ea732e;
-    font-size: 13px;
-    font-weight: 500;
-    background: none;
-    border: none;
-    z-index: 99;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &::after {
-      display: none;
+    :global {
+
+      // H5的垫片，不能让他有样式
+      .taroify-native-input {
+        border: none;
+        background: transparent;
+      }
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: fit-content;
+      padding: 0 12px;
+      height: 100%;
+      border: none;
+      color: #ea732e;
+      font-size: 13px;
+      font-weight: 500;
+      background: none;
+      border: none;
+      z-index: 99;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &::after {
+        display: none;
+      }
     }
   }
+}
+
+.input{
+
 }
