@@ -7,6 +7,6 @@
   "disabled": false,
   "required": false,
   "hidden": false,
-  
+  "getPhoneNumberMethods":"getRealtimePhoneNumber",
   "buttonText": "点击授权"
 }

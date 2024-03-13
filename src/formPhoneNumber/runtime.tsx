@@ -41,47 +41,90 @@ export default function (props) {
     });
   }, []);
 
-  const onGetPhoneNumber = useCallback(
-    (e) => {
-      if (!env.runtime) {
-        return;
-      }
-
-      if (!!e.detail.errno) {
-        //noop
-        return;
-      }
-
-      const app = Taro.getApp();
-      const status = app?.mybricks?.status || {};
-
-      Taro.request({
-        url: `${status.callServiceHost}/runtime/api/domain/service/run`,
-        method: "POST",
-        data: {
-          projectId: status?.appid,
-          fileId: status?.appid,
-          serviceId: "getPhoneNumber",
-          params: {
-            code: e.detail.code,
+  const openType = useMemo(() => {
+    switch (true) {
+      case data.getPhoneNumberMethods === "getPhoneNumber": {
+        return {
+          openType: "getPhoneNumber",
+          onGetPhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getPhoneNumberFail"]({
+                ...e.detail,
+              });
+            } else {
+              outputs["getPhoneNumberSuccess"]({
+                ...e.detail,
+              });
+            }
           },
-        },
-        success: (res) => {
-          if (
-            res?.data?.code === 1 &&
-            res.data.data &&
-            res.data.data.phone_info
-          ) {
-            data.value = res.data.data.phone_info.phoneNumber;
-            outputs["onChange"](data.value);
-          } else {
-            //noop
-          }
-        },
-      });
-    },
-    [env.runtime, data.value]
-  );
+        };
+      }
+
+      case data.getPhoneNumberMethods === "getRealtimePhoneNumber": {
+        return {
+          openType: "getRealtimePhoneNumber",
+          onGetRealtimePhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getRealtimePhoneNumberFail"]({
+                ...e.detail,
+              });
+            } else {
+              outputs["getRealtimePhoneNumberSuccess"]({
+                ...e.detail,
+              });
+            }
+          },
+        };
+      }
+
+      default: {
+        console.log("命中兜底逻辑");
+        return null;
+      }
+    }
+  }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
+
+  // const onGetPhoneNumber = useCallback(
+  //   (e) => {
+  //     if (!env.runtime) {
+  //       return;
+  //     }
+
+  //     if (!!e.detail.errno) {
+  //       //noop
+  //       return;
+  //     }
+
+  //     const app = Taro.getApp();
+  //     const status = app?.mybricks?.status || {};
+
+  //     Taro.request({
+  //       url: `${status.callServiceHost}/runtime/api/domain/service/run`,
+  //       method: "POST",
+  //       data: {
+  //         projectId: status?.appid,
+  //         fileId: status?.appid,
+  //         serviceId: "getPhoneNumber",
+  //         params: {
+  //           code: e.detail.code,
+  //         },
+  //       },
+  //       success: (res) => {
+  //         if (
+  //           res?.data?.code === 1 &&
+  //           res.data.data &&
+  //           res.data.data.phone_info
+  //         ) {
+  //           data.value = res.data.data.phone_info.phoneNumber;
+  //           outputs["onChange"](data.value);
+  //         } else {
+  //           //noop
+  //         }
+  //       },
+  //     });
+  //   },
+  //   [env.runtime, data.value]
+  // );
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;
@@ -101,13 +144,18 @@ export default function (props) {
         value={data.value}
         placeholder={data.placeholder}
         onChange={onChange}
-        disabled={data.customInput ? false : true}
+        disabled={
+          data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
+          data.getPhoneNumberMethods === "getPhoneNumber"
+            ? true
+            : false
+        }
       />
-      {!data.customInput && (
+      {(data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
+        data.getPhoneNumberMethods === "getPhoneNumber") && (
         <Button
           className={cx("mybricks-getphonenumber-button", css.button)}
-          openType="getPhoneNumber"
-          onGetPhoneNumber={onGetPhoneNumber}
+          {...openType}
         >
           {data.buttonText || "点击授权"}
         </Button>
