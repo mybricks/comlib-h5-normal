@@ -41,47 +41,115 @@ export default function (props) {
     });
   }, []);
 
-  const onGetPhoneNumber = useCallback(
-    (e) => {
-      if (!env.runtime) {
-        return;
-      }
-
-      if (!!e.detail.errno) {
-        //noop
-        return;
-      }
-
-      const app = Taro.getApp();
-      const status = app?.mybricks?.status || {};
-
-      Taro.request({
-        url: `${status.callServiceHost}/runtime/api/domain/service/run`,
-        method: "POST",
-        data: {
-          projectId: status?.appid,
-          fileId: status?.appid,
-          serviceId: "getPhoneNumber",
-          params: {
-            code: e.detail.code,
+  const openType = useMemo(() => {
+    switch (true) {
+      case data.getPhoneNumberMethods === "getPhoneNumber": {
+        return {
+          openType: "getPhoneNumber",
+          onGetPhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getPhoneNumberFail"]({
+                ...e.detail,
+              });
+            } else {
+              outputs["getPhoneNumberSuccess"]({
+                ...e.detail,
+              });
+            }
           },
-        },
-        success: (res) => {
-          if (
-            res?.data?.code === 1 &&
-            res.data.data &&
-            res.data.data.phone_info
-          ) {
-            data.value = res.data.data.phone_info.phoneNumber;
-            outputs["onChange"](data.value);
-          } else {
-            //noop
+        };
+      }
+
+      case data.getPhoneNumberMethods === "getRealtimePhoneNumber": {
+        return {
+          openType: "getRealtimePhoneNumber",
+          onGetRealtimePhoneNumber: (e) => {
+            if (!!e.detail.errno) {
+              outputs["getRealtimePhoneNumberFail"]({
+                ...e.detail,
+              });
+            } else {
+              outputs["getRealtimePhoneNumberSuccess"]({
+                ...e.detail,
+              });
+            }
+          },
+        };
+      }
+      case data.getPhoneNumberMethods === "customInput": {
+        return {
+          onClick: () => {
+            console.log("点击了发送验证码", data.smsCountdown); 
+            countDown();
+            outputs["onCodeSend"](data.value);
           }
-        },
-      });
-    },
-    [env.runtime, data.value]
-  );
+        }
+      }
+
+      default: {
+        console.log("命中兜底逻辑");
+        return null;
+      }
+    }
+  }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
+
+  const countDown = () => {
+    if (!data.buttonAvailable) return
+    let count = data.smsCountdown;
+    let _buttonText = data.buttonText;
+    const timer = setInterval(() => {
+      count--;
+      data.buttonText = `${count}s 后重试`;
+      data.buttonAvailable = false
+      if (count <= 0) {
+        clearInterval(timer);
+        data.buttonAvailable = true;
+        data.buttonText = _buttonText;
+      }
+    }, 1000);
+  }
+
+  // const onGetPhoneNumber = useCallback(
+  //   (e) => {
+  //     if (!env.runtime) {
+  //       return;
+  //     }
+
+  //     if (!!e.detail.errno) {
+  //       //noop
+  //       return;
+  //     }
+
+  //     const app = Taro.getApp();
+  //     const status = app?.mybricks?.status || {};
+
+  //     Taro.request({
+  //       url: `${status.callServiceHost}/runtime/api/domain/service/run`,
+  //       method: "POST",
+  //       data: {
+  //         projectId: status?.appid,
+  //         fileId: status?.appid,
+  //         serviceId: "getPhoneNumber",
+  //         params: {
+  //           code: e.detail.code,
+  //         },
+  //       },
+  //       success: (res) => {
+  //         if (
+  //           res?.data?.code === 1 &&
+  //           res.data.data &&
+  //           res.data.data.phone_info
+  //         ) {
+  //           data.value = res.data.data.phone_info.phoneNumber;
+  //           outputs["onChange"](data.value);
+  //         } else {
+  //           //noop
+  //         }
+  //       },
+  //     });
+  //   },
+  //   [env.runtime, data.value]
+  // );
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;
@@ -94,23 +162,43 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
+  const onCodeChange = useCallback((e) => {
+    let value = e.detail.value;
+    parentSlot?._inputs["onCodeChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
+    outputs["onCodeChange"](value);
+  }, []);
+
+
   return (
-    <View className={css.phoneNumber}>
-      <Input
-        className={css.input}
-        value={data.value}
-        placeholder={data.placeholder}
-        onChange={onChange}
-        disabled={data.customInput ? false : true}
-      />
-      {!data.customInput && (
+    <View className={css.outerPhoneNumber}>
+      <View className={css.phoneNumber}>
+        <Input
+          className={css.input}
+          value={data.value}
+          placeholder={data.placeholder}
+          onChange={onChange}
+          disabled={
+            data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
+            data.getPhoneNumberMethods === "getPhoneNumber"
+              ? true
+              : false
+          }
+        />
         <Button
           className={cx("mybricks-getphonenumber-button", css.button)}
-          openType="getPhoneNumber"
-          onGetPhoneNumber={onGetPhoneNumber}
+          {...openType}
         >
           {data.buttonText || "点击授权"}
         </Button>
+      </View>
+      {data.getPhoneNumberMethods === "customInput" && (
+        <View className={css.phoneNumber} style={{ marginTop: "12px"}}>
+          <Input onChange={onCodeChange} className={css.input} placeholder="请输入验证码" />
+        </View>
       )}
     </View>
   );

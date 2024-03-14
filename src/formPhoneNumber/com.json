@@ -73,6 +73,36 @@
   ],
   "outputs": [
     {
+      "id": "getRealtimePhoneNumberSuccess",
+      "title": "获取动态令牌成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "errMsg": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "getRealtimePhoneNumberFail",
+      "title": "获取动态令牌失败",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errno": {
+            "type": "number"
+          },
+          "errMsg": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
       "id": "onInitial",
       "title": "值初始化",
       "schema": {
@@ -81,7 +111,21 @@
     },
     {
       "id": "onChange",
-      "title": "值更新",
+      "title": "当输入的手机号变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCodeChange",
+      "title": "当输入的验证码变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCodeSend",
+      "title": "获取验证码",
       "schema": {
         "type": "string"
       }
@@ -125,5 +169,8 @@
       }
     }
   ],
-  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+  "schema": [
+    "mybricks.taro.formContainer/formItem",
+    "*"
+  ]
 }
