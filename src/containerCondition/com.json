@@ -51,9 +51,9 @@
     },{
       "id":"setValueDone",
       "schema":{
-        "type":"any"
+        "type":"string"
       },
-      "title":"设置条件完成"
+      "title":"切换条件完成"
     }
   ],
   "slots": [
