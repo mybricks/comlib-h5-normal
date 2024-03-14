@@ -30,6 +30,7 @@ export default function ({ env, data, inputs, outputs }) {
 
     value.filePaths.forEach((filePath) => {
       Taro.uploadFile({
+        withCredentials: false,
         url: data.url,
         filePath: filePath,
         name: data.name,

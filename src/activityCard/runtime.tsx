@@ -2,40 +2,24 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text } from "@tarojs/components";
 import css from "./style.less";
 import * as Taro from "@tarojs/taro";
-import SkeletonImage from './../components/skeleton-image';
+import SkeletonImage from "./../components/skeleton-image";
 
 const mockData = {
-  id: 1686035574636,
-  活动名称: "2023阿里巴巴公益榜颁奖晚会",
-  活动海报:
-    "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-03-03/1677827764831.94d6c7462d593fa1.jpeg",
-  活动开始时间: "2023-03-03 19:00",
-  活动结束时间: "2023-03-03 21:00",
-  活动形式: "线上活动",
-  活动城市: "杭州",
-  活动地址: "阿里巴巴西溪园区A区5号报告厅",
-  活动详情: "",
-  报名条件: "不限制",
-  活动报名表: [
-    {
-      审核状态: "审核中",
-      用户: 1686035634859,
-    },
-    {
-      审核状态: "审核未通过",
-      用户: 1686035641612,
-    },
-  ],
-  _活动分类: 1686041696194,
-  活动分类: {
-    id: 1686041696194,
-    分类介绍: null,
-    分类名称: "分类1",
-    分类图标: null,
+  id: 464069272072261,
+  activityName: "「8.04 | 周五」夜爬网红马家坞",
+  activityStartTime: "2023-08-04 19:30:00",
+  activityEndTime: "2023-08-04 21:00:00",
+  activityCategoryId: 464070986551365,
+  activityPosterUrl:
+    "https://admin.alialumni.com/mfs/imgs/1691398475677/LViKCtb63WK81tcCG4RTu1iXoIoUoIN7-1691398475947.jpg",
+  activityCity: "杭州",
+  category: {
+    id: 464070986551365,
+    categoryName: "徒步、爬山运动",
+    categoryBrief: "一起运动，减肥甩脂~",
+    categoryIcon:
+      "https://admin.alialumni.com/mfs/imgs/1691135378466/LiOVMlWTj0hBMrGb37uargsqLJ2bsRiC-1691135378931.jpg",
   },
-  活动简介: null,
-  _活动开始时间: 1686035517987,
-  _活动结束时间: 1686035517987,
 };
 
 const formatTimestamp = (timestamp) => {
@@ -64,17 +48,11 @@ const formatTimestamp = (timestamp) => {
 export default function ({ env, data, inputs, outputs, slots }) {
   const [raw, setRaw] = useState(env.edit ? mockData : {});
 
-  // useEffect(() => {
-  //   inputs["setDatasource"]((val) => {
-  //     setRaw(val);
-  //   });
-  // }, []);
-
   useMemo(() => {
     inputs["setDatasource"]((val) => {
       setRaw(val);
     });
-  }, [])
+  }, []);
 
   const onClick = useCallback(() => {
     outputs["onClick"]({
@@ -83,15 +61,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, [raw]);
 
   const datetime = useMemo(() => {
-    return formatTimestamp(raw["活动开始时间"]);
+    return formatTimestamp(raw["activityStartTime"]);
   }, [raw]);
 
   const buttonText = useMemo(() => {
     let userInfo = Taro.getStorageSync("userInfo");
     //
     let now = new Date().getTime();
-    let start = new Date(raw["活动开始时间"]).getTime();
-    let end = new Date(raw["活动结束时间"]).getTime();
+    let start = new Date(raw["activityStartTime"]).getTime();
+    let end = new Date(raw["activityEndTime"]).getTime();
 
     let normalText = "立即报名";
 
@@ -125,25 +103,27 @@ export default function ({ env, data, inputs, outputs, slots }) {
   return (
     <View className={css.card} onClick={onClick}>
       <View className={css.head}>
-        {raw?.活动分类?.分类名称 ? (
-          <View className={css.tag}>{raw?.活动分类?.分类名称}</View>
+        {raw?.category?.categoryName ? (
+          <View className={css.tag}>{raw?.category?.categoryName}</View>
         ) : null}
         <SkeletonImage
           skeleton={true}
           className={css.thumbnail}
           mode="aspectFill"
-          src={raw["活动海报"]}
+          src={raw["activityPosterUrl"]}
         />
       </View>
       <View className={css.body}>
-        <View className={css.title}>{raw["活动名称"]}</View>
+        <View className={css.title}>{raw["activityName"]}</View>
         <View className={css.meta}>
           <View className={css.left}>
             <View className={css.datetime}>
               <Text className={css.text}>{datetime}</Text>
             </View>
             <View className={css.address}>
-              <Text className={css.text}>{raw["活动城市"] || raw['活动地址']}</Text>
+              <Text className={css.text}>
+                {raw["activityCity"]}
+              </Text>
             </View>
           </View>
           <View className={css.btn}>{buttonText}</View>
