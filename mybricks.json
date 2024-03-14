@@ -10,8 +10,6 @@
     "./src/_login/com.json",
     "./src/_getRouter/com.json",
     "./src/_generateScheme/com.json",
-    "./src/_logout/com.json",
-    "./src/_getUserInfo/com.json",
     "./src/_goto/com.json",
     "./src/_navigateBack/com.json",
     "./src/_setClipboardData/com.json",

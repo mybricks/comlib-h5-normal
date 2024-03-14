@@ -38,6 +38,14 @@ export default function (props) {
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((files) => {
       data.value = [...data.value, ...files];
+
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value: data.value,
+      });
+
+      outputs["onChange"](data.value);
     });
   }, []);
 
