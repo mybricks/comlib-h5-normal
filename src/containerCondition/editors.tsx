@@ -66,8 +66,9 @@ export default {
           onAdd() {
             const uid = uuid('', 5);
             const id = `condition_${uid}`;
+            const title = `条件${data.new_index++}`;
 
-            const title = window.prompt('请输入条件名称');
+            // const title = window.prompt('请输入条件名称');
 
             if (!title) {
               // title = `未命名条件`
