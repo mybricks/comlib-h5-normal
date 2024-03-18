@@ -23,6 +23,8 @@ const mockData = {
 };
 
 const formatTimestamp = (timestamp) => {
+  timestamp = timestamp?.replace(/-/g, "/");
+
   const date = new Date(timestamp);
   const now = new Date();
   const isCurrentYear = date.getFullYear() === now.getFullYear();
@@ -56,7 +58,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   const onClick = useCallback(() => {
     outputs["onClick"]({
-      id: raw.id,
+      activityId: raw.id,
     });
   }, [raw]);
 
@@ -68,8 +70,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
     let userInfo = Taro.getStorageSync("userInfo");
     //
     let now = new Date().getTime();
-    let start = new Date(raw["activityStartTime"]).getTime();
-    let end = new Date(raw["activityEndTime"]).getTime();
+    let start = new Date(raw["activityStartTime"]?.replace(/-/g, "/")).getTime();
+    let end = new Date(raw["activityEndTime"]?.replace(/-/g, "/")).getTime();
 
     let normalText = "立即报名";
 
@@ -121,9 +123,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
               <Text className={css.text}>{datetime}</Text>
             </View>
             <View className={css.address}>
-              <Text className={css.text}>
-                {raw["activityCity"]}
-              </Text>
+              <Text className={css.text}>{raw["activityCity"]}</Text>
             </View>
           </View>
           <View className={css.btn}>{buttonText}</View>

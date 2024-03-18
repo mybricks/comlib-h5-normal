@@ -16,77 +16,69 @@ import RichText from "./../components/rich-text";
 // import mockAct from "./mockAct";
 
 const mockData = {
-  id: 468079575793733,
-  活动名称: "青橙会养生派周易文化公益沙龙1期",
-  活动海报:
-    "https://admin.alialumni.com/mfs/imgs/1692113981887/Ykg8lfo0KytSHM5VEEUANhuk7At2wToi-1692113982164.jpeg",
-  活动开始时间: 1692770400598,
-  活动结束时间: 1692783018598,
-  活动形式: null,
-  活动地址: "杭州",
-  活动简介: null,
-  活动详情:
-    "%3Cp%3E%E6%9C%AC%E6%9C%9F%E4%B8%BB%E9%A2%98%EF%BC%9A%3Cbr%20%2F%3E%E2%9C%85%20%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E4%B8%80%E4%B8%AA%E4%BA%BA%E7%9A%84%E5%90%8D%E5%AD%97%EF%BC%8C%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E8%BF%99%E4%B8%AA%E4%BA%BA%E7%9A%84%E6%80%A7%E6%A0%BC%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%20%E4%B8%8D%E9%80%82%E5%AE%9C%E7%9A%84%E5%90%8D%E5%AD%97%E4%BC%9A%E5%B8%A6%E6%9D%A5%E5%93%AA%E4%BA%9B%E9%9A%90%E6%82%A3%EF%BC%9F%E5%AD%A9%E5%AD%90%E5%8F%96%E5%90%8D%E7%A6%81%E5%BF%8C%EF%BC%81%E2%9A%A0%EF%B8%8F%3Cbr%20%2F%3E%E2%9C%85%E5%AE%B6%E5%B1%85%E9%A3%8E%E6%B0%B4%E3%80%81%E5%8A%9E%E5%85%AC%E9%A3%8E%E6%B0%B4%E7%9A%84%E7%A6%81%E5%BF%8C%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E5%A6%82%E4%BD%95%E5%A2%9E%E6%97%BA%E4%BA%8B%E4%B8%9A%E5%92%8C%E5%AE%85%E8%BF%90%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E4%B9%B0%E6%88%BF%E3%80%81%E7%A7%9F%E6%88%BF%E6%97%B6%E5%BA%94%E8%AF%A5%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%E9%A3%8E%E6%B0%B4%E7%A6%81%E5%BF%8C%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E5%A9%9A%E5%A7%BB%E4%B8%8D%E9%A1%BA%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%84%E9%81%BF%E5%92%8C%E5%8C%96%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E6%8B%9B%E6%A1%83%E8%8A%B1%EF%BC%9F%E5%A6%82%E4%BD%95%E6%96%A9%E6%A1%83%E8%8A%B1%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E5%AD%A9%E5%AD%90%E6%88%90%E7%BB%A9%E4%B8%80%E7%9B%B4%E4%B8%8A%E4%B8%8D%E5%8E%BB%EF%BC%8C%E5%A6%82%E4%BD%95%E6%94%B9%E5%96%84%E6%88%90%E6%89%8D%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E4%BD%9C%E4%BC%99%E4%BC%B4%EF%BC%8C%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E7%94%9F%E5%91%BD%E4%B8%AD%E7%9A%84%E8%B4%B5%E4%BA%BA%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E6%98%93%E7%BB%8F%E9%A3%8E%E6%B0%B4%E8%AE%A9%E8%B4%A2%E8%BF%90%E3%80%81%E6%83%85%E6%84%9F%E3%80%81%E4%BA%8B%E4%B8%9A%E7%AD%89%E5%90%84%E6%96%B9%E9%9D%A2%E8%BF%90%E5%8A%BF%E7%BF%BB%E5%80%8D%EF%BC%9F%3Cbr%20%2F%3E%E2%9C%85%E5%A6%82%E4%BD%95%E5%A2%9E%E8%BF%90%E6%97%BA%E8%BF%90%EF%BC%8C%E6%8F%90%E5%8D%87%E6%95%B4%E4%BD%93%E8%BF%90%E5%8A%BF%EF%BC%9F%3Cbr%20%2F%3E%E2%8C%9A%EF%B8%8F%E6%97%B6%E9%97%B4%EF%BC%9A8%E6%9C%8823%E6%97%A5%E4%B8%8B%E5%8D%8814%3A00%EF%BD%9E17%EF%BC%9A30%3Cbr%20%2F%3E%5B%E5%8A%A0%E6%B2%B9%5D%E5%90%8D%E9%A2%9D%E6%9C%89%E9%99%90%EF%BC%8C%E6%8F%90%E5%89%8D%E6%8A%A5%E5%90%8D%EF%BC%8C%E8%B0%A2%E7%BB%9D%E7%A9%BA%E9%99%8D%EF%BC%81%E3%80%90%E9%B8%BD%E5%AD%90%E8%B4%B9200%E5%85%83%E3%80%91%3C%2Fp%3E%0A%3Cp%3E%E5%88%86%E4%BA%AB%E5%98%89%E5%AE%BE%EF%BC%9A%3C%2Fp%3E%0A%3Cp%3E%3Cimg%20style%3D%22max-width%3A%20100%25%3B%22%20src%3D%22https%3A%2F%2Fadmin.alialumni.com%2Fmfs%2Ffiels%2F1692114031230%2FsXELDF2s35UTguRaDF4FzesIv04dXJeV-1692114031631.jpg%22%20%2F%3E%3C%2Fp%3E",
-  活动报名表: [
-    {
-      id: 468083709112389,
-      用户: {
-        id: 461217339809861,
-        头像: "https://admin.alialumni.com/mfs/imgs/1690438717081/X3lJiCenHakjKJke2Inn8cK1JeoiawsY-1690438717381.jpg",
-        昵称: "新辰",
-        用户名: "odlHh5OvNMK49dDcYP-Ukp8ki73g",
-        阿里花名: "新辰",
-      },
-      _用户: 461217339809861,
-      审核状态: "审核通过",
-    },
-    {
-      id: 468275728592965,
-      用户: {
-        id: 463665624469573,
-        头像: "https://admin.alialumni.com/mfs/imgs/1690438717081/X3lJiCenHakjKJke2Inn8cK1JeoiawsY-1690438717381.jpg",
-        昵称: "新辰",
-        用户名: "odlHh5Iv4G8R1MgwbYgekqH3CGnA",
-        阿里花名: "新辰",
-      },
-      _用户: 463665624469573,
-      审核状态: "审核中",
-    },
-  ],
-  _活动分类: 463762142621765,
-  活动分类: {
+  activity: {
+    id: 539796973918336,
+    activityName: "xxx活动2",
+    activityStartTime: "2023-08-24 19:00:00",
+    activityEndTime: "2023-08-24 21:00:33",
+    activityType: "1",
+    activityAddress: "中山花园秋月苑5楼海之莲1",
+    activityBrief: "1",
+    activityDetails: "1",
+    activityCategoryId: 463762142621765,
+    activityPosterUrl:
+      "https://admin.alialumni.com/mfs/imgs/1691398475677/LViKCtb63WK81tcCG4RTu1iXoIoUoIN7-1691398475947.jpg",
+    activityCity: "杭州",
+    activityOrganizerId: 461217339809861,
+    activitySpecialStatus: "1",
+    activityCreatorId: 461215023108165,
+    activityUpdaterId: 461164569567301,
+    registerLimit: 10,
+    activityStatus: "上架",
+    organizationId: 462657399377989,
+    ticketType: [],
+    additionalField: [],
+    registerRequirement: "1",
+    registerCondition: "1",
+  },
+  loginUser: {
+    id: 456915935653957,
+    username: "odlHh5Dr3hfgOW1t1q_DjK3s02Dc",
+    avatar: "",
+    nickName: "钟鱼",
+    aliFlowerName: "aliFlowerName",
+  },
+  activityRegister: null,
+  activityRegisterList: [],
+  activityCategory: {
     id: 463762142621765,
-    分类名称: "养生派",
-    分类图标: null,
-    分类简介: "",
+    categoryName: "养生派",
+    categoryBrief: "11",
+    categoryIcon: null,
   },
-  活动城市: "杭州",
-  活动特殊状态: "",
-  报名人数上限: 20,
-  _活动发起人: 461217339809861,
-  活动发起人: {
+  activityOrganizer: {
     id: 461217339809861,
-    头像: "https://admin.alialumni.com/mfs/imgs/1690438717081/X3lJiCenHakjKJke2Inn8cK1JeoiawsY-1690438717381.jpg",
-    昵称: "新辰",
-    阿里花名: "新辰",
-    微信二维码:
+    avatar:
+      "https://admin.alialumni.com/mfs/imgs/1690438717081/X3lJiCenHakjKJke2Inn8cK1JeoiawsY-1690438717381.jpg",
+    nickName: "新辰",
+    wechatAvatar: null,
+    wechatQrcode:
       "https://admin.alialumni.com/mfs/imgs/1690439180972/HiMTUbYn46LF5xrsPbfihCrlEntavUbs-1690439181398.jpg",
-    阿里认证审核状态: "审核通过",
   },
-  活动状态: null,
-  _组织: 464080158371909,
-  组织: {
-    id: 464080158371909,
-    组织名称: "阿里校友志愿者",
-    组织图标:
-      "https://admin.alialumni.com/mfs/imgs/1691138016325/fiPyDzlroojaJF4Xego1Buxwkj5gLauf-1691138016255.jpeg",
-    组织简介:
-      "欢迎全球各地阿里同学积极参与组织建设，加入全球校友志愿者网络，目前志愿者超过300人，分布式协同运营支持社群发展。",
+  organization: {
+    id: 462657399377989,
+    organizationName: "青橙会养生派",
+    organizationDesc:
+      "阿里青橙会旗下组织，搭建一个让校友们更健康，美丽，富有的平台。期待更多喜欢的校友加入我们，一起链接。 养生派有丰富的线下活动供大家体验。",
+    organizationIcon:
+      "https://img.alialumni.com/1709303794067_d4763e4e7d104ea6abfabd212b8157bf.jpg",
   },
-  我的状态: "",
 };
 
 const formatTimestamps = (timestamp1, timestamp2) => {
+  timestamp1 = timestamp1?.replace(/-/g, "/");
+  timestamp2 = timestamp2?.replace(/-/g, "/");
+
   const date1 = new Date(timestamp1);
   const date2 = new Date(timestamp2);
 
@@ -130,19 +122,19 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
   useEffect(() => {
     if (!env.edit) {
       let cache = Taro.getStorageSync(`cache${id}`);
-      let qrcode = raw["活动发起人"]?.["微信二维码"];
+      let qrcode = raw["activityOrganizer"]?.["wechatQrcode"];
       setContactable(!cache && !!qrcode);
     } else {
       setContactable(true);
     }
-  }, [raw["活动发起人"]]);
+  }, [raw["activityOrganizer"]]);
 
   useMemo(() => {
     inputs["status"]((val) => {
       setRaw((raw) => {
+        raw["activityRegister"]?.["auditStatus"] = val;
         return {
           ...raw,
-          ["我的状态"]: val,
         };
       });
     });
@@ -150,25 +142,34 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
     inputs["value"]((val) => {
       //
       let now = new Date().getTime();
-      let start = val["活动开始时间"];
-      let end = val["活动结束时间"];
+      let start = new Date(
+        val.activity?.["activityStartTime"]?.replace(/-/g, "/")
+      ).getTime();
+      let end = new Date(
+        val.activity?.["activityEndTime"]?.replace(/-/g, "/")
+      ).getTime();
+
+      val["activityRegister"] = val["activityRegister"] || {};
 
       if (now < start) {
         // 报名中的活动，如果人数达到上限，则停止报名
-        let 活动报名表 = val["活动报名表"] || [];
+        let activityRegisterList = val?.["activityRegisterList"] || [];
 
-        活动报名表 = 活动报名表.filter((item) => {
-          return item.审核状态 !== "审核未通过";
+        activityRegisterList = activityRegisterList.filter((item) => {
+          return item.auditStatus !== "审核未通过";
         });
 
-        if (val["报名人数上限"] && val["报名人数上限"] <= 活动报名表.length) {
-          val["我的状态"] = "报名人数已满";
+        if (
+          val.activity?.["registerLimit"] &&
+          val.activity?.["registerLimit"] <= activityRegisterList.length
+        ) {
+          val["activityRegister"]?.["auditStatus"] = "报名人数已满";
         }
         //////
       } else if (now > end) {
-        val["我的状态"] = "活动已结束";
+        val["activityRegister"]?.["auditStatus"] = "活动已结束";
       } else {
-        val["我的状态"] = "活动进行中";
+        val["activityRegister"]?.["auditStatus"] = "活动进行中";
       }
 
       setRaw({
@@ -178,16 +179,22 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
   }, []);
 
   const datetime = useMemo(() => {
-    if (raw["活动开始时间"] && raw["活动结束时间"]) {
-      return formatTimestamps(raw["活动开始时间"], raw["活动结束时间"]);
+    if (
+      raw.activity?.["activityStartTime"] &&
+      raw.activity?.["activityEndTime"]
+    ) {
+      return formatTimestamps(
+        raw.activity["activityStartTime"],
+        raw.activity["activityEndTime"]
+      );
     } else {
       return "";
     }
   }, [raw]);
 
   const content = useMemo(() => {
-    if (raw["活动详情"]) {
-      let content = decodeURIComponent(raw["活动详情"]);
+    if (raw.activity?.["activityDetails"]) {
+      let content = decodeURIComponent(raw.activity["activityDetails"]);
       content = content.replace(
         /<img/gi,
         '<img style="display: block; width: 100%; height: auto;"'
@@ -207,32 +214,35 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
   }, []);
 
   const onToggleSignup = useCallback(() => {
-    if (raw["我的状态"] && raw["我的状态"] !== "审核未通过") {
+    if (
+      raw["activityRegister"]?.["auditStatus"] &&
+      raw["activityRegister"]?.["auditStatus"] !== "审核未通过"
+    ) {
       return;
     }
 
     outputs["onSignup"]({
-      id: raw.id,
+      activityId: raw.id,
     });
   }, [raw]);
 
   const 活动报名表 = useMemo(() => {
-    let result = raw["活动报名表"] || [];
+    let result = raw["activityRegisterList"] || [];
     result = result.filter((item) => {
-      return item.审核状态 !== "审核未通过";
+      return item.auditStatus !== "审核未通过";
     });
     return result;
-  }, [raw["活动报名表"]]);
+  }, [raw["activityRegisterList"]]);
 
   const onClickGroup = useCallback(() => {
     outputs["onClickGroupCard"]({
-      id: raw["组织"]?.id,
+      organizationId: raw["organization"]?.id,
     });
   }, [raw]);
 
   const onClickUser = useCallback((userId) => {
     outputs["onClickUserCard"]({
-      id: userId,
+      userId: userId,
     });
   }, []);
 
@@ -245,9 +255,9 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
     setContactable(false);
 
     Taro.previewImage({
-      urls: [raw["活动发起人"]?.["微信二维码"]],
+      urls: [raw["activityOrganizer"]?.["wechatQrcode"]],
     });
-  }, [raw["活动发起人"], env]);
+  }, [raw["activityOrganizer"], env]);
 
   /**
    * 暂无数据
@@ -278,40 +288,44 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
             className={css.thumbnail}
             skeleton={true}
             mode={"aspectFill"}
-            src={raw["活动海报"]}
+            src={raw.activity["activityPosterUrl"]}
           />
         </View>
 
         <View className={css.meta}>
-          <View className={css.title}>{raw["活动名称"]}</View>
+          <View className={css.title}>{raw.activity["activityName"]}</View>
 
           <View className={css.datetime}>
             <Text className={css.text}>{datetime}</Text>
           </View>
 
           <View className={css.address}>
-            <Text className={css.text}>{`${raw["活动地址"] || ""}`}</Text>
+            <Text className={css.text}>{`${
+              raw.activity["activityAddress"] || ""
+            }`}</Text>
           </View>
         </View>
       </View>
 
       {/* 社群 */}
-      {raw["组织"] ? (
+      {raw["organization"] ? (
         <View className={css.card}>
           <View className={css.label}>关联社群</View>
           <View className={css.content}>
             <View className={css.groupCard} onClick={onClickGroup}>
               <View className={css.head}>
                 <View className={css.main}>
-                  {raw["组织"]["组织图标"] ? (
+                  {raw["organization"]["organizationIcon"] ? (
                     <Image
                       className={css.logo}
                       mode="scaleToFill"
-                      src={raw["组织"]["组织图标"]}
+                      src={raw["organization"]["organizationIcon"]}
                     />
                   ) : null}
                   <View className={css.meta}>
-                    <View className={css.title}>{raw["组织"]["组织名称"]}</View>
+                    <View className={css.title}>
+                      {raw["organization"]["organizationName"]}
+                    </View>
                   </View>
                 </View>
                 <View className={css.button}>查看</View>
@@ -394,11 +408,13 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
 
         <View
           className={cx(css.signupButton, {
-            [css.disabled]: raw["我的状态"] && raw["我的状态"] !== "审核未通过",
+            [css.disabled]:
+              raw["activityRegister"]?.["auditStatus"] &&
+              raw["activityRegister"]?.["auditStatus"] !== "审核未通过",
           })}
           onClick={onToggleSignup}
         >
-          {raw["我的状态"] || "我要报名"}
+          {raw["activityRegister"]?.["auditStatus"] || "我要报名"}
         </View>
       </View>
     </View>
