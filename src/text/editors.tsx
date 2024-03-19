@@ -47,6 +47,16 @@ export default {
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
+        // {
+        //   title: "组件默认状态",
+        //   type: "radio",
+        //   options: [
+        //     { label: "静态数据", value: "static" },
+        //     { label: "骨架屏", value: "skeleton" },
+        //     { label: "不渲染", value: "none" },
+        //   ],
+        // },
+        // {},
         {
           title: "文本内容",
           type: "textarea",

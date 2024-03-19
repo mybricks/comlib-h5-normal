@@ -23,7 +23,7 @@
   "outputs": [
     {
       "id": "pageDidShow",
-      "title": "当页面显示时",
+      "title": "当页面重新显示时",
       "schema": {
         "type": "object"
       }
