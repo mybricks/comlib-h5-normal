@@ -8,7 +8,6 @@
   "icon": "./icon.svg",
   "runtime": "./runtime.ts",
   "editors": "./editors.ts",
-  "upgrade": "./upgrade.ts",
   "rtType": "js",
   "inputs": [
     {
