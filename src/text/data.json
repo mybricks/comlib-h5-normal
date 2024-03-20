@@ -1,4 +1,7 @@
 {
+  "defaultStatus": "static",
+  "ready": true,
+
   "text": "文本内容",
   "ellipsis": false,
   "maxLines": 1

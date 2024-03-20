@@ -1,31 +1,45 @@
-import { runJs } from "./../utils/com-utils";
-import { Data } from "./constants";
-import { convertObject2Array } from "./util";
+import { runJs } from './com-utils';
+import { Data } from './constants';
+import { convertObject2Array } from './util';
 
-export default function ({ env, data, inputs, outputs }: RuntimeParams<Data>) {
+export default function ({ env, data, inputs, outputs, logger, onError }: RuntimeParams<Data>) {
   const { fns, runImmediate } = data;
+
   const runJSParams = {
-    outputs: convertObject2Array(outputs),
+    outputs: convertObject2Array(outputs)
   };
+
+  let sandbox;
+  
   try {
     if (runImmediate) {
       if (env.runtime) {
-        runJs(fns, [runJSParams]);
+        sandbox = runJs(fns, [runJSParams]);
       }
     }
-    inputs["input"]((val) => {
+    inputs['input']((val) => {
       try {
-        runJs(fns, [
+        sandbox = runJs(fns, [
           {
             ...runJSParams,
-            inputs: convertObject2Array(val),
-          },
+            inputs: convertObject2Array(val)
+          }
         ]);
       } catch (ex: any) {
-        console.error("js计算组件运行错误.", ex);
+        onError?.(ex);
+        console.error('js计算组件运行错误.', ex);
+        logger.error(`${ex}`);
       }
     });
+    if(typeof env?.runtime?.onComplete === 'function') {
+      env.runtime.onComplete(()=>{
+        sandbox?.dispose()
+      })
+    }
   } catch (ex: any) {
-    console.error("js计算组件运行错误.", ex);
+    onError?.(ex);
+    console.error('js计算组件运行错误.', ex);
+    logger.error(`${ex}`);
   }
+
 }
