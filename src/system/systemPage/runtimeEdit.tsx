@@ -32,43 +32,18 @@ export default function ({ env, data, inputs, outputs, slots }) {
     // 如果 data.tabBar 多于 defaultTabBar，则为回滚操作
     let defaultTabBar = window.__tabbar__.get();
     if (data.tabBar.length > defaultTabBar.length) {
-      console.warn("回滚操作", data.tabBar.length, defaultTabBar.length, env.canvas.id);
+      console.warn(
+        "回滚操作",
+        data.tabBar.length,
+        JSON.parse(JSON.stringify(data.tabBar)),
+        defaultTabBar.length,
+        JSON.parse(JSON.stringify(defaultTabBar)),
+        env.canvas.id
+      );
+
       window.__tabbar__.set(data.tabBar);
     }
   }, [data.tabBar, env.canvas.id]);
-
-  // 监听画布被删除
-  // if (!env.canvas.isValid(env.canvas.id)) {
-  //   // 引擎 bug：画布被删除或者回滚时，都会触发 isValid false
-  //   console.error("画布被删除或者回滚", env.canvas.id);
-
-  //   let defaultTabBar = window.__tabbar__.get();
-  //   let tabBar = defaultTabBar.filter((item) => {
-  //     return item.scene.id != env.canvas.id;
-  //   });
-
-  //   // 如果 data.tabBar 多于 defaultTabBar，则为回滚操作
-  //   if (data.tabBar.length > defaultTabBar.length) {
-  //     console.warn(
-  //       "回滚操作",
-  //       data.tabBar.length,
-  //       defaultTabBar.length,
-  //       tabBar.length
-  //     );
-  //     window.__tabbar__.set(data.tabBar);
-  //   } else {
-  //     console.warn(
-  //       "删除操作",
-  //       data.tabBar.length,
-  //       defaultTabBar.length,
-  //       tabBar.length
-  //     );
-
-  //     if (defaultTabBar.length !== tabBar.length) {
-  //       window.__tabbar__.set(tabBar);
-  //     }
-  //   }
-  // }
 
   /**
    * 监听 tabBar 广播，更新 data
@@ -92,6 +67,12 @@ export default function ({ env, data, inputs, outputs, slots }) {
       refreshTabbar();
     };
   }, []);
+
+  // data.tabBar = data.tabBar.filter((item) => {
+  //   console.warn("删除操作", item.scene.id !== "u_ewH9s" , env.canvas.id);
+  //   return item.scene.id !== "u_ewH9s";
+  // });
+  // window.__tabbar__.set(data.tabBar);
 
   const useTabBar = useMemo(() => {
     if (!data.useTabBar) {
