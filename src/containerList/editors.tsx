@@ -1,6 +1,9 @@
-import { Direction } from './constant'
+import { Direction } from "./constant";
 
 export default {
+  "@resize": {
+    options: ["width"],
+  },
   "@inputConnected"({ data, input, output, slots }, fromPin, toPin) {
     if (toPin.id === "dataSource") {
       let itemSchema = {};
@@ -15,11 +18,11 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
-        title: '排列方向',
-        type: 'select',
+        title: "排列方向",
+        type: "select",
         options: [
-          { label: '竖向排列', value: Direction.Column },
-          { label: '横向排列', value: Direction.Row }
+          { label: "竖向排列", value: Direction.Column },
+          { label: "横向排列", value: Direction.Row },
         ],
         value: {
           get({ data }) {
@@ -60,17 +63,17 @@ export default {
         },
         items: [
           {
-            title: '',
-            catelog: '默认',
-            type: 'editorRender',
+            title: "",
+            catelog: "默认",
+            type: "editorRender",
             options: {
-              render: () => '暂无'
+              render: () => "暂无",
             },
           },
           {
             title: "提示文案",
             type: "text",
-            catelog: '加载中',
+            catelog: "加载中",
             value: {
               get({ data }) {
                 return data.loadingTip;
@@ -83,7 +86,7 @@ export default {
           {
             title: "提示文案",
             type: "text",
-            catelog: '加载失败',
+            catelog: "加载失败",
             value: {
               get({ data }) {
                 return data.errorTip;
@@ -96,7 +99,7 @@ export default {
           {
             title: "提示文案",
             type: "text",
-            catelog: '没有更多',
+            catelog: "没有更多",
             value: {
               get({ data }) {
                 return data.emptyTip;
@@ -106,10 +109,9 @@ export default {
               },
             },
           },
-        ]
+        ],
       },
-      
-      
+
       {
         title: "",
         items: [
@@ -173,8 +175,8 @@ export default {
       //   ],
       // },
       {
-        title: '唯一主键',
-        type: 'text',
+        title: "唯一主键",
+        type: "text",
         value: {
           get({ data }) {
             return data.rowKey;
@@ -183,7 +185,7 @@ export default {
             data.rowKey = value;
           },
         },
-      }
+      },
     ];
   },
 };

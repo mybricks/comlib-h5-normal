@@ -1,31 +1,40 @@
-import {
-  CODE_TEMPLATE,
-  COMMENTS,
-  Data,
-  IMMEDIATE_CODE_TEMPLATE,
-} from "./constants";
-import { jsonToSchema, convertObject2Array } from "./util";
+import { CODE_TEMPLATE, COMMENTS, Data, IMMEDIATE_CODE_TEMPLATE } from './constants';
+import { setInputSchema, genLibTypes, updateOutputSchema, getIoOrder } from './util';
 
 export default {
-  "@init": ({ data, setAutoRun, isAutoRun, output }: EditorResult<Data>) => {
+  '@init': ({ data, setAutoRun, isAutoRun, output }: EditorResult<Data>) => {
     const autoRun = isAutoRun ? isAutoRun() : false;
     if (autoRun || data.runImmediate) {
       setAutoRun(true);
       data.runImmediate = true;
-      output.get("output0").setSchema({ type: "number" });
+      output.get('output0').setSchema({ type: 'number' });
+      data.extraLib = `declare interface IO {outputs: Array<Function>}`
     }
-    data.fns =
-      data.fns || (data.runImmediate ? IMMEDIATE_CODE_TEMPLATE : CODE_TEMPLATE);
+    data.fns = data.fns || (data.runImmediate ? IMMEDIATE_CODE_TEMPLATE : CODE_TEMPLATE);
   },
-  "@inputConnected"({ data, output }, fromPin) {
+  async '@inputConnected'({ data, output, input }: EditorResult<Data>, fromPin, toPin) {
     if (data.fns === CODE_TEMPLATE) {
-      output.get("output0").setSchema({ type: "unknown" });
+      output.get('output0').setSchema({ type: 'unknown' });
     }
+    const schemaList = setInputSchema(toPin.id, fromPin.schema, data, input)
+    data.extraLib = await genLibTypes(schemaList)
   },
-  ":root": [
+  async '@inputUpdated'({ data, input }: EditorResult<Data>, updatePin) {
+    const schemaList = setInputSchema(updatePin.id, updatePin.schema, data, input)
+    data.extraLib = await genLibTypes(schemaList)
+  },
+  async '@inputRemoved'({ data, input }: EditorResult<Data>, removedPin) {
+    const schemaList = setInputSchema(removedPin.id, null, data, input)
+    data.extraLib = await genLibTypes(schemaList)
+  },
+  async '@inputDisConnected'({ data, input }: EditorResult<Data>, fromPin, toPin) {
+    const schemaList = setInputSchema(toPin.id, {type: 'null'}, data, input)
+    data.extraLib = await genLibTypes(schemaList)
+  },
+  ':root': [
     {
-      title: "添加输入项",
-      type: "Button",
+      title: '添加输入项',
+      type: 'Button',
       ifVisible({ data }: EditorResult<Data>) {
         return !data.runImmediate;
       },
@@ -34,13 +43,19 @@ export default {
           const idx = getIoOrder(input);
           const hostId = `input.inputValue${idx}`;
           const title = `参数${idx}`;
-          input.add(hostId, title, { type: "follow" }, true);
-        },
-      },
+          input.add({
+            id: hostId,
+            title,
+            schema: { type: 'follow' },
+            deletable: true,
+            editable: true
+          });
+        }
+      }
     },
     {
-      title: "添加输出项",
-      type: "Button",
+      title: '添加输出项',
+      type: 'Button',
       value: {
         set({ output }: EditorResult<Data>) {
           const idx = getIoOrder(output);
@@ -50,83 +65,49 @@ export default {
             id: hostId,
             title,
             schema: {
-              type: "unknown",
+              type: 'unknown'
             },
             editable: true,
-            deletable: true,
+            deletable: true
           });
-        },
-      },
+        }
+      }
     },
     {
-      type: "code",
+      type: 'code',
       options: ({ data, output }) => {
         const option = {
           babel: true,
           comments: COMMENTS,
-          theme: "light",
+          theme: 'light',
           minimap: {
-            enabled: false,
+            enabled: false
           },
-          lineNumbers: "on",
+          lineNumbers: 'on',
           eslint: {
             parserOptions: {
-              ecmaVersion: "2020",
-              sourceType: "module",
-            },
+              ecmaVersion: '2020',
+              sourceType: 'module'
+            }
           },
           autoSave: false,
-          // onBlur: () => {
-          //   updateOutputSchema(output, data.fns);
-          // },
+          extraLib: data.extraLib,
+          language: 'typescript',
+          onBlur: () => {
+            updateOutputSchema(output, data.fns);
+          }
         };
         return option;
       },
-      title: "代码编辑",
+      title: '代码编辑',
       value: {
         get({ data }: EditorResult<Data>) {
           return data.fns;
         },
         set({ data }: EditorResult<Data>, fns: any) {
           data.fns = fns;
-        },
-      },
-    },
-  ],
-};
-
-function updateOutputSchema(output, code) {
-  const outputs = {};
-  const inputs = {};
-  output.get().forEach(({ id }) => {
-    outputs[id] = (v: any) => {
-      try {
-        const schema = jsonToSchema(v);
-        output.get(id).setSchema(schema);
-      } catch (error) {
-        output.get(id).setSchema({ type: "unknown" });
+        }
       }
-    };
-  });
-
-  // try {
-  //   setTimeout(() => {
-  //     try {
-  //       const fn = eval(decodeURIComponent(code.code || code));
-  //       fn({
-  //         inputValue: void 0,
-  //         outputs: convertObject2Array(outputs),
-  //         inputs: convertObject2Array(inputs),
-  //       });
-  //     } catch (e) {
-  //       console.log("onUpdateOutputSchema", e);
-  //     }
-  //   });
-  // } catch (error) {}
-}
-
-function getIoOrder(io) {
-  const ports = io.get();
-  const { id } = ports.pop();
-  return Number(id.replace(/\D+/, "")) + 1;
-}
+    }
+  ]
+};
