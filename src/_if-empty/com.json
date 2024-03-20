@@ -1,0 +1,38 @@
+{
+  "title": "空值判断",
+  "namespace": "mybricks.taro.ifempty",
+  "version": "1.0.0",
+  "description": "空值判断",
+  "author": "MyBricks",
+  "author_name": "MyBricks",
+  "icon": "./icon.svg",
+  "runtime": "./runtime.ts",
+  "editors": "./editors.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "inputContext",
+      "title": "输入项",
+      "schema": {
+        "type": "follow"
+      },
+      "editable": true
+    }
+  ],
+  "outputs": [
+    {
+      "id": "notEmpty",
+      "title": "非空",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "isEmpty",
+      "title": "空",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}
