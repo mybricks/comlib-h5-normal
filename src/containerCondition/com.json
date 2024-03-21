@@ -48,22 +48,43 @@
         "type": "any"
       },
       "title": "切换完成"
-    },{
-      "id":"setValueDone",
-      "schema":{
-        "type":"string"
+    },
+    {
+      "id": "setValueDone",
+      "schema": {
+        "type": "string"
       },
-      "title":"切换条件完成"
+      "title": "切换条件完成"
     }
   ],
   "slots": [
     {
       "id": "condition_1",
-      "title": "条件1"
+      "title": "条件1",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
     },
     {
       "id": "condition_2",
-      "title": "条件2"
+      "title": "条件2",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
     }
   ]
 }

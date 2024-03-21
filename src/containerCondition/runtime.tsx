@@ -5,6 +5,7 @@ import css from "./style.less";
 
 export default function ({ env, data, slots, inputs, outputs }) {
   const [innputId, setInputId] = useState();
+  const [bool, setBool] = useState();
 
   const activeId = useMemo(() => {
     if (env.edit) {
@@ -23,6 +24,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
       setInputId(item.id);
+      setBool(bool);
       relOutputs["setValueDone"]?.(bool);
     });
 
@@ -30,6 +32,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
     data.items.forEach((item) => {
       inputs[item.id]?.((bool, relOutputs) => {
         setInputId(item.id);
+        setBool(bool);
         relOutputs["changeDone"]?.(bool);
       });
     })
@@ -43,7 +46,11 @@ export default function ({ env, data, slots, inputs, outputs }) {
         }
         return (
           <View className={css.content}>
-            {slots[item.id]?.render({})}
+            {slots[item.id]?.render({
+              inputValues: {
+                itemData: bool,
+              },
+            })}
           </View>
         );
       })}

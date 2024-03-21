@@ -11,6 +11,16 @@
       "_id": "condition_1",
       "id": "condition_1",
       "title": "条件1",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ],
       "rels": [
         "changeSuccess"
       ]
@@ -19,6 +29,16 @@
       "_id": "condition_2",
       "id": "condition_2",
       "title": "条件2",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ],
       "rels": [
         "changeSuccess"
       ]
