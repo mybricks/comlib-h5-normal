@@ -139,7 +139,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
     /** 下发表单项的onChange函数，用来收集表单项数据 */
     slots["content"]._inputs["onChange"](({ id, name, value }) => {
       const item = getFormItem(data.items, { id, name });
-
       if (item) {
         form.setFieldValue(item.name || item.label, value);
       }
