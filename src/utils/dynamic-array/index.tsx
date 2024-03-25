@@ -121,7 +121,7 @@ export class DynamicArrayData {
   };
 }
 
-function computedAction({ before, after }) {
+function computedAction({ before = [], after = [] }) {
   let beforeIds = before.map((item) => item._id);
   let afterIds = after.map((item) => item._id);
 

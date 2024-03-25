@@ -1,0 +1,22 @@
+{
+  "cates": [
+    {
+      "type": "popup",
+      "label": "智能排序",
+      "footer": "custom",
+      "_id": "u_item1"
+    },
+    {
+      "type": "popup",
+      "label": "分类",
+      "footer": "normal",
+      "_id": "u_item2"
+    },
+    {
+      "type": "event",
+      "label": "全部筛选",
+      "footer": "normal",
+      "_id": "u_item3"
+    }
+  ]
+}
