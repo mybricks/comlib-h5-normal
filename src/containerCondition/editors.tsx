@@ -1,5 +1,8 @@
 import { uuid } from "../utils";
 import css from './editors.less';
+import comJson from "./com.json";
+
+const ScopeSlotInputs = comJson.slots[0].inputs;
 
 function getItem({ data, focusArea }) {
   if (!focusArea) return {};
@@ -79,7 +82,9 @@ export default {
             slots.add({
               id,
               title,
-            })
+              type: "scope",
+              inputs: ScopeSlotInputs,
+            });
             input.add({
               id: id,
               title: `切换到 ${title}`,
