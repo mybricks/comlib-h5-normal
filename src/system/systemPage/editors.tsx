@@ -77,6 +77,7 @@ export default {
       }
     }, 0);
   },
+  ":slot": {},
   ":root": {
     style: [],
     items: ({ env, data, output, style }, cate0, cate1, cate2) => {
