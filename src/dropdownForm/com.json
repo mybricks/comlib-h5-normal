@@ -1,0 +1,189 @@
+{
+  "title": "下拉表单容器",
+  "namespace": "mybricks.taro.dorpdownForm",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setFieldsValue",
+      "title": "设置表单数据",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "desc": "给表单设置数据"
+    },
+    {
+      "id": "getFieldsValue",
+      "title": "获取表单数据",
+      "rels": ["returnValues"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "获取表单数据"
+    },
+    {
+      "id": "resetFields",
+      "title": "重置表单",
+      "rels": ["onReset"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "触发表单所有字段进行重置"
+    },
+    {
+      "id": "closePopup",
+      "title": "关闭当前弹出项",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "desc": "关闭当前弹出项"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "returnValues",
+      "title": "表单数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onSubmit",
+      "title": "提交数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onMergeSubmit",
+      "title": "提交数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onReset",
+      "title": "重置完成"
+    }
+  ],
+  "slots": [
+    {
+      "id": "u_item1",
+      "capacity": 1,
+      "title": "智能排序",
+      "type": "scope",
+      "schema": "mybricks.taro.formContainer/formItem",
+      "inputs": [
+        {
+          "id": "setFieldsValue",
+          "title": "表单数据输入",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      ],
+      "_inputs": [
+        {
+          "id": "onChange",
+          "title": "表单项值变化",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "u_item2",
+      "capacity": 1,
+      "title": "分类",
+      "type": "scope",
+      "schema": "mybricks.taro.formContainer/formItem",
+      "inputs": [
+        {
+          "id": "setFieldsValue",
+          "title": "表单数据输入",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      ],
+      "_inputs": [
+        {
+          "id": "onChange",
+          "title": "表单项值变化",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "u_item23",
+      "capacity": 1,
+      "title": "全部筛选",
+      "type": "scope",
+      "schema": "mybricks.taro.formContainer/formItem",
+      "inputs": [
+        {
+          "id": "setFieldsValue",
+          "title": "表单数据输入",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      ],
+      "_inputs": [
+        {
+          "id": "onChange",
+          "title": "表单项值变化",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

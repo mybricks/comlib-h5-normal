@@ -103,6 +103,7 @@
     {
       "title": "其它",
       "comAry": [
+        "./src/calendar/com.json",
         "./src/cell/com.json",
         "./src/safeArea/com.json",
         "./src/ad-popup/com.json",
