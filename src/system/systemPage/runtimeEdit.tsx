@@ -22,11 +22,14 @@ export default function ({ env, data, inputs, outputs, slots }) {
    * 设置全局数据
    */
   useEffect(() => {
+    let defaultTabBar = window.__tabbar__?.get() ?? [];
+    data.tabBar = defaultTabBar;
+
     // 监听数据
-    window.__tabbar__.on(data.id, onHandleTabBar);
+    window.__tabbar__?.on(data.id, onHandleTabBar);
     return () => {
       // 这里顺序不能变，先 off 再 set，否则回滚操作会失效
-      window.__tabbar__.off(data.id, onHandleTabBar);
+      window.__tabbar__?.off(data.id, onHandleTabBar);
       refreshTabbar();
     };
   }, []);
@@ -69,7 +72,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   useEffect(() => {
     // 获取最新的 tabbar 数据
-    let globalTabBar = window.__tabbar__.get();
+    let globalTabBar = window.__tabbar__?.get() ?? [];
     
     if (data.useTabBar && !isContain(env.canvas.id, globalTabBar)) {
       // 标签页，但是不在 tabbar 里面
@@ -85,7 +88,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       });
     }
     
-    window.__tabbar__.set(JSON.parse(JSON.stringify(globalTabBar)));
+    window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
 
   }, [ data.useTabBar, env.canvas.id, defaultTabItem]);
 
@@ -97,12 +100,12 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
     //
     console.warn("删除操作", env.canvas.id);
-    let globalTabBar = window.__tabbar__.get();
+    let globalTabBar = window.__tabbar__?.get() ?? [];
     globalTabBar = globalTabBar.filter((item) => {
       return item.scene.id != env.canvas.id;
     });
 
-    window.__tabbar__.set(globalTabBar);
+    window.__tabbar__?.set(globalTabBar);
   }, [env.canvas.id]);
 
 
