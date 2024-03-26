@@ -167,6 +167,19 @@ export default {
           ],
         },
         {
+          title:"禁用页面滚动",
+          type:"switch",
+          value:{
+            get({data}){
+              return data.disableScroll
+            },
+            set({data},value){
+              data.disableScroll = value
+            }
+          }
+
+        },
+        {
           title: "页面展示",
           items: [
             {
