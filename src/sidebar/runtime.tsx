@@ -26,6 +26,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const [windowHeight, setWindowHeight] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [inClickType, setInClickType] = useState(false);
+  const [safeAreaHeight, setSafeAreaHeight] = useState(0);
   const [currentTabId, setCurrentTabId] = useState(
     getDefaultCurrTabId(data.tabs)
   );
@@ -42,19 +43,18 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   //判断是否有tabbar
   const ifHasTabbar = () => {
-    if (!isRelEnv()) return false
-    if (env.tabbar.list.length > 0){
-      return true
-    }else{
-      return false
+    if (!isRelEnv()) return false;
+    if (env.tabbar.list.length > 0) {
+      return true;
+    } else {
+      return false;
     }
-      
   };
 
   useEffect(() => {
     console.log("是否真机", isRelEnv(), "h", windowHeight, "w", windowWidth);
     console.log("ifHasTabbar", ifHasTabbar());
-  }, [windowHeight, windowWidth,env]);
+  }, [windowHeight, windowWidth, env]);
 
   useEffect(() => {
     //真机运行时，获取顶部插槽高度
@@ -74,10 +74,14 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     //真机运行时，获取屏幕高度和宽度
     if (isRelEnv()) {
       Taro.getSystemInfo().then((res) => {
-        console.log("getSystemInfo", res);
-        setWindowHeight(res.windowHeight);
-        setWindowWidth(res.windowWidth);
-        setPxDelta(res.windowWidth / 375);
+        console.log("Taro.getSystemInfo", res);
+        const { windowHeight, windowWidth } = res;
+        const pxDelta = windowWidth / 375;
+        setWindowHeight(windowHeight);
+        setWindowWidth(windowWidth);
+        setPxDelta(pxDelta);
+        const safeAreaHeight = res.screenHeight - res.safeArea.bottom;
+        setSafeAreaHeight(safeAreaHeight * pxDelta);
       });
     } else {
       //pc端调试态设置固定的宽高即可
@@ -168,16 +172,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }, [env]);
 
   const scrollStyle = useMemo(() => {
+    console.log("pxDelta", pxDelta);
     if (env.edit) {
       //编辑态,确保内容可见，不需要滚动
       return { height: "max-content" };
-    } else if(isRelEnv()){
+    } else if (isRelEnv()) {
       //线上运行态
 
       //判断是否有tabbar
       if (ifHasTabbar()) {
         return {
-          height: (windowHeight - topSlotHeight - 54) / pxDelta,
+          height: (windowHeight - topSlotHeight - safeAreaHeight - 54) / pxDelta,
         };
       } else {
         return {
@@ -190,7 +195,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         height: (windowHeight - topSlotHeight) / pxDelta,
       };
     }
-  }, [windowHeight, windowWidth, env,topSlotHeight, pxDelta]);
+  }, [windowHeight, windowWidth, env, topSlotHeight, pxDelta, safeAreaHeight]);
 
   const innerOnScroll = (e) => {
     //更新index到侧边栏之前，判断是否是点击触发的滚动；这里主要防止最后一个tab内容高度不足时导致的闪动
