@@ -11,30 +11,11 @@
   "editors": "./editors.tsx",
   "inputs": [
     {
-      "id": "tabList",
-      "title": "更新tab数据",
-      "schema": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "tabId": {
-              "title": "标签项id",
-              "type": "string"
-            },
-            "tabName": {
-              "title": "标签项名称",
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "activeTabId",
+      "id": "activeTabName",
+      "desc":"输入tab名称，激活对应的tab项",
       "title": "激活tab项",
       "schema": {
-        "type": "number"
+        "type": "string"
       }
     }
   ],
@@ -49,16 +30,40 @@
   ],
   "slots": [
     {
+      "id":"topSlot",
+      "title":"顶部插槽"
+    },
+    {
       "id": "content",
       "title": "内容"
     },
     {
       "id": "tabName1",
-      "title": "标签项1"
+      "title": "标签项1",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
     },
     {
       "id": "tabName2",
-      "title": "标签项2"
+      "title": "标签项2",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
     }
   ]
 }

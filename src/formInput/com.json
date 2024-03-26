@@ -33,9 +33,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "returnValidate"
-      ]
+      "rels": ["returnValidate"]
     },
     {
       "id": "getValue",
@@ -44,9 +42,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "returnValue"
-      ]
+      "rels": ["returnValue"]
     },
     {
       "id": "resetValue",
@@ -125,8 +121,5 @@
       }
     }
   ],
-  "schema": [
-    "mybricks.taro.formContainer/formItem",
-    "*"
-  ]
+  "schema": ["mybricks.taro.formContainer/formItem", "*"]
 }

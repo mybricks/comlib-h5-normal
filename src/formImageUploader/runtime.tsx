@@ -37,17 +37,12 @@ export default function (props) {
 
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((files) => {
-      data.value = [...data.value, ...files];
-
-      parentSlot?._inputs["onChange"]?.({
-        id: props.id,
-        name: props.name,
-        value: data.value,
-      });
-
-      outputs["onChange"](data.value);
+      data.value = [...files, ...data.value];
+      data.value = data.value.slice(0, data.maxCount);
+      onChange(data.value);
     });
-  }, []);
+    
+  }, [data]);
 
   const onChange = useCallback(
     (_value) => {
@@ -90,31 +85,28 @@ export default function (props) {
       sourceType: ["album", "camera"],
       success: async (res) => {
         slots["customUpload"]?.inputs["fileData"](res);
-
-        // res.tempFiles.forEach((tempFile) => {
-        //   // 上传
-        //   env.fileUploader(tempFile).then((url) => {
-        //     let newValue = JSON.parse(JSON.stringify(data.value));
-        //     newValue.unshift(url);
-        //     data.value = newValue;
-        //     onChange(newValue);
-        //   });
-        // });
       },
     });
   }, [data.value]);
 
   const onChooseAvatar = useCallback(
     (res) => {
-      console.error(res);
       let tempPath = res.detail.avatarUrl;
-
-      env.fileUploader({ path: tempPath }).then((url) => {
-        let newValue = JSON.parse(JSON.stringify(data.value));
-        newValue.unshift(url);
-        data.value = newValue;
-        onChange(newValue);
+      slots["customUpload"]?.inputs["fileData"]({
+        tempFilePaths: [tempPath],
+        tempPaths: [
+          {
+            path: tempPath,
+          },
+        ],
       });
+
+      // env.fileUploader({ path: tempPath }).then((url) => {
+      //   let newValue = JSON.parse(JSON.stringify(data.value));
+      //   newValue.unshift(url);
+      //   data.value = newValue;
+      //   onChange(newValue);
+      // });
     },
     [data.value]
   );

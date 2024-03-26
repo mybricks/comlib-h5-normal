@@ -327,7 +327,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
       ) : ( */}
       <ScrollView
         id="root_scroll"
-        scrollY
+        scrollY={!data.disableScroll}
         enhanced={isIOS && data.enabledPulldown ? false : true}
         // enhanced={true}
         // enhancedBounce={false}

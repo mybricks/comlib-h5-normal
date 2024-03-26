@@ -26,8 +26,8 @@ function rgbaToHex(rgba) {
 export default {
   "@init": ({ style, data, env }) => {
     style.width = "100%";
-
     data.id = env.canvas.id;
+<<<<<<< HEAD
 
     setTimeout(() => {
       /**
@@ -76,7 +76,10 @@ export default {
         }
       }
     }, 0);
+=======
+>>>>>>> 7464681acf49e5ad1a7388b9b365f074fd4bcbb1
   },
+  ":slot": {},
   ":root": {
     style: [],
     items: ({ env, data, output, style }, cate0, cate1, cate2) => {
@@ -213,6 +216,19 @@ export default {
               },
             },
           ],
+        },
+        {
+          title:"禁用页面滚动",
+          type:"switch",
+          value:{
+            get({data}){
+              return data.disableScroll
+            },
+            set({data},value){
+              data.disableScroll = value
+            }
+          }
+
         },
         {
           title: "页面展示",

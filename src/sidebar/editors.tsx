@@ -1,3 +1,9 @@
+import comJson from "./com.json";
+const ScopeSlotInputs = comJson.slots[2].inputs;
+let defaultItem = {
+  tabName: "未命名",
+};
+
 function getTabItem(data, focusArea) {
   const tabId = focusArea.dataset.tabId;
   for (let item of data.tabList) {
@@ -18,6 +24,7 @@ const getFocusTab = (props) => {
 function computedAction({ before, after }) {
   let beforeIds = before.map((item) => item._id);
   let afterIds = after.map((item) => item._id);
+  console.log("beforeLength", before.length, "afterLength", after.length);
 
   switch (true) {
     case before.length > after.length: {
@@ -89,9 +96,6 @@ export default {
             return [`${item.tabName || "未命名"}`];
           },
           onAdd() {
-            let defaultItem = {
-              tabName: "未命名",
-            };
             return defaultItem;
           },
           onSelect(_id, index) {
@@ -117,24 +121,45 @@ export default {
             return data.tabs;
           },
           set({ data, slot }, value) {
+            console.log("设置值", value);
             let action = computedAction({
               before: data.tabs,
               after: value,
             });
 
-            // switch (action?.name) {
-            //   case "remove":
-            //     slot.remove(action?.value._id);
-            //     break;
-            //   case "add":
-            //     slot.add(action?.value._id);
-            //     break;
-            //   case "update":
-            //     slot.setTitle(action?.value._id, action?.value.tabName);
-            //     break;
-            // }
+            switch (action?.name) {
+              case "remove":
+                slot.remove(action?.value._id);
+                break;
+              case "add":
+                console.log("add", action?.value._id, action?.value.tabName);
+                slot.add({
+                  id: action?.value._id,
+                  title:defaultItem.tabName,
+                  type: "scope",
+                  input: ScopeSlotInputs,
+                });
+                break;
+              case "update":
+                console.log("update", action?.value._id, action?.value.tabName);
+                slot.setTitle(action?.value._id, action?.value.tabName);
+                break;
+            }
 
             data.tabs = value;
+          },
+        },
+      },
+      {
+        title: "顶部插槽",
+        type: "switch",
+        description: "开启后，可在侧边栏顶部插入自定义内容（如搜索框）",
+        value: {
+          get({ data }) {
+            return data.useTopSlot;
+          },
+          set({ data }, value) {
+            data.useTopSlot = value;
           },
         },
       },
@@ -601,7 +626,7 @@ export default {
           set({ data, focusArea, slot }, value) {
             if (!focusArea) return;
             focusItem.tabName = value;
-            // slot.setTitle(focusItem._id, value);
+            slot.setTitle(focusItem._id, value);
           },
         },
       },
