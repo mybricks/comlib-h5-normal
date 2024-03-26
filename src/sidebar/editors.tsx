@@ -614,6 +614,7 @@ export default {
 
     if (!props.focusArea) return;
     const focusItem = getFocusTab(props);
+    props.data.edit.currentTabId = focusItem._id;
     cate1.title = "常规";
     cate1.items = [
       {
@@ -639,6 +640,7 @@ export default {
             data.tabs.splice(focusArea.index, 1);
             // const _id = getFocusTab({ data, focusArea })?._id
             slot.remove(focusItem._id);
+            data.edit.currentTabId = data.tabs[0]?._id;
           },
         },
       },
