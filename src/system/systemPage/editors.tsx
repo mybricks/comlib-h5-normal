@@ -33,7 +33,7 @@ export default {
       /**
        * 添加页面时，如果 data.useTabBar 为 true，则初始化 tabBar
        */
-      let defaultTabBar = window.__tabbar__.get();
+      let defaultTabBar = window.__tabbar__?.get() ?? [];
       let isContain = defaultTabBar.find((item) => {
         return item.scene.id == env.canvas.id;
       });
@@ -72,7 +72,7 @@ export default {
             },
           ];
 
-          window.__tabbar__.set(tabBar);
+          window.__tabbar__?.set(tabBar);
         }
       }
     }, 0);

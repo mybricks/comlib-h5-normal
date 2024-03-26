@@ -19,7 +19,7 @@ export default {
             data.useTabBar = value;
 
             // 开启
-            let defaultTabBar = window.__tabbar__.get();
+            let defaultTabBar = window.__tabbar__?.get() ?? [];
 
             let isContain = defaultTabBar.find((item) => {
               return item.scene.id == data.id;
@@ -56,7 +56,7 @@ export default {
                 },
               ];
 
-              window.__tabbar__.set(tabBar);
+              window.__tabbar__?.set(tabBar);
 
               if (tabBar.length > 5) {
                 message.error("由于底部标签栏最多支持5个标签");
@@ -68,7 +68,7 @@ export default {
               let tabBar = defaultTabBar.filter((item) => {
                 return item.scene.id != data.id;
               });
-              window.__tabbar__.set(tabBar);
+              window.__tabbar__?.set(tabBar);
             }
           },
         },
@@ -92,7 +92,7 @@ export default {
             tabBar[focusArea.index].text = value;
             data.tabBar = tabBar;
 
-            window.__tabbar__.set(tabBar);
+            window.__tabbar__?.set(tabBar);
           },
         },
       },
@@ -131,7 +131,7 @@ export default {
                 };
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -148,7 +148,7 @@ export default {
                 tabBar[focusArea.index].selectedIconPath = value;
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -172,7 +172,7 @@ export default {
                 };
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -196,7 +196,7 @@ export default {
                 };
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -213,7 +213,7 @@ export default {
                 tabBar[focusArea.index].normalIconPath = value;
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -237,7 +237,7 @@ export default {
                 };
                 data.tabBar = tabBar;
 
-                window.__tabbar__.set(tabBar);
+                window.__tabbar__?.set(tabBar);
               },
             },
           },
@@ -272,7 +272,7 @@ export default {
             }, 100);
 
             // data.tabBar = tabBar;
-            window.__tabbar__.set(tabBar);
+            window.__tabbar__?.set(tabBar);
           },
         },
       },
@@ -305,7 +305,7 @@ export default {
             }, 100);
 
             // data.tabBar = tabBar;
-            window.__tabbar__.set(tabBar);
+            window.__tabbar__?.set(tabBar);
           },
         },
       },

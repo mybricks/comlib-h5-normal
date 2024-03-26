@@ -17,23 +17,23 @@ export default function ({ env, data, inputs, outputs, slots }) {
     }
 
     //
-    let defaultTabBar = window.__tabbar__.get();
+    let defaultTabBar = window.__tabbar__?.get() ?? [];
     let tabBar = defaultTabBar.filter((item) => {
       return item.scene.id != env.canvas.id;
     });
 
     console.warn("删除操作", env.canvas.id);
     if (defaultTabBar.length !== tabBar.length) {
-      window.__tabbar__.set(tabBar);
+      window.__tabbar__?.set(tabBar);
     }
   }, [env.canvas.id]);
 
   useMemo(() => {
     // 如果 data.tabBar 多于 defaultTabBar，则为回滚操作
-    let defaultTabBar = window.__tabbar__.get();
+    let defaultTabBar = window.__tabbar__?.get() ?? [];
     if (data.tabBar.length > defaultTabBar.length) {
       console.warn("回滚操作", data.tabBar.length, defaultTabBar.length, env.canvas.id);
-      window.__tabbar__.set(data.tabBar);
+      window.__tabbar__?.set(data.tabBar);
     }
   }, [data.tabBar, env.canvas.id]);
 
@@ -65,7 +65,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
   //     );
 
   //     if (defaultTabBar.length !== tabBar.length) {
-  //       window.__tabbar__.set(tabBar);
+  //       window.__tabbar__?.set(tabBar);
   //     }
   //   }
   // }
@@ -81,14 +81,14 @@ export default function ({ env, data, inputs, outputs, slots }) {
    * 设置全局数据
    */
   useEffect(() => {
-    let defaultTabBar = window.__tabbar__.get();
+    let defaultTabBar = window.__tabbar__?.get() ?? [];
     data.tabBar = defaultTabBar;
 
     // 监听数据
-    window.__tabbar__.on(data.id, onHandleTabBar);
+    window.__tabbar__?.on(data.id, onHandleTabBar);
     return () => {
       // 这里顺序不能变，先 off 再 set，否则回滚操作会失效
-      window.__tabbar__.off(data.id, onHandleTabBar);
+      window.__tabbar__?.off(data.id, onHandleTabBar);
       refreshTabbar();
     };
   }, []);
