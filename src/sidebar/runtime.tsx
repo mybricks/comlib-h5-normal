@@ -57,16 +57,18 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }, [windowHeight, windowWidth, env]);
 
   useEffect(() => {
-    //真机运行时，获取顶部插槽高度
+
+    //真机运行时，获取侧边栏距离顶部的高度
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
       query
-        .select("#topSlot")
+        .select("#treeSelect")
         .boundingClientRect()
         .exec((res) => {
           const rect = res[0];
           if (rect) {
-            setTopSlotHeight(rect.height);
+            console.log("侧边栏距离顶部的高度", rect.top);
+            setTopSlotHeight(rect.top);
           }
         });
     }
