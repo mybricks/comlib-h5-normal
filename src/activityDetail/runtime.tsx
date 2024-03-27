@@ -347,7 +347,7 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
                     className={css.item}
                     key={index}
                     onClick={() => {
-                      onClickUser(item["用户"].id);
+                      onClickUser(item.id);
                     }}
                   >
                     <View className={css.avatarWrapper}>
@@ -355,15 +355,13 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
                         skeleton={true}
                         className={css.avatar}
                         src={
-                          item["用户"]?.["头像"] ||
+                          item["avatar"] ||
                           "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png"
                         }
                       />
                     </View>
                     <View className={css.nickname}>
-                      {item["用户"]?.["昵称"] ||
-                        item["用户"]?.["阿里花名"] ||
-                        ""}
+                      {item["nickName"] || item["aliFlowerName"] || ""}
                     </View>
                   </View>
                 );
@@ -391,13 +389,21 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
 
       <View className={css.signupBar}>
         {/* 发起人 */}
-        {raw["活动发起人"] ? (
+        {raw["activityOrganizer"] ? (
           <View className={css.contact} onClick={onContact}>
             {contactable ? (
               <View className={css.contactTips}>联系活动发起人</View>
             ) : null}
-            <Image className={css.avatar} src={raw["活动发起人"]["头像"]} />
-            <View className={css.nickname}>{raw["活动发起人"]["昵称"]}</View>
+            <Image
+              className={css.avatar}
+              src={
+                raw["activityOrganizer"]["avatar"] ||
+                "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png"
+              }
+            />
+            <View className={css.nickname}>
+              {raw["activityOrganizer"]["nickName"]}
+            </View>
           </View>
         ) : null}
 
