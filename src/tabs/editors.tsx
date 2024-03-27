@@ -252,6 +252,18 @@ export default {
         //     },
         //   },
         // },
+        // {
+        //   title: "吸顶",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.sticky;
+        //     },
+        //     set({ data }, value) {
+        //       data.sticky = value;
+        //     },
+        //   },
+        // },
         {
           title: "隐藏内容",
           type: "switch",
