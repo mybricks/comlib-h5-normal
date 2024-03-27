@@ -23,9 +23,16 @@
   "outputs": [
     {
       "id": "onSelect",
-      "title": "当点击日期时",
+      "title": "当选择日期时",
       "schema": {
-        "type": "string"
+        "type": "any"
+      }
+    },
+    {
+      "id": "onConfirm",
+      "title": "当选择完毕时",
+      "schema": {
+        "type": "any"
       }
     },
     {
