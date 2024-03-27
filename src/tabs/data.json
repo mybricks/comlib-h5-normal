@@ -15,5 +15,6 @@
   },
   "initChangeTab": false,
   "navBarGutter": 12,
-  "hideContent": false
+  "hideContent": false,
+  "sticky":false
 }
