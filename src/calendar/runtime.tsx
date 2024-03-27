@@ -13,6 +13,10 @@ export default ({ data, inputs, outputs }) => {
     selectDateRef.current = val;
   }, []);
 
+  const handleConfirm = useCallback((val) => {
+    outputs["onConfirm"]?.(val);
+  }, [])
+
   useMemo(() => {
     // 获取日历数据
     inputs["getSelectDate"]?.((val, outputRels) => {
@@ -27,6 +31,7 @@ export default ({ data, inputs, outputs }) => {
         min={isDate(data.min) ? data.min : undefined}
         max={isDate(data.max) ? data.max : undefined}
         onSelect={handleSelect}
+        onConfirm={handleConfirm}
       />
     </View>
   );
