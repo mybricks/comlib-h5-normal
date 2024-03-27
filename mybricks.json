@@ -36,8 +36,6 @@
     "./src/_removeTabBarBadge/com.json",
     "./src/_subscribeMessage/com.json",
     "./src/_wxPay/com.json",
-    "./src/_pick/com.json",
-    "./src/_if-empty/com.json",
     {
       "title": "系统",
       "visible": false,

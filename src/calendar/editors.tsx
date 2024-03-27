@@ -59,6 +59,13 @@ export default {
                 outputId: "onSelect",
               },
             },
+            {
+              title: "当选择完毕时",
+              type: "_event",
+              options: {
+                outputId: "onConfirm",
+              },
+            },
           ],
         },
       ];
