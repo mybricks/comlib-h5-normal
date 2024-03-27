@@ -299,6 +299,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
           ) : (
             <>
               <View
+                id="custom_navigation"
                 style={{
                   width: 375,
                   height:
