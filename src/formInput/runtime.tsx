@@ -48,6 +48,7 @@ export default function (props) {
       name: props.name,
       value,
     });
+    
     outputs["onChange"](value);
   }, []);
 

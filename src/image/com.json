@@ -6,6 +6,7 @@
   "icon": "./icon.svg",
   "version": "1.0.0",
   "description": "图片",
+  "runtime.edit": "./runtime.edit.tsx",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",

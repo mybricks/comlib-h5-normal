@@ -10,7 +10,7 @@ import cx from "classnames";
 import { View, Image } from "@tarojs/components";
 import SkeletonImage from "./../components/skeleton-image";
 
-export default function ({ env, data, inputs, outputs, title, style }) {
+export default function ({ env, data, inputs, outputs, title, style, extra }) {
   const ele = useRef(null);
   const [h5PolyfillClass, setH5PolyfillClass] = useState(
     css["h5-polyfill-aspectfill-width"]
@@ -64,7 +64,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
       <SkeletonImage
         skeleton={env.edit ? false : !!data?.loadSmooth}
         className={cx(css.image, h5PolyfillClass, "mybricks-image")}
-        src={data.src}
+        src={!!data.src ? data.src : extra?.imageUrl}
         mode={data.mode}
         onClick={onClick}
         onLoad={onLoad}
