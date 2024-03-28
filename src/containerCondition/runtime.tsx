@@ -37,6 +37,9 @@ export default function ({ env, data, slots, inputs, outputs }) {
   }, [data.items]);
 
   const renderMode = useMemo(() => {
+    if (env.edit) {
+      return "lazy" // 其他模式容易让设计器拿不到真实的widthFact heightFact，所以搭建态不能切换
+    }
     return data.renderMode ?? "lazy";
   }, [data.renderMode]);
 
@@ -48,7 +51,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
             return null;
           }
           return (
-            <View className={css.content}>
+            <View className={css.content} key={`${renderMode}${item.id}`}>
               {slots[item.id]?.render({
                 inputValues: {
                   itemData: bool,
@@ -60,7 +63,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       {renderMode === "pre" &&
         data.items.map((item) => {
           return (
-            <View className={css.content} style={activeId !== item.id ? { display: 'none' } : {}}>
+            <View className={css.content} key={`${renderMode}${item.id}`} style={activeId !== item.id ? { display: 'none' } : {}}>
               {slots[item.id]?.render({
                 inputValues: {
                   itemData: bool,
