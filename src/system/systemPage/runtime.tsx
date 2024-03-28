@@ -341,7 +341,12 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
         className={css.contentScrollView}
         // style={{ height: contentScrollViewHeight }}
       >
-        {slots["content"]?.render?.()}
+        {slots["content"]?.render?.({
+          style: {
+            height: 'fit-content !important', // 防止margin重叠用，触发BFC，不可以删除
+            display: 'inline-block' // 防止margin重叠用，触发BFC，不可以删除
+          }
+        })}
       </ScrollView>
       {/* )} */}
 
