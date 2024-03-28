@@ -11,14 +11,14 @@ function getDefaultCurrTabId(tabs) {
   return "";
 }
 
-function getTabId(length) {
-  var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var result = "";
+const getTabsId = (prefix, length) => {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
   for (var i = 0; i < length; i++) {
     var randomPos = Math.floor(Math.random() * chars.length);
     result += chars.substring(randomPos, randomPos + 1);
   }
-  return "tabs-" + result;
+  return `${prefix}-${result}`;
 }
 
 export default function ({ data, inputs, outputs, title, slots, env }) {
@@ -28,9 +28,11 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const [tabsHeight, setTabsHeight] = useState(0);
   const [tabsPaneHeight, setTabsPaneHeight] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
-  const [TabID, setTabID] = useState(getTabId(6));
   const [customNavigationHeight, setCustomNavigationHeight] = useState(0);
   const [pxDelta, setPxDelta] = useState(0);
+  const [TabID, setTabID] = useState(getTabsId("tab",6));
+  const [tabholderId, setTabholderId] = useState(getTabsId("tabholder", 6));
+  const [tabpaneId, setTabpaneId] = useState(getTabsId("tabpane", 6));
 
   // 当前选中的tab
   const [currentTabId, setCurrentTabId] = useState(
@@ -48,7 +50,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   // 真机运行时获取tab的高度和距离顶部的距离
   useEffect(() => {
-    console.log("env", env);
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
       query
@@ -60,7 +61,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           if (rect) {
             setTabsTop(rect.top);
             //减去6px防止真机预览抖动，先这样处理
-            setTabsHeight(rect.height - 6);
+            // setTabsHeight(rect.height - 6);
+            setTabsHeight(rect.height);
             setTabsTopReady(true);
           }
         });
@@ -77,7 +79,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           }
         });
 
-        Taro.getSystemInfo().then((res) => {
+      Taro.getSystemInfo().then((res) => {
         const { windowHeight, windowWidth } = res;
         const pxDelta = windowWidth / 375;
         setPxDelta(pxDelta);
@@ -109,7 +111,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
       query
-        .select(`#tabpane`)
+        .select(`#${tabpaneId}`)
         .boundingClientRect()
         .exec((res) => {
           const rect = res[0];
@@ -123,15 +125,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     env?.rootScroll?.onScroll?.((e) => {
       if (!data.sticky) return;
       const { scrollTop } = e.detail ?? {};
-      console.log("自定义导航栏高度", customNavigationHeight);
       if (customNavigationHeight + scrollTop >= tabsTop) {
         //判断tab是否已经滑动离开页面
         if (tabsPaneHeight + tabsTop < scrollTop + customNavigationHeight) {
           console.log(
-            "滑动到页面外部",
+            "滑动到页面外部，id-",
             TabID,
+            "tabsPaneHeight-",
             tabsPaneHeight,
+            "tabsTop-",
             tabsTop,
+            "scrollTop-",
             scrollTop
           );
           setIsFixed(false);
@@ -139,32 +143,34 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           return;
         }
 
-        console.log("设置为吸顶", TabID, tabsPaneHeight, tabsTop, scrollTop);
+        console.log(
+          "吸顶，id-",
+          TabID,
+          "tabsPaneHeight-",
+          tabsPaneHeight,
+          "tabsTop-",
+          tabsTop,
+          "scrollTop-",
+          scrollTop
+        );
         setIsFixed(true);
         setShowPlaceholder(true);
       } else {
-        console.log("设置为不吸顶", TabID, tabsPaneHeight, tabsTop, scrollTop);
+        console.log(
+          "不吸顶，id-",
+          TabID,
+          "tabsPaneHeight-",
+          tabsPaneHeight,
+          "tabsTop-",
+          tabsTop,
+          "scrollTop-",
+          scrollTop
+        );
         setIsFixed(false);
         setShowPlaceholder(false);
       }
     });
-  }, [tabsTop, tabsTopReady, tabsPaneHeight, customNavigationHeight]);
-
-  // useEffect(() => {
-  //   if (data.initChangeTab) {
-  //     const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
-  //     if (index === -1) {
-  //       return;
-  //     }
-  //     const findItem = data.tabs[index];
-
-  //     outputs.changeTab?.({
-  //       id: findItem._id,
-  //       title: findItem.tabName,
-  //       index,
-  //     });
-  //   }
-  // }, []);
+  }, [tabsTop, tabsTopReady, tabsPaneHeight, customNavigationHeight,tabholderId,TabID,tabpaneId]);
 
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
@@ -182,17 +188,12 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
     if (isRelEnv() && isFixed) {
       //默认在顶部，切换后先滑动到页面顶部
-      env.rootScroll.scrollTo({ scrollTop: tabsTop, duration: 0 });
-      console.log("触发滚动复位,scrollTop", TabID, tabsTop);
+      // const random = Math.random() * 0.2 + 0.1;
+      env.rootScroll.scrollTo({ id: tabholderId });
+      console.log("触发滚动复位,scrollTop", tabholderId, TabID, tabsTop);
+      setTabholderId(getTabsId("tabholder",6));
     }
   };
-
-  // 编辑模式下，切换tab
-  // useEffect(() => {
-  //   if (env.edit && data.edit.currentTabId) {
-  //     setCurrentTabId(data.edit.currentTabId);
-  //   }
-  // }, [env.edit, data.edit.currentTabId]);
 
   const emptyView = useMemo(() => {
     if (env.edit && data.tabs.length === 0) {
@@ -205,11 +206,15 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   return (
     emptyView || (
       <View>
-        {showPlaceholder && <View style={{ height: `${tabsHeight}px` }}></View>}
+        {showPlaceholder && (
+          <View id={tabholderId} style={{ height: `${tabsHeight}px` }}></View>
+        )}
         <Tabs
           id={TabID}
           className={isFixed ? css.fix_tabs : css.tabs}
-          style={isFixed ? {top: `${customNavigationHeight / pxDelta }px`} : {}}
+          style={
+            isFixed ? { top: `${customNavigationHeight / pxDelta}px` } : {}
+          }
           value={currentTabId}
           onChange={_setCurrentTabId}
           swipeable={data.swipeable}
@@ -223,7 +228,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             // }
             return (
               <Tabs.TabPane
-                // style={{ ...style }}
                 key={tab._id}
                 title={tab.tabName}
                 value={tab._id}
@@ -235,13 +239,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         {data.tabs.map((tab, index) => {
           if (currentTabId === tab._id) {
             return (
-              <View
-                key={tab._id}
-                id="tabpane"
-                // style={{
-                //   display: currentTabId === tab._id ? "block" : "none",
-                // }}
-              >
+              <View key={tab._id} id={tabpaneId}>
                 {data.hideContent
                   ? null
                   : slots[data.tabs_dynamic ? "item" : tab._id].render?.({
