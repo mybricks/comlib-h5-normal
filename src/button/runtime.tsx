@@ -11,7 +11,7 @@ import cx from "classnames";
 import { Button, Text, Image } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 
-export default function ({ env, data, logger, slots, inputs, outputs, title }) {
+export default function ({ env, data, logger, slots, inputs, outputs, title, extra }) {
   const onClick = useCallback((ev) => {
     if (env.runtime) {
       ev.stopPropagation();
@@ -97,7 +97,7 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
       {useBeforeIcon ? (
         <Image
           className={cx("mybricks-beforeIcon", css.icon)}
-          src={data.beforeIconUrl || data.placeholderIconUrl}
+          src={data.beforeIconUrl || extra?.imageUrl}
           mode="scaleToFill"
         />
       ) : null}
@@ -108,7 +108,7 @@ export default function ({ env, data, logger, slots, inputs, outputs, title }) {
       {useAfterIcon ? (
         <Image
           className={cx("mybricks-afterIcon", css.icon)}
-          src={data.afterIconUrl || data.placeholderIconUrl}
+          src={data.afterIconUrl || extra?.imageUrl}
           mode="scaleToFill"
         />
       ) : null}

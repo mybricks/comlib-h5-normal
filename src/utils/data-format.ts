@@ -164,9 +164,9 @@ export const createDataFormatEditor = ({ title, value, formatters }) => {
         }
       },
       {
-        title: '空值处理',
+        title: '空值替代字符',
         type: 'Text',
-        description: '设置将输入值为undefined、null、空字符串转换成的预期值',
+        description: '将空值用配置的字符替代',
         ifVisible(info) {
           const values = value?.get(info) || {}
           return values?.['voidHandle'] || false;

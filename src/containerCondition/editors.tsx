@@ -1,5 +1,5 @@
 import { uuid } from "../utils";
-import css from './editors.less';
+import css from "./editors.less";
 import comJson from "./com.json";
 
 const ScopeSlotInputs = comJson.slots[0].inputs;
@@ -11,8 +11,8 @@ function getItem({ data, focusArea }) {
   return item;
 }
 
-function findItemByInnerId (_id, data) {
-  return data.items.find(t => t._id === _id) ?? {}
+function findItemByInnerId(_id, data) {
+  return data.items.find((t) => t._id === _id) ?? {};
 }
 
 export default {
@@ -61,13 +61,13 @@ export default {
       {
         title: "条件列表",
         type: "array",
-        description: '点击可切换展示的条件',
+        description: "点击可切换展示的条件",
         options: {
           getTitle: (item, index) => {
             return [item.title];
           },
           onAdd() {
-            const uid = uuid('', 5);
+            const uid = uuid("", 5);
             const id = `condition_${uid}`;
             const title = `条件${data.new_index++}`;
 
@@ -76,7 +76,7 @@ export default {
             if (!title) {
               // title = `未命名条件`
               // /** 中断函数 */
-              throw new Error('请输入条件名称')
+              throw new Error("请输入条件名称");
             }
 
             slots.add({
@@ -89,9 +89,9 @@ export default {
               id: id,
               title: `切换到 ${title}`,
               schema: {
-                type: 'any',
+                type: "any",
               },
-              rels: ['changeDone'],
+              rels: ["changeDone"],
             });
             input.get(id).setRels(["changeDone"]);
 
@@ -101,17 +101,24 @@ export default {
             };
           },
           onSelect(_id) {
-            data._editSelectId_ = findItemByInnerId(_id, data)?.id ?? data._editSelectId_;
+            data._editSelectId_ =
+              findItemByInnerId(_id, data)?.id ?? data._editSelectId_;
           },
           onRemove(_id) {
-            const id = findItemByInnerId(_id, data)?.id
-            input.remove(id)
-            slots.remove(id)
+            const id = findItemByInnerId(_id, data)?.id;
+            input.remove(id);
+            slots.remove(id);
+
+            if (id === data.defaultActiveId) {
+              data.defaultActiveId = undefined
+            }
           },
           customOptRender({ item, setList }) {
             return (
               <div className={css.my_edit}>
-               {data._editSelectId_ === item.id && <div className={css.selected_title}>当前条件</div> } 
+                {data._editSelectId_ === item.id && (
+                  <div className={css.selected_title}>当前条件</div>
+                )}
                 <div
                   className={css.edit}
                   onClick={(e) => {
@@ -206,6 +213,49 @@ export default {
           },
         },
       },
+      {
+        title: "默认展示条件",
+        type: "select",
+        options: [
+          {
+            label: "无",
+            value: "none",
+          },
+        ].concat(
+          (data.items ?? []).map((item) => ({
+            label: item.title,
+            value: item.id,
+          }))
+        ),
+        value: {
+          get({ data }) {
+            return data.defaultActiveId ?? "none";
+          },
+          set({ data, slot }, value) {
+            data.defaultActiveId = value === "none" ? undefined : value;
+          },
+        },
+      },
+      {
+        title: "渲染模式",
+        items: [
+          {
+            title: "开启预渲染",
+            description:
+              "开启后所有条件的内容都会提前渲染，切换条件只影响内容显示",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.renderMode ? data.renderMode === "pre" : false;
+                // 后期支持三种模式 预渲染模式、懒加载模式、懒加载并缓存模式
+              },
+              set({ data, slot }, value) {
+                data.renderMode = value ? "pre" : "lazy";
+              },
+            },
+          },
+        ],
+      },
     ];
-  }
+  },
 };
