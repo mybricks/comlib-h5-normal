@@ -7,7 +7,7 @@ import css from './style.less'
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-  const [value, setValue] = useState(data.value);
+  const [selectIndex, setSelectIdx] = useState(data.value);
   // const [_value, _setValue] = useState(null);
   // const [open, setOpen] = useState(false);
 
@@ -36,14 +36,14 @@ export default function (props) {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setValue('')
+          setSelectIdx('')
           break;
         }
         case isString(val) || isNumber(val):
-          setValue(val);
+          setSelectIdx(val);
           break;
         case isObject(val):
-          setValue(val[data.name]);
+          setSelectIdx(val[data.name]);
           break;
         default:
           break;
@@ -58,23 +58,34 @@ export default function (props) {
     });
   }, []);
   
-  const onChange = useCallback((val) => {
-    setValue(val)
+  const onChange = useCallback((index) => {
+    setSelectIdx(index)
 
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value: val })
-    outputs["onChange"](val);
+    const value = data.options?.[index]?.value
+
+    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+    outputs["onChange"](value);
   }, [])
+
+  const selectItem = useMemo(() => {
+    return data.options?.[selectIndex];
+  }, [selectIndex, data.options])
+
+  const displayValue = useMemo(() => {
+    return !!selectItem
+  }, [selectItem])
 
   return (
     <>
       <View className={css.wrap}>
-        <Picker value={value} options={data.options} onChange={onChange}>
+        <Picker value={selectIndex} options={data.options} onChange={onChange}>
           <View className={css.select}>
             <Input
               readonly
-              align="right"
+              // align="right"
+              disabled={!displayValue}
               placeholder={data.placeholder}
-              value={value}
+              value={selectItem?.value}
               style={{ flex: 1 }}
             />
             <ArrowRight />
