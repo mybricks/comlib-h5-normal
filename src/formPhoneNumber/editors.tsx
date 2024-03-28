@@ -126,9 +126,6 @@ export default {
       {
         title: "输入框",
         options: ["font", "border", "size", "padding", "background"],
-        initValue: {
-          paddingLeft: "8px",
-        },
         target: ".taroify-input",
       },
       {
