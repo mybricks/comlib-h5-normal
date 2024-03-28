@@ -26,8 +26,16 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const [tabsTop, setTabsTop] = useState(0);
   const [tabsTopReady, setTabsTopReady] = useState(false);
   const [tabsHeight, setTabsHeight] = useState(0);
+  const [tabsPaneHeight, setTabsPaneHeight] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
   const [TabID, setTabID] = useState(getTabId(6));
+  const [customNavigationHeight, setCustomNavigationHeight] = useState(0);
+  const [pxDelta, setPxDelta] = useState(0);
+
+  // 当前选中的tab
+  const [currentTabId, setCurrentTabId] = useState(
+    getDefaultCurrTabId(data.tabs)
+  );
 
   //判断是否是真机运行态
   const isRelEnv = () => {
@@ -40,6 +48,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   // 真机运行时获取tab的高度和距离顶部的距离
   useEffect(() => {
+    console.log("env", env);
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
       query
@@ -50,13 +59,31 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           console.log("rect", rect);
           if (rect) {
             setTabsTop(rect.top);
-            setTabsHeight(rect.height);
+            //减去6px防止真机预览抖动，先这样处理
+            setTabsHeight(rect.height - 6);
             setTabsTopReady(true);
           }
         });
+
+      //真机运行时，获取自定义导航栏的高度，如果没有则为0
+      const query2 = Taro.createSelectorQuery();
+      query2
+        .select(`#custom_navigation`)
+        .boundingClientRect()
+        .exec((res) => {
+          if (res) {
+            const rect = res[0];
+            setCustomNavigationHeight(rect.height);
+          }
+        });
+
+        Taro.getSystemInfo().then((res) => {
+        const { windowHeight, windowWidth } = res;
+        const pxDelta = windowWidth / 375;
+        setPxDelta(pxDelta);
+      });
     }
   }, []);
-
 
   useEffect(() => {
     inputs["dataSource"]?.((ds) => {
@@ -77,34 +104,51 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
   }, []);
 
+  // 切换tab时获取tabpane的高度，用于tabpane滑出屏幕时，退场处理
+  useEffect(() => {
+    if (isRelEnv()) {
+      const query = Taro.createSelectorQuery();
+      query
+        .select(`#tabpane`)
+        .boundingClientRect()
+        .exec((res) => {
+          const rect = res[0];
+          setTabsPaneHeight(rect.height);
+        });
+    }
+  }, [currentTabId]);
+
   useEffect(() => {
     if (!tabsTopReady) return;
     env?.rootScroll?.onScroll?.((e) => {
       if (!data.sticky) return;
       const { scrollTop } = e.detail ?? {};
-      //tabs初始化时已经在屏幕顶部了
-      if (tabsTop === 0) {
-        // console.log("设置为吸顶", TabID, scrollTop, tabsTop);
-        setShowPlaceholder(true);
-        setIsFixed(true);
-        return;
-      }
-      if (scrollTop >= tabsTop) {
-        // console.log("设置为吸顶", TabID, scrollTop, tabsTop);
+      console.log("自定义导航栏高度", customNavigationHeight);
+      if (customNavigationHeight + scrollTop >= tabsTop) {
+        //判断tab是否已经滑动离开页面
+        if (tabsPaneHeight + tabsTop < scrollTop + customNavigationHeight) {
+          console.log(
+            "滑动到页面外部",
+            TabID,
+            tabsPaneHeight,
+            tabsTop,
+            scrollTop
+          );
+          setIsFixed(false);
+          setShowPlaceholder(false);
+          return;
+        }
+
+        console.log("设置为吸顶", TabID, tabsPaneHeight, tabsTop, scrollTop);
         setIsFixed(true);
         setShowPlaceholder(true);
       } else {
-        // console.log("设置为不吸顶", TabID, scrollTop, tabsTop);
+        console.log("设置为不吸顶", TabID, tabsPaneHeight, tabsTop, scrollTop);
         setIsFixed(false);
         setShowPlaceholder(false);
       }
     });
-  }, [tabsTop, tabsTopReady]);
-
-  // 当前选中的tab
-  const [currentTabId, setCurrentTabId] = useState(
-    getDefaultCurrTabId(data.tabs)
-  );
+  }, [tabsTop, tabsTopReady, tabsPaneHeight, customNavigationHeight]);
 
   // useEffect(() => {
   //   if (data.initChangeTab) {
@@ -165,6 +209,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         <Tabs
           id={TabID}
           className={isFixed ? css.fix_tabs : css.tabs}
+          style={isFixed ? {top: `${customNavigationHeight / pxDelta }px`} : {}}
           value={currentTabId}
           onChange={_setCurrentTabId}
           swipeable={data.swipeable}
@@ -178,7 +223,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             // }
             return (
               <Tabs.TabPane
-                id="tabpane"
                 // style={{ ...style }}
                 key={tab._id}
                 title={tab.tabName}
@@ -193,6 +237,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             return (
               <View
                 key={tab._id}
+                id="tabpane"
                 // style={{
                 //   display: currentTabId === tab._id ? "block" : "none",
                 // }}
@@ -208,7 +253,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                     })}
               </View>
             );
-          } 
+          }
         })}
       </View>
     )

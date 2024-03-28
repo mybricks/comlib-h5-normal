@@ -50,15 +50,6 @@ export default function (props) {
     let value = val.join("/");
     data.value = value;
 
-    console.warn(parentSlot);
-    console.warn(parentSlot?._inputs);
-    console.warn(parentSlot?._inputs["onChange"]);
-    console.warn({
-      id: props.id,
-      name: props.name,
-      value,
-    })
-
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
