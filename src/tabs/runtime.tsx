@@ -12,7 +12,8 @@ function getDefaultCurrTabId(tabs) {
 }
 
 const getTabsId = (prefix, length) => {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   for (var i = 0; i < length; i++) {
     var randomPos = Math.floor(Math.random() * chars.length);
@@ -24,13 +25,14 @@ const getTabsId = (prefix, length) => {
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [isFixed, setIsFixed] = useState(false);
   const [tabsTop, setTabsTop] = useState(0);
+  const [tabsTopUpdate, setTabsTopUpdate] = useState(-1);
   const [tabsTopReady, setTabsTopReady] = useState(false);
   const [tabsHeight, setTabsHeight] = useState(0);
   const [tabsPaneHeight, setTabsPaneHeight] = useState(0);
   const [showPlaceholder, setShowPlaceholder] = useState(false);
   const [customNavigationHeight, setCustomNavigationHeight] = useState(0);
   const [pxDelta, setPxDelta] = useState(0);
-  const [TabID, setTabID] = useState(getTabsId("tab",6));
+  const [TabID, setTabID] = useState(getTabsId("tab", 6));
   const [tabholderId, setTabholderId] = useState(getTabsId("tabholder", 6));
   const [tabpaneId, setTabpaneId] = useState(getTabsId("tabpane", 6));
 
@@ -120,24 +122,65 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
+  function debounce(fn, delay = 300) {
+    let timer = null;
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
+
+  const updateTabTop = async (tabpaneId, e) => {
+    const query = Taro.createSelectorQuery();
+    query
+      .select(`#${tabpaneId}`)
+      .boundingClientRect()
+      .exec((res) => {
+        const rect = res[0];
+        if (rect) {
+          const realtime_tabToTop = rect.top;
+          const { scrollTop } = e.detail;
+          const tabToTop = Number(
+            (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
+          );
+          console.log("实时取到的TabToTop", tabpaneId, tabToTop);
+          setTabsTopUpdate(tabToTop);
+        } else {
+          console.log("未能找到元素或其他错误");
+        }
+      });
+  };
+
+  const debouncedUpdateTabTop = debounce(updateTabTop);
+
+  // useEffect(() => {
+  //   env?.rootScroll?.onScroll?.((e) => {
+  //     if (!isRelEnv()) return;
+  //     debouncedUpdateTabTop(tabpaneId, e);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    if (!tabsTopReady) return;
+    if (!tabsTopReady || !isRelEnv()) return;
+
     env?.rootScroll?.onScroll?.((e) => {
       if (!data.sticky) return;
+      
+      let _tabtop = 0;
+      if (tabsTopUpdate === -1) {
+         _tabtop = tabsTop;
+        console.log("tabsTopUpdate未更新",tabsTopUpdate);
+      } else {
+        _tabtop = tabsTopUpdate;
+        console.log("tabsTopUpdate已经更新", tabsTopUpdate);
+      }
+      debouncedUpdateTabTop(tabpaneId, e);
       const { scrollTop } = e.detail ?? {};
-      if (customNavigationHeight + scrollTop >= tabsTop) {
+      if (customNavigationHeight + scrollTop >= _tabtop) {
         //判断tab是否已经滑动离开页面
-        if (tabsPaneHeight + tabsTop < scrollTop + customNavigationHeight) {
-          console.log(
-            "滑动到页面外部，id-",
-            TabID,
-            "tabsPaneHeight-",
-            tabsPaneHeight,
-            "tabsTop-",
-            tabsTop,
-            "scrollTop-",
-            scrollTop
-          );
+        if (tabsPaneHeight + _tabtop < scrollTop + customNavigationHeight) {
           setIsFixed(false);
           setShowPlaceholder(false);
           return;
@@ -150,6 +193,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           tabsPaneHeight,
           "tabsTop-",
           tabsTop,
+          "_tabtop",
+          _tabtop,
           "scrollTop-",
           scrollTop
         );
@@ -157,12 +202,14 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         setShowPlaceholder(true);
       } else {
         console.log(
-          "不吸顶，id-",
+          "吸顶，id-",
           TabID,
           "tabsPaneHeight-",
           tabsPaneHeight,
           "tabsTop-",
           tabsTop,
+          "_tabtop",
+          _tabtop,
           "scrollTop-",
           scrollTop
         );
@@ -170,7 +217,16 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         setShowPlaceholder(false);
       }
     });
-  }, [tabsTop, tabsTopReady, tabsPaneHeight, customNavigationHeight,tabholderId,TabID,tabpaneId]);
+  }, [
+    tabsTop,
+    tabsTopReady,
+    tabsPaneHeight,
+    customNavigationHeight,
+    tabholderId,
+    TabID,
+    tabpaneId,
+    tabsTopUpdate,
+  ]);
 
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
@@ -187,11 +243,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
 
     if (isRelEnv() && isFixed) {
-      //默认在顶部，切换后先滑动到页面顶部
-      // const random = Math.random() * 0.2 + 0.1;
       env.rootScroll.scrollTo({ id: tabholderId });
-      console.log("触发滚动复位,scrollTop", tabholderId, TabID, tabsTop);
-      setTabholderId(getTabsId("tabholder",6));
+      setTabholderId(getTabsId("tabholder", 6));
     }
   };
 
