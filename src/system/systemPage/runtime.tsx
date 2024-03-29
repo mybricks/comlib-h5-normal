@@ -146,6 +146,10 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
     return true;
   }, [data.useTabBar, data.tabBar, env.canvas.id]);
 
+  useEffect(() => {
+    env.useTabBar = useTabBar;
+  }, [useTabBar]);
+
   const onLoad = useCallback(() => {
     outputs["pulldown"]?.(true);
   }, []);

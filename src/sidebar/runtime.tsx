@@ -44,7 +44,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   //判断是否有tabbar
   const ifHasTabbar = () => {
     if (!isRelEnv()) return false;
-    if (env.tabbar.list.length > 0) {
+    if (env.useTabBar) {
       return true;
     } else {
       return false;
