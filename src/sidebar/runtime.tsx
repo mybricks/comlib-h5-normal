@@ -257,7 +257,11 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                           <View id={tab._id} key={`slot_${tab._id}`}>
                             {data.hideContent
                               ? null
-                              : slots[tab._id]?.render?.()}
+                              : slots[tab._id]?.render?.({
+                                  inputValues: {
+                                    itemData: tab,
+                                  },
+                                })}
                           </View>
                         </>
                       );
