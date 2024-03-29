@@ -111,12 +111,13 @@ export default {
           },
         ],
       },
-
+      {},
       {
-        title: "",
+        title: "瀑布流配置",
         items: [
           {
             title: "开启滚动加载",
+            description: "开启后，支持通过滚动加载更多数据，逻辑编排时注意使用「添加数据」",
             type: "switch",
             ifVisible({ data }) {
               return data.direction !== Direction.Row;
