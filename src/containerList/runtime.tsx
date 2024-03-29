@@ -206,12 +206,37 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     }
   }, [data._edit_status_]);
 
-  const showDateSource = useMemo(() => {
-    if (env.edit && status !== ListStatus.IDLE && !data.scrollRefresh) {
-      return false;
+  // const showDataSource = useMemo(() => {
+  //   if (env.edit && status !== ListStatus.IDLE && !data.scrollRefresh) {
+  //     return false;
+  //   }
+  //   return true;
+  // }, [status]);
+
+  const $list = dataSource.map(
+    ({ [rowKey]: key, index: index, item: item }, _idx) => {
+      return (
+        <View
+          className={env.edit && _idx > 0 ? "disabled-area" : css.item}
+          key={key}
+          style={{
+            [data.direction === Direction.Row
+              ? "marginRight"
+              : "marginBottom"]: `${data.spacing}px`,
+          }}
+        >
+          {/* 当前项数据和索引 */}
+          {slots["item"].render({
+            inputValues: {
+              itemData: item,
+              index: index,
+            },
+            key: key,
+          })}
+        </View>
+      );
     }
-    return true;
-  }, [status]);
+  );
 
   return (
     <View className={css.listWrapper}>
@@ -225,48 +250,26 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       >
         {$placeholder || (
           <>
-            {showDateSource &&
-              dataSource.map(
-                ({ [rowKey]: key, index: index, item: item }, _idx) => {
-                  return (
-                    <View
-                      className={
-                        env.edit && _idx > 0 ? "disabled-area" : css.item
-                      }
-                      key={key}
-                      style={{
-                        [data.direction === Direction.Row
-                          ? "marginRight"
-                          : "marginBottom"]: `${data.spacing}px`,
-                      }}
-                    >
-                      {/* 当前项数据和索引 */}
-                      {slots["item"].render({
-                        inputValues: {
-                          itemData: item,
-                          index: index,
-                        },
-                        key: key,
-                      })}
-                    </View>
-                  );
-                }
-              )}
-
             {!!data?.scrollRefresh ? (
-              <List.Placeholder>
-                {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
-                {error && (data.errorTip ?? "加载失败，请重试")}
-                {!hasMore && (data.emptyTip ?? "没有更多了")}
-              </List.Placeholder>
-            ) : (
-              status !== ListStatus.IDLE && (
+              <>
+                {$list}
                 <List.Placeholder>
                   {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                   {error && (data.errorTip ?? "加载失败，请重试")}
                   {!hasMore && (data.emptyTip ?? "没有更多了")}
                 </List.Placeholder>
-              )
+              </>
+            ) : (
+              <>
+                {status !== ListStatus.IDLE ? (
+                  <List.Placeholder>
+                    {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
+                    {error && (data.errorTip ?? "加载失败，请重试")}
+                  </List.Placeholder>
+                ) : (
+                  $list
+                )}
+              </>
             )}
           </>
         )}
