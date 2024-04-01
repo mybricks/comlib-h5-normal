@@ -1,4 +1,5 @@
 import jsSHA from "jssha";
+import * as Taro from "@tarojs/taro";
 
 class UploadOssHelper {
   constructor(options) {
@@ -29,7 +30,12 @@ class UploadOssHelper {
       ],
     };
     const policy = JSON.stringify(policyText);
-    return btoa(unescape(encodeURIComponent(policy)));
+    if (Taro.getEnv() === Taro.ENV_TYPE.WEAPP) {
+      const policyBuffer = new Uint8Array(policy.split('').map(char => char.charCodeAt(0))).buffer;
+      return Taro.arrayBufferToBase64(policyBuffer);
+    } else {
+      return btoa(unescape(encodeURIComponent(policy)));
+    }
   }
 
   signature(policy) {
