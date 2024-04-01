@@ -1,4 +1,5 @@
 import * as Taro from "@tarojs/taro";
+import UploadOssHelper from "./utils/oss";
 
 export default function ({ env, data, inputs, outputs }) {
   if (!env.runtime) {
@@ -6,34 +7,15 @@ export default function ({ env, data, inputs, outputs }) {
   }
 
   inputs["upload"]((value) => {
-    // 前置校验
-    if (!data.url) {
-      outputs["onFail"]("请填写上传地址");
-      return;
-    }
-
-    if (!data.name) {
-      outputs["onFail"]("请填写文件对应的 key");
-      return;
-    }
-
-    if (!Array.isArray(value?.filePaths)) {
-      outputs["onFail"]("请上传文件");
-      return;
-    }
-
-    // 已上传文件
-    let uploadedFile = [];
-
-    // 待上传文件数量
-    let waitUploadCount = value.filePaths.length;
-
-    value.filePaths.forEach((filePath) => {
+    /**
+     * 自定义
+     */
+    if (data.mode === "custom") {
       Taro.uploadFile({
         withCredentials: false,
-        url: data.url,
-        filePath: filePath,
-        name: data.name,
+        url: data.custom.url,
+        filePath: value.filePath,
+        name: data.custom.name,
         formData: {
           ...(value.formData || {}),
         },
@@ -47,14 +29,45 @@ export default function ({ env, data, inputs, outputs }) {
             } catch (err) {}
           }
 
-          uploadedFile.push(data);
-
           // 上传完成
-          if (uploadedFile.length === waitUploadCount) {
-            outputs["onSuccess"](uploadedFile);
+          outputs["onSuccess"](uploadedFile);
+        },
+      });
+      return;
+    }
+
+    /**
+     * 阿里云 OSS
+     */
+    if (data.mode === "quick" && data.platform === "oss") {
+      const ossHelper = new UploadOssHelper({
+        accessKeyId: data.oss.accessKeyId,
+        accessKeySecret: data.oss.accessKeySecret,
+      });
+
+      const params = ossHelper.createUploadParams();
+
+      Taro.uploadFile({
+        withCredentials: false,
+        url: data.oss.host,
+        filePath: value.filePath,
+        name: "file",
+        formData: {
+          ...(value.formData || {}),
+
+          policy: params.policy,
+          OSSAccessKeyId: params.OSSAccessKeyId,
+          signature: params.signature,
+        },
+        success(res) {
+          if (res.statusCode === 204) {
+            outputs["onSuccess"](`${data.oss.host}/${value.formData.key}`);
+          } else {
+            outputs["onFail"](res);
           }
         },
       });
-    });
+      return;
+    }
   });
 }

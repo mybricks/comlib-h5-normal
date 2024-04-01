@@ -8,13 +8,17 @@ export default function ({ env, data, inputs, outputs }) {
   useMemo(() => {
     inputs["value"]((val) => {
       data.text = val;
+      data.ready = true;
     });
 
     inputs["getValue"]?.((val, outputRels) => {
-      outputRels['onGetValue'](data.text);
+      if (data.ready) {
+        outputRels["onGetValue"](data.text);
+      } else {
+        outputRels["onGetValue"]("");
+      }
     });
-
-  }, [])
+  }, []);
 
   const textCx = useMemo(() => {
     return cx({
@@ -36,7 +40,7 @@ export default function ({ env, data, inputs, outputs }) {
     if (data.ellipsis) {
       return { maxLines: data.maxLines };
     } else {
-      return {}
+      return {};
     }
   }, [data.ellipsis, data.maxLines]);
 
@@ -44,6 +48,11 @@ export default function ({ env, data, inputs, outputs }) {
     if (!env.runtime) {
       return;
     }
+
+    if (!data.ready) {
+      return;
+    }
+
     outputs["onClick"](data.text);
   }, []);
 
@@ -51,6 +60,11 @@ export default function ({ env, data, inputs, outputs }) {
     if (!env.runtime) {
       return;
     }
+
+    if (!data.ready) {
+      return;
+    }
+
     outputs["onLongPress"](data.text);
   }, []);
 
@@ -60,11 +74,21 @@ export default function ({ env, data, inputs, outputs }) {
     if (typeof text === "object") {
       return JSON.stringify(text);
     }
+
     return text;
   }, [data.text]);
 
+  const $skeleton = useMemo(() => {
+    return <View>股架屏</View>;
+  }, []);
+
   return (
-    <View className={textCx} style={style} onClick={onClick} onLongPress={onLongPress}>
+    <View
+      className={textCx}
+      style={style}
+      onClick={onClick}
+      onLongPress={onLongPress}
+    >
       {text}
     </View>
   );

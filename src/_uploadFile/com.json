@@ -1,5 +1,5 @@
 {
-  "title": "文件上传",
+  "title": "单文件上传",
   "namespace": "mybricks.taro._uploadFile",
   "author": "mybricks-team",
   "author_name": "板砖团队",
@@ -20,11 +20,8 @@
           "formData": {
             "type": "object"
           },
-          "filePaths": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "filePath": {
+            "type": "string"
           }
         }
       }

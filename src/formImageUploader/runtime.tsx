@@ -36,12 +36,15 @@ export default function (props) {
     });
 
     // 上传完成
-    slots["customUpload"]?.outputs["setFileInfo"]?.((files) => {
-      data.value = [...files, ...data.value];
+    slots["customUpload"]?.outputs["setFileInfo"]?.((filePath) => {
+      if (!filePath && typeof filePath !== "string") {
+        return;
+      }
+
+      data.value = [filePath, ...data.value];
       data.value = data.value.slice(0, data.maxCount);
       onChange(data.value);
     });
-    
   }, [data]);
 
   const onChange = useCallback(
@@ -84,7 +87,11 @@ export default function (props) {
       sizeType: ["original", "compressed"],
       sourceType: ["album", "camera"],
       success: async (res) => {
-        slots["customUpload"]?.inputs["fileData"](res);
+        res.tempFilePaths.forEach((tempFilePath) => {
+          slots["customUpload"]?.inputs["fileData"]({
+            filePath: tempFilePath,
+          });
+        });
       },
     });
   }, [data.value]);
@@ -93,20 +100,8 @@ export default function (props) {
     (res) => {
       let tempPath = res.detail.avatarUrl;
       slots["customUpload"]?.inputs["fileData"]({
-        tempFilePaths: [tempPath],
-        tempPaths: [
-          {
-            path: tempPath,
-          },
-        ],
+        filePath: tempPath,
       });
-
-      // env.fileUploader({ path: tempPath }).then((url) => {
-      //   let newValue = JSON.parse(JSON.stringify(data.value));
-      //   newValue.unshift(url);
-      //   data.value = newValue;
-      //   onChange(newValue);
-      // });
     },
     [data.value]
   );

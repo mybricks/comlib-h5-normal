@@ -347,7 +347,7 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
                     className={css.item}
                     key={index}
                     onClick={() => {
-                      onClickUser(item.id);
+                      onClickUser(item.userId);
                     }}
                   >
                     <View className={css.avatarWrapper}>

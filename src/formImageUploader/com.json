@@ -110,39 +110,16 @@
   "slots": [
     {
       "id": "customUpload",
-      "title": "自定义上传",
+      "title": "逐张图片上传处理",
       "type": "scope",
       "inputs": [
         {
           "id": "fileData",
-          "title": "输出文件数据",
+          "title": "输出图片本地文件路径",
           "schema": {
             "type": "object",
             "properties": {
-              "tempFilePaths": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "tempFiles": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "path": {
-                      "type": "string"
-                    },
-                    "size": {
-                      "type": "number"
-                    },
-                    "type": {
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "errMsg": {
+              "filePath": {
                 "type": "string"
               }
             }
@@ -152,13 +129,9 @@
       "outputs": [
         {
           "id": "setFileInfo",
-          "title": "设置上传结果",
-          "description": "设置文件地址",
+          "title": "设置图片上传后地址",
           "schema": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "type": "string"
           }
         }
       ]

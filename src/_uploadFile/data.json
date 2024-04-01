@@ -1,3 +1,18 @@
 {
+  "mode": "custom",
+  
+  "custom": {
+    "url": "",
+    "name": ""
+  },
+  
+  "platform": "",
+
+  "oss": {
+    "host": "",
+    "accessKeyId": "",
+    "accessKeySecret": ""
+  },
+
   "name": "file"
 }
