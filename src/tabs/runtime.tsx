@@ -122,7 +122,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-  function throttle(fn, delay = 200) {
+  function throttle(fn, delay = 50) {
     let lastCall = 0;
     return function (...args) {
       const now = new Date().getTime();
@@ -133,7 +133,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }
 
   const updateTabTop = async (tabpaneId, e) => {
-    console.log("触发一次TabTop查询", tabpaneId);
+    // console.log("触发一次TabTop查询", tabpaneId);
     const query = Taro.createSelectorQuery();
     query
       .select(`#${tabpaneId}`)
@@ -146,7 +146,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           const tabToTop = Number(
             (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
           );
-          // console.log("实时取到的TabToTop", tabpaneId, tabToTop);
+          console.log("实时取到的TabToTop", tabpaneId, tabToTop, tabsHeight);
           setTabsTopUpdate(tabToTop);
         } else {
           console.log("未能找到元素或其他错误");
@@ -154,7 +154,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       });
   };
 
-  const debouncedUpdateTabTop = useCallback(throttle(updateTabTop), []);
+  const debouncedUpdateTabTop = useCallback(throttle(updateTabTop), [
+    tabsHeight,
+  ]);
 
   useEffect(() => {
     if (!tabsTopReady || !isRelEnv()) return;
