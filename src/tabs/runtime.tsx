@@ -122,17 +122,18 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-  function debounce(fn, delay = 300) {
-    let timer = null;
+  function throttle(fn, delay = 50) {
+    let lastCall = 0;
     return function (...args) {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(this, args);
-      }, delay);
+      const now = new Date().getTime();
+      if (now - lastCall < delay) return;
+      lastCall = now;
+      fn.apply(this, args);
     };
   }
 
   const updateTabTop = async (tabpaneId, e) => {
+    // console.log("触发一次TabTop查询", tabpaneId);
     const query = Taro.createSelectorQuery();
     query
       .select(`#${tabpaneId}`)
@@ -145,7 +146,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           const tabToTop = Number(
             (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
           );
-          console.log("实时取到的TabToTop", tabpaneId, tabToTop);
+          console.log("实时取到的TabToTop", tabpaneId, tabToTop, tabsHeight);
           setTabsTopUpdate(tabToTop);
         } else {
           console.log("未能找到元素或其他错误");
@@ -153,14 +154,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       });
   };
 
-  const debouncedUpdateTabTop = debounce(updateTabTop);
-
-  // useEffect(() => {
-  //   env?.rootScroll?.onScroll?.((e) => {
-  //     if (!isRelEnv()) return;
-  //     debouncedUpdateTabTop(tabpaneId, e);
-  //   });
-  // }, []);
+  const debouncedUpdateTabTop = useCallback(throttle(updateTabTop), [
+    tabsHeight,
+  ]);
 
   useEffect(() => {
     if (!tabsTopReady || !isRelEnv()) return;
@@ -171,10 +167,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       let _tabtop = 0;
       if (tabsTopUpdate === -1) {
          _tabtop = tabsTop;
-        console.log("tabsTopUpdate未更新",tabsTopUpdate);
+        // console.log("tabsTopUpdate未更新",tabsTopUpdate);
       } else {
         _tabtop = tabsTopUpdate;
-        console.log("tabsTopUpdate已经更新", tabsTopUpdate);
+        // console.log("tabsTopUpdate已经更新", tabsTopUpdate);
       }
       debouncedUpdateTabTop(tabpaneId, e);
       const { scrollTop } = e.detail ?? {};
@@ -186,33 +182,33 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           return;
         }
 
-        console.log(
-          "吸顶，id-",
-          TabID,
-          "tabsPaneHeight-",
-          tabsPaneHeight,
-          "tabsTop-",
-          tabsTop,
-          "_tabtop",
-          _tabtop,
-          "scrollTop-",
-          scrollTop
-        );
+        // console.log(
+        //   "吸顶，id-",
+        //   TabID,
+        //   "tabsPaneHeight-",
+        //   tabsPaneHeight,
+        //   "tabsTop-",
+        //   tabsTop,
+        //   "_tabtop",
+        //   _tabtop,
+        //   "scrollTop-",
+        //   scrollTop
+        // );
         setIsFixed(true);
         setShowPlaceholder(true);
       } else {
-        console.log(
-          "吸顶，id-",
-          TabID,
-          "tabsPaneHeight-",
-          tabsPaneHeight,
-          "tabsTop-",
-          tabsTop,
-          "_tabtop",
-          _tabtop,
-          "scrollTop-",
-          scrollTop
-        );
+        // console.log(
+        //   "吸顶，id-",
+        //   TabID,
+        //   "tabsPaneHeight-",
+        //   tabsPaneHeight,
+        //   "tabsTop-",
+        //   tabsTop,
+        //   "_tabtop",
+        //   _tabtop,
+        //   "scrollTop-",
+        //   scrollTop
+        // );
         setIsFixed(false);
         setShowPlaceholder(false);
       }
