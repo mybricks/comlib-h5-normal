@@ -1,4 +1,3 @@
-import { useComputed, useObservable } from "@mybricks/rxui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Image } from "@tarojs/components";
 // https://github.com/miaonster/taro-code
