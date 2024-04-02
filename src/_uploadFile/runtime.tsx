@@ -30,8 +30,11 @@ export default function ({ env, data, inputs, outputs }) {
           }
 
           // 上传完成
-          outputs["onSuccess"](uploadedFile);
+          outputs["onSuccess"](data);
         },
+        fail(err) {
+          outputs["onFail"](err);
+        }
       });
       return;
     }
@@ -54,7 +57,6 @@ export default function ({ env, data, inputs, outputs }) {
         name: "file",
         formData: {
           ...(value.formData || {}),
-
           policy: params.policy,
           OSSAccessKeyId: params.OSSAccessKeyId,
           signature: params.signature,
