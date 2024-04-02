@@ -40,6 +40,11 @@ interface EditorResult<T> {
   diagram: any;
 }
 
+
+interface Data {
+  [key: string]: any;
+}
+
 interface UpgradeParams<T> {
   data: T;
   output: any;

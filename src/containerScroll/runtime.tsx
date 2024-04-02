@@ -1,4 +1,3 @@
-import { useComputed, useObservable } from "@mybricks/rxui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Image, ScrollView } from "@tarojs/components";
 import css from "./style.less";
