@@ -62,8 +62,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           console.log("rect", rect);
           if (rect) {
             setTabsTop(rect.top);
-            //减去6px防止真机预览抖动，先这样处理
-            // setTabsHeight(rect.height - 6);
             setTabsHeight(rect.height);
             setTabsTopReady(true);
           }
@@ -122,18 +120,42 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-  function throttle(fn, delay = 50) {
-    let lastCall = 0;
-    return function (...args) {
-      const now = new Date().getTime();
-      if (now - lastCall < delay) return;
-      lastCall = now;
-      fn.apply(this, args);
+  // function throttle(fn, delay = 300) {
+  //   let lastCall = 0;
+  //   return function (...args) {
+  //     const now = new Date().getTime();
+  //     if (now - lastCall < delay) return;
+  //     lastCall = now;
+  //     fn.apply(this, args);
+  //   };
+  // }
+
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
     };
-  }
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+  const _setUpdateTabTop = (updateTabTop) => {
+    console.log("updateTabTop", updateTabTop);
+    setTabsTopUpdate(updateTabTop);
+  };
+
+  const debouncedSetTabsTopUpdate = useCallback(
+    debounce(_setUpdateTabTop, 120, false),
+    [tabsHeight]
+  );
 
   const updateTabTop = async (tabpaneId, e) => {
-    // console.log("触发一次TabTop查询", tabpaneId);
     const query = Taro.createSelectorQuery();
     query
       .select(`#${tabpaneId}`)
@@ -146,16 +168,29 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           const tabToTop = Number(
             (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
           );
-          console.log("实时取到的TabToTop", tabpaneId, tabToTop, tabsHeight);
-          setTabsTopUpdate(tabToTop);
+          // console.log(
+          //   "实时取到的TabToTop",
+          //   tabpaneId,
+          //   "realtime_tabToTop",
+          //   realtime_tabToTop,
+          //   "scrollTop",
+          //   scrollTop,
+          //   "最终tabToTop",
+          //   tabToTop,
+          //   "初始化的tabsTop",
+          //   tabsTop
+          // );
+          debouncedSetTabsTopUpdate(tabToTop);
         } else {
           console.log("未能找到元素或其他错误");
         }
       });
   };
 
-  const debouncedUpdateTabTop = useCallback(throttle(updateTabTop), [
+  const smoothUpdateTabTop = useCallback(updateTabTop, [
     tabsHeight,
+    tabsTop,
+    tabsTopUpdate,
   ]);
 
   useEffect(() => {
@@ -163,16 +198,22 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
     env?.rootScroll?.onScroll?.((e) => {
       if (!data.sticky) return;
-      
+
       let _tabtop = 0;
-      if (tabsTopUpdate === -1) {
-         _tabtop = tabsTop;
-        // console.log("tabsTopUpdate未更新",tabsTopUpdate);
+      if (tabsTopUpdate === -1 || Math.abs(tabsTopUpdate - tabsTop) <= 10) {
+        _tabtop = tabsTop;
       } else {
         _tabtop = tabsTopUpdate;
-        // console.log("tabsTopUpdate已经更新", tabsTopUpdate);
       }
-      debouncedUpdateTabTop(tabpaneId, e);
+      console.log(
+        "_tabtop",
+        _tabtop,
+        "customNavigationHeight",
+        customNavigationHeight
+      );
+      if (_tabtop >= customNavigationHeight) {
+        smoothUpdateTabTop(tabpaneId, e);
+      }
       const { scrollTop } = e.detail ?? {};
       if (customNavigationHeight + scrollTop >= _tabtop) {
         //判断tab是否已经滑动离开页面
@@ -181,34 +222,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           setShowPlaceholder(false);
           return;
         }
-
-        // console.log(
-        //   "吸顶，id-",
-        //   TabID,
-        //   "tabsPaneHeight-",
-        //   tabsPaneHeight,
-        //   "tabsTop-",
-        //   tabsTop,
-        //   "_tabtop",
-        //   _tabtop,
-        //   "scrollTop-",
-        //   scrollTop
-        // );
         setIsFixed(true);
         setShowPlaceholder(true);
       } else {
-        // console.log(
-        //   "吸顶，id-",
-        //   TabID,
-        //   "tabsPaneHeight-",
-        //   tabsPaneHeight,
-        //   "tabsTop-",
-        //   tabsTop,
-        //   "_tabtop",
-        //   _tabtop,
-        //   "scrollTop-",
-        //   scrollTop
-        // );
         setIsFixed(false);
         setShowPlaceholder(false);
       }
@@ -256,7 +272,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     emptyView || (
       <View>
         {showPlaceholder && (
-          <View id={tabholderId} style={{ height: `${tabsHeight}px` }}></View>
+          <View
+            id={tabholderId}
+            style={{ height: `${tabsHeight / pxDelta}px` }}
+          ></View>
         )}
         <Tabs
           id={TabID}
