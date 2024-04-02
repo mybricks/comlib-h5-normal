@@ -215,8 +215,9 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
 
   const onToggleSignup = useCallback(() => {
     if (
-      raw["activityRegister"]?.["auditStatus"] &&
-      raw["activityRegister"]?.["auditStatus"] !== "审核未通过"
+      raw["activity"]?.["activitySpecialStatus"] ||
+      (raw["activityRegister"]?.["auditStatus"] &&
+        raw["activityRegister"]?.["auditStatus"] !== "审核未通过")
     ) {
       return;
     }
@@ -269,7 +270,7 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
   /**
    * 活动下架
    */
-  if (raw["活动状态"] === "下架") {
+  if (raw["activity"]?.["activityStatus"] === "下架") {
     return (
       <View className={css.errorResult}>
         <View className={css.text}>来晚啦，活动已下线</View>
@@ -415,12 +416,15 @@ export default function ({ env, data, inputs, outputs, slots, id }) {
         <View
           className={cx(css.signupButton, {
             [css.disabled]:
-              raw["activityRegister"]?.["auditStatus"] &&
-              raw["activityRegister"]?.["auditStatus"] !== "审核未通过",
+              raw["activity"]?.["activitySpecialStatus"] ||
+              (raw["activityRegister"]?.["auditStatus"] &&
+                raw["activityRegister"]?.["auditStatus"] !== "审核未通过"),
           })}
           onClick={onToggleSignup}
         >
-          {raw["activityRegister"]?.["auditStatus"] || "我要报名"}
+          {raw["activity"]?.["activitySpecialStatus"] ||
+            raw["activityRegister"]?.["auditStatus"] ||
+            "我要报名"}
         </View>
       </View>
     </View>
