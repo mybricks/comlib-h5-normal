@@ -341,6 +341,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
         showScrollbar={false}
         onScroll={handleScroll}
         enableBackToTop={true}
+        using-sticky={true}
         {...scrollToProps}
         {...pulldownProps}
         className={css.contentScrollView}

@@ -20,17 +20,16 @@ const getTabsId = (prefix, length) => {
     result += chars.substring(randomPos, randomPos + 1);
   }
   return `${prefix}-${result}`;
-}
+};
 
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [isFixed, setIsFixed] = useState(false);
-  const [tabsTop, setTabsTop] = useState(0);
+  const [tabsTop, setTabsTop] = useState(-1);
   const [tabsTopUpdate, setTabsTopUpdate] = useState(-1);
-  const [tabsTopReady, setTabsTopReady] = useState(false);
-  const [tabsHeight, setTabsHeight] = useState(0);
   const [tabsPaneHeight, setTabsPaneHeight] = useState(0);
-  const [showPlaceholder, setShowPlaceholder] = useState(false);
   const [customNavigationHeight, setCustomNavigationHeight] = useState(0);
+
+  const [tabsHeight, setTabsHeight] = useState(0);
   const [pxDelta, setPxDelta] = useState(0);
   const [TabID, setTabID] = useState(getTabsId("tab", 6));
   const [tabholderId, setTabholderId] = useState(getTabsId("tabholder", 6));
@@ -63,7 +62,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           if (rect) {
             setTabsTop(rect.top);
             setTabsHeight(rect.height);
-            setTabsTopReady(true);
           }
         });
 
@@ -106,7 +104,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
   }, []);
 
-  // 切换tab时获取tabpane的高度，用于tabpane滑出屏幕时，退场处理
+  // 切换tab时获取tabpane的高度，用于tabpane滑出屏幕时，标记为非吸顶
   useEffect(() => {
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
@@ -120,33 +118,24 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-  // function throttle(fn, delay = 300) {
-  //   let lastCall = 0;
-  //   return function (...args) {
-  //     const now = new Date().getTime();
-  //     if (now - lastCall < delay) return;
-  //     lastCall = now;
-  //     fn.apply(this, args);
-  //   };
-  // }
 
-function debounce(func, wait, immediate) {
-  let timeout;
-  return function (...args) {
-    const context = this;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      const later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
     };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
+  }
 
   const _setUpdateTabTop = (updateTabTop) => {
-    console.log("updateTabTop", updateTabTop);
+    console.log("TabID", TabID, "updateTabTop", updateTabTop);
     setTabsTopUpdate(updateTabTop);
   };
 
@@ -168,18 +157,6 @@ function debounce(func, wait, immediate) {
           const tabToTop = Number(
             (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
           );
-          // console.log(
-          //   "实时取到的TabToTop",
-          //   tabpaneId,
-          //   "realtime_tabToTop",
-          //   realtime_tabToTop,
-          //   "scrollTop",
-          //   scrollTop,
-          //   "最终tabToTop",
-          //   tabToTop,
-          //   "初始化的tabsTop",
-          //   tabsTop
-          // );
           debouncedSetTabsTopUpdate(tabToTop);
         } else {
           console.log("未能找到元素或其他错误");
@@ -193,52 +170,41 @@ function debounce(func, wait, immediate) {
     tabsTopUpdate,
   ]);
 
+
   useEffect(() => {
-    if (!tabsTopReady || !isRelEnv()) return;
+    if (tabsTop === -1 || !isRelEnv()) return;
 
     env?.rootScroll?.onScroll?.((e) => {
       if (!data.sticky) return;
 
       let _tabtop = 0;
-      if (tabsTopUpdate === -1 || Math.abs(tabsTopUpdate - tabsTop) <= 10) {
+      if (tabsTopUpdate === -1) {
         _tabtop = tabsTop;
       } else {
         _tabtop = tabsTopUpdate;
       }
-      console.log(
-        "_tabtop",
-        _tabtop,
-        "customNavigationHeight",
-        customNavigationHeight
-      );
-      if (_tabtop >= customNavigationHeight) {
-        smoothUpdateTabTop(tabpaneId, e);
-      }
+      smoothUpdateTabTop(tabpaneId, e);
       const { scrollTop } = e.detail ?? {};
       if (customNavigationHeight + scrollTop >= _tabtop) {
         //判断tab是否已经滑动离开页面
         if (tabsPaneHeight + _tabtop < scrollTop + customNavigationHeight) {
           setIsFixed(false);
-          setShowPlaceholder(false);
           return;
         }
         setIsFixed(true);
-        setShowPlaceholder(true);
       } else {
         setIsFixed(false);
-        setShowPlaceholder(false);
       }
     });
   }, [
     tabsTop,
-    tabsTopReady,
     tabsPaneHeight,
     customNavigationHeight,
-    tabholderId,
     TabID,
     tabpaneId,
     tabsTopUpdate,
   ]);
+
 
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
@@ -254,9 +220,23 @@ function debounce(func, wait, immediate) {
       index,
     });
 
-    if (isRelEnv() && isFixed) {
-      env.rootScroll.scrollTo({ id: tabholderId });
-      setTabholderId(getTabsId("tabholder", 6));
+    if (isRelEnv()) {
+      const random = Number(Math.random().toFixed(2));
+      let _tabtop;
+      if (tabsTopUpdate === -1) {
+        _tabtop = tabsTop;
+      } else {
+        _tabtop = tabsTopUpdate;
+      }
+      if (isFixed) {
+        env.rootScroll.scrollTo({ scrollTop: random + _tabtop });
+        console.log(
+          "最后滑动到",
+          random + _tabtop,
+          "_tabtop",
+          _tabtop
+        );
+      }
     }
   };
 
@@ -271,17 +251,11 @@ function debounce(func, wait, immediate) {
   return (
     emptyView || (
       <View>
-        {showPlaceholder && (
-          <View
-            id={tabholderId}
-            style={{ height: `${tabsHeight / pxDelta}px` }}
-          ></View>
-        )}
         <Tabs
           id={TabID}
-          className={isFixed ? css.fix_tabs : css.tabs}
+          className={css.tabs_normal}
           style={
-            isFixed ? { top: `${customNavigationHeight / pxDelta}px` } : {}
+            data.sticky ? { position: "sticky" } : {}
           }
           value={currentTabId}
           onChange={_setCurrentTabId}
