@@ -22,6 +22,21 @@ const getTabsId = (prefix, length) => {
   return `${prefix}-${result}`;
 };
 
+  function debounce(func, wait, immediate) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      const later = function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  }
+
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [isFixed, setIsFixed] = useState(false);
   const [tabsTop, setTabsTop] = useState(-1);
@@ -118,21 +133,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-
-  function debounce(func, wait, immediate) {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      const later = function () {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      const callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
 
   const _setUpdateTabTop = (updateTabTop) => {
     console.log("TabID", TabID, "updateTabTop", updateTabTop);

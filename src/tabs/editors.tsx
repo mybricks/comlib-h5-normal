@@ -27,6 +27,7 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
+  ":slot":{},
   ":root": {
     style: [
       {
