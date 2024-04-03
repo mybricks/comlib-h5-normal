@@ -86,7 +86,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         .select(`#custom_navigation`)
         .boundingClientRect()
         .exec((res) => {
-          if (res) {
+          if (res && res[0]) {
             const rect = res[0];
             setCustomNavigationHeight(rect.height);
           }
@@ -134,8 +134,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }, [currentTabId]);
 
 
-  const _setUpdateTabTop = (updateTabTop) => {
-    console.log("TabID", TabID, "updateTabTop", updateTabTop);
+  const _setUpdateTabTop = (updateTabTop,e) => {
+    console.log("TabID", TabID, "updateTabTop", updateTabTop, "e", e);
     setTabsTopUpdate(updateTabTop);
   };
 
@@ -157,7 +157,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           const tabToTop = Number(
             (realtime_tabToTop + scrollTop - tabsHeight).toFixed(0)
           );
-          debouncedSetTabsTopUpdate(tabToTop);
+          debouncedSetTabsTopUpdate(tabToTop, e);
         } else {
           console.log("未能找到元素或其他错误");
         }
@@ -221,7 +221,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
 
     if (isRelEnv()) {
-      const random = Number(Math.random().toFixed(2));
+      const random = Number(Math.random() * 0.1 + 0.01);
       let _tabtop;
       if (tabsTopUpdate === -1) {
         _tabtop = tabsTop;
@@ -229,10 +229,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         _tabtop = tabsTopUpdate;
       }
       if (isFixed) {
-        env.rootScroll.scrollTo({ scrollTop: random + _tabtop });
+        env.rootScroll.scrollTo({ scrollTop: random + _tabtop - customNavigationHeight });
         console.log(
           "最后滑动到",
-          random + _tabtop,
+          random + _tabtop - customNavigationHeight,
           "_tabtop",
           _tabtop
         );
