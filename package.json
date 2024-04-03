@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/ktaro-common-lib",
-  "version": "0.0.53",
+  "version": "0.0.55",
   "description": "小程序通用组件库",
   "main": "./dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "@tarojs/components": "3.6.13",
     "@tarojs/react": "^3.6.13",
     "@tarojs/taro-h5": "3.6.13",
-    "brickd-mobile": "^0.0.38",
+    "brickd-mobile": "^0.0.40",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.8",
     "jssha": "^3.3.1",
