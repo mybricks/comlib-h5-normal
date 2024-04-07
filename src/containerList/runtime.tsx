@@ -10,6 +10,7 @@ import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import { List, Loading } from "brickd-mobile";
 import { Direction } from "./constant";
+import cx from "classnames";
 
 const rowKey = "_itemKey";
 
@@ -141,7 +142,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
               : "marginBottom"]: `${data.spacing}px`,
           }}
         >
-          {slots["item"].render()}
+          {slots["item"].render({
+            style: {
+              height: "120px",
+            }
+          })}
         </View>
       );
     } else {
@@ -217,7 +222,12 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
       return (
         <View
-          className={env.edit && _idx > 0 ? "disabled-area" : css.item}
+          className={cx({
+            [css.item]: true,           
+            ["disabled-area"]: env.edit && _idx > 0,
+            [css.item]: !env.edit || _idx === 0,
+            // env.edit && _idx > 0 ? "disabled-area" : css.item
+          })}
           key={key}
           style={{
             [data.direction === Direction.Row
