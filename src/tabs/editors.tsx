@@ -27,7 +27,7 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
-  ":slot":{},
+  // ":slot":{},
   ":root": {
     style: [
       {
@@ -752,10 +752,12 @@ export default {
           get({ data, focusArea }) {
             return focusItem?.tabName;
           },
-          set({ data, focusArea, slot }, value) {
+          set({ data, focusArea, slot, output }, value) {
             if (!focusArea) return;
             focusItem.tabName = value;
             slot.setTitle(focusItem._id, value);
+            // console.log(output.get(focusItem._id));
+            output.setTitle(focusItem._id, value); 
           },
         },
       },
