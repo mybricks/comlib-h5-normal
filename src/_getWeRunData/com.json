@@ -1,0 +1,46 @@
+{
+  "title": "获取运动步数",
+  "namespace": "mybricks.taro._getWeRunData",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "扫码",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "获取",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "获取成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "encryptedData": {
+            "type": "string"
+          },
+          "iv": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "获取失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
-    input[type="number"]{
+    input[type="number"] {
       -moz-appearance: textfield;
     }
   }
@@ -30,4 +30,16 @@
 .stepper {
   width: 100%;
   text-align: right;
+
+  :global {
+    .taroify-stepper__decrease {
+      color: rgb(250, 100, 0);
+      border-color: rgb(250, 100, 0);
+    }
+
+    .taroify-stepper__increase {
+      color: #fff;
+      background: rgb(250, 100, 0);
+    }
+  }
 }

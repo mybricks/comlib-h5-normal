@@ -17,11 +17,9 @@ export default function (props) {
         }
         case isString(val) || isNumber(val):
           data.value = val;
-          // outputs["onChange"]({ name: data.name, value: val });
           break;
         case isObject(val):
           data.value = val[data.name];
-          // outputs["onChange"]({ name: data.name, value: val[data.name] });
           break;
         default:
           break;
@@ -43,7 +41,6 @@ export default function (props) {
       min={data.min ?? 0}
       max={data.max ?? Infinity}
       disabled={data.disabled}
-      // style={{ marginLeft: "auto" }}
       shape="circular"
       size={24}
       value={data.value ?? 0}

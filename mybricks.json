@@ -40,6 +40,7 @@
     "./src/_setTabbarBadge/com.json",
     "./src/_removeTabBarBadge/com.json",
     "./src/_wxPay/com.json",
+    "./src/_getWeRunData/com.json",
     {
       "title": "系统",
       "visible": false,
