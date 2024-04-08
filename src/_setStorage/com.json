@@ -15,17 +15,7 @@
       "id": "setStorage",
       "title": "写入",
       "schema": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "键名"
-          },
-          "value": {
-            "type": "any",
-            "title": "值"
-          }
-        }
+        "type": "object"
       }
     }
   ],

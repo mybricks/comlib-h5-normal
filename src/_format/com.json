@@ -1,8 +1,8 @@
 {
   "title": "字符格式化",
   "namespace": "mybricks.taro._format",
-  "author": "",
-  "author_name": "",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
   "version": "1.0.0",
   "description": "支持各类数字/字符进行日期和价格等格式化处理",
   "icon": "./icon.svg",

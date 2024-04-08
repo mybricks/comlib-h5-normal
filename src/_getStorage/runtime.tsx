@@ -6,11 +6,18 @@ export default function ({ env, data, inputs, outputs, logger }) {
   }
 
   inputs["getStorage"]((key) => {
+    let myKey = data.useDynamicKey ? key : data.key;
+
+    if (!myKey || typeof myKey !== "string") {
+      outputs["onComplete"](null);
+      return;
+    }
+
     try {
-      let value = Taro.getStorageSync(key);
-      outputs["onSuccess"](value);
+      let value = Taro.getStorageSync(myKey);
+      outputs["onComplete"](value);
     } catch (e) {
-      outputs["onFail"](e);
+      outputs["onComplete"](null);
     }
   });
 }
