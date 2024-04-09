@@ -1,9 +1,9 @@
 import { uuid } from "../utils";
-import { DynamicArrayData } from './../utils/dynamic-array'
-import comJson from './com.json'
+import { DynamicArrayData } from "./../utils/dynamic-array";
+import comJson from "./com.json";
 
 const ScopeSlotInputs = comJson.slots[0].inputs;
-const dynamicArrayData = new DynamicArrayData({ keyName: 'tabs' });
+const dynamicArrayData = new DynamicArrayData({ keyName: "tabs" });
 
 function getTabItem(data, focusArea) {
   const tabId = focusArea.dataset.tabId;
@@ -31,51 +31,72 @@ export default {
   ":root": {
     style: [
       {
-        title: '标签栏',
+        title: "标签栏",
         options: [
-          'border',
-          { type: 'background', config: { disableBackgroundImage: true } },
+          "border",
+          { type: "background", config: { disableBackgroundImage: true } },
         ],
-        target: '.taroify-tabs__wrap'
+        target: ".taroify-tabs__wrap",
       },
       {
-        title: '标签项',
+        title: "标签项",
         items: [
           {
-            title: '默认Tab',
-            catelog: '默认',
+            title: "宽度",
+            type: "select",
             options: [
-              { type: 'font', config: { disableTextAlign: true } },
-              { type: 'size'},
-              { type: 'border'},
-              { type: 'padding' },
-              { type: 'background' }
+              { label: "拉伸铺满", value: "fill" },
+              { label: "适应内容", value: "fit" },
             ],
-            target: '.taroify-tabs__tab:not(.taroify-tabs__tab--active)',
+            value: {
+              get({ data }) {
+                return data.tabWidthType ?? "fill";
+              },
+              set({ data }, value) {
+                data.tabWidthType = value;
+              },
+            },
           },
           {
-            title: '选中Tab',
-            catelog: '选中',
-            options: [
-              { type: 'font', config: { disableTextAlign: true } },
-              { type: 'size'},
-              { type: 'border'},
-              { type: 'padding' },
-              { type: 'background' }
+            title: "样式",
+            items: [
+              {
+                title: "默认样式",
+                catelog: "默认样式",
+                options: [
+                  { type: "font", config: { disableTextAlign: true } },
+                  { type: "size" },
+                  { type: "border" },
+                  { type: "padding" },
+                  { type: "background" },
+                ],
+                target: ".taroify-tabs__tab:not(.taroify-tabs__tab--active)",
+              },
+              {
+                title: "选中样式",
+                catelog: "选中样式",
+                options: [
+                  { type: "font", config: { disableTextAlign: true } },
+                  { type: "size" },
+                  { type: "border" },
+                  { type: "padding" },
+                  { type: "background" },
+                ],
+                target: ".taroify-tabs__tab--active",
+              },
             ],
-            target: '.taroify-tabs__tab--active',
           },
-        ]
+        ],
       },
       {
-        title: '选中条',
+        title: "选中条",
         options: [
-          'border',
-          { type: 'background', config: { disableBackgroundImage: true } },
-          { type: 'size', config: { disableWidth: false } }
+          "border",
+          { type: "background", config: { disableBackgroundImage: true } },
+          { type: "size", config: { disableWidth: false } },
         ],
-        target: '.taroify-tabs__line'
-      }
+        target: ".taroify-tabs__line",
+      },
     ],
     items({ data, slot }, cate0, cate1, cate2) {
       cate0.title = "常规";
@@ -154,7 +175,7 @@ export default {
         //         before: data.tabs,
         //         after: value,
         //       });
-  
+
         //       switch (action?.name) {
         //         case "remove":
         //           slot.remove(action?.value._id);
@@ -170,77 +191,95 @@ export default {
         //     },
         //   },
         // },
-        dynamicArrayData.editors({ data }, {
-          title: '标签项',
-          array: {
-            options: {
-              selectable: true,
-              getTitle: (item, index) => {
-                return [`${item.tabName || ""}`];
-              },
-              onAdd() {
-                let defaultItem = {
-                  tabName: "标签名",
-                };
-                return defaultItem;
-              },
-              onSelect(_id, index) {
-                if (index !== -1) {
-                  data.edit.currentTabId = data.tabs[index]?._id;
-                }
-              },
-              items: [
-                {
-                  title: "标签名",
-                  type: "text",
-                  value: "tabName",
+        dynamicArrayData.editors(
+          { data },
+          {
+            title: "标签项",
+            array: {
+              options: {
+                selectable: true,
+                getTitle: (item, index) => {
+                  return [`${item.tabName || ""}`];
                 },
-                // {
-                //   title:"tab图标(可选)",
-                //   type:"imageSelector",
-                //   value:"tabPic"
-                // },
-                // {
-                //   title:"tab图标-选中(可选)",
-                //   type:"imageSelector",
-                //   value:"tabPicActive"
-                // }
-              ],
-            }
-          },
-          effects: {
-            onRemove: ({ slot }, action) => {
-              slot.remove(action?.value._id);
+                onAdd() {
+                  let defaultItem = {
+                    tabName: "标签名",
+                  };
+                  return defaultItem;
+                },
+                onSelect(_id, index) {
+                  if (index !== -1) {
+                    data.edit.currentTabId = data.tabs[index]?._id;
+                  }
+                },
+                items: [
+                  {
+                    title: "标签名",
+                    type: "text",
+                    value: "tabName",
+                  },
+                  // {
+                  //   title:"tab图标(可选)",
+                  //   type:"imageSelector",
+                  //   value:"tabPic"
+                  // },
+                  // {
+                  //   title:"tab图标-选中(可选)",
+                  //   type:"imageSelector",
+                  //   value:"tabPicActive"
+                  // }
+                ],
+              },
             },
-            onAdd: ({ slot }, action) => {
-              slot.add({ id: action?.value._id, title: action?.value.tabName, type: 'scope', inputs: ScopeSlotInputs })
-            },
-            onUpdate: ({ slot }, action) => {
-              slot.setTitle(action?.value._id, action?.value.tabName);
-            },
-            onSwitchToDynamic: (datasource) => {
-              // 增加动态插槽
-              if (!slot.get('item')) {
-                slot.add({ id: 'item', title: '内容项', type: 'scope', inputs: ScopeSlotInputs })
-              }
-              // 删除静态插槽
-              datasource.forEach(item => {
-                slot.remove(item._id);
-              });
-            },
-            onSwitchToStatic: (datasource) => {
-              // 增加静态插槽
-              datasource.forEach(item => {
-                if (!slot.get(item._id)) {
-                  slot.add({ id: item._id, title: item.tabName, type: 'scope', inputs: ScopeSlotInputs })
+            effects: {
+              onRemove: ({ slot }, action) => {
+                slot.remove(action?.value._id);
+              },
+              onAdd: ({ slot }, action) => {
+                slot.add({
+                  id: action?.value._id,
+                  title: action?.value.tabName,
+                  type: "scope",
+                  inputs: ScopeSlotInputs,
+                });
+              },
+              onUpdate: ({ slot }, action) => {
+                slot.setTitle(action?.value._id, action?.value.tabName);
+              },
+              onSwitchToDynamic: (datasource) => {
+                // 增加动态插槽
+                if (!slot.get("item")) {
+                  slot.add({
+                    id: "item",
+                    title: "内容项",
+                    type: "scope",
+                    inputs: ScopeSlotInputs,
+                  });
                 }
-              });
-              // 删除动态插槽
-              slot.remove('item');
-            }
-            // onSwitchTo
+                // 删除静态插槽
+                datasource.forEach((item) => {
+                  slot.remove(item._id);
+                });
+              },
+              onSwitchToStatic: (datasource) => {
+                // 增加静态插槽
+                datasource.forEach((item) => {
+                  if (!slot.get(item._id)) {
+                    slot.add({
+                      id: item._id,
+                      title: item.tabName,
+                      type: "scope",
+                      inputs: ScopeSlotInputs,
+                    });
+                  }
+                });
+                // 删除动态插槽
+                slot.remove("item");
+              },
+              // onSwitchTo
+            },
           }
-        }),
+        ),
         // {
         //   title: "支持滑动",
         //   type: "switch",
@@ -292,6 +331,7 @@ export default {
         //     },
         //   },
         // },
+        {},
         {
           title: "事件",
           items: [
@@ -317,7 +357,7 @@ export default {
           ],
         },
       ];
-  
+
       // cate1.title = "样式";
       // cate1.items = [
       //   // {
@@ -385,7 +425,7 @@ export default {
       //     },
       //   },
       // ];
-  
+
       // cate2.title = '标签栏'
       // cate2.items = [
       //   {
@@ -614,7 +654,7 @@ export default {
       // ]
     },
   },
-  
+
   ".taroify-tabs__tab"(props, cate1, cate2, cate3) {
     // title: '标签',
     // items: (props, cate1, cate2, cate3) => {
@@ -757,7 +797,7 @@ export default {
             focusItem.tabName = value;
             slot.setTitle(focusItem._id, value);
             // console.log(output.get(focusItem._id));
-            output.setTitle(focusItem._id, value); 
+            output.setTitle(focusItem._id, value);
           },
         },
       },
@@ -986,6 +1026,96 @@ export default {
       //     },
       //   },
       // },
+    ];
+    cate2.title = "样式";
+    cate2.items = [
+      {
+        title: "独立样式",
+        description: "开启后每个标签项可以单独配置样式，会覆盖通用样式",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return !!focusItem.useStyle;
+          },
+          set({ data }, value) {
+            focusItem.useStyle = value;
+          },
+        },
+      },
+      {
+        title: "",
+        items: [
+          {
+            title: "默认样式",
+            type: "stylenew",
+            catelog: "默认样式",
+            options: {
+              defaultOpen: true,
+              plugins: [
+                { type: "font", config: { disableTextAlign: true } },
+                { type: "size" },
+                { type: "border" },
+                { type: "padding" },
+                { type: "background" },
+              ],
+            },
+            ifVisible({ data }: EditorResult<Data>) {
+              return !!focusItem.useStyle;
+            },
+            value: {
+              get({ data }) {
+                return focusItem.style;
+              },
+              set({ data }, value) {
+                focusItem.style = value;
+              },
+            },
+          },
+          {
+            title: "选中样式",
+            type: "stylenew",
+            catelog: "选中样式",
+            options: {
+              defaultOpen: true,
+              plugins: [
+                { type: "font", config: { disableTextAlign: true } },
+                { type: "size" },
+                { type: "border" },
+                { type: "padding" },
+                { type: "background" },
+              ],
+            },
+            // options: {
+            //   defaultOpen: true,
+            //   plugins: [
+            //     { type: "font", config: { disableTextAlign: true } },
+            //     { type: "size" },
+            //     { type: "border" },
+            //     { type: "padding" },
+            //     { type: "background" },
+            //   ],
+            // },
+            // options: [
+            //   { type: 'font', config: { disableTextAlign: true } },
+            //   { type: 'size'},
+            //   { type: 'border'},
+            //   { type: 'padding' },
+            //   { type: 'background' }
+            // ],
+            ifVisible({ data }: EditorResult<Data>) {
+              return !!focusItem.useStyle;
+            },
+            value: {
+              get({ data }) {
+                return focusItem.activeStyle;
+              },
+              set({ data }, value) {
+                focusItem.activeStyle = value;
+              },
+            },
+          },
+        ],
+      },
     ];
   },
 };

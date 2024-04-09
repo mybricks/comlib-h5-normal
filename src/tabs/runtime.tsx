@@ -248,6 +248,12 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [env.edit, data.tabs]);
 
+  const tabCommonStyle = useMemo(() => {
+    return {
+      flexGrow: data.tabWidthType === 'fit' ? 0 : 1,
+    }
+  }, [data.tabWidthType])
+
   return (
     emptyView || (
       <View>
@@ -262,17 +268,16 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           swipeable={data.swipeable}
         >
           {data.tabs.map((tab, index) => {
-            // let style = {};
-            // if (tab.useIndependentStyle) {
-            //   style = tab._id == currentTabId ? tab.activeNavItemStyle : tab.normalNavItemStyle;
-            // } else {
-            //   style = tab._id == currentTabId ? data.activeNavItemStyle : data.normalNavItemStyle;
-            // }
+            let style = { ...(tabCommonStyle ?? {}) };
+            if (tab.useStyle) {
+              Object.assign(style, tab._id == currentTabId ? tab.activeStyle : tab.style)
+            }
             return (
               <Tabs.TabPane
                 key={tab._id}
                 title={tab.tabName}
                 value={tab._id}
+                style={style}
               ></Tabs.TabPane>
             );
           })}
