@@ -55,6 +55,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     getDefaultCurrTabId(data.tabs)
   );
 
+  useMemo(() => {
+    /** 默认触发一次 */
+    if (data.tabs?.[0]) {
+      outputs.changeTab?.({
+        id: data.tabs[0]?._id,
+        title: data.tabs[0]?.tabName,
+        index: 0,
+      });
+    }
+  }, [])
+
   //判断是否是真机运行态
   const isRelEnv = () => {
     if (env.runtime.debug || env.edit) {
