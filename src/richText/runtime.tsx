@@ -25,12 +25,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   // 处理图片点击事件
   const handleImageTap = useCallback((e) => {
-    console.warn(e);
-
     const imageUrls = content?.match(/<img.*?src="(.*?)"/g).map((item) => item.match(/src="(.*?)"/)[1]);
-
     if (imageUrls.length === 0) return;
-
     Taro.previewImage({
       urls: imageUrls,
     });
