@@ -113,6 +113,7 @@
         "./src/map/com.json",
         "./src/noticeBar/com.json",
         "./src/anchor/com.json",
+        "./src/mygpt/com.json",
         "./src/support/com.json"
       ]
     }

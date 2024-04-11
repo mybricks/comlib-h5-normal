@@ -1,3 +1,7 @@
 {
-  "shortLink": "#小程序://HelloMybricks/Jb1aMROpNN9daok"
+  "useShortLink": true,
+  "shortLink": "#小程序://HelloMybricks/Jb1aMROpNN9daok",
+  "appId": "",
+  "path": "",
+  "extraData": {}
 }

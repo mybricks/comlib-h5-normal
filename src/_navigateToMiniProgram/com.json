@@ -13,7 +13,30 @@
   "inputs": [
     {
       "id": "open",
-      "title": "打开"
+      "title": "打开",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "appId": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "extraData": {
+            "type": "object"
+          },
+          "envVersion": {
+            "type": "string"
+          },
+          "shortLink": {
+            "type": "string"
+          },
+          "noRelaunchIfPathUnchanged": {
+            "type": "boolean"
+          }
+        }
+      }
     }
   ],
   "outputs": [
