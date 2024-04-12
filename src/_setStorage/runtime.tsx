@@ -7,10 +7,13 @@ export default function ({ env, data, inputs, outputs, logger }) {
 
   inputs["setStorage"]((props) => {
     try {
-      Taro.setStorageSync(props.key, props.value);
-      outputs["onSuccess"](props.value);
+      Object.keys(props).forEach((key) => {
+        Taro.setStorageSync(key, props[key]);
+      });
+
+      outputs["onSuccess"](props);
     } catch (e) {
-      outputs["onFail"](e);
+      outputs["onFail"](props);
     }
   });
 }

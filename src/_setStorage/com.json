@@ -22,11 +22,17 @@
   "outputs": [
     {
       "id": "onSuccess",
-      "title": "写入成功"
+      "title": "写入成功",
+      "schema": {
+        "type": "follow"
+      }
     },
     {
       "id": "onFail",
-      "title": "写入失败"
+      "title": "写入失败",
+      "schema": {
+        "type": "follow"
+      }
     }
   ]
 }
