@@ -23,6 +23,19 @@ export default {
           },
         },
       },
+      {
+        title: "仅使用动态渲染",
+        description: "开启后，页面默认不会渲染静态的「内容」，数据必须经过输入项「设置内容」来设置",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useDynamic;
+          },
+          set({ data }, val) {
+            data.useDynamic = val;
+          },
+        },
+      },
     ];
   },
 };

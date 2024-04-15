@@ -4,10 +4,12 @@ import css from "./style.less";
 import * as Taro from "@tarojs/taro";
 
 export default function ({ env, data, inputs, outputs, slots }) {
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     inputs["setDataSource"]((val) => {
       data.content = val;
+      setReady(true);
     });
   }, []);
 
@@ -19,22 +21,48 @@ export default function ({ env, data, inputs, outputs, slots }) {
       let src = matchResult ? matchResult[1] : "";
       return match.replace(/<img/gi, `<img data-sid="${src}"`);
     });
-    result = result.replace(/<img/gi, '<img class style="display: block; width: 100%; height: auto;"');
+    result = result.replace(
+      /<img/gi,
+      '<img class style="display: block; width: 100%; height: auto;"'
+    );
     return result;
   }, [data.content]);
 
   // 处理图片点击事件
-  const handleImageTap = useCallback((e) => {
-    const imageUrls = content?.match(/<img.*?src="(.*?)"/g).map((item) => item.match(/src="(.*?)"/)[1]);
-    if (imageUrls.length === 0) return;
-    Taro.previewImage({
-      urls: imageUrls,
-    });
-  }, [content])
+  const handleImageTap = useCallback(
+    (e) => {
+      const imageUrls = content
+        ?.match(/<img.*?src="(.*?)"/g)
+        .map((item) => item.match(/src="(.*?)"/)[1]);
+      if (imageUrls.length === 0) return;
+      Taro.previewImage({
+        urls: imageUrls,
+      });
+    },
+    [content]
+  );
+
+  //
+  const display = useMemo(() => {
+    if (data.useDynamic && !ready && env.runtime) {
+      return false;
+    }
+    return true;
+  }, [data.useDynamic, env.runtime, ready]);
 
   return (
-    <View className={css.richtext}>
-      <RichText className={"taro_html"} nodes={content} selectable={"selectable"} preview={"preview"} space={"nbsp"}/>
-    </View>
+    <>
+      {display ? (
+        <View className={css.richtext}>
+          <RichText
+            className={"taro_html"}
+            nodes={content}
+            selectable={"selectable"}
+            preview={"preview"}
+            space={"nbsp"}
+          />
+        </View>
+      ) : null}
+    </>
   );
 }

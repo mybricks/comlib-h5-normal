@@ -3,22 +3,24 @@ import { View, Text } from "@tarojs/components";
 import cx from "classnames";
 import css from "./style.less";
 
-export default function ({ env, data, inputs, outputs }) {
+export default function ({ env, data, style, inputs, outputs }) {
+  const [ready, setReady] = useState(false);
+
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
     inputs["value"]((val) => {
       data.text = val;
-      data.ready = true;
+      setReady(true);
     });
 
     inputs["getValue"]?.((val, outputRels) => {
-      if (data.ready) {
+      if (ready) {
         outputRels["onGetValue"](data.text);
       } else {
         outputRels["onGetValue"]("");
       }
     });
-  }, []);
+  }, [ready]);
 
   const textCx = useMemo(() => {
     return cx({
@@ -49,19 +51,11 @@ export default function ({ env, data, inputs, outputs }) {
       return;
     }
 
-    if (!data.ready) {
-      return;
-    }
-
     outputs["onClick"](data.text);
   }, []);
 
   const onLongPress = useCallback(() => {
     if (!env.runtime) {
-      return;
-    }
-
-    if (!data.ready) {
       return;
     }
 
@@ -78,18 +72,26 @@ export default function ({ env, data, inputs, outputs }) {
     return text;
   }, [data.text]);
 
-  const $skeleton = useMemo(() => {
-    return <View>股架屏</View>;
-  }, []);
+  //
+  const display = useMemo(() => {
+    if (data.useDynamic && !ready && env.runtime) {
+      return false;
+    }
+    return true;
+  }, [data.useDynamic, env.runtime, ready]);
 
   return (
-    <View
-      className={textCx}
-      style={style}
-      onClick={onClick}
-      onLongPress={onLongPress}
-    >
-      {text}
-    </View>
+    <>
+      {display ? (
+        <View
+          className={textCx}
+          style={style}
+          onClick={onClick}
+          onLongPress={onLongPress}
+        >
+          {text}
+        </View>
+      ) : null}
+    </>
   );
 }

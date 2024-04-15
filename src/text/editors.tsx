@@ -4,7 +4,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   ":root": {
     style: [
@@ -45,33 +45,6 @@ export default {
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
-        // {
-        //   title: "组件默认状态",
-        //   type: "radio",
-        //   options: [
-        //     { label: "静态数据", value: "static" },
-        //     { label: "骨架屏", value: "skeleton" },
-        //     { label: "不渲染", value: "none" },
-        //   ],
-        //   value: {
-        //     get({ data }) {
-        //       return data.defaultStatus;
-        //     },
-        //     set({ data }, val) {
-        //       data.defaultStatus = val;
-
-        //       switch (val) {
-        //         case "static":
-        //           data.ready = true;
-        //           break;
-        //         default:
-        //           data.ready = false;
-        //           break;
-        //       }
-        //     },
-        //   },
-        // },
-        // {},
         {
           title: "文本内容",
           type: "textarea",
@@ -81,6 +54,19 @@ export default {
             },
             set({ data }, value: string) {
               data.text = value;
+            },
+          },
+        },
+        {
+          title: "仅使用动态渲染",
+          description: "开启后，页面默认不会渲染静态的「文本内容」，数据必须经过输入项「修改内容」来设置",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.useDynamic;
+            },
+            set({ data }, val) {
+              data.useDynamic = val;
             },
           },
         },
