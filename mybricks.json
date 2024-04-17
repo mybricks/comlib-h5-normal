@@ -10,7 +10,7 @@
     "./src/_setStorage/com.json",
     "./src/_getStorage/com.json",
 
-    "./src/_goto/com.json",
+    "./src/_open/com.json",
     "./src/_navigateBack/com.json",
     "./src/_getRouter/com.json",
 
@@ -28,7 +28,6 @@
     "./src/_generateScheme/com.json",
 
     "./src/_scan-qrcode/com.json",
-    "./src/_navigateToMiniProgram/com.json",
     "./src/_call-phone/com.json",
     "./src/_get-location/com.json",
     "./src/_chooseLocation/com.json",
