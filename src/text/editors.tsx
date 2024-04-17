@@ -52,8 +52,15 @@ export default {
             get({ data }) {
               return data.text;
             },
-            set({ data }, value: string) {
+            set({ data, setTitle }, value: string) {
+              
               data.text = value;
+
+              // if (value.length > 5) {
+              //   setTitle(value.slice(0, 5) + "...");
+              // } else {
+              //   setTitle(value);
+              // }
             },
           },
         },

@@ -264,24 +264,24 @@ export default {
 
       (cate2.title = "高级"),
         (cate2.items = [
-          {
-            title: "偷偷的upgrade",
-            type: "button",
-            // ifVisible({ data }: EditorResult<any>) {
-            //   return !!new URL(location.href).searchParams.get('update');
-            // },
-            value: {
-              set: ({ input, output }) => {
-                if (!output.get("pageDidShow")) {
-                  output.add("pageDidShow", "当页面重新显示时", { type: "object" });
-                }
+          // {
+          //   title: "偷偷的upgrade",
+          //   type: "button",
+          //   // ifVisible({ data }: EditorResult<any>) {
+          //   //   return !!new URL(location.href).searchParams.get('update');
+          //   // },
+          //   value: {
+          //     set: ({ input, output }) => {
+          //       if (!output.get("pageDidShow")) {
+          //         output.add("pageDidShow", "当页面重新显示时", { type: "object" });
+          //       }
 
-                if (!output.get("pageDidHide")) {
-                  output.add("pageDidHide", "当页面隐藏时", { type: "object" });
-                }
-              },
-            },
-          },
+          //       if (!output.get("pageDidHide")) {
+          //         output.add("pageDidHide", "当页面隐藏时", { type: "object" });
+          //       }
+          //     },
+          //   },
+          // },
         ]);
     },
   },

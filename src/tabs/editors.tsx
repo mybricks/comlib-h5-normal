@@ -25,9 +25,9 @@ const getFocusTab = (props) => {
 export default {
   "@init"({ style, data, ...opt }) {
     style.width = "100%";
-    // style.height = "auto";
+    style.height = "auto";
   },
-  // ":slot":{},
+  ":slot":{},
   ":root": {
     style: [
       {

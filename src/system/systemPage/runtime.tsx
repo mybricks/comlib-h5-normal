@@ -78,6 +78,7 @@ const usePullDownRefresh = ({ enabled = false, onLoad }) => {
 };
 
 export default function ({ id, env, data, inputs, outputs, slots }) {
+
   const [ready, setReady] = useState(false);
 
   const [footerHeight, setFooterHeight] = useState(0);
@@ -137,6 +138,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
     if (data.tabBar.length < 2 || data.tabBar.length > 5) {
       return false;
     }
+
     let isContain = data.tabBar.find((item) => {
       return item.scene.id == env.canvas.id;
     });
@@ -144,7 +146,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
       return false;
     }
     return true;
-  }, [data.useTabBar, data.tabBar, env.canvas.id]);
+  }, [data.useTabBar, data.tabBar, env.canvas.id, data.id]);
 
   useEffect(() => {
     env.useTabBar = useTabBar;
@@ -269,7 +271,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   }
 
   return (
-    <View className={css.page} style={{ background: data.background }}>
+    <View className={cx({[css.page]: true, [css.debug]: isDesigner(env) })} style={{ background: data.background }}>
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}
