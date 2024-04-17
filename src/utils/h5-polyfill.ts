@@ -1,7 +1,12 @@
 import Taro from "@tarojs/taro";
 
+// @ts-ignore
+const isWeb = Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
 
-if (isH5) {
+// 判断是否在设计器中，TODO，目前只能这么来判断了
+const isInDesn = () => isWeb && (!!window.Babel || !!window.antd || !!window.mybricks?.SPADesigner);
+
+if (isInDesn()) {
   if (!document?.body?.appendChild?._is_mybricks_desn_adapt_) {
     const oriAppend = document.body.appendChild;
     document.body.appendChild = (child: any) => {
@@ -15,9 +20,6 @@ if (isH5) {
   }
 }
 
-// @ts-ignore
-const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
-
 const getDesnRootElement = () => {
   return document.getElementById("_mybricks-geo-webview_")?.shadowRoot
 }
@@ -27,7 +29,7 @@ const getDesnDebugRootElement = () => {
 }
 
 export const polyfill_taro_picker = () => {
-  if (!isH5) {
+  if (!isInDesn()) {
     return
   }
 
@@ -44,7 +46,7 @@ export const polyfill_taro_picker = () => {
 }
 
 export const polyfill_taro_swiper = () => {
-  if (!isH5) {
+  if (!isInDesn()) {
     return
   }
 
