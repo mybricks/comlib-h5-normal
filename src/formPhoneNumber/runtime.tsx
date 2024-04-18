@@ -79,7 +79,6 @@ export default function (props) {
       case data.getPhoneNumberMethods === "customInput": {
         return {
           onClick: () => {
-            console.log("点击了发送验证码", data.smsCountdown); 
             countDown();
             outputs["onCodeSend"](data.value);
           }
@@ -87,7 +86,7 @@ export default function (props) {
       }
 
       default: {
-        console.log("命中兜底逻辑");
+        // 命中兜底逻辑
         return null;
       }
     }

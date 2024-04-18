@@ -210,7 +210,8 @@ export default {
         {
           title: "验证码倒计时",
           type: "InputNumber",
-          options: [{ min: 30, max: 120 }],
+          options: [{ min: 30 }],
+          description:"单位：秒（最小值 30秒）",
           ifVisible({ data }) {
             return data.getPhoneNumberMethods === "customInput";
           },
