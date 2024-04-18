@@ -162,15 +162,6 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
-  const onCodeChange = useCallback((e) => {
-    let value = e.detail.value;
-    parentSlot?._inputs["onCodeChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onCodeChange"](value);
-  }, []);
 
 
   return (
@@ -195,11 +186,6 @@ export default function (props) {
           {data.buttonText || "点击授权"}
         </Button>
       </View>
-      {data.getPhoneNumberMethods === "customInput" && (
-        <View className={css.phoneNumber} style={{ marginTop: "12px"}}>
-          <Input onChange={onCodeChange} className={css.input} placeholder="请输入验证码" />
-        </View>
-      )}
     </View>
   );
 }

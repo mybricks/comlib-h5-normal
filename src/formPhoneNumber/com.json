@@ -117,13 +117,6 @@
       }
     },
     {
-      "id": "onCodeChange",
-      "title": "当输入的验证码变化",
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
       "id": "onCodeSend",
       "title": "获取验证码",
       "schema": {

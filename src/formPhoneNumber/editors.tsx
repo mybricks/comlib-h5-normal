@@ -286,16 +286,6 @@ export default {
                 outputId: "onCodeSend",
               },
             },
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "customInput";
-              },
-              title: "当输入的验证码变化",
-              type: "_event",
-              options: {
-                outputId: "onCodeChange",
-              },
-            },
           ],
         },
       ];
