@@ -7,12 +7,12 @@ import React, {
 } from "react";
 import { View } from "@tarojs/components";
 import css from "./style.less";
-// import { Divider } from "brickd-mobile";
+import { Divider } from "brickd-mobile";
 
 export default function ({ env, data, inputs, outputs, title, style }) {
   return (
     <View className={css.imgWrapper}>
-      {/* <Divider></Divider> */}
+      <Divider></Divider>
     </View>
   );
 }

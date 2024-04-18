@@ -342,18 +342,18 @@ export default {
                 outputId: "changeTab",
               },
             },
-            // {
-            //   title: "初始化时触发一次「标签切换」事件",
-            //   type: "switch",
-            //   value: {
-            //     get({ data }) {
-            //       return data.initChangeTab;
-            //     },
-            //     set({ data }, value) {
-            //       data.initChangeTab = value;
-            //     },
-            //   },
-            // },
+            {
+              title: "初始化时是否触发「标签切换」事件",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.initChangeTab;
+                },
+                set({ data }, value) {
+                  data.initChangeTab = value;
+                },
+              },
+            },
           ],
         },
       ];

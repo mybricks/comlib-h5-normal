@@ -3,8 +3,7 @@ import { ExtLinkype, OpenType } from "./types";
 import { isObject } from './../utils/core'
 
 const runtimeEnv = () => {
-  const isH5 =
-    Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
+  const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
   if (isH5) {
     if (window.__wxjs_environment === "miniprogram") {
       return "IN_WEAPP";

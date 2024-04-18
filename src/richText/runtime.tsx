@@ -44,6 +44,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   //
   const display = useMemo(() => {
+    console.warn("useDynamic", data.useDynamic);
+    console.warn("ready", ready);
+    console.warn("env.runtime", env.runtime);
+
     if (data.useDynamic && !ready && env.runtime) {
       return false;
     }

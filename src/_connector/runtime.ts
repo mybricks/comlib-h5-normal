@@ -1,5 +1,4 @@
 function callCon({ env, data, inputs, outputs, onError }, params = {}) {
-
   if (data.connector || data.dynamicConfig) {
     try {
       let finnalConnector = data.connector;

@@ -57,7 +57,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   useMemo(() => {
     /** 默认触发一次 */
-    if (data.tabs?.[0]) {
+    if (data.tabs?.[0] && data.initChangeTab) {
       outputs.changeTab?.({
         id: data.tabs[0]?._id,
         title: data.tabs[0]?.tabName,

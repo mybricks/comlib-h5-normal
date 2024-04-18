@@ -23,6 +23,29 @@ export default function ({ env, data, inputs, outputs }) {
     let query = router?.params || {};
     let scene = Taro.getEnterOptionsSync().scene || 0;
 
+    // 兼容 H5 的 hash 模式，重置 path 和 query
+    const isH5 =
+      Taro.getEnv() === Taro.ENV_TYPE.WEB ||
+      Taro.getEnv() === "Unknown";
+
+    if (isH5) {
+      let hash = window.location.hash.slice(1);
+
+      //
+      path = hash.split("?")[0];
+      query = hash.split("?")[1] || "";
+
+      if (query) {
+        query = query.split("&").reduce((acc, curr) => {
+          let [key, value] = curr.split("=");
+          acc[key] = value;
+          return acc;
+        }, {});
+      } else {
+        query = {};
+      }
+    }
+
     outputs["onComplete"]({ path, query, scene });
   });
 }

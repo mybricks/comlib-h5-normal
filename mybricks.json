@@ -21,12 +21,13 @@
     "./src/_hideLoading/com.json",
     "./src/_modal/com.json",
     "./src/_showActionSheet/com.json",
-
+    
     "./src/_setClipboardData/com.json",
     "./src/_uploadFile/com.json",
     "./src/_login/com.json",
     "./src/_generateScheme/com.json",
 
+    "./src/_setNavigationBarTitle/com.json",
     "./src/_scan-qrcode/com.json",
     "./src/_call-phone/com.json",
     "./src/_get-location/com.json",

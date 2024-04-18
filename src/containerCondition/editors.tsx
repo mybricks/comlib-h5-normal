@@ -110,7 +110,7 @@ export default {
             slots.remove(id);
 
             if (id === data.defaultActiveId) {
-              data.defaultActiveId = undefined
+              data.defaultActiveId = undefined;
             }
           },
           customOptRender({ item, setList }) {
@@ -128,6 +128,13 @@ export default {
                       "请输入新的条件名称",
                       item.title
                     );
+
+                    // 重复 title 校验
+                    if (title && data.items.some((t) => t.title === title)) {
+                      alert("条件名称重复，请重新输入");
+                      return;
+                    }
+
                     if (title) {
                       input.get(item.id).setTitle(`切换到 ${title}`);
                       slots.get(item.id).setTitle(title);
