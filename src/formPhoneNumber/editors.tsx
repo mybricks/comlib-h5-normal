@@ -210,7 +210,8 @@ export default {
         {
           title: "验证码倒计时",
           type: "InputNumber",
-          options: [{ min: 30, max: 120 }],
+          options: [{ min: 30 }],
+          description:"单位：秒（最小值 30秒）",
           ifVisible({ data }) {
             return data.getPhoneNumberMethods === "customInput";
           },
@@ -284,16 +285,6 @@ export default {
               type: "_event",
               options: {
                 outputId: "onCodeSend",
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "customInput";
-              },
-              title: "当输入的验证码变化",
-              type: "_event",
-              options: {
-                outputId: "onCodeChange",
               },
             },
           ],
