@@ -26,6 +26,16 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
   }
 }
 
+function isPlainObject(value) {
+  if (typeof value !== "object" || value === null) return false;
+
+  let proto = Object.getPrototypeOf(value);
+  if (proto === null) return true; // 没有原型的对象也视为普通对象
+
+  // 检查对象是否是由Object构造函数创建的
+  return proto === Object.prototype;
+}
+
 export default function ({ env, data, inputs, outputs, onError }) {
   if (!env.runtime) {
     return;
@@ -35,6 +45,11 @@ export default function ({ env, data, inputs, outputs, onError }) {
     callCon({ env, data, outputs });
   } else {
     inputs["call"]((params) => {
+      // 如果 params 不是 对象，则转换为空对象
+      if (!isPlainObject(params)) {
+        params = {};
+      }
+
       callCon({ env, data, outputs, onError }, params);
     });
   }

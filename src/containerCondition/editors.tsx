@@ -27,37 +27,6 @@ export default {
   ":root"({ data, output, input, style, slots }, cate0, cate1, cate2) {
     cate0.title = "常规";
     cate0.items = [
-      // {
-      //   title: '条件列表',
-      //   type: 'List',
-      //   options: {
-      //     defaultValue: '条件'
-      //   },
-      //   value: {
-      //     get({ data }) {
-      //       return data.items;
-      //     },
-      //     set({ data, slot }, value) {
-      //       // // 新增
-      //       // if (value.length > data.items.length) {
-      //       //   const item = value[value.length - 1];
-      //       //   slot.add(item.id, `slot_${item.id}`);
-      //       // }
-
-      //       // // 删除
-      //       // if (value.length < data.items.length) {
-      //       //   const item = data.items.find(
-      //       //     (item) => !value.find((v) => v.id === item.id)
-      //       //   );
-      //       //   slot.remove(item.id);
-      //       // }
-
-      //       // data.items = value;
-
-      //       console.log('value', value)
-      //     },
-      //   }
-      // },
       {
         title: "条件列表",
         type: "array",
