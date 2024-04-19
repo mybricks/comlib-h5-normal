@@ -36,7 +36,7 @@ export default function ({ env, data, inputs, outputs }) {
             },
           }
           if (_env === "IN_WEAPP" && wx?.miniProgram) {
-            if (data.type === OpenType.redirect) {
+            if (data.openType === OpenType.redirect) {
               wx.miniProgram?.redirectTo?.(params);
             } else {
               wx.miniProgram?.navigateTo?.(params);
@@ -59,7 +59,7 @@ export default function ({ env, data, inputs, outputs }) {
         }
         case data.type === ExtLinkype.web_open: {
           if (_env === Taro.ENV_TYPE.WEB && finalUrl) {
-            if (data.type === OpenType.redirect) {
+            if (data.openType === OpenType.redirect) {
               location.href = finalUrl;
               outputs["onSuccess"]();
             } else {
