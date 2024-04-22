@@ -40,20 +40,13 @@ export default {
             const id = `condition_${uid}`;
             const title = `条件${data.new_index++}`;
 
-            // const title = window.prompt('请输入条件名称');
-
-            if (!title) {
-              // title = `未命名条件`
-              // /** 中断函数 */
-              throw new Error("请输入条件名称");
-            }
-
             slots.add({
               id,
               title,
               type: "scope",
               inputs: ScopeSlotInputs,
             });
+
             input.add({
               id: id,
               title: `切换到 ${title}`,
@@ -62,6 +55,7 @@ export default {
               },
               rels: ["changeDone"],
             });
+
             input.get(id).setRels(["changeDone"]);
 
             return {
@@ -147,44 +141,13 @@ export default {
           editable: false,
           draggable: false,
           selectable: true,
-          items: [
-            // {
-            //   title: "名称",
-            //   type: "text",
-            //   value: "title",
-            // },
-            // {
-            //   title: "列元素偏移距离",
-            //   type: "slider",
-            //   options: [
-            //     {
-            //       max: 24,
-            //       min: 0,
-            //       steps: 1,
-            //     },
-            //   ],
-            //   value: "offset",
-            // },
-          ],
+          items: [],
         },
         value: {
           get({ data }) {
             return data.items;
           },
           set({ data, slot }, value) {
-            // // 新增
-            // if (value.length > data.items.length) {
-            //   const item = value[value.length - 1];
-            //   slot.add(item.id, `slot_${item.id}`);
-            // }
-
-            // // 删除
-            // if (value.length < data.items.length) {
-            //   const item = data.items.find(
-            //     (item) => !value.find((v) => v.id === item.id)
-            //   );
-            //   slot.remove(item.id);
-            // }
             data.items = value;
           },
         },

@@ -1,0 +1,56 @@
+{
+  "title": "子模块",
+  "namespace": "mybricks.taro.subModule",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "子模块",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "slots": [
+    {
+      "id": "condition_1",
+      "title": "条件1",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condition_2",
+      "title": "条件2",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condition_3",
+      "title": "条件3",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "传入的数据",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
+    }
+  ]
+}

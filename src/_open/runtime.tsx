@@ -1,9 +1,10 @@
 import * as Taro from "@tarojs/taro";
 import { ExtLinkype, OpenType } from "./types";
-import { isObject } from './../utils/core'
+import { isObject } from "./../utils/core";
 
 const runtimeEnv = () => {
-  const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
+  const isH5 =
+    Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
   if (isH5) {
     if (window.__wxjs_environment === "miniprogram") {
       return "IN_WEAPP";
@@ -34,7 +35,7 @@ export default function ({ env, data, inputs, outputs }) {
             fail: () => {
               outputs["onFail"]();
             },
-          }
+          };
           if (_env === "IN_WEAPP" && wx?.miniProgram) {
             if (data.openType === OpenType.redirect) {
               wx.miniProgram?.redirectTo?.(params);
@@ -71,20 +72,26 @@ export default function ({ env, data, inputs, outputs }) {
         }
 
         case data.type === ExtLinkype.miniapp_open: {
-          if (_env === Taro.ENV_TYPE.WEB) {
-            Taro.navigateToMiniProgram({
-              ...validValue,
-              success(e) {
-                outputs["onSuccess"](e);
-              },
-              fail(e) {
-                outputs["onFail"](e);
-              },
-            });
-          }
-          if (_env === "IN_WEIXIN") {
-            // TODO
-          }
+          Taro.navigateToMiniProgram({
+            ...validValue,
+            success(e) {
+              outputs["onSuccess"](e);
+            },
+            fail(e) {
+              outputs["onFail"](e);
+            },
+          });
+          // if (_env === "IN_WEIXIN") {
+          //   Taro.navigateToMiniProgram({
+          //     ...validValue,
+          //     success(e) {
+          //       outputs["onSuccess"](e);
+          //     },
+          //     fail(e) {
+          //       outputs["onFail"](e);
+          //     },
+          //   });
+          // }
           break;
         }
         default:
