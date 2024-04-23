@@ -78,6 +78,7 @@
         "./src/tabs/com.json",
         "./src/containerSwiper/com.json",
         "./src/containerList/com.json",
+        "./src/containerWaterfall/com.json",
         "./src/containerCondition/com.json",
         "./src/sidebar/com.json",
         "./src/collapse/com.json"

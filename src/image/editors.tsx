@@ -1,4 +1,4 @@
-import ImageShow from './editor/imageShow'
+import ImageShow from "./editor/imageShow";
 
 export default {
   "@init"({ style }) {
@@ -34,9 +34,10 @@ export default {
               },
             },
             {
-              title: '展示方式',
-              type: 'editorRender',
-              description: '展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用',
+              title: "展示方式",
+              type: "editorRender",
+              description:
+                "展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用",
               options: {
                 render: ImageShow,
               },
@@ -45,13 +46,13 @@ export default {
                   return {
                     mode: data.mode,
                     style,
-                  }
+                  };
                 },
                 set({}, value) {
                   console.log(data.mode);
                   data.mode = value;
-                }
-              }
+                },
+              },
             },
             // {
             //   title: "图片填充方式",
@@ -88,12 +89,12 @@ export default {
             //   },
             // },
             {
-              title: '加载过渡',
+              title: "加载过渡",
               items: [
                 {
-                  title: '淡入动画',
-                  desctiption: '加载图片时支持过渡动画，使图片展示更丝滑',
-                  type: 'switch',
+                  title: "淡入动画",
+                  desctiption: "加载图片时支持过渡动画，使图片展示更丝滑",
+                  type: "switch",
                   value: {
                     get({ data }) {
                       return data.loadSmooth;
@@ -102,16 +103,16 @@ export default {
                       data.loadSmooth = value;
                     },
                   },
-                }
-              ]
+                },
+              ],
             },
             {
-              title: '其它配置',
+              title: "其它配置",
               items: [
                 {
-                  title: '支持长按识别微信二维码',
-                  description: '支持长按识别微信二维码',
-                  type: 'switch',
+                  title: "支持长按识别微信二维码",
+                  description: "支持长按识别微信二维码",
+                  type: "switch",
                   value: {
                     get({ data }) {
                       return data.showMenuByLongpress ?? false;
@@ -120,38 +121,36 @@ export default {
                       data.showMenuByLongpress = value;
                     },
                   },
-                }
-              ]
-            }
+                },
+              ],
+            },
           ],
         },
-      ];
-
-      cate1.title = "样式";
-      cate1.items = [];
-
-      cate2.title = "动作";
-      cate2.items = [
         {
-          title: "单击",
-          type: "_event",
-          options: {
-            outputId: "onClick",
-          },
-        },
-        {
-          title: "加载完毕",
-          type: "_event",
-          options: {
-            outputId: "onLoad",
-          },
-        },
-        {
-          title: "加载失败",
-          type: "_event",
-          options: {
-            outputId: "onError",
-          },
+          title: "事件",
+          items: [
+            {
+              title: "单击",
+              type: "_event",
+              options: {
+                outputId: "onClick",
+              },
+            },
+            {
+              title: "加载完毕",
+              type: "_event",
+              options: {
+                outputId: "onLoad",
+              },
+            },
+            {
+              title: "加载失败",
+              type: "_event",
+              options: {
+                outputId: "onError",
+              },
+            },
+          ],
         },
       ];
     },

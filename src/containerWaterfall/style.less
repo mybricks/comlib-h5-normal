@@ -1,0 +1,53 @@
+.listWrapper {
+  font-size: 0;
+}
+
+.list {
+  width: 100%;
+  font-size: 12px;
+  display: inline-block; // BFC 保证内部的margin不会被拦截掉
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // min-height: 120px;
+  }
+
+  &.row {
+    display: flex;
+    flex-wrap: nowrap;
+
+    .placeholder {
+      height: 120px;
+      min-width: 100px;
+    }
+  }
+}
+
+.scroll {
+  :global {
+    .taroify-list__placeholder {
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.normal {
+  :global {
+    .taroify-list__placeholder {
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
