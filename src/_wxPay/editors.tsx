@@ -1,3 +1,4 @@
+import css from "./style.less";
 export default {
   "@init"({ data, isAutoRun }) {
     if (isAutoRun()) {
@@ -23,13 +24,32 @@ export default {
       {
         title: "apiclient_key_pem",
         type: "textarea",
-        description: "请填写您的证书序列号",
+        description: "请填写您的私钥",
         value: {
           get({ data }) {
             return data.apiclient_key_pem;
           },
           set({ data, setDesc }, value: string) {
             data.apiclient_key_pem = value;
+          },
+        },
+      },
+      {
+        title: "说明",
+        type: "editorRender",
+        options: {
+          render: (props) => {
+            return (
+              <div className={css.text}>
+                私钥获取方式:
+                <a
+                  href="https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay3_1.shtml#part-1"
+                  target="_blank"
+                >
+                  微信开发文档
+                </a>
+              </div>
+            );
           },
         },
       },
