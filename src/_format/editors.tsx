@@ -1,4 +1,5 @@
 import { createDataFormatEditor, FormatType } from "./../utils/data-format";
+import css from "./style.less"
 
 export default {
   ":root": [
@@ -9,8 +10,7 @@ export default {
           return data.formatData;
         },
         set({ data, focusArea }, value) {
-
-          console.warn(value)
+          console.warn(value);
           data.formatData = value;
         },
       },
@@ -26,21 +26,24 @@ export default {
         },
         {
           formatter: FormatType.TIME_CUSTOM,
-        }
-      ]
+        },
+      ],
     }).items,
-    // {
-    //   title: "跳转页面",
-    //   type: "text",
-    //   value: {
-    //     get({ data }) {
-    //       return data.path;
-    //     },
-    //     set({ data }, value) {
-    //       data.path = value;
-    //     },
-    //   },
-    // },
+    {
+      title: "说明",
+      type: "editorRender",
+      options: {
+        render: (props) => {
+          return (
+            <div className={css.text}>
+              <div>字符格式化支持对以下数据进行格式化</div>
+              <li>枚举值</li>
+              <li>时间戳</li>
+            </div>
+          );
+        },
+      },
+    },
     ,
   ],
 };

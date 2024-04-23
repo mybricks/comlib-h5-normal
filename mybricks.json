@@ -116,7 +116,8 @@
         "./src/anchor/com.json",
         "./src/mygpt/com.json",
         "./src/support/com.json",
-        "./src/subModule/com.json"
+        "./src/subModule/com.json",
+        "./src/line/com.json"
       ]
     }
   ],

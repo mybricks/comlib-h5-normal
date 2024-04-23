@@ -24,7 +24,17 @@
       "id": "onSuccess",
       "title": "扫码成功",
       "schema": {
-        "type": "follow"
+        "type": "object",
+        "properties": {
+          "result": {
+            "title": "扫码结果",
+            "type": "string"
+          },
+          "scanType": {
+            "title": "扫码类型",
+            "type": "any"
+          }
+        }
       }
     },
     {

@@ -2,7 +2,7 @@ export default {
   ":root": [
     {
       title: '是否开启高精度定位',
-      desctiption: '开启后定位更精准，但是会增加定位的时间',
+      description: '开启后定位更精准，但是会增加定位的时间',
       type: 'Switch',
       value: {
         get({ data }) {
