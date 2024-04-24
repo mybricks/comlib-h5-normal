@@ -130,6 +130,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
   }, []);
 
+  // input获取当前激活项
+  useEffect(() => {
+    inputs["getActiveTabId"]?.((_, relOutputs) => {
+      relOutputs["activeTabId"]?.({
+        id: currentTabId,
+        title: data.tabs.find((tab) => tab._id == currentTabId)?.tabName,
+        index: data.tabs.findIndex((tab) => tab._id == currentTabId),
+      });
+    });
+  }, [currentTabId]);
+
   // 切换tab时获取tabpane的高度，用于tabpane滑出屏幕时，标记为非吸顶
   useEffect(() => {
     if (isRelEnv()) {
