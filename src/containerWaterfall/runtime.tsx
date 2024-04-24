@@ -76,6 +76,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   const [dataSource, setDataSource] = useState<DsItem[]>(
     env.edit ? mockData : []
   );
+
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
 
   useReachBottom(
@@ -131,35 +132,19 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     });
   }, []);
 
-  const $placeholder = useMemo(() => {
-    if (env.edit && !slots["item"].size) {
-      return (
-        <View
-          className={css.placeholder}
-          style={{
-            [data.direction === Direction.Row
-              ? "marginRight"
-              : "marginBottom"]: `${data.spacing}px`,
-          }}
-        >
-          {slots["item"].render({
-            style: {
-              height: "120px",
-            }
-          })}
-        </View>
-      );
-    } else {
-      return null;
-    }
-  }, [
-    env.edit,
-    dataSource,
-    slots["item"],
-    slots["item"].size,
-    data.direction,
-    data.spacing,
-  ]);
+  /**
+   * 列表项
+   */
+
+  // 列表项样式
+  const itemStyle = useMemo(() => {
+    return {
+      paddingRight: `${data.layout.gutter[1]}px`,
+      paddingBottom: `${data.layout.gutter[0]}px`,
+      maxWidth: `${100 / data.layout.column}%`,
+      flexBasis: `${100 / data.layout.column}%`,
+    };
+  }, [data.layout.column, data.layout.gutter]);
 
   const hasMore = useMemo(() => {
     return ListStatus.NOMORE !== status;
@@ -173,15 +158,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     return ListStatus.ERROR === status;
   }, [status]);
 
-  const wrapperCls = useMemo(() => {
-    if (data.direction === Direction.Row) {
-      return `${css.list} ${css.row}`;
-    }
-
-    return data.scrollRefresh
-      ? `${css.list} ${css.scroll}`
-      : `${css.list} ${css.normal}`;
-  }, [data.scrollRefresh, data.direction]);
+  // const wrapperCls = useMemo(() => {
+  //   return data.scrollRefresh
+  //     ? `${css.list} ${css.scroll}`
+  //     : `${css.list} ${css.normal}`;
+  // }, [data.scrollRefresh]);
 
   const didMount = useRef(false);
   useEffect(() => {
@@ -218,30 +199,37 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   //   return true;
   // }, [status]);
 
-  const $list = dataSource.map(
+  const _dataSource = useMemo(() => {
+    if (env.runtime) {
+      return dataSource;
+    } else {
+      return new Array(3 * data.layout.column).fill(null).map((_, index) => {
+        return { [rowKey]: index, index: index };
+      });
+    }
+  }, [dataSource, env.runtime, data.layout.column]);
+
+  const $list = _dataSource.map(
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
       return (
         <View
           className={cx({
-            [css.item]: true,           
+            [css["waterfall-item"]]: true,
             ["disabled-area"]: env.edit && _idx > 0,
             [css.item]: !env.edit || _idx === 0,
-            // env.edit && _idx > 0 ? "disabled-area" : css.item
           })}
+          style={{ ...itemStyle }}
           key={key}
-          style={{
-            [data.direction === Direction.Row
-              ? "marginRight"
-              : "marginBottom"]: `${data.spacing}px`,
-          }}
         >
-          {/* 当前项数据和索引 */}
           {slots["item"].render({
             inputValues: {
               itemData: item,
               index: index,
             },
             key: key,
+            style: {
+              height: slots["item"].size ? "unset" : "120px",
+            },
           })}
         </View>
       );
@@ -249,41 +237,44 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   );
 
   return (
-    <View className={css.listWrapper}>
-      <View
-        className={wrapperCls}
-        style={{
-          [data.direction === Direction.Row
-            ? "marginRight"
-            : "marginBottom"]: `-${data.spacing}px`,
-        }}
-      >
-        {$placeholder || (
-          <>
-            {!!data?.scrollRefresh ? (
-              <>
-                {$list}
+    <View
+      className={css.waterfall}
+      style={{
+        marginRight: `-${data.layout.gutter[1]}px`,
+        marginBottom: `-${data.layout.gutter[0]}px`,
+      }}
+    >
+      {/* 网格布局 */}
+      {data.layout.type === "grid" && $list}
+
+      <List.Placeholder>
+        {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
+        {error && (data.errorTip ?? "加载失败，请重试")}
+        {!hasMore && (data.emptyTip ?? "没有更多了")}
+      </List.Placeholder>
+      {/* <>
+          {!!data?.scrollRefresh ? (
+            <>
+              {$list}
+              <List.Placeholder>
+                {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
+                {error && (data.errorTip ?? "加载失败，请重试")}
+                {!hasMore && (data.emptyTip ?? "没有更多了")}
+              </List.Placeholder>
+            </>
+          ) : (
+            <>
+              {status !== ListStatus.IDLE ? (
                 <List.Placeholder>
                   {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                   {error && (data.errorTip ?? "加载失败，请重试")}
-                  {!hasMore && (data.emptyTip ?? "没有更多了")}
                 </List.Placeholder>
-              </>
-            ) : (
-              <>
-                {status !== ListStatus.IDLE ? (
-                  <List.Placeholder>
-                    {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
-                    {error && (data.errorTip ?? "加载失败，请重试")}
-                  </List.Placeholder>
-                ) : (
-                  $list
-                )}
-              </>
-            )}
-          </>
-        )}
-      </View>
+              ) : (
+                $list
+              )}
+            </>
+          )}
+        </> */}
     </View>
   );
 };

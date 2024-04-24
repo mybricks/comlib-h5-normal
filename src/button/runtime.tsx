@@ -11,7 +11,16 @@ import cx from "classnames";
 import { Button, Text, Image } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 
-export default function ({ env, data, logger, slots, inputs, outputs, title, extra }) {
+export default function ({
+  env,
+  data,
+  logger,
+  slots,
+  inputs,
+  outputs,
+  title,
+  extra,
+}) {
   const onClick = useCallback((ev) => {
     if (env.runtime) {
       ev.stopPropagation();
@@ -91,8 +100,22 @@ export default function ({ env, data, logger, slots, inputs, outputs, title, ext
     }
   }, [env, data.useAfterIcon, data.afterIconUrl]);
 
+  const disabled = useMemo(() => {
+    if (data.disabled) {
+      return {
+        disabled: true,
+      };
+    } else {
+      return {};
+    }
+  }, [data.disabled]);
+
   return (
-    <Button className={cx(css.button, "mybricks-button")} {...openType}>
+    <Button
+      className={cx(css.button, "mybricks-button")}
+      {...disabled}
+      {...openType}
+    >
       {/* 前置 */}
       {useBeforeIcon ? (
         <Image

@@ -1,5 +1,14 @@
-.listWrapper {
-  font-size: 0;
+.waterfall {
+  display: flex;
+  flex-wrap: wrap;
+
+  .waterfall-item {
+    flex-grow: 1;
+    flex-shrink: 0;
+    .item {
+      background-color: yellow;
+    }
+  }
 }
 
 .list {

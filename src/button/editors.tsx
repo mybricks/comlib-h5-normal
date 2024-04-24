@@ -152,6 +152,18 @@ export default {
         },
       },
       {
+        title: "禁用按钮",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.disabled;
+          },
+          set({ data }, value) {
+            data.disabled = value;
+          },
+        },
+      },
+      {
         title: "事件",
         items: [
           {

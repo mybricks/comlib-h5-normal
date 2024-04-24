@@ -1,6 +1,14 @@
 {
   "layout": {
-    "column": 1
+    "type": "grid",
+    "column": 2,
+    "gutter": [8, 8]
+  },
+
+  "pagenation": {
+    "page": 1,
+    "pageSize": 10,
+    "total": 0
   },
 
   "direction": "column",

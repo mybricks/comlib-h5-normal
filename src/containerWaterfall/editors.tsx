@@ -22,6 +22,28 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
+        title: "类型",
+        type: "select",
+        options: [
+          {
+            label: "网格布局",
+            value: "grid",
+          },
+          {
+            label: "瀑布流布局",
+            value: "waterfall",
+          },
+        ],
+        value: {
+          get({ data }) {
+            return data.layout.type;
+          },
+          set({ data }, value: string) {
+            data.layout.type = value;
+          },
+        },
+      },
+      {
         title: "列数",
         type: "Text",
         options: {
@@ -39,18 +61,35 @@ export default {
         },
       },
       {
-        title: "间距",
-        description: "当竖向排列时，为垂直间距；当横向排列时，为水平间距",
-        type: "text",
+        title: "列表项间距",
+        type: "inputnumber",
+        options: [
+          { title: "行间距", min: 0, width: 80 },
+          { title: "列间距", min: 0, width: 80 },
+        ],
+        value: {
+          get({ data }) {
+            return data.layout.gutter;
+          },
+          set({ data }, value: number[]) {
+            data.layout.gutter = value;
+          },
+        },
+      },
+      {
+        title: "列数",
+        type: "Text",
         options: {
           type: "number",
         },
         value: {
           get({ data }) {
-            return data.spacing;
+            return data.layout.column;
           },
-          set({ data }, value) {
-            data.spacing = value;
+          set({ data }, value: number) {
+            if (value) {
+              data.layout.column = value;
+            }
           },
         },
       },
