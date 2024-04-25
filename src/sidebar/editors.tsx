@@ -70,22 +70,6 @@ export default {
   ":root"({ data }, cate0, cate1, cate2) {
     cate0.title = "常规";
     cate0.items = [
-      // {
-      //   title: '模式',
-      //   type: 'select',
-      //   options: [
-      //     { label: '顶部导航', value: 'topbar' },
-      //     { label: '侧边导航', value: 'sidebar' },
-      //   ],
-      //   value: {
-      //     get({ data }) {
-      //       return data.mode
-      //     },
-      //     set({ data }, value) {
-      //       data.mode = value
-      //     },
-      //   },
-      // },
       {
         title: "标签项",
         type: "array",
@@ -135,7 +119,7 @@ export default {
                 console.log("add", action?.value._id, action?.value.tabName);
                 slot.add({
                   id: action?.value._id,
-                  title:defaultItem.tabName,
+                  title: defaultItem.tabName,
                   type: "scope",
                   input: ScopeSlotInputs,
                 });
@@ -147,6 +131,23 @@ export default {
             }
 
             data.tabs = value;
+          },
+        },
+      },
+      {
+        title: "内容展示方式",
+        type: "radio",
+        description: "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
+        options: [
+          { label: "锚定显示", value: "roll" },
+          { label: "切换显示", value: "switch" },
+        ],
+        value: {
+          get({ data }) {
+            return data.contentShowType;
+          },
+          set({ data }, value) {
+            data.contentShowType = value;
           },
         },
       },

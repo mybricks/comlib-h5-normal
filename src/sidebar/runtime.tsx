@@ -19,6 +19,12 @@ interface Tab {
   height?: number;
 }
 
+//侧边栏展示类型
+enum ContentShowType {
+  Roll = "roll",
+  Switch = "switch",
+}
+
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [updatedTabs, setUpdatedTabs] = useState<Tab[]>([]);
   const [topSlotHeight, setTopSlotHeight] = useState(0);
@@ -51,13 +57,14 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   };
 
+  //判断data.contentShowType是否为空，如果为空，则默认为roll
   useEffect(() => {
-    console.log("是否真机", isRelEnv(), "h", windowHeight, "w", windowWidth);
-    console.log("ifHasTabbar", ifHasTabbar());
-  }, [windowHeight, windowWidth, env]);
+    if (!data.contentShowType) {
+      data.contentShowType = ContentShowType.Roll;
+    }
+  }, [data]);
 
   useEffect(() => {
-
     //真机运行时，获取侧边栏距离顶部的高度
     if (isRelEnv()) {
       const query = Taro.createSelectorQuery();
@@ -67,7 +74,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         .exec((res) => {
           const rect = res[0];
           if (rect) {
-            console.log("侧边栏距离顶部的高度", rect.top);
             setTopSlotHeight(rect.top);
           }
         });
@@ -147,16 +153,20 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const _scrollToTab = useCallback((currentTabId) => {
     // 设置点击标志，用于判断是否是点击触发的滚动
     setInClickType(true);
-    setInnerScrollId(currentTabId);
     _setCurrentTabId(currentTabId);
+    if (ContentShowType.Switch === data.contentShowType) {
+      //切换页面显示的时候，需要延迟设置innerScrollId，否则无法滚动置顶页面
+      setTimeout(() => {
+        setInnerScrollId(currentTabId);
+      }, 0);
+    } else {
+      //滚动显示的时候，innerScrollId必须和上一次不一致，否则scroll不生效，无法滚动到对应位置
+      setInnerScrollId("");
+      setTimeout(() => {
+        setInnerScrollId(currentTabId);
+      }, 0);
+    }
   }, []);
-
-  // 编辑模式下，切换tab
-  // useEffect(() => {
-  //   if (env.edit && data.edit.currentTabId) {
-  //     setCurrentTabId(data.edit.currentTabId);
-  //   }
-  // }, [env.edit, data.edit.currentTabId]);
 
   const emptyView = useMemo(() => {
     if (env.edit && data.tabs.length === 0) {
@@ -174,17 +184,16 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   }, [env]);
 
   const scrollStyle = useMemo(() => {
-    console.log("pxDelta", pxDelta);
     if (env.edit) {
       //编辑态,确保内容可见，不需要滚动
       return { height: "max-content" };
     } else if (isRelEnv()) {
       //线上运行态
-
       //判断是否有tabbar
       if (ifHasTabbar()) {
         return {
-          height: (windowHeight - topSlotHeight - safeAreaHeight - 54) / pxDelta,
+          height:
+            (windowHeight - topSlotHeight - safeAreaHeight - 54) / pxDelta,
         };
       } else {
         return {
@@ -194,12 +203,15 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     } else {
       //pc端调试态
       return {
-        height: (windowHeight - topSlotHeight) / pxDelta,
+        height: "max-content",
       };
     }
   }, [windowHeight, windowWidth, env, topSlotHeight, pxDelta, safeAreaHeight]);
 
   const innerOnScroll = (e) => {
+    if (ContentShowType.Switch === data.contentShowType) {
+      return;
+    }
     //更新index到侧边栏之前，判断是否是点击触发的滚动；这里主要防止最后一个tab内容高度不足时导致的闪动
     if (inClickType) {
       setInClickType(false);
@@ -218,7 +230,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
     if (findItem) {
       _setCurrentTabId(findItem._id);
-    } else {
     }
   };
 
@@ -245,16 +256,42 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             return (
               <TreeSelect.Tab key={tab._id} title={tab.tabName} value={tab._id}>
                 <ScrollView
-                  style={scrollStyle}
                   scrollY
                   scrollIntoView={innerScrollId}
                   onScroll={innerOnScroll}
+                  style={scrollStyle}
                 >
                   <View>
-                    {data.tabs.map((tab) => {
-                      return (
-                        <>
-                          <View id={tab._id} key={`slot_${tab._id}`}>
+                    {/* 滚动式显示 */}
+                    {data.contentShowType === ContentShowType.Roll &&
+                      data.tabs.map((tab) => {
+                        return (
+                          <>
+                            <View id={tab._id} key={`slot_${tab._id}`}>
+                              {data.hideContent
+                                ? null
+                                : slots[tab._id]?.render?.({
+                                    inputValues: {
+                                      itemData: tab,
+                                    },
+                                  })}
+                            </View>
+                          </>
+                        );
+                      })}
+
+                    {/* 切换显示 */}
+                    {data.contentShowType === ContentShowType.Switch &&
+                      data.tabs.map((tab) => {
+                        return (
+                          <View
+                            id={tab._id}
+                            key={`slot_${tab._id}`}
+                            style={{
+                              display:
+                                tab._id === currentTabId ? "block" : "none",
+                            }}
+                          >
                             {data.hideContent
                               ? null
                               : slots[tab._id]?.render?.({
@@ -263,9 +300,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                                   },
                                 })}
                           </View>
-                        </>
-                      );
-                    })}
+                        );
+                      })}
                   </View>
                 </ScrollView>
               </TreeSelect.Tab>
