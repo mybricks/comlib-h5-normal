@@ -42,5 +42,6 @@
     "currentItemId": ""
   },
   "navBarGutter": 12,
-  "hideContent": false
+  "hideContent": false,
+  "contentShowType":"roll"
 }
