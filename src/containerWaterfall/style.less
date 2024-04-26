@@ -5,9 +5,11 @@
   .waterfall-item {
     flex-grow: 1;
     flex-shrink: 0;
-    .item {
-      background-color: yellow;
-    }
+  }
+
+  .waterfall-col {
+    flex-grow: 1;
+    flex-shrink: 0;
   }
 }
 
@@ -58,5 +60,36 @@
       align-items: center;
       justify-content: center;
     }
+  }
+}
+
+.placeholder {
+  width: 100%;
+
+  .loading {
+    background: red;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      display: block;
+      width: 90px;
+      height: 90px;
+    }
+    .text {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #999;
+    }
+  }
+
+  .loadingBar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

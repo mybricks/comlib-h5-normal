@@ -1,4 +1,17 @@
-import { Direction } from "./constant";
+const setSlotLayout = (slot, value) => {
+  if (!slot) return;
+  if (value.position === "smart") {
+    slot.setLayout("smart");
+  } else if (value.position === "absolute") {
+    slot.setLayout(value.position);
+  } else if (value.display === "flex") {
+    if (value.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (value.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
 
 export default {
   "@init": ({ style, data }) => {
@@ -22,73 +35,19 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
-        title: "类型",
-        type: "select",
-        options: [
-          {
-            label: "网格布局",
-            value: "grid",
-          },
-          {
-            label: "瀑布流布局",
-            value: "waterfall",
-          },
-        ],
-        value: {
-          get({ data }) {
-            return data.layout.type;
-          },
-          set({ data }, value: string) {
-            data.layout.type = value;
-          },
-        },
-      },
-      {
-        title: "列数",
+        title: "列表初始高度",
+        description: "如果设置为 0，组件将不展示占位状态",
         type: "Text",
         options: {
           type: "number",
         },
         value: {
           get({ data }) {
-            return data.layout.column;
+            return data.layout.minHeight;
           },
           set({ data }, value: number) {
             if (value) {
-              data.layout.column = value;
-            }
-          },
-        },
-      },
-      {
-        title: "列表项间距",
-        type: "inputnumber",
-        options: [
-          { title: "行间距", min: 0, width: 80 },
-          { title: "列间距", min: 0, width: 80 },
-        ],
-        value: {
-          get({ data }) {
-            return data.layout.gutter;
-          },
-          set({ data }, value: number[]) {
-            data.layout.gutter = value;
-          },
-        },
-      },
-      {
-        title: "列数",
-        type: "Text",
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.layout.column;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.layout.column = value;
+              data.layout.minHeight = +value;
             }
           },
         },
@@ -107,23 +66,130 @@ export default {
         },
         items: [
           {
-            title: "",
+            title: "类型",
+            type: "select",
             catelog: "默认",
-            type: "editorRender",
-            options: {
-              render: () => "暂无",
+            options: [
+              {
+                label: "网格布局",
+                value: "grid",
+              },
+              {
+                label: "瀑布流布局",
+                value: "waterfall",
+              },
+            ],
+            value: {
+              get({ data }) {
+                return data.layout.type;
+              },
+              set({ data }, value: string) {
+                data.layout.type = value;
+              },
             },
           },
           {
-            title: "提示文案",
-            type: "text",
-            catelog: "加载中",
+            title: "列数",
+            type: "Text",
+            catelog: "默认",
+            options: {
+              type: "number",
+            },
             value: {
               get({ data }) {
-                return data.loadingTip;
+                return data.layout.column;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.layout.column = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "列表项间距",
+            type: "inputnumber",
+            catelog: "默认",
+            options: [
+              { title: "行间距", min: 0, width: 80 },
+              { title: "列间距", min: 0, width: 80 },
+            ],
+            value: {
+              get({ data }) {
+                return data.layout.gutter;
+              },
+              set({ data }, value: number[]) {
+                data.layout.gutter = value;
+              },
+            },
+          },
+          {
+            catelog: "加载中",
+            type: "editorRender",
+            options: {
+              render: () => {
+                return <></>;
+              },
+            },
+          },
+          {
+            title: "初始加载状态",
+            catelog: "加载中",
+            items: [
+              {
+                title: "提示图标",
+                type: "imageselector",
+                value: {
+                  get({ data }) {
+                    return data.loading.icon;
+                  },
+                  set({ data }, value) {
+                    data.loading.icon = value;
+                  },
+                },
+              },
+              {
+                title: "提示文案",
+                type: "text",
+                value: {
+                  get({ data }) {
+                    return data.loading.text;
+                  },
+                  set({ data }, value) {
+                    data.loading.text = value;
+                  },
+                },
+              },
+            ],
+          },
+          {
+            title: "滚动加载更多状态",
+            catelog: "加载中",
+            items: [
+              {
+                title: "提示文案",
+                type: "text",
+                value: {
+                  get({ data }) {
+                    return data.loadingBar.text;
+                  },
+                  set({ data }, value) {
+                    data.loadingBar.text = value;
+                  },
+                },
+              },
+            ],
+          },
+          {
+            title: "提示图标",
+            type: "imageselector",
+            catelog: "加载失败",
+            value: {
+              get({ data }) {
+                return data.error.icon;
               },
               set({ data }, value) {
-                data.loadingTip = value;
+                data.error.icon = value;
               },
             },
           },
@@ -133,10 +199,23 @@ export default {
             catelog: "加载失败",
             value: {
               get({ data }) {
-                return data.errorTip;
+                return data.error.text;
               },
               set({ data }, value) {
-                data.errorTip = value;
+                data.error.text = value;
+              },
+            },
+          },
+          {
+            title: "提示图标",
+            type: "imageselector",
+            catelog: "没有更多",
+            value: {
+              get({ data }) {
+                return data.empty.icon;
+              },
+              set({ data }, value) {
+                data.empty.icon = value;
               },
             },
           },
@@ -146,10 +225,10 @@ export default {
             catelog: "没有更多",
             value: {
               get({ data }) {
-                return data.emptyTip;
+                return data.empty.text;
               },
               set({ data }, value) {
-                data.emptyTip = value;
+                data.empty.text = value;
               },
             },
           },
@@ -157,31 +236,45 @@ export default {
       },
       {},
       {
-        title: "瀑布流配置",
+        title: "分页配置",
         items: [
           {
-            title: "开启滚动加载",
-            description:
-              "开启后，支持通过滚动加载更多数据，逻辑编排时注意使用「添加数据」",
-            type: "switch",
-            ifVisible({ data }) {
-              return data.direction !== Direction.Row;
+            title: "起始页码",
+            type: "Text",
+            options: {
+              type: "number",
             },
             value: {
               get({ data }) {
-                return data.scrollRefresh;
+                return data.pagenation.page;
               },
-              set({ data }, value) {
-                data.scrollRefresh = value;
+              set({ data }, value: number) {
+                if (value) {
+                  data.pagenation.page = +value;
+                }
               },
             },
           },
           {
-            title: "当滚动加载时",
-            type: "_event",
-            ifVisible({ data }: EditorResult<any>) {
-              return !!data.scrollRefresh;
+            title: "每次加载条数",
+            type: "Text",
+            options: {
+              type: "number",
             },
+            value: {
+              get({ data }) {
+                return data.pagenation.pageSize;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.pagenation.pageSize = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "当触发加载时",
+            type: "_event",
             options: {
               outputId: "onScrollLoad",
             },
@@ -189,37 +282,8 @@ export default {
         ],
       },
     ];
-    cate1.title = "样式";
-    cate1.items = [];
-    cate2.title = "高级";
-    cate2.items = [
-      // {
-      //   title: "",
-      //   items: [
-      //     {
-      //       title: "支持下拉刷新",
-      //       type: "switch",
-      //       value: {
-      //         get({ data }) {
-      //           return data.pullRefresh;
-      //         },
-      //         set({ data }, value) {
-      //           data.pullRefresh = value;
-      //         },
-      //       },
-      //     },
-      //     {
-      //       title: "当下拉刷新时",
-      //       type: "_event",
-      //       ifVisible({ data }: EditorResult<any>) {
-      //         return !!data.pullRefresh;
-      //       },
-      //       options: {
-      //         outputId: "onRefresh",
-      //       },
-      //     },
-      //   ],
-      // },
+    cate1.title = "高级";
+    cate1.items = [
       {
         title: "唯一主键",
         type: "text",
@@ -233,5 +297,67 @@ export default {
         },
       },
     ];
+  },
+
+  ".mybricks-loading-icon": {
+    title: "提示图标",
+    items: [
+      {
+        title: "提示图标",
+        type: "imageselector",
+        src: {
+          get({ data }) {
+            return data.loading.icon;
+          },
+          set({ data }, value) {
+            data.loading.icon = value;
+          },
+        },
+      },
+    ],
+    style: [
+      {
+        title: "样式",
+        options: ["size"],
+        target: ".mybricks-loading-icon",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-loading-text": {
+    title: "提示文案",
+    items: [
+      {
+        title: "提示文案",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.loading.text;
+          },
+          set({ data }, value) {
+            data.loading.text = value;
+          },
+        },
+      },
+    ],
+    style: [
+      {
+        title: "样式",
+        options: ["font", "margin", "padding", "border", "background"],
+        target: ".mybricks-loading-text",
+        defaultOpen: true,
+      },
+    ],
+  },
+
+  ".mybricks-loadingBar": {
+    style: [
+      {
+        title: "样式",
+        options: ["font", "padding", "border", "background"],
+        target: ".mybricks-loadingBar",
+        defaultOpen: true,
+      },
+    ],
   },
 };

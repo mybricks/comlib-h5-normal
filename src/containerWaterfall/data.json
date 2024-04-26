@@ -1,18 +1,46 @@
 {
+  "_edit_status_": "默认",
+
   "layout": {
     "type": "grid",
     "column": 2,
-    "gutter": [8, 8]
+    "gutter": [8, 8],
+    "minHeight": 400
   },
 
   "pagenation": {
     "page": 1,
-    "pageSize": 10,
-    "total": 0
+    "pageSize": 10
   },
 
-  "direction": "column",
-  "spacing": 0,
+  "loading": {
+    "icon": "",
+    "text": "加载中..."
+  },
+
+  "loadingBar": {
+    "text": "加载中..."
+  },
+
+  "error": {
+    "icon": "",
+    "text": "加载失败，请重试"
+  },
+
+  "errorBar": {
+    "text": "加载失败，请重试",
+    "buttonText": "重试"
+  },
+
+  "empty": {
+    "icon": "",
+    "text": "没有更多了"
+  },
+
+  "emptyBar": {
+    "text": "没有更多了"
+  },
+
   "useLoading": true,
   "loadingTip": "加载中...",
   "errorTip": "加载失败，请重试",

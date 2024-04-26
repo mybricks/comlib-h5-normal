@@ -62,6 +62,15 @@
         "title": "列表数据",
         "type": "boolean"
       }
+    },
+    {
+      "id": "reset",
+      "rels": ["afterReset"],
+      "title": "重置列表",
+      "desc": "清空列表数据并重置分页参数",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "outputs": [
@@ -72,6 +81,10 @@
     {
       "id": "onRefresh",
       "title": "当下拉刷新时"
+    },
+    {
+      "id": "afterReset",
+      "title": "重置后"
     }
   ],
   "slots": [

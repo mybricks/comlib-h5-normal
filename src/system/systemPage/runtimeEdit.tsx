@@ -8,7 +8,7 @@ import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 
 export default function ({ env, data, inputs, outputs, slots }) {
-  data.id = data.id || env.canvas.id;
+  data.id = env.canvas.id;
 
   /**
    * 监听 tabBar 广播，更新 data

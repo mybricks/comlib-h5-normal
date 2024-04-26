@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { View } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import { List, Loading } from "brickd-mobile";
@@ -13,12 +13,6 @@ import { Direction } from "./constant";
 import cx from "classnames";
 
 const rowKey = "_itemKey";
-
-const mockData: DsItem[] = [
-  { [rowKey]: 1, index: 1 },
-  { [rowKey]: 2, index: 2 },
-  { [rowKey]: 3, index: 3 },
-] as DsItem[];
 
 interface DsItem {
   item: any;
@@ -73,9 +67,7 @@ const useReachBottom = (callback, { env, enable = false }) => {
 };
 
 export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
-  const [dataSource, setDataSource] = useState<DsItem[]>(
-    env.edit ? mockData : []
-  );
+  const [dataSource, setDataSource] = useState<DsItem[]>([]);
 
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
 
@@ -89,7 +81,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         return s;
       });
     },
-    { env, enable: !!data.scrollRefresh && data.direction !== Direction.Row }
+    { env, enable: !!data.scrollRefresh }
   );
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
@@ -158,19 +150,14 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     return ListStatus.ERROR === status;
   }, [status]);
 
-  // const wrapperCls = useMemo(() => {
-  //   return data.scrollRefresh
-  //     ? `${css.list} ${css.scroll}`
-  //     : `${css.list} ${css.normal}`;
-  // }, [data.scrollRefresh]);
-
-  const didMount = useRef(false);
+  // const didMount = useRef(false);
   useEffect(() => {
-    if (!didMount.current) {
-      // 不管上次配置的如何，第一次渲染必须配置成默认
-      data._edit_status_ = "默认";
-      didMount.current = true;
-    }
+    // if (!didMount.current) {
+    //   // 不管上次配置的如何，第一次渲染必须配置成默认
+    //   data._edit_status_ = "默认";
+    //   didMount.current = true;
+    // }
+
     if (env.edit) {
       switch (true) {
         case data._edit_status_ === "加载中": {
@@ -192,13 +179,6 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     }
   }, [data._edit_status_]);
 
-  // const showDataSource = useMemo(() => {
-  //   if (env.edit && status !== ListStatus.IDLE && !data.scrollRefresh) {
-  //     return false;
-  //   }
-  //   return true;
-  // }, [status]);
-
   const _dataSource = useMemo(() => {
     if (env.runtime) {
       return dataSource;
@@ -209,7 +189,42 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     }
   }, [dataSource, env.runtime, data.layout.column]);
 
-  const $list = _dataSource.map(
+  const _2DdataSource = useMemo(() => {
+    if (env.runtime) {
+      return to2D(dataSource, data.layout.column);
+    } else {
+      let list = new Array(3 * data.layout.column)
+        .fill(null)
+        .map((_, index) => {
+          return { [rowKey]: index, index: index };
+        });
+      return to2D(list, data.layout.column);
+    }
+
+    function to2D(items, column) {
+      const result = new Array(column).fill([]);
+
+      items.forEach((item, index) => {
+        const col = index % column;
+        result[col] = result[col].concat([item]);
+      });
+
+      return result;
+    }
+  }, [dataSource, env.runtime, data.layout.column]);
+
+  /**
+   * 提示信息
+   */
+  const useGrid = useMemo(() => {
+    if (env.runtime) {
+      return data.layout.type === "grid";
+    } else {
+      return data._edit_status_ === "默认" && data.layout.type === "grid";
+    }
+  }, [env.runtime, data.layout.type, data._edit_status_]);
+
+  const $grid = _dataSource.map(
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
       return (
         <View
@@ -236,22 +251,231 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     }
   );
 
+  const useWaterfall = useMemo(() => {
+    if (env.runtime) {
+      return data.layout.type === "waterfall";
+    } else {
+      return data._edit_status_ === "默认" && data.layout.type === "waterfall";
+    }
+  }, [env.runtime, data.layout.type, data._edit_status_]);
+
+  const $waterfall = _2DdataSource.map((col, _index) => {
+    let $col = col.map(({ [rowKey]: key, index: index, item: item }, _idx) => {
+      return (
+        <View
+          className={cx({
+            [css.item]: true,
+            ["disabled-area"]: env.edit && (_index !== 0 || _idx > 0),
+          })}
+          style={{
+            paddingBottom: `${data.layout.gutter[0]}px`,
+          }}
+          key={key}
+        >
+          {slots["item"].render({
+            inputValues: {
+              itemData: item,
+              index: index,
+            },
+            key: key,
+            style: {
+              height: slots["item"].size ? "unset" : "120px",
+            },
+          })}
+        </View>
+      );
+    });
+
+    return (
+      <View
+        className={cx({
+          [css["waterfall-col"]]: true,
+        })}
+        style={{
+          paddingRight: `${data.layout.gutter[1]}px`,
+          maxWidth: `${100 / data.layout.column}%`,
+          flexBasis: `${100 / data.layout.column}%`,
+        }}
+        key={_index}
+      >
+        {$col}
+      </View>
+    );
+  });
+
+  const useLoading = useMemo(() => {
+    if (env.runtime) {
+      return (
+        status === ListStatus.LOADING &&
+        data.layout.minHeight > 0 &&
+        dataSource.length === 0
+      );
+    } else {
+      return data._edit_status_ === "加载中" && data.layout.minHeight > 0;
+    }
+  }, [env.runtime, data.layout.minHeight, status, dataSource]);
+
+  const $loading = useMemo(() => {
+    return (
+      <View
+        className={css.loading}
+        style={{
+          height: `${data.layout.minHeight}px`,
+        }}
+      >
+        {data.loading.icon ? (
+          <Image
+            className={cx(["mybricks-loading-icon", css.icon])}
+            src={data.loading.icon}
+          ></Image>
+        ) : null}
+        <View className={cx(["mybricks-loading-text", css.text])}>
+          {data.loading.text}
+        </View>
+      </View>
+    );
+  }, [
+    loading,
+    data.loading.icon,
+    data.loading.text,
+    data.loading.useCustom,
+    data.layout.gutter,
+  ]);
+
+  const useLoadingBar = useMemo(() => {
+    if (env.runtime) {
+      return status === ListStatus.LOADING && dataSource.length > 0;
+    } else {
+      return data._edit_status_ === "加载中";
+    }
+  }, [env.runtime, status, dataSource]);
+
+  const $loadingBar = useMemo(() => {
+    return (
+      <View className={cx(["mybricks-loadingBar", css.loadingBar])}>
+        {data.loadingBar.text}
+      </View>
+    );
+  }, []);
+
+  const useError = useMemo(() => {
+    if (env.runtime) {
+      return (
+        status === ListStatus.ERROR &&
+        data.layout.minHeight > 0 &&
+        dataSource.length === 0
+      );
+    } else {
+      return data._edit_status_ === "加载失败";
+    }
+  }, [env.runtime, status, dataSource]);
+
+  const $error = useMemo(() => {
+    return "error";
+  }, []);
+
+  const useErrorBar = useMemo(() => {
+    if (env.runtime) {
+      return status === ListStatus.ERROR && dataSource.length > 0;
+    } else {
+      return data._edit_status_ === "加载失败";
+    }
+  }, [env.runtime, status, dataSource]);
+
+  const $errorBar = useMemo(() => {
+    return "errorBar";
+  }, []);
+
+  const useEmpty = useMemo(() => {
+    if (env.runtime) {
+      return (
+        status === ListStatus.NOMORE &&
+        data.layout.minHeight > 0 &&
+        dataSource.length === 0
+      );
+    } else {
+      return data._edit_status_ === "没有更多";
+    }
+  }, [env.runtime, status, dataSource]);
+
+  const $empty = useMemo(() => {
+    return "empty";
+  }, []);
+
+  const useEmptyBar = useMemo(() => {
+    if (env.runtime) {
+      return status === ListStatus.NOMORE && dataSource.length > 0;
+    } else {
+      return data._edit_status_ === "没有更多";
+    }
+  }, [env.runtime, status, dataSource]);
+
+  const $emptyBar = useMemo(() => {
+    return "emptyBar";
+  }, []);
+
   return (
     <View
       className={css.waterfall}
       style={{
         marginRight: `-${data.layout.gutter[1]}px`,
         marginBottom: `-${data.layout.gutter[0]}px`,
+        minHeight: data.layout.minHeight
+          ? `${+data.layout.minHeight + data.layout.gutter[0]}px`
+          : "unset",
       }}
     >
       {/* 网格布局 */}
-      {data.layout.type === "grid" && $list}
+      {/* {data.layout.type === "grid" && $list} */}
 
-      <List.Placeholder>
+      {/* <View
+        className={css.placeholder}
+        style={{
+          paddingRight: `${data.layout.gutter[1]}px`,
+          paddingBottom: `${data.layout.gutter[0]}px`,
+        }}
+      >
+        {$loading}
+      </View> */}
+
+      {/* Grid */}
+      {useGrid && $grid}
+
+      {/* Waterfall */}
+      {useWaterfall && $waterfall}
+
+      <View
+        className={css.placeholder}
+        style={{
+          marginRight: `${data.layout.gutter[1]}px`,
+          marginBottom: `${data.layout.gutter[0]}px`,
+        }}
+      >
+        {/* Loading */}
+        {useLoading && $loading}
+
+        {/* Loading bar */}
+        {useLoadingBar && $loadingBar}
+
+        {/* Error */}
+        {useError && $error}
+
+        {/* Error bar */}
+        {useErrorBar && $errorBar}
+
+        {/* Empty */}
+        {useEmpty && $empty}
+
+        {/* Empty bar */}
+        {useEmptyBar && $emptyBar}
+      </View>
+
+      {/* <List.Placeholder>
         {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
         {error && (data.errorTip ?? "加载失败，请重试")}
         {!hasMore && (data.emptyTip ?? "没有更多了")}
-      </List.Placeholder>
+      </List.Placeholder> */}
+
       {/* <>
           {!!data?.scrollRefresh ? (
             <>
