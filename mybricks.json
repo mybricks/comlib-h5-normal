@@ -21,7 +21,7 @@
     "./src/_hideLoading/com.json",
     "./src/_modal/com.json",
     "./src/_showActionSheet/com.json",
-    
+
     "./src/_setClipboardData/com.json",
     "./src/_uploadFile/com.json",
     "./src/_login/com.json",
@@ -114,10 +114,8 @@
         "./src/map/com.json",
         "./src/noticeBar/com.json",
         "./src/anchor/com.json",
-        "./src/mygpt/com.json",
-        "./src/support/com.json",
-        "./src/subModule/com.json",
-        "./src/line/com.json"
+        "./src/line/com.json",
+        "./src/support/com.json"
       ]
     }
   ],

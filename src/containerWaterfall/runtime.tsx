@@ -27,7 +27,7 @@ enum ListStatus {
   NOMORE = "noMore",
 }
 
-const useReachBottom = (callback, { env, enable = false }) => {
+const useReachBottom = (callback, { env }) => {
   const scrollMeta = useRef({ clientHeight: 0 });
 
   const cbRef = useRef(callback);
@@ -46,10 +46,6 @@ const useReachBottom = (callback, { env, enable = false }) => {
   );
 
   useEffect(() => {
-    if (!enable) {
-      return;
-    }
-
     const offset = 400;
 
     env?.rootScroll?.onScroll?.((e) => {
@@ -63,7 +59,7 @@ const useReachBottom = (callback, { env, enable = false }) => {
         }
       }
     });
-  }, [enable]);
+  }, []);
 };
 
 export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
@@ -81,7 +77,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         return s;
       });
     },
-    { env, enable: !!data.scrollRefresh }
+    { env }
   );
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
@@ -318,7 +314,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   const $loading = useMemo(() => {
     return (
       <View
-        className={css.loading}
+        className={cx(["mybricks-loading", css.status])}
         style={{
           height: `${data.layout.minHeight}px`,
         }}
@@ -334,13 +330,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         </View>
       </View>
     );
-  }, [
-    loading,
-    data.loading.icon,
-    data.loading.text,
-    data.loading.useCustom,
-    data.layout.gutter,
-  ]);
+  }, [data.layout.minHeight, data.loading.icon, data.loading.text]);
 
   const useLoadingBar = useMemo(() => {
     if (env.runtime) {
@@ -352,7 +342,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const $loadingBar = useMemo(() => {
     return (
-      <View className={cx(["mybricks-loadingBar", css.loadingBar])}>
+      <View className={cx(["mybricks-loadingBar", css.statusBar])}>
         {data.loadingBar.text}
       </View>
     );
@@ -371,8 +361,25 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   }, [env.runtime, status, dataSource]);
 
   const $error = useMemo(() => {
-    return "error";
-  }, []);
+    return (
+      <View
+        className={cx(["mybricks-error", css.status])}
+        style={{
+          height: `${data.layout.minHeight}px`,
+        }}
+      >
+        {data.error.icon ? (
+          <Image
+            className={cx(["mybricks-error-icon", css.icon])}
+            src={data.error.icon}
+          ></Image>
+        ) : null}
+        <View className={cx(["mybricks-error-text", css.text])}>
+          {data.error.text}
+        </View>
+      </View>
+    );
+  }, [data.layout.minHeight, data.error.icon, data.error.text]);
 
   const useErrorBar = useMemo(() => {
     if (env.runtime) {
@@ -383,7 +390,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   }, [env.runtime, status, dataSource]);
 
   const $errorBar = useMemo(() => {
-    return "errorBar";
+    return (
+      <View className={cx(["mybricks-errorBar", css.statusBar])}>
+        {data.errorBar.text}
+      </View>
+    );
   }, []);
 
   const useEmpty = useMemo(() => {
@@ -399,8 +410,25 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   }, [env.runtime, status, dataSource]);
 
   const $empty = useMemo(() => {
-    return "empty";
-  }, []);
+    return (
+      <View
+        className={cx(["mybricks-empty", css.status])}
+        style={{
+          height: `${data.layout.minHeight}px`,
+        }}
+      >
+        {data.empty.icon ? (
+          <Image
+            className={cx(["mybricks-empty-icon", css.icon])}
+            src={data.empty.icon}
+          ></Image>
+        ) : null}
+        <View className={cx(["mybricks-empty-text", css.text])}>
+          {data.empty.text}
+        </View>
+      </View>
+    );
+  }, [data.layout.minHeight, data.empty.icon, data.empty.text]);
 
   const useEmptyBar = useMemo(() => {
     if (env.runtime) {
@@ -411,7 +439,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   }, [env.runtime, status, dataSource]);
 
   const $emptyBar = useMemo(() => {
-    return "emptyBar";
+    return (
+      <View className={cx(["mybricks-emptyBar", css.statusBar])}>
+        {data.emptyBar.text}
+      </View>
+    );
   }, []);
 
   return (

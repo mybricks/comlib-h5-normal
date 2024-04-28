@@ -106,6 +106,17 @@ export default {
     options: ["width", "height"],
   },
   ":root": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.text;
+        },
+        set({ data }, val) {
+          data.text = val;
+        },
+      },
+    },
     style: [
       {
         title: "按钮",

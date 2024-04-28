@@ -13,6 +13,132 @@ const setSlotLayout = (slot, value) => {
   }
 };
 
+const loadingOptions = [
+  {
+    title: "提示图标",
+    type: "imageselector",
+    value: {
+      get({ data }) {
+        return data.loading.icon;
+      },
+      set({ data }, value) {
+        data.loading.icon = value;
+      },
+    },
+  },
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.loading.text;
+      },
+      set({ data }, value) {
+        data.loading.text = value;
+      },
+    },
+  },
+];
+
+const loadingBarOptions = [
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.loadingBar.text;
+      },
+      set({ data }, value) {
+        data.loadingBar.text = value;
+      },
+    },
+  },
+];
+
+const errorOptions = [
+  {
+    title: "提示图标",
+    type: "imageselector",
+    value: {
+      get({ data }) {
+        return data.error.icon;
+      },
+      set({ data }, value) {
+        data.error.icon = value;
+      },
+    },
+  },
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.error.text;
+      },
+      set({ data }, value) {
+        data.error.text = value;
+      },
+    },
+  },
+];
+
+const errorBarOptions = [
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.errorBar.text;
+      },
+      set({ data }, value) {
+        data.errorBar.text = value;
+      },
+    },
+  },
+];
+
+const emptyOptions = [
+  {
+    title: "提示图标",
+    type: "imageselector",
+    value: {
+      get({ data }) {
+        return data.empty.icon;
+      },
+      set({ data }, value) {
+        data.empty.icon = value;
+      },
+    },
+  },
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.empty.text;
+      },
+      set({ data }, value) {
+        data.empty.text = value;
+      },
+    },
+  },
+];
+
+const emptyBarOptions = [
+  {
+    title: "提示文案",
+    type: "text",
+    value: {
+      get({ data }) {
+        return data.emptyBar.text;
+      },
+      set({ data }, value) {
+        data.emptyBar.text = value;
+      },
+    },
+  },
+];
+
 export default {
   "@init": ({ style, data }) => {
     // style.width = "fit-content";
@@ -133,104 +259,34 @@ export default {
             },
           },
           {
-            title: "初始加载状态",
+            title: "初始状态",
             catelog: "加载中",
-            items: [
-              {
-                title: "提示图标",
-                type: "imageselector",
-                value: {
-                  get({ data }) {
-                    return data.loading.icon;
-                  },
-                  set({ data }, value) {
-                    data.loading.icon = value;
-                  },
-                },
-              },
-              {
-                title: "提示文案",
-                type: "text",
-                value: {
-                  get({ data }) {
-                    return data.loading.text;
-                  },
-                  set({ data }, value) {
-                    data.loading.text = value;
-                  },
-                },
-              },
-            ],
+            items: [...loadingOptions],
           },
           {
-            title: "滚动加载更多状态",
+            title: "状态条",
             catelog: "加载中",
-            items: [
-              {
-                title: "提示文案",
-                type: "text",
-                value: {
-                  get({ data }) {
-                    return data.loadingBar.text;
-                  },
-                  set({ data }, value) {
-                    data.loadingBar.text = value;
-                  },
-                },
-              },
-            ],
+            items: [...loadingBarOptions],
           },
           {
-            title: "提示图标",
-            type: "imageselector",
+            title: "初始状态",
             catelog: "加载失败",
-            value: {
-              get({ data }) {
-                return data.error.icon;
-              },
-              set({ data }, value) {
-                data.error.icon = value;
-              },
-            },
+            items: [...errorOptions],
           },
           {
-            title: "提示文案",
-            type: "text",
+            title: "状态条",
             catelog: "加载失败",
-            value: {
-              get({ data }) {
-                return data.error.text;
-              },
-              set({ data }, value) {
-                data.error.text = value;
-              },
-            },
+            items: [...errorBarOptions],
           },
           {
-            title: "提示图标",
-            type: "imageselector",
+            title: "初始状态",
             catelog: "没有更多",
-            value: {
-              get({ data }) {
-                return data.empty.icon;
-              },
-              set({ data }, value) {
-                data.empty.icon = value;
-              },
-            },
+            items: [...emptyOptions],
           },
           {
-            title: "提示文案",
-            type: "text",
+            title: "状态条",
             catelog: "没有更多",
-            value: {
-              get({ data }) {
-                return data.empty.text;
-              },
-              set({ data }, value) {
-                data.empty.text = value;
-              },
-            },
+            items: [...emptyBarOptions],
           },
         ],
       },
@@ -299,13 +355,25 @@ export default {
     ];
   },
 
+  ".mybricks-loading": {
+    title: "加载中初始状态",
+    items: [...loadingOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["background"],
+        target: ".mybricks-loading",
+        defaultOpen: true,
+      },
+    ],
+  },
   ".mybricks-loading-icon": {
     title: "提示图标",
     items: [
       {
         title: "提示图标",
         type: "imageselector",
-        src: {
+        value: {
           get({ data }) {
             return data.loading.icon;
           },
@@ -318,7 +386,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["size"],
+        options: ["size", "margin"],
         target: ".mybricks-loading-icon",
         defaultOpen: true,
       },
@@ -343,19 +411,175 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["font", "margin", "padding", "border", "background"],
+        options: ["font", "padding", "border", "background"],
         target: ".mybricks-loading-text",
         defaultOpen: true,
       },
     ],
   },
-
   ".mybricks-loadingBar": {
+    title: "加载中状态条",
+    items: [...loadingBarOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["size", "font", "background"],
+        target: ".mybricks-loadingBar",
+        defaultOpen: true,
+      },
+    ],
+  },
+
+  ".mybricks-error": {
+    title: "加载失败初始状态",
+    items: [...errorOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["background"],
+        target: ".mybricks-error",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-error-icon": {
+    title: "提示图标",
+    items: [
+      {
+        title: "提示图标",
+        type: "imageselector",
+        value: {
+          get({ data }) {
+            return data.error.icon;
+          },
+          set({ data }, value) {
+            data.error.icon = value;
+          },
+        },
+      },
+    ],
+    style: [
+      {
+        title: "样式",
+        options: ["size", "margin"],
+        target: ".mybricks-error-icon",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-error-text": {
+    title: "提示文案",
+    items: [
+      {
+        title: "提示文案",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.error.text;
+          },
+          set({ data }, value) {
+            data.error.text = value;
+          },
+        },
+      },
+    ],
     style: [
       {
         title: "样式",
         options: ["font", "padding", "border", "background"],
-        target: ".mybricks-loadingBar",
+        target: ".mybricks-error-text",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-errorBar": {
+    title: "加载失败状态条",
+    items: [...errorBarOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["size", "font", "background"],
+        target: ".mybricks-errorBar",
+        defaultOpen: true,
+      },
+    ],
+  },
+
+  ".mybricks-empty": {
+    title: "没有更多初始状态",
+    items: [...emptyOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["background"],
+        target: ".mybricks-empty",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-empty-icon": {
+    title: "提示图标",
+    items: [
+      {
+        title: "提示图标",
+        type: "imageselector",
+        value: {
+          get({ data }) {
+            
+            console.warn(JSON.stringify(data.empty))
+            console.warn(JSON.stringify(data.empty))
+            console.warn(JSON.stringify(data.empty))
+
+            return data.empty.icon;
+          },
+          set({ data }, value) {
+            data.empty.icon = value;
+          },
+        },
+      },
+    ],
+    style: [
+      {
+        title: "样式",
+        options: ["size", "margin"],
+        target: ".mybricks-empty-icon",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-empty-text": {
+    title: "提示文案",
+    items: [
+      {
+        title: "提示文案",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.empty.text;
+          },
+          set({ data }, value) {
+            data.empty.text = value;
+          },
+        },
+      },
+    ],
+    style: [
+      {
+        title: "样式",
+        options: ["font", "padding", "border", "background"],
+        target: ".mybricks-empty-text",
+        defaultOpen: true,
+      },
+    ],
+  },
+  ".mybricks-emptyBar": {
+    title: "没有更多状态条",
+    items: [...emptyBarOptions],
+    style: [
+      {
+        title: "样式",
+        options: ["size", "font", "background"],
+        target: ".mybricks-emptyBar",
         defaultOpen: true,
       },
     ],
