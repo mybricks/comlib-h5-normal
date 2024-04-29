@@ -36,29 +36,52 @@ export default {
     ];
 
     cate2.title = "高级";
-    cate2.items = [
-    ];
+    cate2.items = [];
   },
-  ".taroify-collapse-item__title"(props, cate0) {
-    if (!props.focusArea) return;
-    const focusItem = getFocusItem(props);
+  ".taroify-collapse-item__title": {
+    title: "常规",
+    items: (props, cate0) => {
+      if (!props.focusArea) return;
+      const focusItem = getFocusItem(props);
 
-    (cate0.title = "常规"),
-      (cate0.items = [
-        {
-          title: "标题",
-          type: "text",
-          value: {
-            get({ data, focusArea }) {
-              return focusItem?.title;
-            },
-            set({ data, focusArea, slot }, value) {
-              if (!focusArea) return;
-              focusItem.title = value;
-              slot.setTitle(`cont_${focusItem.id}`, value);
+      (cate0.title = "常规"),
+        (cate0.items = [
+          {
+            title: "标题",
+            type: "text",
+            value: {
+              get({ data, focusArea }) {
+                return focusItem?.title;
+              },
+              set({ data, focusArea, slot }, value) {
+                if (!focusArea) return;
+                focusItem.title = value;
+                slot.setTitle(`cont_${focusItem.id}`, value);
+              },
             },
           },
+        ]);
+    },
+  },
+
+  ".taroify-cell__title": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const { data, focusArea } = props
+          if (!props.focusArea) return;
+          const focusItem = getFocusItem(props);
+          return focusItem?.title;
         },
-      ]);
+        set(props, value) {
+          const { data, focusArea, slot } =props
+          if (!focusArea) return;
+          const focusItem = getFocusItem(props);
+          focusItem.title = value;
+          slot.setTitle(`cont_${focusItem.id}`, value);
+        },
+      },
+    },
   },
 };
