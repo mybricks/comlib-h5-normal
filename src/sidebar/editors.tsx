@@ -137,7 +137,8 @@ export default {
       {
         title: "内容展示方式",
         type: "radio",
-        description: "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
+        description:
+          "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
         options: [
           { label: "锚定显示", value: "roll" },
           { label: "切换显示", value: "switch" },
@@ -488,252 +489,61 @@ export default {
     //   },
     // ]
   },
-  ".taroify-sidebar-tab"(props, cate1, cate2, cate3) {
-    // title: '标签',
-    // items: (props, cate1, cate2, cate3) => {
-    //   if (!props.focusArea) return;
-    //   const focusItem = getFocusTab(props)
-    //   cate1.title = '常规';
-    //   cate1.items = [
-    //     {
-    //       title: '标签项',
-    //       type: 'text',
-    //       value: {
-    //         get({ data, focusArea }) {
-    //           return focusItem?.tabName
-    //         },
-    //         set({ data, focusArea, slot }, value) {
-    //           if (!focusArea) return
-    //           focusItem.tabName = value
-    //           slot.setTitle(focusItem._id, value)
-    //         },
-    //       },
-    //     },
-    //     {
-    //       title: '删除标签项',
-    //       type: 'Button',
-    //       value: {
-    //         set({ data, slot, focusArea }) {
-    //           if (!focusArea) return
-    //           data.tabs.splice(focusArea.index, 1);
-    //           // const _id = getFocusTab({ data, focusArea })?._id
-    //           slot.remove(focusItem._id)
-    //         },
-    //       },
-    //     },
-    //     // {
-    //     //   title: '独立样式配置',
-    //     //   type: 'switch',
-    //     //   value: {
-    //     //     get({ data }) {
-    //     //       return data.advancedNavItem
-    //     //     },
-    //     //     set({ data }, value) {
-    //     //       data.advancedNavItem = value
-    //     //     },
-    //     //   },
-    //     // },
-    //     // {
-    //     //   catelogChange: {},
-    //     //   ifVisible({ data }) {
-    //     //     return data.advancedNavItem
-    //     //   },
-    //     //   items: [
-    //     //     {
-    //     //       type: 'style',
-    //     //       catelog: '默认样式',
-    //     //       options: {
-    //     //         defaultOpen: true,
-    //     //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-    //     //       },
-    //     //       value: {
-    //     //         get({ data, focusArea }) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           return tabItem.normalStyle
-    //     //         },
-    //     //         set({ data, focusArea }, value) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           tabItem.normalStyle = {
-    //     //             ...tabItem.normalStyle,
-    //     //             ...value,
-    //     //           }
-    //     //         },
-    //     //       },
-    //     //     },
-    //     //     {
-    //     //       type: 'style',
-    //     //       catelog: '选中样式',
-    //     //       options: {
-    //     //         defaultOpen: true,
-    //     //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-    //     //       },
-    //     //       value: {
-    //     //         get({ data, focusArea }) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           return tabItem.focusStyle
-    //     //         },
-    //     //         set({ data, focusArea }, value) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           tabItem.focusStyle = {
-    //     //             ...tabItem.focusStyle,
-    //     //             ...value,
-    //     //           }
-    //     //         },
-    //     //       },
-    //     //     },
-    //     //   ],
-    //     // },
-    //     // {
-    //     //   type: "editorRender",
-    //     //   options: {
-    //     //     render: (props) => {
-    //     //       props.editConfig.value.get();
-    //     //       return (<></>);
-    //     //     }
-    //     //   },
-    //     //   value: {
-    //     //     get({ data, focusArea }) {
-    //     //       if (!focusArea) return;
-    //     //       console.error(focusArea)
-    //     //       // data.selectedTabItemCatelog = "激活样式";
-    //     //       // data.selectedTabItemIndex = focusArea.index;
-    //     //     },
-    //     //   },
-    //     // },
-    //   ]
 
-    //   cate2.title = '样式';
-    //   cate2.items = []
-
-    //   cate3.title = '高级';
-    //   cate3.items = []
-    // }
-
-    if (!props.focusArea) return;
-    const focusItem = getFocusTab(props);
-    props.data.edit.currentTabId = focusItem._id;
-    cate1.title = "常规";
-    cate1.items = [
-      {
-        title: "标签项",
-        type: "text",
-        value: {
-          get({ data, focusArea }) {
-            return focusItem?.tabName;
-          },
-          set({ data, focusArea, slot }, value) {
-            if (!focusArea) return;
-            focusItem.tabName = value;
-            slot.setTitle(focusItem._id, value);
+  ".taroify-sidebar-tab": {
+    title: "标签项",
+    items: (props, cate1, cate2, cate3) => {
+      if (!props.focusArea) return;
+      const focusItem = getFocusTab(props);
+      props.data.edit.currentTabId = focusItem._id;
+      cate1.title = "常规";
+      cate1.items = [
+        {
+          title: "标签项",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              return focusItem?.tabName;
+            },
+            set({ data, focusArea, slot }, value) {
+              if (!focusArea) return;
+              focusItem.tabName = value;
+              slot.setTitle(focusItem._id, value);
+            },
           },
         },
-      },
-      {
-        title: "删除标签项",
-        type: "Button",
-        value: {
-          set({ data, slot, focusArea }) {
-            if (!focusArea) return;
-            data.tabs.splice(focusArea.index, 1);
-            // const _id = getFocusTab({ data, focusArea })?._id
-            slot.remove(focusItem._id);
-            data.edit.currentTabId = data.tabs[0]?._id;
+        {
+          title: "删除标签项",
+          type: "Button",
+          value: {
+            set({ data, slot, focusArea }) {
+              if (!focusArea) return;
+              data.tabs.splice(focusArea.index, 1);
+              // const _id = getFocusTab({ data, focusArea })?._id
+              slot.remove(focusItem._id);
+              data.edit.currentTabId = data.tabs[0]?._id;
+            },
           },
         },
+      ];
+    },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const focusItem = getFocusTab(props);
+          return focusItem?.tabName;
+        },
+        set(props, value) {
+          const { data, focusArea, slot, output } = props;
+          const focusItem = getFocusTab(props);
+          if (!focusArea) return;
+          focusItem.tabName = value;
+          slot.setTitle(focusItem._id, value);
+          output.setTitle(focusItem._id, value);
+        },
       },
-      // {
-      //   title: '独立样式配置',
-      //   type: 'switch',
-      //   value: {
-      //     get({ data }) {
-      //       return data.advancedNavItem
-      //     },
-      //     set({ data }, value) {
-      //       data.advancedNavItem = value
-      //     },
-      //   },
-      // },
-      // {
-      //   catelogChange: {},
-      //   ifVisible({ data }) {
-      //     return data.advancedNavItem
-      //   },
-      //   items: [
-      //     {
-      //       type: 'style',
-      //       catelog: '默认样式',
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           return tabItem.normalStyle
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           tabItem.normalStyle = {
-      //             ...tabItem.normalStyle,
-      //             ...value,
-      //           }
-      //         },
-      //       },
-      //     },
-      //     {
-      //       type: 'style',
-      //       catelog: '选中样式',
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           return tabItem.focusStyle
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           tabItem.focusStyle = {
-      //             ...tabItem.focusStyle,
-      //             ...value,
-      //           }
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
-      // {
-      //   type: "editorRender",
-      //   options: {
-      //     render: (props) => {
-      //       props.editConfig.value.get();
-      //       return (<></>);
-      //     }
-      //   },
-      //   value: {
-      //     get({ data, focusArea }) {
-      //       if (!focusArea) return;
-      //       console.error(focusArea)
-      //       // data.selectedTabItemCatelog = "激活样式";
-      //       // data.selectedTabItemIndex = focusArea.index;
-      //     },
-      //   },
-      // },
-    ];
-
-    cate2.title = "样式";
-    cate2.items = [];
-
-    cate3.title = "高级";
-    cate3.items = [];
+    },
   },
+
 };
