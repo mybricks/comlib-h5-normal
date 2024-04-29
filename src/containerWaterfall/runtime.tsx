@@ -69,6 +69,8 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   useReachBottom(
     () => {
+      return;
+
       setStatus((s) => {
         if (s === ListStatus.IDLE) {
           outputs["onScrollLoad"]?.();
@@ -148,6 +150,8 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   // const didMount = useRef(false);
   useEffect(() => {
+    return;
+
     // if (!didMount.current) {
     //   // 不管上次配置的如何，第一次渲染必须配置成默认
     //   data._edit_status_ = "默认";
@@ -307,7 +311,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         dataSource.length === 0
       );
     } else {
-      return data._edit_status_ === "加载中" && data.layout.minHeight > 0;
+      return data._edit_status_ === "加载中";
     }
   }, [env.runtime, data.layout.minHeight, status, dataSource]);
 
@@ -457,50 +461,44 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           : "unset",
       }}
     >
-      {/* 网格布局 */}
-      {/* {data.layout.type === "grid" && $list} */}
-
-      {/* <View
-        className={css.placeholder}
-        style={{
-          paddingRight: `${data.layout.gutter[1]}px`,
-          paddingBottom: `${data.layout.gutter[0]}px`,
-        }}
-      >
-        {$loading}
-      </View> */}
-
       {/* Grid */}
       {useGrid && $grid}
 
       {/* Waterfall */}
       {useWaterfall && $waterfall}
 
-      <View
-        className={css.placeholder}
-        style={{
-          marginRight: `${data.layout.gutter[1]}px`,
-          marginBottom: `${data.layout.gutter[0]}px`,
-        }}
-      >
-        {/* Loading */}
-        {useLoading && $loading}
+      {useLoading ||
+      useLoadingBar ||
+      useError ||
+      useErrorBar ||
+      useEmpty ||
+      useEmptyBar ? (
+        <View
+          className={css.placeholder}
+          style={{
+            marginRight: `${data.layout.gutter[1]}px`,
+            marginBottom: `${data.layout.gutter[0]}px`,
+          }}
+        >
+          {/* Loading */}
+          {useLoading && $loading}
 
-        {/* Loading bar */}
-        {useLoadingBar && $loadingBar}
+          {/* Loading bar */}
+          {useLoadingBar && $loadingBar}
 
-        {/* Error */}
-        {useError && $error}
+          {/* Error */}
+          {useError && $error}
 
-        {/* Error bar */}
-        {useErrorBar && $errorBar}
+          {/* Error bar */}
+          {useErrorBar && $errorBar}
 
-        {/* Empty */}
-        {useEmpty && $empty}
+          {/* Empty */}
+          {useEmpty && $empty}
 
-        {/* Empty bar */}
-        {useEmptyBar && $emptyBar}
-      </View>
+          {/* Empty bar */}
+          {useEmptyBar && $emptyBar}
+        </View>
+      ) : null}
 
       {/* <List.Placeholder>
         {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
