@@ -21,7 +21,7 @@
     "./src/_hideLoading/com.json",
     "./src/_modal/com.json",
     "./src/_showActionSheet/com.json",
-    
+
     "./src/_setClipboardData/com.json",
     "./src/_uploadFile/com.json",
     "./src/_login/com.json",
@@ -107,17 +107,16 @@
     {
       "title": "其它",
       "comAry": [
+        "./src/line/com.json",
         "./src/calendar/com.json",
-        "./src/cell/com.json",
-        "./src/safeArea/com.json",
-        "./src/ad-popup/com.json",
-        "./src/map/com.json",
         "./src/noticeBar/com.json",
+        "./src/qrcode/com.json",
+        "./src/cell/com.json",
+        "./src/map/com.json",
+        "./src/ad-popup/com.json",
         "./src/anchor/com.json",
-        "./src/mygpt/com.json",
-        "./src/support/com.json",
-        "./src/subModule/com.json",
-        "./src/line/com.json"
+        "./src/safeArea/com.json",
+        "./src/support/com.json"
       ]
     }
   ],

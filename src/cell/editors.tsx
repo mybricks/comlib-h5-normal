@@ -32,15 +32,15 @@ export default {
             },
             set({ data }, value: boolean) {
               data.useThumb = value;
-            }
-          }
+            },
+          },
         },
         {
           ifVisible({ data }) {
             return data.useThumb;
           },
-          title: '图标',
-          type: 'imageSelector',
+          title: "图标",
+          type: "imageSelector",
           value: {
             get({ data }) {
               return data.thumb;
@@ -120,16 +120,16 @@ export default {
               ifVisible({ data }) {
                 return !data.useChildren;
               },
-              title: '内容',
-              type: 'text',
+              title: "内容",
+              type: "text",
               value: {
                 get({ data }) {
-                  return data.content
+                  return data.content;
                 },
                 set({ data }, val) {
-                  data.content = val
-                }
-              }
+                  data.content = val;
+                },
+              },
             },
             {
               title: "显示右箭头",
@@ -155,10 +155,10 @@ export default {
                 },
                 set({ data }, value: string) {
                   data.arrowIconColor = value;
-                }
-              }
-            }
-          ]
+                },
+              },
+            },
+          ],
         },
         {
           title: "事件",
@@ -180,9 +180,9 @@ export default {
     style: [
       {
         title: "",
-        options: ['size', "border"],
-        target: ".mybricks-thumb"
-      }
+        options: ["size", "border"],
+        target: ".mybricks-thumb",
+      },
     ],
     items: [
       {
@@ -194,15 +194,15 @@ export default {
           },
           set({ data }, value: boolean) {
             data.useThumb = value;
-          }
-        }
+          },
+        },
       },
       {
         ifVisible({ data }) {
           return data.useThumb;
         },
-        title: '图标',
-        type: 'imageSelector',
+        title: "图标",
+        type: "imageSelector",
         value: {
           get({ data }) {
             return data.thumb;
@@ -212,16 +212,27 @@ export default {
           },
         },
       },
-    ]
+    ],
   },
   ".mybricks-title": {
     title: "标题",
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.title;
+        },
+        set({ data, input }, value) {
+          data.title = value;
+        },
+      },
+    },
     style: [
       {
         title: "",
-        options: ['font'],
-        target: ".mybricks-title"
-      }
+        options: ["font"],
+        target: ".mybricks-title",
+      },
     ],
     items: [
       {
@@ -236,16 +247,27 @@ export default {
           },
         },
       },
-    ]
+    ],
   },
   ".mybricks-brief": {
     title: "描述",
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.brief;
+        },
+        set({ data, input }, value) {
+          data.brief = value;
+        },
+      },
+    },
     style: [
       {
         title: "",
-        options: ['font'],
-        target: ".mybricks-brief"
-      }
+        options: ["font"],
+        target: ".mybricks-brief",
+      },
     ],
     items: [
       {
@@ -260,16 +282,27 @@ export default {
           },
         },
       },
-    ]
+    ],
   },
   ".mybricks-content": {
     title: "内容",
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.content;
+        },
+        set({ data, input }, value) {
+          data.content = value;
+        },
+      },
+    },
     style: [
       {
         title: "",
-        options: ['font'],
-        target: ".mybricks-content"
-      }
+        options: ["font"],
+        target: ".mybricks-content",
+      },
     ],
     items: [
       {
@@ -315,16 +348,16 @@ export default {
         ifVisible({ data }) {
           return !data.useChildren;
         },
-        title: '内容',
-        type: 'text',
+        title: "内容",
+        type: "text",
         value: {
           get({ data }) {
-            return data.content
+            return data.content;
           },
           set({ data }, val) {
-            data.content = val
-          }
-        }
+            data.content = val;
+          },
+        },
       },
       {
         title: "显示右箭头",
@@ -350,10 +383,10 @@ export default {
           },
           set({ data }, value: string) {
             data.arrowIconColor = value;
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
 
   ".mybricks-children": {
@@ -402,16 +435,16 @@ export default {
         ifVisible({ data }) {
           return !data.useChildren;
         },
-        title: '内容',
-        type: 'text',
+        title: "内容",
+        type: "text",
         value: {
           get({ data }) {
-            return data.content
+            return data.content;
           },
           set({ data }, val) {
-            data.content = val
-          }
-        }
+            data.content = val;
+          },
+        },
       },
       {
         title: "显示右箭头",
@@ -437,10 +470,9 @@ export default {
           },
           set({ data }, value: string) {
             data.arrowIconColor = value;
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
-
 };

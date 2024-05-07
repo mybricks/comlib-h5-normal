@@ -1,20 +1,31 @@
 export default {
-  '@init': ({ style, data }) => {
+  "@init": ({ style, data }) => {
     style.width = "100%";
   },
-  '@resize': {
-    options: ['width'],
+  "@resize": {
+    options: ["width"],
   },
-  ':root': {
+  ":root": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data, focusArea }) {
+          return data.noticeText;
+        },
+        set({ data, focusArea, input }, value) {
+          data.noticeText = value;
+        },
+      },
+    },
     style: [
       {
         title: "样式",
-        options: ["border", "background", 'font'],
+        options: ["border", "background", "font"],
         target: `.taroify-notice-bar`,
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {
-      cate0.title = '常规'
+      cate0.title = "常规";
       cate0.items = [
         // {
         //   title: '图标',
@@ -29,48 +40,48 @@ export default {
         //   }
         // },
         {
-          title: '内容',
-          type: 'text',
+          title: "内容",
+          type: "text",
           value: {
             get({ data }) {
-              return data.noticeText
+              return data.noticeText;
             },
             set({ data }, val) {
-              data.noticeText = val
-            }
-          }
+              data.noticeText = val;
+            },
+          },
         },
         {
-          title: '是否滚动播放',
-          type: 'switch',
+          title: "是否滚动播放",
+          type: "switch",
           value: {
             get({ data }) {
-              return data.scrollable
+              return data.scrollable;
             },
             set({ data }, val) {
-              data.scrollable = val
+              data.scrollable = val;
               if (val) {
-                data.wordwrap = false
+                data.wordwrap = false;
               }
-            }
-          }
+            },
+          },
         },
         {
-          title: '是否多行展示',
-          type: 'switch',
+          title: "是否多行展示",
+          type: "switch",
           ifVisible({ data }: EditorResult<any>) {
             return !data?.scrollable;
           },
           value: {
             get({ data }) {
-              return data.wordwrap
+              return data.wordwrap;
             },
             set({ data }, val) {
-              data.wordwrap = val
-            }
-          }
+              data.wordwrap = val;
+            },
+          },
         },
-      ]
+      ];
       // cate1.title = '样式'
       // cate1.items = [
       //   {
@@ -92,21 +103,21 @@ export default {
       //     },
       //   },
       // ]
-      cate1.title = '动作'
+      cate1.title = "动作";
       cate1.items = [
         {
-          title: '事件',
+          title: "事件",
           items: [
             {
-              title: '单击',
-              type: '_event',
+              title: "单击",
+              type: "_event",
               options: {
-                outputId: 'onClick',
+                outputId: "onClick",
               },
             },
           ],
-        }
-      ]
+        },
+      ];
     },
   }
-}
+};

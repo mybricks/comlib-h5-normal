@@ -27,7 +27,7 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
-  ":slot":{},
+  ":slot": {},
   ":root": {
     style: [
       {
@@ -655,467 +655,134 @@ export default {
     },
   },
 
-  ".taroify-tabs__tab"(props, cate1, cate2, cate3) {
-    // title: '标签',
-    // items: (props, cate1, cate2, cate3) => {
-    //   if (!props.focusArea) return;
-    //   const focusItem = getFocusTab(props)
-    //   cate1.title = '常规';
-    //   cate1.items = [
-    //     {
-    //       title: '标签项',
-    //       type: 'text',
-    //       value: {
-    //         get({ data, focusArea }) {
-    //           return focusItem?.tabName
-    //         },
-    //         set({ data, focusArea, slot }, value) {
-    //           if (!focusArea) return
-    //           focusItem.tabName = value
-    //           slot.setTitle(focusItem._id, value)
-    //         },
-    //       },
-    //     },
-    //     {
-    //       title: '删除标签项',
-    //       type: 'Button',
-    //       value: {
-    //         set({ data, slot, focusArea }) {
-    //           if (!focusArea) return
-    //           data.tabs.splice(focusArea.index, 1);
-    //           // const _id = getFocusTab({ data, focusArea })?._id
-    //           slot.remove(focusItem._id)
-    //         },
-    //       },
-    //     },
-    //     // {
-    //     //   title: '独立样式配置',
-    //     //   type: 'switch',
-    //     //   value: {
-    //     //     get({ data }) {
-    //     //       return data.advancedNavItem
-    //     //     },
-    //     //     set({ data }, value) {
-    //     //       data.advancedNavItem = value
-    //     //     },
-    //     //   },
-    //     // },
-    //     // {
-    //     //   catelogChange: {},
-    //     //   ifVisible({ data }) {
-    //     //     return data.advancedNavItem
-    //     //   },
-    //     //   items: [
-    //     //     {
-    //     //       type: 'style',
-    //     //       catelog: '默认样式',
-    //     //       options: {
-    //     //         defaultOpen: true,
-    //     //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-    //     //       },
-    //     //       value: {
-    //     //         get({ data, focusArea }) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           return tabItem.normalStyle
-    //     //         },
-    //     //         set({ data, focusArea }, value) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           tabItem.normalStyle = {
-    //     //             ...tabItem.normalStyle,
-    //     //             ...value,
-    //     //           }
-    //     //         },
-    //     //       },
-    //     //     },
-    //     //     {
-    //     //       type: 'style',
-    //     //       catelog: '选中样式',
-    //     //       options: {
-    //     //         defaultOpen: true,
-    //     //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-    //     //       },
-    //     //       value: {
-    //     //         get({ data, focusArea }) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           return tabItem.focusStyle
-    //     //         },
-    //     //         set({ data, focusArea }, value) {
-    //     //           if (!focusArea) return
-    //     //           const tabItem = getTabItem(data, focusArea)
-    //     //           tabItem.focusStyle = {
-    //     //             ...tabItem.focusStyle,
-    //     //             ...value,
-    //     //           }
-    //     //         },
-    //     //       },
-    //     //     },
-    //     //   ],
-    //     // },
-    //     // {
-    //     //   type: "editorRender",
-    //     //   options: {
-    //     //     render: (props) => {
-    //     //       props.editConfig.value.get();
-    //     //       return (<></>);
-    //     //     }
-    //     //   },
-    //     //   value: {
-    //     //     get({ data, focusArea }) {
-    //     //       if (!focusArea) return;
-    //     //       console.error(focusArea)
-    //     //       // data.selectedTabItemCatelog = "激活样式";
-    //     //       // data.selectedTabItemIndex = focusArea.index;
-    //     //     },
-    //     //   },
-    //     // },
-    //   ]
-
-    //   cate2.title = '样式';
-    //   cate2.items = []
-
-    //   cate3.title = '高级';
-    //   cate3.items = []
-    // }
-
-    if (!props.focusArea) return;
-    const focusItem = getFocusTab(props);
-
-    cate1.title = "常规";
-    cate1.items = [
-      {
-        title: "标签项",
-        type: "text",
-        value: {
-          get({ data, focusArea }) {
-            return focusItem?.tabName;
-          },
-          set({ data, focusArea, slot, output }, value) {
-            if (!focusArea) return;
-            focusItem.tabName = value;
-            slot.setTitle(focusItem._id, value);
-            // console.log(output.get(focusItem._id));
-            output.setTitle(focusItem._id, value);
+  ".taroify-tabs__tab": {
+    title: "标签项",
+    items: (props, cate1, cate2, cate3) => {
+      if (!props.focusArea) return;
+      const focusItem = getFocusTab(props);
+      cate1.title = "常规";
+      cate1.items = [
+        {
+          title: "标签项",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              return focusItem?.tabName;
+            },
+            set({ data, focusArea, slot, output }, value) {
+              if (!focusArea) return;
+              focusItem.tabName = value;
+              slot.setTitle(focusItem._id, value);
+              output.setTitle(focusItem._id, value);
+            },
           },
         },
-      },
-      // {
-      //   title: "使用独立样式配置",
-      //   type: "switch",
-      //   value: {
-      //     get({ data }) {
-      //       return focusItem?.useIndependentStyle;
-      //     },
-      //     set({ data, focusArea }, value) {
-      //       if (!focusArea) return;
-      //       focusItem.useIndependentStyle = value;
-      //     },
-      //   },
-      // },
-
-      // // 通用样式
-      // {
-      //   ifVisible({ data }) {
-      //     return !focusItem?.useIndependentStyle;
-      //   },
-      //   catelogChange: {},
-      //   items: [
-      //     {
-      //       type: "style",
-      //       catelog: "默认样式",
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: [
-      //           "size",
-      //           "padding",
-      //           "font",
-      //           "border",
-      //           "bgcolor",
-      //           "bgimage",
-      //         ],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           return data.normalNavItemStyle;
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           data.normalNavItemStyle = value;
-      //         },
-      //       },
-      //     },
-      //     {
-      //       type: "style",
-      //       catelog: "激活样式",
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: [
-      //           "size",
-      //           "padding",
-      //           "font",
-      //           "border",
-      //           "bgcolor",
-      //           "bgimage",
-      //         ],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           return data.activeNavItemStyle;
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           data.activeNavItemStyle = value;
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
-      // // 独立样式
-      // {
-      //   ifVisible({ data }) {
-      //     return focusItem?.useIndependentStyle;
-      //   },
-      //   catelogChange: {},
-      //   items: [
-      //     {
-      //       type: "style",
-      //       catelog: "默认样式",
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: [
-      //           "size",
-      //           "padding",
-      //           "font",
-      //           "border",
-      //           "bgcolor",
-      //           "bgimage",
-      //         ],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           return focusItem.normalNavItemStyle;
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return;
-      //           focusItem.normalNavItemStyle = value;
-      //         },
-      //       },
-      //     },
-      //     {
-      //       type: "style",
-      //       catelog: "激活样式",
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: [
-      //           "size",
-      //           "padding",
-      //           "font",
-      //           "border",
-      //           "bgcolor",
-      //           "bgimage",
-      //         ],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           return focusItem.activeNavItemStyle;
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return;
-      //           focusItem.activeNavItemStyle = value;
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
-
-      {
-        items: [
-          {
-            title: "删除标签项",
-            type: "Button",
-            value: {
-              set({ data, slot, focusArea }) {
-                if (!focusArea) return;
-                data.tabs.splice(focusArea.index, 1);
-                slot.remove(focusItem._id);
+        {
+          items: [
+            {
+              title: "删除标签项",
+              type: "Button",
+              value: {
+                set({ data, slot, focusArea }) {
+                  if (!focusArea) return;
+                  data.tabs.splice(focusArea.index, 1);
+                  slot.remove(focusItem._id);
+                },
               },
             },
-          },
-        ],
-      },
-      // {
-      //   title: '独立样式配置',
-      //   type: 'switch',
-      //   value: {
-      //     get({ data }) {
-      //       return data.advancedNavItem
-      //     },
-      //     set({ data }, value) {
-      //       data.advancedNavItem = value
-      //     },
-      //   },
-      // },
-      // {
-      //   catelogChange: {},
-      //   ifVisible({ data }) {
-      //     return data.advancedNavItem
-      //   },
-      //   items: [
-      //     {
-      //       type: 'style',
-      //       catelog: '默认样式',
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           return tabItem.normalStyle
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           tabItem.normalStyle = {
-      //             ...tabItem.normalStyle,
-      //             ...value,
-      //           }
-      //         },
-      //       },
-      //     },
-      //     {
-      //       type: 'style',
-      //       catelog: '选中样式',
-      //       options: {
-      //         defaultOpen: true,
-      //         plugins: ['font', 'border', 'bgcolor', 'bgimage'],
-      //       },
-      //       value: {
-      //         get({ data, focusArea }) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           return tabItem.focusStyle
-      //         },
-      //         set({ data, focusArea }, value) {
-      //           if (!focusArea) return
-      //           const tabItem = getTabItem(data, focusArea)
-      //           tabItem.focusStyle = {
-      //             ...tabItem.focusStyle,
-      //             ...value,
-      //           }
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
-      // {
-      //   type: "editorRender",
-      //   options: {
-      //     render: (props) => {
-      //       props.editConfig.value.get();
-      //       return (<></>);
-      //     }
-      //   },
-      //   value: {
-      //     get({ data, focusArea }) {
-      //       if (!focusArea) return;
-      //       console.error(focusArea)
-      //       // data.selectedTabItemCatelog = "激活样式";
-      //       // data.selectedTabItemIndex = focusArea.index;
-      //     },
-      //   },
-      // },
-    ];
-    cate2.title = "样式";
-    cate2.items = [
-      {
-        title: "独立样式",
-        description: "开启后每个标签项可以单独配置样式，会覆盖通用样式",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return !!focusItem.useStyle;
-          },
-          set({ data }, value) {
-            focusItem.useStyle = value;
+          ],
+        },
+      ];
+      cate2.title = "样式";
+      cate2.items = [
+        {
+          title: "独立样式",
+          description: "开启后每个标签项可以单独配置样式，会覆盖通用样式",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return !!focusItem.useStyle;
+            },
+            set({ data }, value) {
+              focusItem.useStyle = value;
+            },
           },
         },
+        {
+          title: "",
+          items: [
+            {
+              title: "默认样式",
+              type: "stylenew",
+              catelog: "默认样式",
+              options: {
+                defaultOpen: true,
+                plugins: [
+                  { type: "font", config: { disableTextAlign: true } },
+                  { type: "size" },
+                  { type: "border" },
+                  { type: "padding" },
+                  { type: "background" },
+                ],
+              },
+              ifVisible({ data }: EditorResult<Data>) {
+                return !!focusItem.useStyle;
+              },
+              value: {
+                get({ data }) {
+                  return focusItem.style;
+                },
+                set({ data }, value) {
+                  focusItem.style = value;
+                },
+              },
+            },
+            {
+              title: "选中样式",
+              type: "stylenew",
+              catelog: "选中样式",
+              options: {
+                defaultOpen: true,
+                plugins: [
+                  { type: "font", config: { disableTextAlign: true } },
+                  { type: "size" },
+                  { type: "border" },
+                  { type: "padding" },
+                  { type: "background" },
+                ],
+              },
+              ifVisible({ data }: EditorResult<Data>) {
+                return !!focusItem.useStyle;
+              },
+              value: {
+                get({ data }) {
+                  return focusItem.activeStyle;
+                },
+                set({ data }, value) {
+                  focusItem.activeStyle = value;
+                },
+              },
+            },
+          ],
+        },
+      ];
+    },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const focusItem = getFocusTab(props);
+          return focusItem?.tabName;
+        },
+        set(props,value) {
+          const{ data, focusArea, slot, output } = props;
+          const focusItem = getFocusTab(props);
+          if (!focusArea) return;
+          focusItem.tabName = value;
+          slot.setTitle(focusItem._id, value);
+          output.setTitle(focusItem._id, value);
+        },
       },
-      {
-        title: "",
-        items: [
-          {
-            title: "默认样式",
-            type: "stylenew",
-            catelog: "默认样式",
-            options: {
-              defaultOpen: true,
-              plugins: [
-                { type: "font", config: { disableTextAlign: true } },
-                { type: "size" },
-                { type: "border" },
-                { type: "padding" },
-                { type: "background" },
-              ],
-            },
-            ifVisible({ data }: EditorResult<Data>) {
-              return !!focusItem.useStyle;
-            },
-            value: {
-              get({ data }) {
-                return focusItem.style;
-              },
-              set({ data }, value) {
-                focusItem.style = value;
-              },
-            },
-          },
-          {
-            title: "选中样式",
-            type: "stylenew",
-            catelog: "选中样式",
-            options: {
-              defaultOpen: true,
-              plugins: [
-                { type: "font", config: { disableTextAlign: true } },
-                { type: "size" },
-                { type: "border" },
-                { type: "padding" },
-                { type: "background" },
-              ],
-            },
-            // options: {
-            //   defaultOpen: true,
-            //   plugins: [
-            //     { type: "font", config: { disableTextAlign: true } },
-            //     { type: "size" },
-            //     { type: "border" },
-            //     { type: "padding" },
-            //     { type: "background" },
-            //   ],
-            // },
-            // options: [
-            //   { type: 'font', config: { disableTextAlign: true } },
-            //   { type: 'size'},
-            //   { type: 'border'},
-            //   { type: 'padding' },
-            //   { type: 'background' }
-            // ],
-            ifVisible({ data }: EditorResult<Data>) {
-              return !!focusItem.useStyle;
-            },
-            value: {
-              get({ data }) {
-                return focusItem.activeStyle;
-              },
-              set({ data }, value) {
-                focusItem.activeStyle = value;
-              },
-            },
-          },
-        ],
-      },
-    ];
+    },
   },
 };

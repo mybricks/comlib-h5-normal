@@ -1,6 +1,7 @@
 .waterfall {
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 
   .waterfall-item {
     flex-grow: 1;
@@ -66,8 +67,7 @@
 .placeholder {
   width: 100%;
 
-  .loading {
-    background: red;
+  .status {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -77,15 +77,18 @@
       display: block;
       width: 90px;
       height: 90px;
+      margin-bottom: 12px;
     }
     .text {
-      margin-top: 12px;
       font-size: 14px;
       color: #999;
     }
   }
 
-  .loadingBar {
+  .statusBar {
+    color: #999;
+    font-size: 12px;
+    line-height: 16px;
     width: 100%;
     height: 60px;
     display: flex;

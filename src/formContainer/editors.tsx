@@ -334,6 +334,17 @@ export default {
     ],
   },
   ".mybricks-submit": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.submitButtonText;
+        },
+        set({ data }, value) {
+          data.submitButtonText = value;
+        },
+      },
+    },
     style: [
       {
         title: "提交按钮",
