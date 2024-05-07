@@ -13,10 +13,13 @@ export default function ({ env, data, inputs, outputs, slots }) {
   /**
    * 监听 tabBar 广播，更新 data
    */
-  const onHandleTabBar = useCallback((value) => {
-    console.warn("监听到广播", value, env.canvas.id);
-    data.tabBar = value;
-  }, [data.tabBar, env.canvas.id]);
+  const onHandleTabBar = useCallback(
+    (value) => {
+      console.warn("监听到广播", value, env.canvas.id);
+      data.tabBar = value;
+    },
+    [data.tabBar, env.canvas.id]
+  );
 
   /**
    * 设置全局数据
@@ -73,7 +76,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
   useEffect(() => {
     // 获取最新的 tabbar 数据
     let globalTabBar = window.__tabbar__?.get() ?? [];
-    
+
     if (data.useTabBar && !isContain(env.canvas.id, globalTabBar)) {
       // 标签页，但是不在 tabbar 里面
       // 添加到 tabbar 里面
@@ -87,10 +90,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
         return item.scene.id != env.canvas.id;
       });
     }
-    
-    window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
 
-  }, [ data.useTabBar, env.canvas.id, defaultTabItem]);
+    window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
+  }, [data.useTabBar, env.canvas.id, defaultTabItem]);
 
   // 刷新 tabbar
   const refreshTabbar = useCallback(() => {
@@ -108,22 +110,45 @@ export default function ({ env, data, inputs, outputs, slots }) {
     window.__tabbar__?.set(globalTabBar);
   }, [env.canvas.id]);
 
-
   const useTabBar = useMemo(() => {
     if (!data.useTabBar) {
-      return false;
+      return 0;
     }
-    if (data.tabBar.length < 2 || data.tabBar.length > 5) {
-      return false;
+    if (data.tabBar.length < 2) {
+      return -1;
+    }
+    if (data.tabBar.length > 5) {
+      return -2;
     }
     let isContain = data.tabBar.find((item) => {
       return item.scene.id == env.canvas.id;
     });
     if (!isContain) {
-      return false;
+      return 0;
     }
     return true;
   }, [data.useTabBar, data.tabBar, env.canvas.id]);
+
+  const tabBar = useMemo(() => {
+    switch (useTabBar) {
+      case 0:
+        return null;
+      case -1:
+        return (
+          <View className={css.tabBarErrorTip}>
+            标签页数量小于2，不显示底部标签栏
+          </View>
+        );
+      case -2:
+        return (
+          <View className={css.tabBarErrorTip}>
+            标签页数量大于5，不显示底部标签栏
+          </View>
+        );
+      default:
+        return <CustomTabBar data={data} env={env} />;
+    }
+  }, [data, useTabBar]);
 
   return (
     <View className={css.page} style={{ background: data.background }}>
@@ -160,15 +185,21 @@ export default function ({ env, data, inputs, outputs, slots }) {
       {/* content end*/}
 
       {/* Footer start */}
-      {useTabBar ? <CustomTabBar data={data} env={env} /> : null}
+      {tabBar}
       {/* Footer end */}
 
       {!useTabBar && data.useFooter ? (
         <View className={cx(css.footer, "mybricks-footer")}>
-          {slots["footerBar"]?.render?.()}
-          <View className={css.safearea}></View>
+          {slots["footerBar"]?.render?.({
+            style: {
+              minHeight: !slots["footerBar"].size ? "60px" : "unset",
+            },
+          })}
+          {/* <View className={css.safearea}></View> */}
         </View>
       ) : null}
+
+      {}
     </View>
   );
 }

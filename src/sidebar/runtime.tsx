@@ -154,6 +154,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     // 设置点击标志，用于判断是否是点击触发的滚动
     setInClickType(true);
     _setCurrentTabId(currentTabId);
+
     if (ContentShowType.Switch === data.contentShowType) {
       //切换页面显示的时候，需要延迟设置innerScrollId，否则无法滚动置顶页面
       setTimeout(() => {
@@ -166,7 +167,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         setInnerScrollId(currentTabId);
       }, 0);
     }
-  }, []);
+  }, [env.edit]);
 
   const emptyView = useMemo(() => {
     if (env.edit && data.tabs.length === 0) {

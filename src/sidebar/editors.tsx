@@ -489,7 +489,6 @@ export default {
     //   },
     // ]
   },
-
   ".taroify-sidebar-tab": {
     title: "标签项",
     items: (props, cate1, cate2, cate3) => {
