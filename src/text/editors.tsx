@@ -21,7 +21,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["font", "border", "background"],
+        options: ["font", "padding", "border", "background"],
         target: ".mybricks-text",
       },
       {

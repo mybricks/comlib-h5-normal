@@ -26,6 +26,11 @@ export default function ({ env, data, style, inputs, outputs }) {
     return cx({
       [css.text]: true,
       ["mybricks-text"]: true,
+    });
+  }, [data.ellipsis]);
+
+  const ellipsisCx = useMemo(() => {
+    return cx({
       [css["ellipsis-line"]]: !!data.ellipsis,
     });
   }, [data.ellipsis]);
@@ -83,13 +88,10 @@ export default function ({ env, data, style, inputs, outputs }) {
   return (
     <>
       {display ? (
-        <View
-          className={textCx}
-          style={style}
-          onClick={onClick}
-          onLongPress={onLongPress}
-        >
-          {text}
+        <View className={textCx} onClick={onClick} onLongPress={onLongPress}>
+          <View className={ellipsisCx} style={style}>
+            {text}
+          </View>
         </View>
       ) : null}
     </>
