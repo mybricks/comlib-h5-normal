@@ -255,6 +255,19 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
     });
   }, []);
 
+  const slotStyle = useMemo(() => {
+    if (data.layout?.position === 'smart') {
+      return {
+        overflow: 'hidden auto',
+        height: 'fit-content !important',
+      }
+    }
+    return {
+      height: 'fit-content !important', // 防止margin重叠用，触发BFC，不可以删除
+      display: 'inline-block' // 防止margin重叠用，触发BFC，不可以删除
+    }
+  }, [data.layout])
+
   if (data.useSkeleton && !ready) {
     return (
       <View className={css.skeleton}>
@@ -350,10 +363,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
         // style={{ height: contentScrollViewHeight }}
       >
         {slots["content"]?.render?.({
-          style: {
-            height: 'fit-content !important', // 防止margin重叠用，触发BFC，不可以删除
-            display: 'inline-block' // 防止margin重叠用，触发BFC，不可以删除
-          }
+          style: slotStyle
         })}
       </ScrollView>
       {/* )} */}

@@ -37,8 +37,6 @@ const Resizable = ({
   const preRect = useRef<DOMRect>();
   const { children: targetChildren, ...rest } = children.props;
 
-  console.log('targetChildren', targetChildren, children)
-
   const resizeStartHandler = (e, axis: ResizableProps["axis"]) => {
     preRect.current = e.target.parentNode.getBoundingClientRect();
     onResizeStart && onResizeStart();

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "@tarojs/components";
 import css from "./styleEdit.less";
 import cx from "classnames";
@@ -6,6 +6,8 @@ import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
 import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
+// import Resizable from "./../../components/resizable";
+
 
 export default function ({ env, data, inputs, outputs, slots }) {
   data.id = env.canvas.id;
@@ -125,50 +127,66 @@ export default function ({ env, data, inputs, outputs, slots }) {
     return true;
   }, [data.useTabBar, data.tabBar, env.canvas.id]);
 
+  // const editFinishRef = useRef();
+
   return (
-    <View className={css.page} style={{ background: data.background }}>
-      {/* Header start */}
-      <View className={"mybricks-navigation"}>
-        {/* 默认样式 */}
-        {data.useNavigationStyle === "default" ? (
-          <DefaultNavigation data={data} />
-        ) : null}
+    // <Resizable
+    //   axis="y"
+    //   onResizeStart={() => {
+    //     editFinishRef.current = env.edit.focusPaasive();
+    //   }}
+    //   onResizeStop={() => {
+    //     editFinishRef.current && editFinishRef.current();
+    //   }}
+    //   onResize={({ width, height }) => {
+    //     data.editHeight = height
+    //     // console.warn(height)
+    //   }}
+    // >
+      <View className={css.page} style={{ background: data.background, height: '100%' }}>
+        {/* Header start */}
+        <View className={"mybricks-navigation"}>
+          {/* 默认样式 */}
+          {data.useNavigationStyle === "default" ? (
+            <DefaultNavigation data={data} />
+          ) : null}
 
-        {/* 自定义导航栏 */}
-        {data.useNavigationStyle === "custom" ? (
-          <CustomNavigation env={env} data={data} slots={slots} />
-        ) : null}
+          {/* 自定义导航栏 */}
+          {data.useNavigationStyle === "custom" ? (
+            <CustomNavigation env={env} data={data} slots={slots} />
+          ) : null}
 
-        {/* 隐藏导航栏 */}
-        {data.useNavigationStyle === "none" ? (
-          <NoneNavigation data={data} />
-        ) : null}
-      </View>
-      {/* Header end */}
-
-      {/* content start*/}
-      <View
-        className={cx(css.content, { [css.edit]: env?.edit })}
-        style={
-          {
-            // background: data.backgroundColor,
-          }
-        }
-      >
-        {slots["content"]?.render?.()}
-      </View>
-      {/* content end*/}
-
-      {/* Footer start */}
-      {useTabBar ? <CustomTabBar data={data} env={env} /> : null}
-      {/* Footer end */}
-
-      {!useTabBar && data.useFooter ? (
-        <View className={cx(css.footer, "mybricks-footer")}>
-          {slots["footerBar"]?.render?.()}
-          <View className={css.safearea}></View>
+          {/* 隐藏导航栏 */}
+          {data.useNavigationStyle === "none" ? (
+            <NoneNavigation data={data} />
+          ) : null}
         </View>
-      ) : null}
-    </View>
+        {/* Header end */}
+
+        {/* content start*/}
+        <View
+          className={cx(css.content, { [css.edit]: env?.edit })}
+          style={
+            {
+              // background: data.backgroundColor,
+            }
+          }
+        >
+          {slots["content"]?.render?.()}
+        </View>
+        {/* content end*/}
+
+        {/* Footer start */}
+        {useTabBar ? <CustomTabBar data={data} env={env} /> : null}
+        {/* Footer end */}
+
+        {!useTabBar && data.useFooter ? (
+          <View className={cx(css.footer, "mybricks-footer")}>
+            {slots["footerBar"]?.render?.()}
+            <View className={css.safearea}></View>
+          </View>
+        ) : null}
+      </View>
+    // </Resizable>
   );
 }
