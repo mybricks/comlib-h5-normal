@@ -2,12 +2,12 @@
   "size": "large",
   "align": "center",
   "useThumb": false,
-  "thumb": "./preview.png",
+  "thumb": "",
   "title": "单元格",
   "brief": "描述信息",
   "useChildren": false,
   "slotStyle": {},
   "content": "内容",
-  "useArrowIcon": false,
+  "useArrowIcon": true,
   "arrowIconColor": "#969799"
 }

@@ -107,14 +107,15 @@
     {
       "title": "其它",
       "comAry": [
-        "./src/calendar/com.json",
-        "./src/cell/com.json",
-        "./src/safeArea/com.json",
-        "./src/ad-popup/com.json",
-        "./src/map/com.json",
-        "./src/noticeBar/com.json",
-        "./src/anchor/com.json",
         "./src/line/com.json",
+        "./src/calendar/com.json",
+        "./src/noticeBar/com.json",
+        "./src/qrcode/com.json",
+        "./src/cell/com.json",
+        "./src/map/com.json",
+        "./src/ad-popup/com.json",
+        "./src/anchor/com.json",
+        "./src/safeArea/com.json",
         "./src/support/com.json"
       ]
     }
