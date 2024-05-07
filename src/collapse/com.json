@@ -8,16 +8,12 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "inputs": [
-   
-  ],
-  "outputs": [
-   
-  ],
+  "inputs": [],
+  "outputs": [],
   "slots": [
     {
-      "id": "cont_default",
-      "title": "标题"
+      "id": "content",
+      "title": "内容"
     }
   ]
 }

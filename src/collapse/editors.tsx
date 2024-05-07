@@ -6,14 +6,45 @@ const getFocusItem = (props) => {
 };
 
 export default {
+  "@init": ({ style, data }) => {
+    style.width = 375;
+    style.height = "auto";
+  },
   "@resize": {
     options: ["width"],
   },
-  ":root"({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = "常规";
-    cate0.items = [];
-    cate1.title = "样式";
-    cate1.items = [
+  ":slot": {},
+
+  ":root": {
+    items: [
+      {
+        title: "标题",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.title;
+          },
+          set({ data, focusArea, slot }, value) {
+            data.title = value;
+          },
+        },
+      },
+      {
+        title: "默认状态",
+        type: "radio",
+        options: [
+          { label: "展开", value: true },
+          { label: "收起", value: false },
+        ],
+        value: {
+          get({ data }) {
+            return data.defaultValue;
+          },
+          set({ data }, value) {
+            data.defaultValue = value;
+          },
+        },
+      },
       {
         title: "样式",
         type: "style",
@@ -33,53 +64,17 @@ export default {
           },
         },
       },
-    ];
-
-    cate2.title = "高级";
-    cate2.items = [];
+    ],
   },
-  ".taroify-collapse-item__title": {
-    title: "常规",
-    items: (props, cate0) => {
-      if (!props.focusArea) return;
-      const focusItem = getFocusItem(props);
-
-      (cate0.title = "常规"),
-        (cate0.items = [
-          {
-            title: "标题",
-            type: "text",
-            value: {
-              get({ data, focusArea }) {
-                return focusItem?.title;
-              },
-              set({ data, focusArea, slot }, value) {
-                if (!focusArea) return;
-                focusItem.title = value;
-                slot.setTitle(`cont_${focusItem.id}`, value);
-              },
-            },
-          },
-        ]);
-    },
-  },
-
   ".taroify-cell__title": {
     "@dblclick": {
       type: "text",
       value: {
-        get(props) {
-          const { data, focusArea } = props
-          if (!props.focusArea) return;
-          const focusItem = getFocusItem(props);
-          return focusItem?.title;
+        get({ data }) {
+          return data.title;
         },
-        set(props, value) {
-          const { data, focusArea, slot } =props
-          if (!focusArea) return;
-          const focusItem = getFocusItem(props);
-          focusItem.title = value;
-          slot.setTitle(`cont_${focusItem.id}`, value);
+        set({ data }, value) {
+          data.title = value;
         },
       },
     },

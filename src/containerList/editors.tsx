@@ -2,7 +2,8 @@ import { Direction } from "./constant";
 
 export default {
   "@init": ({ style, data }) => {
-    // style.width = "fit-content";
+    style.width = 375;
+    style.height = "auto";
   },
   ":slot": {},
   "@resize": {

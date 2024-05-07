@@ -78,7 +78,6 @@ const usePullDownRefresh = ({ enabled = false, onLoad }) => {
 };
 
 export default function ({ id, env, data, inputs, outputs, slots }) {
-
   const [ready, setReady] = useState(false);
 
   const [footerHeight, setFooterHeight] = useState(0);
@@ -256,17 +255,19 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   }, []);
 
   const slotStyle = useMemo(() => {
-    if (data.layout?.position === 'smart') {
+    if (data.layout?.position === "smart") {
       return {
-        overflow: 'hidden auto',
-        height: 'fit-content !important',
-      }
+        overflow: "hidden auto",
+        height: "fit-content !important",
+        paddingBottom: `${data.bottomSpace}px`,
+      };
     }
     return {
-      height: 'fit-content !important', // 防止margin重叠用，触发BFC，不可以删除
-      display: 'inline-block' // 防止margin重叠用，触发BFC，不可以删除
-    }
-  }, [data.layout])
+      height: "fit-content !important", // 防止margin重叠用，触发BFC，不可以删除
+      display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
+      paddingBottom: `${data.bottomSpace}px`,
+    };
+  }, [data.layout, data.bottomSpace]);
 
   if (data.useSkeleton && !ready) {
     return (
@@ -284,7 +285,10 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   }
 
   return (
-    <View className={cx({[css.page]: true, [css.debug]: isDesigner(env) })} style={{ background: data.background }}>
+    <View
+      className={cx({ [css.page]: true, [css.debug]: isDesigner(env) })}
+      style={{ background: data.background }}
+    >
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}
@@ -363,7 +367,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
         // style={{ height: contentScrollViewHeight }}
       >
         {slots["content"]?.render?.({
-          style: slotStyle
+          style: slotStyle,
         })}
       </ScrollView>
       {/* )} */}

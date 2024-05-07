@@ -1,8 +1,4 @@
 {
-  "contents": [
-    {
-      "id": "default",
-      "title": "标题"
-    }
-  ]
+  "defaultValue": false,
+  "title": "标题"
 }

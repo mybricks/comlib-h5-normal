@@ -40,23 +40,23 @@ const setSlotLayout = (slot, value) => {
 
 const getDefaultLayoutFromSlot = (slot) => {
   if (!slot) {
-    return {}
+    return {};
   }
   const position = slot.getLayout();
-  if (position === 'smart') {
+  if (position === "smart") {
     return {
-      position: 'smart'
-    }
-  } else if (position === 'flex-column') {
+      position: "smart",
+    };
+  } else if (position === "flex-column") {
     return {
-      flexDirection: 'column'
-    }
-  } else if (position === 'flex-row') {
+      flexDirection: "column",
+    };
+  } else if (position === "flex-row") {
     return {
-      flexDirection: 'row'
-    }
+      flexDirection: "row",
+    };
   }
-}
+};
 
 export default {
   "@init": ({ style, data, env }) => {
@@ -153,6 +153,22 @@ export default {
         // },
         {},
         {
+          title: "底部空间留存",
+          type: "text",
+          options: {
+            type: "number",
+            min: 0,
+          },
+          value: {
+            get({ data }) {
+              return data.bottomSpace || 0;
+            },
+            set({ data }, value) {
+              data.bottomSpace = value;
+            },
+          },
+        },
+        {
           title: "底部标签栏",
           items: MybricksTabBarEditor[".mybricks-tabBar"].items,
         },
@@ -205,24 +221,24 @@ export default {
           ],
         },
         {
-          title:"禁用页面滚动",
-          type:"switch",
-          value:{
-            get({data}){
-              return data.disableScroll
+          title: "禁用页面滚动",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.disableScroll;
             },
-            set({data},value){
-              data.disableScroll = value
-            }
-          }
-
+            set({ data }, value) {
+              data.disableScroll = value;
+            },
+          },
         },
         {
           title: "页面展示",
           items: [
             {
               title: "当页面重新显示时",
-              description: "请注意，当页面第一次显示时，不会触发该事件。仅当页面被打开后，重新显示/切入前台时触发。",
+              description:
+                "请注意，当页面第一次显示时，不会触发该事件。仅当页面被打开后，重新显示/切入前台时触发。",
               type: "_event",
               options: {
                 outputId: "pageDidShow",
@@ -334,7 +350,6 @@ export default {
           //       if (!output.get("pageDidShow")) {
           //         output.add("pageDidShow", "当页面重新显示时", { type: "object" });
           //       }
-
           //       if (!output.get("pageDidHide")) {
           //         output.add("pageDidHide", "当页面隐藏时", { type: "object" });
           //       }
