@@ -39,7 +39,7 @@
     }
   ],
   "edit": {
-    "currentItemId": ""
+    "currentTabId": ""
   },
   "navBarGutter": 12,
   "hideContent": false,

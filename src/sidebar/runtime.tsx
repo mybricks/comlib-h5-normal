@@ -5,6 +5,7 @@ import cx from "classnames";
 import { TreeSelect } from "brickd-mobile";
 import { isDesigner } from "../utils/env";
 import * as Taro from "@tarojs/taro";
+import { use } from "vue/types/umd";
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -136,38 +137,45 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [data.tabs]);
 
-  const _setCurrentTabId = useCallback((currentTabId) => {
-    setCurrentTabId(currentTabId);
-    const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
-    if (index === -1) {
-      return;
-    }
-    const findItem = data.tabs[index];
-    outputs.changeTab?.({
-      id: findItem._id,
-      title: findItem.tabName,
-      index,
-    });
-  }, []);
+  const _setCurrentTabId = useCallback(
+    (currentTabId) => {
+      setCurrentTabId(currentTabId);
+      const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
+      if (index === -1) {
+        return;
+      }
+      const findItem = data.tabs[index];
 
-  const _scrollToTab = useCallback((currentTabId) => {
-    // 设置点击标志，用于判断是否是点击触发的滚动
-    setInClickType(true);
-    _setCurrentTabId(currentTabId);
+      outputs.changeTab?.({
+        id: findItem._id,
+        title: findItem.tabName,
+        index,
+      });
+    },
+    [data.tabs, env.runtime]
+  );
 
-    if (ContentShowType.Switch === data.contentShowType) {
-      //切换页面显示的时候，需要延迟设置innerScrollId，否则无法滚动置顶页面
-      setTimeout(() => {
-        setInnerScrollId(currentTabId);
-      }, 0);
-    } else {
-      //滚动显示的时候，innerScrollId必须和上一次不一致，否则scroll不生效，无法滚动到对应位置
-      setInnerScrollId("");
-      setTimeout(() => {
-        setInnerScrollId(currentTabId);
-      }, 0);
-    }
-  }, [env.edit]);
+  const _scrollToTab = useCallback(
+    (currentTabId) => {
+      // 设置点击标志，用于判断是否是点击触发的滚动
+      setInClickType(true);
+      env.runtime && _setCurrentTabId(currentTabId);
+
+      if (ContentShowType.Switch === data.contentShowType) {
+        //切换页面显示的时候，需要延迟设置innerScrollId，否则无法滚动置顶页面
+        setTimeout(() => {
+          env.runtime && setInnerScrollId(currentTabId);
+        }, 0);
+      } else {
+        //滚动显示的时候，innerScrollId必须和上一次不一致，否则scroll不生效，无法滚动到对应位置
+        env.runtime && setInnerScrollId("");
+        setTimeout(() => {
+          env.runtime && setInnerScrollId(currentTabId);
+        }, 0);
+      }
+    },
+    [env.runtime]
+  );
 
   const emptyView = useMemo(() => {
     if (env.edit && data.tabs.length === 0) {
@@ -234,82 +242,100 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   };
 
-  return (
-    emptyView || (
-      <View>
-        <View id="topSlot">
-          {data.useTopSlot && slots["topSlot"]?.render?.()}
+  const RollItems = useMemo(() => {
+    return data.tabs.map((tab) => {
+      return (
+        <View id={tab._id} key={`slot_${tab._id}`}>
+          {data.hideContent
+            ? null
+            : slots[tab._id]?.render?.({
+                inputValues: {
+                  itemData: tab,
+                },
+              })}
         </View>
-        <TreeSelect
-          id="treeSelect"
-          className={treeSelectCx}
-          tabValue={
-            env.edit
-              ? data.edit.currentTabId
-                ? data.edit.currentTabId
-                : data.tabs[0]._id
-              : currentTabId
-          }
-          onTabChange={_scrollToTab}
-          style={scrollStyle}
-        >
-          {data.tabs.map((tab) => {
-            return (
-              <TreeSelect.Tab key={tab._id} title={tab.tabName} value={tab._id}>
-                <ScrollView
-                  scrollY
-                  scrollIntoView={innerScrollId}
-                  onScroll={innerOnScroll}
-                  style={scrollStyle}
-                >
-                  <View>
-                    {/* 滚动式显示 */}
-                    {data.contentShowType === ContentShowType.Roll &&
-                      data.tabs.map((tab) => {
-                        return (
-                          <>
-                            <View id={tab._id} key={`slot_${tab._id}`}>
-                              {data.hideContent
-                                ? null
-                                : slots[tab._id]?.render?.({
-                                    inputValues: {
-                                      itemData: tab,
-                                    },
-                                  })}
-                            </View>
-                          </>
-                        );
-                      })}
+      );
+    });
+  }, [data.tabs, data.hideContent, slots]);
 
-                    {/* 切换显示 */}
-                    {data.contentShowType === ContentShowType.Switch &&
-                      data.tabs.map((tab) => {
-                        return (
-                          <View
-                            id={tab._id}
-                            key={`slot_${tab._id}`}
-                            style={{
-                              display:
-                                tab._id === currentTabId ? "block" : "none",
-                            }}
-                          >
-                            {data.hideContent
-                              ? null
-                              : slots[tab._id]?.render?.({
-                                  inputValues: {
-                                    itemData: tab,
-                                  },
-                                })}
-                          </View>
-                        );
-                      })}
-                  </View>
-                </ScrollView>
-              </TreeSelect.Tab>
-            );
-          })}
-        </TreeSelect>
+  const SwitchItems = useMemo(() => {
+    return data.tabs.map((tab) => {
+      const isActived = env.edit
+        ? tab._id === data.edit.currentTabId
+        : tab._id === currentTabId;
+
+      return (
+        <View
+          id={tab._id}
+          key={`slot_${tab._id}`}
+          style={{
+            display: isActived ? "block" : "none",
+          }}
+        >
+          {data.hideContent
+            ? null
+            : slots[tab._id]?.render?.({
+                inputValues: {
+                  itemData: tab,
+                },
+              })}
+        </View>
+      );
+    });
+  }, [
+    data.tabs,
+    data.hideContent,
+    slots,
+    env.edit,
+    data.edit.currentTabId,
+    currentTabId,
+  ]);
+
+  const tabValue = useMemo(() => {
+    if (env.edit) {
+      return data.edit.currentTabId || data.tabs[0]._id;
+    } else {
+      return currentTabId || data.tabs[0]._id;
+    }
+  }, [env.edit, data.edit.currentTabId, currentTabId]);
+
+  if (emptyView) {
+    return emptyView;
+  }
+
+  return (
+    <View>
+      <View className="topSlot">
+        {data.useTopSlot && slots["topSlot"]?.render?.()}
       </View>
-    )
+      <TreeSelect
+        className={treeSelectCx}
+        tabValue={tabValue}
+        onTabChange={_scrollToTab}
+        style={scrollStyle}
+      >
+        {data.tabs.map((tab) => {
+          return (
+            <TreeSelect.Tab key={tab._id} title={tab.tabName} value={tab._id}>
+              <ScrollView
+                scrollY
+                scrollIntoView={innerScrollId}
+                onScroll={innerOnScroll}
+                style={scrollStyle}
+              >
+                <View>
+                  {/* 滚动式显示 */}
+                  {data.contentShowType === ContentShowType.Roll && RollItems}
+
+                  {/* 切换显示 */}
+                  {data.contentShowType === ContentShowType.Switch &&
+                    SwitchItems}
+                </View>
+              </ScrollView>
+            </TreeSelect.Tab>
+          );
+        })}
+      </TreeSelect>
+    </View>
   );
 }

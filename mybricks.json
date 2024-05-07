@@ -115,7 +115,8 @@
         "./src/noticeBar/com.json",
         "./src/anchor/com.json",
         "./src/line/com.json",
-        "./src/support/com.json"
+        "./src/support/com.json",
+        "./src/demo/com.json"
       ]
     }
   ],

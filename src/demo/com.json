@@ -1,34 +1,12 @@
 {
-  "title": "九宫格抽奖",
-  "namespace": "mybricks.vue.zl.nine-block",
+  "title": "demo",
+  "namespace": "mybricks.taro.demo",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "icon": "./icon.svg",
   "version": "1.0.0",
-  "description": "九宫格抽奖",
-  "runtime": "./runtime.vue",
+  "description": "",
+  "runtime": "./runtime.tsx",
   "data": "./data.json",
-  "editors": "./editors.tsx",
-  "outputs": [
-    {
-      "id": "result",
-      "title": "结果",
-      "schema": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "awardId": {
-              "title": "奖品ID",
-              "type": "string"
-            },
-            "awardSrc": {
-              "title": "奖品链接",
-              "type": "string"
-            }
-          }
-        }
-      }
-    }
-  ]
+  "editors": "./editors.tsx"
 }
