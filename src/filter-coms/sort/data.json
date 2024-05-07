@@ -1,0 +1,18 @@
+{
+  "label": "排序",
+  "name": "排序",
+  "modes": ["asc", "desc"],
+  "optionMap": {
+    "asc": {
+      "label": "低价优先",
+      "value": "asc"
+    },
+    "desc": {
+      "label": "高价优先",
+      "value": "desc"
+    },
+    "none": {
+      "label": "价格"
+    }
+  }
+}

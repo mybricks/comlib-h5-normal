@@ -1,0 +1,95 @@
+{
+  "title": "筛选容器",
+  "namespace": "mybricks.taro.filterContainer",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setFieldsValue",
+      "title": "设置筛选容器数据",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      },
+      "desc": "给筛选容器设置数据"
+    },
+    {
+      "id": "getFieldsValue",
+      "title": "获取筛选容器数据",
+      "rels": ["returnValues"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "获取筛选容器数据"
+    },
+    {
+      "id": "resetFields",
+      "title": "重置筛选容器",
+      "rels": ["onReset"],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "触发表单所有字段进行重置"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "returnValues",
+      "title": "筛选容器数据输出",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "onReset",
+      "title": "重置完成"
+    },
+    {
+      "id": "onChange",
+      "title": "数据变化时"
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "筛选容器",
+      "schema": "mybricks.taro.filters/item",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "setFieldsValue",
+          "title": "筛选项数据输入",
+          "schema": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      ],
+      "_inputs": [
+        {
+          "id": "onChange",
+          "title": "筛选项值变化",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

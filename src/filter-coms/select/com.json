@@ -1,0 +1,64 @@
+{
+  "title": "下拉选择",
+  "namespace": "mybricks.taro.filterSelect",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "desc": "设置下拉选择的值，并触发值变化事件输出",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setInitialValue",
+      "title": "设置初始值",
+      "desc": "设置下拉选择的初始值，并触发初始化事件输出",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取下拉选择的值并输出",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["returnValue"]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空下拉选择的值",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "值更新",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "schema": ["mybricks.taro.filters/item", "*"]
+}
