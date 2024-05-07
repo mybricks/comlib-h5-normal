@@ -264,23 +264,21 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         ? tab._id === data.edit.currentTabId
         : tab._id === currentTabId;
 
-      return (
-        <View
-          id={tab._id}
-          key={`slot_${tab._id}`}
-          style={{
-            display: isActived ? "block" : "none",
-          }}
-        >
-          {data.hideContent
-            ? null
-            : slots[tab._id]?.render?.({
-                inputValues: {
-                  itemData: tab,
-                },
-              })}
-        </View>
-      );
+      if (isActived) {
+        return (
+          <View key={`slot_${tab._id}`}>
+            {data.hideContent
+              ? null
+              : slots[tab._id]?.render?.({
+                  inputValues: {
+                    itemData: tab,
+                  },
+                })}
+          </View>
+        );
+      } else {
+        return null;
+      }
     });
   }, [
     data.tabs,
