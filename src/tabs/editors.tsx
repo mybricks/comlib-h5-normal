@@ -332,8 +332,20 @@ export default {
             get({ data }) {
               return data.hideContent;
             },
-            set({ data }, value) {
+            set(props, value) {
+              console.log("props", props);
+              const { data, style } = props
               data.hideContent = value;
+              if(data.hideContent){
+                //保存当前tab高度
+                data.lastTabHeight = style.height;
+                //将组件高度配置为44px
+                style.height = 48;
+              }else{
+                if(data.lastTabHeight != -1){
+                  style.height = data.lastTabHeight;
+                }
+              }
             },
           },
         },

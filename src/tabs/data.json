@@ -19,5 +19,6 @@
   "sticky":false,
   "slotStyle":{
     "position": "smart"
-  }
+  },
+  "lastTabHeight": -1
 }
