@@ -314,8 +314,33 @@ export default {
         //   },
         // },
         {
+          title: "隐藏内容",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.hideContent;
+            },
+            set({ data, style }, value) {
+              data.hideContent = value;
+              if (data.hideContent) {
+                //保存当前tab高度
+                data.lastTabHeight = style.height;
+                //将组件高度配置为44px
+                style.height = 44;
+              } else {
+                if (data.lastTabHeight != -1) {
+                  style.height = data.lastTabHeight;
+                }
+              }
+            },
+          },
+        },
+        {
           title: "吸顶",
           type: "switch",
+          ifVisible({ data }) {
+            return !data.hideContent;
+          },
           value: {
             get({ data }) {
               return data.sticky;
@@ -325,30 +350,7 @@ export default {
             },
           },
         },
-        {
-          title: "隐藏内容",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.hideContent;
-            },
-            set(props, value) {
-              console.log("props", props);
-              const { data, style } = props
-              data.hideContent = value;
-              if(data.hideContent){
-                //保存当前tab高度
-                data.lastTabHeight = style.height;
-                //将组件高度配置为44px
-                style.height = 48;
-              }else{
-                if(data.lastTabHeight != -1){
-                  style.height = data.lastTabHeight;
-                }
-              }
-            },
-          },
-        },
+
         // {
         //   title: '内容最小高度（0表示不限制高度）',
         //   type: 'text',
