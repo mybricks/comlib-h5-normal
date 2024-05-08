@@ -69,8 +69,6 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   useReachBottom(
     () => {
-      return;
-
       setStatus((s) => {
         if (s === ListStatus.IDLE) {
           outputs["onScrollLoad"]?.();

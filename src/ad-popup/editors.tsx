@@ -2,6 +2,10 @@ import React from "react";
 import { AdType } from './constants'
 
 export default {
+  "@init": ({ style, data }) => {
+    style.width = '100%';
+    style.height = "100%";
+  },
   ":root": [
     {
       title: "说明",

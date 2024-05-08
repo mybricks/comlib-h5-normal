@@ -141,7 +141,8 @@ const emptyBarOptions = [
 
 export default {
   "@init": ({ style, data }) => {
-    // style.width = "fit-content";
+    style.width = 375 - 30;
+    style.height = "auto";
   },
   ":slot": {},
   "@resize": {

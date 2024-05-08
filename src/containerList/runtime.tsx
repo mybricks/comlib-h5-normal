@@ -94,7 +94,6 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
     inputs["loading"]?.((bool) => {
-      console.log("loading", ListStatus.LOADING);
       setStatus(ListStatus.LOADING);
     });
 

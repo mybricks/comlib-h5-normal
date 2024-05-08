@@ -257,7 +257,8 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   const slotStyle = useMemo(() => {
     if (data.layout?.position === "smart") {
       return {
-        overflow: "hidden auto",
+        overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
+        display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
         height: "fit-content !important",
         paddingBottom: `${data.bottomSpace}px`,
       };
