@@ -3,6 +3,7 @@ import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import { Tabs } from "brickd-mobile";
 import css from "./style.less";
+import classNames from "classnames";
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -22,20 +23,20 @@ const getTabsId = (prefix, length) => {
   return `${prefix}-${result}`;
 };
 
-  function debounce(func, wait, immediate) {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      const later = function () {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      const callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function (...args) {
+    const context = this;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
     };
-  }
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
 
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [isFixed, setIsFixed] = useState(false);
@@ -64,7 +65,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         index: 0,
       });
     }
-  }, [])
+  }, []);
 
   //判断是否是真机运行态
   const isRelEnv = () => {
@@ -84,7 +85,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         .boundingClientRect()
         .exec((res) => {
           const rect = res[0];
-          console.log("rect", rect);
           if (rect) {
             setTabsTop(rect.top);
             setTabsHeight(rect.height);
@@ -155,9 +155,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [currentTabId]);
 
-
-  const _setUpdateTabTop = (updateTabTop,e) => {
-    console.log("TabID", TabID, "updateTabTop", updateTabTop, "e", e);
+  const _setUpdateTabTop = (updateTabTop, e) => {
     setTabsTopUpdate(updateTabTop);
   };
 
@@ -191,7 +189,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     tabsTop,
     tabsTopUpdate,
   ]);
-
 
   useEffect(() => {
     if (tabsTop === -1 || !isRelEnv()) return;
@@ -227,7 +224,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     tabsTopUpdate,
   ]);
 
-
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
     setCurrentTabId(currentTabId);
@@ -251,13 +247,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         _tabtop = tabsTopUpdate;
       }
       if (isFixed) {
-        env.rootScroll.scrollTo({ scrollTop: random + _tabtop - customNavigationHeight });
-        console.log(
-          "最后滑动到",
-          random + _tabtop - customNavigationHeight,
-          "_tabtop",
-          _tabtop
-        );
+        env.rootScroll.scrollTo({
+          scrollTop: random + _tabtop - customNavigationHeight,
+        });
       }
     }
   };
@@ -272,19 +264,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   const tabCommonStyle = useMemo(() => {
     return {
-      flexGrow: data.tabWidthType === 'fit' ? 0 : 1,
-    }
-  }, [data.tabWidthType])
+      flexGrow: data.tabWidthType === "fit" ? 0 : 1,
+    };
+  }, [data.tabWidthType]);
 
   return (
     emptyView || (
-      <View>
+      <View className={css.tab_box}>
         <Tabs
           id={TabID}
           className={css.tabs_normal}
-          style={
-            data.sticky ? { position: "sticky" } : {}
-          }
+          style={data.sticky ? { position: "sticky" } : {}}
           value={currentTabId}
           onChange={_setCurrentTabId}
           swipeable={data.swipeable}
@@ -292,7 +282,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           {data.tabs.map((tab, index) => {
             let style = { ...(tabCommonStyle ?? {}) };
             if (tab.useStyle) {
-              Object.assign(style, tab._id == currentTabId ? tab.activeStyle : tab.style)
+              Object.assign(
+                style,
+                tab._id == currentTabId ? tab.activeStyle : tab.style
+              );
             }
             return (
               <Tabs.TabPane
@@ -308,10 +301,21 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         {data.tabs.map((tab, index) => {
           if (currentTabId === tab._id) {
             return (
-              <View key={tab._id} id={tabpaneId}>
+              <View
+                key={tab._id}
+                id={tabpaneId}
+                style={{height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : '44'}px)`}}
+                className={classNames(
+                  css.tab_content,
+                  env.edit && css.minHeight
+                )}
+              >
                 {data.hideContent
                   ? null
                   : slots[data.tabs_dynamic ? "item" : tab._id].render?.({
+                      style: {
+                        position: "smart"
+                      },
                       inputValues: {
                         itemData: tab,
                         index: index,

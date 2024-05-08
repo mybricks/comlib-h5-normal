@@ -22,10 +22,28 @@ const getFocusTab = (props) => {
   return data.tabs[index];
 };
 
+export const setSlotLayout = (slot, val) => {
+  if (!slot) return;
+  if (val.position === "smart") {
+    slot.setLayout("smart");
+  } else if (val.position === "absolute") {
+    slot.setLayout(val.position);
+  } else if (val.display === "flex") {
+    if (val.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (val.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
+
 export default {
   "@init"({ style, data, ...opt }) {
-    style.width = "100%";
-    style.height = "auto";
+    style.width = 375;
+    style.height = 200;
+  },
+  "@resize": {
+    options: ["height"],
   },
   ":slot": {},
   ":root": {
@@ -242,6 +260,9 @@ export default {
                   type: "scope",
                   inputs: ScopeSlotInputs,
                 });
+                //插槽配置为智能布局
+                const slotInstance = slot.get(action?.value._id);
+                setSlotLayout(slotInstance, data.slotStyle);
               },
               onUpdate: ({ slot }, action) => {
                 slot.setTitle(action?.value._id, action?.value.tabName);
@@ -774,8 +795,8 @@ export default {
           const focusItem = getFocusTab(props);
           return focusItem?.tabName;
         },
-        set(props,value) {
-          const{ data, focusArea, slot, output } = props;
+        set(props, value) {
+          const { data, focusArea, slot, output } = props;
           const focusItem = getFocusTab(props);
           if (!focusArea) return;
           focusItem.tabName = value;

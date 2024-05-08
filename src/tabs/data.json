@@ -16,5 +16,8 @@
   "initChangeTab": false,
   "navBarGutter": 12,
   "hideContent": false,
-  "sticky":false
+  "sticky":false,
+  "slotStyle":{
+    "position": "smart"
+  }
 }

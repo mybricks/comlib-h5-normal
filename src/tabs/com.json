@@ -80,6 +80,7 @@
       "id": "tabName1",
       "capacity": 1,
       "title": "内容项1",
+      "layout": "smart",
       "type": "scope",
       "inputs": [
         {
@@ -102,6 +103,7 @@
       "id": "tabName2",
       "capacity": 1,
       "title": "内容项2",
+      "layout": "smart",
       "type": "scope",
       "inputs": [
         {
