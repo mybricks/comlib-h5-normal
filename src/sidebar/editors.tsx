@@ -67,138 +67,163 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
-  ":slot":{},
-  ":root"({ data }, cate0, cate1, cate2) {
-    cate0.title = "常规";
-    cate0.items = [
+  ":slot": {},
+  ":root": {
+    style: [
+      {
+        title: "选中条",
+        options: [
+          { type: "background", config: { disableBackgroundImage: false } },
+          { type: "size", config: { disableWidth: false } },
+        ],
+        target: ".taroify-sidebar-tab--active:before",
+      },
       {
         title: "标签项",
-        type: "array",
-        options: {
-          selectable: true,
-          editable: false,
-          getTitle: (item, index) => {
-            return [`${item.tabName || "未命名"}`];
+        items: [
+          {
+            title: "默认样式",
+            catelog: "默认样式",
+            options: [
+              { type: "font", config: { disableTextAlign: true } },
+              { type: "size" },
+              { type: "border" },
+              { type: "padding" },
+              { type: "background" },
+            ],
+            target: ".taroify-sidebar-tab:not(.taroify-sidebar-tab--active)",
           },
-          onAdd() {
-            return defaultItem;
+          {
+            title: "选中样式",
+            catelog: "选中样式",
+            options: [
+              { type: "font", config: { disableTextAlign: true } },
+              { type: "size" },
+              { type: "border" },
+              { type: "padding" },
+              { type: "background" },
+            ],
+            target: ".taroify-sidebar-tab--active",
           },
-          onSelect(_id, index) {
-            if (index !== -1) {
-              data.edit.currentTabId = data.tabs[index]?._id;
-            }
+        ],
+      },
+    ],
+    items({ data }, cate0, cate1, cate2) {
+      cate0.title = "常规";
+      cate0.items = [
+        {
+          title: "标签项",
+          type: "array",
+          options: {
+            selectable: true,
+            editable: false,
+            getTitle: (item, index) => {
+              return [`${item.tabName || "未命名"}`];
+            },
+            onAdd() {
+              return defaultItem;
+            },
+            onSelect(_id, index) {
+              if (index !== -1) {
+                data.edit.currentTabId = data.tabs[index]?._id;
+              }
+            },
+            items: [
+              {
+                title: "标签名",
+                type: "text",
+                value: "tabName",
+              },
+            ],
           },
+          value: {
+            get({ data }) {
+              return data.tabs;
+            },
+            set({ data, slot }, value) {
+              console.log("设置值", value);
+              let action = computedAction({
+                before: data.tabs,
+                after: value,
+              });
+
+              switch (action?.name) {
+                case "remove":
+                  slot.remove(action?.value._id);
+                  break;
+                case "add":
+                  console.log("add", action?.value._id, action?.value.tabName);
+                  slot.add({
+                    id: action?.value._id,
+                    title: defaultItem.tabName,
+                    type: "scope",
+                    input: ScopeSlotInputs,
+                  });
+                  break;
+                case "update":
+                  console.log(
+                    "update",
+                    action?.value._id,
+                    action?.value.tabName
+                  );
+                  slot.setTitle(action?.value._id, action?.value.tabName);
+                  break;
+              }
+
+              data.tabs = value;
+            },
+          },
+        },
+        {
+          title: "内容展示方式",
+          type: "radio",
+          description:
+            "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
+          options: [
+            { label: "锚定显示", value: "roll" },
+            { label: "切换显示", value: "switch" },
+          ],
+          value: {
+            get({ data }) {
+              return data.contentShowType;
+            },
+            set({ data }, value) {
+              data.contentShowType = value;
+            },
+          },
+        },
+        {
+          title: "顶部插槽",
+          type: "switch",
+          description: "开启后，可在侧边栏顶部插入自定义内容（如搜索框）",
+          value: {
+            get({ data }) {
+              return data.useTopSlot;
+            },
+            set({ data }, value) {
+              data.useTopSlot = value;
+            },
+          },
+        },
+        {
+          title: "事件",
           items: [
             {
-              title: "标签名",
-              type: "text",
-              value: "tabName",
+              title: "标签切换",
+              type: "_event",
+              options: {
+                outputId: "changeTab",
+              },
             },
           ],
         },
-        value: {
-          get({ data }) {
-            return data.tabs;
-          },
-          set({ data, slot }, value) {
-            console.log("设置值", value);
-            let action = computedAction({
-              before: data.tabs,
-              after: value,
-            });
-
-            switch (action?.name) {
-              case "remove":
-                slot.remove(action?.value._id);
-                break;
-              case "add":
-                console.log("add", action?.value._id, action?.value.tabName);
-                slot.add({
-                  id: action?.value._id,
-                  title: defaultItem.tabName,
-                  type: "scope",
-                  input: ScopeSlotInputs,
-                });
-                break;
-              case "update":
-                console.log("update", action?.value._id, action?.value.tabName);
-                slot.setTitle(action?.value._id, action?.value.tabName);
-                break;
-            }
-
-            data.tabs = value;
-          },
-        },
-      },
-      {
-        title: "内容展示方式",
-        type: "radio",
-        description:
-          "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
-        options: [
-          { label: "锚定显示", value: "roll" },
-          { label: "切换显示", value: "switch" },
-        ],
-        value: {
-          get({ data }) {
-            return data.contentShowType;
-          },
-          set({ data }, value) {
-            data.contentShowType = value;
-          },
-        },
-      },
-      {
-        title: "顶部插槽",
-        type: "switch",
-        description: "开启后，可在侧边栏顶部插入自定义内容（如搜索框）",
-        value: {
-          get({ data }) {
-            return data.useTopSlot;
-          },
-          set({ data }, value) {
-            data.useTopSlot = value;
-          },
-        },
-      },
-      {
-        title: "事件",
-        items: [
-          {
-            title: "标签切换",
-            type: "_event",
-            options: {
-              outputId: "changeTab",
-            },
-          },
-        ],
-      },
-    ];
-
-    cate1.title = "样式";
-    cate1.items = [
-      {
-        title: "tab背景设置",
-        type: "style",
-        options: {
-          defaultOpen: true,
-          plugins: ["border", "bgColor", "bgImage"],
-        },
-        value: {
-          get({ data }) {
-            return data.style;
-          },
-          set({ data }, value) {
-            data.style = { ...value };
-          },
-        },
-      },
-    ];
+      ];
+    },
   },
   ".taroify-sidebar-tab": {
     title: "标签项",
     items: (props, cate1, cate2, cate3) => {
-      console.warn("focusArea", props.focusArea );
+      console.warn("focusArea", props.focusArea);
       if (!props.focusArea) return;
 
       const focusItem = getFocusTab(props);
