@@ -71,6 +71,13 @@ export default {
   ":root": {
     style: [
       {
+        title: "侧边栏底色",
+        options: [
+          { type: "background", config: { disableBackgroundImage: false } },
+        ],
+        target: ".taroify-tree-select__sidebar",
+      },
+      {
         title: "选中条",
         options: [
           { type: "background", config: { disableBackgroundImage: false } },
