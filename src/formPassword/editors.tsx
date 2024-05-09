@@ -1,11 +1,12 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
   },
-  
+
   ":root": {
     style: [
       {
@@ -14,7 +15,7 @@ export default {
         target: ".mybricks-field-password",
       },
     ],
-    items ({ data, output, style }, cate0, cate1, cate2) {
+    items({ data, output, style }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
         // {
@@ -68,6 +69,6 @@ export default {
           },
         },
       ];
-    }
+    },
   },
 };

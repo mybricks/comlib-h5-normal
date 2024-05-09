@@ -1,6 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -11,7 +12,7 @@ export default {
         title: "卡片尺寸",
         options: ["size"],
         target: ".mybricks-square",
-      }
+      },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
@@ -77,11 +78,11 @@ export default {
                 outputId: "onChange",
               },
             },
-          ]
-        }
+          ],
+        },
       ];
 
-      cate2.title = '高级';
+      cate2.title = "高级";
       cate2.items = [
         {
           title: "格式化为字符串",
@@ -96,7 +97,7 @@ export default {
             },
           },
         },
-      ]
+      ];
     },
   },
 };

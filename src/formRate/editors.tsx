@@ -1,6 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -38,31 +39,29 @@ export default {
       //   },
       // },
       {
-        title: '总分值',
-        type: 'inputnumber',
-        options: [
-          { title: '', width: '100%' }
-        ],
+        title: "总分值",
+        type: "inputnumber",
+        options: [{ title: "", width: "100%" }],
         value: {
           get({ data }: any) {
             return [data.count];
           },
           set({ data }: any, value: [number, number]) {
             [data.count] = value;
-          }
-        }
+          },
+        },
       },
       {
-        title: '允许打半星',
-        type: 'switch',
+        title: "允许打半星",
+        type: "switch",
         value: {
           get({ data }: any) {
             return data.allowHalf;
           },
           set({ data }: any, value: any) {
-            data.allowHalf = value
-          }
-        }
+            data.allowHalf = value;
+          },
+        },
       },
       {},
       {

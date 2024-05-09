@@ -1,4 +1,8 @@
 export default {
+  "@init": ({ style, data }) => {
+    style.width = 375;
+    style.height = "auto";
+  },
   "@resize": {
     options: ["width", "height"],
   },

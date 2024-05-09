@@ -1,6 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   ":root": {
     style: [
@@ -56,20 +57,18 @@ export default {
           },
         },
         {
-          title: '限制字数',
-          description: '限制字数后会在右下角展示字数统计',
-          type: 'inputnumber',
-          options: [
-            { title: '', width: '100%', min: 0 }
-          ],
+          title: "限制字数",
+          description: "限制字数后会在右下角展示字数统计",
+          type: "inputnumber",
+          options: [{ title: "", width: "100%", min: 0 }],
           value: {
             get({ data }: any) {
               return [data.limit];
             },
             set({ data }: any, value: [number, number]) {
               [data.limit] = value;
-            }
-          }
+            },
+          },
         },
         {
           title: "当值变化",

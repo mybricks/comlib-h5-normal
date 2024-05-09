@@ -1,6 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -50,12 +51,12 @@ export default {
       //   },
       // },
       {
-        title: '范围',
-        type: 'inputnumber',
-        description: '设置可调整的数字范围',
+        title: "范围",
+        type: "inputnumber",
+        description: "设置可调整的数字范围",
         options: [
-          { title: '最小值', width: 100 },
-          { title: '最大值', width: 100 }
+          { title: "最小值", width: 100 },
+          { title: "最大值", width: 100 },
         ],
         value: {
           get({ data }: any) {
@@ -63,24 +64,22 @@ export default {
           },
           set({ data }: any, value: [number, number]) {
             [data.min, data.max] = value;
-          }
-        }
+          },
+        },
       },
       {
-        title: '步长',
-        type: 'inputnumber',
-        description: '每一次点击增加和减少调整的数值',
-        options: [
-          { title: '', width: '100%' }
-        ],
+        title: "步长",
+        type: "inputnumber",
+        description: "每一次点击增加和减少调整的数值",
+        options: [{ title: "", width: "100%" }],
         value: {
           get({ data }: any) {
             return [data.step];
           },
           set({ data }: any, value: [number, number]) {
             [data.step] = value;
-          }
-        }
+          },
+        },
       },
       {},
       {

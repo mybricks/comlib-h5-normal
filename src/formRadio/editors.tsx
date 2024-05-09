@@ -2,7 +2,8 @@ import { uuid } from "../utils";
 
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],

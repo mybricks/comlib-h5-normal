@@ -9,7 +9,8 @@ const AFTER_TEN_YEAR = new Date(
 
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 375;
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -55,13 +56,13 @@ export default {
           },
         },
         {
-          title: '时间范围',
+          title: "时间范围",
           items: [
             {
               title: "可选的最小时间",
-              type: 'editorRender',
+              type: "editorRender",
               options: {
-                render: DatePicker
+                render: DatePicker,
               },
               value: {
                 get({ data }) {
@@ -74,9 +75,9 @@ export default {
             },
             {
               title: "可选的最大时间",
-              type: 'editorRender',
+              type: "editorRender",
               options: {
-                render: DatePicker
+                render: DatePicker,
               },
               value: {
                 get({ data }) {
@@ -87,7 +88,7 @@ export default {
                 },
               },
             },
-          ]
+          ],
         },
 
         // {
@@ -109,7 +110,6 @@ export default {
         //     }
         //   }
         // },
-
 
         {
           title: "当值变化",
