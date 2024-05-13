@@ -8,5 +8,11 @@
   "description": "",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
-  "editors": "./editors.tsx"
+  "editors": "./editors.tsx",
+  "outputs": [
+    {
+      "id": "exp",
+      "title": "曝光"
+    }
+  ]
 }
