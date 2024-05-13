@@ -78,7 +78,7 @@ export default function ({ env, data, inputs, outputs, style }) {
       current={current}
       onChange={onChange}
       indicator={showIndicator}
-      circular={data.circular ?? true}
+      circular={env.edit ? false : data.circular}
       {...extra}
     >
       {data.items.map((item, index) => {
