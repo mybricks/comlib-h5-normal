@@ -338,6 +338,7 @@ export default {
         {
           title: "吸顶",
           type: "switch",
+          description: "当tabs上滑到页面顶部时触发吸顶，tabs内容完全离开屏幕时吸顶会自动取消",
           ifVisible({ data }) {
             return !data.hideContent;
           },
