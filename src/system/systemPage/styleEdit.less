@@ -35,7 +35,18 @@
 
     .bottomSpace {
       width: 100%;
-      background: repeating-linear-gradient(135deg, rgba(250, 100, 0, 0.12), rgba(250, 100, 0, 0.12) 5px, rgba(255, 255, 255, 0.1) 0, rgba(255, 255, 255, 0.1) 10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(246, 247, 249, 0.5);
+      outline: 1px solid #f6f7f9;
+      overflow: hidden;
+      &::after {
+        line-height: 1;
+        content: "底部空间留存";
+        color: #999;
+        font-size: 12px;
+      }
     }
   }
 
