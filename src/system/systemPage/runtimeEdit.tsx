@@ -144,13 +144,13 @@ export default function ({ env, data, inputs, outputs, slots }) {
       case -1:
         return (
           <View className={css.tabBarErrorTip}>
-            标签页数量小于2，不显示底部标签栏
+            （标签页数量小于2，不显示底部标签栏）
           </View>
         );
       case -2:
         return (
           <View className={css.tabBarErrorTip}>
-            标签页数量大于5，不显示底部标签栏
+            （标签页数量大于5，不显示底部标签栏）
           </View>
         );
       default:
