@@ -17,12 +17,29 @@
       "schema": {
         "type": "string"
       }
+    },
+    {
+      "id": "setDisabled",
+      "title": "设置按钮禁用",
+      "schema": {
+        "type": "string"
+      },
+      "rels": [
+        "setDisabledSuccess"
+      ]
     }
   ],
   "outputs": [
     {
       "id": "onClick",
       "title": "单击",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabledSuccess",
+      "title": "设置按钮禁用完成",
       "schema": {
         "type": "string"
       }

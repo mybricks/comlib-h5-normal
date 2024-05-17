@@ -119,10 +119,22 @@ export default {
     },
     style: [
       {
-        title: "按钮",
-        options: ["font", "border", "padding", "background"],
-        target: ".mybricks-button",
-        defaultOpen: true,
+        items: [
+          {
+            title: "按钮",
+            catelog: "默认",
+            options: ["font", "border", "padding", "background"],
+            target: ".mybricks-button",
+            defaultOpen: true,
+          },
+          {
+            title: "按钮",
+            catelog: "禁用",
+            options: ["font", "border", "padding", "background"],
+            target: ".mybricks-button-disable",
+            defaultOpen: true,
+          },
+        ],
       },
     ],
     items: [

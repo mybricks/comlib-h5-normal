@@ -110,9 +110,20 @@ export default function ({
     }
   }, [data.disabled]);
 
+  // input禁用按钮
+  useEffect(() => {
+    inputs["setDisabled"]?.((val, relOutputs) => {
+      data.disabled = true;
+      relOutputs["setDisabledSuccess"]?.(val);
+    });
+  }, []);
+
   return (
     <Button
-      className={cx(css.button, "mybricks-button")}
+      className={cx(
+        css.button,
+        data.disabled ? "mybricks-button-disable" : "mybricks-button"
+      )}
       {...disabled}
       {...openType}
     >
