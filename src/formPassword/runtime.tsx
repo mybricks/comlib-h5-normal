@@ -12,6 +12,12 @@ export default function (props) {
   const [paasword, setPassword] = useState(true);
 
   useEffect(() => {
+    inputs["getValue"]((val, outputRels) => {
+      outputRels["returnValue"](value);
+    });
+  }, [value]);
+
+  useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
@@ -29,9 +35,6 @@ export default function (props) {
       }
     });
 
-    inputs["getValue"]((val, outputRels) => {
-      outputRels["returnValue"](data.value);
-    });
 
     // 设置禁用
     inputs["setDisabled"](() => {
