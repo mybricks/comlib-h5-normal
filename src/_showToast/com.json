@@ -15,7 +15,28 @@
       "id": "showToast",
       "title": "显示",
       "schema": {
-        "type": "follow"
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "标题",
+            "type": "string"
+          },
+          "icon": {
+            "title": "图标",
+            "type": "string",
+            "description":"可选值：success,error,loading,none"
+          },
+          "duration": {
+            "title": "持续时间(ms)",
+            "type": "number",
+            "description": "持续时间，单位 ms"
+          },
+          "mask": {
+            "title": "遮罩层",
+            "type": "boolean",
+            "default": false
+          }
+        }
       }
     }
   ],
