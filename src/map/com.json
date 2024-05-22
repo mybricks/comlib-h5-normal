@@ -27,7 +27,9 @@
           }
         }
       },
-      "rels": ["onSetPosOk"]
+      "rels": [
+        "onSetPosOk"
+      ]
     },
     {
       "id": "draw",
@@ -72,12 +74,107 @@
           }
         }
       }
+    },
+    {
+      "id": "setMarkers",
+      "title": "设置标记点",
+      "description": "设置地图上的标记点",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "title": "经度",
+            "type": "string"
+          },
+          "latitude": {
+            "title": "纬度",
+            "type": "string"
+          },
+          "iconPath": {
+            "title": "图标地址",
+            "type": "string"
+          },
+          "width": {
+            "title": "图标宽度",
+            "type": "string"
+          },
+          "height": {
+            "title": "图标高度",
+            "type": "string"
+          },
+          "callout": {
+            "title": "气泡",
+            "type": "object",
+            "properties": {
+              "content": {
+                "title": "气泡提示文本内容",
+                "description": "气泡提示文本内容",
+                "type": "string"
+              },
+              "color": {
+                "title": "颜色",
+                "description": "字体颜色",
+                "type": "string"
+              },
+              "fontSize": {
+                "title": "字体大小",
+                "description": "字体大小",
+                "type": "string"
+              },
+              "borderRadius": {
+                "title": "边框圆角",
+                "description": "边框圆角",
+                "type": "string"
+              },
+              "borderWidth": {
+                "title": "边框宽度",
+                "description": "边框宽度",
+                "type": "string"
+              },
+              "borderColor": {
+                "title": "边框颜色",
+                "type": "string"
+              },
+              "bgColor": {
+                "title": "背景颜色",
+                "type": "string"
+              },
+              "padding": {
+                "title": "文本边缘留白",
+                "description": "文本边缘留白",
+                "type": "string"
+              },
+              "display": {
+                "title": "显示方式",
+                "description": "'BYCLICK':点击显示; 'ALWAYS':常显",
+                "type": "string"
+              },
+              "textAlign": {
+                "title": "对齐方式",
+                "description": "文本对齐方式。有效值: left, right, center",
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "rels": [
+        "setMarkersOk"
+      ]
     }
   ],
   "outputs": [
     {
       "id": "onSetPosOk",
       "title": "设置中心点成功",
+      "schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "id": "setMarkersOk",
+      "title": "设置标记点成功",
       "schema": {
         "type": "object",
         "properties": {}

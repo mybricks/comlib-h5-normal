@@ -85,7 +85,18 @@ export default function ({ env, data, inputs, outputs }) {
         outputRels["onSetPosOk"]();
       }, 300)
     });
+
+    inputs["setMarkers"]((res, outputRels) => {
+      setGeo((c) => ({ ...c, markers: res }));
+      setTimeout(() => {
+        outputRels["onSetMarkersOk"]();
+      }, 300)
+    })
   }, [])
+
+  useEffect(()=>{
+    console.log("geo", geo)
+  },[geo])
 
   useEffect(() => {
     // inputs["setPos"]?.((res) => {
