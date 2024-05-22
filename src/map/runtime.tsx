@@ -94,10 +94,6 @@ export default function ({ env, data, inputs, outputs }) {
     })
   }, [])
 
-  useEffect(()=>{
-    console.log("geo", geo)
-  },[geo])
-
   useEffect(() => {
     // inputs["setPos"]?.((res) => {
     //   const { longitude, latitude } = res ?? {};
