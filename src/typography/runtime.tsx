@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text } from "@tarojs/components";
+import cx from "classnames";
+import css from "./runtime.less";
 
 export default function ({ env, data, inputs, outputs }) {
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
@@ -17,14 +19,13 @@ export default function ({ env, data, inputs, outputs }) {
     // outputs["onClick"]({ text: data.text });
   }, []);
 
-
   useMemo(() => {
-    data.items.forEach(item => {
+    data.items.forEach((item) => {
       inputs[item.key]((text) => {
-        item.text = text
-      })
-    })
-  }, [])
+        item.text = text;
+      });
+    });
+  }, []);
 
   // const text = useMemo(() => {
   //   let text = data.text ?? "";
@@ -34,11 +35,22 @@ export default function ({ env, data, inputs, outputs }) {
   //   }
   //   return text;
   // }, [data.text]);
- 
+
   return (
-    <View>
+    <View className={cx([css.typography, "mybricks-typography"])}>
       {data.items.map(({ text, key }) => {
-        return <Text onClick={onClick} className={`typography_${key}`} key={key} data-text-id={key}>{text}</Text>;
+        return (
+          <>
+            <Text
+              onClick={onClick}
+              className={`typography_${key}`}
+              key={key}
+              data-text-id={key}
+            >
+              {text}
+            </Text>
+          </>
+        );
       })}
     </View>
   );

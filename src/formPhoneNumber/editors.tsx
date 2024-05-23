@@ -116,7 +116,7 @@ function clearOutput(getPhoneNumberMethod, output) {
 
 export default {
   "@init": ({ style, data }) => {
-    style.width = 375;
+    style.width = "100%";
     style.height = "auto";
   },
   "@resize": {

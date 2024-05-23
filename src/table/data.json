@@ -1,0 +1,27 @@
+{
+  "useTHead": true,
+  "columns": [
+    {
+      "title": "企业名称",
+      "dataIndex": "name",
+      "width": 120,
+      "fixed": "left"
+    },
+    {
+      "title": "记录名称",
+      "dataIndex": "age",
+      "width": 120
+    },
+    {
+      "title": "处置状态",
+      "dataIndex": "address",
+      "width": 120,
+      "fixed": "left"
+    },
+    {
+      "title": "治理期限",
+      "dataIndex": "aaabbb",
+      "width": 120
+    }
+  ]
+}

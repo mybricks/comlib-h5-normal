@@ -28,13 +28,14 @@ export default {
     options: ["width", "height"],
   },
   ":root": {
-    // style: [
-    //   {
-    //     title: '文本排版',
-    //     options: ['border', { type: 'font', config: { disableTextAlign: true } }],
-    //     target: `:root`
-    //   }
-    // ],
+    style: [
+      {
+        title: "文本排版",
+        // options: ['border', { type: 'font', config: { disableTextAlign: true } }],
+        options: ["font", "border", "padding", "background"],
+        target: ".mybricks-typography",
+      },
+    ],
     items({ data, input }, cate0) {
       (cate0.title = "文本排版"),
         (cate0.items = [
