@@ -109,6 +109,7 @@
       "comAry": [
         "./src/line/com.json",
         "./src/calendar/com.json",
+        "./src/cascader/com.json",
         "./src/noticeBar/com.json",
         "./src/qrcode/com.json",
         "./src/cell/com.json",

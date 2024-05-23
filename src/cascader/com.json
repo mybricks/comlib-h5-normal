@@ -1,0 +1,73 @@
+{
+  "title": "级联选择",
+  "namespace": "mybricks.taro.cascader",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./runtime.edit.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  
+  "inputs": [
+    {
+      "id": "addDataSource",
+      "title": "级联数据",
+      "desc": "添加输入的级联数据",
+      "schema": {
+        "title": "级联数据",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "名称",
+              "type": "string"
+            },
+            "value": {
+              "title": "值",
+              "type": "string"
+            },
+            "children": {
+              "title": "值",
+              "type": "array"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "slots": [
+  ],
+  "outputs": [
+    {
+      "id": "onSelect",
+      "title": "当选择时选项时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onChange",
+      "title": "当选择完毕时",
+      "schema": {
+        "title": "选中项数组",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "名称",
+              "type": "string"
+            },
+            "value": {
+              "title": "值",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
