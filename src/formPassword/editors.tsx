@@ -11,7 +11,7 @@ export default {
     style: [
       {
         title: "输入框",
-        options: ["font", "border", "padding", "background"],
+        options: ["font", "border", "size", "padding", "background"],
         target: ".mybricks-field-password",
       },
     ],

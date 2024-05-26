@@ -1,29 +1,16 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import { View, Image } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
 
 export default function ({ env, data, inputs, outputs, slots }) {
-  const [list, setList] = useState([
-    {
-      name: "张三",
-      age: 18,
-      address: "北京",
-      aaabbb: "aaa",
-    },
-    {
-      name: "李四",
-      age: 20,
-      address: "上海",
-      aaabbb: "bbb",
-    },
-    {
-      name: "王五",
-      age: 22,
-      address: "广州",
-      aaabbb: "ccc",
-    },
-  ]);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    inputs["setList"]((val) => {
+      setList(val);
+    });
+  }, []);
 
   const placeholder = useMemo(() => {
     if (data.columns.length) {
@@ -38,7 +25,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
     let width = 0;
     data.columns.forEach((column) => {
       if (column.fixed === "left") {
-        width += column.width;
+        width += +column.width;
       }
     });
     return width;
@@ -52,14 +39,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
     let head = columns.map((column, index) => {
       return (
         <View
+          data-id={column._id}
           className={cx([css.td, "mybricks-td"])}
-          style={{ width: column.width }}
+          style={{ width: +column.width }}
         >
           {column.title}
         </View>
       );
     });
 
+    list = env.edit ? [{}] : list;
     let body = list.map((item, index) => {
       return (
         <View className={css.tr}>
@@ -67,9 +56,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
             return (
               <View
                 className={cx([css.td, "mybricks-td"])}
-                style={{ width: column.width }}
+                style={{ width: +column.width }}
               >
-                {item[column.key]}
+                {slots[column.id]?.render({
+                  inputValues: {
+                    columnData: item[column.dataIndex],
+                    rowData: item,
+                    index: index,
+                  },
+                })}
               </View>
             );
           })}
@@ -79,17 +74,19 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
     return (
       <>
-        <View className={cx([css.tr, css.thead])}>{head}</View>
+        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
+          {head}
+        </View>
         {body}
       </>
     );
-  }, [data.columns, list]);
+  }, [data.columns, list, env.edit]);
 
   const mainWidth = useMemo(() => {
     let width = 0;
     data.columns.forEach((column) => {
       if (!column.fixed) {
-        width += column.width;
+        width += +column.width;
       }
     });
     return width;
@@ -100,23 +97,57 @@ export default function ({ env, data, inputs, outputs, slots }) {
       return !column.fixed;
     });
 
-    return columns.map((column, index) => {
+    let head = columns.map((column, index) => {
       return (
         <View
+          data-id={column._id}
           className={cx([css.td, "mybricks-td"])}
-          style={{ width: column.width }}
+          style={{ width: +column.width }}
         >
           {column.title}
         </View>
       );
     });
+
+    list = env.edit ? [{}] : list;
+    let body = list.map((item, index) => {
+      return (
+        <View className={css.tr}>
+          {columns.map((column, index) => {
+            return (
+              <View
+                className={cx([css.td, "mybricks-td"])}
+                style={{ width: +column.width }}
+              >
+                {slots[column.id]?.render({
+                  inputValues: {
+                    columnData: item[column.dataIndex],
+                    rowData: item,
+                    index: index,
+                  },
+                })}
+              </View>
+            );
+          })}
+        </View>
+      );
+    });
+
+    return (
+      <>
+        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
+          {head}
+        </View>
+        {body}
+      </>
+    );
   }, [data.columns]);
 
   const rightWidth = useMemo(() => {
     let width = 0;
     data.columns.forEach((column) => {
       if (column.fixed === "right") {
-        width += column.width;
+        width += +column.width;
       }
     });
     return width;
@@ -124,19 +155,53 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   const rightSide = useMemo(() => {
     let columns = data.columns.filter((column) => {
-      return column.fixed === "left";
+      return column.fixed === "right";
     });
 
-    return columns.map((column, index) => {
+    let head = columns.map((column, index) => {
       return (
         <View
+          data-id={column._id}
           className={cx([css.td, "mybricks-td"])}
-          style={{ width: column.width }}
+          style={{ width: +column.width }}
         >
           {column.title}
         </View>
       );
     });
+
+    list = env.edit ? [{}] : list;
+    let body = list.map((item, index) => {
+      return (
+        <View className={css.tr}>
+          {columns.map((column, index) => {
+            return (
+              <View
+                className={cx([css.td, "mybricks-td"])}
+                style={{ width: +column.width }}
+              >
+                {slots[column.id]?.render({
+                  inputValues: {
+                    columnData: item[column.dataIndex],
+                    rowData: item,
+                    index: index,
+                  },
+                })}
+              </View>
+            );
+          })}
+        </View>
+      );
+    });
+
+    return (
+      <>
+        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
+          {head}
+        </View>
+        {body}
+      </>
+    );
   }, [data.columns]);
 
   //

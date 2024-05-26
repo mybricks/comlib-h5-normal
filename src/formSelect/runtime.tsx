@@ -85,7 +85,7 @@ export default function (props) {
               // align="right"
               disabled={!displayValue}
               placeholder={data.placeholder}
-              value={selectItem?.value}
+              value={selectItem?.label}
               style={{ flex: 1 }}
             />
             <ArrowRight />

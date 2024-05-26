@@ -43,7 +43,7 @@ export default {
     style.height = 200;
   },
   "@resize": {
-    options: ["height"],
+    options: ["width", "height"],
   },
   ":slot": {},
   ":root": {

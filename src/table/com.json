@@ -9,5 +9,22 @@
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
   "slots": [],
+  "inputs": [
+    {
+      "id": "setList",
+      "title": "设置数据",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  ],
   "outputs": []
 }
