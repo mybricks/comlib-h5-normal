@@ -141,7 +141,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {body}
       </>
     );
-  }, [data.columns]);
+  }, [data.columns, list]);
 
   const rightWidth = useMemo(() => {
     let width = 0;
@@ -202,7 +202,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {body}
       </>
     );
-  }, [data.columns]);
+  }, [data.columns, list]);
 
   //
   if (placeholder) {
