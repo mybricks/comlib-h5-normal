@@ -97,6 +97,13 @@ export default {
           title: "事件",
           items: [
             {
+              title: "每当选择选项时",
+              type: "_event",
+              options: {
+                outputId: "onSelect",
+              },
+            },
+            {
               title: "当选择完毕时",
               type: "_event",
               options: {

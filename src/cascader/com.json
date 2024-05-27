@@ -43,9 +43,23 @@
   "outputs": [
     {
       "id": "onSelect",
-      "title": "当选择时选项时",
+      "title": "每当选择选项时",
       "schema": {
-        "type": "any"
+        "title": "选中项数组",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "名称",
+              "type": "string"
+            },
+            "value": {
+              "title": "值",
+              "type": "string"
+            }
+          }
+        }
       }
     },
     {

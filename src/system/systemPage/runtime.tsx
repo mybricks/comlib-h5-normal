@@ -270,17 +270,10 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
     };
   }, [data.layout, data.bottomSpace]);
 
-  if (data.useSkeleton && !ready) {
+  if (data.useLoading && !ready) {
     return (
-      <View className={css.skeleton}>
-        <View className={css.thumbnail}></View>
-        <View className={css.title}></View>
-        <View className={css.paragraph}>
-          <View className={css.line}></View>
-          <View className={css.line}></View>
-          <View className={css.line}></View>
-          <View className={css.shortLine}></View>
-        </View>
+      <View className={css.loading}>
+        <View className={css.icon}></View>
       </View>
     );
   }

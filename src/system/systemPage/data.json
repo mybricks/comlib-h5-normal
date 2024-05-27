@@ -48,5 +48,7 @@
   "layout": {
     "position": "smart"
   },
-  "bottomSpace": 30
+  "bottomSpace": 30,
+
+  "useLoading": false
 }

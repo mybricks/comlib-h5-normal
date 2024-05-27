@@ -3,6 +3,7 @@ import { uuid } from "../utils";
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
+    style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -29,7 +30,7 @@ export default {
               let uid = uuid("", 5);
               let id = `column_${uid}`;
               let title = `列${uid}`;
-  
+
               slots.add({
                 id,
                 title,
@@ -58,7 +59,7 @@ export default {
                   },
                 ],
               });
-  
+
               return {
                 id: id,
                 title: title,
@@ -108,7 +109,20 @@ export default {
           },
         },
       ];
-    }
+      cate1.title = "高级";
+      cate1.items = [
+        {
+          title: "修复",
+          type: "button",
+          value: {
+            set({ data, style }) {
+              console.warn("修复", style);
+              style.height = "auto";
+            },
+          },
+        },
+      ];
+    },
   },
   ".mybricks-thead .mybricks-td": {
     title: "表格列",

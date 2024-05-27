@@ -19,6 +19,7 @@ export default function ({ env, data, inputs, outputs, slots, mockProps }) {
   }, [])
   const handleSelect = useCallback((values, options) => {
     setValue(values)
+    outputs["onSelect"]?.(options.filter(t => !!t));
   }, [])
   
   return (

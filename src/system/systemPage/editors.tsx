@@ -316,7 +316,7 @@ export default {
         // },
       ];
 
-      cate1.title = "布局";
+      cate1.title = "高级";
       cate1.items = [
         {
           title: "布局",
@@ -332,6 +332,24 @@ export default {
               data.layout = value;
               const slotInstance = slots.get("content");
               setSlotLayout(slotInstance, value);
+            },
+          },
+        },
+        {
+          title: "开启页面 Loading",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.useLoading;
+            },
+            set({ data, input }, value) {
+              data.useLoading = value;
+
+              if (value) {
+                input.add("ready", "初始化完成", { type: "any" });
+              } else {
+                input.remove("ready");
+              }
             },
           },
         },
