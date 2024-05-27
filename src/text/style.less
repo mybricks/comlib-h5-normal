@@ -5,6 +5,8 @@
   font-size: 14px;
   line-height: 16px;
   color: #333333;
+  position: relative;
+  overflow: visible;
 }
 
 .ellipsis-line {
@@ -12,4 +14,34 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
+}
+
+.tooltip {
+  width: 100%;
+  border-radius: 5px;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  background: rgba(17, 17, 17, 0.7);
+  padding: 10px 15px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+  pointer-events: none;
+  &::after {
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 5px solid rgba(17, 17, 17, 0.7);
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    pointer-events: none;
+  }
 }

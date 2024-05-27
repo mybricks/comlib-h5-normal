@@ -21,20 +21,22 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, [data.columns]);
 
   //
-  const leftWidth = useMemo(() => {
-    let width = 0;
-    data.columns.forEach((column) => {
-      if (column.fixed === "left") {
-        width += +column.width;
-      }
-    });
-    return width;
-  }, [data.columns]);
-
-  const leftSide = useMemo(() => {
-    let columns = data.columns.filter((column) => {
+  const leftColumns = useMemo(() => {
+    return data.columns.filter((column) => {
       return column.fixed === "left";
     });
+  }, [data.columns]);
+
+  const leftWidth = useMemo(() => {
+    let width = 0;
+    leftColumns.forEach((column) => {
+      width += +column.width;
+    });
+    return width;
+  }, [leftColumns]);
+
+  const leftSide = useMemo(() => {
+    let columns = [...leftColumns];
 
     let head = columns.map((column, index) => {
       return (
@@ -80,22 +82,24 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {body}
       </>
     );
-  }, [data.columns, list, env.edit]);
+  }, [leftColumns, list, env.edit]);
+
+  const mainColumns = useMemo(() => {
+    return data.columns.filter((column) => {
+      return !column.fixed;
+    });
+  }, [data.columns]);
 
   const mainWidth = useMemo(() => {
     let width = 0;
-    data.columns.forEach((column) => {
-      if (!column.fixed) {
-        width += +column.width;
-      }
+    mainColumns.forEach((column) => {
+      width += +column.width;
     });
     return width;
-  }, [data.columns]);
+  }, [mainColumns]);
 
   const main = useMemo(() => {
-    let columns = data.columns.filter((column) => {
-      return !column.fixed;
-    });
+    let columns = [...mainColumns];
 
     let head = columns.map((column, index) => {
       return (
@@ -141,22 +145,24 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {body}
       </>
     );
-  }, [data.columns, list]);
+  }, [mainColumns, list]);
+
+  const rightColumns = useMemo(() => {
+    return data.columns.filter((column) => {
+      return column.fixed === "right";
+    });
+  }, [data.columns]);
 
   const rightWidth = useMemo(() => {
     let width = 0;
-    data.columns.forEach((column) => {
-      if (column.fixed === "right") {
-        width += +column.width;
-      }
+    rightColumns.forEach((column) => {
+      width += +column.width;
     });
     return width;
-  }, [data.columns]);
+  }, [rightColumns]);
 
   const rightSide = useMemo(() => {
-    let columns = data.columns.filter((column) => {
-      return column.fixed === "right";
-    });
+    let columns = [...rightColumns];
 
     let head = columns.map((column, index) => {
       return (
@@ -202,7 +208,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {body}
       </>
     );
-  }, [data.columns, list]);
+  }, [rightColumns, list]);
 
   //
   if (placeholder) {
@@ -211,15 +217,23 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   return (
     <View className={cx(css.table, "mybricks-table")}>
-      <View className={css.leftSide} style={{ width: leftWidth }}>
-        {leftSide}
-      </View>
-      <View className={css.main} style={{ width: mainWidth }}>
-        {main}
-      </View>
-      <View className={css.rightSide} style={{ width: rightWidth }}>
-        {rightSide}
-      </View>
+      {leftColumns.length ? (
+        <View className={css.leftSide} style={{ width: leftWidth }}>
+          {leftSide}
+        </View>
+      ) : null}
+
+      {mainColumns.length ? (
+        <View className={css.main} style={{ width: mainWidth }}>
+          {main}
+        </View>
+      ) : null}
+
+      {rightColumns.length ? (
+        <View className={css.rightSide} style={{ width: rightWidth }}>
+          {rightSide}
+        </View>
+      ) : null}
     </View>
   );
 }

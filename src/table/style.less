@@ -4,9 +4,20 @@
   display: flex;
 
   .leftSide {
-    box-shadow: 0px 1px 8px 4px rgba(0, 0, 0, 0.06);
     position: relative;
     z-index: 1;
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 100%;
+      transform: translateX(100%);
+      content: "";
+      pointer-events: none;
+      box-shadow: inset 10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+
     .tr.thead {
       height: 40px;
       .td {
@@ -54,9 +65,21 @@
     }
   }
   .rightSide {
-    box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.06);
     position: relative;
     z-index: 1;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 100%;
+      transform: translateX(-30px);
+      content: "";
+      pointer-events: none;
+      box-shadow: inset -10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+
     .tr.thead {
       height: 40px;
       .td {
@@ -86,6 +109,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: red;
   }
 }

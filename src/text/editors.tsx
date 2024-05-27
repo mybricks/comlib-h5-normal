@@ -100,10 +100,40 @@ export default {
             },
             {
               title: "长按",
-              type: "_event",
-              options: {
-                outputId: "onLongPress",
-              },
+              items: [
+                {
+                  type: "select",
+                  options: [
+                    { label: "无", value: "none" },
+                    { label: "提示气泡框", value: "tooltip" },
+                    { label: "自定义", value: "custom" },
+                  ],
+                  value: {
+                    get({ data }) {
+                      return data.useLongPress;
+                    },
+                    set({ data }, val) {
+                      data.useLongPress = val;
+
+                      if (val === "custom") {
+                        output.add("onLongPress", "长按", { type: "string" });
+                      } else {
+                        output.remove("onLongPress");
+                      }
+                    },
+                  },
+                },
+                {
+                  ifVisible({ data }) {
+                    return data.useLongPress === "custom";
+                  },
+                  title: "自定义事件",
+                  type: "_event",
+                  options: {
+                    outputId: "onLongPress",
+                  },
+                },
+              ],
             },
           ],
         },
