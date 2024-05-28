@@ -1,19 +1,19 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Input, DatetimePicker } from "brickd-mobile";
-import { View } from '@tarojs/components';
+import { View } from "@tarojs/components";
 import { ArrowRight } from "@taroify/icons";
 import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
-import { polyfill_taro_picker } from './../utils/h5-polyfill'
+import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
-import css from './style.less'
+import css from "./style.less";
 
-polyfill_taro_picker()
+polyfill_taro_picker();
 
 const FORMAT_MAP = {
   date: "YYYY-MM-DD",
   time: "hh:mm",
   "year-month": "YYYY-MM",
-  "year": "YYYY"
+  year: "YYYY",
   // "month-day": "MM-DD",
   // "date-hour": "YYYY-MM-DD HH",
   // "date-minute": "YYYY-MM-DD HH:mm",
@@ -33,8 +33,16 @@ export default function (props) {
   // const [value, setValue] = useState(new Date());
   // const [open, setOpen] = useState(false);
 
-
   // console.log('env.canvasElement', env.canvasElement)
+
+  //判断组件是否需要为可交互状态
+  const comOperatable = useMemo(() => {
+    if (env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  }, [env]);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -112,11 +120,15 @@ export default function (props) {
   // }, []);
 
   const onChange = useCallback((formatDate) => {
-    data.value = dayjs(formatDate).valueOf()
+    data.value = dayjs(formatDate).valueOf();
 
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value: data.value })
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: data.value,
+    });
     outputs["onChange"](data.value);
-  }, [])
+  }, []);
 
   const range = useMemo(() => {
     function format(input) {
@@ -137,23 +149,31 @@ export default function (props) {
     };
   }, [data.min, data.max, data.type]);
 
-  return (
-    <>
-      {/* <Field
-        readonly
-        label={data.label}
-        name={data.name}
-        rightIcon={<ArrowRight />}
-        onClick={onClick}
-      > */}
-      <View className={css.wrap}>
-        <DatetimePicker
-          type={data.type}
-          value={displayValue}
-          min={range.min}
-          max={range.max}
-          onChange={onChange}
-        >
+  //普通表单视图
+  const normalView = useMemo(() => {
+    return (
+      <View className={css.wrap} key="normalView">
+        {/* 防止在搭建态 点击调起日期选择 */}
+        {comOperatable ? (
+          <DatetimePicker
+            type={data.type}
+            value={displayValue}
+            min={range.min}
+            max={range.max}
+            onChange={onChange}
+          >
+            <View className={css.select}>
+              <Input
+                readonly
+                disabled={!displayValue}
+                placeholder={data.placeholder}
+                value={displayValue}
+                style={{ flex: 1 }}
+              />
+              <ArrowRight />
+            </View>
+          </DatetimePicker>
+        ) : (
           <View className={css.select}>
             <Input
               readonly
@@ -164,24 +184,44 @@ export default function (props) {
             />
             <ArrowRight />
           </View>
-        </DatetimePicker>
+        )}
       </View>
-      {/* </Field> */}
-      {/* <Popup open={open} rounded placement="bottom" onClose={onCancel}>
-        <DatetimePicker
-          type={data.type}
-          value={value}
-          min={range.min}
-          max={range.max}
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-        >
-          <DatetimePicker.Toolbar>
-            <DatetimePicker.Button>取消</DatetimePicker.Button>
-            <DatetimePicker.Button>确认</DatetimePicker.Button>
-          </DatetimePicker.Toolbar>
-        </DatetimePicker>
-      </Popup> */}
-    </>
-  );
+    );
+  }, [data.isSlot]);
+
+  //切换为插槽视图
+  const slotsView = useMemo(() => {
+    return (
+      <View className={css.wrap} key="slotsView">
+        {/* 防止在搭建态 点击调起日期选择 */}
+        {comOperatable ? (
+          <DatetimePicker
+            type={data.type}
+            value={displayValue}
+            min={range.min}
+            max={range.max}
+            onChange={onChange}
+          >
+            {slots["content"]?.render({
+              style: {
+                position: "smart",
+              },
+            })}
+          </DatetimePicker>
+        ) : (
+          slots["content"]?.render({
+            style: {
+              position: "smart",
+            },
+          })
+        )}
+      </View>
+    );
+  }, [data.isSlot]);
+
+  if (data.isSlot) {
+    return slotsView;
+  } else {
+    return normalView;
+  }
 }

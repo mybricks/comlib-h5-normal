@@ -7,6 +7,21 @@ const AFTER_TEN_YEAR = new Date(
   new Date().setFullYear(new Date().getFullYear() + 10)
 );
 
+export const setSlotLayout = (slot, val) => {
+  if (!slot) return;
+  if (val.position === "smart") {
+    slot.setLayout("smart");
+  } else if (val.position === "absolute") {
+    slot.setLayout(val.position);
+  } else if (val.display === "flex") {
+    if (val.flexDirection === "row") {
+      slot.setLayout("flex-row");
+    } else if (val.flexDirection === "column") {
+      slot.setLayout("flex-column");
+    }
+  }
+};
+
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
@@ -21,9 +36,28 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
+          title: "配置为可点插槽",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.isSlot;
+            },
+            set({ data, slot }, value) {
+              data.isSlot = value;
+              if (value) {
+                const slotInstance = slot.get("content");
+                setSlotLayout(slotInstance, data.slotStyle);
+              }
+            },
+          },
+        },
+        {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",
           type: "text",
+          ifVisible({ data }) {
+            return !data.isSlot;
+          },
           value: {
             get({ data }) {
               return data.placeholder;
