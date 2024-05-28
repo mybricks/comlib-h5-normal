@@ -36,7 +36,7 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: "配置为可点插槽",
+          title: "配置为插槽",
           type: "switch",
           value: {
             get({ data }) {
