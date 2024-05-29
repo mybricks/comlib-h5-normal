@@ -49,6 +49,6 @@
     "position": "smart"
   },
   "bottomSpace": 30,
-
-  "useLoading": false
+  "useLoading": false,
+  "backgroundSize":"cover"
 }

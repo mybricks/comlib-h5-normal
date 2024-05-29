@@ -281,7 +281,13 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   return (
     <View
       className={cx({ [css.page]: true, [css.debug]: isDesigner(env) })}
-      style={{ background: data.background }}
+      style={{
+        backgroundImage: `url(${data.backgroundImage})`,
+        backgroundSize: data.backgroundSize,
+        backgroundRepeat: data.backgroundRepeat,
+        backgroundPosition: data.backgroundPosition,
+        backgroundColor: data.background,
+      }}
     >
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}

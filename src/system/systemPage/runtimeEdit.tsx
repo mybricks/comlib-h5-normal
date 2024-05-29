@@ -158,6 +158,23 @@ export default function ({ env, data, inputs, outputs, slots }) {
     }
   }, [data, useTabBar]);
 
+  const pageBackgroundStyle = useMemo(() => {
+    return {
+      backgroundColor: data.background,
+      backgroundImage: `url(${data.backgroundImage})`,
+      backgroundSize: data.backgroundSize,
+      backgroundRepeat: data.backgroundRepeat,
+      backgroundPosition: data.backgroundPosition,
+    };
+  }, [
+    data.useNavigationStyle,
+    data.background,
+    data.backgroundImage,
+    data.backgroundSize,
+    data.backgroundRepeat,
+    data.backgroundPosition,
+  ]);
+
   return (
     // <Resizable
     //   axis="y"
@@ -174,7 +191,11 @@ export default function ({ env, data, inputs, outputs, slots }) {
     // >
     <View
       className={css.page}
-      style={{ background: data.background, height: "100%" }}
+      //自定义导航和隐藏导航，在这里配置背景
+      style={{
+        height: "100%",
+        ...(data.useNavigationStyle !== "default" ? pageBackgroundStyle : {}),
+      }}
     >
       {/* Header start */}
       <View className={"mybricks-navigation"}>
@@ -198,11 +219,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
       {/* content start*/}
       <View
         className={cx(css.content, { [css.edit]: env?.edit })}
-        style={
-          {
-            // background: data.backgroundColor,
-          }
-        }
+        //导航栏为默认的时候，在这里配置背景
+        style={data.useNavigationStyle === "default" ? pageBackgroundStyle : {}}
       >
         {slots["content"]?.render?.()}
 
