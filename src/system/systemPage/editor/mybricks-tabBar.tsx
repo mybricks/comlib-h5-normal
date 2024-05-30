@@ -79,7 +79,7 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
-        title: "标签项",
+        title: "标签名",
         type: "text",
         value: {
           get({ data, focusArea }) {
@@ -90,6 +90,40 @@ export default {
             if (!focusArea) return;
             let tabBar = JSON.parse(JSON.stringify(data.tabBar));
             tabBar[focusArea.index].text = value;
+            data.tabBar = tabBar;
+
+            window.__tabbar__?.set(tabBar);
+          },
+        },
+      },
+      {
+        title: "激活图标",
+        type: "imageSelector",
+        value: {
+          get({ data, focusArea }) {
+            if (!focusArea) return;
+            return data.tabBar[focusArea.index].selectedIconPath;
+          },
+          set({ data, focusArea }, value) {
+            let tabBar = JSON.parse(JSON.stringify(data.tabBar));
+            tabBar[focusArea.index].selectedIconPath = value;
+            data.tabBar = tabBar;
+
+            window.__tabbar__?.set(tabBar);
+          },
+        },
+      },
+      {
+        title: "默认图标",
+        type: "imageSelector",
+        value: {
+          get({ data, focusArea }) {
+            if (!focusArea) return;
+            return data.tabBar[focusArea.index].normalIconPath;
+          },
+          set({ data, focusArea }, value) {
+            let tabBar = JSON.parse(JSON.stringify(data.tabBar));
+            tabBar[focusArea.index].normalIconPath = value;
             data.tabBar = tabBar;
 
             window.__tabbar__?.set(tabBar);
@@ -129,23 +163,6 @@ export default {
                 tabBar[focusArea.index].selectedIconStyle = {
                   ...value,
                 };
-                data.tabBar = tabBar;
-
-                window.__tabbar__?.set(tabBar);
-              },
-            },
-          },
-          {
-            catelog: "激活样式",
-            type: "imageSelector",
-            value: {
-              get({ data, focusArea }) {
-                if (!focusArea) return;
-                return data.tabBar[focusArea.index].selectedIconPath;
-              },
-              set({ data, focusArea }, value) {
-                let tabBar = JSON.parse(JSON.stringify(data.tabBar));
-                tabBar[focusArea.index].selectedIconPath = value;
                 data.tabBar = tabBar;
 
                 window.__tabbar__?.set(tabBar);
@@ -194,23 +211,6 @@ export default {
                 tabBar[focusArea.index].normalIconStyle = {
                   ...value,
                 };
-                data.tabBar = tabBar;
-
-                window.__tabbar__?.set(tabBar);
-              },
-            },
-          },
-          {
-            catelog: "默认样式",
-            type: "imageSelector",
-            value: {
-              get({ data, focusArea }) {
-                if (!focusArea) return;
-                return data.tabBar[focusArea.index].normalIconPath;
-              },
-              set({ data, focusArea }, value) {
-                let tabBar = JSON.parse(JSON.stringify(data.tabBar));
-                tabBar[focusArea.index].normalIconPath = value;
                 data.tabBar = tabBar;
 
                 window.__tabbar__?.set(tabBar);
