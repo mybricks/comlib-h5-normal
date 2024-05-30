@@ -17,5 +17,34 @@ export default {
         },
       },
     },
+    {
+      title: "照片选取方式",
+      type: "select",
+      options: [
+        { value: "both", label: "相机和相册" },
+        { value: "camera", label: "仅限打开相机" },
+        { value: "album", label: "仅限打开相册" },
+      ],
+      value: {
+        get({ data }) {
+          return data.selectMethod;
+        },
+        set({ data }, value) {
+          data.selectMethod = value;
+          if(value === 'both') {
+            data.selectMethodConfig = ['album', 'camera']
+            return
+          }
+          if(value === 'camera') {
+            data.selectMethodConfig = ['camera']
+            return
+          }
+          if(value === 'album') {
+            data.selectMethodConfig = ['album']
+            return
+          }
+        },
+      },
+    },
   ],
 };
