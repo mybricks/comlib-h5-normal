@@ -235,7 +235,6 @@ export default {
         //     },
         //   },
         // },
-        {},
         {
           title: "底部空间留存",
           type: "text",
