@@ -1,10 +1,10 @@
 {
-  "title": "HTTPS请求",
-  "namespace": "mybricks.taro._request",
+  "title": "千帆大模型",
+  "namespace": "mybricks.taro._qianfan",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "_request",
+  "description": "_qianfan",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",

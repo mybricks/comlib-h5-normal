@@ -30,6 +30,7 @@ export default {
   "@resize": {
     options: ["width"],
   },
+  ":slot": {},
   ":root": {
     style: [],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

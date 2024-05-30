@@ -16,12 +16,17 @@
     flex: 1;
     overflow: scroll; // scrollView相关，必须要
     height: 1px; // scrollView相关，必须要
+    transform: translateZ(1px); // 必须要，解决 fixed 定位问题
   }
 }
 
 .page.debug {
   min-height: 667px;
   height: auto;
+
+  .contentScrollView{
+    transform: translateZ(1px);
+  }
 }
 
 .fixedTop {
