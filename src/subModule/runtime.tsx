@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
@@ -64,6 +64,44 @@ export default function ({ env, data, slots, inputs, outputs }) {
     }
   }, [activeId, data.items, renderMode]);
 
+  const containerCx = useMemo(() => {
+    return cx([
+      {
+        [css.container]: true,
+        [css.edit]: renderMode === "edit",
+        [css.runtime]: renderMode === "runtime",
+      },
+    ]);
+  }, [renderMode]);
+
+  return (
+    <View className={containerCx}>
+      <View className={cx([css.condition, "mybricks-condition"])}>
+        {slots["condition_1"]?.render({
+          inputValues: {
+            itemData: bool,
+          },
+        })}
+      </View>
+
+      <View className={cx([css.condition, "mybricks-condition"])}>
+        {slots["condition_2"]?.render({
+          inputValues: {
+            itemData: bool,
+          },
+        })}
+      </View>
+
+      <View className={cx([css.condition, "mybricks-condition"])}>
+        {slots["condition_3"]?.render({
+          inputValues: {
+            itemData: bool,
+          },
+        })}
+      </View>
+    </View>
+  );
+
   return (
     <View
       className={cx([
@@ -76,7 +114,11 @@ export default function ({ env, data, slots, inputs, outputs }) {
     >
       {items.map((item) => {
         return (
-          <View className={css.card} key={item.id}>
+          <View
+            className={cx([css.condition, "mybricks-condition"])}
+            key={item.id}
+            data-id={item.id}
+          >
             {slots[item.id]?.render({
               inputValues: {
                 itemData: bool,

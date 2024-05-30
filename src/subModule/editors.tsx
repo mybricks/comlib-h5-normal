@@ -21,7 +21,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    // options: ["width", "height"],
   },
   ":slot": {},
   ":root"({ data, output, input, style, slots }, cate0, cate1, cate2) {
@@ -99,7 +99,7 @@ export default {
                     }
 
                     if (title) {
-                      input.get(item.id).setTitle(`切换到 ${title}`);
+                      // input.get(item.id).setTitle(`切换到 ${title}`);
                       slots.get(item.id).setTitle(title);
 
                       setList((c) =>
@@ -196,5 +196,30 @@ export default {
         ],
       },
     ];
+  },
+
+  ".mybricks-condition": {
+    style: [
+      {
+        title: "条件样式",
+        options: ["size"],
+        target({ data, focusArea }) {
+          return `.mybricks-condition`;
+        },
+      },
+    ],
+    items({ data, focusArea }, cate0, cate1, cate2) {
+      if (!focusArea) {
+        return;
+      }
+
+      cate0.title = "条件";
+      cate0.items = [
+        {
+          title: "adfadf",
+          type: "text",
+        },
+      ];
+    },
   },
 };
