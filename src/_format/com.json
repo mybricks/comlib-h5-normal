@@ -4,7 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "支持各类数字/字符进行日期和价格等格式化处理",
+  "description": "对枚举值和时间戳进行格式化处理",
   "icon": "./icon.svg",
   "editors": "./editors.tsx",
   "runtime": "./runtime.tsx",
