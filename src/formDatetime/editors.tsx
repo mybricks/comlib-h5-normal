@@ -28,7 +28,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width", "height"],
   },
   ":slot": {},
   ":root": {
@@ -43,11 +43,13 @@ export default {
             get({ data }) {
               return data.isSlot;
             },
-            set({ data, slot }, value) {
+            set({ data, slot , style }, value) {
               data.isSlot = value;
               if (value) {
                 const slotInstance = slot.get("content");
                 setSlotLayout(slotInstance, data.slotStyle);
+                style.height = 50;
+                style.width = 50;
               }
             },
           },

@@ -192,7 +192,7 @@ export default function (props) {
   //切换为插槽视图
   const slotsView = useMemo(() => {
     return (
-      <View className={css.wrap} key="slotsView">
+      <View className={css.slot_default_style} key="slotsView">
         {/* 防止在搭建态 点击调起日期选择 */}
         {comOperatable ? (
           <DatetimePicker
@@ -205,6 +205,7 @@ export default function (props) {
             {slots["content"]?.render({
               style: {
                 position: "smart",
+                height: "100%",
               },
             })}
           </DatetimePicker>
@@ -212,6 +213,7 @@ export default function (props) {
           slots["content"]?.render({
             style: {
               position: "smart",
+              height: "100%",
             },
           })
         )}
