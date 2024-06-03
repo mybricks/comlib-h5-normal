@@ -1,0 +1,60 @@
+{
+  "title": "人脸识别认证",
+  "namespace": "mybricks.taro._startFacialRecognitionVerify",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.1",
+  "description": "微信人脸核身接口能力",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "开始",
+      "schema": {
+        "title": "身份验证信息",
+        "description": "用户的身份验证信息",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "身份证名称"
+          },
+          "idCardNumber": {
+            "type": "string",
+            "description": "身份证号码"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "success",
+      "title": "识别通过",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "fail",
+      "title": "识别未通过",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errCode": {
+            "type": "string",
+            "description": "错误码"
+          },
+          "verifyResult": {
+            "type": "string",
+            "description": "本次认证结果凭据"
+          }
+        }
+      }
+    }
+  ]
+}
