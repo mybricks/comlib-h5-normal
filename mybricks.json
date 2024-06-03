@@ -29,6 +29,7 @@
 
     "./src/_setNavigationBarTitle/com.json",
     "./src/_scan-qrcode/com.json",
+    "./src/_open_camera/com.json",
     "./src/_call-phone/com.json",
     "./src/_get-location/com.json",
     "./src/_chooseLocation/com.json",

@@ -14,15 +14,7 @@
       "id": "setList",
       "title": "设置数据",
       "schema": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
-        }
+        "type": "array"
       }
     }
   ],

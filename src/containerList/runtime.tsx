@@ -74,7 +74,7 @@ const useReachBottom = (callback, { env, enable = false }) => {
 
 export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   const [dataSource, setDataSource] = useState<DsItem[]>(
-    env.edit ? mockData : []
+    env.edit || env?.runtime?.debug?.prototype ? mockData : []
   );
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
 
@@ -144,7 +144,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           {slots["item"].render({
             style: {
               height: "120px",
-            }
+            },
           })}
         </View>
       );
@@ -222,7 +222,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       return (
         <View
           className={cx({
-            [css.item]: true,           
+            [css.item]: true,
             ["disabled-area"]: env.edit && _idx > 0,
             [css.item]: !env.edit || _idx === 0,
             // env.edit && _idx > 0 ? "disabled-area" : css.item

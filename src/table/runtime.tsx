@@ -4,7 +4,9 @@ import css from "./style.less";
 import cx from "classnames";
 
 export default function ({ env, data, inputs, outputs, slots }) {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(
+    env.edit || env?.runtime?.debug?.prototype ? [{}] : []
+  );
 
   useEffect(() => {
     inputs["setList"]((val) => {

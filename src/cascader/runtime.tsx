@@ -1,10 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Cascader } from "brickd-mobile";
+import mockData from "./mockData";
 
 
 export default function ({ env, data, inputs, outputs, slots, mockProps }) {
-  const [value, setValue] = useState<string[]>([])
-  const [options, setOptions] = useState([]);
+  const [value, setValue] = useState<string[]>(
+    env?.runtime?.debug?.prototype ? mockData.value : []
+  );
+  const [options, setOptions] = useState(
+    env?.runtime?.debug?.prototype ? mockData.options : []
+  );
 
   useMemo(() => {
     inputs['addDataSource']?.((val) => {

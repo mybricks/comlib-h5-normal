@@ -4,7 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "连接器",
+  "description": "发起网络请求",
   "runtime": "./runtime.ts",
   "editors": "./editors.tsx",
   "data": "./data.json",

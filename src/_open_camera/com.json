@@ -1,10 +1,10 @@
 {
-  "title": "拨打电话",
-  "namespace": "mybricks.taro._call-phone",
+  "title": "打开相机",
+  "namespace": "mybricks.taro._open_camera",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "打开系统拨打电话界面",
+  "description": "打开系统相机进行拍照或者从相册选取图片",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",
@@ -12,24 +12,24 @@
   "rtType": "js",
   "inputs": [
     {
-      "id": "call",
-      "title": "拨打电话",
+      "id": "takePhotos",
+      "title": "打开相机",
       "schema": {
-        "type": "number"
+        "type": "follow"
       }
     }
   ],
   "outputs": [
     {
       "id": "onSuccess",
-      "title": "拨打成功",
+      "title": "拍照成功",
       "schema": {
-        "type": "follow"
+        "type": "array"
       }
     },
     {
       "id": "onFail",
-      "title": "拨打失败",
+      "title": "拍照失败",
       "schema": {
         "type": "follow"
       }

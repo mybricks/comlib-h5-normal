@@ -1,0 +1,8 @@
+{
+  "photoCount": 1,
+  "selectMethod":"both",
+  "selectMethodConfig":[
+    "album",
+    "camera"
+  ]
+}
