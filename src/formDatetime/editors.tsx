@@ -1,4 +1,4 @@
-import DatePicker from './editor/datePicker'
+import DatePicker from "./editor/datePicker";
 
 const LAST_TEN_YEAR = new Date(
   new Date().setFullYear(new Date().getFullYear() - 10)
@@ -43,13 +43,16 @@ export default {
             get({ data }) {
               return data.isSlot;
             },
-            set({ data, slot , style }, value) {
+            set({ data, slot, style }, value) {
               data.isSlot = value;
               if (value) {
                 const slotInstance = slot.get("content");
                 setSlotLayout(slotInstance, data.slotStyle);
                 style.height = 50;
                 style.width = 50;
+              } else {
+                style.height = 24;
+                style.width = 375;
               }
             },
           },
