@@ -10,7 +10,7 @@ export default {
     style: [
       {
         title: "大小",
-        options: ["size", "border", "background"],
+        options: ["border", "background"],
         target: `.mybricks-searchBar`,
       }
     ],
