@@ -9,10 +9,10 @@ export default {
   ":root": {
     style: [
       {
-        title: "样式",
-        options: ["border", "background"],
+        title: "大小",
+        options: ["size", "border", "background"],
         target: `.mybricks-searchBar`,
-      },
+      }
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
