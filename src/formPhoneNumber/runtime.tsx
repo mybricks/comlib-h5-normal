@@ -4,6 +4,7 @@ import { Input } from "brickd-mobile";
 import css from "./style.less";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
+import { isEmpty, isString, isNumber, isObject } from "lodash";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -38,6 +39,10 @@ export default function (props) {
     // 设置启用
     inputs["setEnabled"](() => {
       data.disabled = false;
+    });
+
+    inputs["resetValue"]((val) => {
+      data.value = null;
     });
   }, []);
 
@@ -76,14 +81,6 @@ export default function (props) {
           },
         };
       }
-      case data.getPhoneNumberMethods === "customInput": {
-        return {
-          onClick: () => {
-            countDown();
-            outputs["onCodeSend"](data.value);
-          }
-        }
-      }
 
       default: {
         // 命中兜底逻辑
@@ -91,22 +88,6 @@ export default function (props) {
       }
     }
   }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
-
-  const countDown = () => {
-    if (!data.buttonAvailable) return
-    let count = data.smsCountdown;
-    let _buttonText = data.buttonText;
-    const timer = setInterval(() => {
-      count--;
-      data.buttonText = `${count}s 后重试`;
-      data.buttonAvailable = false
-      if (count <= 0) {
-        clearInterval(timer);
-        data.buttonAvailable = true;
-        data.buttonText = _buttonText;
-      }
-    }, 1000);
-  }
 
   // const onGetPhoneNumber = useCallback(
   //   (e) => {
@@ -161,8 +142,6 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
-
-
   return (
     <View className={css.outerPhoneNumber}>
       <View className={css.phoneNumber}>
@@ -178,12 +157,14 @@ export default function (props) {
               : false
           }
         />
-        <Button
-          className={cx("mybricks-getphonenumber-button", css.button)}
-          {...openType}
-        >
-          {data.buttonText || "点击授权"}
-        </Button>
+        {data.getPhoneNumberMethods !== "customInput" && (
+          <Button
+            className={cx("mybricks-getphonenumber-button", css.button)}
+            {...openType}
+          >
+            {data.buttonText || "点击授权"}
+          </Button>
+        )}
       </View>
     </View>
   );

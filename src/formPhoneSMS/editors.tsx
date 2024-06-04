@@ -78,6 +78,13 @@ const MAP = {
         schema: {
           type: "string",
         },
+      },
+      {
+        id: "onCodeSend",
+        title:"获取验证码",
+        schema:{
+          type:"number"
+        }
       }
     ],
   },
@@ -89,12 +96,14 @@ function clearOutput(getPhoneNumberMethod, output) {
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("onChange");
+      output.remove("onCodeSend");
       break;
 
     case getPhoneNumberMethod === "getRealtimePhoneNumber":
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("onChange");
+      output.remove("onCodeSend");
       break;
 
     case getPhoneNumberMethod === "customInput":
@@ -121,55 +130,22 @@ export default {
         target: ".taroify-input",
       },
       {
-        title: "授权按钮",
-        options: ["font", "border", "size", "padding", "background"],
-        target: ".mybricks-getphonenumber-button",
+        title: "验证码按钮",
+        options: [
+          "font",
+          "border",
+          "size",
+          "padding",
+          "margin",
+          "background",
+          "boxshadow",
+        ],
+        target: ".mybricks-getsms-button",
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
-        {
-          title: "手机号获取方式",
-          type: "radio",
-          description: "实时验证仅微信小程序端支持",
-          options: [
-            { label: "实时验证", value: "getRealtimePhoneNumber" },
-            { label: "快速验证", value: "getPhoneNumber" },
-            { label: "手动输入", value: "customInput" },
-          ],
-          value: {
-            set({ data, output }, value) {
-              data.getPhoneNumberMethods = value;
-              clearOutput(value, output);
-              switch (value) {
-                case "getRealtimePhoneNumber":
-                  data.placeholder = "请授权手机号";
-                  data.buttonText = "点击授权";
-                  MAP["getRealtimePhoneNumber"].output.forEach((item) => {
-                    output.add(item);
-                  });
-                  break;
-                case "getPhoneNumber":
-                  data.placeholder = "请授权手机号";
-                  data.buttonText = "点击授权";
-                  MAP["getPhoneNumber"].output.forEach((item) => {
-                    output.add(item);
-                  });
-                  break;
-                case "customInput":
-                  data.placeholder = "请输入手机号";
-                  MAP["customInput"].output.forEach((item) => {
-                    output.add(item);
-                  }); 
-                  break;
-              }
-            },
-            get({ data }) {
-              return data.getPhoneNumberMethods;
-            },
-          },
-        },
         {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",
@@ -187,7 +163,7 @@ export default {
           title: "按钮文案",
           type: "text",
           ifVisible({ data }) {
-            return data.getPhoneNumberMethods !== "customInput";
+            return !data.customInput;
           },
           value: {
             get({ data }) {
@@ -199,53 +175,31 @@ export default {
           },
         },
         {
+          title: "验证码倒计时",
+          type: "InputNumber",
+          options: [{ min: 30 }],
+          description: "单位：秒（最小值 30秒）",
+          value: {
+            get({ data }) {
+              return [data.smsCountdown];
+            },
+            set({ data }, value) {
+              data.smsCountdown = value[0];
+            },
+          },
+        },
+        {
           title: "事件",
           items: [
             {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "getPhoneNumber";
-              },
-              title: "获取动态令牌成功",
+              title: "获取验证码",
               type: "_event",
               options: {
-                outputId: "getPhoneNumberSuccess",
+                outputId: "onCodeSend",
               },
             },
             {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "getPhoneNumber";
-              },
-              title: "获取动态令牌失败",
-              type: "_event",
-              options: {
-                outputId: "getPhoneNumberFail",
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "getRealtimePhoneNumber";
-              },
-              title: "获取动态令牌成功",
-              type: "_event",
-              options: {
-                outputId: "getRealtimePhoneNumberSuccess",
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "getRealtimePhoneNumber";
-              },
-              title: "获取动态令牌失败",
-              type: "_event",
-              options: {
-                outputId: "getRealtimePhoneNumberFail",
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.getPhoneNumberMethods === "customInput";
-              },
-              title: "当输入的手机号变化",
+              title: "输入的验证码有变化",
               type: "_event",
               options: {
                 outputId: "onChange",

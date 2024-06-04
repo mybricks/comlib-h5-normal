@@ -1,0 +1,89 @@
+{
+  "title": "验证码输入框",
+  "namespace": "mybricks.taro.formPhoneSMS",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "desc": "设置单行输入的值，并触发值变化事件输出",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取单行输入的值并输出",
+      "schema": {
+        "type": "any"
+      },
+      "rels": [
+        "returnValue"
+      ]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空单行输入的值",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onInitial",
+      "title": "值初始化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onChange",
+      "title": "当输入的验证码变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onCodeSend",
+      "title": "获取验证码",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onBlur",
+      "title": "失去焦点",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onPressEnter",
+      "title": "按下回车",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "schema": [
+    "mybricks.taro.formContainer/formItem",
+    "*"
+  ]
+}
