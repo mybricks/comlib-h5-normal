@@ -118,6 +118,14 @@ export default function ({
     });
   }, []);
 
+  // input启用按钮
+  useEffect(() => {
+    inputs["setEnabled"]?.((val, relOutputs) => {
+      data.disabled = false;
+      relOutputs["setEnabledSuccess"]?.(val);
+    });
+  }, []);
+
   return (
     <Button
       className={cx(

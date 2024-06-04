@@ -27,6 +27,16 @@
       "rels": [
         "setDisabledSuccess"
       ]
+    },
+    {
+      "id": "setEnabled",
+      "title": "设置按钮启用",
+      "schema": {
+        "type": "string"
+      },
+      "rels": [
+        "setEnabledSuccess"
+      ]
     }
   ],
   "outputs": [
@@ -39,6 +49,13 @@
     },
     {
       "id": "setDisabledSuccess",
+      "title": "设置按钮禁用完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setEnabledSuccess",
       "title": "设置按钮禁用完成",
       "schema": {
         "type": "string"
