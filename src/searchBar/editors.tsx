@@ -1,7 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
     style.width = 375;
-    style.height = "auto";
+    style.height = 34;
   },
   "@resize": {
     options: ["width", "height"],
@@ -9,7 +9,7 @@ export default {
   ":root": {
     style: [
       {
-        title: "大小",
+        title: "样式",
         options: ["border", "background"],
         target: `.mybricks-searchBar`,
       }

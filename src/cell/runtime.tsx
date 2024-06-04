@@ -21,7 +21,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
 
   return (
     <View
-      className={css.cell}
+      className={cx(css.cell, "mybricks-cell")}
       onClick={() => {
         onClick({ title: data.title });
       }}
