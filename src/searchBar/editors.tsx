@@ -9,7 +9,7 @@ export default {
   ":root": {
     style: [
       {
-        title: "大小",
+        title: "样式",
         options: ["border", "background"],
         target: `.mybricks-searchBar`,
       }

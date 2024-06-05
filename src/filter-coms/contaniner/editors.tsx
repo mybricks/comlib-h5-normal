@@ -1,12 +1,13 @@
-import { getFilterItem } from './utils'
+import { getFilterItem } from "./utils";
 
 export default {
   ":slot": {},
   "@init": ({ style, data }) => {
     style.width = "100%";
+    style.height = 30;
   },
   "@resize": {
-    options: ["width"],
+    options: ["width", "height"],
   },
   "@childAdd"({ data, inputs, outputs, logs, slots }, child, curSlot) {
     if (curSlot.id === "content") {
@@ -59,8 +60,8 @@ export default {
           return !!data.extraButton;
         },
         options: ["font", "border", "padding", "background"],
-        target: ".mbs-filters_extra"
-      }
+        target: ".mbs-filters_extra",
+      },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
@@ -81,17 +82,17 @@ export default {
           },
         },
         {
-          title: "全部筛选",
+          title: "更多筛选项",
           items: [
             {
-              title: "显示「全部筛选」",
+              title: "显示「更多筛选项」",
               type: "switch",
               value: {
                 get({ id, data }: any) {
-                  return data.extraButton
+                  return data.extraButton;
                 },
                 set({ data }: any, val: string) {
-                  data.extraButton = val
+                  data.extraButton = val;
                 },
               },
             },
@@ -100,14 +101,14 @@ export default {
               type: "text",
               value: {
                 get({ id, data }: any) {
-                  return data.extraButtonText
+                  return data.extraButtonText;
                 },
                 set({ data }: any, val: string) {
-                  data.extraButtonText = val
+                  data.extraButtonText = val;
                 },
               },
-            }
-          ]
+            },
+          ],
         },
       ];
     },
@@ -115,28 +116,6 @@ export default {
   ":child(mybricks.taro.filters/item)": {
     title: "筛选项",
     items: [
-      // {
-      //   title: "标题",
-      //   type: "text",
-      //   value: {
-      //     get({ id, data, name }: any) {
-      //       const item = getFilterItem(data.items, { id, name });
-      //       return item?.label;
-      //     },
-      //     set({ id, name, data, slot }: any, val) {
-      //       const item = getFilterItem(data.items, { id, name });
-
-      //       if (item) {
-      //         if (item.label === item.name) {
-      //           item.label = val;
-      //           item.name = val;
-      //         } else {
-      //           item.label = val;
-      //         }
-      //       }
-      //     },
-      //   },
-      // },
       {
         title: "字段",
         type: "text",
@@ -156,4 +135,4 @@ export default {
       {},
     ],
   },
-}
+};

@@ -1,20 +1,3 @@
-import { uuid } from "../utils";
-import css from "./editors.less";
-import comJson from "./com.json";
-
-const ScopeSlotInputs = comJson.slots[0].inputs;
-
-function getItem({ data, focusArea }) {
-  if (!focusArea) return {};
-  const index = focusArea.index;
-  const item = data.items[index];
-  return item;
-}
-
-function findItemByInnerId(_id, data) {
-  return data.items.find((t) => t._id === _id) ?? {};
-}
-
 export default {
   "@init"({ style, data, slots }) {
     style.width = "100%";
@@ -174,26 +157,6 @@ export default {
             data.defaultActiveId = value === "none" ? undefined : value;
           },
         },
-      },
-      {
-        title: "渲染模式",
-        items: [
-          {
-            title: "开启预渲染",
-            description:
-              "开启后所有条件的内容都会提前渲染，切换条件只影响内容显示",
-            type: "switch",
-            value: {
-              get({ data }) {
-                return data.renderMode ? data.renderMode === "pre" : false;
-                // 后期支持三种模式 预渲染模式、懒加载模式、懒加载并缓存模式
-              },
-              set({ data, slot }, value) {
-                data.renderMode = value ? "pre" : "lazy";
-              },
-            },
-          },
-        ],
       },
     ];
   },

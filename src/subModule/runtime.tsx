@@ -4,40 +4,42 @@ import css from "./style.less";
 import cx from "classnames";
 
 export default function ({ env, data, slots, inputs, outputs }) {
-  const [innputId, setInputId] = useState(data.defaultActiveId);
-  const [bool, setBool] = useState();
+  const [state, setState] = useState(data.defaultState);
 
-  const activeId = useMemo(() => {
-    if (env.edit) {
-      return data._editSelectId_ ?? data.items?.[0]?.id;
+  console.error("!!!!!!~~~~~~~ env", env);
+
+  // 组件的渲染状态
+  const renderState = useMemo(() => {
+    // 运行时，只展示所选的条件状态
+    if (env.runtime) {
+      return state;
     }
-    return innputId;
-  }, [data.items, data._editSelectId_, innputId]);
 
-  console.error("activeId", activeId);
+    // 如果组件不在画布中
+    if (!isInCanvas) {
+      return ""; //所有状态完全展开
+    }
 
-  /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
+    // 如果组件在画布中，并且是搭建态，展示默认状态或第一个状态
+    if (isInCanvas) {
+      return "collapse";
+    }
+
+    // 如果组件在画布中，并且是运行态，展示默认状态或不展示
+    return "show";
+  }, [state]);
+
   useMemo(() => {
     // 通过setValue来切换条件
-    inputs["setValue"]?.((bool, relOutputs) => {
-      const item = data.items.find((t) => t.title === bool);
-      if (!item) {
-        return;
-      }
-      setInputId(item.id);
-      setBool(bool);
-      relOutputs["setValueDone"]?.(bool);
+    inputs["switchState"]((val) => {
+      const { state, data } = val;
+      onSwitchState(state, data);
     });
+  }, []);
 
-    //通过连线来切换条件
-    data.items.forEach((item) => {
-      inputs[item.id]?.((bool, relOutputs) => {
-        setInputId(item.id);
-        setBool(bool);
-        relOutputs["changeDone"]?.(bool);
-      });
-    });
-  }, [data.items]);
+  const onSwitchState = useCallback((state, data) => {
+    setState(state);
+  }, []);
 
   /**
    * 渲染模式
@@ -56,13 +58,13 @@ export default function ({ env, data, slots, inputs, outputs }) {
   /**
    * 卡片状态
    */
-  const items = useMemo(() => {
-    if (renderMode === "runtime") {
-      return data.items.filter((item) => item.id === activeId);
-    } else {
-      return data.items;
-    }
-  }, [activeId, data.items, renderMode]);
+  // const items = useMemo(() => {
+  //   if (renderMode === "runtime") {
+  //     return data.items.filter((item) => item.id === activeId);
+  //   } else {
+  //     return data.items;
+  //   }
+  // }, [activeId, data.items, renderMode]);
 
   const containerCx = useMemo(() => {
     return cx([
@@ -79,7 +81,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View className={cx([css.condition, "mybricks-condition"])}>
         {slots["condition_1"]?.render({
           inputValues: {
-            itemData: bool,
+            itemData: "bool",
           },
         })}
       </View>
@@ -87,7 +89,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View className={cx([css.condition, "mybricks-condition"])}>
         {slots["condition_2"]?.render({
           inputValues: {
-            itemData: bool,
+            itemData: "bool",
           },
         })}
       </View>
@@ -95,7 +97,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View className={cx([css.condition, "mybricks-condition"])}>
         {slots["condition_3"]?.render({
           inputValues: {
-            itemData: bool,
+            itemData: "bool",
           },
         })}
       </View>
@@ -111,22 +113,6 @@ export default function ({ env, data, slots, inputs, outputs }) {
           [css.runtime]: renderMode === "runtime",
         },
       ])}
-    >
-      {items.map((item) => {
-        return (
-          <View
-            className={cx([css.condition, "mybricks-condition"])}
-            key={item.id}
-            data-id={item.id}
-          >
-            {slots[item.id]?.render({
-              inputValues: {
-                itemData: bool,
-              },
-            })}
-          </View>
-        );
-      })}
-    </View>
+    ></View>
   );
 }
