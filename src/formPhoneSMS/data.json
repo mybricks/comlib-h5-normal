@@ -1,0 +1,13 @@
+{
+  "hideLabel": false,
+  "label": "验证码",
+  "name": "验证码",
+  "value": "",
+  "placeholder": "请输入验证码",
+  "disabled": false,
+  "required": false,
+  "hidden": false,
+  "buttonText": "获取验证码",
+  "buttonAvailable": true,
+  "smsCountdown":30
+}

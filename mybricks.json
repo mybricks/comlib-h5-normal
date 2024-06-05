@@ -107,6 +107,7 @@
         "./src/formDatetime/com.json",
         "./src/formLocation/com.json",
         "./src/formPhoneNumber/com.json",
+        "./src/formPhoneSMS/com.json",
         "./src/formImageUploader/com.json",
         "./src/searchBar/com.json"
       ]
