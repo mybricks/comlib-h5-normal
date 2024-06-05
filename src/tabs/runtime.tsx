@@ -128,7 +128,21 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         _setCurrentTabId(tabId);
       }
     });
-  }, []);
+
+    inputs["setBadge"]?.((val) => {
+      data.tabs = data.tabs.map((item, index) => {
+        let result = {
+          ...item,
+        };
+
+        if (index === val.index) {
+          result.badge = val.text;
+        }
+
+        return result;
+      });
+    });
+  }, [data.tabs]);
 
   // input获取当前激活项
   useEffect(() => {
@@ -231,6 +245,18 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     if (index === -1) {
       return;
     }
+
+    // 清空 badge
+    data.tabs = data.tabs.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          badge: "",
+        };
+      }
+      return item;
+    });
+
     const findItem = data.tabs[index];
     outputs.changeTab?.({
       id: findItem._id,
@@ -289,6 +315,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             }
             return (
               <Tabs.TabPane
+                badge={tab.badge}
                 key={tab._id}
                 title={tab.tabName}
                 value={tab._id}
@@ -304,7 +331,11 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               <View
                 key={tab._id}
                 id={tabpaneId}
-                style={{height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : '44'}px)`}}
+                style={{
+                  height: `calc(100% - ${
+                    tabsHeight != 0 ? tabsHeight : "44"
+                  }px)`,
+                }}
                 className={classNames(
                   css.tab_content,
                   env.edit && css.minHeight
@@ -314,7 +345,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                   ? null
                   : slots[data.tabs_dynamic ? "item" : tab._id].render?.({
                       style: {
-                        position: "smart"
+                        position: "smart",
                       },
                       inputValues: {
                         itemData: tab,

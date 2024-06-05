@@ -11,9 +11,6 @@ export default {
   ":root": {
     style: [
       {
-        catelogChange: {
-          value: {},
-        },
         items: [
           {
             catelog: "未激活样式",
