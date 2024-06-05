@@ -13,11 +13,15 @@
 :global {
   .weui-input {
     height: 100%;
+    color: transparent;
+    opacity: 0;
+
   }
 }
 
 .box {
   height: 100%;
+  overflow: hidden;
 
   .password {
     position: relative;
@@ -29,6 +33,7 @@
       width: 100%;
       height: 100%;
       cursor: pointer;
+      overflow: hidden;
 
       &::after {
         border-radius: 8px;
@@ -39,11 +44,11 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: rgba(128, 128, 128, 0);
-      color: rgba(128, 128, 128, 0);
-      opacity: 0;
+      margin-left: -1000px;
       height: 100%;
-      width: 100%;
+      width: calc(100% + 1000px);
+      color: transparent;
+      opacity: 0;
     }
 
     .input_item {
