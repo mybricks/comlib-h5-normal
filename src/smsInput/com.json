@@ -1,0 +1,81 @@
+{
+  "title": "验证码输入",
+  "namespace": "mybricks.taro.smsInput",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "inputs": [
+    {
+      "id": "startCountdown",
+      "title": "开始计时",
+      "desc": "开始倒数计时",
+      "schema": {
+        "type": "any"
+      },
+      "rels": [
+        "startCountdownDone"
+      ]
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取输入的值并输出",
+      "schema": {
+        "type": "any"
+      },
+      "rels": [
+        "returnValue"
+      ]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空输入的值",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "值更新",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onComplete",
+      "title": "填满输入框时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onSendSMS",
+      "title": "点击发送验证码",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "startCountdownDone",
+      "title": "触发开始计时完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ]
+}
