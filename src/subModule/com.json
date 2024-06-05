@@ -9,6 +9,25 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "switchState",
+      "title": "切换状态",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "状态"
+          },
+          "data": {
+            "type": "any",
+            "description": "数据"
+          }
+        }
+      }
+    }
+  ],
   "slots": [
     {
       "id": "condition_1",
@@ -16,8 +35,8 @@
       "type": "scope",
       "inputs": [
         {
-          "id": "itemData",
-          "title": "传入的数据",
+          "id": "data",
+          "title": "数据",
           "schema": {
             "type": "any"
           }
@@ -30,8 +49,8 @@
       "type": "scope",
       "inputs": [
         {
-          "id": "itemData",
-          "title": "传入的数据",
+          "id": "data",
+          "title": "数据",
           "schema": {
             "type": "any"
           }
@@ -44,8 +63,8 @@
       "type": "scope",
       "inputs": [
         {
-          "id": "itemData",
-          "title": "传入的数据",
+          "id": "data",
+          "title": "数据",
           "schema": {
             "type": "any"
           }

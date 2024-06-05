@@ -31,13 +31,13 @@ export const useFilterItemValue = (
 
   useEffect(() => {
     inputs["setValue"]((val) => {
-      onReceiveValue?.(val)
+      onReceiveValue?.(val);
     });
   }, []);
 
   /** onChange通知上级 */
   useEffect(() => {
-    const _value = onChangeValue?.(filterValue)
+    const _value = onChangeValue?.(filterValue);
     parentSlot?._inputs["onChange"]?.({ id, name, value: _value });
     outputs["onChange"](_value);
   }, [filterValue]);
@@ -45,5 +45,5 @@ export const useFilterItemValue = (
   return {
     filterValue,
     setFilterValue,
-  }
+  };
 };

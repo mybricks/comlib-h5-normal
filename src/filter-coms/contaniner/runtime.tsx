@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { View, Button } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import css from "./style.less";
 import cx from "classnames";
@@ -54,7 +54,7 @@ const useFilters = ({ items, childrenInputs }) => {
 
         /** 如果是同key的filter，也需要设置value，用于筛选互斥的情况 */
         items.forEach((item) => {
-          if (item.id !== triggerItem?.id) {
+          if (item.name === triggerItem?.name) {
             childrenInputs.current[item.comName ?? item.id]?.["setValue"]?.(
               value
             );

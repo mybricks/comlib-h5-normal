@@ -1,0 +1,12 @@
+{
+  "options": {
+    "normal": {
+      "label": "百亿补贴",
+      "value": "_UNSET_"
+    },
+    "actived": {
+      "label": "百亿补贴",
+      "value": "1"
+    }
+  }
+}

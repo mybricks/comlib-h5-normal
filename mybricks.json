@@ -58,7 +58,11 @@
         "./src/containerListHorizontal/com.json",
         "./src/containerAbs/com.json",
         "./src/containerGrid2/com.json",
-        "./src/popup/com.json"
+        "./src/popup/com.json",
+
+        "./src/filter-coms/sort/com.json",
+        "./src/filter-coms/switch/com.json",
+        "./src/filter-coms/custom/com.json"
       ]
     },
     {
@@ -112,13 +116,14 @@
     {
       "title": "其它",
       "comAry": [
-        "./src/line/com.json",
+        "./src/filter-coms/contaniner/com.json",
         "./src/calendar/com.json",
         "./src/cascader/com.json",
         "./src/noticeBar/com.json",
         "./src/qrcode/com.json",
         "./src/cell/com.json",
         "./src/map/com.json",
+        "./src/line/com.json",
         "./src/ad-popup/com.json",
         "./src/anchor/com.json",
         "./src/safeArea/com.json",

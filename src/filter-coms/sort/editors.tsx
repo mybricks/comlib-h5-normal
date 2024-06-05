@@ -1,5 +1,7 @@
 export default {
-  "@init"({ style }) {},
+  "@init"({ style }) {
+    style.height = "100%";
+  },
   "@resize": {
     options: ["width"],
   },
