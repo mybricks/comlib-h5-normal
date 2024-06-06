@@ -16,7 +16,7 @@ export default {
       },
       {
         title: "线样式",
-        options: ["border", "background", "size"],
+        options: ["background", "size"],
         target: ".mybricks-line",
       },
     ],
