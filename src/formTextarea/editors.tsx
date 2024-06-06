@@ -3,6 +3,9 @@ export default {
     style.width = "100%";
     style.height = "auto";
   },
+  "@resize": {
+    options: ["width", "height"],
+  },
   ":root": {
     style: [
       {
@@ -67,6 +70,19 @@ export default {
             },
             set({ data }: any, value: [number, number]) {
               [data.limit] = value;
+            },
+          },
+        },
+        {
+          title: "自动高度",
+          description: "开启后，输入框的高度会随着输入内容的增多自动增高",
+          type: "switch",
+          value: {
+            get({ data }: any) {
+              return data.autoHeight;
+            },
+            set({ data }: any, value: [number, number]) {
+              data.autoHeight = value;
             },
           },
         },

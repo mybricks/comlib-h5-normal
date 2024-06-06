@@ -1,6 +1,7 @@
 {
   "label": "多行输入",
   "name": "多行输入",
+  "autoHeight": false,
   "value": "",
   "placeholder": "请输入内容",
   "limit": 100

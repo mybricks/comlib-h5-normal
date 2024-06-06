@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Textarea } from "brickd-mobile";
 import { isNumber, isString, isObject, isEmpty } from "./../utils/core";
+import css from "./style.less";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -46,10 +47,20 @@ export default function (props) {
     return data.limit || false;
   }, [data.limit]);
 
+  const isAutoHeight = useMemo(()=>{
+    if(data.autoHeight){
+      return true
+    }else{
+      return false
+    }
+  },[data.autoHeight]
+)
+
   return (
     <Textarea
+      className={css.textarea}
       value={data.value}
-      autoHeight
+      autoHeight={isAutoHeight}
       limit={limit}
       placeholder={data.placeholder}
       cursorSpacing={60}
