@@ -1,0 +1,55 @@
+{
+  "title": "时间轴",
+  "namespace": "mybricks.taro.timeLine",
+  "version": "1.0.0",
+  "description": "时间轴",
+  "author": "MyBricks",
+  "author_name": "MyBricks",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "runtime": "./runtime.tsx",
+    "runtime.edit": "./edit/runtime.tsx",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "refreshDataSource",
+      "title": "覆盖数据",
+      "desc": "时间轴已有的数据会被覆盖",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
+    }
+  ],
+  "outputs": [],
+  "slots": [
+    {
+      "id": "item",
+      "capacity": 1,
+      "title": "时间轴项",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项",
+          "desc": "当前项展示内容",
+          "schema": {
+            "type": "any"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "desc": "当前项展示的序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
+    }
+  ]
+}

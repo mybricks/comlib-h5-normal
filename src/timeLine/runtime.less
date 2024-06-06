@@ -1,0 +1,67 @@
+.warrper {
+  width: 100%;
+
+  .item {
+    min-height: 30px;
+    width: 100%;
+    display: flex;
+
+    .left_line {
+      width: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+
+      .dot {
+        width: 9px;
+        height: 9px;
+        background-color: rgb(186, 186, 186);
+        border-radius: 50%;
+      }
+
+      .line {
+        width: 1px;
+        flex-grow: 1;
+        background-color: rgb(186, 186, 186);
+      }
+
+      .line_top {
+        width: 1px;
+        height: 10px;
+        background-color: rgb(186, 186, 186);
+      }
+
+      .line_top_first {
+        width: 1px;
+        height: 8px;
+        background-color: none;
+        opacity: 0;
+      }
+    }
+
+    .right_contant {
+      width: calc(100% - 25px);
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        color: rgb(61, 61, 61);
+        font-size: 14px;
+      }
+
+      .contant {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+  }
+
+  .disabled_area {
+    opacity: 0.4;
+    filter: blur(0.8px);
+    pointer-events: none !important;
+  }
+}

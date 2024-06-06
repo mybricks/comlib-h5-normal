@@ -9,11 +9,9 @@
     "./src/_timer-delay/com.json",
     "./src/_setStorage/com.json",
     "./src/_getStorage/com.json",
-
     "./src/_open/com.json",
     "./src/_navigateBack/com.json",
     "./src/_getRouter/com.json",
-
     "./src/_toast/com.json",
     "./src/_showToast/com.json",
     "./src/_hideToast/com.json",
@@ -21,12 +19,10 @@
     "./src/_hideLoading/com.json",
     "./src/_modal/com.json",
     "./src/_showActionSheet/com.json",
-
     "./src/_setClipboardData/com.json",
     "./src/_uploadFile/com.json",
     "./src/_login/com.json",
     "./src/_generateScheme/com.json",
-
     "./src/_setNavigationBarTitle/com.json",
     "./src/_scan-qrcode/com.json",
     "./src/_open_camera/com.json",
@@ -59,7 +55,6 @@
         "./src/containerAbs/com.json",
         "./src/containerGrid2/com.json",
         "./src/popup/com.json",
-
         "./src/filter-coms/sort/com.json",
         "./src/filter-coms/switch/com.json",
         "./src/filter-coms/custom/com.json"
@@ -127,7 +122,8 @@
         "./src/ad-popup/com.json",
         "./src/anchor/com.json",
         "./src/safeArea/com.json",
-        "./src/support/com.json"
+        "./src/support/com.json",
+        "./src/timeLine/com.json"
       ]
     }
   ],
