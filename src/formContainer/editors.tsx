@@ -193,6 +193,24 @@ export default {
             },
           },
         },
+
+        {
+          title: "表单项布局",
+          type: "radio",
+          options: [
+            { label: "水平", value: "horizontal" },
+            { label: "垂直", value: "vertical" },
+          ],
+          value: {
+            get({ data }) {
+              return data.itemLayout || "horizontal";
+            },
+            set({ data }, val) {
+              data.itemLayout = val;
+            },
+          },
+        },
+
         ...submitEditorItems,
       ];
     },

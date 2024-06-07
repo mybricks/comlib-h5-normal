@@ -59,11 +59,13 @@ export default function ({ env, data, inputs, outputs }) {
           break;
         }
         case data.type === ExtLinkype.web_open: {
-          if (_env === Taro.ENV_TYPE.WEB && finalUrl) {
+          // H5环境下
+          if ((Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown") && finalUrl) {
             if (data.openType === OpenType.redirect) {
               location.href = finalUrl;
               outputs["onSuccess"]();
             } else {
+              // 微信小程序内不支持 window.open 
               window.open(finalUrl);
               outputs["onSuccess"]();
             }
@@ -81,6 +83,7 @@ export default function ({ env, data, inputs, outputs }) {
               outputs["onFail"](e);
             },
           });
+
           // if (_env === "IN_WEIXIN") {
           //   Taro.navigateToMiniProgram({
           //     ...validValue,

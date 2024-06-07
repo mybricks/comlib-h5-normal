@@ -3,5 +3,6 @@
   "submitButtonText": "提交",
   "skipValidation": false,
   "useLoading": false,
-  "items": []
+  "items": [],
+  "itemLayout": "horizontal"
 }

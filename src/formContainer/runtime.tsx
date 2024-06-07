@@ -166,7 +166,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
                   "mybricks-field",
                   { ["border-bottom"]: !isLast },
                   { ["border-none"]: isLast },
-                  { [css.hidden]: !env?.edit && item.hidden }
+                  { [css.hidden]: !env?.edit && item.hidden },
+                  { ["vertical"]: data.itemLayout === "vertical" }
                 )}
                 required={showRequired}
                 rules={rules}
