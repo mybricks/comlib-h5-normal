@@ -53,7 +53,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
               className={cx({
                 [css.line_top]: _idx > 0,
                 [css.line_top_first]: _idx == 0 || data.line_spacing === true,
-                ["mybricks-line"]: true,
+                "mybricks-line": true,
               })}
             ></View>
 
@@ -83,5 +83,4 @@ export default function ({ env, data, inputs, outputs, slots }) {
   );
 
   return <View className={css.warrper}>{list}</View>;
-
 }
