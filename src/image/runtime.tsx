@@ -9,6 +9,7 @@ import css from "./style.less";
 import cx from "classnames";
 import { View, Image } from "@tarojs/components";
 import SkeletonImage from "./../components/skeleton-image";
+import * as Taro from "@tarojs/taro";
 
 export default function ({ env, data, inputs, outputs, title, style, extra }) {
   const ele = useRef(null);
@@ -49,8 +50,17 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
     if (!env.runtime) {
       return;
     }
+
+    if (data.clickType === "previewImage") {
+      Taro.previewImage({
+        urls: [data.src],
+        current: data.src,
+      });
+      return;
+    }
+
     outputs["onClick"](data.src);
-  }, []);
+  }, [data.clickType, data.src]);
 
   const onError = useCallback(() => {
     if (!env.runtime) {
@@ -59,12 +69,30 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
     outputs["onError"](data.src);
   }, []);
 
+  const resized = useMemo(() => {
+    if (!env.runtime) {
+      return "?x-oss-process=image/resize,w_750";
+    }
+
+    if (env?.runtime?.debug) {
+      return "?x-oss-process=image/resize,w_750";
+    }
+
+    return "?x-oss-process=image/resize,w_1125";
+  }, [env.runtime]);
+
   return (
     <View className={css.com} ref={ele}>
       <SkeletonImage
         skeleton={env.edit ? false : !!data?.loadSmooth}
         className={cx(css.image, h5PolyfillClass, "mybricks-image")}
-        src={!!data.src ? data.src : extra?.imageUrl}
+        src={
+          !!data.src
+            ? data.src.startsWith("http")
+              ? `${data.src}${resized}`
+              : data.src
+            : extra?.imageUrl
+        }
         mode={data.mode}
         onClick={onClick}
         onLoad={onLoad}

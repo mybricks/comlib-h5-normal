@@ -1,30 +1,35 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Image } from "@tarojs/components";
-import css from './style.less';
+import css from "./style.less";
 import cx from "classnames";
 
-export default ({ data, env }) => {
+export default ({ data, env, _inputsCallable }) => {
+  const onClickItem = useCallback(
+    (raw) => {
+      if (!env.runtime?.debug) {
+        return;
+      }
 
-  const onClickItem = useCallback((raw) => {
-    if (!env.runtime?.debug) {
-      return;
-    }
-
-    if (raw.scene.id) {
-      env.canvas.open(raw.scene.id, {});
-    }
-  }, [env]);
+      if (raw.scene.id) {
+        env.canvas.open(raw.scene.id, {}, "popup");
+      }
+    },
+    [env]
+  );
 
   const $tabBars = useMemo(() => {
     return data.tabBar.map((raw, index) => {
-
-      let isSelected = (env.canvas.id == raw.scene.id);
+      let isSelected = data.id == raw.scene.id;
 
       // 如果有强制覆盖的时候
-      if (data.selectedTabItemIndex !== undefined && data.selectedTabItemCatelog !== undefined) {
+      if (
+        data.selectedTabItemIndex !== undefined &&
+        data.selectedTabItemCatelog !== undefined
+      ) {
         isSelected = data.selectedTabItemIndex === index;
         if (isSelected) {
-          isSelected = data.selectedTabItemCatelog === "激活样式" ? true : false;
+          isSelected =
+            data.selectedTabItemCatelog === "激活样式" ? true : false;
         }
       }
 
@@ -41,20 +46,23 @@ export default ({ data, env }) => {
 
       let iconSlotCx = cx({
         [css.iconSlot]: true,
-        [css.iconSlotCenter]: !raw.text
+        [css.iconSlotCenter]: !raw.text,
       });
 
       return (
-        <View className={itemCx} onClick={() => { onClickItem(raw) }}>
+        <View
+          className={itemCx}
+          onClick={() => {
+            onClickItem(raw);
+          }}
+        >
           <View className={iconSlotCx}>
-            <Image
-              className={css.icon}
-              style={{ ...iconStyle }}
-              src={icon}
-            />
+            <Image className={css.icon} style={{ ...iconStyle }} src={icon} />
           </View>
           <View className={css.textSlot}>
-            <View className={css.text} style={{ ...textStyle }}>{raw.text}</View>
+            <View className={css.text} style={{ ...textStyle }}>
+              {raw.text}
+            </View>
           </View>
         </View>
       );
@@ -62,15 +70,14 @@ export default ({ data, env }) => {
   }, [
     data.tabBar,
     env.canvas.id,
+    data.id,
     data.selectedTabItemIndex,
     data.selectedTabItemCatelog,
   ]);
 
   return (
     <View className={css.tabBar}>
-      <View className={css.items}>
-        {$tabBars}
-      </View>
+      <View className={css.items}>{$tabBars}</View>
     </View>
-  )
-}
+  );
+};

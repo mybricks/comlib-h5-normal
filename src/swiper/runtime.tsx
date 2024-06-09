@@ -71,6 +71,18 @@ export default function ({ env, data, inputs, outputs, style }) {
     return <EmptyCom title="请配置幻灯片" />;
   }
 
+  const resized = useMemo(() => {
+    if (!env.runtime) {
+      return "?x-oss-process=image/resize,w_750";
+    }
+
+    if (env?.runtime?.debug) {
+      return "?x-oss-process=image/resize,w_750";
+    }
+
+    return "?x-oss-process=image/resize,w_1125";
+  }, [env.runtime]);
+
   return (
     <Swiper
       className={css.swiper}
@@ -93,7 +105,15 @@ export default function ({ env, data, inputs, outputs, style }) {
             <Image
               className={css.thumbnail}
               mode="aspectFill"
-              src={item.thumbnail}
+              src={
+                item.thumbnail?.startsWith("http")
+                  ? item.thumbnail + resized
+                  : item.thumbnail
+              }
+              nativeProps={{
+                loading: "lazy",
+                decoding: "async",
+              }}
             />
           </SwiperItem>
         );

@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/ktaro-common-lib",
-  "version": "0.1.17",
+  "version": "0.1.21",
   "description": "小程序通用组件库",
   "main": "./dist/index.js",
   "scripts": {

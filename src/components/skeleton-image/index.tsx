@@ -9,35 +9,55 @@ import css from "./index.less";
 import { View, Image, ImageProps } from "@tarojs/components";
 
 interface SkeletonImageProps extends ImageProps {
-  skeleton?: boolean 
+  skeleton?: boolean;
 }
 
-export default function ({ skeleton = false, onLoad, onClick, onError, className, src, mode, ...props }: SkeletonImageProps) {
-  const [loading, setLoading] = useState(!!skeleton)
+export default function ({
+  skeleton = false,
+  onLoad,
+  onClick,
+  onError,
+  className,
+  src,
+  mode,
+  ...props
+}: SkeletonImageProps) {
+  const [loading, setLoading] = useState(!!skeleton);
 
   useEffect(() => {
     if (src && skeleton) {
-      setLoading(true)
+      setLoading(true);
     }
-  }, [src, skeleton])
+  }, [src, skeleton]);
 
-  const _onLoad = useCallback((e) => {
-    setLoading(false)
-    onLoad?.(e);
-  }, [onLoad]);
+  const _onLoad = useCallback(
+    (e) => {
+      setLoading(false);
+      onLoad?.(e);
+    },
+    [onLoad]
+  );
 
-  const _onClick = useCallback((e) => {
-    onClick?.(e);
-  }, [onClick]);
+  const _onClick = useCallback(
+    (e) => {
+      onClick?.(e);
+    },
+    [onClick]
+  );
 
-  const _onError = useCallback((e) => {
-    setLoading(false)
-    onError?.(e)
-  }, [onError]);
+  const _onError = useCallback(
+    (e) => {
+      setLoading(false);
+      onError?.(e);
+    },
+    [onError]
+  );
 
   return (
     <View className={css.com}>
-      <View className={loading ? `${css.place}` : `${css.place} ${css.none}`}></View>
+      <View
+        className={loading ? `${css.place}` : `${css.place} ${css.none}`}
+      ></View>
       <Image
         {...props}
         className={className}
@@ -46,6 +66,10 @@ export default function ({ skeleton = false, onLoad, onClick, onError, className
         onClick={_onClick}
         onLoad={_onLoad}
         onError={_onError}
+        nativeProps={{
+          loading: "lazy",
+          decoding: "async",
+        }}
       />
     </View>
   );

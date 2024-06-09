@@ -54,40 +54,6 @@ export default {
                 },
               },
             },
-            // {
-            //   title: "图片填充方式",
-            //   type: "Select",
-            //   options: [
-            //     {
-            //       label: "裁剪填满",
-            //       value: "center",
-            //     },
-            //     {
-            //       label: "等比缩放",
-            //       value: "aspectFit",
-            //     },
-            //     {
-            //       label: "拉伸填满",
-            //       value: "scaleToFill",
-            //     },
-            //     {
-            //       label: "高度自适应",
-            //       value: "heightFix",
-            //     },
-            //     {
-            //       label: "宽度自适应",
-            //       value: "widthFix",
-            //     },
-            //   ],
-            //   value: {
-            //     get({ data, style }) {
-            //       return data.mode;
-            //     },
-            //     set({ data }, value: string) {
-            //       data.mode = value;
-            //     },
-            //   },
-            // },
             {
               title: "加载过渡",
               items: [
@@ -130,12 +96,51 @@ export default {
           title: "事件",
           items: [
             {
+              title: "单击事件类型",
+              type: "select",
+              options: [
+                {
+                  label: "自定义",
+                  value: "",
+                },
+                {
+                  label: "预览图片",
+                  value: "previewImage",
+                },
+              ],
+              value: {
+                get({ data, outputs }) {
+                  return data.clickType || "";
+                },
+                set({ data, output }, value) {
+                  data.clickType = value;
+
+                  // 非自定义时清空 output
+                  if (value) {
+                    output.remove("onClick");
+                  } else {
+                    output.add({
+                      id: "onClick",
+                      title: "单击",
+                      schema: {
+                        type: "string",
+                      },
+                    });
+                  }
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !data.clickType;
+              },
               title: "单击",
               type: "_event",
               options: {
                 outputId: "onClick",
               },
             },
+
             {
               title: "加载完毕",
               type: "_event",

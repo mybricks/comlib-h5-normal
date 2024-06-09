@@ -145,8 +145,9 @@ export default {
           get({ data }) {
             return data.text;
           },
-          set({ data }, value: string) {
+          set({ data, outputs }, value: string) {
             data.text = value;
+            // outputs.get("onClick").setTitle(value);
           },
         },
       },

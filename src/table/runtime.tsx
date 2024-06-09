@@ -212,6 +212,54 @@ export default function ({ env, data, inputs, outputs, slots }) {
     );
   }, [rightColumns, list]);
 
+  // 排序后的 columns
+  const orderedColumns = useMemo(() => {
+    let leftColumns = data.columns.filter((column) => {
+      return column.fixed === "left";
+    });
+    let rightColumns = data.columns.filter((column) => {
+      return column.fixed === "right";
+    });
+    let mainColumns = data.columns.filter((column) => {
+      return !column.fixed;
+    });
+
+    return [...leftColumns, ...mainColumns, ...rightColumns];
+  }, [data.columns]);
+
+  const tHead = useMemo(() => {
+    return (
+      <View className={cx([css.thead, "mybricks-thead"])}>
+        <View className={cx([css.tr])}>
+          {orderedColumns.map((column, index) => {
+            let style = {};
+            if (column.width !== "auto") {
+              style.width = +column.width;
+            } else {
+              style.flex = 1;
+            }
+
+            return (
+              <View
+                data-id={column._id}
+                className={cx([css.td, "mybricks-td"])}
+                style={style}
+              >
+                {column.title}
+              </View>
+            );
+          })}
+        </View>
+      </View>
+    );
+  }, [orderedColumns]);
+
+  const tBody = useMemo(() => {
+    return list.map((item, index) => {
+      return <View className={css.tr}>dfdf</View>;
+    });
+  }, [list]);
+
   //
   if (placeholder) {
     return placeholder;
@@ -219,7 +267,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   return (
     <View className={cx(css.table, "mybricks-table")}>
-      {leftColumns.length ? (
+      {tHead}
+      {tBody}
+      {/* {leftColumns.length ? (
         <View className={css.leftSide} style={{ width: leftWidth }}>
           {leftSide}
         </View>
@@ -235,7 +285,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         <View className={css.rightSide} style={{ width: rightWidth }}>
           {rightSide}
         </View>
-      ) : null}
+      ) : null} */}
     </View>
   );
 }

@@ -64,7 +64,7 @@ export default {
                 id: id,
                 title: title,
                 dataIndex: id,
-                width: 100,
+                width: "auto",
                 fixed: "",
               };
             },
