@@ -62,6 +62,11 @@ export default {
         options: ["font", "border", "padding", "background"],
         target: ".mbs-filters_extra",
       },
+      {
+        title: "筛选栏",
+        options: ["border", "background"],
+        target: ".mbs-filters",
+      },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";

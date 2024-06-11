@@ -39,6 +39,14 @@
       "schema": {
         "type": "any"
       }
+    },
+    {
+      "id":"setError",
+      "title":"设置为输入错误",
+      "desc":"设置输入框为验证码输入错误状态",
+      "schema":{
+        "type":"any"
+      }
     }
   ],
   "outputs": [

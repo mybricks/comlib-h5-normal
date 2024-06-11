@@ -1,6 +1,6 @@
 export default {
   "@init": ({ style, data }) => {
-    style.width = "100%";
+    style.width = 350;
     style.height = 85;
   },
   "@resize": {
@@ -23,8 +23,13 @@ export default {
       },
       {
         title: "宫格样式配置",
-        options: ["font", "border", "background", "margin"],
-        target: ".mybricks-input-item",
+        options: ["size", "font", "border", "background", "margin"],
+        target: `#mybricks-input-item`,
+      },
+      {
+        title: "描述文字配置",
+        options: ["font"],
+        target: `#mybricks-input-desc`,
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
@@ -41,6 +46,18 @@ export default {
             },
             set({ data }, value) {
               data.length = value[0];
+            },
+          },
+        },
+        {
+          title: "显示中间分割线",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.showLine;
+            },
+            set({ data }, value) {
+              data.showLine = value;
             },
           },
         },

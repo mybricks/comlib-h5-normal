@@ -12,12 +12,12 @@ export default {
       {
         title: "点样式",
         options: ["border", "background", "size"],
-        target: ".mybricks-dot",
+        target: "#mybricks-dot",
       },
       {
         title: "线样式",
         options: ["background", "size"],
-        target: ".mybricks-line",
+        target: "#mybricks-line",
       },
     ],
     items: [

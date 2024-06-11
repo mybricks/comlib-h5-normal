@@ -9,6 +9,7 @@ export default function (props) {
   const [value, setValue] = useState(data.value || "");
   const [focus, setFocus] = useState(false);
   const [mask, setMask] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     //input触发倒计时开始
@@ -21,6 +22,10 @@ export default function (props) {
     inputs["resetValue"]((val) => {
       setValue("");
     });
+
+    inputs["setError"]((val)=>{
+      setError(true)
+    })
   }, []);
 
   useEffect(() => {
@@ -42,33 +47,45 @@ export default function (props) {
       let showCursor = focus && i === value.length;
 
       let style;
+      //是否设置了基本的边距值
       if (i !== 0 && data.gutter) {
-        style = { marginLeft: data.gutter + "px" };
+        if (i === data.length / 2 && data.showLine) {
+        } else {
+          style = { marginLeft: data.gutter + "px" };
+        }
       }
-
+      //单个输入框宫格
       Points.push(
-        <View
-          key={i}
-          className={classNames(css.input_item, {
-            [css.input_item_focus]: showCursor,
-            "mybricks-input-item": true,
-          })}
-          style={style}
-        >
-          {mask ? (
+        <>
+          <View
+            key={i}
+            className={classNames(css.input_item, {
+              [css.input_item_focus]: showCursor,
+              [css.input_item_error]: error,
+            })}
+            id="mybricks-input-item"
+            style={style}
+          >
+            {/* {mask ? (
             <View
               className={css.mask}
               style={{ visibility: char ? "visible" : "hidden" }}
             />
-          ) : (
-            char
+          ) : ( */}
+            {char}
+            {/* )} */}
+            {showCursor && <View className={css.cursor} />}
+          </View>
+          {i === data.length / 2 - 1 && data.showLine && (
+            <View className={css.center_line}>
+              <View className={css.line}></View>
+            </View>
           )}
-          {showCursor && <View className={css.cursor} />}
-        </View>
+        </>
       );
     }
     return Points;
-  }, [focus, data.gutter, data.length, mask, value]);
+  }, [focus, data.gutter, data.length, mask, value, data.showLine, error]);
 
   const onSmsInput = (e) => {
     let input = e.detail.value;
@@ -84,6 +101,7 @@ export default function (props) {
 
   const onSmSFoucs = () => {
     setFocus(true);
+    setError(false)
   };
 
   const onSmSBlur = () => {
@@ -94,11 +112,12 @@ export default function (props) {
     if (!data.buttonAvailable) return;
     data.buttonAvailable = false;
     let count = data.countdown;
-    data.buttonText = `${count}s 后重新发送`;
+    //点击按钮后立即修改按钮文字，不然会有1s的延迟
+    data.buttonText = `${count}秒后可重新发送验证码`;
     let _buttonText = data.buttonText;
     const timer = setInterval(() => {
       count--;
-      data.buttonText = `${count}s 后重新发送`;
+      data.buttonText = `${count}秒后可重新发送验证码`;
       if (count <= 0) {
         clearInterval(timer);
         data.buttonAvailable = true;
@@ -126,8 +145,9 @@ export default function (props) {
           onBlur={onSmSBlur}
         />
       </View>
-      <View className={css.desc} onClick={resendSMS}>
-        {data.buttonText}
+      <View className={css.desc} id="mybricks-input-desc" onClick={resendSMS}>
+        <View>{data.buttonText}</View>
+        {error && <View className={css.error}>{data.buttonError}</View>}
       </View>
     </View>
   );

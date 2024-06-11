@@ -53,12 +53,19 @@ export default function ({ env, data, inputs, outputs, slots }) {
               className={cx({
                 [css.line_top]: _idx > 0,
                 [css.line_top_first]: _idx == 0 || data.line_spacing === true,
-                "mybricks-line": true,
+                // "mybricks-line": true,
               })}
+              id="mybricks-line"
             ></View>
 
-            <View className={cx(css.dot, "mybricks-dot")}></View>
-            <View className={cx(css.line, "mybricks-line")}></View>
+            <View
+              className={cx(css.dot)}
+              id="mybricks-dot"
+            ></View>
+            <View
+              className={cx(css.line)}
+              id="mybricks-line"
+            ></View>
           </View>
           <View
             className={css.right_contant}
