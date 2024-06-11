@@ -15,250 +15,145 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, []);
 
   const placeholder = useMemo(() => {
+    if (env.runtime) {
+      return null;
+    }
+
     if (data.columns.length) {
       return null;
     } else {
       return <View className={css.placeholder}>请添加列</View>;
     }
-  }, [data.columns]);
-
-  //
-  const leftColumns = useMemo(() => {
-    return data.columns.filter((column) => {
-      return column.fixed === "left";
-    });
-  }, [data.columns]);
-
-  const leftWidth = useMemo(() => {
-    let width = 0;
-    leftColumns.forEach((column) => {
-      width += +column.width;
-    });
-    return width;
-  }, [leftColumns]);
-
-  const leftSide = useMemo(() => {
-    let columns = [...leftColumns];
-
-    let head = columns.map((column, index) => {
-      return (
-        <View
-          data-id={column._id}
-          className={cx([css.td, "mybricks-td"])}
-          style={{ width: +column.width }}
-        >
-          {column.title}
-        </View>
-      );
-    });
-
-    list = env.edit ? [{}] : list;
-    let body = list.map((item, index) => {
-      return (
-        <View className={css.tr}>
-          {columns.map((column, index) => {
-            return (
-              <View
-                className={cx([css.td, "mybricks-td"])}
-                style={{ width: +column.width }}
-              >
-                {slots[column.id]?.render({
-                  inputValues: {
-                    columnData: item[column.dataIndex],
-                    rowData: item,
-                    index: index,
-                  },
-                })}
-              </View>
-            );
-          })}
-        </View>
-      );
-    });
-
-    return (
-      <>
-        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
-          {head}
-        </View>
-        {body}
-      </>
-    );
-  }, [leftColumns, list, env.edit]);
-
-  const mainColumns = useMemo(() => {
-    return data.columns.filter((column) => {
-      return !column.fixed;
-    });
-  }, [data.columns]);
-
-  const mainWidth = useMemo(() => {
-    let width = 0;
-    mainColumns.forEach((column) => {
-      width += +column.width;
-    });
-    return width;
-  }, [mainColumns]);
-
-  const main = useMemo(() => {
-    let columns = [...mainColumns];
-
-    let head = columns.map((column, index) => {
-      return (
-        <View
-          data-id={column._id}
-          className={cx([css.td, "mybricks-td"])}
-          style={{ width: +column.width }}
-        >
-          {column.title}
-        </View>
-      );
-    });
-
-    list = env.edit ? [{}] : list;
-    let body = list.map((item, index) => {
-      return (
-        <View className={css.tr}>
-          {columns.map((column, index) => {
-            return (
-              <View
-                className={cx([css.td, "mybricks-td"])}
-                style={{ width: +column.width }}
-              >
-                {slots[column.id]?.render({
-                  inputValues: {
-                    columnData: item[column.dataIndex],
-                    rowData: item,
-                    index: index,
-                  },
-                })}
-              </View>
-            );
-          })}
-        </View>
-      );
-    });
-
-    return (
-      <>
-        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
-          {head}
-        </View>
-        {body}
-      </>
-    );
-  }, [mainColumns, list]);
-
-  const rightColumns = useMemo(() => {
-    return data.columns.filter((column) => {
-      return column.fixed === "right";
-    });
-  }, [data.columns]);
-
-  const rightWidth = useMemo(() => {
-    let width = 0;
-    rightColumns.forEach((column) => {
-      width += +column.width;
-    });
-    return width;
-  }, [rightColumns]);
-
-  const rightSide = useMemo(() => {
-    let columns = [...rightColumns];
-
-    let head = columns.map((column, index) => {
-      return (
-        <View
-          data-id={column._id}
-          className={cx([css.td, "mybricks-td"])}
-          style={{ width: +column.width }}
-        >
-          {column.title}
-        </View>
-      );
-    });
-
-    list = env.edit ? [{}] : list;
-    let body = list.map((item, index) => {
-      return (
-        <View className={css.tr}>
-          {columns.map((column, index) => {
-            return (
-              <View
-                className={cx([css.td, "mybricks-td"])}
-                style={{ width: +column.width }}
-              >
-                {slots[column.id]?.render({
-                  inputValues: {
-                    columnData: item[column.dataIndex],
-                    rowData: item,
-                    index: index,
-                  },
-                })}
-              </View>
-            );
-          })}
-        </View>
-      );
-    });
-
-    return (
-      <>
-        <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
-          {head}
-        </View>
-        {body}
-      </>
-    );
-  }, [rightColumns, list]);
-
-  // 排序后的 columns
-  const orderedColumns = useMemo(() => {
-    let leftColumns = data.columns.filter((column) => {
-      return column.fixed === "left";
-    });
-    let rightColumns = data.columns.filter((column) => {
-      return column.fixed === "right";
-    });
-    let mainColumns = data.columns.filter((column) => {
-      return !column.fixed;
-    });
-
-    return [...leftColumns, ...mainColumns, ...rightColumns];
-  }, [data.columns]);
+  }, [env.runtime, data.columns]);
 
   const tHead = useMemo(() => {
+    let tdBoderStyle = {};
+
+    if (data.useInnerBorder) {
+      tdBoderStyle.borderRightWidth = data.borderStyle.borderRightWidth;
+      tdBoderStyle.borderRightStyle = data.borderStyle.borderRightStyle;
+      tdBoderStyle.borderRightColor = data.borderStyle.borderRightColor;
+    }
+
     return (
-      <View className={cx([css.thead, "mybricks-thead"])}>
-        <View className={cx([css.tr])}>
-          {orderedColumns.map((column, index) => {
+      <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
+        {data.columns.map((column, index) => {
+          let style = {};
+
+          style = {
+            ...tdBoderStyle,
+          };
+
+          if (index === data.columns.length - 1) {
+            style.borderRightWidth = 0;
+          }
+
+          if (column.autoWidth) {
+            style.flex = 1;
+            style.minWidth = 12;
+          } else {
+            style.width = +column.width;
+          }
+
+          return (
+            <View
+              data-id={column._id}
+              className={cx({
+                [css.td]: true,
+                "mybricks-td": true,
+                [css.leftSticky]: column.fixed === "left",
+                [css.rightSticky]: column.fixed === "right",
+              })}
+              style={style}
+            >
+              {column.title}
+            </View>
+          );
+        })}
+      </View>
+    );
+  }, [data.columns, data.borderStyle, data.useInnerBorder]);
+
+  const tBody = useMemo(() => {
+    list = env.edit ? [{}] : list;
+
+    return list.map((item, listIndex) => {
+      let tdBoderStyle = {};
+
+      if (data.useInnerBorder) {
+        tdBoderStyle.borderTopWidth = data.borderStyle.borderTopWidth;
+        tdBoderStyle.borderTopStyle = data.borderStyle.borderTopStyle;
+        tdBoderStyle.borderTopColor = data.borderStyle.borderTopColor;
+
+        tdBoderStyle.borderRightWidth = data.borderStyle.borderRightWidth;
+        tdBoderStyle.borderRightStyle = data.borderStyle.borderRightStyle;
+        tdBoderStyle.borderRightColor = data.borderStyle.borderRightColor;
+      }
+
+      return (
+        <View className={css.tr}>
+          {data.columns.map((column, index) => {
             let style = {};
-            if (column.width !== "auto") {
-              style.width = +column.width;
-            } else {
+
+            style = {
+              ...tdBoderStyle,
+            };
+
+            if (index === data.columns.length - 1) {
+              style.borderRightWidth = 0;
+            }
+
+            if (column.autoWidth) {
               style.flex = 1;
+              style.minWidth = 12;
+            } else {
+              style.width = +column.width;
             }
 
             return (
-              <View
-                data-id={column._id}
-                className={cx([css.td, "mybricks-td"])}
-                style={style}
-              >
-                {column.title}
+              <View className={cx([css.td, "mybricks-td"])} style={style}>
+                {slots[column.id]?.render({
+                  inputValues: {
+                    columnData: item[column.dataIndex],
+                    rowData: item,
+                    index: index,
+                  },
+                })}
               </View>
             );
           })}
         </View>
+      );
+    });
+
+    return (
+      <View className={cx([css.tr])}>
+        {data.columns.map((column, index) => {
+          let style = {};
+          if (column.autoWidth) {
+            style.flex = 1;
+          } else {
+            style.width = +column.width;
+          }
+
+          return (
+            <View
+              data-id={column._id}
+              className={cx({
+                [css.td]: true,
+                "mybricks-td": true,
+                [css.leftSticky]: column.fixed === "left",
+                [css.rightSticky]: column.fixed === "right",
+              })}
+              style={style}
+            >
+              {column.title}
+            </View>
+          );
+        })}
       </View>
     );
-  }, [orderedColumns]);
-
-  const tBody = useMemo(() => {
-    return list.map((item, index) => {
-      return <View className={css.tr}>dfdf</View>;
-    });
-  }, [list]);
+  }, [data.columns, list, data.borderStyle, data.useInnerBorder]);
 
   //
   if (placeholder) {
@@ -266,26 +161,12 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }
 
   return (
-    <View className={cx(css.table, "mybricks-table")}>
+    <View
+      className={cx(css.table, "mybricks-table")}
+      style={data.borderStyle || {}}
+    >
       {tHead}
       {tBody}
-      {/* {leftColumns.length ? (
-        <View className={css.leftSide} style={{ width: leftWidth }}>
-          {leftSide}
-        </View>
-      ) : null}
-
-      {mainColumns.length ? (
-        <View className={css.main} style={{ width: mainWidth }}>
-          {main}
-        </View>
-      ) : null}
-
-      {rightColumns.length ? (
-        <View className={css.rightSide} style={{ width: rightWidth }}>
-          {rightSide}
-        </View>
-      ) : null} */}
     </View>
   );
 }

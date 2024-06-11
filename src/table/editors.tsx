@@ -13,8 +13,36 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["border", "background"],
-        target: ".mybricks-table",
+        options: ["background"],
+        target: ".mybricks-table .mybricks-td",
+      },
+      {
+        title: "",
+        type: "style",
+        options: {
+          defaultOpen: true,
+          plugins: ["border"],
+        },
+        value: {
+          get({ data }) {
+            return data.borderStyle || {};
+          },
+          set({ data }, value) {
+            data.borderStyle = value;
+          },
+        },
+      },
+      {
+        title: "渲染内边框",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useInnerBorder;
+          },
+          set({ data }, value) {
+            data.useInnerBorder = value;
+          },
+        },
       },
     ],
     items({ data, output, input, style, slots }, cate0, cate1, cate2) {
@@ -33,7 +61,7 @@ export default {
 
               slots.add({
                 id,
-                title,
+                title: `表格列 ${title} | ${id}`,
                 type: "scope",
                 inputs: [
                   {
@@ -64,7 +92,8 @@ export default {
                 id: id,
                 title: title,
                 dataIndex: id,
-                width: "auto",
+                width: "100",
+                autoWidth: true,
                 fixed: "",
               };
             },
@@ -79,49 +108,38 @@ export default {
                 type: "text",
                 value: "dataIndex",
               },
-              {
-                title: "列宽",
-                type: "text",
-                options: {
-                  type: "Number",
-                },
-                value: "width",
-              },
-              {
-                title: "列固定",
-                type: "select",
-                options: [
-                  { label: "无", value: "" },
-                  { label: "左", value: "left" },
-                  { label: "右", value: "right" },
-                ],
-                value: "fixed",
-              },
             ],
           },
           value: {
             get({ data }) {
               return data.columns;
             },
-            set({ data }, value) {
+            set({ data, slots }, value) {
               data.columns = value;
+
+              //更新 slots 的 title
+              value.forEach((column) => {
+                slots
+                  .get(column.id)
+                  .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+              });
             },
           },
         },
       ];
-      cate1.title = "高级";
-      cate1.items = [
-        {
-          title: "修复",
-          type: "button",
-          value: {
-            set({ data, style }) {
-              console.warn("修复", style);
-              style.height = "auto";
-            },
-          },
-        },
-      ];
+      // cate1.title = "高级";
+      // cate1.items = [
+      //   {
+      //     title: "修复",
+      //     type: "button",
+      //     value: {
+      //       set({ data, style }) {
+      //         console.warn("修复", style);
+      //         style.height = "auto";
+      //       },
+      //     },
+      //   },
+      // ];
     },
   },
   ".mybricks-thead .mybricks-td": {
@@ -129,7 +147,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["font", "size", "background"],
+        options: ["font", "background"],
         target: ".mybricks-thead .mybricks-td",
       },
     ],
@@ -151,7 +169,7 @@ export default {
 
               return data.columns[index].title;
             },
-            set({ data }, value) {
+            set({ data, slots }, value) {
               let _id = focusArea.ele.dataset.id;
               let index = data.columns.findIndex((column) => {
                 return column._id === _id;
@@ -160,6 +178,12 @@ export default {
               let columns = [...data.columns];
               columns[index].title = value;
               data.columns = columns;
+
+              // 更新 slots 的 title
+              let column = columns[index];
+              slots
+                .get(column.id)
+                .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
             },
           },
         },
@@ -176,7 +200,7 @@ export default {
 
               return data.columns[index].dataIndex;
             },
-            set({ data }, value) {
+            set({ data, slots }, value) {
               let _id = focusArea.ele.dataset.id;
               let index = data.columns.findIndex((column) => {
                 return column._id === _id;
@@ -185,11 +209,54 @@ export default {
               let columns = [...data.columns];
               columns[index].dataIndex = value;
               data.columns = columns;
+
+              // 更新 slots 的 title
+              let column = columns[index];
+              slots
+                .get(column.id)
+                .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
             },
           },
         },
         {
           title: "列宽",
+          type: "radio",
+          options: [
+            { label: "适应剩余宽度", value: "auto" },
+            { label: "固定宽度", value: "fixed" },
+          ],
+          value: {
+            get({ data }) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              return data.columns[index].autoWidth ? "auto" : "fixed";
+            },
+            set({ data }, value) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              let columns = [...data.columns];
+              columns[index].autoWidth = value === "auto";
+              data.columns = columns;
+            },
+          },
+        },
+        {
+          ifVisible({ data }) {
+            let _id = focusArea.ele.dataset.id;
+            let index = data.columns.findIndex((column) => {
+              return column._id === _id;
+            });
+
+            return !data.columns[index].autoWidth;
+          },
+          title: "宽度",
+          description: "单位：px",
           type: "text",
           options: {
             type: "Number",
