@@ -12,35 +12,14 @@ export default {
   ":root": {
     style: [
       {
-        title: "样式",
-        options: ["background"],
-        target: ".mybricks-table .mybricks-td",
-      },
-      {
-        title: "",
-        type: "style",
-        options: {
-          defaultOpen: true,
-          plugins: ["border"],
-        },
-        value: {
-          get({ data }) {
-            return data.borderStyle || {};
-          },
-          set({ data }, value) {
-            data.borderStyle = value;
-          },
-        },
-      },
-      {
-        title: "渲染内边框",
+        title: "展示列边框",
         type: "switch",
         value: {
           get({ data }) {
-            return data.useInnerBorder;
+            return data.bordered;
           },
           set({ data }, value) {
-            data.useInnerBorder = value;
+            data.bordered = value;
           },
         },
       },
@@ -97,6 +76,14 @@ export default {
                 fixed: "",
               };
             },
+            onRemove(_id) {
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              let id = data.columns[index].id;
+              slots.remove(id);
+            },
             items: [
               {
                 title: "列名",
@@ -133,9 +120,12 @@ export default {
       //     title: "修复",
       //     type: "button",
       //     value: {
-      //       set({ data, style }) {
-      //         console.warn("修复", style);
-      //         style.height = "auto";
+      //       set({ data, slots, slot }) {
+      //         // columns.forEach((column) => {
+      //         //   slots
+      //         //     .get(column.id)
+      //         //     .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+      //         // });
       //       },
       //     },
       //   },

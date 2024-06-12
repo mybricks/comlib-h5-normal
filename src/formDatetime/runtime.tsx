@@ -202,7 +202,7 @@ export default function (props) {
             max={range.max}
             onChange={onChange}
           >
-            {slots["content"]?.render({
+            {slots?.["content"]?.render({
               style: {
                 position: "smart",
                 height: "100%",
@@ -210,7 +210,7 @@ export default function (props) {
             })}
           </DatetimePicker>
         ) : (
-          slots["content"]?.render({
+          slots?.["content"]?.render({
             style: {
               position: "smart",
               height: "100%",

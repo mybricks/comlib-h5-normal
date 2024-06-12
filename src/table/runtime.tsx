@@ -27,26 +27,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, [env.runtime, data.columns]);
 
   const tHead = useMemo(() => {
-    let tdBoderStyle = {};
-
-    if (data.useInnerBorder) {
-      tdBoderStyle.borderRightWidth = data.borderStyle.borderRightWidth;
-      tdBoderStyle.borderRightStyle = data.borderStyle.borderRightStyle;
-      tdBoderStyle.borderRightColor = data.borderStyle.borderRightColor;
-    }
-
     return (
       <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
         {data.columns.map((column, index) => {
           let style = {};
-
-          style = {
-            ...tdBoderStyle,
-          };
-
-          if (index === data.columns.length - 1) {
-            style.borderRightWidth = 0;
-          }
 
           if (column.autoWidth) {
             style.flex = 1;
@@ -72,36 +56,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
         })}
       </View>
     );
-  }, [data.columns, data.borderStyle, data.useInnerBorder]);
+  }, [data.columns]);
 
   const tBody = useMemo(() => {
     list = env.edit ? [{}] : list;
 
     return list.map((item, listIndex) => {
-      let tdBoderStyle = {};
-
-      if (data.useInnerBorder) {
-        tdBoderStyle.borderTopWidth = data.borderStyle.borderTopWidth;
-        tdBoderStyle.borderTopStyle = data.borderStyle.borderTopStyle;
-        tdBoderStyle.borderTopColor = data.borderStyle.borderTopColor;
-
-        tdBoderStyle.borderRightWidth = data.borderStyle.borderRightWidth;
-        tdBoderStyle.borderRightStyle = data.borderStyle.borderRightStyle;
-        tdBoderStyle.borderRightColor = data.borderStyle.borderRightColor;
-      }
-
       return (
         <View className={css.tr}>
           {data.columns.map((column, index) => {
             let style = {};
-
-            style = {
-              ...tdBoderStyle,
-            };
-
-            if (index === data.columns.length - 1) {
-              style.borderRightWidth = 0;
-            }
 
             if (column.autoWidth) {
               style.flex = 1;
@@ -153,7 +117,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         })}
       </View>
     );
-  }, [data.columns, list, data.borderStyle, data.useInnerBorder]);
+  }, [data.columns, list]);
 
   //
   if (placeholder) {
@@ -162,8 +126,11 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   return (
     <View
-      className={cx(css.table, "mybricks-table")}
-      style={data.borderStyle || {}}
+      className={cx({
+        [css.table]: true,
+        // "mybricks-table": true,
+        [css.bordered]: data.bordered,
+      })}
     >
       {tHead}
       {tBody}

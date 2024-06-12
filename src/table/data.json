@@ -1,8 +1,5 @@
 {
   "useTHead": true,
   "columns": [],
-
-  "tableStyle": {},
-  "borderStyle": {},
-  "useInnerBorder": false
+  "bordered": false
 }
