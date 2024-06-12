@@ -12,6 +12,14 @@
     flex: 1;
   }
 
+  .fixedContainer{
+    transform: translateZ(1px); // 必须要，解决 fixed 定位问题
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
   .contentScrollView {
     flex: 1;
     overflow: scroll; // scrollView相关，必须要
@@ -21,8 +29,9 @@
 }
 
 .page.debug {
-  min-height: 667px;
-  height: auto;
+  height: 100%;
+  // min-height: 667px;
+  // height: auto;
 
   .contentScrollView{
     // transform: translateZ(1px);

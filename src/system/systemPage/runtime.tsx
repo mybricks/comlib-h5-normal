@@ -349,27 +349,30 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
       {/* {contentPlaceholder ? (
         <View className={cx(css.contentPlaceholder, "mybricks-contentPlaceholder")}></View>
       ) : ( */}
-      <ScrollView
-        id="root_scroll"
-        scrollY={!data.disableScroll}
-        enhanced={isIOS && data.enabledPulldown ? false : true}
-        // enhanced={true}
-        // enhancedBounce={false}
-        bounce={false}
-        enablePassive={true}
-        showScrollbar={false}
-        onScroll={handleScroll}
-        enableBackToTop={true}
-        using-sticky={true}
-        {...scrollToProps}
-        {...pulldownProps}
-        className={css.contentScrollView}
-        // style={{ height: contentScrollViewHeight }}
-      >
-        {slots["content"]?.render?.({
-          style: slotStyle,
-        })}
-      </ScrollView>
+      <View className={css.fixedContainer}>
+        <ScrollView
+          id="root_scroll"
+          scrollY={!data.disableScroll}
+          enhanced={isIOS && data.enabledPulldown ? false : true}
+          // enhanced={true}
+          // enhancedBounce={false}
+          bounce={false}
+          enablePassive={true}
+          showScrollbar={false}
+          onScroll={handleScroll}
+          enableBackToTop={true}
+          using-sticky={true}
+          {...scrollToProps}
+          {...pulldownProps}
+          className={css.contentScrollView}
+          // style={{ height: contentScrollViewHeight }}
+        >
+          {slots["content"]?.render?.({
+            style: slotStyle,
+          })}
+        </ScrollView>
+      </View>
+
       {/* )} */}
 
       {/* Footer ⬇️⬇️⬇️ */}

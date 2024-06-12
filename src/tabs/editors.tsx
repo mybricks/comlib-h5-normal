@@ -261,8 +261,8 @@ export default {
                   inputs: ScopeSlotInputs,
                 });
                 //插槽配置为智能布局
-                const slotInstance = slot.get(action?.value._id);
-                setSlotLayout(slotInstance, data.slotStyle);
+                // const slotInstance = slot.get(action?.value._id);
+                // setSlotLayout(slotInstance, data.slotStyle);
               },
               onUpdate: ({ slot }, action) => {
                 slot.setTitle(action?.value._id, action?.value.tabName);
