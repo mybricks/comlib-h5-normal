@@ -135,6 +135,10 @@
           }
         }
       ]
+    },
+    {
+      "id":"iconSlot",
+      "title":"占位插槽"
     }
   ],
   "schema": ["mybricks.taro.formContainer/formItem", "*"]

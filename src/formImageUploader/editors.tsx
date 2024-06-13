@@ -6,11 +6,12 @@ export default {
   "@resize": {
     options: ["width"],
   },
+  ":slot": {},
   ":root": {
     style: [
       {
         title: "卡片尺寸",
-        options: ["size"],
+        options: ["size", "border", "background"],
         target: ".mybricks-square",
       },
     ],
@@ -65,6 +66,18 @@ export default {
             },
             set({ data }, value) {
               data.chooseAvatar = value;
+            },
+          },
+        },
+        {
+          title: "开启占位插槽",
+          type: "Switch",
+          value: {
+            get({ data }) {
+              return data.iconSlot;
+            },
+            set({ data }, value) {
+              data.iconSlot = value;
             },
           },
         },

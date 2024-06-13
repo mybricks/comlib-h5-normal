@@ -9,6 +9,15 @@ import { isDesigner } from "../utils/env";
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
+  //判断组件是否需要为可交互状态
+  const comOperatable = useMemo(() => {
+    if (env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  }, [env]);
+
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
@@ -82,18 +91,19 @@ export default function (props) {
   );
 
   const onChooseImage = useCallback(() => {
-    Taro.chooseImage({
-      count: data.maxCount - data.value.length,
-      sizeType: ["original", "compressed"],
-      sourceType: ["album", "camera"],
-      success: async (res) => {
-        res.tempFilePaths.forEach((tempFilePath) => {
-          slots["customUpload"]?.inputs["fileData"]({
-            filePath: tempFilePath,
+    if (!comOperatable) return 
+      Taro.chooseImage({
+        count: data.maxCount - data.value.length,
+        sizeType: ["original", "compressed"],
+        sourceType: ["album", "camera"],
+        success: async (res) => {
+          res.tempFilePaths.forEach((tempFilePath) => {
+            slots["customUpload"]?.inputs["fileData"]({
+              filePath: tempFilePath,
+            });
           });
-        });
-      },
-    });
+        },
+      });
   }, [data.value]);
 
   const onChooseAvatar = useCallback(
@@ -124,10 +134,16 @@ export default function (props) {
         <View
           className={cx(css.uploader, "mybricks-square")}
           onClick={onChooseImage}
-        ></View>
+        >
+          {data.iconSlot ? (
+            <View>{slots["iconSlot"]?.render({})}</View>
+          ) : (
+            <View className={css.icon_placeholder}>+</View>
+          )}
+        </View>
       );
     }
-  }, [env, data.value, data.maxCount, data.chooseAvatar]);
+  }, [env, data.value, data.maxCount, data.chooseAvatar, data.iconSlot]);
 
   const thumbnails = useMemo(() => {
     return data.value.map((raw, index) => {
