@@ -19,11 +19,12 @@ export default {
   "@resize": {
     options: ["width","height"],
   },
+  ":slot":{},
   ":root": {
     style: [
       {
         title: "样式",
-        options: ["border", "background"],
+        options: ["border", "background","padding"],
         target: `.mybricks-cell`,
       },
     ],
@@ -237,7 +238,7 @@ export default {
     style: [
       {
         title: "",
-        options: ["font"],
+        options: ["font","margin"],
         target: ".mybricks-title",
       },
     ],
@@ -307,7 +308,7 @@ export default {
     style: [
       {
         title: "",
-        options: ["font"],
+        options: ["font","margin"],
         target: ".mybricks-content",
       },
     ],

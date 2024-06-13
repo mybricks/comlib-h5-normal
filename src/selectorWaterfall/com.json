@@ -1,0 +1,55 @@
+{
+  "title": "选择列表",
+  "namespace": "mybricks.taro.selectorWaterfall",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./edit/runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "refreshDataSource",
+      "title": "覆盖数据",
+      "desc": "列表已有的数据也会被覆盖",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
+    }
+    ,{
+      "id":"selectItem",
+      "title":"选中某项",
+      "desc":"传入index以选中指定项",
+      "schema":{
+        "title":"选中某项",
+        "type":"number"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "selectedChanged",
+      "title": "选中项变化", 
+      "schema": {
+        "type": "object",
+        "properties": {
+          "itemData": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ],
+  "slots": [
+  ]
+}

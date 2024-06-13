@@ -84,7 +84,8 @@
         "./src/containerCondition/com.json",
         "./src/sidebar/com.json",
         "./src/collapse/com.json",
-        "./src/timeLine/com.json"
+        "./src/timeLine/com.json",
+        "./src/selectorWaterfall/com.json"
       ]
     },
     {
