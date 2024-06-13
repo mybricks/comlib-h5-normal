@@ -108,6 +108,20 @@ export default ({ env, data, slots, inputs }) => {
     });
   }, []);
 
+    const flexStyle = useMemo(() => {
+      if (data.tabWidthType === "fit") {
+        return {
+          flex:0,
+        };
+      }else{
+        return {
+          flex: 1,
+        };
+
+      }
+
+    }, [data.tabWidthType]);
+
   const content = useMemo(() => {
     return (
       <>
@@ -154,7 +168,7 @@ export default ({ env, data, slots, inputs }) => {
                   childrenInputs.current[com.id] = com.inputs;
                 }
 
-                return <View style={{ flex: 1 }}>{com.jsx}</View>;
+                return <View className={css.item} style={flexStyle}>{com.jsx}</View>;
               }
             });
 
@@ -163,7 +177,7 @@ export default ({ env, data, slots, inputs }) => {
         })}
       </>
     );
-  }, []);
+  }, [data.tabWidthType]);
 
   return (
     <View className={`${css.filters} mbs-filters`}>

@@ -1,5 +1,6 @@
 {
   "extraButton": true,
   "extraButtonText": "筛选",
-  "items": []
+  "items": [],
+  "tabWidthType":"fit"
 }

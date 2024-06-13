@@ -63,6 +63,22 @@ export default {
         target: ".mbs-filters_extra",
       },
       {
+        title: "筛选项宽度",
+        type: "select",
+        options: [
+          { label: "拉伸铺满", value: "fill" },
+          { label: "适应内容", value: "fit" },
+        ],
+        value: {
+          get({ data }) {
+            return data.tabWidthType ?? "fill";
+          },
+          set({ data }, value) {
+            data.tabWidthType = value;
+          },
+        },
+      },
+      {
         title: "筛选栏",
         options: ["border", "background"],
         target: ".mbs-filters",
