@@ -43,11 +43,28 @@
       "schema": {
         "type": "any"
       },
-      "rels": ["activeTabId"]
+      "rels": [
+        "activeTabId"
+      ]
     },
     {
       "id": "setBadge",
       "title": "设置徽标",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "setDesc",
+      "title": "设置括号描述内容",
       "schema": {
         "type": "object",
         "properties": {

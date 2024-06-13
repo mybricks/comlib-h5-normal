@@ -142,6 +142,20 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         return result;
       });
     });
+
+    inputs["setDesc"]?.((val) => {
+      data.tabs = data.tabs.map((item, index) => {
+        let result = {
+          ...item,
+        };
+
+        if (index === val.index) {
+          result.desc = val.text;
+        }
+
+        return result;
+      });
+    });
   }, [data.tabs]);
 
   // input获取当前激活项
@@ -317,7 +331,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               <Tabs.TabPane
                 badge={tab.badge}
                 key={tab._id}
-                title={tab.tabName}
+                title={tab.tabName + (tab.desc ? `(${tab.desc})` : "")}
                 value={tab._id}
                 style={style}
               ></Tabs.TabPane>

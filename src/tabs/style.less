@@ -74,8 +74,19 @@
 //     }
 //   }
 // }
-.tab_box{
+.tab_box {
   height: 100%;
+
+  :global {
+    .taroify-tabs__wrap__scroll {
+      background-color: transparent !important;
+    }
+
+    .taroify-tabs__wrap {
+      background-color: transparent !important;
+    }
+
+  }
 }
 
 .tabs {
