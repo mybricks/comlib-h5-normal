@@ -123,9 +123,19 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       }
     });
 
-    inputs["activeTabId"]?.((tabId) => {
-      if (tabId !== undefined || tabId !== null) {
-        _setCurrentTabId(tabId);
+    // 注意，这里名字没有变，实际上是接收了数字，从 0 开始
+    inputs["activeTabId"]?.((index) => {
+      // if (tabId !== undefined || tabId !== null) {
+      //   _setCurrentTabId(tabId);
+      // }
+
+      if (
+        typeof +index === "number" &&
+        +index >= 0 &&
+        +index < data.tabs.length
+      ) {
+        let currentTabId = data.tabs[index]._id;
+        _setCurrentTabId(currentTabId);
       }
     });
 
@@ -255,6 +265,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
     setCurrentTabId(currentTabId);
+
     const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
     if (index === -1) {
       return;
