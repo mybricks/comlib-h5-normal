@@ -3,6 +3,7 @@ export default {
     style.width = "100%";
     style.height = "100%";
   },
+  ":slot": {},
   ":root": {
     style: [
       {
@@ -51,7 +52,10 @@ export default {
           },
         },
         {
-          title: '关闭按钮',
+          ifVisible({ data }) {
+            return data.position === "center";
+          },
+          title: "关闭按钮",
           items: [
             {
               title: "显示",
@@ -65,8 +69,8 @@ export default {
                 },
               },
             },
-          ]
-        }
+          ],
+        },
         // {
         //   title: "样式",
         //   type: "Style",

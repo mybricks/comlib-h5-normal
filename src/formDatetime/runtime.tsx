@@ -42,7 +42,7 @@ export default function (props) {
     } else {
       return true;
     }
-  }, [env]);
+  }, [env.edit]);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -187,7 +187,14 @@ export default function (props) {
         )}
       </View>
     );
-  }, [data.isSlot]);
+  }, [
+    data.type,
+    range.min,
+    range.max,
+    displayValue,
+    data.placeholder,
+    data.isSlot,
+  ]);
 
   //切换为插槽视图
   const slotsView = useMemo(() => {
@@ -219,7 +226,7 @@ export default function (props) {
         )}
       </View>
     );
-  }, [data.isSlot]);
+  }, [data.type, range.min, range.max, displayValue, data.isSlot]);
 
   if (data.isSlot) {
     return slotsView;

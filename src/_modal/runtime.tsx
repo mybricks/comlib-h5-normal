@@ -3,7 +3,7 @@ import * as Taro from "@tarojs/taro";
 export default function ({ env, data, inputs, outputs }) {
   if (env.runtime) {
     inputs["show"]((val) => {
-      Taro.showModal({
+      let param = {
         ...data,
         success: (res) => {
           if (res.confirm) {
@@ -12,7 +12,13 @@ export default function ({ env, data, inputs, outputs }) {
             outputs["onCancel"](val);
           }
         },
-      });
+      };
+
+      if (data.content) {
+        param.content = data.content.replace(/\n/g, "\r\n");
+      }
+
+      Taro.showModal(param);
     });
   }
 }

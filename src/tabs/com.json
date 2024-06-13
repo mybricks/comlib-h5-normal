@@ -43,9 +43,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "activeTabId"
-      ]
+      "rels": ["activeTabId"]
     },
     {
       "id": "setBadge",
