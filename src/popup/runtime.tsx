@@ -25,7 +25,6 @@ export default function ({
     // inputs["onShow"]?.(() => {
     //   setShow(true);
     // });
-
     // inputs["onHide"]?.(() => {
     //   setShow(false);
     // });
@@ -91,7 +90,10 @@ export default function ({
 
   let popupView = (
     <View className={popupCx} style={{ ...popupStyle }}>
-      <View className={`${css.overlay} mybricks-overlay`} onClick={handleOverlayClick}></View>
+      <View
+        className={`${css.overlay} mybricks-overlay`}
+        onClick={handleOverlayClick}
+      ></View>
       <View className={mainCx}>
         <View
           className={cx({
@@ -103,11 +105,20 @@ export default function ({
         >
           {slots["content"]?.render?.()}
         </View>
+        {data.position === "center" && data.visibleClose && (
+          <View
+            className={cx({
+              [css.close]: true,
+              "mybricks-close": true,
+            })}
+            onClick={handleClose}
+          ></View>
+        )}
       </View>
     </View>
   );
 
-  return popupView
+  return popupView;
 
   // if (env.edit) {
   //   return createPortal(popupView);
@@ -122,7 +133,7 @@ export default function ({
   // }
 
   // if (env.runtime?.debug) {
-    
+
   // }
 
   // return popupView;

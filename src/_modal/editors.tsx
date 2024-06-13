@@ -18,7 +18,7 @@ export default {
       },
       {
         title: "提示内容",
-        type: "text",
+        type: "textarea",
         value: {
           get({ data }) {
             return data.content;
