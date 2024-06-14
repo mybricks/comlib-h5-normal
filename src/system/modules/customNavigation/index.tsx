@@ -19,9 +19,27 @@ const defaultMenuButtonBoundingClientRect = {
 export default function (props) {
   let { env, data, slots } = props;
 
+  const relativeRect = useMemo(() => {
+    if (isDesigner(env)) {
+      return defaultMenuButtonBoundingClientRect;
+    } else {
+      let boundingClientRect = Taro.getMenuButtonBoundingClientRect();
+      let ratio = Taro.getSystemInfoSync().windowWidth / 375;
+
+      return {
+        width: boundingClientRect.width / ratio,
+        height: boundingClientRect.height / ratio,
+        top: boundingClientRect.top / ratio,
+        right: boundingClientRect.right / ratio,
+        bottom: boundingClientRect.bottom / ratio,
+        left: boundingClientRect.left / ratio,
+      };
+    }
+  }, []);
+
   const safeareaHeight = isDesigner(env)
     ? 44
-    : Taro.getMenuButtonBoundingClientRect().top - 4;
+    : relativeRect.top - (40 - relativeRect.height) / 2;
 
   // 自定义导航栏
   return (
@@ -39,34 +57,11 @@ export default function (props) {
       <View
         className={css.main}
         style={{
-          marginLeft: 7,
-          marginRight: 7,
-          height: 40,
+          marginLeft: 375 - relativeRect.right,
+          marginRight: 375 - relativeRect.right,
+          height: 40, // 高度固定 40 px
         }}
       >
-        {/* 
-        <View
-          className={css.left}
-          style={{
-            height: menuButtonBoundingClientRect.height,
-            width: menuButtonBoundingClientRect.width,
-            top: 4,
-            left: 7,
-            // left: 375 - menuButtonBoundingClientRect.right,
-          }}
-        >
-          {slots["leftSlot"]?.render({
-            style: env.edit
-              ? {
-                background: "transparent",
-                minHeight: "auto",
-                overflow: "hidden",
-              }
-              : {},
-          })}
-        </View> 
-        */}
-
         {/* 仅在设计器中展示 */}
         {isDesigner(env) && (
           <Image
