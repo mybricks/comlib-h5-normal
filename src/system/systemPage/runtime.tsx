@@ -126,9 +126,23 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   }, [footerRef.current]);
 
   // 获取菜单按钮的布局位置信息
-  const menuButtonBoundingClientRect = isDesigner(env)
-    ? defaultMenuButtonBoundingClientRect
-    : Taro.getMenuButtonBoundingClientRect?.();
+  const relativeRect = useMemo(() => {
+    if (isDesigner(env)) {
+      return defaultMenuButtonBoundingClientRect;
+    } else {
+      let boundingClientRect = Taro.getMenuButtonBoundingClientRect();
+      let ratio = Taro.getSystemInfoSync().windowWidth / 375;
+
+      return {
+        width: boundingClientRect.width / ratio,
+        height: boundingClientRect.height / ratio,
+        top: boundingClientRect.top / ratio,
+        right: boundingClientRect.right / ratio,
+        bottom: boundingClientRect.bottom / ratio,
+        left: boundingClientRect.left / ratio,
+      };
+    }
+  }, []);
 
   const useTabBar = useMemo(() => {
     if (!data.useTabBar) {
@@ -324,13 +338,15 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
               <View
                 id="custom_navigation"
                 style={{
-                  width: 375,
-                  height:
-                    menuButtonBoundingClientRect.top +
-                    menuButtonBoundingClientRect.height +
-                    4,
+                  // width: 375,
+                  // height:
+                    // relativeRect.top - (40 - relativeRect.height) / 2 + 40, // 之所以分开两个部分是因为避免浏览器在计算小数点的时候出现 1px 的差异
                 }}
-              ></View>
+              >
+                <View style={{width: 375, height: relativeRect.top - (40 - relativeRect.height) / 2 }}></View>
+                <View style={{width: 375, height: 40 }}></View>
+
+              </View>
               <View className={css.fixedTop}>
                 <CustomNavigation env={env} data={data} slots={slots} />
               </View>

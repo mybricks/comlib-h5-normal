@@ -92,9 +92,15 @@ export default ({ env, data, slots, inputs }) => {
       if (isEmpty(val) || !isObject(val)) {
         return;
       }
-      filterRef.setValues(val);
+
+      let result = {
+        ...filterRef.getValues(),
+        ...val,
+      };
+
+      filterRef.setValues(result);
       // 触发「表单数据输入」
-      slots["content"].inputs["setFieldsValue"](val);
+      slots["content"].inputs["setFieldsValue"](result);
     });
 
     inputs["getFieldsValue"]((val, outputRels) => {
@@ -108,19 +114,17 @@ export default ({ env, data, slots, inputs }) => {
     });
   }, []);
 
-    const flexStyle = useMemo(() => {
-      if (data.tabWidthType === "fit") {
-        return {
-          flex:0,
-        };
-      }else{
-        return {
-          flex: 1,
-        };
-
-      }
-
-    }, [data.tabWidthType]);
+  const flexStyle = useMemo(() => {
+    if (data.tabWidthType === "fit") {
+      return {
+        flex: 0,
+      };
+    } else {
+      return {
+        flex: 1,
+      };
+    }
+  }, [data.tabWidthType]);
 
   const content = useMemo(() => {
     return (
@@ -168,7 +172,11 @@ export default ({ env, data, slots, inputs }) => {
                   childrenInputs.current[com.id] = com.inputs;
                 }
 
-                return <View className={css.item} style={flexStyle}>{com.jsx}</View>;
+                return (
+                  <View className={css.item} style={flexStyle}>
+                    {com.jsx}
+                  </View>
+                );
               }
             });
 
@@ -183,7 +191,9 @@ export default ({ env, data, slots, inputs }) => {
     <View className={`${css.filters} mbs-filters`}>
       <View className={css.content}>{content}</View>
       {data.extraButton && (
-        <View className={`${css.extra} mbs-filters_extra`}>{data.extraButtonText}</View>
+        <View className={`${css.extra} mbs-filters_extra`}>
+          {data.extraButtonText}
+        </View>
       )}
     </View>
   );
