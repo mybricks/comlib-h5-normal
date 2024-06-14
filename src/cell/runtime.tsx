@@ -65,20 +65,19 @@ export default function ({ env, data, slots, inputs, outputs }) {
                 })
               : data.content}
           </View>
-
-          {data.useArrowIcon ? (
-            <View className={css.arrow}>
-              <Arrow
-                className={css.icon}
-                style={
-                  data.useChildren && data.useArrowIcon
-                    ? { color: data.arrowIconColor }
-                    : {}
-                }
-              />
-            </View>
-          ) : null}
         </View>
+        {data.useArrowIcon ? (
+          <View className={css.arrow}>
+            <Arrow
+              className={css.icon}
+              style={
+                data.useChildren && data.useArrowIcon
+                  ? { color: data.arrowIconColor }
+                  : {}
+              }
+            />
+          </View>
+        ) : null}
       </View>
     </View>
   );
