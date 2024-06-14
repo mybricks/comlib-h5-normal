@@ -10,6 +10,13 @@ export default function (props) {
   const [focus, setFocus] = useState(false);
   const [mask, setMask] = useState(false);
   const [error, setError] = useState(false);
+  const [displayNormalText, setDisplayNormalText] = useState(data.retryText);
+
+  useEffect(() => {
+    if (env.edit) {
+      setDisplayNormalText(data.retryText);
+    }
+  }, [data.retryText]);
 
   useEffect(() => {
     //input触发倒计时开始
@@ -23,9 +30,9 @@ export default function (props) {
       setValue("");
     });
 
-    inputs["setError"]((val)=>{
-      setError(true)
-    })
+    inputs["setError"]((val) => {
+      setError(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -66,14 +73,7 @@ export default function (props) {
             id="mybricks-input-item"
             style={style}
           >
-            {/* {mask ? (
-            <View
-              className={css.mask}
-              style={{ visibility: char ? "visible" : "hidden" }}
-            />
-          ) : ( */}
             {char}
-            {/* )} */}
             {showCursor && <View className={css.cursor} />}
           </View>
           {i === data.length / 2 - 1 && data.showLine && (
@@ -90,6 +90,7 @@ export default function (props) {
   const onSmsInput = (e) => {
     let input = e.detail.value;
     if (input.length == data.length) {
+      setError(false);
       //填满时输出
       outputs["onComplete"](e.detail.value);
     }
@@ -101,11 +102,12 @@ export default function (props) {
 
   const onSmSFoucs = () => {
     setFocus(true);
-    setError(false)
+    setError(false);
   };
 
   const onSmSBlur = () => {
     setFocus(false);
+    setError(false);
   };
 
   const countDown = () => {
@@ -113,15 +115,14 @@ export default function (props) {
     data.buttonAvailable = false;
     let count = data.countdown;
     //点击按钮后立即修改按钮文字，不然会有1s的延迟
-    data.buttonText = `${count}秒后可重新发送验证码`;
-    let _buttonText = data.buttonText;
+    setDisplayNormalText(`${count}${data.countDownText}`);
     const timer = setInterval(() => {
       count--;
-      data.buttonText = `${count}秒后可重新发送验证码`;
+      setDisplayNormalText(`${count}${data.countDownText}`);
       if (count <= 0) {
         clearInterval(timer);
         data.buttonAvailable = true;
-        data.buttonText = _buttonText;
+        setDisplayNormalText(`${data.retryText}`);
       }
     }, 1000);
   };
@@ -146,8 +147,8 @@ export default function (props) {
         />
       </View>
       <View className={css.desc} id="mybricks-input-desc" onClick={resendSMS}>
-        <View>{data.buttonText}</View>
-        {error && <View className={css.error}>{data.buttonError}</View>}
+        <View>{displayNormalText}</View>
+        {error && <View className={css.error}>{data.errorText}</View>}
       </View>
     </View>
   );

@@ -3,7 +3,8 @@
   "length":6,
   "gutter":10,
   "countdown":60,
-  "buttonText":"重新获取验证码",
-  "buttonError":"验证码错误",
+  "countDownText":"秒后重新获取验证码",
+  "retryText":"重新获取验证码",
+  "errorText":"验证码错误",
   "buttonAvailable":true
 }
