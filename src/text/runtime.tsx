@@ -21,10 +21,10 @@ export default function ({ env, data, style, inputs, outputs }) {
     });
 
     inputs["getValue"]?.((val, outputRels) => {
-      if (ready) {
-        outputRels["onGetValue"](data.text);
-      } else {
+      if (!ready && data.useDynamic) {
         outputRels["onGetValue"]("");
+      } else {
+        outputRels["onGetValue"](data.text);
       }
     });
   }, [ready]);
