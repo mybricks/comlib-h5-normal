@@ -3,7 +3,7 @@
   "navigationStyle": "default",
   "navigationBarBackgroundColor": "#464646",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText": "MyBricks",
+  "navigationBarTitleText": "页面标题",
   "backgroundColorTop": "#ffffff",
   "backgroundColorBottom": "#ffffff",
   "homeButton": false,

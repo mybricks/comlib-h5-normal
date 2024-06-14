@@ -225,12 +225,12 @@ export default function ({ env, data, inputs, outputs, slots }) {
         {slots["content"]?.render?.()}
 
         {/* 底部空间留存 */}
-        {data.bottomSpace ? (
+        {/* {data.bottomSpace ? (
           <View
             className={css.bottomSpace}
             style={{ height: `${data.bottomSpace}px` }}
           ></View>
-        ) : null}
+        ) : null} */}
       </View>
       {/* content end*/}
 
