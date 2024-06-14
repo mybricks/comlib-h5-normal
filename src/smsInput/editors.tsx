@@ -75,6 +75,42 @@ export default {
           },
         },
         {
+          title: "倒数文案",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.countDownText;
+            },
+            set({ data }, value) {
+              data.countDownText = value;
+            },
+          },
+        },
+        {
+          title: "重试文案",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.retryText;
+            },
+            set({ data }, value) {
+              data.retryText = value;
+            },
+          },
+        },
+        {
+          title: "错误文案",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.errorText;
+            },
+            set({ data }, value) {
+              data.errorText = value;
+            },
+          },
+        },
+        {
           title: "事件",
           items: [
             {
