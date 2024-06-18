@@ -59,7 +59,7 @@ export default (props) => {
     <View className={css.filterItem}>
       {slots["item"].render({
         inputValues: {
-          filterValue: filterValue,
+          filterValue: filterValue === UNSET_VALUE ? "" : filterValue,
         }
       })}
     </View>

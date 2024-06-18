@@ -48,6 +48,9 @@ export default {
         {
           title: "示例图",
           type: "imageSelector",
+          options: {
+            fileSizeLimit: 2
+          },
           value: {
             get({ data }) {
               return data.placeholder;
