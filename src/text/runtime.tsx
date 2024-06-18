@@ -2,16 +2,14 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text } from "@tarojs/components";
 import cx from "classnames";
 import css from "./style.less";
-import { set } from "vue/types/umd";
+import * as Taro from "@tarojs/taro";
 
-export default function ({ env, data, style, inputs, outputs }) {
+export default function ({ id, env, data, style, inputs, outputs }) {
   const [ready, setReady] = useState(false);
   const [showTooltop, setShowTooltop] = useState(false);
+  const [tooltipStyle, setTooltipStyle] = useState({});
   const [timerId, setTimerId] = useState(null);
-
-  useEffect(() => {
-    // 监听手指离开屏幕（需要兼容小程序）
-  }, []);
+  const textRef = React.useRef(null);
 
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
@@ -33,8 +31,9 @@ export default function ({ env, data, style, inputs, outputs }) {
     return cx({
       [css.text]: true,
       ["mybricks-text"]: true,
+      [id]: true,
     });
-  }, [data.ellipsis]);
+  }, [id, data.ellipsis]);
 
   const ellipsisCx = useMemo(() => {
     return cx({
@@ -66,25 +65,68 @@ export default function ({ env, data, style, inputs, outputs }) {
     outputs["onClick"](data.text);
   }, []);
 
-  const onLongPress = useCallback(() => {
-    if (!env.runtime) {
-      return;
-    }
+  const onLongPress = useCallback(
+    (e) => {
+      if (!env.runtime) {
+        return;
+      }
 
-    switch (data.useLongPress) {
-      case "tooltip":
-        // 长按提示 tooltip，松开手指后消失
-        clearTimeout(timerId);
-        setShowTooltop(true);
-        break;
-      case "custom":
-        outputs["onLongPress"](data.text);
-        break;
+      switch (data.useLongPress) {
+        case "tooltip":
+          // 长按提示 tooltip，松开手指后消失
+          clearTimeout(timerId);
+          // 动态获取 textRef 的位置
 
-      default:
-        break;
-    }
-  }, [data.useLongPress, timerId]);
+          if (
+            Taro.getEnv() === Taro.ENV_TYPE.WEB ||
+            Taro.getEnv() === "Unknown"
+          ) {
+            let rect = textRef.current.getBoundingClientRect();
+            setTooltipStyle({
+              width: rect.width,
+              top: rect.top - 10,
+              left: rect.left + rect.width / 2,
+            });
+
+            setShowTooltop(true);
+          } else {
+            let ratio = Taro.getSystemInfoSync().windowWidth / 375;
+
+            const query = Taro.createSelectorQuery();
+            query.selectAll(`.${id}`).boundingClientRect();
+
+            query.exec((res) => {
+              let targetReat = res[0].filter((item) => {
+                return (
+                  item.left <= e.currentTarget.x &&
+                  item.right >= e.currentTarget.x &&
+                  item.top <= e.currentTarget.y &&
+                  item.bottom >= e.currentTarget.y
+                );
+              });
+
+              setTooltipStyle({
+                width: targetReat[0].width / ratio,
+                top: targetReat[0].top / ratio - 10,
+                left:
+                  targetReat[0].left / ratio + targetReat[0].width / ratio / 2,
+              });
+
+              setShowTooltop(true);
+            });
+          }
+
+          break;
+        case "custom":
+          outputs["onLongPress"](data.text);
+          break;
+
+        default:
+          break;
+      }
+    },
+    [data.useLongPress, timerId, id, textRef.current]
+  );
 
   const onTouchEnd = useCallback(() => {
     let id = setTimeout(() => {
@@ -121,8 +163,12 @@ export default function ({ env, data, style, inputs, outputs }) {
           onLongPress={onLongPress}
           onTouchEnd={onTouchEnd}
         >
-          {showTooltop ? <View className={css.tooltip}>{text}</View> : null}
-          <View className={ellipsisCx} style={style}>
+          {showTooltop ? (
+            <View className={css.tooltip} style={tooltipStyle}>
+              {text}
+            </View>
+          ) : null}
+          <View ref={textRef} className={ellipsisCx} style={style}>
             {text}
           </View>
         </View>

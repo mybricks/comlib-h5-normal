@@ -75,7 +75,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
             }
 
             return (
-              <View className={cx([css.td, "mybricks-td"])} style={style}>
+              <View
+                className={cx({
+                  [css.td]: true,
+                  "mybricks-td": true,
+                  [css.leftSticky]: column.fixed === "left",
+                  [css.rightSticky]: column.fixed === "right",
+                })}
+                style={style}
+              >
                 {slots[column.id]?.render({
                   inputValues: {
                     columnData: item[column.dataIndex],

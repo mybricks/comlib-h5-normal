@@ -337,15 +337,21 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
             <>
               <View
                 id="custom_navigation"
-                style={{
-                  // width: 375,
-                  // height:
+                style={
+                  {
+                    // width: 375,
+                    // height:
                     // relativeRect.top - (40 - relativeRect.height) / 2 + 40, // 之所以分开两个部分是因为避免浏览器在计算小数点的时候出现 1px 的差异
-                }}
+                  }
+                }
               >
-                <View style={{width: 375, height: relativeRect.top - (40 - relativeRect.height) / 2 }}></View>
-                <View style={{width: 375, height: 40 }}></View>
-
+                <View
+                  style={{
+                    width: 375,
+                    height: relativeRect.top - (40 - relativeRect.height) / 2,
+                  }}
+                ></View>
+                <View style={{ width: 375, height: 40 }}></View>
               </View>
               <View className={css.fixedTop}>
                 <CustomNavigation env={env} data={data} slots={slots} />
@@ -384,7 +390,9 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
           // style={{ height: contentScrollViewHeight }}
         >
           {slots["content"]?.render?.({
-            style: slotStyle,
+            style: {
+              ...slotStyle,
+            },
           })}
         </ScrollView>
       </View>
