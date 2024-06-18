@@ -21,22 +21,25 @@
           "title": "列项数据",
           "type": "any"
         }
-      }
-    }
-    ,{
-      "id":"selectItem",
-      "title":"选中某项",
-      "desc":"传入index以选中指定项",
-      "schema":{
-        "title":"选中某项",
-        "type":"number"
+      },
+      "rels": [
+        "refreshDataSourceDone"
+      ]
+    },
+    {
+      "id": "selectItem",
+      "title": "选中某项",
+      "desc": "传入index以选中指定项",
+      "schema": {
+        "title": "选中某项",
+        "type": "number"
       }
     }
   ],
   "outputs": [
     {
       "id": "selectedChanged",
-      "title": "选中项变化", 
+      "title": "选中项变化",
       "schema": {
         "type": "object",
         "properties": {
@@ -48,8 +51,11 @@
           }
         }
       }
+    },
+    {
+      "id": "refreshDataSourceDone",
+      "title": "覆盖数据完成"
     }
   ],
-  "slots": [
-  ]
+  "slots": []
 }

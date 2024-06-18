@@ -24,8 +24,7 @@ export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
-    inputs["refreshDataSource"]((val) => {
-      console.log("refreshDataSource", val);
+    inputs["refreshDataSource"]((val, relOutputs) => {
       if (Array.isArray(val)) {
         const ds = val.map((item, index) => ({
           item,
@@ -33,6 +32,7 @@ export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
           index: index,
         }));
         setDataSource(ds);
+        relOutputs["refreshDataSourceDone"](val);
       }
     });
 
@@ -144,7 +144,7 @@ export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
             onClick={() => click(index)}
           >
             {/* {item.city} */}
-            {env.runtime ? item : "杭州"}
+            {env.runtime ? item[data.selectedKey] : "杭州"}
           </View>
         </View>
       );

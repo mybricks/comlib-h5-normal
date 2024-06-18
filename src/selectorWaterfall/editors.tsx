@@ -36,12 +36,12 @@ export default {
     style: [
       {
         title: "按钮样式",
-        options: ["border", "padding", "background", "size","font"],
+        options: ["border", "padding", "background", "size", "font"],
         target: ".mybricks-button",
       },
       {
         title: "按钮激活样式",
-        options: ["border", "padding", "background", "size","font"],
+        options: ["border", "padding", "background", "size", "font"],
         target: ".mybricks-button-selected",
       },
     ],
@@ -98,6 +98,18 @@ export default {
             },
             set({ data }, value: number[]) {
               data.layout.gutter = value;
+            },
+          },
+        },
+        {
+          title: "选项对应的字段",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.selectedKey;
+            },
+            set({ data }, value) {
+              data.selectedKey = value;
             },
           },
         },
