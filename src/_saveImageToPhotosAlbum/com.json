@@ -1,0 +1,46 @@
+{
+  "title": "保存图片到系统相册",
+  "namespace": "mybricks.taro._saveImageToPhotosAlbum",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "保存图片到系统相册",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "保存",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "保存成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "encryptedData": {
+            "type": "string"
+          },
+          "iv": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "保存失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
+}
