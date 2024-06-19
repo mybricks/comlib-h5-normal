@@ -5,31 +5,37 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { View, Button } from "@tarojs/components";
+import { View, Image, Button } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import css from "./style.less";
 import cx from "classnames";
 import { isEmpty, isString } from "./../../utils/core";
 import { useDiffValue, useFilterItemValue } from "./../common";
 
+// const UpSvg = ({ style }) => {
+//   return (
+//     <svg
+//       t="1717557925134"
+//       class="icon"
+//       viewBox="0 0 1024 1024"
+//       version="1.1"
+//       xmlns="http://www.w3.org/2000/svg"
+//       p-id="10247"
+//       style={style}
+//     >
+//       <path
+//         d="M512 352L232 672h560L512 352z"
+//         fill="currentColor"
+//         p-id="10248"
+//       ></path>
+//     </svg>
+//   );
+// };
+
 const UpSvg = ({ style }) => {
-  return (
-    <svg
-      t="1717557925134"
-      class="icon"
-      viewBox="0 0 1024 1024"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      p-id="10247"
-      style={style}
-    >
-      <path
-        d="M512 352L232 672h560L512 352z"
-        fill="currentColor"
-        p-id="10248"
-      ></path>
-    </svg>
-  );
+  const base64Svg = `data:image/svg+xml;base64,PHN2ZyB0PSIxNzE3NTU3OTI1MTM0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjEwMjQ3Ij4KICA8cGF0aCBkPSJNNTEyIDM1MkwyMzIgNjcyaDU2MEw1MTIgMzUyeiIgZmlsbD0iY3VycmVudENvbG9yIiBwLWlkPSIxMDI0OCI+PC9wYXRoPgo8L3N2Zz4=`;
+
+  return <Image src={base64Svg} svg={true} style={style} />;
 };
 
 const DownSvg = ({ style }) => {
@@ -89,7 +95,7 @@ export default (props) => {
       _optionMap.asc.value,
       _optionMap.desc.value,
     ];
-    
+
     const done = valueQueue.some((v, index) => {
       if (selectMode == v) {
         setSelectMode(
