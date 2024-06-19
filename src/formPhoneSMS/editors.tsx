@@ -140,7 +140,7 @@ export default {
           "background",
           "boxshadow",
         ],
-        target: ".mybricks-getsms-button",
+        target: "#mybricks-getsms-button",
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

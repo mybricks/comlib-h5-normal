@@ -11,5 +11,6 @@
     "column": 0,
     "gutter": [8, 8]
   },
-  "rowKey": "id"
+  "rowKey": "id",
+  "selectedKey":"regionName"
 }

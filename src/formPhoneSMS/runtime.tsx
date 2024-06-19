@@ -86,7 +86,8 @@ export default function (props) {
           onChange={onChange}
         />
         <Button
-          className={cx("mybricks-getsms-button", css.button)}
+          className={css.button}
+          id="mybricks-getsms-button"
           onClick={onCodeSend}
         >
           {data.buttonText || "获取验证码"}
