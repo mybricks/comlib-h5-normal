@@ -81,7 +81,7 @@ const useFilters = ({ items, childrenInputs }) => {
   return [ref, filterValuesRef];
 };
 
-export default ({ env, data, slots, inputs }) => {
+export default ({ env, data, slots, inputs, outputs }) => {
   const childrenInputs = useRef({});
 
   const [filterRef] = useFilters({ items: data.items, childrenInputs });
@@ -111,6 +111,10 @@ export default ({ env, data, slots, inputs }) => {
     /** 下发表单项的onChange函数，用来收集表单项数据 */
     slots["content"]._inputs["onChange"](({ id, name: comName, value }) => {
       filterRef.setFieldValueByFilterChildCom(id, comName, value);
+
+      // 触发 onchange
+      let result = filterRef.getValues();
+      outputs["onChange"](result);
     });
   }, []);
 

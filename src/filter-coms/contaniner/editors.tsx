@@ -131,6 +131,14 @@ export default {
             },
           ],
         },
+        {},
+        {
+          title: "数据变化时",
+          type: "_event",
+          options: {
+            outputId: "onChange",
+          },
+        },
       ];
     },
   },
