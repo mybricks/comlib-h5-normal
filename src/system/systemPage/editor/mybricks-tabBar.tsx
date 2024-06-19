@@ -8,8 +8,7 @@ export default {
     items: [
       {
         title: "设置为标签页",
-        description:
-          "当标签页数量小于2或大于5时，将不显示底部标签栏",
+        description: "当标签页数量小于2或大于5时，将不显示底部标签栏",
         type: "switch",
         value: {
           get({ data }) {
@@ -99,6 +98,10 @@ export default {
       {
         title: "激活图标",
         type: "imageSelector",
+        options: {
+          fileSizeLimit: 10,
+          useBase64Only: true,
+        },
         value: {
           get({ data, focusArea }) {
             if (!focusArea) return;
@@ -116,6 +119,10 @@ export default {
       {
         title: "默认图标",
         type: "imageSelector",
+        options: {
+          fileSizeLimit: 10,
+          useBase64Only: true,
+        },
         value: {
           get({ data, focusArea }) {
             if (!focusArea) return;

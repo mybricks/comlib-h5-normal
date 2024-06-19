@@ -35,6 +35,17 @@ export default function (props) {
       }
     });
 
+    inputs["getValue"]((val, outputRels) => {
+      let result = data.value;
+
+      // 如果是单选，且需要格式化为字符串
+      if (data.maxCount == 1 && data.useValueString) {
+        result = result[0] || "";
+      }
+
+      outputRels["returnValue"](result);
+    });
+
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((filePath) => {
       if (!filePath && typeof filePath !== "string") {
