@@ -24,15 +24,7 @@
       "id": "onSuccess",
       "title": "保存成功",
       "schema": {
-        "type": "object",
-        "properties": {
-          "encryptedData": {
-            "type": "string"
-          },
-          "iv": {
-            "type": "string"
-          }
-        }
+        "type": "any"
       }
     },
     {
