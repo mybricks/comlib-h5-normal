@@ -72,6 +72,18 @@ const MAP = {
       },
     ],
   },
+  share: {
+    title: "触发用户转发",
+    output: [
+      {
+        id: "share",
+        title: "用户转发",
+        schema: {
+          type: "any",
+        },
+      },
+    ],
+  },
 };
 
 function clearOutput(openType, output) {
@@ -80,12 +92,22 @@ function clearOutput(openType, output) {
       output.remove("onClick");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
       break;
 
     case openType === "getRealtimePhoneNumber":
       output.remove("onClick");
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
+      output.remove("share");
+      break;
+
+    case openType === "share":
+      output.remove("onClick");
+      output.remove("getPhoneNumberSuccess");
+      output.remove("getPhoneNumberFail");
+      output.remove("getRealtimePhoneNumberSuccess");
+      output.remove("getRealtimePhoneNumberFail");
       break;
 
     // onClick
@@ -94,6 +116,7 @@ function clearOutput(openType, output) {
       output.remove("getPhoneNumberFail");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
   }
 }
 
@@ -202,10 +225,10 @@ export default {
               //   label: "打开客服会话",
               //   value: "contact",
               // },
-              // {
-              //   label: "触发用户转发",
-              //   value: "share",
-              // },
+              {
+                label: "触发用户转发",
+                value: "share",
+              },
               {
                 label: "手机号快速验证",
                 value: "getPhoneNumber",

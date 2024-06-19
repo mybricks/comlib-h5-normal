@@ -17,6 +17,7 @@ export default function ({
 
   const handleClose = useCallback(() => {
     _env?.currentScenes?.close?.();
+    outputs?.["onClose"]?.();
     // setShow(false);
   }, [_env]);
 
@@ -52,10 +53,11 @@ export default function ({
 
   const handleOverlayClick = useCallback(() => {
     if (data.maskClose) {
-      handleClose();
+      _env?.currentScenes?.close?.();
+      outputs?.["onClickOverlay"]?.();
     }
     // outputs?.['onClickOverlay']?.(true);
-  }, [handleClose, data.maskClose]);
+  }, [_env, data.maskClose]);
 
   const isInEdit = isEdit(env);
   const isInDesignerRuntime = isDesigner(env);

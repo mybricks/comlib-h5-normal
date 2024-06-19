@@ -17,7 +17,24 @@
     },
     {
       "id": "setShare",
-      "title": "设置分享内容"
+      "title": "设置分享内容",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "标题"
+          },
+          "path": {
+            "type": "string",
+            "title": "路径"
+          },
+          "imageUrl": {
+            "type": "string",
+            "title": "图片地址"
+          }
+        }
+      }
     }
   ],
   "outputs": [

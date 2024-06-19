@@ -9,15 +9,6 @@ import { isDesigner } from "../utils/env";
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
-  //判断组件是否需要为可交互状态
-  const comOperatable = useMemo(() => {
-    if (env.edit) {
-      return false;
-    } else {
-      return true;
-    }
-  }, [env]);
-
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
@@ -42,6 +33,17 @@ export default function (props) {
         default:
           break;
       }
+    });
+
+    inputs["getValue"]((val, outputRels) => {
+      let result = data.value;
+
+      // 如果是单选，且需要格式化为字符串
+      if (data.maxCount == 1 && data.useValueString) {
+        result = result[0] || "";
+      }
+
+      outputRels["returnValue"](result);
     });
 
     // 上传完成
@@ -91,20 +93,23 @@ export default function (props) {
   );
 
   const onChooseImage = useCallback(() => {
-    if (!comOperatable) return 
-      Taro.chooseImage({
-        count: data.maxCount - data.value.length,
-        sizeType: ["original", "compressed"],
-        sourceType: ["album", "camera"],
-        success: async (res) => {
-          res.tempFilePaths.forEach((tempFilePath) => {
-            slots["customUpload"]?.inputs["fileData"]({
-              filePath: tempFilePath,
-            });
+    if (env.edit) {
+      return;
+    }
+
+    Taro.chooseImage({
+      count: data.maxCount - data.value.length,
+      sizeType: ["original", "compressed"],
+      sourceType: ["album", "camera"],
+      success: async (res) => {
+        res.tempFilePaths.forEach((tempFilePath) => {
+          slots["customUpload"]?.inputs["fileData"]({
+            filePath: tempFilePath,
           });
-        },
-      });
-  }, [data.value]);
+        });
+      },
+    });
+  }, [env.edit, data.value, data.maxCount, slots["customUpload"]]);
 
   const onChooseAvatar = useCallback(
     (res) => {
@@ -121,7 +126,7 @@ export default function (props) {
 
     if (data.chooseAvatar && !isDesigner(env)) {
       return (
-        <View className={cx(css.uploader, "mybricks-square")}>
+        <View className={cx(css.uploader, css.card, "mybricks-square")}>
           <Button
             className={css.chooseAvatar}
             openType={"chooseAvatar"}
@@ -132,7 +137,7 @@ export default function (props) {
     } else {
       return (
         <View
-          className={cx(css.uploader, "mybricks-square")}
+          className={cx(css.uploader, css.card, "mybricks-square")}
           onClick={onChooseImage}
         >
           {data.iconSlot ? (
@@ -149,7 +154,7 @@ export default function (props) {
     return data.value.map((raw, index) => {
       return (
         <View
-          className={cx(css.item, "mybricks-square")}
+          className={cx(css.item, css.card, "mybricks-square")}
           onClick={(e) => {
             onPreviewImage(e, raw);
           }}
@@ -203,6 +208,11 @@ export default function (props) {
       {thumbnails}
       {placeholderText}
       {placeholder}
+      {slots["customUpload"]?.render({
+        style: {
+          display: "none",
+        },
+      })}
     </View>
   );
 }

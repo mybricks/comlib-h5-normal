@@ -53,6 +53,16 @@ export default {
         },
         {
           ifVisible({ data }) {
+            return !!data.maskClose;
+          },
+          title: "点击蒙层关闭时",
+          type: "_event",
+          options: {
+            outputId: "onClickOverlay",
+          },
+        },
+        {
+          ifVisible({ data }) {
             return data.position === "center";
           },
           title: "关闭按钮",
@@ -70,6 +80,16 @@ export default {
               },
             },
           ],
+        },
+        {
+          ifVisible({ data }) {
+            return data.position === "center" && data.visibleClose;
+          },
+          title: "点击关闭时",
+          type: "_event",
+          options: {
+            outputId: "onClose",
+          },
         },
         // {
         //   title: "样式",
@@ -128,44 +148,4 @@ export default {
       // ]
     },
   },
-  // ".mybricks-content": {
-  //   title: '内容',
-  //   style: [
-  //     {
-  //       title: "",
-  //       options: ["border", "background"],
-  //       target: ".mybricks-content",
-  //     },
-  //   ],
-  // },
-  // ".mybricks-content": {
-  //   style: [
-  //     {
-  //       title: "样式",
-  //       options: ["border", "padding", "background"],
-  //       target: ".mybricks-content",
-  //     },
-  //   ],
-  //   items: [
-  //     {
-  //       title: "弹出位置",
-  //       type: "Select",
-  //       options: [
-  //         { value: "center", label: "居中" },
-  //         { value: "top", label: "顶部弹出" },
-  //         { value: "bottom", label: "底部弹出" },
-  //         { value: "left", label: "左侧弹出" },
-  //         { value: "right", label: "右侧弹出" },
-  //       ],
-  //       value: {
-  //         get({ data }) {
-  //           return data.position;
-  //         },
-  //         set({ data }, val) {
-  //           data.position = val;
-  //         },
-  //       },
-  //     },
-  //   ],
-  // },
 };

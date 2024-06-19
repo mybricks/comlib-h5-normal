@@ -71,6 +71,12 @@ export default function ({
         };
       }
 
+      case data.openType === "share": {
+        return {
+          openType: "share",
+        };
+      }
+
       default: {
         return {
           onClick: (e) => {
