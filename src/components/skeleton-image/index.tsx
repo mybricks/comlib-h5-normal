@@ -4,22 +4,33 @@ import React, {
   useRef,
   useMemo,
   useState,
+  CSSProperties,
 } from "react";
 import css from "./index.less";
 import { View, Image, ImageProps } from "@tarojs/components";
+import { autoCdnCut } from './../../utils/image'
 
 interface SkeletonImageProps extends ImageProps {
   skeleton?: boolean;
+  skeletonStyle?: CSSProperties,
+  cdnCut?: 'auto' | ''
+  cdnCutOption?: {
+    width?: number | string,
+    height?: number | string,
+  }
 }
 
 export default function ({
   skeleton = false,
+  skeletonStyle,
   onLoad,
   onClick,
   onError,
   className,
   src,
   mode,
+  cdnCut = '',
+  cdnCutOption = {},
   ...props
 }: SkeletonImageProps) {
   const [loading, setLoading] = useState(!!skeleton);
@@ -53,15 +64,32 @@ export default function ({
     [onError]
   );
 
+  const _src = useMemo(() => {
+    if (cdnCut === 'auto') {
+      const cutUrl = autoCdnCut({
+        url: src,
+        width: cdnCutOption?.width,
+        height: cdnCutOption?.height
+      }, {
+        quality: 90
+      })
+      return cutUrl;
+    }
+    return src
+  }, [src, cdnCut, cdnCutOption?.height, cdnCutOption?.height])
+
   return (
     <View className={css.com}>
       <View
         className={loading ? `${css.place}` : `${css.place} ${css.none}`}
+        style={skeletonStyle}
       ></View>
       <Image
+        // 开启懒加载，官方解释是 在即将进入一定范围（上下三屏）时才开始加载
+        lazyLoad
         {...props}
         className={className}
-        src={src}
+        src={_src}
         mode={mode}
         onClick={_onClick}
         onLoad={_onLoad}

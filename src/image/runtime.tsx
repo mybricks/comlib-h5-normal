@@ -69,35 +69,22 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
     outputs["onError"](data.src);
   }, []);
 
-  const resized = useMemo(() => {
-    if (!env.runtime) {
-      return "?x-oss-process=image/resize,w_750";
-    }
-
-    if (env?.runtime?.debug) {
-      return "?x-oss-process=image/resize,w_750";
-    }
-
-    return "?x-oss-process=image/resize,w_1125";
-  }, [env.runtime]);
-
   return (
     <View className={css.com} ref={ele}>
       <SkeletonImage
         skeleton={env.edit ? false : !!data?.loadSmooth}
         className={cx(css.image, h5PolyfillClass, "mybricks-image")}
         src={
-          !!data.src
-            ? data.src.startsWith("http")
-              ? `${data.src}${resized}`
-              : data.src
-            : extra?.imageUrl
+          !!data.src ? data.src : extra?.imageUrl
         }
         mode={data.mode}
         onClick={onClick}
         onLoad={onLoad}
         onError={onError}
-        showMenuByLongpress={data.showMenuByLongpress ?? false}
+        showMenuByLongpress={data.showMenuByLongpress ?? false}  
+        
+        cdnCut="auto"
+        cdnCutOption={{ width: style.width, height: style.height }}
       />
     </View>
   );
