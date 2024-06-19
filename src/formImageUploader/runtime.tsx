@@ -91,20 +91,20 @@ export default function (props) {
   );
 
   const onChooseImage = useCallback(() => {
-    if (!comOperatable) return 
-      Taro.chooseImage({
-        count: data.maxCount - data.value.length,
-        sizeType: ["original", "compressed"],
-        sourceType: ["album", "camera"],
-        success: async (res) => {
-          res.tempFilePaths.forEach((tempFilePath) => {
-            slots["customUpload"]?.inputs["fileData"]({
-              filePath: tempFilePath,
-            });
+    if (!comOperatable) return;
+    Taro.chooseImage({
+      count: data.maxCount - data.value.length,
+      sizeType: ["original", "compressed"],
+      sourceType: ["album", "camera"],
+      success: async (res) => {
+        res.tempFilePaths.forEach((tempFilePath) => {
+          slots["customUpload"]?.inputs["fileData"]({
+            filePath: tempFilePath,
           });
-        },
-      });
-  }, [data.value]);
+        });
+      },
+    });
+  }, [comOperatable, data.value, data.maxCount, slots["customUpload"]]);
 
   const onChooseAvatar = useCallback(
     (res) => {
