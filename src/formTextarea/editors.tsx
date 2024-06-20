@@ -4,13 +4,13 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   ":root": {
     style: [
       {
         title: "输入框",
-        options: ["font", "border", "padding", "background"],
+        options: ["size", "font", "border", "padding", "background"],
         target: ".taroify-textarea__wrapper",
       },
     ],

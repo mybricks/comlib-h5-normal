@@ -213,6 +213,19 @@ export default {
 
         ...submitEditorItems,
       ];
+
+      cate1.title = "高级";
+      cate1.items = [
+        {
+          title: "修复",
+          type: "button",
+          value: {
+            set({ data, style }) {
+              style.height = "auto";
+            },
+          },
+        },
+      ];
     },
   },
   ":child(mybricks.taro.formContainer/formItem)": {
