@@ -1,3 +1,5 @@
+import { autoCdnCut } from './../utils/image'
+
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
@@ -41,7 +43,7 @@ export default {
                   轮播图：
                   <img
                     style={{ display: "block", height: 30 }}
-                    src={item.thumbnail}
+                    src={autoCdnCut({ url: item.thumbnail, height: 50 }, { quality: 85 })}
                   />
                 </div>,
               ];

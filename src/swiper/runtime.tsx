@@ -3,6 +3,7 @@ import { View, Image } from "@tarojs/components";
 import cx from "classnames";
 import { Swiper, SwiperItem } from "./../components/swiper";
 import EmptyCom from "../components/empty-com";
+import SkeletonImage from "./../components/skeleton-image";
 import { isUndef } from "./../utils/core";
 import * as Taro from "@tarojs/taro";
 import css from "./style.less";
@@ -10,6 +11,7 @@ import css from "./style.less";
 export default function ({ env, data, inputs, outputs, style }) {
   // 当前选中的tab
   const [current, setCurrent] = useState(0);
+  const [loadedImages, setLoadedImages] = useState([current, current + 1, data.items?.length ? (data.items?.length - 1) : 0]); // 默认加载第一个和最后一个图片
 
   useEffect(() => {
     if (env.edit && !isUndef(data?.edit?.current)) {
@@ -63,6 +65,17 @@ export default function ({ env, data, inputs, outputs, style }) {
     setCurrent(e.detail?.current);
   }, []);
 
+  useEffect(() => {
+    setLoadedImages(c => {
+      const newLoadedImages = new Set(c);
+      if (current + 1 < data.items.length) {
+        newLoadedImages.add(current + 1); // 预加载后面一张图片
+        return Array.from(newLoadedImages)
+      }
+      return c
+    });
+  }, [current])
+
   if (env.runtime && !data.items.length) {
     return null;
   }
@@ -70,18 +83,6 @@ export default function ({ env, data, inputs, outputs, style }) {
   if (env.edit && !data.items.length) {
     return <EmptyCom title="请配置幻灯片" />;
   }
-
-  const resized = useMemo(() => {
-    if (!env.runtime) {
-      return "?x-oss-process=image/resize,w_750";
-    }
-
-    if (env?.runtime?.debug) {
-      return "?x-oss-process=image/resize,w_750";
-    }
-
-    return "?x-oss-process=image/resize,w_1125";
-  }, [env.runtime]);
 
   return (
     <Swiper
@@ -94,6 +95,8 @@ export default function ({ env, data, inputs, outputs, style }) {
       {...extra}
     >
       {data.items.map((item, index) => {
+        // 搭建态下加载全部
+        const shouldLoad = env.edit ? true : loadedImages.includes(index);
         return (
           <SwiperItem
             key={item._id}
@@ -102,18 +105,16 @@ export default function ({ env, data, inputs, outputs, style }) {
               onClick({ item, index });
             }}
           >
-            <Image
+            <SkeletonImage
               className={css.thumbnail}
               mode="aspectFill"
-              src={
-                item.thumbnail?.startsWith("http")
-                  ? item.thumbnail + resized
-                  : item.thumbnail
-              }
+              src={shouldLoad ? item.thumbnail : ''}
               nativeProps={{
                 loading: "lazy",
                 decoding: "async",
               }}
+              cdnCut="auto"
+              cdnCutOption={{ width: style.width, height: style.height }}
             />
           </SwiperItem>
         );
