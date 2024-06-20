@@ -60,9 +60,9 @@ const getTypeFromMode = (mode) => {
   return "";
 };
 
-const ImageSelect = ({ options, value, onChange }) => {
-  return <div className={styles.imageSelect}></div>;
-};
+// const ImageSelect = ({ options, value, onChange }) => {
+//   return <div className={styles.imageSelect}></div>;
+// };
 
 const Delete: FC = ({ editConfig }: any) => {
   const { value, options } = editConfig;
@@ -83,12 +83,15 @@ const Delete: FC = ({ editConfig }: any) => {
     if (styleRef.current.width !== style.width || styleRef.current.height !== style.height) {
       setMode(_mode => {
         if (style.height === 'auto') {
+          value.set(IMAGE_MODE.WIDTHFIX);
           return IMAGE_MODE.WIDTHFIX
         } else {
           /** 如果不属于保持比例，就保持原样就行 */
           if (getTypeFromMode(_mode) !== IMAGE_TYPE.ADAPT) {
+            value.set(_mode);
             return _mode
           } else {
+            value.set(IMAGE_MODE.ASPECTFILL);
             return IMAGE_MODE.ASPECTFILL
           }
         }
@@ -99,9 +102,9 @@ const Delete: FC = ({ editConfig }: any) => {
   }, [style.width, style.height]);
 
   /** mode变化调用editor.setValue  */
-  useEffect(() => {
-    value.set(mode);
-  }, [mode]);
+  // useEffect(() => {
+  //   value.set(mode);
+  // }, [mode]);
 
   const [desc, subModes] = useMemo(() => {
     let desc = "";
@@ -134,6 +137,7 @@ const Delete: FC = ({ editConfig }: any) => {
         ) {
           // setType(_type)
           setMode(IMAGE_MODE.ASPECTFILL);
+          value.set(IMAGE_MODE.ASPECTFILL);
           return;
         }
         showToast("裁剪模式需要固定宽高");
@@ -146,6 +150,7 @@ const Delete: FC = ({ editConfig }: any) => {
         ) {
           // setType(_type)
           setMode(IMAGE_MODE.SCALETOFILL);
+          value.set(IMAGE_MODE.SCALETOFILL);
           return;
         }
         showToast("拉伸模式需要固定宽高");
@@ -157,6 +162,7 @@ const Delete: FC = ({ editConfig }: any) => {
           style.height === 'auto'
         ) {
           setMode(IMAGE_MODE.WIDTHFIX);
+          value.set(IMAGE_MODE.WIDTHFIX);
           return;
         }
         
@@ -171,6 +177,7 @@ const Delete: FC = ({ editConfig }: any) => {
 
   const changeCutMode = useCallback((v) => {
     setMode(v);
+    value.set(v);
   }, []);
 
 

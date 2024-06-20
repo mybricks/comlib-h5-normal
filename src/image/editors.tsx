@@ -45,7 +45,7 @@ export default {
                 get({ data, style }) {
                   return {
                     mode: data.mode,
-                    style,
+                    style: style,
                   };
                 },
                 set({}, value) {
