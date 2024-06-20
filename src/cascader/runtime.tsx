@@ -16,7 +16,11 @@ export default function ({ env, data, inputs, outputs, slots, mockProps }) {
       if (Array.isArray(val)) {
         setOptions(val)
       }
-    })
+    });
+
+    inputs['setValue']?.((val) => {
+      setValue(val)
+    });
   }, [])
 
   const handleChange = useCallback((values, options) => {

@@ -29,12 +29,19 @@ export default function ({ env, data, slots, inputs, outputs }) {
     //通过连线来切换条件
     data.items.forEach((item) => {
       inputs[item.id]?.((bool, relOutputs) => {
+        if(item.id === activeId) {
+          slots[item.id]?.inputs["itemData"]?.(bool);
+          setBool(bool);
+          relOutputs["changeDone"]?.(bool);
+          return;
+        }
+
         setInputId(item.id);
         setBool(bool);
         relOutputs["changeDone"]?.(bool);
       });
     });
-  }, [data.items]);
+  }, [data.items, activeId]);
 
   const renderMode = useMemo(() => {
     if (env.edit) {

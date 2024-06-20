@@ -1,11 +1,10 @@
-
 export default {
   "@init"({ style, data, ...opt }) {
-    style.width = '100%'
+    style.width = "100%";
     style.height = 375;
   },
-  '@resize': {
-    options: ['width', 'height']
+  "@resize": {
+    options: ["width", "height"],
   },
   ":root": {
     style: [
@@ -20,7 +19,8 @@ export default {
               { type: "padding" },
               { type: "background" },
             ],
-            target: ".mybricks-cascader .taroify-cascader__option:not(.taroify-cascader__option--active)",
+            target:
+              ".mybricks-cascader .taroify-cascader__option:not(.taroify-cascader__option--active)",
           },
           {
             title: "选中样式",
@@ -32,7 +32,7 @@ export default {
             ],
             target: ".mybricks-cascader .taroify-cascader__option--active",
           },
-        ]
+        ],
       },
       {
         title: "标签项",
@@ -50,7 +50,8 @@ export default {
                   { type: "padding" },
                   { type: "background" },
                 ],
-                target: ".mybricks-cascader .taroify-tabs__tab:not(.taroify-tabs__tab--active)",
+                target:
+                  ".mybricks-cascader .taroify-tabs__tab:not(.taroify-tabs__tab--active)",
               },
               {
                 title: "选中样式",
@@ -82,8 +83,8 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: '未选择的提示文案',
-          type: 'text',
+          title: "未选择的提示文案",
+          type: "text",
           value: {
             get({ data }) {
               return data.placeholder;
@@ -113,8 +114,25 @@ export default {
           ],
         },
       ];
-  
-      
+
+      // cate1.title = "高级";
+      // cate1.items = [
+      //   {
+      //     title: "修复",
+      //     type: "button",
+      //     value: {
+      //       set({ data, input }) {
+      //         input.add("setValue", "设置值", {
+      //           title: "选中项数组",
+      //           type: "array",
+      //           items: {
+      //             type: "string",
+      //           },
+      //         });
+      //       },
+      //     },
+      //   },
+      // ];
     },
   },
 };
