@@ -4,7 +4,7 @@ import { Input } from "brickd-mobile";
 import css from "./style.less";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
-import { isEmpty, isString, isNumber, isObject } from "lodash";
+import { isEmpty, isString, isNumber, isObject } from "./../utils/core/type";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
