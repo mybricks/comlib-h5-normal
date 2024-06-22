@@ -11,6 +11,13 @@ export default function (props) {
     env.edit ? data.options[0]?.value : data.value
   );
 
+  useEffect(()=>{
+    inputs["getValue"]((val,relOutputs) => {
+      console.log("value",value)
+      relOutputs["returnValue"](value)
+    })
+  },[value])
+
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {

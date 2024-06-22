@@ -36,6 +36,14 @@
       "schema": {
         "type": "any"
       }
+    },
+    {
+      "id": "startCountDown",
+      "title": "开始倒数",
+      "desc": "触发后开始倒计时",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "outputs": [

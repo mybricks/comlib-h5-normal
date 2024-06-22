@@ -34,6 +34,10 @@ export default function (props) {
     inputs["resetValue"]((val)=>{
       data.value = null;
     });
+
+    inputs["startCountDown"]((val)=>{
+      countDown();
+    })
   }, []);
 
   const countDown = () => {
@@ -68,8 +72,6 @@ export default function (props) {
     const onCodeSend = useCallback((e) => {
       let value = e.detail.value;
       data.value = value;
-
-      countDown();
       if (!data.buttonAvailable) return;
       outputs["onCodeSend"](value);
     }, []);
