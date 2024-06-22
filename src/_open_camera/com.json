@@ -1,10 +1,10 @@
 {
-  "title": "打开相机",
+  "title": "打开相机/相册",
   "namespace": "mybricks.taro._open_camera",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "打开系统相机进行拍照或者从相册选取图片",
+  "description": "从本地相册选择图片或使用相机拍照",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",
@@ -13,9 +13,9 @@
   "inputs": [
     {
       "id": "takePhotos",
-      "title": "打开相机",
+      "title": "打开",
       "schema": {
-        "type": "follow"
+        "type": "any"
       }
     }
   ],
@@ -31,7 +31,7 @@
       "id": "onFail",
       "title": "拍照失败",
       "schema": {
-        "type": "follow"
+        "type": "any"
       }
     }
   ]
