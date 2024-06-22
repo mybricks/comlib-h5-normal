@@ -245,10 +245,10 @@ export default {
               //   label: "打开APP",
               //   value: "launchApp",
               // },
-              // {
-              //   label: "打开授权设置页",
-              //   value: "openSetting",
-              // },
+              {
+                label: "打开授权设置页",
+                value: "openSetting",
+              },
               // {
               //   label: "打开“意见反馈”页面",
               //   value: "feedback",

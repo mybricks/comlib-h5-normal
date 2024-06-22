@@ -77,6 +77,12 @@ export default function ({
         };
       }
 
+      case data.openType === "openSetting": {
+        return {
+          openType: "openSetting",
+        };
+      }
+
       default: {
         return {
           onClick: (e) => {
