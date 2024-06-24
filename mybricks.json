@@ -32,6 +32,7 @@
     "./src/_getAddress/com.json",
     "./src/_get-drive-path/com.json",
     "./src/_chooseAddress/com.json",
+    "./src/_open-location/com.json",
     "./src/_previewImage/com.json",
     "./src/_saveImageToPhotosAlbum/com.json",
     "./src/_requestSubscribeMessage/com.json",
