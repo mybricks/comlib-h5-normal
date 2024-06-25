@@ -10,8 +10,18 @@ export default function ({ env, data, inputs, outputs }) {
     /**
      * 自定义
      */
+
+    let header = {};
+    let mybricksGlobalHeaders = Taro.getStorageSync(
+      "_MYBRICKS_GLOBAL_HEADERS_"
+    );
+    if (mybricksGlobalHeaders) {
+      Object.assign(header, mybricksGlobalHeaders);
+    }
+
     if (data.mode === "custom") {
       Taro.uploadFile({
+        header: header,
         withCredentials: false,
         url: data.custom.url,
         filePath: value.filePath,
@@ -34,7 +44,7 @@ export default function ({ env, data, inputs, outputs }) {
         },
         fail(err) {
           outputs["onFail"](err);
-        }
+        },
       });
       return;
     }

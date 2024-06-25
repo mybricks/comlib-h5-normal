@@ -19,7 +19,7 @@ const runtimeEnv = () => {
 };
 
 export default function ({ env, data, inputs, outputs }) {
-  if (env.runtime) {
+  if (env.runtime && !env.runtime.debug) {
     inputs["open"]((value) => {
       const validValue = isObject(value) ? value : {};
       const finalUrl = validValue?.url ?? data.url;

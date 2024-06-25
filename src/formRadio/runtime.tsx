@@ -72,8 +72,8 @@ export default function (props) {
         return (
           <Radio
             className={cx({
-              ["mybricks-inactive"]: value !== item.value,
-              ["mybricks-active"]: value === item.value,
+              ["mybricks-inactive"]: value != item.value,
+              ["mybricks-active"]: value == item.value,
             })}
             name={item.value}
             {...restProps}

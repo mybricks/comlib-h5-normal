@@ -22,7 +22,7 @@
       "id": "setDisabled",
       "title": "设置按钮禁用",
       "schema": {
-        "type": "string"
+        "type": "any"
       },
       "rels": [
         "setDisabledSuccess"
@@ -32,7 +32,7 @@
       "id": "setEnabled",
       "title": "设置按钮启用",
       "schema": {
-        "type": "string"
+        "type": "any"
       },
       "rels": [
         "setEnabledSuccess"

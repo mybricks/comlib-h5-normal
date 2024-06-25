@@ -11,7 +11,18 @@
   "inputs": [
     {
       "id": "setValue",
-      "title": "设置值"
+      "title": "设置值",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["returnValue"]
     }
   ],
   "outputs": [
@@ -46,6 +57,13 @@
     {
       "id": "onSearch",
       "title": "当触发搜索时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
       "schema": {
         "type": "string"
       }

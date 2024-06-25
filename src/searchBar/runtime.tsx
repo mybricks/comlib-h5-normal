@@ -10,7 +10,11 @@ export default function ({ env, data, inputs, outputs }) {
     inputs["setValue"]((val) => {
       setValue(val);
     });
-  }, []);
+
+    inputs["getValue"]?.((val, relOutputs) => {
+      relOutputs["returnValue"](value);
+    });
+  }, [value]);
 
   const onClick = useCallback(() => {
     if (data.disabled) {

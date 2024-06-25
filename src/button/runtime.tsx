@@ -21,13 +21,6 @@ export default function ({
   title,
   extra,
 }) {
-  const onClick = useCallback((ev) => {
-    if (env.runtime) {
-      ev.stopPropagation();
-      outputs["onClick"](true);
-    }
-  }, []);
-
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
     inputs["buttonText"]((val: string) => {
@@ -86,7 +79,7 @@ export default function ({
       default: {
         return {
           onClick: (e) => {
-            if (env.runtime) {
+            if (env.runtime && !data.disabled) {
               e.stopPropagation();
               outputs["onClick"](data.text);
             }
@@ -94,7 +87,7 @@ export default function ({
         };
       }
     }
-  }, [data.openType, data.text, env.runtime]);
+  }, [data.openType, data.text, env.runtime, data.disabled]);
 
   const useBeforeIcon = useMemo(() => {
     if (env.edit) {
