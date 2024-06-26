@@ -39,7 +39,7 @@
   "outputs": [
     {
       "id": "selectedChanged",
-      "title": "选中项变化",
+      "title": "点击触发选中项变化",
       "schema": {
         "type": "object",
         "properties": {

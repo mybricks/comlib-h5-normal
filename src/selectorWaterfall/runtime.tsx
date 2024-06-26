@@ -21,6 +21,7 @@ interface DsItem {
 export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
   const [dataSource, setDataSource] = useState<DsItem[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [clickChange, setClickChange] = useState<boolean>(false);
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
@@ -38,6 +39,7 @@ export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
 
     inputs["selectItem"]((val) => {
       if (val === selectedIndex || val < 0) return;
+      setClickChange(false)
       setSelectedIndex(val);
     });
   }, []);
@@ -91,26 +93,18 @@ export const SelectorList = ({ env, data, inputs, outputs, slots }) => {
   }, [dataSource, env.runtime, data.layout.column]);
 
   const click = (index) => {
+    setClickChange(true)
     setSelectedIndex(index);
   };
 
   useEffect(() => {
     if (selectedIndex === -1 || !dataSource || !dataSource[selectedIndex])
       return;
-    console.log(
-      "dataSource[selectedIndex]",
-      dataSource[selectedIndex],
-      "dataSource",
-      dataSource,
-      "selectedIndex",
-      selectedIndex
-    );
-    outputs["selectedChanged"](dataSource[selectedIndex]);
-  }, [selectedIndex]);
+    if (clickChange) {
+      outputs["selectedChanged"](dataSource[selectedIndex]);
+    }
 
-  useEffect(() => {
-    console.log("_dataSource", _dataSource);
-  }, [_dataSource]);
+  }, [selectedIndex]);
 
   const $grid = _dataSource.map(
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
