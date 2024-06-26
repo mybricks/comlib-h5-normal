@@ -73,6 +73,12 @@ export default function ({
       case data.openType === "openSetting": {
         return {
           openType: "openSetting",
+          onClick: (e) => {
+            if (env.runtime) {
+              e.stopPropagation();
+              outputs["onClick"](data.text);
+            }
+          },
         };
       }
 
