@@ -307,7 +307,16 @@ export default {
               outputId: "onClick",
             },
           },
-
+          {
+            ifVisible({ data }) {
+              return data.openType === "openSetting";
+            },
+            title: "打开授权页时触发",
+            type: "_event",
+            options: {
+              outputId: "onClick",
+            },
+          },
           {
             ifVisible({ data }) {
               return data.openType === "getPhoneNumber";
