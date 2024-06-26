@@ -371,7 +371,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
       {/* {contentPlaceholder ? (
         <View className={cx(css.contentPlaceholder, "mybricks-contentPlaceholder")}></View>
       ) : ( */}
-      <View className={css.fixedContainer}>
+      <View id="root" className={css.fixedContainer}>
         <ScrollView
           id="root_scroll"
           scrollY={!data.disableScroll}
@@ -389,6 +389,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
           className={css.contentScrollView}
           // style={{ height: contentScrollViewHeight }}
         >
+
           {slots["content"]?.render?.({
             style: {
               ...slotStyle,

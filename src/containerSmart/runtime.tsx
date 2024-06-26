@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import cx from "classnames";
 import css from "./style.less";
 import { View } from "@tarojs/components";
 
-export default ({ id, data, outputs, slots, env }) => {
+export default ({ id, data, style, outputs, slots, env }) => {
   const onClick = useCallback((node) => {
     if (env.runtime) {
       outputs?.[`click`]?.();
