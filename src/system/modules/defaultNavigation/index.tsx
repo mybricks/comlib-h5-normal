@@ -9,9 +9,15 @@ import homeButtonBlack from "../icons/homeButtonBlack";
 import menuButtonWhite from "../icons/menuButtonWhite";
 import menuButtonBlack from "../icons/menuButtonBlack";
 
-
 export default function (props) {
-  let { data } = props;
+  let { data, env } = props;
+
+  const onBack = () => {
+    if (env.runtime) {
+      console.log("back");
+      env.canvas.back();
+    }
+  };
 
   return (
     <View
@@ -23,18 +29,31 @@ export default function (props) {
         <View className={css.left}>
           <Image
             className={css.backIcon}
-            src={data.navigationBarTextStyle === "white" ? backIconWhite : backIconBlack}
+            src={
+              data.navigationBarTextStyle === "white"
+                ? backIconWhite
+                : backIconBlack
+            }
+            onClick={onBack}
           />
           {data.homeButton ? (
             <Image
               className={css.homeIcon}
-              src={data.navigationBarTextStyle === "white" ? homeButtonWhite : homeButtonBlack}
+              src={
+                data.navigationBarTextStyle === "white"
+                  ? homeButtonWhite
+                  : homeButtonBlack
+              }
             />
           ) : null}
         </View>
         <Image
           className={css.right}
-          src={data.navigationBarTextStyle === "white" ? menuButtonWhite : menuButtonBlack}
+          src={
+            data.navigationBarTextStyle === "white"
+              ? menuButtonWhite
+              : menuButtonBlack
+          }
         />
         {/* title */}
         <View

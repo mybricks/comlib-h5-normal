@@ -15,6 +15,8 @@ import CustomNavigation from "../modules/customNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import { isDesigner } from "../../utils/env";
 
+console.log("Taro.getSystemInfoSync()", Taro.getSystemInfoSync());
+
 const isIOS = Taro.getSystemInfoSync().platform === "ios";
 
 const defaultMenuButtonBoundingClientRect = {
@@ -316,7 +318,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
             <>
               <View style={{ width: 375, height: 84 }}></View>
               <View className={css.fixedTop}>
-                <DefaultNavigation data={data} />
+                <DefaultNavigation env={env} data={data} />
               </View>
             </>
           ) : null}

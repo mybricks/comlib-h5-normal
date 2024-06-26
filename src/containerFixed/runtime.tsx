@@ -38,13 +38,18 @@ export default ({ id, data, style, outputs, slots, env }) => {
         left: boundingClientRect.left / ratio,
       };
 
-      let customNavigationHeight = Math.round(relativeRect.top - (40 - relativeRect.height) / 2) + 40;
+      let customNavigationHeight =
+        Math.round(relativeRect.top - (40 - relativeRect.height) / 2) + 40;
 
       result.top = style.top + customNavigationHeight;
     }
 
     if (typeof style.bottom !== "undefined") {
-      result.bottom = style.bottomAsFixed / ratio;
+      let systemInfo = Taro.getSystemInfoSync();
+      let bottomSafearea =
+        (systemInfo.screenHeight - systemInfo.safeArea.bottom) / ratio;
+
+      result.bottom = style.bottomAsFixed / ratio + bottomSafearea;
     }
 
     return result;
