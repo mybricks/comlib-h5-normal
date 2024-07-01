@@ -57,6 +57,7 @@ export default ({ id, data, style, outputs, slots, env }) => {
 
   const onClick = useCallback((node) => {
     if (env.runtime) {
+      // RootPortal 如何让点击后失去焦点
       outputs?.[`click`]?.();
     }
   }, []);

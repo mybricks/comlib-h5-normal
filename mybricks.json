@@ -110,7 +110,8 @@
         "./src/formPhoneSMS/com.json",
         "./src/formImageUploader/com.json",
         "./src/searchBar/com.json",
-        "./src/smsInput/com.json"
+        "./src/smsInput/com.json",
+        "./src/formAdditionContainer/com.json"
       ]
     },
     {
