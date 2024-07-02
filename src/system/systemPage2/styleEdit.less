@@ -1,0 +1,74 @@
+.page {
+  width: 375px;
+  // height: 667px;
+  min-height: 667px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+
+  .navigationBar {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      flex: 1;
+    }
+
+    .placeholder {
+      display: block;
+      width: 120px;
+      height: 120px;
+    }
+
+    .bottomSpace {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(246, 247, 249, 0.5);
+      outline: 1px solid #f6f7f9;
+      overflow: hidden;
+      &::after {
+        line-height: 1;
+        content: "（底部空间留存）";
+        color: #999;
+        font-size: 12px;
+        font-style: italic;
+      }
+    }
+  }
+
+  .tabBarErrorTip {
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-style: italic;
+    color: #999;
+    background: rgba(246, 247, 249, 0.5);
+  }
+
+  .footer {
+    width: 100%;
+    position: relative;
+    transform: scale(1);
+    .safearea {
+      height: 34px;
+    }
+  }
+}

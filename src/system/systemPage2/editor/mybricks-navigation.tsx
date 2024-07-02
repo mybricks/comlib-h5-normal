@@ -1,3 +1,5 @@
+import { set } from "vue/types/umd";
+
 const setSlotLayout = (slot, val) => {
   if (!slot) return;
   if (val.position === "absolute") {
@@ -13,8 +15,31 @@ const setSlotLayout = (slot, val) => {
 
 export default {
   ".mybricks-navigation": {
-    title: "导航栏",
+    title: "顶部导航栏",
     items: [
+      {
+        title: "展示顶部导航栏",
+        description: "是否展示顶部导航栏",
+        type: "radio",
+        options: [
+          {
+            label: "展示",
+            value: true,
+          },
+          {
+            label: "隐藏",
+            value: false,
+          },
+        ],
+        value: {
+          get({ data }) {
+            return !!data.useNavigation;
+          },
+          set({ data, slot }, value) {
+            data.useNavigation = value;
+          },
+        },
+      },
       {
         title: "导航栏样式",
         type: "select",

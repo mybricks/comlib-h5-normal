@@ -12,9 +12,13 @@ import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
 import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
+import MyBricksNavigation from "../modules/MyBricksNavigation";
 import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
 
-export default function ({ env, data, inputs, outputs, slots }) {
+export default function (props) {
+  const { env, data, inputs, outputs, slots } = props;
+
+  // 设置页面 id
   data.id = env.canvas.id;
 
   /**
@@ -157,20 +161,41 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, [data, useTabBar]);
 
   const pageBackgroundStyle = useMemo(() => {
-    return {
-      backgroundColor: data.background,
-      backgroundImage: `url(${data.backgroundImage})`,
-      backgroundSize: data.backgroundSize,
-      backgroundRepeat: data.backgroundRepeat,
-      backgroundPosition: data.backgroundPosition,
-    };
+    let result = {};
+
+    if (data.backgroundImage) {
+      result["backgroundImage"] = `url(${data.backgroundImage})`;
+    }
+
+    let result = {};
+
+    if (data.backgroundImage) {
+      result["backgroundImage"] = `url(${data.backgroundImage})`;
+    }
+
+    if (data.backgroundSize) {
+      result["backgroundSize"] = data.backgroundSize;
+    }
+
+    if (data.backgroundRepeat) {
+      result["backgroundRepeat"] = data.backgroundRepeat;
+    }
+
+    if (data.backgroundPosition) {
+      result["backgroundPosition"] = data.backgroundPosition;
+    }
+
+    if (data.background) {
+      result["backgroundColor"] = data.background;
+    }
+
+    return result;
   }, [
-    data.useNavigationStyle,
-    data.background,
     data.backgroundImage,
     data.backgroundSize,
     data.backgroundRepeat,
     data.backgroundPosition,
+    data.background,
   ]);
 
   return (
@@ -185,19 +210,22 @@ export default function ({ env, data, inputs, outputs, slots }) {
       {/* Header start */}
       <View className={"mybricks-navigation"}>
         {/* 默认样式 */}
-        {data.useNavigationStyle === "default" ? (
+        {/* {data.useNavigationStyle === "default" ? (
           <DefaultNavigation data={data} />
-        ) : null}
+        ) : null} */}
 
         {/* 自定义导航栏 */}
-        {data.useNavigationStyle === "custom" ? (
+        {/* {data.useNavigationStyle === "custom" ? (
           <CustomNavigation env={env} data={data} slots={slots} />
-        ) : null}
+        ) : null} */}
 
         {/* 隐藏导航栏 */}
-        {data.useNavigationStyle === "none" ? (
+        {/* {data.useNavigationStyle === "none" ? (
           <NoneNavigation data={data} />
-        ) : null}
+        ) : null} */}
+
+        {/* 导航栏 */}
+        {data.useNavigation ? <MyBricksNavigation {...props} /> : null}
       </View>
       {/* Header end */}
 

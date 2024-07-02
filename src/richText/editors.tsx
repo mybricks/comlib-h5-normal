@@ -6,38 +6,47 @@ export default {
   "@resize": {
     options: ["width"],
   },
-  ":root"({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = "常规";
-    cate0.items = [
+  ":root": {
+    style: [
       {
-        title: "内容",
-        type: "richtext",
-        options: {
-          type: "h5",
-        },
-        value: {
-          get({ data }) {
-            return decodeURIComponent(data.content);
-          },
-          set({ data }, val) {
-            data.content = encodeURIComponent(val);
-          },
-        },
+        title: "样式",
+        options: ["border", "padding", "background"],
+        target: ".taro_html",
       },
-      {
-        title: "仅使用动态渲染",
-        description:
-          "开启后，页面默认不会渲染静态的「内容」，数据必须经过输入项「设置内容」来设置",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useDynamic;
+    ],
+    items({ data, output, style }, cate0, cate1, cate2) {
+      cate0.title = "常规";
+      cate0.items = [
+        {
+          title: "内容",
+          type: "richtext",
+          options: {
+            type: "h5",
           },
-          set({ data }, val) {
-            data.useDynamic = val;
+          value: {
+            get({ data }) {
+              return decodeURIComponent(data.content);
+            },
+            set({ data }, val) {
+              data.content = encodeURIComponent(val);
+            },
           },
         },
-      },
-    ];
+        {
+          title: "仅使用动态渲染",
+          description:
+            "开启后，页面默认不会渲染静态的「内容」，数据必须经过输入项「设置内容」来设置",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.useDynamic;
+            },
+            set({ data }, val) {
+              data.useDynamic = val;
+            },
+          },
+        },
+      ];
+    },
   },
 };
