@@ -1,5 +1,6 @@
 {
   "src": "",
+  "svgPolyfill": "",
   "mode": "aspectFill",
   "loadSmooth": false,
   "showMenuByLongpress": false

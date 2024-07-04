@@ -12,12 +12,17 @@ export default function ({ env, data, inputs, outputs }) {
       delta = val.delta;
     }
 
-    // todo
-    // debug 时候的跳转
+    delta = isNaN(parseInt(delta)) ? 1 : parseInt(delta);
+
+    // 在引擎内，使用 mock 方法
+    if (env.runtime.debug) {
+      env.canvas.back(-delta);
+      return;
+    }
 
     //runtime
     Taro.navigateBack({
-      delta: isNaN(parseInt(delta)) ? 1 : parseInt(delta),
+      delta: delta,
     });
   });
 }

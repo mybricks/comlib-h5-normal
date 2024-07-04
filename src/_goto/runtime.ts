@@ -7,25 +7,6 @@ export default function ({ env, data, inputs, outputs }) {
 
   inputs["goto"]((val) => {
     /**
-     * 预置跳转逻辑
-     */
-    if (data.useAction === "preset") {
-      switch (data.id) {
-        //登录
-        case "login": {
-          Taro.navigateTo({
-            url: "/pages/login/index",
-          });
-          break;
-        }
-
-        //其他
-        
-      }
-      return;
-    }
-
-    /**
      * 自定义跳转逻辑
      */
     val = val || {};
@@ -43,16 +24,6 @@ export default function ({ env, data, inputs, outputs }) {
     let url = [path, params].filter((raw) => !!raw).join("?");
 
     switch (true) {
-      case action === "navigateBack": {
-        console.log("navigateBack");
-        Taro.navigateBack({
-          delta: isNaN(parseFloat(data?.backDelta))
-            ? 1
-            : parseFloat(data?.backDelta),
-        });
-        return;
-      }
-
       case action === "navigateTo":
         console.log("navigateTo", url);
         Taro.navigateTo({
@@ -76,13 +47,6 @@ export default function ({ env, data, inputs, outputs }) {
               url,
             });
           },
-        });
-        return;
-
-      case action === "switchTab":
-        console.log("switchTab", url);
-        Taro.switchTab({
-          url,
         });
         return;
     }

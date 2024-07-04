@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import css from "./style.less";
 import cx from "classnames";
+import { View } from "@tarojs/components";
 import { Search } from "brickd-mobile";
 import { debounce } from "./../utils/core";
 export default function ({ env, data, inputs, outputs }) {
@@ -18,7 +19,7 @@ export default function ({ env, data, inputs, outputs }) {
 
   const onClick = useCallback(() => {
     if (data.disabled) {
-      outputs["onClick"]?.(true);
+      outputs["onClick"]?.(value);
     }
   }, [data.disabled]);
 
@@ -53,7 +54,7 @@ export default function ({ env, data, inputs, outputs }) {
       label={data.label}
       value={value}
       placeholder={data?.placeholderText}
-      disabled={data.disabled}
+      // disabled={data.disabled}
       onClick={onClick}
       onInput={onInput}
       onChange={onChange}

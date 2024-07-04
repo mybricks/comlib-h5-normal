@@ -30,11 +30,6 @@ const AFTER_TEN_YEAR = new Date(
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
-  // const [value, setValue] = useState(new Date());
-  // const [open, setOpen] = useState(false);
-
-  // console.log('env.canvasElement', env.canvasElement)
-
   //判断组件是否需要为可交互状态
   const comOperatable = useMemo(() => {
     if (env.edit) {
@@ -51,19 +46,18 @@ export default function (props) {
           data.value = undefined;
           break;
         }
-        case isString(val):
-          data.value = dayjs(val).valueOf();
-          // outputs["onChange"]({ name: data.name, value: data.value });
+        case isString(val): {
+          let value = dayjs(val).valueOf();
+          data.value = isNaN(value) ? undefined : value;
           break;
+        }
 
         case isNumber(val):
           data.value = val;
-          // outputs["onChange"]({ name: data.name, value: data.value });
           break;
 
         case val instanceof Date:
           data.value = val.valueOf();
-          // outputs["onChange"]({ name: data.name, value: data.value });
           break;
 
         case isObject(val):
@@ -82,7 +76,6 @@ export default function (props) {
               break;
           }
           data.value = _value;
-          // outputs["onChange"]({ name: data.name, value: data.value });
           break;
         default:
           break;
@@ -94,30 +87,8 @@ export default function (props) {
     if (!data.value) {
       return "";
     }
-    return dayjs(data.value).format(FORMAT_MAP[data.type]);
+    return dayjs(data.value).format(FORMAT_MAP[data.type]) || "";
   }, [data.value, data.type]);
-
-  // const onClick = useCallback(() => {
-  //   if (env.runtime) {
-  //     setValue(data.value ? new Date(data.value) : new Date());
-  //     setOpen(true);
-  //   }
-  // }, [env.runtime, data.value]);
-
-  // const onCancel = useCallback(() => {
-  //   setOpen(false);
-  // }, []);
-
-  // const onConfirm = useCallback((date) => {
-  //   let value = date.valueOf();
-  //   console.warn("datatime", value)
-
-  //   data.value = value;
-  //   setOpen(false);
-
-  //   parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
-  //   outputs["onChange"](value);
-  // }, []);
 
   const onChange = useCallback((formatDate) => {
     data.value = dayjs(formatDate).valueOf();

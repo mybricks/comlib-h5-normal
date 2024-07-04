@@ -55,7 +55,6 @@ export default {
       options: [
         { value: "navigateTo", label: "新页面打开" },
         { value: "redirectTo", label: "重定向" },
-        { value: "switchTab", label: "跳转到 tabBar 页面" },
       ],
       value: {
         get({ data }) {

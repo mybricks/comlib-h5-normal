@@ -1,9 +1,9 @@
 {
-  "title": "路由跳转",
+  "title": "跳转到",
   "namespace": "mybricks.taro._goto",
   "author": "",
   "author_name": "",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "description": "路由跳转",
   "icon": "./icon.svg",
   "data": "./data.json",
@@ -13,7 +13,7 @@
   "inputs": [
     {
       "id": "goto",
-      "title": "跳转到",
+      "title": "跳转",
       "schema": {
         "type": "object",
         "properties": {

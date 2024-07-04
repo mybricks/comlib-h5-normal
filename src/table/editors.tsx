@@ -12,6 +12,18 @@ export default {
   ":root": {
     style: [
       {
+        title: "隐藏表头",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.hiddenTableHeader;
+          },
+          set({ data }, value) {
+            data.hiddenTableHeader = value;
+          },
+        },
+      },
+      {
         title: "展示列边框",
         type: "switch",
         value: {
@@ -114,22 +126,6 @@ export default {
           },
         },
       ];
-      // cate1.title = "高级";
-      // cate1.items = [
-      //   {
-      //     title: "修复",
-      //     type: "button",
-      //     value: {
-      //       set({ data, slots, slot }) {
-      //         // columns.forEach((column) => {
-      //         //   slots
-      //         //     .get(column.id)
-      //         //     .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
-      //         // });
-      //       },
-      //     },
-      //   },
-      // ];
     },
   },
   ".mybricks-thead .mybricks-td": {

@@ -30,6 +30,14 @@ export default {
                 },
                 set({ data }, src: string) {
                   data.src = src;
+
+                  // 如果 src 是 svg 标签，就转为 base64
+                  if (src && src.startsWith("<svg")) {
+                    let base64 = window.btoa(src);
+                    data.svgPolyfill = `data:image/svg+xml;base64,${base64}`;
+                  } else {
+                    data.svgPolyfill = "";
+                  }
                 },
               },
             },

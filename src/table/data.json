@@ -1,5 +1,6 @@
 {
   "useTHead": true,
   "columns": [],
-  "bordered": false
+  "bordered": false,
+  "hiddenTableHeader": false
 }
