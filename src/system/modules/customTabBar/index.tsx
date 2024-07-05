@@ -12,6 +12,7 @@ export default ({ data, env, _inputsCallable }) => {
 
       if (raw.scene.id) {
         env.canvas.open(raw.scene.id, {}, "popup");
+        _inputsCallable['_open']({});
       }
     },
     [env]

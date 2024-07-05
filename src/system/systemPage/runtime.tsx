@@ -79,7 +79,8 @@ const usePullDownRefresh = ({ enabled = false, onLoad }) => {
   };
 };
 
-export default function ({ id, env, data, inputs, outputs, slots }) {
+export default function (props) {
+  const { id, env, data, inputs, outputs, slots } = props;
   const [ready, setReady] = useState(false);
 
   const [footerHeight, setFooterHeight] = useState(0);
@@ -273,16 +274,17 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
   const slotStyle = useMemo(() => {
     if (data.layout?.position === "smart") {
       return {
-        overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
+        // overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
+        overflow: "hidden auto",
         display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
         height: "fit-content !important",
-        paddingBottom: `${data.bottomSpace}px`,
+        // paddingBottom: `${data.bottomSpace}px`,
       };
     }
     return {
       height: "fit-content !important", // 防止margin重叠用，触发BFC，不可以删除
       display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
-      paddingBottom: `${data.bottomSpace}px`,
+      // paddingBottom: `${data.bottomSpace}px`,
     };
   }, [data.layout, data.bottomSpace]);
 
@@ -391,7 +393,6 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
           className={css.contentScrollView}
           // style={{ height: contentScrollViewHeight }}
         >
-
           {slots["content"]?.render?.({
             style: {
               ...slotStyle,
@@ -411,7 +412,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
         <>
           <View style={{ width: 375, height: 60 }}></View>
           <View className={css.fixedBottom}>
-            <CustomTabBar data={data} env={env} />
+            <CustomTabBar {...props} />
           </View>
         </>
       ) : null}

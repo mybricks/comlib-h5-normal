@@ -8,16 +8,16 @@ import React, {
 } from "react";
 import css from "./index.less";
 import { View, Image, ImageProps } from "@tarojs/components";
-import { autoCdnCut } from './../../utils/image'
+import { autoCdnCut } from "./../../utils/image";
 
 interface SkeletonImageProps extends ImageProps {
   skeleton?: boolean;
-  skeletonStyle?: CSSProperties,
-  cdnCut?: 'auto' | ''
+  skeletonStyle?: CSSProperties;
+  cdnCut?: "auto" | "";
   cdnCutOption?: {
-    width?: number | string,
-    height?: number | string,
-  }
+    width?: number | string;
+    height?: number | string;
+  };
 }
 
 export default function ({
@@ -29,7 +29,7 @@ export default function ({
   className,
   src,
   mode,
-  cdnCut = '',
+  cdnCut = "",
   cdnCutOption = {},
   ...props
 }: SkeletonImageProps) {
@@ -65,18 +65,21 @@ export default function ({
   );
 
   const _src = useMemo(() => {
-    if (cdnCut === 'auto') {
-      const cutUrl = autoCdnCut({
-        url: src,
-        width: cdnCutOption?.width,
-        height: cdnCutOption?.height
-      }, {
-        quality: 90
-      })
+    if (cdnCut === "auto") {
+      const cutUrl = autoCdnCut(
+        {
+          url: src,
+          width: cdnCutOption?.width,
+          height: cdnCutOption?.height,
+        },
+        {
+          quality: 90,
+        }
+      );
       return cutUrl;
     }
-    return src
-  }, [src, cdnCut, cdnCutOption?.height, cdnCutOption?.height])
+    return src;
+  }, [src, cdnCut, cdnCutOption?.height, cdnCutOption?.height]);
 
   return (
     <View className={css.com}>
@@ -87,7 +90,6 @@ export default function ({
       <Image
         // 开启懒加载，官方解释是 在即将进入一定范围（上下三屏）时才开始加载
         lazyLoad
-        {...props}
         className={className}
         src={_src}
         mode={mode}
@@ -98,6 +100,7 @@ export default function ({
           loading: "lazy",
           decoding: "async",
         }}
+        {...props}
       />
     </View>
   );

@@ -37,7 +37,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View className={cx(css.inner)}>
         <View className={css.label}>
           {data.title ? (
-            <View className={cx(css.title, "mybricks-title")} mybricks-title>
+            <View className={cx(css.title, "mybricks-title")}>
               {data.title}
             </View>
           ) : null}

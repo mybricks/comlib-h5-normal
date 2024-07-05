@@ -140,7 +140,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         [css.bordered]: data.bordered,
       })}
     >
-      {tHead}
+      {data.hiddenTableHeader ? null : tHead}
       {tBody}
     </View>
   );

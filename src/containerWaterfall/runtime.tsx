@@ -118,6 +118,12 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         setStatus(ListStatus.IDLE);
       }
     });
+
+    inputs['reset']((val, relOutputs) => {
+      setDataSource([]);
+      relOutputs["afterReset"]?.();
+    })
+
   }, []);
 
   /**

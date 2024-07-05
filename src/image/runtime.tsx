@@ -69,22 +69,37 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
     outputs["onError"](data.src);
   }, []);
 
+  const src = useMemo(() => {
+    let src = data.svgPolyfill || data.src || extra?.imageUrl;
+    return src;
+  }, [data.svgPolyfill, data.src, extra?.imageUrl]);
+
+  const svgProps = useMemo(() => {
+    if (data.svgPolyfill) {
+      return {
+        svg: true,
+        mode: "aspectFit",
+      };
+    } else {
+      return {};
+    }
+  }, [data.svgPolyfill]);
+
   return (
     <View className={css.com} ref={ele}>
       <SkeletonImage
         skeleton={env.edit ? false : !!data?.loadSmooth}
         className={cx(css.image, h5PolyfillClass, "mybricks-image")}
-        src={
-          !!data.src ? data.src : extra?.imageUrl
-        }
+        // src={!!data.src ? data.src : extra?.imageUrl}
+        src={src}
         mode={data.mode}
         onClick={onClick}
         onLoad={onLoad}
         onError={onError}
-        showMenuByLongpress={data.showMenuByLongpress ?? false}  
-        
+        showMenuByLongpress={data.showMenuByLongpress ?? false}
         cdnCut="auto"
         cdnCutOption={{ width: style.width, height: style.height }}
+        {...svgProps}
       />
     </View>
   );
