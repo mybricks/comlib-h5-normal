@@ -14,4 +14,12 @@ export default function ({ env, data, inputs, outputs }) {
       },
     });
   });
+
+  //退出调试时自动隐藏掉loading
+  if(typeof env?.runtime?.onComplete === 'function'){
+    env.runtime.onComplete(()=>{
+      Taro.hideLoading();
+    })
+  }
+
 }
