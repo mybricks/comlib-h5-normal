@@ -274,10 +274,10 @@ export default function (props) {
   const slotStyle = useMemo(() => {
     if (data.layout?.position === "smart") {
       return {
-        // overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
-        overflow: "hidden auto",
+        overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
+        // overflow: "hidden auto", // auto 会导致页面出现滚动条
         display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
-        height: "fit-content !important",
+        // height: "fit-content !important", // 说加了这个会导致页面不能铺满
         // paddingBottom: `${data.bottomSpace}px`,
       };
     }
