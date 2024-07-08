@@ -316,8 +316,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const tabCommonStyle = useMemo(() => {
     return {
       flexGrow: data.tabWidthType === "fit" ? 0 : 1,
+      marginRight: data.tabWidthType === "fit" ?  data.tabItemGap : "",
     };
-  }, [data.tabWidthType]);
+  }, [data.tabWidthType,data.tabItemGap]);
 
   return (
     emptyView || (

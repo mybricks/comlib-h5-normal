@@ -77,6 +77,22 @@ export default {
             },
           },
           {
+            title: "标签项间距",
+            type: "InputNumber",
+            options: [{ min: 0 }],
+            ifVisible({ data }) {
+              return data.tabWidthType == "fit";
+            },
+            value: {
+              get({ data }) {
+                return [data.tabItemGap];
+              },
+              set({ data }, value) {
+                data.tabItemGap = value[0];
+              },
+            }
+          },
+          {
             title: "样式",
             items: [
               {
