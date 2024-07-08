@@ -4,7 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "icon": "./icon.svg",
-  "version": "1.0.15",
+  "version": "1.0.0",
   "description": "按钮",
   "runtime": "./runtime.tsx",
   "runtime.edit": "./runtime.edit.tsx",

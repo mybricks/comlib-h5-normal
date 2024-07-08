@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { View, RichText } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import css from "./style.less";
 import * as Taro from "@tarojs/taro";
+import RichText from "./../components/rich-text";
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const [ready, setReady] = useState(false);
@@ -9,12 +10,40 @@ export default function ({ env, data, inputs, outputs, slots }) {
   useEffect(() => {
     inputs["setDataSource"]((val) => {
       data.content = val;
+
       setReady(true);
     });
   }, []);
 
+  const fixMalformedURI = (str) => {
+    try {
+      return decodeURIComponent(str);
+    } catch (e) {
+      return str
+        .split("%")
+        .map((s, index) => {
+          if (index === 0) return s;
+          try {
+            return decodeURIComponent("%" + s);
+          } catch (e) {
+            return "%" + s;
+          }
+        })
+        .join("");
+    }
+  };
+
   const content = useMemo(() => {
-    let result = decodeURIComponent(data.content);
+    let result;
+
+    try {
+      result = decodeURIComponent(fixMalformedURI(data.content));
+    } catch (e) {
+      result = data.content;
+    }
+
+    console.log(result);
+
     //遍历所有的图片标签，并将 src 属性覆盖到 alt 属性
     result = result.replace(/<img.*?(?:>|\/>)/gi, (match) => {
       let matchResult = match.match(/src=[\'\"]?([^\'\"]*)[\'\"]?/i);
@@ -56,10 +85,13 @@ export default function ({ env, data, inputs, outputs, slots }) {
         <View className={css.richtext}>
           <RichText
             className={"taro_html"}
-            nodes={content}
+            // nodes={content}
             selectable={"selectable"}
-            preview={"preview"}
-            space={"nbsp"}
+            // preview={"preview"}
+            // space={"nbsp"}
+            content={content}
+            imageMenuPrevent={false}
+            imagePreview
           />
         </View>
       ) : null}

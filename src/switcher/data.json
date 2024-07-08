@@ -1,0 +1,30 @@
+{
+  "switcherStyle": {},
+  "useDynamic": false,
+
+  "defaultSelectedIndex": 0,
+
+  "defaultUnselectedItemStyle": {},
+  "defaultUnselectedIconStyle": {
+    "width": 22,
+    "height": 22
+  },
+  "defaultUnselectedTextStyle": {
+    "fontSize": "12px",
+    "lineHeight": 1,
+    "color": "#909093"
+  },
+
+  "defaultSelectedItemStyle": {},
+  "defaultSelectedIconStyle": {
+    "width": 22,
+    "height": 22
+  },
+  "defaultSelectedTextStyle": {
+    "fontSize": "12px",
+    "lineHeight": 1,
+    "color": "#FD6A00"
+  },
+
+  "items": []
+}

@@ -60,7 +60,8 @@
         "./src/popup/com.json",
         "./src/filter-coms/sort/com.json",
         "./src/filter-coms/switch/com.json",
-        "./src/filter-coms/custom/com.json"
+        "./src/filter-coms/custom/com.json",
+        "./src/selectorWaterfall/com.json"
       ]
     },
     {
@@ -88,7 +89,6 @@
         "./src/sidebar/com.json",
         "./src/collapse/com.json",
         "./src/timeLine/com.json",
-        "./src/selectorWaterfall/com.json",
         "./src/containerFixed/com.json"
       ]
     },
@@ -112,6 +112,7 @@
         "./src/formImageUploader/com.json",
         "./src/searchBar/com.json",
         "./src/smsInput/com.json",
+        "./src/formItemContainer/com.json",
         "./src/formAdditionContainer/com.json"
       ]
     },
@@ -119,6 +120,7 @@
       "title": "其它",
       "comAry": [
         "./src/filter-coms/contaniner/com.json",
+        "./src/switcher/com.json",
         "./src/calendar/com.json",
         "./src/cascader/com.json",
         "./src/noticeBar/com.json",

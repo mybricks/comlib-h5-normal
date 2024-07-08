@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { View, Button } from "@tarojs/components";
+import { View, Button, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import css from "./style.less";
 import cx from "classnames";
@@ -160,6 +160,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
             // const isLast = data.items.length - 1 === idx
             const isLast = data.items.length - 1 === item.index;
 
+            const icon = item.icon ? (
+              <Image mode="scaleToFill" src={item.icon} />
+            ) : null;
+
             return (
               <Field
                 className={cx(
@@ -173,6 +177,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
                 rules={rules}
                 label={!item.hideLabel && item.label}
                 name={item.name}
+                icon={icon}
               >
                 {com.jsx}
               </Field>
