@@ -219,6 +219,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const $list = dataSource.map(
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
+      const isLastItem = _idx === dataSource.length - 1;
       return (
         <View
           className={cx({
@@ -228,10 +229,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
             // env.edit && _idx > 0 ? "disabled-area" : css.item
           })}
           key={key}
+          //如果是最后一项，则不加margin
           style={{
             [data.direction === Direction.Row
               ? "marginRight"
-              : "marginBottom"]: `${data.spacing}px`,
+              : "marginBottom"]: isLastItem ? `0px` : `${data.spacing}px`,
           }}
         >
           {/* 当前项数据和索引 */}
@@ -251,11 +253,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     <View className={css.listWrapper}>
       <View
         className={wrapperCls}
-        style={{
-          [data.direction === Direction.Row
-            ? "marginRight"
-            : "marginBottom"]: `-${data.spacing}px`,
-        }}
+        // style={{
+        //   [data.direction === Direction.Row
+        //     ? "marginRight"
+        //     : "marginBottom"]: `-${data.spacing}px`,
+        // }}
       >
         {$placeholder || (
           <>
