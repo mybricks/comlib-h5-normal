@@ -193,7 +193,6 @@ export default {
             },
           },
         },
-
         {
           title: "表单项布局",
           type: "radio",
@@ -214,18 +213,18 @@ export default {
         ...submitEditorItems,
       ];
 
-      cate1.title = "高级";
-      cate1.items = [
-        {
-          title: "修复",
-          type: "button",
-          value: {
-            set({ data, style }) {
-              style.height = "auto";
-            },
-          },
-        },
-      ];
+      // cate1.title = "高级";
+      // cate1.items = [
+      //   {
+      //     title: "修复",
+      //     type: "button",
+      //     value: {
+      //       set({ data, style }) {
+      //         style.height = "auto";
+      //       },
+      //     },
+      //   },
+      // ];
     },
   },
   ":child(mybricks.taro.formContainer/formItem)": {
@@ -248,6 +247,28 @@ export default {
         },
       },
       {
+        ifVisible({ id, data, name }) {
+          const item = getFormItem(data.items, { id, name });
+          return !item.hideLabel;
+        },
+        title: "图标",
+        type: "imageSelector",
+        value: {
+          get({ id, data, name }: any) {
+            const item = getFormItem(data.items, { id, name });
+            return item?.icon;
+          },
+          set({ id, name, data, slot }: any, val) {
+            const item = getFormItem(data.items, { id, name });
+            item.icon = val;
+          },
+        },
+      },
+      {
+        ifVisible({ id, data, name }) {
+          const item = getFormItem(data.items, { id, name });
+          return !item.hideLabel;
+        },
         title: "标题",
         type: "text",
         value: {
@@ -363,6 +384,18 @@ export default {
         },
       },
       {},
+    ],
+    style: [
+      {
+        title: "图标",
+        options: ["size", "margin"],
+        target: ".taroify-cell__icon",
+      },
+      {
+        title: "标题",
+        options: ["font"],
+        target: ".taroify-cell__title",
+      },
     ],
   },
   ".mybricks-submit": {

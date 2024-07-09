@@ -1,0 +1,65 @@
+{
+  "title": "选项卡",
+  "namespace": "mybricks.taro.switcher",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setData",
+      "title": "设置数据",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      },
+      "rels": ["afterSetData"]
+    },
+    {
+      "id": "selectItem",
+      "title": "选中某项",
+      "desc": "传入index以选中指定项",
+      "schema": {
+        "title": "选中某项",
+        "type": "number"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "选中项变化时",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "any"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "id": "afterSetData",
+      "title": "数据设置后",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
+    }
+  ],
+  "slots": []
+}

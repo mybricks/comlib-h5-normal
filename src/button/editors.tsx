@@ -84,6 +84,22 @@ const MAP = {
       },
     ],
   },
+  contact: {
+    title: "打开客服会话",
+    output: [
+      {
+        id: "onContact",
+        title: "客服消息回调",
+        schema: {
+          type: "any",
+        },
+      },
+    ],
+  },
+  feedback: {
+    title: "打开“意见反馈”页面",
+    output: [],
+  },
 };
 
 function clearOutput(openType, output) {
@@ -93,6 +109,7 @@ function clearOutput(openType, output) {
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
+      output.remove("onContact");
       break;
 
     case openType === "getRealtimePhoneNumber":
@@ -100,6 +117,7 @@ function clearOutput(openType, output) {
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("share");
+      output.remove("onContact");
       break;
 
     case openType === "share":
@@ -108,6 +126,26 @@ function clearOutput(openType, output) {
       output.remove("getPhoneNumberFail");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
+      output.remove("onContact");
+      break;
+
+    case openType === "contact":
+      output.remove("onClick");
+      output.remove("getPhoneNumberSuccess");
+      output.remove("getPhoneNumberFail");
+      output.remove("getRealtimePhoneNumberSuccess");
+      output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
+      break;
+
+    case openType === "feedback":
+      output.remove("onClick");
+      output.remove("getPhoneNumberSuccess");
+      output.remove("getPhoneNumberFail");
+      output.remove("getRealtimePhoneNumberSuccess");
+      output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
+      output.remove("onContact");
       break;
 
     // onClick
@@ -117,6 +155,8 @@ function clearOutput(openType, output) {
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
+      output.remove("onContact");
+      break;
   }
 }
 
@@ -170,7 +210,6 @@ export default {
           },
           set({ data, outputs }, value: string) {
             data.text = value;
-            // outputs.get("onClick").setTitle(value);
           },
         },
       },
@@ -221,10 +260,6 @@ export default {
                 label: "自定义",
                 value: "",
               },
-              // {
-              //   label: "打开客服会话",
-              //   value: "contact",
-              // },
               {
                 label: "触发用户转发",
                 value: "share",
@@ -249,10 +284,14 @@ export default {
                 label: "打开授权设置页",
                 value: "openSetting",
               },
-              // {
-              //   label: "打开“意见反馈”页面",
-              //   value: "feedback",
-              // },
+              {
+                label: "打开客服会话",
+                value: "contact",
+              },
+              {
+                label: "打开“意见反馈”页面",
+                value: "feedback",
+              },
               // {
               //   label: "获取用户头像",
               //   value: "chooseAvatar",

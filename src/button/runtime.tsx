@@ -70,15 +70,32 @@ export default function ({
         };
       }
 
+      case data.openType === "contact": {
+        return {
+          openType: "contact",
+          onContact: (e) => {
+            outputs["onContact"]({
+              ...e.detail,
+            });
+          },
+        };
+      }
+
+      case data.openType === "feedback": {
+        return {
+          openType: "feedback",
+        };
+      }
+
       case data.openType === "openSetting": {
         return {
           openType: "openSetting",
-          onClick: (e) => {
-            if (env.runtime) {
-              e.stopPropagation();
-              outputs["onClick"](data.text);
-            }
-          },
+          // onClick: (e) => {
+          //   if (env.runtime) {
+          //     e.stopPropagation();
+          //     outputs["onClick"](data.text);
+          //   }
+          // },
         };
       }
 
@@ -86,7 +103,10 @@ export default function ({
         return {
           onClick: (e) => {
             if (env.runtime && !data.disabled) {
-              e.stopPropagation();
+              if (outputs["onClick"].getConnections().length) {
+                e.stopPropagation();
+              }
+
               outputs["onClick"](data.text);
             }
           },

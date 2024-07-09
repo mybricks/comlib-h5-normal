@@ -7,6 +7,12 @@
   }
 
   :global {
+    .taroify-cell__icon {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+
     // 强制展示border
     .mybricks-field.border-bottom {
       &::after {
@@ -21,7 +27,17 @@
     }
 
     .mybricks-field.vertical {
-      flex-direction: column;
+      align-items: center;
+      flex-wrap: wrap;
+      :global {
+        .taroify-cell__title {
+          max-width: unset;
+          flex: 1;
+        }
+        .taroify-cell__value {
+          flex-basis: 100%;
+        }
+      }
     }
   }
 
