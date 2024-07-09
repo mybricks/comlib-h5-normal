@@ -80,6 +80,13 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     
   }
 
+  useEffect(()=>{
+    inputs["countDownTimeStamp"]?.((ds) => {
+      setCountDown(ds);
+    })
+
+  },[])
+
   useEffect(() => {
     if (!env.runtime) return;
 
@@ -111,9 +118,8 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     // 清理函数，在组件卸载时清除定时器
     return () => {
       clearInterval(newTimerId);
-      console.log("清理计时器", newTimerId);
     };
-  }, [data.clockType, env.runtime]);
+  }, [data.clockType, env.runtime,countDown]);
 
   return (
     <View className={css.timer}

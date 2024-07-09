@@ -9,7 +9,16 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "inputs": [],
+  "inputs": [
+    {
+      "id": "countDownTimeStamp",
+      "title": "倒计时配置",
+      "description":"格式为00:01:00,配置后将从此时间开始倒数",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
   "outputs": [
     {
       "id": "finishCountDown",
