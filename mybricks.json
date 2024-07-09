@@ -131,7 +131,8 @@
         "./src/ad-popup/com.json",
         "./src/anchor/com.json",
         "./src/safeArea/com.json",
-        "./src/support/com.json"
+        "./src/support/com.json",
+        "./src/timer/com.json"
       ]
     }
   ],

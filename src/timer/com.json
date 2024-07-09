@@ -1,0 +1,28 @@
+{
+  "title": "时钟",
+  "namespace": "mybricks.taro.timer",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "icon": "./icon.svg",
+  "version": "1.0.0",
+  "description": "时钟",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "inputs": [],
+  "outputs": [
+    {
+      "id": "finishCountDown",
+      "title": "结束倒计时",
+      "schema": {
+        "type": "number"
+      }
+    },{
+      "id": "currentTime",
+      "title": "当前时间",
+      "schema": {
+        "type": "number"
+      }
+    }
+  ]
+}
