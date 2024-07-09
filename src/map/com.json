@@ -56,20 +56,23 @@
         "properties": {
           "points": {
             "title": "坐标点列表",
-            "type": "object",
-            "properties": {
-              "longitude": {
-                "title": "经度",
-                "type": "string"
-              },
-              "latitude": {
-                "title": "纬度",
-                "type": "string"
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "longitude": {
+                  "title": "经度",
+                  "type": "string"
+                },
+                "latitude": {
+                  "title": "纬度",
+                  "type": "string"
+                }
               }
             }
           },
           "padding": {
-            "title": "纬度",
+            "title": "四周间距",
             "type": "array"
           }
         }
