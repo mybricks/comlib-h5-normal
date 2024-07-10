@@ -1,5 +1,136 @@
 .richtext {
-  p {
-    margin: 0;
+  :global {
+    /* 重置一些默认样式 */
+    .taro_html,
+    .taro_html h1,
+    .taro_html h2,
+    .taro_html h3,
+    .taro_html h4,
+    .taro_html h5,
+    .taro_html h6,
+    .taro_html p,
+    .taro_html ul,
+    .taro_html ol,
+    .taro_html li,
+    .taro_html blockquote,
+    .taro_html pre,
+    .taro_html code {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 设置 taro_html 的基础样式 */
+    .taro_html {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* 标题样式 */
+    .taro_html .h1,
+    .taro_html .h2,
+    .taro_html .h3,
+    .taro_html .h4,
+    .taro_html .h5,
+    .taro_html .h6 {
+      margin-top: 19.5px; /* 1.5rem = 19.5px */
+      margin-bottom: 6.5px; /* 0.5rem = 6.5px */
+      font-weight: bold;
+      line-height: 1.25;
+    }
+
+    .taro_html .h1 {
+      font-size: 26px; /* 2rem = 26px */
+    }
+    .taro_html .h2 {
+      font-size: 22.75px; /* 1.75rem = 22.75px */
+    }
+    .taro_html .h3 {
+      font-size: 19.5px; /* 1.5rem = 19.5px */
+    }
+    .taro_html .h4 {
+      font-size: 16.25px; /* 1.25rem = 16.25px */
+    }
+    .taro_html .h5 {
+      font-size: 13px; /* 1rem = 13px */
+    }
+    .taro_html .h6 {
+      font-size: 11.375px; /* 0.875rem = 11.375px */
+    }
+
+    /* 段落样式 */
+    .taro_html .p {
+      margin-bottom: 13px; /* 1rem = 13px */
+      font-size: 13px; /* 1rem = 13px */
+    }
+
+    /* 链接样式 */
+    .taro_html .a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+
+    .taro_html .a:hover {
+      text-decoration: underline;
+    }
+
+    /* 列表样式 */
+    .taro_html .ul,
+    .taro_html .ol {
+      padding-left: 19.5px; /* 1.5rem = 19.5px */
+      margin-bottom: 13px; /* 1rem = 13px */
+    }
+
+    .taro_html .li {
+      margin-bottom: 6.5px; /* 0.5rem = 6.5px */
+    }
+
+    /* 引用样式 */
+    .taro_html .blockquote {
+      border-left: 4px solid #dfe2e5;
+      padding-left: 13px; /* 1rem = 13px */
+      margin-bottom: 13px; /* 1rem = 13px */
+      color: #6a737d;
+      background-color: #f5f5f5;
+    }
+
+    /* 代码块样式 */
+    .taro_html .pre {
+      background: #f5f5f5;
+      padding: 13px; /* 1rem = 13px */
+      border-radius: 3px;
+      overflow-x: auto;
+      margin-bottom: 13px; /* 1rem = 13px */
+    }
+
+    .taro_html .code {
+      font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+      background: #f5f5f5;
+      padding: 2px 4px; /* 0.2rem 0.4rem = 2px 4px */
+      border-radius: 3px;
+    }
+
+    /* 图片样式 */
+    .taro_html .img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 13px; /* 1rem = 13px */
+    }
+    .taro_html .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 13px; /* 1rem = 13px */
+    }
+
+    .taro_html .th,
+    .taro_html .td {
+      border: 1px solid #dfe2e5;
+      padding: 6.5px; /* 0.5rem = 6.5px */
+    }
+
+    .taro_html .th {
+      background: #f5f5f5;
+      font-weight: bold;
+    }
   }
 }

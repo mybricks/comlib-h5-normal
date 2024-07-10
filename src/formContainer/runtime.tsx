@@ -109,6 +109,22 @@ export default function ({ env, data, inputs, outputs, slots }) {
       });
   });
 
+  inputs["submitAndMerge"]((val, outputRels) => {
+    let _val = isObject(val) ? val : {};
+
+    form
+      ?.validate()
+      .then((res) => {
+        outputRels["onMergeSubmit"]({
+          ...res,
+          ..._val,
+        });
+      })
+      .catch((err) => {
+        console.error("validate", err);
+      });
+  });
+
   // 重置表单
   inputs["resetFields"]((val, outputRels) => {
     form.setValues({});

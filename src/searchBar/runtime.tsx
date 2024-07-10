@@ -28,7 +28,6 @@ export default function ({ env, data, inputs, outputs }) {
   }, []);
 
   const onInput = useCallback((e) => {
-    console.log("onInput", e.detail.value);
     setValue(e.detail.value);
   }, []);
 
@@ -45,7 +44,11 @@ export default function ({ env, data, inputs, outputs }) {
   }, []);
 
   const onClear = useCallback((e) => {
-    outputs["onClear"]?.("");
+    setValue("");
+    
+    setTimeout(() => {
+      outputs["onClear"]?.("");
+    }, 0);
   }, []);
 
   return (
