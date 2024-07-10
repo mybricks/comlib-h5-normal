@@ -42,8 +42,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
       result = data.content;
     }
 
-    console.log(result);
-
     //遍历所有的图片标签，并将 src 属性覆盖到 alt 属性
     result = result.replace(/<img.*?(?:>|\/>)/gi, (match) => {
       let matchResult = match.match(/src=[\'\"]?([^\'\"]*)[\'\"]?/i);
