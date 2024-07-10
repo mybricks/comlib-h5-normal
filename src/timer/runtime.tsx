@@ -31,23 +31,23 @@ function formatTimeDiff(timeDiff) {
 function timeStringToTimestamp(timeString) {
   // 分割时间字符串 "01:00:05" 为 ["01", "00", "05"]
   const timeParts = timeString.split(":");
-  
+
   // 解析小时、分钟和秒
   const hours = parseInt(timeParts[0], 10);
   const minutes = parseInt(timeParts[1], 10);
   const seconds = parseInt(timeParts[2], 10);
-  
+
   // 计算总秒数
   const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
-  
+
   return totalSeconds * 1000;
 }
 
 export default function ({ env, data, inputs, outputs, title, style }) {
   const [showTime, setShowTime] = useState("--:--:--");
   const [initTime, setInitTime] = useState(new Date());
-  const [countDown,setCountDown] = useState(data.countdown);
-  const [timerId,setTimerId] = useState<NodeJS.Timeout | undefined>(undefined);
+  const [countDown, setCountDown] = useState(data.countdown);
+  const [timerId, setTimerId] = useState<NodeJS.Timeout | undefined>(undefined);
 
   //更新当前时间
   const updateCurrentTime = () => {
@@ -73,19 +73,19 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     if (timeDiff >= 0) {
       setShowTime(formatTimeDiff(timeDiff));
       outputs.currentTime?.(timeDiff);
-    }else{
+    } else {
       clearInterval(timerId)
       outputs.finishCountDown?.(countDownStamp);
     }
-    
+
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     inputs["countDownTimeStamp"]?.((ds) => {
       setCountDown(ds);
     })
 
-  },[])
+  }, [])
 
   useEffect(() => {
     if (!env.runtime) return;
@@ -119,11 +119,21 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     return () => {
       clearInterval(newTimerId);
     };
-  }, [data.clockType, env.runtime,countDown]);
+  }, [data.clockType, env.runtime, countDown]);
+
+  // const myStyle = useMemo(() => {
+  //   return {
+  //     color:data.color,
+  //     fontSize: data.size + "px",
+  //   };
+  // }, [data.color,data.size]);
+
 
   return (
-    <View className={css.timer}
-      id="mybricks-timer">
+    <View 
+      className={cls(css.timer,"mybricks_timer")}
+      // style={myStyle}
+      >
       {showTime}
     </View>
   );
