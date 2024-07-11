@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { Cascader } from "brickd-mobile";
 import mockData from "./mockData";
 import css from "./style.less";
+import cx from "classnames";
 
 export default function ({ env, data, inputs, outputs, slots, mockProps }) {
   const [value, setValue] = useState<string[]>(
@@ -33,7 +34,7 @@ export default function ({ env, data, inputs, outputs, slots, mockProps }) {
 
   return (
     <Cascader
-      className={css["mybricks-cascader"]}
+      className={cx(["mybricks-cascader", css["mybricks-cascader"]])}
       options={options}
       placeholder={data.placeholder}
       value={value}

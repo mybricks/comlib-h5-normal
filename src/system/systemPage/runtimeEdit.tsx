@@ -22,7 +22,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
    */
   const onHandleTabBar = useCallback(
     (value) => {
-      console.warn("监听到广播", value, env.canvas.id);
+      // console.warn("监听到广播", value, env.canvas.id);
       data.tabBar = value;
     },
     [data.tabBar, env.canvas.id]

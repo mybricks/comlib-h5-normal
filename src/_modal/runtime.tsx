@@ -7,9 +7,9 @@ export default function ({ env, data, inputs, outputs }) {
         ...data,
         success: (res) => {
           if (res.confirm) {
-            outputs["onConfirm"](val);
+            outputs["onConfirm"](res);
           } else {
-            outputs["onCancel"](val);
+            outputs["onCancel"](res);
           }
         },
       };
