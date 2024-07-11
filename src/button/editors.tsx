@@ -37,6 +37,18 @@ const MAP = {
       },
     ],
   },
+  openSetting:{
+    title:"打开设置页面",
+    output: [
+      {
+        id: "openSetting",
+        title: "打开设置页面",
+        schema: {
+          type: "any",
+        },
+      }
+    ]
+  },
   getRealtimePhoneNumber: {
     title: "手机号实时验证",
     output: [
@@ -105,47 +117,67 @@ const MAP = {
 function clearOutput(openType, output) {
   switch (true) {
     case openType === "getPhoneNumber":
-      output.remove("onClick");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
       output.remove("onContact");
+      output.remove("feedback");
+      output.remove("openSetting");
+      output.remove("onClick");
       break;
 
     case openType === "getRealtimePhoneNumber":
-      output.remove("onClick");
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("share");
       output.remove("onContact");
+      output.remove("feedback");
+      output.remove("openSetting");
+      output.remove("onClick");
       break;
 
     case openType === "share":
-      output.remove("onClick");
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("onContact");
+      output.remove("feedback");
+      output.remove("openSetting");
+      output.remove("onClick");
       break;
 
     case openType === "contact":
-      output.remove("onClick");
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
+      output.remove("feedback");
+      output.remove("openSetting");
+      output.remove("onClick");
       break;
 
     case openType === "feedback":
-      output.remove("onClick");
       output.remove("getPhoneNumberSuccess");
       output.remove("getPhoneNumberFail");
       output.remove("getRealtimePhoneNumberSuccess");
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
       output.remove("onContact");
+      output.remove("openSetting");
+      output.remove("onClick");
+      break;
+
+    case openType === "openSetting":
+      output.remove("getPhoneNumberSuccess");
+      output.remove("getPhoneNumberFail");
+      output.remove("getRealtimePhoneNumberSuccess");
+      output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
+      output.remove("onContact");
+      output.remove("feedback");
+      output.remove("onClick");
       break;
 
     // onClick
@@ -156,6 +188,8 @@ function clearOutput(openType, output) {
       output.remove("getRealtimePhoneNumberFail");
       output.remove("share");
       output.remove("onContact");
+      output.remove("feedback");
+      output.remove("openSetting");
       break;
   }
 }
@@ -323,6 +357,13 @@ export default {
                       output.add(item);
                     });
                     break;
+
+                  case data.openType === "openSetting":
+                    MAP["openSetting"].output.forEach((item) => {
+                      output.add(item);
+                    });
+                  break;
+
                   default:
                     output.add({
                       id: "onClick",
@@ -353,7 +394,7 @@ export default {
             title: "打开授权页时触发",
             type: "_event",
             options: {
-              outputId: "onClick",
+              outputId: "openSetting",
             },
           },
           {
