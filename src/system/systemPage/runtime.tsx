@@ -15,8 +15,6 @@ import CustomNavigation from "../modules/customNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import { isDesigner } from "../../utils/env";
 
-console.log("Taro.getSystemInfoSync()", Taro.getSystemInfoSync());
-
 const isIOS = Taro.getSystemInfoSync().platform === "ios";
 
 const defaultMenuButtonBoundingClientRect = {
@@ -85,6 +83,9 @@ export default function (props) {
 
   const [footerHeight, setFooterHeight] = useState(0);
   const footerRef = useRef(null);
+
+  const scrollRef = useRef(null);
+  const [scrollTop, setScrollTop] = useState(0);
 
   /**
    * 监听页面重新显示、隐藏
@@ -251,8 +252,9 @@ export default function (props) {
   }, []);
 
   const handleScroll = useCallback((e) => {
+    scrollRef.current = e.detail.scrollTop;
     env?.rootScroll?.emitScrollEvent?.(e);
-  }, []);
+  }, [scrollRef.current]);
 
   useEffect(() => {
     if (!data?.enabledShareMessage) {
@@ -287,6 +289,7 @@ export default function (props) {
       // paddingBottom: `${data.bottomSpace}px`,
     };
   }, [data.layout, data.bottomSpace]);
+
 
   if (data.useLoading && !ready) {
     return (
@@ -339,16 +342,7 @@ export default function (props) {
             </>
           ) : (
             <>
-              <View
-                id="custom_navigation"
-                style={
-                  {
-                    // width: 375,
-                    // height:
-                    // relativeRect.top - (40 - relativeRect.height) / 2 + 40, // 之所以分开两个部分是因为避免浏览器在计算小数点的时候出现 1px 的差异
-                  }
-                }
-              >
+              <View id="custom_navigation">
                 <View
                   style={{
                     width: 375,
@@ -377,6 +371,7 @@ export default function (props) {
       ) : ( */}
       <View id="root" className={css.fixedContainer}>
         <ScrollView
+          key={"page"}
           id="root_scroll"
           scrollY={!data.disableScroll}
           enhanced={isIOS && data.enabledPulldown ? false : true}
@@ -389,6 +384,7 @@ export default function (props) {
           enableBackToTop={true}
           using-sticky={true}
           {...scrollToProps}
+          scrollTop={scrollRef.current}
           {...pulldownProps}
           className={css.contentScrollView}
           // style={{ height: contentScrollViewHeight }}

@@ -6,6 +6,9 @@ import { isDate } from "./../utils/core";
 import css from "./runtime.less";
 
 export default ({ data, inputs, outputs }) => {
+  const [min, setMin] = useState("");
+  const [max, setMax] = useState("");
+
   const selectDateRef = useRef(null);
 
   const handleSelect = useCallback((val) => {
@@ -15,21 +18,42 @@ export default ({ data, inputs, outputs }) => {
 
   const handleConfirm = useCallback((val) => {
     outputs["onConfirm"]?.(val);
-  }, [])
+  }, []);
 
   useMemo(() => {
     // 获取日历数据
     inputs["getSelectDate"]?.((val, outputRels) => {
       outputRels["returnValues"]?.(selectDateRef.current);
     });
-  }, [])
+
+    inputs["setCustomRange"]?.((val, outputRels) => {
+      console.log("setCustomRange", val);
+
+      if (val?.min && val?.max) {
+        setMin(val.min);
+        setMax(val.max);
+      }
+
+      outputRels["afterSetCustomRange"]();
+    });
+  }, []);
+
+  const range = useMemo(() => {
+    if (min && max) {
+      return {
+        min: new Date(min),
+        max: new Date(max),
+      };
+    }
+
+    return {};
+  }, [min, max]);
 
   return (
     <View className={`mybricks-calendar ${css.calendar}`}>
       <Calendar
         type={data.type}
-        min={isDate(data.min) ? data.min : undefined}
-        max={isDate(data.max) ? data.max : undefined}
+        {...range}
         onSelect={handleSelect}
         onConfirm={handleConfirm}
       />

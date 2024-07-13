@@ -14,8 +14,7 @@ import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import { isDesigner } from "../../utils/env";
-
-console.log("Taro.getSystemInfoSync()", Taro.getSystemInfoSync());
+import { getNavigationHeight } from "../../utils";
 
 const isIOS = Taro.getSystemInfoSync().platform === "ios";
 
@@ -79,11 +78,16 @@ const usePullDownRefresh = ({ enabled = false, onLoad }) => {
   };
 };
 
+const navigationHeight = getNavigationHeight();
+
 export default function ({ id, env, data, inputs, outputs, slots }) {
   const [ready, setReady] = useState(false);
 
   const [footerHeight, setFooterHeight] = useState(0);
   const footerRef = useRef(null);
+
+  const [statusBarHeight, setStatusBarHeight] = useState(0);
+  const [navigatorHeight, setNavigatorHeight] = useState(0);
 
   /**
    * 监听页面重新显示、隐藏
@@ -326,6 +330,16 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
     data.background,
   ]);
 
+  const useNavigation = useMemo(() => {
+    switch (data.useNavigationStyle) {
+      case "default":
+      case "custom":
+        return true;
+      case "none":
+        return false;
+    }
+  }, [data.useNavigationStyle]);
+
   return (
     <View
       className={cx({ [css.page]: true, [css.debug]: isDesigner(env) })}
@@ -354,6 +368,22 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
       {/* 自定义导航栏 */}
       {data.useNavigationStyle === "custom" ? (
         <>
+          <View
+            style={{
+              width: 375,
+              height: navigatorHeight,
+              background: "#464646",
+            }}
+          >
+            <View
+              style={{
+                width: 375,
+                height: statusBarHeight,
+                background: "blue",
+              }}
+            ></View>
+          </View>
+
           {env.runtime?.debug ? (
             <>
               <View style={{ width: 375, height: 84 }}></View>
@@ -363,16 +393,7 @@ export default function ({ id, env, data, inputs, outputs, slots }) {
             </>
           ) : (
             <>
-              <View
-                id="custom_navigation"
-                style={
-                  {
-                    // width: 375,
-                    // height:
-                    // relativeRect.top - (40 - relativeRect.height) / 2 + 40, // 之所以分开两个部分是因为避免浏览器在计算小数点的时候出现 1px 的差异
-                  }
-                }
-              >
+              <View id="custom_navigation">
                 <View
                   style={{
                     width: 375,

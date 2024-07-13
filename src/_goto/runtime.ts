@@ -10,11 +10,11 @@ export default function ({ env, data, inputs, outputs }) {
      * 自定义跳转逻辑
      */
     val = val || {};
-    let path = val.path || data.customPath; // 跳转路径
-    let params = val.params || data.customParams; // 跳转参数
-    let action = val.action || data.customAction; // 跳转方式
+    let path = val.path || data.path; // 跳转路径
+    let params = val.params || data.params; // 跳转参数
+    let action = val.action || data.action; // 跳转方式
 
-    params = Object.keys(params)
+    params = Object.keys(params ?? {})
       .map((key) => {
         let value = params[key];
         return `${key}=${value}`;
