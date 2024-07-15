@@ -1,54 +1,58 @@
-import * as Taro from "@tarojs/taro";
-
-export default function ({ env, data, inputs, outputs }) {
+export default function ({ env, data, inputs, outputs, _inputsCallable }) {
   if (!env.runtime) {
     return;
   }
 
   inputs["goto"]((val) => {
-    /**
-     * 自定义跳转逻辑
-     */
-    val = val || {};
-    let path = val.path || data.path; // 跳转路径
-    let params = val.params || data.params; // 跳转参数
-    let action = val.action || data.action; // 跳转方式
+    let sceneId = getSceneIdFromPath(val);
 
-    params = Object.keys(params ?? {})
-      .map((key) => {
-        let value = params[key];
-        return `${key}=${value}`;
-      })
-      .join("&");
-
-    let url = [path, params].filter((raw) => !!raw).join("?");
-
-    switch (true) {
-      case action === "navigateTo":
-        console.log("navigateTo", url);
-        Taro.navigateTo({
-          url,
-          fail() {
-            // 跳转失败的时候，使用 switchTab 重试
-            Taro.switchTab({
-              url,
-            });
-          },
-        });
-        return;
-
-      case action === "redirectTo":
-        console.log("redirectTo", url);
-        Taro.redirectTo({
-          url,
-          fail() {
-            // 跳转失败的时候，使用 switchTab 重试
-            Taro.switchTab({
-              url,
-            });
-          },
-        });
-        return;
+    if (!sceneId || !env.canvas.pages[sceneId]) {
+      console.error("sceneId 不存在");
+      return;
     }
+
+    // 从 val 中解析出参数
+    let params = getParamsFromPath(val);
+
+    env.canvas._open(sceneId, params, data.action);
   });
+
+  function getSceneIdFromPath(path) {
+    // path 可能的格式为 /pages/U_aabb/index?sceneId=123
+    // sceneId 为 pages 后面的这段 U_aabb
+
+    if (!path) {
+      return;
+    }
+
+    let parts = path.split("/");
+    let sceneId = parts[2];
+    return sceneId;
+  }
+
+  function getParamsFromPath(path) {
+    let parts = path.split("?");
+    if (parts.length < 2) {
+      return {};
+    }
+
+    let paramsStr = parts[1];
+    let params = {};
+    paramsStr.split("&").forEach((item) => {
+      let [key, value] = item.split("=");
+
+      // value 可能经过 encodeURIComponent 编码，需要解码
+      try {
+        value = decodeURIComponent(value);
+      } catch (e) {}
+
+      try {
+        value = JSON.parse(value);
+      } catch (e) {}
+
+      params[key] = value;
+    });
+
+    return params;
+  }
 }

@@ -4,7 +4,7 @@
   "author": "",
   "author_name": "",
   "version": "1.0.0",
-  "description": "路由跳转",
+  "description": "动态路由跳转",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.ts",

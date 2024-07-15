@@ -55,6 +55,7 @@ export default ({ data, inputs, outputs }) => {
         type={data.type}
         {...range}
         onSelect={handleSelect}
+        onChange={handleSelect}
         onConfirm={handleConfirm}
       />
     </View>
