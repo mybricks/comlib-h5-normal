@@ -4,7 +4,7 @@
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "扫码",
+  "description": "打开微信内置地图预览位置信息",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",

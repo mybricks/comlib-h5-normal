@@ -74,17 +74,35 @@ export default {
             },
           },
         },
+        // {
+        //   title: "仅使用动态渲染",
+        //   description:
+        //     "开启后，页面默认不会渲染静态的「文本内容」，数据必须经过输入项「修改内容」来设置",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.useDynamic;
+        //     },
+        //     set({ data }, val) {
+        //       data.useDynamic = val;
+        //     },
+        //   },
+        // },
         {
-          title: "仅使用动态渲染",
-          description:
-            "开启后，页面默认不会渲染静态的「文本内容」，数据必须经过输入项「修改内容」来设置",
-          type: "switch",
+          title:"默认展示状态",
+          type:"radio",
+          description:"静态：原样显示文本；隐藏：在加载完成之前不显示任何内容；骨架：加载过程显示动效",
+          options: [
+            { label: "静态", value: "static" },
+            { label: "隐藏", value: "hidden" },
+            { label: "骨架", value: "skeleton" },
+          ],
           value: {
             get({ data }) {
-              return data.useDynamic;
+              return data.displayState || "static";
             },
-            set({ data }, val) {
-              data.useDynamic = val;
+            set({ data }, value: string) {
+              data.displayState = value;
             },
           },
         },
