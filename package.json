@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/ktaro-common-lib",
-  "version": "0.1.61",
+  "version": "0.1.66",
   "description": "小程序通用组件库",
   "main": "./dist/index.js",
   "scripts": {
@@ -41,7 +41,7 @@
     "eslint": "^7.12.1",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.4",
-    "mybricks-cli": "^0.0.19",
+    "mybricks-cli": "^0.0.22",
     "typescript": "^4.8.4"
   },
   "resolutions": {
