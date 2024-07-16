@@ -113,22 +113,22 @@ export default {
           },
         },
       },
-      // {
-      //   ifVisible({ data }) {
-      //     return data.useNavigationStyle === "default";
-      //   },
-      //   title:
-      //     "在非首页、非页面栈最底层页面或非tabbar内页面中的导航栏展示home键",
-      //   type: "switch",
-      //   value: {
-      //     get({ data }) {
-      //       return data.homeButton;
-      //     },
-      //     set({ data }, value) {
-      //       data.homeButton = value;
-      //     },
-      //   },
-      // },
+      {
+        ifVisible({ data }) {
+          return data.useNavigationStyle === "default";
+        },
+        title:
+          "在非首页、非页面栈最底层页面或非tabbar内页面中的导航栏展示home键",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.homeButton;
+          },
+          set({ data }, value) {
+            data.homeButton = value;
+          },
+        },
+      },
       {
         ifVisible({ data }) {
           return data.useNavigationStyle === "custom";
@@ -170,6 +170,33 @@ export default {
             };
             const slotInstance = slots.get("mainSlot");
             setSlotLayout(slotInstance, val);
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-backIcon": {
+    style: [
+      {
+        title: "样式",
+        options: ["size"],
+        target: ".mybricks-backIcon",
+      },
+    ],
+    items: [
+      {
+        title: "自定义图标",
+        type: "imageselector",
+        options: {
+          fileSizeLimit: 10,
+          useBase64Only: true,
+        },
+        value: {
+          get({ data }) {
+            return data.customBackIcon;
+          },
+          set({ data }, value) {
+            data.customBackIcon = value;
           },
         },
       },

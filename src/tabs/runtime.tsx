@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import { Tabs } from "brickd-mobile";
@@ -52,9 +52,12 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const [tabpaneId, setTabpaneId] = useState(getTabsId("tabpane", 6));
 
   // 当前选中的tab
-  const [currentTabId, setCurrentTabId] = useState(
-    getDefaultCurrTabId(data.tabs)
-  );
+  // const [currentTabId, setCurrentTabId] = useState(
+  //   getDefaultCurrTabId(data.tabs)
+  // );
+
+  const currentTabIdRef = useRef(getDefaultCurrTabId(data.tabs));
+  console.warn("currentTabIdRef", currentTabIdRef);
 
   useMemo(() => {
     /** 默认触发一次 */
@@ -125,16 +128,13 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
     // 注意，这里名字没有变，实际上是接收了数字，从 0 开始
     inputs["activeTabId"]?.((index) => {
-      // if (tabId !== undefined || tabId !== null) {
-      //   _setCurrentTabId(tabId);
-      // }
-
       if (
         typeof +index === "number" &&
         +index >= 0 &&
         +index < data.tabs.length
       ) {
         let currentTabId = data.tabs[index]._id;
+
         _setCurrentTabId(currentTabId);
       }
     });
@@ -172,12 +172,12 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   useEffect(() => {
     inputs["getActiveTabId"]?.((_, relOutputs) => {
       relOutputs["activeTabId"]?.({
-        id: currentTabId,
-        title: data.tabs.find((tab) => tab._id == currentTabId)?.tabName,
-        index: data.tabs.findIndex((tab) => tab._id == currentTabId),
+        id: currentTabIdRef.current,
+        title: data.tabs.find((tab) => tab._id == currentTabIdRef.current)?.tabName,
+        index: data.tabs.findIndex((tab) => tab._id == currentTabIdRef.current),
       });
     });
-  }, [currentTabId]);
+  }, [currentTabIdRef.current]);
 
   // 切换tab时获取tabpane的高度，用于tabpane滑出屏幕时，标记为非吸顶
   useEffect(() => {
@@ -191,7 +191,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           setTabsPaneHeight(rect.height);
         });
     }
-  }, [currentTabId]);
+  }, [currentTabIdRef.current]);
 
   const _setUpdateTabTop = (updateTabTop, e) => {
     setTabsTopUpdate(updateTabTop);
@@ -264,7 +264,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
-    setCurrentTabId(currentTabId);
+    currentTabIdRef.current = currentTabId;
+    // setCurrentTabId(currentTabId);
 
     const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
     if (index === -1) {
@@ -327,7 +328,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           id={TabID}
           className={css.tabs_normal}
           style={data.sticky ? { position: "sticky" } : {}}
-          value={currentTabId}
+          value={currentTabIdRef.current}
           onChange={_setCurrentTabId}
           swipeable={data.swipeable}
         >
@@ -336,7 +337,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             if (tab.useStyle) {
               Object.assign(
                 style,
-                tab._id == currentTabId ? tab.activeStyle : tab.style
+                tab._id == currentTabIdRef.current ? tab.activeStyle : tab.style
               );
             }
             return (
@@ -352,7 +353,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         </Tabs>
 
         {data.tabs.map((tab, index) => {
-          if (currentTabId === tab._id) {
+          if (currentTabIdRef.current === tab._id) {
             return (
               <View
                 key={tab._id}

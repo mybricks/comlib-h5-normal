@@ -6,6 +6,8 @@ import css from "./style.less";
 import { isDesigner } from "../../../utils/env";
 import menuButtonWhite from "../icons/menuButtonWhite";
 import menuButtonBlack from "../icons/menuButtonBlack";
+import backIconWhite from "../icons/backIconWhite";
+import backIconBlack from "../icons/backIconBlack";
 
 const defaultMenuButtonBoundingClientRect = {
   width: 87,
@@ -17,8 +19,29 @@ const defaultMenuButtonBoundingClientRect = {
 };
 
 export default function (props) {
-  const { data } = props;
-  const safeareaHeight = 44;
+  const { data, env } = props;
+
+  const relativeRect = useMemo(() => {
+    if (isDesigner(env)) {
+      return defaultMenuButtonBoundingClientRect;
+    } else {
+      let boundingClientRect = Taro.getMenuButtonBoundingClientRect();
+      let ratio = Taro.getSystemInfoSync().windowWidth / 375;
+
+      return {
+        width: boundingClientRect.width / ratio,
+        height: boundingClientRect.height / ratio,
+        top: boundingClientRect.top / ratio,
+        right: boundingClientRect.right / ratio,
+        bottom: boundingClientRect.bottom / ratio,
+        left: boundingClientRect.left / ratio,
+      };
+    }
+  }, []);
+
+  const safeareaHeight = isDesigner(env)
+    ? 44
+    : relativeRect.top - (40 - relativeRect.height) / 2;
 
   // 隐藏导航栏
   return (
@@ -33,19 +56,48 @@ export default function (props) {
       <View
         className={css.main}
         style={{
-          marginLeft: 7,
-          marginRight: 7,
+          marginLeft: 375 - relativeRect.right,
+          marginRight: 375 - relativeRect.right,
           height: 40,
         }}
       >
-        <Image
-          className={css.right}
-          src={
-            data.navigationBarTextStyle === "white"
-              ? menuButtonWhite
-              : menuButtonBlack
-          }
-        />
+        {/* tabbar 页面不渲染返回按钮 */}
+        {!data.useTabBar ? (
+          <View className={css.left}>
+            <Image
+              className={cx(css.backIcon, "mybricks-backIcon")}
+              src={
+                data.customBackIcon
+                  ? data.customBackIcon
+                  : data.navigationBarTextStyle === "white"
+                  ? backIconWhite
+                  : backIconBlack
+              }
+              onClick={(e) => {
+                if (!env.runtime) {
+                  return;
+                } else if (env.runtime.debug) {
+                  env.canvas.back(-1);
+                } else if (env.runtime) {
+                  Taro.navigateBack({
+                    delta: 1,
+                  });
+                }
+              }}
+            />
+          </View>
+        ) : null}
+
+        {isDesigner(env) && (
+          <Image
+            className={css.right}
+            src={
+              data.navigationBarTextStyle === "white"
+                ? menuButtonWhite
+                : menuButtonBlack
+            }
+          />
+        )}
       </View>
     </View>
   );

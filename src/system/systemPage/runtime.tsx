@@ -12,6 +12,7 @@ import css from "./style.less";
 import cx from "classnames";
 import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
+import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import { isDesigner } from "../../utils/env";
 
@@ -251,10 +252,13 @@ export default function (props) {
     }
   }, []);
 
-  const handleScroll = useCallback((e) => {
-    scrollRef.current = e.detail.scrollTop;
-    env?.rootScroll?.emitScrollEvent?.(e);
-  }, [scrollRef.current]);
+  const handleScroll = useCallback(
+    (e) => {
+      scrollRef.current = e.detail.scrollTop;
+      env?.rootScroll?.emitScrollEvent?.(e);
+    },
+    [scrollRef.current]
+  );
 
   useEffect(() => {
     if (!data?.enabledShareMessage) {
@@ -290,7 +294,6 @@ export default function (props) {
     };
   }, [data.layout, data.bottomSpace]);
 
-
   if (data.useLoading && !ready) {
     return (
       <View className={css.loading}>
@@ -299,16 +302,42 @@ export default function (props) {
     );
   }
 
+  let background = useMemo(() => {
+    let result = {};
+
+    if (data.backgroundImage) {
+      result["backgroundImage"] = `url(${data.backgroundImage})`;
+    }
+
+    if (data.backgroundSize) {
+      result["backgroundSize"] = data.backgroundSize;
+    }
+
+    if (data.backgroundRepeat) {
+      result["backgroundRepeat"] = data.backgroundRepeat;
+    }
+
+    if (data.backgroundPosition) {
+      result["backgroundPosition"] = data.backgroundPosition;
+    }
+
+    if (data.background) {
+      result["backgroundColor"] = data.background;
+    }
+
+    return result;
+  }, [
+    data.backgroundImage,
+    data.backgroundSize,
+    data.backgroundRepeat,
+    data.backgroundPosition,
+    data.background,
+  ]);
+
   return (
     <View
       className={cx({ [css.page]: true, [css.debug]: isDesigner(env) })}
-      style={{
-        backgroundImage: `url(${data.backgroundImage})`,
-        backgroundSize: data.backgroundSize,
-        backgroundRepeat: data.backgroundRepeat,
-        backgroundPosition: data.backgroundPosition,
-        backgroundColor: data.background,
-      }}
+      style={{ ...background }}
     >
       {/* Header ⬇️⬇️⬇️ */}
       {/* Header ⬇️⬇️⬇️ */}
@@ -360,7 +389,9 @@ export default function (props) {
       ) : null}
 
       {/* 隐藏导航栏 */}
-      {data.useNavigationStyle === "none" ? null : null}
+      {data.useNavigationStyle === "none" ? (
+        <NoneNavigation env={env} data={data} />
+      ) : null}
 
       {/* content ⬇️⬇️⬇️ */}
       {/* content ⬇️⬇️⬇️ */}
