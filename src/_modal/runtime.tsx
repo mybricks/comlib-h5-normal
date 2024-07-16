@@ -7,9 +7,13 @@ export default function ({ env, data, inputs, outputs }) {
         ...data,
         success: (res) => {
           if (res.confirm) {
-            outputs["onConfirm"](val);
+            if (data.editable) {
+              outputs["onConfirm"](res.content);
+            } else {
+              outputs["onConfirm"]();
+            }
           } else {
-            outputs["onCancel"](val);
+            outputs["onCancel"]();
           }
         },
       };

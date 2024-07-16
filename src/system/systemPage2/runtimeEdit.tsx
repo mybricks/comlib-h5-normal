@@ -14,6 +14,7 @@ import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import MyBricksNavigation from "../modules/MyBricksNavigation";
 import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
+import { getNavigationHeight } from "../../utils";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots } = props;
@@ -26,7 +27,7 @@ export default function (props) {
    */
   const onHandleTabBar = useCallback(
     (value) => {
-      console.warn("监听到广播", value, env.canvas.id);
+      // console.warn("监听到广播", value, env.canvas.id);
       data.tabBar = value;
     },
     [data.tabBar, env.canvas.id]
@@ -199,35 +200,17 @@ export default function (props) {
   ]);
 
   return (
-    <View
-      className={css.page}
-      //自定义导航和隐藏导航，在这里配置背景
-      style={{
-        height: "100%",
-        ...(data.useNavigationStyle !== "default" ? pageBackgroundStyle : {}),
-      }}
-    >
-      {/* Header start */}
-      <View className={"mybricks-navigation"}>
-        {/* 默认样式 */}
-        {/* {data.useNavigationStyle === "default" ? (
-          <DefaultNavigation data={data} />
-        ) : null} */}
+    <View className={css.page}>
+      {/* 导航栏开始 */}
+      <React.Fragment>
+        {data.useNavigation ? (
+          <View className={"mybricks-navigation"}></View>
+        ) : (
+          <View className={"mybricks-navigation"}></View>
+        )}
+      </React.Fragment>
 
-        {/* 自定义导航栏 */}
-        {/* {data.useNavigationStyle === "custom" ? (
-          <CustomNavigation env={env} data={data} slots={slots} />
-        ) : null} */}
-
-        {/* 隐藏导航栏 */}
-        {/* {data.useNavigationStyle === "none" ? (
-          <NoneNavigation data={data} />
-        ) : null} */}
-
-        {/* 导航栏 */}
-        {data.useNavigation ? <MyBricksNavigation {...props} /> : null}
-      </View>
-      {/* Header end */}
+      {/* 导航栏结束 */}
 
       {/* content start*/}
       <View

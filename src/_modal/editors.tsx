@@ -29,6 +29,18 @@ export default {
         },
       },
       {
+        title: "提示内容是否可编辑",
+        type: "Switch",
+        value: {
+          get({ data }) {
+            return data.editable;
+          },
+          set({ data }, value: boolean) {
+            data.editable = value;
+          },
+        },
+      },
+      {
         title: "是否显示取消按钮",
         type: "Switch",
         value: {

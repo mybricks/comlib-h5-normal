@@ -6,43 +6,26 @@ import css from "./style.less";
 import { isDesigner } from "../../../utils/env";
 import menuButtonWhite from "../icons/menuButtonWhite";
 import menuButtonBlack from "../icons/menuButtonBlack";
-
-const defaultMenuButtonBoundingClientRect = {
-  width: 87,
-  height: 32,
-  top: 48,
-  right: 368,
-  bottom: 80,
-  left: 281,
-};
-
-let sysInfo = Taro.getSystemInfoSync();
-console.warn("sysInfo", sysInfo);
+import { getNavigationHeight } from "../../../utils";
 
 export default function (props) {
   let { env, data, slots } = props;
 
-  const relativeRect = useMemo(() => {
-    if (isDesigner(env)) {
-      return defaultMenuButtonBoundingClientRect;
-    } else {
-      let boundingClientRect = Taro.getMenuButtonBoundingClientRect();
-      let ratio = Taro.getSystemInfoSync().windowWidth / 375;
-
+  /* 导航栏高度 */
+  const navigationHeight = useMemo(() => {
+    if (env.edit || env.runtime?.debug) {
       return {
-        width: boundingClientRect.width / ratio,
-        height: boundingClientRect.height / ratio,
-        top: boundingClientRect.top / ratio,
-        right: boundingClientRect.right / ratio,
-        bottom: boundingClientRect.bottom / ratio,
-        left: boundingClientRect.left / ratio,
+        navigationHeight: 64,
+        statusBarHeight: 20,
+        titleBarHeight: 44,
       };
+    } else {
+      return getNavigationHeight();
     }
-  }, []);
+  }, [env.edit, env.runtime?.debug]);
 
-  const safeareaHeight = isDesigner(env)
-    ? 44
-    : relativeRect.top - (40 - relativeRect.height) / 2;
+  console.log("navigationHeight", navigationHeight);
+
 
   // 自定义导航栏
   return (
@@ -50,14 +33,31 @@ export default function (props) {
       className={css.customNavigation}
       style={{ ...data.customNavigation.style }}
     >
+      {/* statusBar */}
       <View
-        className={css.safearea}
-        style={{
-          height: safeareaHeight,
-        }}
+        className={css.statusBarHeight}
+        style={{ height: navigationHeight.statusBarHeight }}
       ></View>
 
+      {/* titleBar 44 / 48 */}
       <View
+        className={css.titleBar}
+        style={{ height: navigationHeight.titleBarHeight }}
+      >
+        <View className={css.inner}>
+          {data.customNavigation?.titleSlot ? (
+            slots["titleSlot"]?.render({
+              style: {
+                ...(data.customNavigation?.titleSlotStyle || {}),
+              }
+            })
+          ) : (
+            <View className={css.titleText}>{data.title}</View>
+          )}
+        </View>
+      </View>
+
+      {/* <View
         className={css.main}
         style={{
           marginLeft: 375 - relativeRect.right,
@@ -65,7 +65,6 @@ export default function (props) {
           height: 40, // 高度固定 40 px
         }}
       >
-        {/* 仅在设计器中展示 */}
         {isDesigner(env) && (
           <Image
             className={css.right}
@@ -84,7 +83,7 @@ export default function (props) {
             },
           })}
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }

@@ -18,6 +18,24 @@
         "type": "any"
       },
       "desc": "获取用户选择的日期"
+    },
+    {
+      "id": "setCustomRange",
+      "title": "设置自定义日期范围",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "string",
+            "title": "可选择的最小日期"
+          },
+          "max": {
+            "type": "string",
+            "title": "可选择的最大日期"
+          }
+        }
+      },
+      "rels": ["afterSetCustomRange"]
     }
   ],
   "outputs": [
@@ -38,6 +56,13 @@
     {
       "id": "returnValues",
       "title": "已选择日期",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "afterSetCustomRange",
+      "title": "设置自定义日期范围后",
       "schema": {
         "type": "any"
       }

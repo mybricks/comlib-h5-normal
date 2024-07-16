@@ -25,7 +25,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   ":root": {
     style: [
@@ -36,7 +36,7 @@ export default {
         target: ".mybricks-typography",
       },
     ],
-    items({ data, input }, cate0) {
+    items({ data, input, output }, cate0) {
       (cate0.title = "文本排版"),
         (cate0.items = [
           {
@@ -52,6 +52,7 @@ export default {
                 const uid = uuid();
                 const text = `示例文本${++data.count}`;
                 input.add(uid, `修改文本「${text}」内容`, contentSchema);
+                output.add(uid, `单击`, { type: "string" });
 
                 return {
                   text: text,
@@ -101,6 +102,7 @@ export default {
         options: [
           { type: "font", config: { disableTextAlign: true } },
           "padding",
+          "margin",
           "border",
           "background",
         ],
@@ -126,19 +128,6 @@ export default {
       // }
     ],
     items: [
-      // {
-      //   title: '单击',
-      //   type: '_Event',
-      //   // ifVisible({ data, focusArea }) {
-      //   //   if (!focusArea) return;
-      //   //   return findEle({ data, focusArea }, 'textId').click ? true : false;
-      //   // },
-      //   options: ({ data, focusArea }) => {
-      //     return {
-      //       outputId: findEle({ data, focusArea }, 'textId').key
-      //     };
-      //   }
-      // },
       {
         title: "文本内容",
         type: "Textarea",
@@ -154,6 +143,19 @@ export default {
               .get(focusArea.dataset["textId"])
               ?.setTitle?.(`修改文本「${value}」内容`);
           },
+        },
+      },
+      {
+        title: "单击",
+        type: "_Event",
+        // ifVisible({ data, focusArea }) {
+        //   if (!focusArea) return;
+        //   return findEle({ data, focusArea }, 'textId').click ? true : false;
+        // },
+        options: ({ data, focusArea }) => {
+          return {
+            outputId: findEle({ data, focusArea }, "textId").key,
+          };
         },
       },
       {

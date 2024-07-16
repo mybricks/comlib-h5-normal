@@ -11,12 +11,16 @@ export default function ({ env, data, inputs, outputs }) {
   //   });
   // }, []);
 
-  const onClick = useCallback((ev) => {
-    // if (!env.runtime) {
-    //   return;
-    // }
-    // ev?.stopPropagation?.();
-    // outputs["onClick"]({ text: data.text });
+  const onClick = useCallback((e, key, value) => {
+    if (!env.runtime) {
+      return;
+    }
+
+    if (outputs[key].getConnections().length) {
+      e.stopPropagation();
+    }
+
+    outputs[key](value);
   }, []);
 
   useMemo(() => {
@@ -42,7 +46,9 @@ export default function ({ env, data, inputs, outputs }) {
         return (
           <>
             <Text
-              onClick={onClick}
+              onClick={(e) => {
+                onClick(e, key, text);
+              }}
               className={`typography_${key}`}
               key={key}
               data-text-id={key}

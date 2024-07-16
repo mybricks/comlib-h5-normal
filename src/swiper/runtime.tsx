@@ -11,7 +11,11 @@ import css from "./style.less";
 export default function ({ env, data, inputs, outputs, style }) {
   // 当前选中的tab
   const [current, setCurrent] = useState(0);
-  const [loadedImages, setLoadedImages] = useState([current, current + 1, data.items?.length ? (data.items?.length - 1) : 0]); // 默认加载第一个和最后一个图片
+  const [loadedImages, setLoadedImages] = useState([
+    current,
+    current + 1,
+    data.items?.length ? data.items?.length - 1 : 0,
+  ]); // 默认加载第一个和最后一个图片
 
   useEffect(() => {
     if (env.edit && !isUndef(data?.edit?.current)) {
@@ -53,7 +57,7 @@ export default function ({ env, data, inputs, outputs, style }) {
     }
     return {
       autoplay: !env.edit && !!data.autoplay,
-      interval: 5000,
+      interval: data.interval || 5000,
       duration: data.duration ?? 500,
     };
   }, [env.edit, data.autoplay, data.duration]);
@@ -66,15 +70,15 @@ export default function ({ env, data, inputs, outputs, style }) {
   }, []);
 
   useEffect(() => {
-    setLoadedImages(c => {
+    setLoadedImages((c) => {
       const newLoadedImages = new Set(c);
       if (current + 1 < data.items.length) {
         newLoadedImages.add(current + 1); // 预加载后面一张图片
-        return Array.from(newLoadedImages)
+        return Array.from(newLoadedImages);
       }
-      return c
+      return c;
     });
-  }, [current])
+  }, [current]);
 
   if (env.runtime && !data.items.length) {
     return null;
@@ -108,7 +112,7 @@ export default function ({ env, data, inputs, outputs, style }) {
             <SkeletonImage
               className={css.thumbnail}
               mode="aspectFill"
-              src={shouldLoad ? item.thumbnail : ''}
+              src={shouldLoad ? item.thumbnail : ""}
               nativeProps={{
                 loading: "lazy",
                 decoding: "async",

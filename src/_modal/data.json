@@ -1,6 +1,7 @@
 {
   "title": "对话框标题",
   "content": "对话框内容",
+  "editable": false,
   "showCancel": true,
   "cancelColor": "#000000",
   "cancelText": "取消",
