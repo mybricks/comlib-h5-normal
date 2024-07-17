@@ -26,6 +26,7 @@ const EMPTY_GEO = {
 };
 
 export default function ({ env, data, inputs, outputs }) {
+  const [scale,setScale] = useState(16)
   const [state, setState] = useState<any>({
     longitude: 116.4,
     latitude: 39.9,
@@ -134,6 +135,11 @@ export default function ({ env, data, inputs, outputs }) {
     inputs["includePoints"]?.((points) => {
       mapRef.current.includePoints(points);
     });
+
+    inputs["setScale"]?.((scale)=>{
+      setScale(scale)
+    })
+    
   }, []);
 
   /** 安卓下猜测会因为重复渲染定位到props的经纬度而闪屏，所以等渲染后再缩放吧 */
@@ -160,6 +166,7 @@ export default function ({ env, data, inputs, outputs }) {
       className={`${css.map} mybricks-map`}
       polyline={geo.polylines}
       markers={geo.markers}
+      scale={scale}
     ></Map>
   );
 }

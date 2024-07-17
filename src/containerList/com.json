@@ -62,6 +62,15 @@
         "title": "列表数据",
         "type": "boolean"
       }
+    },
+    {
+      "id":"empty",
+      "title":"切换到无内容",
+      "desc":"提示用户列表没有内容",
+       "schema":{
+        "title":"列表数据",
+        "type":"boolean"
+      }
     }
   ],
   "outputs": [
@@ -76,9 +85,13 @@
   ],
   "slots": [
     {
+      "id":"emptySlot",
+      "title":"无内容插槽"
+    },
+    {
       "id": "item",
       "capacity": 1,
-      "title": "列表项",
+      "title": "将组件拖拽到这里",
       "type": "scope",
       "inputs": [
         {
