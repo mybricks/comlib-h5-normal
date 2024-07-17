@@ -37,6 +37,19 @@ export default function (props) {
     inputs["setEnabled"](() => {
       data.disabled = false;
     });
+
+    // 重置值
+    inputs["resetValue"](() => {
+      data.value = "";
+
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value: "",
+      });
+
+      outputs["onChange"]("");
+    });
   }, []);
 
   const onChange = useCallback((e) => {
@@ -48,7 +61,7 @@ export default function (props) {
       name: props.name,
       value,
     });
-    
+
     outputs["onChange"](value);
   }, []);
 
