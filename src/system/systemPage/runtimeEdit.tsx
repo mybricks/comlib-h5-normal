@@ -196,7 +196,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
         {/* 隐藏导航栏 */}
         {data.useNavigationStyle === "none" ? (
-          <NoneNavigation data={data} />
+          <NoneNavigation env={env} data={data} />
         ) : null}
       </View>
       {/* Header end */}

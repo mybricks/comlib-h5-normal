@@ -90,7 +90,7 @@ export default {
               set({ data }, value) {
                 data.tabItemGap = value[0];
               },
-            }
+            },
           },
           {
             title: "样式",
@@ -412,6 +412,49 @@ export default {
         },
       ];
 
+      cate1.title = "高级";
+      cate1.items = [
+        {
+          title: "aaaa",
+          type: "button",
+          value: {
+            set({ data, inputs, outputs }) {
+              if (inputs.get("getActiveTabId")) {
+                return;
+              }
+
+              inputs.add({
+                id: "getActiveTabId",
+                title: "获取激活tab项",
+                schema: {
+                  type: "any",
+                },
+              });
+
+              outputs.add({
+                id: "activeTabId",
+                title: "tab激活项",
+                schema: {
+                  type: "object",
+                  properties: {
+                    id: {
+                      type: "string",
+                    },
+                    tabName: {
+                      type: "string",
+                    },
+                    index: {
+                      type: "number",
+                    },
+                  },
+                },
+              });
+
+              inputs.get("getActiveTabId").setRels(["activeTabId"])
+            },
+          },
+        },
+      ];
       // cate1.title = "样式";
       // cate1.items = [
       //   // {

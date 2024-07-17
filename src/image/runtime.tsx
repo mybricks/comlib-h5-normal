@@ -46,21 +46,25 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
     outputs["onLoad"](data.src);
   }, []);
 
-  const onClick = useCallback(() => {
-    if (!env.runtime) {
-      return;
-    }
+  const onClick = useCallback(
+    (e) => {
+      if (!env.runtime) {
+        return;
+      }
 
-    if (data.clickType === "previewImage") {
-      Taro.previewImage({
-        urls: [data.src],
-        current: data.src,
-      });
-      return;
-    }
+      if (data.clickType === "previewImage") {
+        Taro.previewImage({
+          urls: [data.src],
+          current: data.src,
+        });
+        e.stopPropagation();
+        return;
+      }
 
-    outputs["onClick"](data.src);
-  }, [data.clickType, data.src]);
+      outputs["onClick"](data.src);
+    },
+    [data.clickType, data.src]
+  );
 
   const onError = useCallback(() => {
     if (!env.runtime) {

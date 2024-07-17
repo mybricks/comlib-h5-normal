@@ -1,13 +1,28 @@
 import * as Taro from "@tarojs/taro";
 import { useUpdateEffect } from "./hooks";
 
-export function getNavigationHeight() {
+export function getNavigationLayout(env) {
+  if (env?.edit) {
+    return {
+      // bottom: 56
+      // height: 32
+      // left: 281
+      // right: 368
+      // top: 24
+      // width: 87
+      navigationHeight: 0,
+      statusBarHeight: 0,
+      titleBarHeight: 0,
+    };
+  }
+
   let systemInfoSync = Taro.getSystemInfoSync();
-  let system = (systemInfoSync.system || "").toLocaleLowerCase();
-
-  console.log("systemInfoSync", systemInfoSync);
-
   const ratio = systemInfoSync.windowWidth / 375; // 页面 px2rpx 比例
+
+  let menuButtonBoundingClientRect = Taro.getMenuButtonBoundingClientRect();
+  
+  let system = (systemInfoSync.system || "").toLocaleLowerCase();
+  console.log("systemInfoSync", systemInfoSync);
 
   const isIOS = system.indexOf("ios") > -1; // iOS title 高度 44px
   const isAndroid = system.indexOf("android") > -1; // Android title 高度 48px

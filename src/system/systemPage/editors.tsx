@@ -461,6 +461,35 @@ export default {
     },
   },
   // ...MybricksNavigationEditor,
+
+  ".mybricks-backIcon": {
+    style: [
+      {
+        title: "样式",
+        options: ["size"],
+        target: ".mybricks-backIcon",
+      },
+    ],
+    items: [
+      {
+        title: "自定义图标",
+        type: "imageselector",
+        options: {
+          fileSizeLimit: 10,
+          useBase64Only: true,
+        },
+        value: {
+          get({ data }) {
+            return data.customBackIcon;
+          },
+          set({ data }, value) {
+            data.customBackIcon = value;
+          },
+        },
+      },
+    ],
+  },
+
   ...MybricksTabBarEditor,
 
   ".mybricks-footer": {
