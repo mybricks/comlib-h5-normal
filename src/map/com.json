@@ -48,6 +48,14 @@
       }
     },
     {
+      "id": "setScale",
+      "title": "缩放地图",
+      "description": "缩放级别，取值范围为 3-20（默认值16）",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
       "id": "includePoints",
       "title": "根据点位缩放视野",
       "description": "根据所有点位坐标缩放视野",

@@ -294,14 +294,6 @@ export default function (props) {
     };
   }, [data.layout, data.bottomSpace]);
 
-  if (data.useLoading && !ready) {
-    return (
-      <View className={css.loading}>
-        <View className={css.icon}></View>
-      </View>
-    );
-  }
-
   let background = useMemo(() => {
     let result = {};
 
@@ -333,6 +325,14 @@ export default function (props) {
     data.backgroundPosition,
     data.background,
   ]);
+
+  if (data.useLoading && !ready) {
+    return (
+      <View className={css.loading}>
+        <View className={css.icon}></View>
+      </View>
+    );
+  }
 
   return (
     <View

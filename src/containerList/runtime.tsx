@@ -31,6 +31,7 @@ enum ListStatus {
   LOADING = "loading",
   ERROR = "error",
   NOMORE = "noMore",
+  EMPTY = "empty"
 }
 
 const useReachBottom = (callback, { env, enable = false }) => {
@@ -91,6 +92,13 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     { env, enable: !!data.scrollRefresh && data.direction !== Direction.Row }
   );
 
+  //默认是否显示加载中
+  useEffect(() => {
+    if (data.defaultActive == "loading" && !env.edit) {
+      setStatus(ListStatus.LOADING);
+    }
+  }, [data.defaultActive])
+
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
     inputs["loading"]?.((bool) => {
@@ -103,6 +111,10 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
     inputs["error"]?.((bool) => {
       setStatus(ListStatus.ERROR);
+    });
+
+    inputs["empty"]?.((bool) => {
+      setStatus(ListStatus.EMPTY);
     });
 
     inputs["addDataSource"]((val) => {
@@ -130,35 +142,40 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     });
   }, []);
 
-  const $placeholder = useMemo(() => {
-    if (env.edit && !slots["item"].size) {
-      return (
-        <View
-          className={css.placeholder}
-          style={{
-            [data.direction === Direction.Row
-              ? "marginRight"
-              : "marginBottom"]: `${data.spacing}px`,
-          }}
-        >
-          {slots["item"].render({
-            style: {
-              height: "120px",
-            },
-          })}
-        </View>
-      );
-    } else {
-      return null;
-    }
-  }, [
-    env.edit,
-    dataSource,
-    slots["item"],
-    slots["item"].size,
-    data.direction,
-    data.spacing,
-  ]);
+  // const $placeholder = useMemo(() => {
+  //   if (env.edit && !slots["item"].size) {
+  //     return null
+  //     return (
+  //       <View
+  //         className={css.placeholder}
+  //         style={{
+  //           [data.direction === Direction.Row
+  //             ? "marginRight"
+  //             : "marginBottom"]: `${data.spacing}px`,
+  //         }}
+  //       >
+  //         {slots["item"].render({
+  //           style: {
+  //             height: "120px",
+  //           },
+  //         })}
+  //       </View>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // }, [
+  //   env.edit,
+  //   dataSource,
+  //   slots["item"],
+  //   slots["item"].size,
+  //   data.direction,
+  //   data.spacing,
+  // ]);
+
+  const empty = useMemo(() => {
+    return ListStatus.EMPTY === status;
+  }, [status]);
 
   const hasMore = useMemo(() => {
     return ListStatus.NOMORE !== status;
@@ -184,11 +201,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const didMount = useRef(false);
   useEffect(() => {
-    if (!didMount.current) {
-      // 不管上次配置的如何，第一次渲染必须配置成默认
-      data._edit_status_ = "默认";
-      didMount.current = true;
-    }
+    // if (!didMount.current) {
+    //   // 不管上次配置的如何，第一次渲染必须配置成默认
+    //   data._edit_status_ = "默认";
+    //   didMount.current = true;
+    // }
     if (env.edit) {
       switch (true) {
         case data._edit_status_ === "加载中": {
@@ -201,6 +218,10 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         }
         case data._edit_status_ === "没有更多": {
           setStatus(ListStatus.NOMORE);
+          break;
+        }
+        case data._edit_status_ === "无内容": {
+          setStatus(ListStatus.EMPTY);
           break;
         }
         default: {
@@ -243,6 +264,9 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
               index: index,
             },
             key: key,
+            style: {
+              height: slots["item"].size ? "unset" : "60px",
+            },
           })}
         </View>
       );
@@ -253,21 +277,27 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     <View className={css.listWrapper}>
       <View
         className={wrapperCls}
-        // style={{
-        //   [data.direction === Direction.Row
-        //     ? "marginRight"
-        //     : "marginBottom"]: `-${data.spacing}px`,
-        // }}
+      // style={{
+      //   [data.direction === Direction.Row
+      //     ? "marginRight"
+      //     : "marginBottom"]: `-${data.spacing}px`,
+      // }}
       >
-        {$placeholder || (
+        {/* {$placeholder || (  */}
           <>
             {!!data?.scrollRefresh ? (
               <>
-                {$list}
+                {!empty && $list}
                 <List.Placeholder>
                   {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                   {error && (data.errorTip ?? "加载失败，请重试")}
                   {!hasMore && (data.emptyTip ?? "没有更多了")}
+                  {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
+                      style: {
+                        minHeight: 200,
+                        width:375
+                      },
+                  })}</View> : empty && data.initialEmptyTip}
                 </List.Placeholder>
               </>
             ) : (
@@ -276,6 +306,12 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                   <List.Placeholder>
                     {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                     {error && (data.errorTip ?? "加载失败，请重试")}
+                    {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
+                      style: {
+                          minHeight: 200,
+                          width: 375
+                      }
+                    })}</View> : empty && data.initialEmptyTip}
                   </List.Placeholder>
                 ) : (
                   $list
@@ -283,7 +319,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
               </>
             )}
           </>
-        )}
+        {/* )} */}
       </View>
     </View>
   );

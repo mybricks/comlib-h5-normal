@@ -114,7 +114,55 @@ export default {
               },
             },
           },
+          {
+            title: "提示文案",
+            type: "text",
+            catelog: "无内容",
+            value: {
+              get({ data }) {
+                return data.initialEmptyTip;
+              },
+              set({ data }, value) {
+                data.initialEmptyTip = value;
+              },
+            },
+          },
+          {
+            title: "无内容插槽",
+            type: "switch",
+            catelog: "无内容",
+            value: {
+              get({ data }) {
+                return data.showEmptySlot;
+              },
+              set({ data }, value) {
+                data.showEmptySlot = value;
+              },
+            },
+          },
         ],
+      },
+      {
+        title: "默认展示",
+        type: "select",
+        options: [
+          {
+            label: "无",
+            value: "none",
+          },
+          {
+            label: "加载中",
+            value: "loading",
+          }
+        ],
+        value: {
+          get({ data }) {
+            return data.defaultActive ?? "none";
+          },
+          set({ data, slot }, value) {
+            data.defaultActive = value;
+          },
+        },
       },
       {},
       {

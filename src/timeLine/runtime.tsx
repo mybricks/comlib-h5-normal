@@ -81,6 +81,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
                   index: index,
                 },
                 key: key,
+                style: {
+                  height: slots["item"].size ? "unset" : "60px",
+                },
               })}
             </View>
           </View>

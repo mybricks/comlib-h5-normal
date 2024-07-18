@@ -5,6 +5,8 @@
   "loadingTip": "加载中...",
   "errorTip": "加载失败，请重试",
   "emptyTip": "没有更多了",
+  "initialEmptyTip":"暂无内容",
+  "defaultActive":"none",
   "scrollRefresh": false,
   "pullRefresh": false,
   "grid": {
