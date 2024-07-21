@@ -1,0 +1,156 @@
+{
+  "title": "Tabs",
+  "namespace": "mybricks.taro.tabs2",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "tabs",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "dataSource",
+      "title": "设置数据源",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "标签项ID",
+              "type": "string"
+            },
+            "tabName": {
+              "title": "标签项名称",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "activeTabId",
+      "title": "激活tab项",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "id": "getActiveTabId",
+      "title": "获取激活tab项",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["activeTabId"]
+    },
+    {
+      "id": "setBadge",
+      "title": "设置徽标",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "setDesc",
+      "title": "设置括号描述内容",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "changeTab",
+      "title": "切换tab",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "id": "activeTabId",
+      "title": "tab激活项",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tabName": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "id": "changeTab_tabId1",
+      "title": "标签项",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tabName": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "id": "changeTab_tabId2",
+      "title": "标签项",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tabName": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "tabId1",
+      "capacity": 1,
+      "title": "标签项1",
+      "layout": "smart"
+    },
+    {
+      "id": "tabId2",
+      "capacity": 1,
+      "title": "标签项2",
+      "layout": "smart"
+    }
+  ]
+}

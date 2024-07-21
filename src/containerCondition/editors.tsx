@@ -21,7 +21,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width"],
   },
   ":slot": {},
   ":root"({ data, output, input, style, slots }, cate0, cate1, cate2) {

@@ -1,0 +1,132 @@
+// .tabs.sidebar {
+//   width: 100%;
+//   height: ceil(100vh);
+//   display: flex;
+//   align-items: stretch;
+//   // background: yellow;
+
+//   .navView {
+//     width: 80px;
+//     height: 100%;
+//     overflow-y: auto;
+
+//     .inner {
+//       // display: flex;
+//       // align-items: center;
+//       // min-width: 100%;
+
+//       .item {
+//         width: auto;
+//         flex: 1;
+//         text-align: center;
+//         padding: 10px 0;
+//         background: #f7f8fa;
+//         position: relative;
+
+//         &.active {
+//           background: #ffffff;
+
+//           &::before {
+//             content: "";
+//             display: block;
+//             width: 4px;
+//             height: 16px;
+//             background: red;
+//             position: absolute;
+//             top: 50%;
+//             left: 0;
+//             transform: translateY(-50%);
+//           }
+//         }
+//       }
+//     }
+
+//   }
+
+//   .contentView {
+//     flex: 1;
+//     overflow-x: hidden;
+//     background: red;
+//     height: 100%;
+
+//     .item {
+//       height: 100%;
+//     }
+//   }
+// }
+
+// .tabs.topbar {
+//   width: 100%;
+
+//   .navView {
+//     width: 100%;
+
+//     .inner {
+//       display: flex;
+//       align-items: flex-end;
+
+//       .item {
+//         background: blue;
+//         &.active {
+//           background: red;
+//         }
+//       }
+//     }
+//   }
+// }
+.tab_box {
+  height: 100%;
+
+  :global {
+    .taroify-tabs__wrap__scroll {
+      background-color: transparent;
+    }
+
+    .taroify-tabs__wrap {
+      background-color: transparent !important;
+    }
+
+    .taroify-tabs__nav {
+      background-color: transparent !important;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+      color: transparent;
+    }
+
+  }
+}
+
+.tabs {
+  :global {
+    .taro-scroll-view__scroll-x {
+      background-color: transparent;
+    }
+  }
+}
+
+
+.fix_tabs {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.tabs_normal {
+  // position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.tab_content {
+  overflow: hidden;
+}
+
+.minHeight {
+  min-height: 50px;
+}

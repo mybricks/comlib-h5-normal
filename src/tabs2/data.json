@@ -1,0 +1,23 @@
+{
+  "mode": "topbar",
+  "tabs": [
+    {
+      "_id": "tabId1",
+      "tabName": "标签项1"
+    },
+    {
+      "_id": "tabId2",
+      "tabName": "标签项2"
+    }
+  ],
+  "edit": {
+    "currentItemId": ""
+  },
+  "initChangeTab": false,
+  "navBarGutter": 12,
+  "sticky":false,
+  "slotStyle":{
+    "position": "smart"
+  },
+  "lastTabHeight": -1
+}

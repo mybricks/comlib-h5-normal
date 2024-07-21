@@ -61,7 +61,8 @@
         "./src/filter-coms/sort/com.json",
         "./src/filter-coms/switch/com.json",
         "./src/filter-coms/custom/com.json",
-        "./src/selectorWaterfall/com.json"
+        "./src/selectorWaterfall/com.json",
+        "./src/tabs/com.json"
       ]
     },
     {
@@ -80,7 +81,7 @@
       "title": "容器",
       "comAry": [
         "./src/containerSmart/com.json",
-        "./src/tabs/com.json",
+        "./src/tabs2/com.json",
         "./src/containerSwiper/com.json",
         "./src/containerList/com.json",
         "./src/containerWaterfall/com.json",
