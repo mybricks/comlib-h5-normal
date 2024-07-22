@@ -144,7 +144,7 @@ export default function ({
   // input禁用按钮
   useEffect(() => {
     inputs["setDisabled"]?.((val, relOutputs) => {
-      data.disabled = true;
+      data.disabled = !!val;
       relOutputs["setDisabledSuccess"]?.(val);
     });
   }, []);

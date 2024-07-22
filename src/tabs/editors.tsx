@@ -104,6 +104,7 @@ export default {
                   { type: "border" },
                   { type: "padding" },
                   { type: "background" },
+                  { type: "margin" },
                 ],
                 target: ".taroify-tabs__tab:not(.taroify-tabs__tab--active)",
               },
@@ -116,6 +117,7 @@ export default {
                   { type: "border" },
                   { type: "padding" },
                   { type: "background" },
+                  { type: "margin" },
                 ],
                 target: ".taroify-tabs__tab--active",
               },
@@ -820,6 +822,7 @@ export default {
                   { type: "border" },
                   { type: "padding" },
                   { type: "background" },
+                  { type: "margin" },
                 ],
               },
               ifVisible({ data }: EditorResult<Data>) {
@@ -846,6 +849,7 @@ export default {
                   { type: "border" },
                   { type: "padding" },
                   { type: "background" },
+                  { type: "margin" },
                 ],
               },
               ifVisible({ data }: EditorResult<Data>) {

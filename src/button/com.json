@@ -22,7 +22,7 @@
       "id": "setDisabled",
       "title": "设置按钮禁用",
       "schema": {
-        "type": "any"
+        "type": "boolean"
       },
       "rels": [
         "setDisabledSuccess"

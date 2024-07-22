@@ -291,7 +291,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     });
 
     const findItem = data.tabs[index];
-    
+
     outputs.changeTab?.({
       id: findItem._id,
       title: findItem.tabName,
@@ -367,30 +367,28 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         </Tabs>
 
         {data.tabs.map((tab, index) => {
-          if (currentTabIdRef.current === tab._id) {
-            return (
-              <View
-                key={tab._id}
-                id={tabpaneId}
-                style={{
-                  height: `calc(100% - ${
-                    tabsHeight != 0 ? tabsHeight : "44"
-                  }px)`,
-                }}
-                className={classNames(
-                  css.tab_content,
-                  env.edit && css.minHeight
-                )}
-              >
-                {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
-                  style: {
-                    position: "smart",
-                  },
-                  key: tab._id,
-                })}
-              </View>
-            );
-          }
+          const isActive = currentTabIdRef.current === tab._id;
+          return (
+            <View
+              key={tab._id}
+              id={tabpaneId}
+              style={{
+                height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
+                display: isActive ? 'block' : 'none', // 控制显示和隐藏
+              }}
+              className={classNames(
+                css.tab_content,
+                env.edit && css.minHeight
+              )}
+            >
+              {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
+                style: {
+                  position: "smart",
+                },
+                key: tab._id,
+              })}
+            </View>
+          );
         })}
       </View>
     )

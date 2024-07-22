@@ -10,10 +10,10 @@ export default function ({ env, data, inputs, outputs }) {
             if (data.editable) {
               outputs["onConfirm"](res.content);
             } else {
-              outputs["onConfirm"]();
+              outputs["onConfirm"](val);
             }
           } else {
-            outputs["onCancel"]();
+            outputs["onCancel"](val);
           }
         },
       };
