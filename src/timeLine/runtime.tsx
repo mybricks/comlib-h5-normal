@@ -19,10 +19,43 @@ interface DsItem {
   index: number;
 }
 
+enum ListStatus {
+  IDLE = "idle",
+  EMPTY = "empty"
+}
+
 export default function ({ env, data, inputs, outputs, slots }) {
   const [dataSource, setDataSource] = useState<DsItem[]>(
     env.edit || env?.runtime?.debug?.prototype ? mockData : []
   );
+  const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
+
+  const empty = useMemo(() => {
+    return ListStatus.EMPTY === status;
+  }, [status]);
+
+  useEffect(()=>{
+    if(env.edit) return
+    if(data.displaysEmptySpace){
+      setStatus(ListStatus.EMPTY);
+    }else{
+      setStatus(ListStatus.IDLE);
+    }
+  },[data.displaysEmptySpace])
+
+  useEffect(() => {
+    if (env.edit) {
+      switch (true) {
+        case data._edit_status_ === "无内容": {
+          setStatus(ListStatus.EMPTY);
+          break;
+        }
+        default: {
+          setStatus(ListStatus.IDLE);
+        }
+      }
+    }
+  }, [data._edit_status_]);
 
   useMemo(() => {
     inputs["refreshDataSource"]((val) => {
@@ -33,9 +66,20 @@ export default function ({ env, data, inputs, outputs, slots }) {
           index: index,
         }));
         setDataSource(ds);
+        if(ds.length == 0 && data.displaysEmptySpace){
+          setStatus(ListStatus.EMPTY);
+        }else{
+          setStatus(ListStatus.IDLE);
+        }
       }
     });
-  }, []);
+
+    inputs["empty"]?.((bool) => {
+      if(bool){
+        setStatus(ListStatus.EMPTY);
+      }
+    });
+  }, [data.displaysEmptySpace]);
 
   const list = dataSource.map(
     ({ [rowKey]: key, index: index, item: item }, _idx) => {
@@ -92,5 +136,19 @@ export default function ({ env, data, inputs, outputs, slots }) {
     }
   );
 
-  return <View className={css.warrper}>{list}</View>;
+  const emptyView = useMemo(() => {
+    if (data.showEmptySlot) {
+      return <View className={css.emptyView}>{slots["emptySlot"].render({
+        style: {
+          minHeight: 60,
+          width: 375
+        },
+      })}</View>
+    } else {
+      return <View className={css.emptyView}>{data.initialEmptyTip}</View>;
+    }
+
+  }, [data.initialEmptyTip,data.showEmptySlot]);
+
+  return <View className={css.warrper}>{empty && emptyView}{!empty && list}</View>;
 }

@@ -50,6 +50,67 @@ export default {
           },
         },
       },
+      {
+        title:"无内容时显示none",
+        description: "当时间轴为空时，显示无数据或者你自定义的插槽",
+        type:"switch",
+        value: {
+          get({ data }) {
+            return data.displaysEmptySpace;
+          },
+          set({ data }, value) {
+            data.displaysEmptySpace = value;
+          },
+        }
+      },
+      {
+        catelogChange: {
+          value: {
+            get({ data }) {
+              return data._edit_status_;
+            },
+            set({ data, catelog }) {
+              data._edit_status_ = catelog;
+            },
+          },
+        },
+        items: [
+          {
+            title: "",
+            catelog: "默认",
+            type: "editorRender",
+            options: {
+              render: () => "暂无",
+            },
+          },
+          {
+            title: "提示文案",
+            type: "text",
+            catelog: "无内容",
+            value: {
+              get({ data }) {
+                return data.initialEmptyTip;
+              },
+              set({ data }, value) {
+                data.initialEmptyTip = value;
+              },
+            },
+          },
+          {
+            title: "无内容插槽",
+            type: "switch",
+            catelog: "无内容",
+            value: {
+              get({ data }) {
+                return data.showEmptySlot;
+              },
+              set({ data }, value) {
+                data.showEmptySlot = value;
+              },
+            },
+          },
+        ],
+      },
     ],
   },
 };
