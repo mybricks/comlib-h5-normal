@@ -191,13 +191,18 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const wrapperCls = useMemo(() => {
     if (data.direction === Direction.Row) {
-      return `${css.list} ${css.row}`;
+      //显示加载中和错误的时候，居中对齐
+      if (loading || error){
+        return `${css.list} ${css.row} ${css.scroll_x} ${css.justify_content_center} `;
+      }else{
+        return `${css.list} ${css.row} ${css.scroll_x}`;
+      }
     }
 
     return data.scrollRefresh
       ? `${css.list} ${css.scroll}`
       : `${css.list} ${css.normal}`;
-  }, [data.scrollRefresh, data.direction]);
+  }, [data.scrollRefresh, data.direction,loading,error]);
 
   const didMount = useRef(false);
   useEffect(() => {
@@ -294,7 +299,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                   {!hasMore && (data.emptyTip ?? "没有更多了")}
                   {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
                       style: {
-                        minHeight: 200,
+                        minHeight: 100,
                         width:375
                       },
                   })}</View> : empty && data.initialEmptyTip}
@@ -308,7 +313,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                     {error && (data.errorTip ?? "加载失败，请重试")}
                     {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
                       style: {
-                          minHeight: 200,
+                          minHeight: 100,
                           width: 375
                       }
                     })}</View> : empty && data.initialEmptyTip}
