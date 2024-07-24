@@ -133,7 +133,7 @@ export default {
         target: ".taroify-tabs__line",
       },
     ],
-    items({ data, slot, outputs }, cate0, cate1, cate2) {
+    items({ data, input, slots, outputs }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
         dynamicArrayData.editors(
@@ -147,9 +147,14 @@ export default {
                   return [`${item.tabName || ""}`];
                 },
                 onAdd() {
+                  const id = `tab_${uuid("", 5)}`;
+                  const title = `标签项${data.new_index++}`;
+
                   let defaultItem = {
-                    tabName: "标签项",
+                    tabId: id,
+                    tabName: title,
                   };
+
                   return defaultItem;
                 },
                 onSelect(_id, index) {
@@ -157,6 +162,15 @@ export default {
                     data.edit.currentTabId = data.tabs[index]?._id;
                   }
                 },
+                onRemove(_id) {
+                  input.remove(_id);
+                  // slots.remove(_id);
+
+                  // if (id === data.defaultActiveId) {
+                  //   data.defaultActiveId = undefined;
+                  // }
+                },
+                draggable: false,
                 items: [
                   {
                     title: "标签项",
@@ -177,10 +191,23 @@ export default {
               },
             },
             effects: {
-              onRemove: ({ slot }, action) => {
-                slot.remove(action?.value._id);
-              },
+              // onRemove: ({ slot }, action) => {
+              //   console.log("effects-onRemove")
+              //   // slot.remove(action?.value._id);
+              // },
               onAdd: ({ slot }, action) => {
+                //添加输入连线
+                input.add({
+                  id: action?.value._id,
+                  title: `切换到 ${action?.value.tabName}`,
+                  schema: {
+                    type: "any",
+                  },
+                  rels: ["changeDone"],
+                });
+
+                input.get(action?.value._id).setRels(["changeDone"]);
+
                 slot.add({
                   id: action?.value._id,
                   title: action?.value.tabName,
@@ -206,8 +233,8 @@ export default {
                 });
 
                 // 插槽配置为智能布局
-                // const slotInstance = slot.get(action?.value._id);
-                // setSlotLayout(slotInstance, data.slotStyle);
+                const slotInstance = slot.get(action?.value._id);
+                setSlotLayout(slotInstance, data.slotStyle);
               },
               onUpdate: ({ slot }, action) => {
                 slot.setTitle(action?.value._id, action?.value.tabName);
@@ -359,9 +386,10 @@ export default {
               title: "删除标签项",
               type: "Button",
               value: {
-                set({ data, slot, focusArea }) {
+                set({ data, slot,input, focusArea }) {
                   if (!focusArea) return;
                   data.tabs.splice(focusArea.index, 1);
+                  input.remove(focusItem._id);
                   slot.remove(focusItem._id);
                 },
               },

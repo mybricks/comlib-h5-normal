@@ -1,5 +1,6 @@
 {
   "mode": "topbar",
+  "new_index": 3,
   "tabs": [
     {
       "_id": "tabId1",
