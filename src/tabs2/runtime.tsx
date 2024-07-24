@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useLayoutEffect
 } from "react";
 import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
@@ -74,7 +75,22 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         index: 0,
       });
     }
-  }, []);
+
+
+  }, [data.tabs]);
+
+  useLayoutEffect(() => {
+    //通过连线来切换tab
+    data.tabs.forEach((item) => {
+      console.log("item", item)
+      inputs[item._id]?.((bool, relOutputs) => {
+        console.log("连线切换", item._id)
+        _setCurrentTabId(item._id);
+        relOutputs["changeDone"]?.(bool);
+      });
+    });
+
+  }, [data.tabs])
 
   //判断是否是真机运行态
   const isRelEnv = () => {
@@ -382,9 +398,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               )}
             >
               {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
-                style: {
-                  position: "smart",
-                },
                 key: tab._id,
               })}
             </View>

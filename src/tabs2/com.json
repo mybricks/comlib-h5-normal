@@ -74,9 +74,36 @@
           }
         }
       }
+    },
+    {
+      "id": "tabId1",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换到 标签页1",
+      "rels": [
+        "changeDone"
+      ]
+    },
+    {
+      "id": "tabId2",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换到 标签页2",
+      "rels": [
+        "changeDone"
+      ]
     }
   ],
   "outputs": [
+    {
+      "id": "changeDone",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换完成"
+    },
     {
       "id": "changeTab",
       "title": "切换tab",
