@@ -4,6 +4,7 @@ import { ArrowRight } from "@taroify/icons";
 import { Input, Picker } from "brickd-mobile";
 import { isObject, isString, isNumber, isEmpty } from './../utils/core/type';
 import css from './style.less'
+import InputDisplay from "../components/input-display";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -57,7 +58,7 @@ export default function (props) {
       }
     });
   }, []);
-  
+
   const onChange = useCallback((index) => {
     setSelectIdx(index)
 
@@ -78,16 +79,18 @@ export default function (props) {
   return (
     <>
       <View className={css.wrap}>
-        <Picker value={selectIndex} options={data.options} onChange={onChange}>
+        <Picker value={selectIndex} options={data.options} onChange={onChange} >
           <View className={css.select}>
-            <Input
+            {/* <Input
               readonly
               // align="right"
               disabled={!displayValue}
               placeholder={data.placeholder}
               value={selectItem?.label}
               style={{ flex: 1 }}
-            />
+            /> */}
+            <InputDisplay placeholder={data.placeholder}
+              value={selectItem?.label}></InputDisplay>
             <ArrowRight />
           </View>
         </Picker>

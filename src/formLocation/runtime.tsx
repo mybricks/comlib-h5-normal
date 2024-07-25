@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import { View} from "@tarojs/components";
+import { View } from "@tarojs/components";
 import cx from "classnames";
 import { ArrowRight } from "@taroify/icons";
-import { Field, Input, AreaPicker} from "brickd-mobile";
+import { Field, Input, AreaPicker } from "brickd-mobile";
 import { isObject, isString, isEmpty } from "./../utils/core/type";
 import css from "./style.less";
 import * as Taro from "@tarojs/taro";
+import InputDisplay from "../components/input-display";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -71,23 +72,18 @@ export default function (props) {
     return data.value.split("/");
   }, [data.value]);
 
-  const toast = ()=>{
+  const toast = () => {
     Taro.showToast({
-      title: '地区选择组件仅支持小程序端',
+      title: '地区选择仅支持小程序真机端',
       icon: 'none',
       duration: 1000
     })
   }
 
   const pickerEditTime = useMemo(() => {
-    return (<View className={css.select} onClick={()=>{toast()}}>
-      <Input
-        readonly
-        disabled={!data.value}
-        placeholder={data.placeholder}
-        value={data.value}
-        style={{ flex: 1 }}
-      />
+    return (<View className={css.select} onClick={() => { toast() }}>
+      <InputDisplay placeholder={data.placeholder}
+        value={data.value}></InputDisplay>
       <ArrowRight />
     </View>)
 
@@ -107,7 +103,7 @@ export default function (props) {
       </View>
     </AreaPicker>)
 
-  }, [data,_value])
+  }, [data, _value])
 
   return (
     <View className={css.wrap}>

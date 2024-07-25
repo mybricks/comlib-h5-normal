@@ -6,6 +6,7 @@ import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
 import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
 import css from "./style.less";
+import InputDisplay from "../components/input-display";
 
 polyfill_taro_picker();
 
@@ -134,13 +135,15 @@ export default function (props) {
             onChange={onChange}
           >
             <View className={css.select}>
-              <Input
+              {/* <Input
                 readonly
                 disabled={!displayValue}
                 placeholder={data.placeholder}
                 value={displayValue}
                 style={{ flex: 1 }}
-              />
+              /> */}
+              <InputDisplay placeholder={data.placeholder}
+                value={displayValue}></InputDisplay>
               <ArrowRight />
             </View>
           </DatetimePicker>
