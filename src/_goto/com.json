@@ -15,18 +15,7 @@
       "id": "goto",
       "title": "跳转",
       "schema": {
-        "type": "object",
-        "properties": {
-          "path": {
-            "type": "string"
-          },
-          "params": {
-            "type": "object"
-          },
-          "action": {
-            "type": "string"
-          }
-        }
+        "type": "string"
       }
     }
   ]

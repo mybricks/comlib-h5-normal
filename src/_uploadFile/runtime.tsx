@@ -1,4 +1,3 @@
-import * as Taro from "@tarojs/taro";
 import UploadOssHelper from "./utils/oss";
 
 export default function ({ env, data, inputs, outputs }) {

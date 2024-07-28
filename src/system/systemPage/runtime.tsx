@@ -237,6 +237,9 @@ export default function (props) {
             scrollAnimationDuration: duration,
             scrollWithAnimation: isAnimte,
           }));
+
+          // hack 设置当前滚动位置
+          scrollRef.current = scrollTop;
         }
       };
 

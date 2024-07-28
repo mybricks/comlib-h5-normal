@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import { Tabs } from "brickd-mobile";
@@ -57,7 +63,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   // );
 
   const currentTabIdRef = useRef(getDefaultCurrTabId(data.tabs));
-  console.warn("currentTabIdRef", currentTabIdRef);
 
   useMemo(() => {
     /** 默认触发一次 */
@@ -173,7 +178,8 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     inputs["getActiveTabId"]?.((_, relOutputs) => {
       relOutputs["activeTabId"]?.({
         id: currentTabIdRef.current,
-        title: data.tabs.find((tab) => tab._id == currentTabIdRef.current)?.tabName,
+        title: data.tabs.find((tab) => tab._id == currentTabIdRef.current)
+          ?.tabName,
         index: data.tabs.findIndex((tab) => tab._id == currentTabIdRef.current),
       });
     });
@@ -298,7 +304,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       } else {
         _tabtop = tabsTopUpdate;
       }
-      if (isFixed) {
+      if (isFixed || data.sticky) {
         env.rootScroll.scrollTo({
           scrollTop: random + _tabtop - customNavigationHeight,
         });
@@ -317,9 +323,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const tabCommonStyle = useMemo(() => {
     return {
       flexGrow: data.tabWidthType === "fit" ? 0 : 1,
-      marginRight: data.tabWidthType === "fit" ?  data.tabItemGap : "",
+      marginRight: data.tabWidthType === "fit" ? data.tabItemGap : "",
     };
-  }, [data.tabWidthType,data.tabItemGap]);
+  }, [data.tabWidthType, data.tabItemGap]);
 
   return (
     emptyView || (

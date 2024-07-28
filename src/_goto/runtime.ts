@@ -36,7 +36,7 @@ export default function ({ env, data, inputs, outputs, _inputsCallable }) {
       return {};
     }
 
-    let paramsStr = parts[1];
+    let paramsStr = parts[1] || "";
     let params = {};
     paramsStr.split("&").forEach((item) => {
       let [key, value] = item.split("=");

@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useLayoutEffect
+  useLayoutEffect,
 } from "react";
 import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
@@ -64,7 +64,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   // );
 
   const currentTabIdRef = useRef(getDefaultCurrTabId(data.tabs));
-  console.warn("currentTabIdRef", currentTabIdRef);
 
   useMemo(() => {
     /** 默认触发一次 */
@@ -74,23 +73,26 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         title: data.tabs[0]?.tabName,
         index: 0,
       });
+
+      outputs[`changeTab_${data.tabs[0]?._id}`]?.({
+        id: data.tabs[0]?._id,
+        title: data.tabs[0]?.tabName,
+        index: 0,
+      });
     }
-
-
   }, [data.tabs]);
 
   useLayoutEffect(() => {
     //通过连线来切换tab
     data.tabs.forEach((item) => {
-      console.log("item", item)
+      console.log("item", item);
       inputs[item._id]?.((bool, relOutputs) => {
-        console.log("连线切换", item._id)
+        console.log("连线切换", item._id);
         _setCurrentTabId(item._id);
         relOutputs["changeDone"]?.(bool);
       });
     });
-
-  }, [data.tabs])
+  }, [data.tabs]);
 
   //判断是否是真机运行态
   const isRelEnv = () => {
@@ -308,18 +310,6 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
     const findItem = data.tabs[index];
 
-    outputs.changeTab?.({
-      id: findItem._id,
-      title: findItem.tabName,
-      index,
-    });
-
-    outputs[`changeTab_${findItem._id}`]?.({
-      id: findItem._id,
-      title: findItem.tabName,
-      index,
-    });
-
     if (isRelEnv()) {
       const random = Number(Math.random() * 0.1 + 0.01);
       let _tabtop;
@@ -334,6 +324,18 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         });
       }
     }
+
+    outputs.changeTab?.({
+      id: findItem._id,
+      title: findItem.tabName,
+      index,
+    });
+
+    outputs[`changeTab_${findItem._id}`]?.({
+      id: findItem._id,
+      title: findItem.tabName,
+      index,
+    });
   };
 
   const emptyView = useMemo(() => {
@@ -390,12 +392,9 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               id={tabpaneId}
               style={{
                 height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
-                display: isActive ? 'block' : 'none', // 控制显示和隐藏
+                display: isActive ? "block" : "none", // 控制显示和隐藏
               }}
-              className={classNames(
-                css.tab_content,
-                env.edit && css.minHeight
-              )}
+              className={classNames(css.tab_content, env.edit && css.minHeight)}
             >
               {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
                 key: tab._id,
