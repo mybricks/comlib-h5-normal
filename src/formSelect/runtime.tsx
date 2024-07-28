@@ -2,49 +2,31 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { View } from "@tarojs/components";
 import { ArrowRight } from "@taroify/icons";
 import { Input, Picker } from "brickd-mobile";
-import { isObject, isString, isNumber, isEmpty } from './../utils/core/type';
-import css from './style.less'
+import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
+import css from "./style.less";
 import InputDisplay from "../components/input-display";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
   const [selectIndex, setSelectIdx] = useState(data.value);
-  // const [_value, _setValue] = useState(null);
-  // const [open, setOpen] = useState(false);
-
-  // const onClick = useCallback(() => {
-  //   if (env.runtime) {
-  //     _setValue(value);
-  //     setOpen(true);
-  //   }
-  // }, [env.runtime, value]);
-
-  // const onCancel = useCallback(() => {
-  //   setOpen(false);
-  // }, []);
-
-  // const onConfirm = useCallback((values) => {
-  //   let value = values[0];
-
-  //   setValue(value);
-  //   setOpen(false);
-
-  //   parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
-  //   outputs["onChange"](value);
-  // }, []);
-
+  
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setSelectIdx('')
+          setSelectIdx("");
           break;
         }
         case isString(val) || isNumber(val):
-          setSelectIdx(val);
+          // 注意不要使用全等号
+          let index = data.options.findIndex((item) => item.value == val);
+          setSelectIdx(index);
           break;
         case isObject(val):
-          setSelectIdx(val[data.name]);
+          let index = data.options.findIndex(
+            (item) => item.value == val[data.name]
+          );
+          setSelectIdx(index);
           break;
         default:
           break;
@@ -52,7 +34,7 @@ export default function (props) {
     });
 
     // 设置数据源
-    inputs['setOptions']((val) => {
+    inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
         data.options = val;
       }
@@ -60,26 +42,30 @@ export default function (props) {
   }, []);
 
   const onChange = useCallback((index) => {
-    setSelectIdx(index)
+    setSelectIdx(index);
 
-    const value = data.options?.[index]?.value
+    const value = data.options?.[index]?.value;
 
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
     outputs["onChange"](value);
-  }, [])
+  }, []);
 
   const selectItem = useMemo(() => {
     return data.options?.[selectIndex];
-  }, [selectIndex, data.options])
+  }, [selectIndex, data.options]);
 
   const displayValue = useMemo(() => {
-    return !!selectItem
-  }, [selectItem])
+    return !!selectItem;
+  }, [selectItem]);
 
   return (
     <>
       <View className={css.wrap}>
-        <Picker value={selectIndex} options={data.options} onChange={onChange} >
+        <Picker value={selectIndex} options={data.options} onChange={onChange}>
           <View className={css.select}>
             {/* <Input
               readonly
@@ -89,8 +75,10 @@ export default function (props) {
               value={selectItem?.label}
               style={{ flex: 1 }}
             /> */}
-            <InputDisplay placeholder={data.placeholder}
-              value={selectItem?.label}></InputDisplay>
+            <InputDisplay
+              placeholder={data.placeholder}
+              value={selectItem?.label}
+            ></InputDisplay>
             <ArrowRight />
           </View>
         </Picker>
