@@ -87,8 +87,14 @@ export default function (props) {
     return Points;
   }, [focus, data.gutter, data.length, mask, value, data.showLine, error]);
 
-  const onSmsInput = (e) => {
+  const onSmsInput = useCallback((e) => {
     let input = e.detail.value;
+
+    // 如果内容没有变化，不触发
+    if(input == value){
+      return;
+    }
+
     if (input.length == data.length) {
       setError(false);
       //填满时输出
@@ -98,7 +104,7 @@ export default function (props) {
       return;
     }
     setValue(input);
-  };
+  }, [value]);
 
   const onSmSFoucs = () => {
     setFocus(true);
