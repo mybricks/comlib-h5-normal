@@ -24,10 +24,13 @@ export default function (props) {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          data.value = "";
+          data.value = [];
           break;
         }
         case isString(val):
+          data.value = [val];
+          break;
+        case Array.isArray(val):
           data.value = val;
           break;
         case isObject(val):
@@ -38,86 +41,67 @@ export default function (props) {
       }
     });
 
-    // 输入框类型
-    inputs["changeType"]((val) => {
-      data.type = val;
+    inputs["getValue"]((val, outputRels) => {
+      outputRels["returnValue"](data.value);
     });
-  }, []);
-
-  const onChangeText = useCallback((e) => {
-    let value = e.detail.value;
-    data.value = value;
-
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onChange"](value);
   }, []);
 
   const onChange = useCallback((val) => {
-    let value = val.join("/");
-    data.value = value;
+    data.value = val;
 
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
-      value,
+      value: val,
     });
-    outputs["onChange"](value);
+    outputs["onChange"](val);
   }, []);
-
-  const _value = useMemo(() => {
-    return data.value.split("/");
-  }, [data.value]);
 
   const toast = () => {
     Taro.showToast({
-      title: '地区选择仅支持小程序真机端',
-      icon: 'none',
-      duration: 1000
-    })
-  }
+      title: "地区选择仅支持小程序真机端",
+      icon: "none",
+      duration: 1000,
+    });
+  };
 
   const pickerEditTime = useMemo(() => {
-    return (<View className={css.select} onClick={() => { toast() }}>
-      <InputDisplay placeholder={data.placeholder}
-        value={data.value}></InputDisplay>
-      <ArrowRight />
-    </View>)
-
-  }, [data])
-
-  const pickerRunTime = useMemo(() => {
-    return (<AreaPicker value={_value} onChange={onChange}>
-      <View className={css.select}>
-        <Input
-          readonly
-          disabled={!data.value}
+    return (
+      <View
+        className={css.select}
+        onClick={() => {
+          toast();
+        }}
+      >
+        <InputDisplay
           placeholder={data.placeholder}
-          value={data.value}
-          style={{ flex: 1 }}
-        />
+          value={data.value.join("/")}
+        ></InputDisplay>
         <ArrowRight />
       </View>
-    </AreaPicker>)
+    );
+  }, [data.value, data.placeholder]);
 
-  }, [data, _value])
+  const pickerRunTime = useMemo(() => {
+    return (
+      <AreaPicker level={data.level} value={data.value} onChange={onChange}>
+        <View className={css.select}>
+          <Input
+            readonly
+            // disabled={true}
+            placeholder={data.placeholder}
+            value={data.value.join("/")}
+            style={{ flex: 1 }}
+          />
+          <ArrowRight />
+        </View>
+      </AreaPicker>
+    );
+  }, [data.value, data.placeholder]);
 
   return (
     <View className={css.wrap}>
-      {data.type === "text" ? (
-        <Input
-          placeholder={data.placeholder}
-          value={data.value}
-          onChange={onChangeText}
-        />
-      ) : null}
-
-      {data.type === "select" ? (
-        isRelEnv ? pickerRunTime : pickerEditTime
-      ) : null}
+      {isRelEnv ? pickerRunTime : pickerEditTime}
     </View>
   );
 }

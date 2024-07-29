@@ -15,15 +15,10 @@
       "title": "设置值",
       "desc": "设置值，并触发值变化事件输出",
       "schema": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "setInitialValue",
-      "title": "设置初始值",
-      "desc": "设置初始值，并触发初始化事件输出",
-      "schema": {
-        "type": "string"
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
     },
     {
@@ -65,28 +60,17 @@
       "schema": {
         "type": "any"
       }
-    },
-    {
-      "id": "changeType",
-      "title": "切换输入框类型",
-      "schema": {
-        "type": "string"
-      }
     }
   ],
   "outputs": [
     {
-      "id": "onInitial",
-      "title": "值初始化",
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
       "id": "onChange",
       "title": "值更新",
       "schema": {
-        "type": "string"
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       }
     },
     {
@@ -110,7 +94,7 @@
       "id": "returnValue",
       "title": "值输出",
       "schema": {
-        "type": "string"
+        "type": "array"
       }
     }
   ],

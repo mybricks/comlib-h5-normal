@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
 import { View, Text } from "@tarojs/components";
 import cx from "classnames";
 import css from "./style.less";
@@ -18,20 +24,18 @@ export default function ({ id, env, data, style, inputs, outputs }) {
   useEffect(() => {
     //老组件打开了动态文本渲染，则默认选中「隐藏」
     if (data.useDynamic) {
-      setDisplayState("hidden")
-      data.displayState = "hidden"
-      data.useDynamic = false
+      setDisplayState("hidden");
+      data.displayState = "hidden";
+      data.useDynamic = false;
     }
-
-  }, [data.useDynamic])
+  }, [data.useDynamic]);
 
   const displaySkeleton = useMemo(() => {
     if (displayState === "skeleton" && !ready && env.runtime) {
       return true;
     }
-    return false
-  }, [displayState, env.runtime, ready])
-
+    return false;
+  }, [displayState, env.runtime, ready]);
 
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
@@ -67,11 +71,11 @@ export default function ({ id, env, data, style, inputs, outputs }) {
     return cx({
       [css.skeleton]: displaySkeleton,
     });
-    }, [displaySkeleton]);
+  }, [displaySkeleton]);
 
   const textStyle = useMemo(() => {
     //隐藏文本但是保留占位，撑开骨骼图
-    let common: any = {}
+    let common: any = {};
     if (displayState === "skeleton" && !ready && env.runtime) {
       common = {
         visibility: "hidden",
@@ -165,7 +169,7 @@ export default function ({ id, env, data, style, inputs, outputs }) {
           break;
       }
     },
-    [data.useLongPress, timerId, id, textRef.current,displaySkeleton]
+    [data.useLongPress, timerId, id, textRef.current, displaySkeleton]
   );
 
   const onTouchEnd = useCallback(() => {
@@ -188,12 +192,11 @@ export default function ({ id, env, data, style, inputs, outputs }) {
 
   //
   const display = useMemo(() => {
-    if ((displayState === "hidden") && !ready && env.runtime) {
+    if (displayState === "hidden" && !ready && env.runtime) {
       return false;
     }
     return true;
   }, [displayState, env.runtime, ready]);
-
 
   return (
     <View>
@@ -209,11 +212,11 @@ export default function ({ id, env, data, style, inputs, outputs }) {
               {text}
             </View>
           ) : null}
-            <View className={SkeletonCx}>
+          <View className={SkeletonCx}>
             <View ref={textRef} className={ellipsisCx} style={textStyle}>
               {text}
             </View>
-            </View>
+          </View>
         </View>
       ) : null}
     </View>
