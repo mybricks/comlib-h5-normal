@@ -364,6 +364,12 @@ export default {
                     });
                   break;
 
+                  case data.openType === "share":
+                    MAP["share"].output.forEach((item) => {
+                      output.add(item);
+                    });
+                  break;
+
                   default:
                     output.add({
                       id: "onClick",
@@ -395,6 +401,16 @@ export default {
             type: "_event",
             options: {
               outputId: "openSetting",
+            },
+          },
+          {
+            ifVisible({ data }) {
+              return data.openType === "share";
+            },
+            title: "用户转发时触发",
+            type: "_event",
+            options: {
+              outputId: "share",
             },
           },
           {

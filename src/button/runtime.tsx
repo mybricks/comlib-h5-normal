@@ -67,6 +67,11 @@ export default function ({
       case data.openType === "share": {
         return {
           openType: "share",
+          onClick: (e) => {
+              outputs["share"]({
+                ...e.detail,
+              });
+          },
         };
       }
 
