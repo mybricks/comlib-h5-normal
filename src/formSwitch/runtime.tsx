@@ -25,6 +25,10 @@ export default function (props) {
           break;
       }
     });
+
+    inputs["getValue"]((val, outputRels) => {
+      outputRels["returnValue"](!!data.value);
+    });
   }, []);
 
   const onChange = useCallback((value) => {
