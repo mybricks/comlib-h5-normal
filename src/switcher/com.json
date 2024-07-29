@@ -17,10 +17,23 @@
         "type": "array",
         "items": {
           "title": "列项数据",
-          "type": "any"
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "unselectedIcon": {
+              "type": "string"
+            },
+            "selectedIcon": {
+              "type": "string"
+            }
+          }
         }
       },
-      "rels": ["afterSetData"]
+      "rels": [
+        "afterSetData"
+      ]
     },
     {
       "id": "selectItem",

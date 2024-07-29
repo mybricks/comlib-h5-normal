@@ -1,3 +1,4 @@
+import { Mode } from "./constants"
 export default {
   "@init": ({ style, data }) => {
     style.width = 375;
@@ -8,6 +9,13 @@ export default {
     options: ["width", "height"],
   },
   ":root": {
+    // style:[
+    //   {
+    //     title: "选项尺寸",
+    //     options: ["size"],
+    //     target: ".mybricks-item",
+    //   },
+    // ],
     items({ data }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
@@ -42,6 +50,114 @@ export default {
             },
             set({ data }, value) {
               data.items = value;
+            },
+          },
+        },
+        {
+          title: "排列方式",
+          type: "radio",
+          options: [
+            { label: "横向排列", value: Mode.horizontal },
+            { label: "纵向排列", value: Mode.vertical },
+            { label: "网格排列", value: Mode.gridding },
+          ],
+          value: {
+            get({ data, style }) {
+              return data.mode == undefined ? Mode.horizontal : data.mode;
+            },
+            set({ data, style }, value) {
+              const { width, height } = style;
+              data.mode = value;
+            },
+          },
+        },
+        {
+          title: "列数",
+          type: "Text",
+          catelog: "默认",
+          options: {
+            type: "number",
+            min: 2
+          },
+          ifVisible: ({ data }) => {
+            return data.mode == Mode.gridding;
+          },
+          value: {
+            get({ data }) {
+              return data.column;
+            },
+            set({ data }, value: number) {
+              if (value) {
+                data.column = +value;
+              }
+            },
+          },
+        },
+        {
+          title: "列表项间距",
+          type: "inputnumber",
+          catelog: "默认",
+          options: [
+            { title: "行间距", min: 0, width: 80 },
+            { title: "列间距", min: 0, width: 80 },
+          ],
+          ifVisible: ({ data }) => {
+            return data.mode == Mode.gridding;
+          },
+          value: {
+            get({ data }) {
+              return data.gutter;
+            },
+            set({ data }, value: number[]) {
+              data.gutter = value;
+            },
+          },
+        },
+        {
+          title: "横向间距",
+          type: "inputnumber",
+          options: [{ min: 0 }],
+          ifVisible: ({ data }) => {
+            return data.mode == Mode.horizontal;
+          },
+          value: {
+            get({ data }) {
+              return [data.horizontalGutter];
+            },
+            set({ data }, value: number) {
+              if (value) {
+                data.horizontalGutter = value[0];
+              }
+            },
+          },
+        },
+        {
+          title: "纵向间距",
+          type: "inputnumber",
+          options: [{ min: 0 }],
+          ifVisible: ({ data }) => {
+            return data.mode == Mode.vertical;
+          },
+          value: {
+            get({ data }) {
+              return [data.verticalGutter];
+            },
+            set({ data }, value: number) {
+              if (value) {
+                data.verticalGutter = value[0];
+              }
+            },
+          },
+        },
+        {
+          title: "是否显示图标",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.showIcon == undefined ? true : data.showIcon;
+            },
+            set({ data }, value) {
+              data.showIcon = value;
             },
           },
         },
@@ -103,21 +219,37 @@ export default {
       cate1.title = "样式";
       cate1.items = [
         {
-          title: "选项栏样式",
+          title: "选项卡尺寸",
           type: "style",
           options: {
             defaultOpen: true,
-            plugins: ["border", "bgColor"],
+            plugins: ["size"],
           },
           value: {
             get({ data }) {
-              return data.switcherStyle;
+              return data.switcherSize;
             },
             set({ data }, value) {
-              data.switcherStyle = value;
+              data.switcherSize = value;
             },
           },
         },
+        // {
+        //   title: "选项栏样式",
+        //   type: "style",
+        //   options: {
+        //     defaultOpen: true,
+        //     plugins: ["border", "bgColor"],
+        //   },
+        //   value: {
+        //     get({ data }) {
+        //       return data.switcherStyle;
+        //     },
+        //     set({ data }, value) {
+        //       data.switcherStyle = value;
+        //     },
+        //   },
+        // },
         {
           title: "选项卡样式",
           items: [
@@ -127,7 +259,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["padding", "border", "bgColor"],
+                plugins: ["size", "padding", "border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -178,7 +310,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["padding", "border", "bgColor"],
+                plugins: ["size", "padding", "border", "bgColor"],
               },
               value: {
                 get({ data }) {

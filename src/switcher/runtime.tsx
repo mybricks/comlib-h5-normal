@@ -9,9 +9,34 @@ import { View, Image } from "@tarojs/components";
 import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import cx from "classnames";
+import { Mode } from "./constants"
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const [selectedIndex, setSelectedIndex] = useState(data.defaultSelectedIndex);
+  const [showIcon ,setShowIcon] = useState(data.showIcon)
+  const [mode,setMode] = useState(data.mode)
+
+  useEffect(()=>{
+    //老组件没有选择图标的开关，升级后默认打开
+    if(data.showIcon == undefined){
+      setShowIcon(true)
+    }else{
+      setShowIcon(data.showIcon)
+    }
+    //老组件没有排列方式选项，升级后默认选中横向排列
+    if(data.mode == undefined){
+      setMode(Mode.horizontal)
+    }else{
+      setMode(data.mode)
+    }
+  },[data.showIcon,data.mode])
+
+  useMemo(() => {
+    inputs["setData"]((val, relOutputs) => {
+      data.items = val
+      relOutputs["afterSetData"]?.(val)
+    })
+  }, [inputs,data])
 
   const onChange = useCallback(
     ({ item, index }) => {
@@ -34,6 +59,66 @@ export default function ({ env, data, inputs, outputs, slots }) {
     },
     [selectedIndex]
   );
+
+  const boxStyle = useMemo(() => {
+    if (mode == Mode.gridding) {
+      return {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignContent: "flex-start",
+        rowGap: `${data.gutter[0] || 0}px`,
+        columnGap: `${data.gutter[1] || 0}px`,
+      };
+    }
+
+    if (mode == Mode.horizontal) {
+      return {
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        gap: `${data.horizontalGutter}px`,
+        height: "100%"
+      }
+    }
+
+    if (mode == Mode.vertical) {
+      return {
+        // flexDirection: "column",
+        // justifyContent: "space-between",
+        // gap: `${data.verticalGutter}px`,
+        display: "block"
+      }
+    }
+  }, [mode, data.horizontalGutter, data.verticalGutter, data.gutter]);
+
+  const griddingItemStyle = useMemo(() => {
+    if (mode == Mode.gridding) {
+      return {
+        maxWidth: `calc((100% - ${(data.column - 1) * data.gutter[1] || 0}px) / ${data.column})`,
+        flexBasis: `calc((100% - ${(data.column - 1) * data.gutter[1] || 0}px) / ${data.column})`,
+        flexGrow: 1,
+        flexShrink: 0,
+      };
+    }
+
+    if (mode == Mode.horizontal) {
+      return {
+        flexGrow: 1,
+        flexShrink: 0,
+        height: "100%",
+      }
+    }
+
+    if (mode == Mode.vertical) {
+      return {
+        // flexGrow: 1,
+        // flexShrink: 0,
+        width: "100%",
+        marginBottom: `${data.verticalGutter}px`,
+      }
+    }
+
+  }, [mode, data.column, data.gutter, data.horizontalGutter, data.verticalGutter])
+
 
   const $items = useMemo(() => {
     return data.items.map((item, index) => {
@@ -80,7 +165,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
               [css.selected]: isSelected,
             },
           ])}
-          style={{ ...itemStyle }}
+          style={{ ...itemStyle, ...griddingItemStyle, ...data.switcherSize }}
           onClick={() => {
             onChange({
               item,
@@ -88,7 +173,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
             });
           }}
         >
-          {icon ? (
+          {showIcon && icon ? (
             <Image
               className={css.icon}
               style={{ ...iconStyle }}
@@ -112,11 +197,14 @@ export default function ({ env, data, inputs, outputs, slots }) {
     data.defaultSelectedItemStyle,
     data.defaultSelectedIconStyle,
     data.defaultSelectedTextStyle,
+    griddingItemStyle,
+    data.switcherSize,
+    showIcon
   ]);
 
   return (
     <View className={cx([css.switcher, "mybricks-switcher"])}>
-      <View className={cx([css.inner, { [css.wrap]: data.wrap }])}>
+      <View className={cx([css.inner, { [css.wrap]: data.wrap }])} style={boxStyle}>
         {$items}
       </View>
     </View>
