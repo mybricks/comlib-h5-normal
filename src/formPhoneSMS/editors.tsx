@@ -175,6 +175,21 @@ export default {
           },
         },
         {
+          title: "重新获取文案",
+          type: "text",
+          ifVisible({ data }) {
+            return !data.customInput;
+          },
+          value: {
+            get({ data }) {
+              return data.buttonTextRetry;
+            },
+            set({ data }, value) {
+              return (data.buttonTextRetry = value);
+            },
+          },
+        },
+        {
           title: "验证码倒计时",
           type: "InputNumber",
           options: [{ min: 30 }],

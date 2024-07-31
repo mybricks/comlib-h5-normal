@@ -8,6 +8,7 @@
   "required": false,
   "hidden": false,
   "buttonText": "获取验证码",
+  "buttonTextRetry":"重新获取",
   "buttonAvailable": true,
   "smsCountdown":30
 }

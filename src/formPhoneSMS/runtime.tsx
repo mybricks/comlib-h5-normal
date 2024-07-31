@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Button } from "@tarojs/components";
 import { Input } from "brickd-mobile";
 import css from "./style.less";
@@ -8,6 +8,11 @@ import { isEmpty, isString, isNumber, isObject } from "./../utils/core/type";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+  const [buttonText , setButtonText] = useState(data.buttonText)
+
+  useEffect(()=>{
+    setButtonText(data.buttonText)
+  },[data.buttonText])
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -43,15 +48,14 @@ export default function (props) {
   const countDown = () => {
     if (!data.buttonAvailable) return
     let count = data.smsCountdown;
-    let _buttonText = data.buttonText;
     const timer = setInterval(() => {
       count--;
-      data.buttonText = `${count}s 后重试`;
+      setButtonText(`${count}s 后重试`)
       data.buttonAvailable = false
       if (count <= 0) {
         clearInterval(timer);
         data.buttonAvailable = true;
-        data.buttonText = _buttonText;
+        setButtonText(data.buttonTextRetry)
       }
     }, 1000);
   }
@@ -92,7 +96,7 @@ export default function (props) {
           id="mybricks-getsms-button"
           onClick={onCodeSend}
         >
-          {data.buttonText || "获取验证码"}
+          {buttonText}
         </Button>
       </View>
     </View>
