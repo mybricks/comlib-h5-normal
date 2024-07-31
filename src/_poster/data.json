@@ -1,23 +1,4 @@
 {
   "canvasWidth": 100,
-  "canvasHeight": 100,
-  "elements": [
-    {
-      "type": "text",
-      "x": 10,
-      "y": 10,
-      "color": "#000000",
-      "font": "1.2rem 'Fira Sans', sans-serif;",
-      "text": "Hello, world!"
-    },
-    {
-      "type": "image",
-      "x": 50,
-      "y": 50,
-      "width": 100,
-      "height": 100,
-      "borderRadius": 10,
-      "image": "https://f2.beckwai.com/udata/pkg/eshop/fangzhou/temp/123123.72494422385ad276.png"
-    }
-  ]
+  "canvasHeight": 100
 }

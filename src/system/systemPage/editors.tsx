@@ -2,6 +2,7 @@ import MybricksNavigationEditor from "./editor/mybricks-navigation";
 import MybricksTabBarEditor from "./editor/mybricks-tabBar";
 import css from "./editors.less";
 import SkeletonEditor from "./editor/skeleton";
+import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
 
 const message = window.antd?.message;
 
@@ -58,15 +59,69 @@ const getDefaultLayoutFromSlot = (slot) => {
   }
 };
 
+const getDefaultTabItem = (id) => {
+  return {
+    scene: {
+      id,
+    },
+    text: "标签项",
+    selectedIconPath: defaultSelectedIconPath,
+    selectedIconStyle: {
+      width: "22px",
+      height: "22px",
+    },
+    selectedTextStyle: {
+      fontSize: 12,
+      color: "#FD6A00",
+    },
+    normalIconPath: defaultNormalIconPath,
+    normalIconStyle: {
+      width: "22px",
+      height: "22px",
+    },
+    normalTextStyle: {
+      fontSize: 12,
+      color: "#909093",
+    },
+  };
+};
+
 export default {
   "@init": ({ style, data, env }) => {
+    //
     style.width = "100%";
     data.id = env.canvas.id;
+
+    setTimeout(() => {
+      console.warn("@init", data.id, data.useTabBar);
+
+      if (!data.useTabBar) {
+        return;
+      }
+
+      let globalTabBar = window.__tabbar__?.get() ?? [];
+      if (!globalTabBar.find((item) => item.scene.id === data.id)) {
+        globalTabBar.push(getDefaultTabItem(data.id));
+      }
+
+      window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
+    }, 0);
+  },
+  "@delete": ({ data, env }) => {
+    console.warn("@delete", data.id);
+
+    let globalTabBar = window.__tabbar__?.get() ?? [];
+    globalTabBar = globalTabBar.filter((item) => {
+      return item.scene.id != data.id;
+    });
+
+    window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
   },
   ":slot": {},
   "@resize": {
     options: ["height"],
   },
+
   ":root": {
     style: [],
     items: ({ env, data, output, style }, cate0, cate1, cate2) => {
