@@ -84,8 +84,8 @@ export default {
               title: "其它配置",
               items: [
                 {
-                  title: "支持长按识别微信二维码",
-                  description: "支持长按识别微信二维码",
+                  title: "支持长按识别微信二维码或转发、保存图片",
+                  description: "支持长按识别微信二维码或转发、保存图片",
                   type: "switch",
                   value: {
                     get({ data }) {
