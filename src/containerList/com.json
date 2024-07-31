@@ -91,7 +91,7 @@
     {
       "id": "item",
       "capacity": 1,
-      "title": "将组件拖拽到这里",
+      "title": "列表项",
       "type": "scope",
       "inputs": [
         {
