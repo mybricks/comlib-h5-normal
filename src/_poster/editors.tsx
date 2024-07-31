@@ -1,96 +1,21 @@
 export default {
-  "@init"({ style }) {
-    style.width = "fit-content";
-    style.height = 'auto';
-  },
-  "@resize": {
-    options: ["width", "height"],
-  },
-  ":root": {
-    style: [
-      {
-        title: "样式",
-        options: ["font", "border", "background"],
-        target: ".mybricks-text",
-      },
-      {
-        title: "开启文本省略",
-        type: "Switch",
-        value: {
-          get({ data }) {
-            return data.ellipsis;
-          },
-          set({ data }, val: boolean) {
-            data.ellipsis = val;
-          },
+  ":root": [
+    {
+      title: "画布尺寸",
+      description: "单位为像素，为了保证图片质量，建议将画布尺寸设置为最终输出图片的尺寸2-3倍。",
+      type: "inputnumber",
+      options: [
+        { title: "宽", width: 100 },
+        { title: "高", width: 100 },
+      ],
+      value: {
+        get({ data }: any) {
+          return [data.canvasWidth, data.canvasHeight];
+        },
+        set({ data }: any, value: [number, number]) {
+          [data.canvasWidth, data.canvasHeight] = value;
         },
       },
-      {
-        ifVisible({ data }) {
-          return data.ellipsis;
-        },
-        title: "最大行数",
-        type: "InputNumber",
-        options: [
-          { min: 1 },
-        ],
-        value: {
-          get({ data }) {
-            return [data.maxLines];
-          },
-          set({ data }, val) {
-            data.maxLines = val[0];
-          },
-        },
-      },
-    ],
-    items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
-      cate0.items = [
-        {
-          title: "文本内容",
-          type: "textarea",
-          value: {
-            get({ data }) {
-              return data.text;
-            },
-            set({ data }, value: string) {
-              data.text = value;
-            },
-          },
-        },
-        {
-          title: "事件",
-          items: [
-            {
-              title: "单击",
-              type: "_event",
-              options: {
-                outputId: "onClick",
-              },
-            },
-            {
-              title: "长按",
-              type: "_event",
-              options: {
-                outputId: "onLongPress",
-              },
-            },
-            // {
-            //   title: '偷偷的upgrade',
-            //   type: 'button',
-            //   value: {
-            //     set: ({ input, output }) => {
-            //       if (!output.get('onLongPress')) {
-            //         output.add('onLongPress', '长按', { type: 'string' })
-            //       }
-            //     }
-            //   }
-            // }
-          ],
-        },
-      ];
     },
-  },
-
+  ],
 };

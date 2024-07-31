@@ -1,34 +1,95 @@
 {
   "title": "图片绘制",
-  "namespace": "mybricks.taro.poster",
+  "namespace": "mybricks.taro._poster",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/123123.c3e9d9c2f427bc21.svg",
+  "icon": "./icon.svg",
   "rtType": "js",
   "inputs": [
     {
       "id": "call",
-      "title": "修改内容",
+      "title": "绘制",
       "schema": {
-        "type": "array"
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "绘制类型，支持的值：text, image, shape"
+            },
+            "x": {
+              "type": "number",
+              "description": "绘制的左上角 X 坐标值"
+            },
+            "y": {
+              "type": "number",
+              "description": "绘制的左上角 Y 坐标值"
+            },
+            "width": {
+              "type": "number",
+              "description": "绘制的宽度。（如果是文本类型，宽度达到width 会自动换行）"
+            },
+            "height": {
+              "type": "number",
+              "description": "绘制的高度。（如果是文本类型，超过高度会显示省略号）"
+            },
+            "color": {
+              "type": "string",
+              "description": "文字颜色（仅文本类型时生效）"
+            },
+            "fontSize": {
+              "type": "number",
+              "description": "文字字号（仅文本类型时生效）"
+            },
+            "lineHeight": {
+              "type": "number",
+              "description": "行高（仅文本类型时生效）"
+            },
+            "textAlign": {
+              "type": "string",
+              "description": "文字对齐方式，支持的值：left, right, center（仅文本类型时生效）"
+            },
+            "content": {
+              "type": "string",
+              "description": "绘制的内容（文本类型时为文本内容，图片类型时为图片 URL 地址）"
+            },
+            "borderRadius": {
+              "type": "number",
+              "description": "圆角大小（仅图片，形状类型时生效）"
+            },
+            "borderWidth": {
+              "type": "number",
+              "description": "边框宽度（仅图片，形状类型时生效）"
+            },
+            "borderColor": {
+              "type": "string",
+              "description": "边框颜色（仅图片，形状类型时生效）"
+            },
+            "backgroundColor": {
+              "type": "string",
+              "description": "背景颜色（仅形状类型时生效）"
+            }
+          }
+        }
       }
     }
   ],
   "outputs": [
     {
-      "id": "onClick",
-      "title": "单击",
+      "id": "success",
+      "title": "成功",
       "schema": {
         "type": "string"
       }
     },
     {
-      "id": "onLongPress",
-      "title": "长按",
+      "id": "fail",
+      "title": "失败",
       "schema": {
         "type": "string"
       }

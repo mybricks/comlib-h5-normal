@@ -22,25 +22,32 @@ export default function ({ env, data, inputs, outputs, slots }) {
    */
   const onHandleTabBar = useCallback(
     (value) => {
-      // console.warn("监听到广播", value, env.canvas.id);
+      console.warn("监听到广播", env.canvas.id, value);
       data.tabBar = value;
     },
     [data.tabBar, env.canvas.id]
   );
 
   /**
-   * 设置全局数据
+   * 页面初始化
    */
   useEffect(() => {
+    console.warn(`[systemPage] 页面初始化`, data.id);
     let defaultTabBar = window.__tabbar__?.get() ?? [];
-    data.tabBar = defaultTabBar;
+
+    // 回滚
+    if (data.tabBar.length > defaultTabBar.length) {
+      // noop
+      window.__tabbar__?.set(JSON.parse(JSON.stringify(data.tabBar)));
+    } else {
+      onHandleTabBar(defaultTabBar);
+    }
 
     // 监听数据
     window.__tabbar__?.on(data.id, onHandleTabBar);
     return () => {
       // 这里顺序不能变，先 off 再 set，否则回滚操作会失效
       window.__tabbar__?.off(data.id, onHandleTabBar);
-      refreshTabbar();
     };
   }, []);
 
@@ -50,70 +57,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
       return item.scene.id == sceneId;
     });
   }, []);
-
-  const defaultTabItem = useMemo(() => {
-    return {
-      scene: {
-        id: env.canvas.id,
-      },
-      text: "标签项",
-      selectedIconPath: defaultSelectedIconPath,
-      selectedIconStyle: {
-        width: "22px",
-        height: "22px",
-      },
-      selectedTextStyle: {
-        fontSize: 12,
-        color: "#FD6A00",
-      },
-      normalIconPath: defaultNormalIconPath,
-      normalIconStyle: {
-        width: "22px",
-        height: "22px",
-      },
-      normalTextStyle: {
-        fontSize: 12,
-        color: "#909093",
-      },
-    };
-  }, [env.canvas.id]);
-
-  useEffect(() => {
-    // 获取最新的 tabbar 数据
-    let globalTabBar = window.__tabbar__?.get() ?? [];
-
-    if (data.useTabBar && !isContain(env.canvas.id, globalTabBar)) {
-      // 标签页，但是不在 tabbar 里面
-      // 添加到 tabbar 里面
-      console.warn("～添加操作", env.canvas.id);
-      globalTabBar.push(defaultTabItem);
-    } else if (!data.useTabBar && isContain(env.canvas.id, globalTabBar)) {
-      // 非标签页，但是在 tabbar 里面
-      // 从 tabbar 里面删除
-      console.warn("～删除操作", env.canvas.id);
-      globalTabBar = globalTabBar.filter((item) => {
-        return item.scene.id != env.canvas.id;
-      });
-    }
-
-    window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
-  }, [data.useTabBar, env.canvas.id, defaultTabItem]);
-
-  // 刷新 tabbar
-  const refreshTabbar = useCallback(() => {
-    if (env.canvas.isValid(env.canvas.id)) {
-      return;
-    }
-
-    //
-    console.warn("删除操作", env.canvas.id);
-    let globalTabBar = window.__tabbar__?.get() ?? [];
-    globalTabBar = globalTabBar.filter((item) => {
-      return item.scene.id != env.canvas.id;
-    });
-
-    window.__tabbar__?.set(globalTabBar);
-  }, [env.canvas.id]);
 
   const useTabBar = useMemo(() => {
     if (!data.useTabBar) {
@@ -157,20 +100,35 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, [data, useTabBar]);
 
   const pageBackgroundStyle = useMemo(() => {
-    return {
-      backgroundColor: data.background,
-      backgroundImage: `url(${data.backgroundImage})`,
-      backgroundSize: data.backgroundSize,
-      backgroundRepeat: data.backgroundRepeat,
-      backgroundPosition: data.backgroundPosition,
-    };
+    let result = {};
+
+    if (data.backgroundImage) {
+      result["backgroundImage"] = `url(${data.backgroundImage})`;
+    }
+
+    if (data.backgroundSize) {
+      result["backgroundSize"] = data.backgroundSize;
+    }
+
+    if (data.backgroundRepeat) {
+      result["backgroundRepeat"] = data.backgroundRepeat;
+    }
+
+    if (data.backgroundPosition) {
+      result["backgroundPosition"] = data.backgroundPosition;
+    }
+
+    if (data.background) {
+      result["backgroundColor"] = data.background;
+    }
+
+    return result;
   }, [
-    data.useNavigationStyle,
-    data.background,
     data.backgroundImage,
     data.backgroundSize,
     data.backgroundRepeat,
     data.backgroundPosition,
+    data.background,
   ]);
 
   return (
