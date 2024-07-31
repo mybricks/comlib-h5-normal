@@ -43,6 +43,8 @@
     "./src/_wxPay/com.json",
     "./src/_getWeRunData/com.json",
     "./src/_startFacialRecognitionVerify/com.json",
+    "./src/_timer-debounce/com.json",
+    "./src/_timer-throttle/com.json",
     {
       "title": "系统",
       "visible": false,
