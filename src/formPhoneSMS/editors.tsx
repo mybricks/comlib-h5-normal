@@ -81,11 +81,11 @@ const MAP = {
       },
       {
         id: "onCodeSend",
-        title:"获取验证码",
-        schema:{
-          type:"number"
-        }
-      }
+        title: "获取验证码",
+        schema: {
+          type: "number",
+        },
+      },
     ],
   },
 };
@@ -140,7 +140,7 @@ export default {
           "background",
           "boxshadow",
         ],
-        target: "#mybricks-getsms-button",
+        target: ".mybricks-getsms-button",
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
@@ -207,14 +207,14 @@ export default {
           title: "事件",
           items: [
             {
-              title: "获取验证码",
+              title: "点击获取验证码",
               type: "_event",
               options: {
                 outputId: "onCodeSend",
               },
             },
             {
-              title: "输入的验证码有变化",
+              title: "当值变化",
               type: "_event",
               options: {
                 outputId: "onChange",

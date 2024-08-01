@@ -44,6 +44,28 @@
       "schema": {
         "type": "any"
       }
+    },
+    {
+      "id": "clearCountDown",
+      "title": "立即清除倒数",
+      "desc": "触发后停止倒计时",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "setButtonDisabled",
+      "title": "禁用获取验证码按钮",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "setButtonEnabled",
+      "title": "启用获取验证码按钮",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "outputs": [
@@ -56,7 +78,7 @@
     },
     {
       "id": "onChange",
-      "title": "当输入的验证码变化",
+      "title": "当值变化",
       "schema": {
         "type": "string"
       }

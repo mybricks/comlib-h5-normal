@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { View, Button } from "@tarojs/components";
 import { Input } from "brickd-mobile";
 import css from "./style.less";
@@ -8,11 +14,13 @@ import { isEmpty, isString, isNumber, isObject } from "./../utils/core/type";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-  const [buttonText , setButtonText] = useState(data.buttonText)
+  const [buttonText, setButtonText] = useState(data.buttonText);
 
-  useEffect(()=>{
-    setButtonText(data.buttonText)
-  },[data.buttonText])
+  const timer = useRef(null);
+
+  useEffect(() => {
+    setButtonText(data.buttonText);
+  }, [data.buttonText]);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -36,31 +44,48 @@ export default function (props) {
       outputRels["returnValue"](data.value);
     });
 
-    inputs["resetValue"]((val)=>{
+    inputs["resetValue"]((val) => {
       data.value = null;
     });
 
-    inputs["startCountDown"]((val)=>{
+    inputs["startCountDown"]((val) => {
       countDown();
-    })
+    });
+
+    inputs["clearCountDown"](() => {
+      clearInterval(timer.current);
+      setButtonText(data.buttonTextRetry);
+      data.buttonAvailable = true;
+    });
+
+    inputs["setButtonDisabled"](() => {
+      data.buttonDisabled = true;
+    });
+
+    inputs["setButtonEnabled"](() => {
+      data.buttonDisabled = false;
+    });
   }, []);
 
-  const countDown = () => {
-    if (!data.buttonAvailable) return
+  const countDown = useCallback(() => {
+    if (!data.buttonAvailable) return;
     let count = data.smsCountdown;
-    const timer = setInterval(() => {
+    timer.current = setInterval(() => {
       count--;
-      setButtonText(`${count}s 后重试`)
-      data.buttonAvailable = false
+      setButtonText(`${count}s 后重试`);
+      data.buttonAvailable = false;
       if (count <= 0) {
-        clearInterval(timer);
+        clearInterval(timer.current);
         data.buttonAvailable = true;
-        setButtonText(data.buttonTextRetry)
+        setButtonText(data.buttonTextRetry);
       }
     }, 1000);
-  }
-
-  
+  }, [
+    data.buttonAvailable,
+    data.smsCountdown,
+    data.buttonTextRetry,
+    timer.current,
+  ]);
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;
@@ -73,14 +98,14 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
-    const onCodeSend = useCallback((e) => {
-      let value = e.detail.value;
-      data.value = value;
-      if (!data.buttonAvailable) return;
-      outputs["onCodeSend"](value);
-    }, []);
+  const onCodeSend = useCallback((e) => {
+    if (data.buttonDisabled) return;
 
-
+    let value = e.detail.value;
+    data.value = value;
+    if (!data.buttonAvailable) return;
+    outputs["onCodeSend"](value);
+  }, []);
 
   return (
     <View className={css.outerPhoneNumber}>
@@ -92,8 +117,11 @@ export default function (props) {
           onChange={onChange}
         />
         <Button
-          className={css.button}
-          id="mybricks-getsms-button"
+          className={cx({
+            [css.button]: true,
+            [css.buttonDisabled]: data.buttonDisabled,
+            "mybricks-getsms-button": true
+          })}
           onClick={onCodeSend}
         >
           {buttonText}

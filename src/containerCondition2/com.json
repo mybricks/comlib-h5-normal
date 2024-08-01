@@ -1,0 +1,64 @@
+{
+  "title": "条件容器",
+  "namespace": "mybricks.taro.containerCondition2",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setValue",
+      "schema": {
+        "type": "string"
+      },
+      "title": "切换到 指定条件",
+      "rels": ["setValueDone"],
+      "desc": "根据输入的条件名来切换"
+    },
+    {
+      "id": "condition_1",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换到 条件1",
+      "rels": ["changeDone"]
+    },
+    {
+      "id": "condition_2",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换到 条件2",
+      "rels": ["changeDone"]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "changeDone",
+      "schema": {
+        "type": "any"
+      },
+      "title": "切换完成"
+    },
+    {
+      "id": "setValueDone",
+      "schema": {
+        "type": "string"
+      },
+      "title": "切换条件完成"
+    }
+  ],
+  "slots": [
+    {
+      "id": "condition_1",
+      "title": "条件1"
+    },
+    {
+      "id": "condition_2",
+      "title": "条件2"
+    }
+  ]
+}

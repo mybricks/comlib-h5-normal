@@ -77,7 +77,7 @@
     },
     {
       "id": "onChange",
-      "title": "值更新",
+      "title": "当值变化",
       "schema": {
         "type": "string"
       }
