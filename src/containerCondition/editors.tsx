@@ -18,7 +18,7 @@ function findItemByInnerId(_id, data) {
 export default {
   "@init"({ style, data, slots }) {
     style.width = "100%";
-    style.height = "auto";
+    // style.height = "auto";
   },
   "@resize": {
     options: ["width"],
@@ -194,6 +194,20 @@ export default {
             },
           },
         ],
+      },
+    ];
+    cate1.title = "高级";
+    cate1.items = [
+      {
+        title: "移除默认高度",
+        type: "button",
+        value: {
+          set({ data, style }) {
+            console.warn("修复", style, style.height);
+            style.height = undefined;
+            style.heightAuto = undefined;
+          },
+        },
       },
     ];
   },
