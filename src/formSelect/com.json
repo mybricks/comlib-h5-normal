@@ -107,6 +107,13 @@
       }
     },
     {
+      "id": "onCancel",
+      "title": "取消选择或点遮罩层收起时",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
       "id": "returnValidate",
       "title": "校验结果",
       "schema": {

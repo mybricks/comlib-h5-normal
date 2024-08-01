@@ -9,7 +9,7 @@ import InputDisplay from "../components/input-display";
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
   const [selectIndex, setSelectIdx] = useState(data.value);
-  
+
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
@@ -41,18 +41,36 @@ export default function (props) {
     });
   }, []);
 
-  const onChange = useCallback((index) => {
-    setSelectIdx(index);
+  const onChange = useCallback(
+    (index) => {
+      console.log("onChange", index);
+      setSelectIdx(+index);
 
-    const value = data.options?.[index]?.value;
+      const value = data.options?.[index]?.value;
 
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onChange"](value);
-  }, []);
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value,
+      });
+      outputs["onChange"](value);
+    },
+    [setSelectIdx]
+  );
+
+  const onCancel = useCallback(
+    (e) => {
+      const value = data.options?.[selectIndex]?.value;
+
+      parentSlot?._inputs["onCancel"]?.({
+        id: props.id,
+        name: props.name,
+        value,
+      });
+      outputs["onCancel"](value);
+    },
+    [selectIndex, data.options]
+  );
 
   const selectItem = useMemo(() => {
     return data.options?.[selectIndex];
@@ -65,7 +83,12 @@ export default function (props) {
   return (
     <>
       <View className={css.wrap}>
-        <Picker value={selectIndex} options={data.options} onChange={onChange}>
+        <Picker
+          value={selectIndex}
+          options={data.options}
+          onChange={onChange}
+          onCancel={onCancel}
+        >
           <View className={css.select}>
             {/* <Input
               readonly
@@ -83,28 +106,6 @@ export default function (props) {
           </View>
         </Picker>
       </View>
-      {/* <Popup open={open} rounded placement="bottom" onClose={onCancel}>
-        <Popup.Backdrop />
-        <Picker
-          value={_value}
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-        >
-          <Picker.Toolbar>
-            <Picker.Button>取消</Picker.Button>
-            <Picker.Button>确认</Picker.Button>
-          </Picker.Toolbar>
-          <Picker.Column>
-            {data.options.map((item, index) => {
-              return (
-                <Picker.Option value={item.value} key={index} disabled={item.disabled ?? false}>
-                  {item.label}
-                </Picker.Option>
-              );
-            })}
-          </Picker.Column>
-        </Picker>
-      </Popup> */}
     </>
   );
 }

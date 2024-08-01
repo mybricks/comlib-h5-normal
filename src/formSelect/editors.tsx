@@ -11,35 +11,6 @@ export default {
   ":root"({ data, output, style }, cate0, cate1, cate2) {
     cate0.title = "常规";
     cate0.items = [
-      // {
-      //   title: "标题",
-      //   type: "text",
-      //   value: {
-      //     get({ data }) {
-      //       return data.label;
-      //     },
-      //     set({ data }, value) {
-      //       if (data.label === data.name) {
-      //         data.label = value;
-      //         data.name = value;
-      //       } else {
-      //         data.label = value;
-      //       }
-      //     },
-      //   },
-      // },
-      // {
-      //   title: "字段",
-      //   type: "text",
-      //   value: {
-      //     get({ data }) {
-      //       return data.name;
-      //     },
-      //     set({ data }, value) {
-      //       return (data.name = value);
-      //     },
-      //   },
-      // },
       {
         title: "提示内容",
         description: "该提示内容会在值为空时显示",
@@ -94,6 +65,13 @@ export default {
         type: "_event",
         options: {
           outputId: "onChange",
+        },
+      },
+      {
+        title: "取消选择或点遮罩层收起时",
+        type: "_event",
+        options: {
+          outputId: "onCancel",
         },
       },
     ];
