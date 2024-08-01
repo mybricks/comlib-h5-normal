@@ -81,10 +81,50 @@ const useFilters = ({ items, childrenInputs }) => {
   return [ref, filterValuesRef];
 };
 
+function deepEqual(obj1, obj2) {
+  obj1 = JSON.parse(JSON.stringify(obj1));
+  obj2 = JSON.parse(JSON.stringify(obj2));
+
+  // 检查是否是相同的引用
+  if (obj1 === obj2) {
+    return true;
+  }
+
+  // 检查是否都是对象
+  if (
+    typeof obj1 !== "object" ||
+    obj1 === null ||
+    typeof obj2 !== "object" ||
+    obj2 === null
+  ) {
+    return false;
+  }
+
+  // 获取对象的键数组
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  // 键数量不同，直接返回 false
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+
+  // 检查每一个键和值是否相等
+  for (let key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export default ({ env, data, slots, inputs, outputs }) => {
   const childrenInputs = useRef({});
 
   const [filterRef] = useFilters({ items: data.items, childrenInputs });
+
+  const _valueCache = useRef({});
 
   //设置值
   useEffect(() => {
@@ -114,6 +154,14 @@ export default ({ env, data, slots, inputs, outputs }) => {
 
       // 触发 onchange
       let result = filterRef.getValues();
+
+      // 如果 value 没有变化，不触发 onChange
+      if (deepEqual(result, _valueCache.current)) {
+        return;
+      }
+
+      _valueCache.current = { ...result };
+
       outputs["onChange"](result);
     });
   }, []);
