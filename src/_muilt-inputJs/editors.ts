@@ -105,6 +105,7 @@ export default {
           return data.fns;
         },
         set({ data }: EditorResult<Data>, fns: any) {
+          if (fns === '') return;
           data.fns = fns;
         }
       }
