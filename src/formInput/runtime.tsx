@@ -1,10 +1,18 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { isNumber, isObject, isString, isEmpty } from "./../utils/core/type";
 import { Input } from "brickd-mobile";
 import css from "./style.less";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+
+  const _valueCache = useRef(data.value);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -20,8 +28,10 @@ export default function (props) {
           data.value = val[data.name];
           break;
         default:
-          break;
+          return;
       }
+
+      _onChange(data.value);
     });
 
     inputs["getValue"]((val, outputRels) => {
@@ -42,19 +52,22 @@ export default function (props) {
     inputs["resetValue"](() => {
       data.value = "";
 
-      parentSlot?._inputs["onChange"]?.({
-        id: props.id,
-        name: props.name,
-        value: "",
-      });
-
-      outputs["onChange"]("");
+      _onChange(data.value);
     });
   }, []);
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;
     data.value = value;
+
+    _onChange(value);
+  }, []);
+
+  const _onChange = useCallback((value) => {
+    if (value == _valueCache.current) {
+      return;
+    }
+    _valueCache.current = value;
 
     parentSlot?._inputs["onChange"]?.({
       id: props.id,

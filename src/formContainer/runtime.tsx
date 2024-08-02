@@ -60,6 +60,13 @@ const useForm = ({ items, childrenInputs }) => {
       },
       setFieldValue: (name, value) => {
         const res = formRef?.current?.getValues();
+
+        // 如果值相同，不广播更新
+        if (res[name] == value) {
+          console.warn("setFieldValue value is same", name, value);
+          return;
+        }
+
         res[name] = value;
         formRef?.current?.setValues(res);
       },

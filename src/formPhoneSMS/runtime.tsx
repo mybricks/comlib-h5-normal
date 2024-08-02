@@ -18,6 +18,8 @@ export default function (props) {
 
   const timer = useRef(null);
 
+  const _valueCache = useRef(data.value);
+
   useEffect(() => {
     setButtonText(data.buttonText);
   }, [data.buttonText]);
@@ -36,8 +38,10 @@ export default function (props) {
           data.value = val[data.name];
           break;
         default:
-          break;
+          return;
       }
+
+      _onChange(data.value);
     });
 
     inputs["getValue"]((val, outputRels) => {
@@ -90,12 +94,8 @@ export default function (props) {
   const onChange = useCallback((e) => {
     let value = e.detail.value;
     data.value = value;
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onChange"](value);
+
+    _onChange(value);
   }, []);
 
   const onCodeSend = useCallback((e) => {
@@ -105,6 +105,21 @@ export default function (props) {
     data.value = value;
     if (!data.buttonAvailable) return;
     outputs["onCodeSend"](value);
+  }, []);
+
+  const _onChange = useCallback((value) => {
+    if (value == _valueCache.current) {
+      return;
+    }
+    _valueCache.current = value;
+
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
+
+    outputs["onChange"](value);
   }, []);
 
   return (
@@ -120,7 +135,7 @@ export default function (props) {
           className={cx({
             [css.button]: true,
             [css.buttonDisabled]: data.buttonDisabled,
-            "mybricks-getsms-button": true
+            "mybricks-getsms-button": true,
           })}
           onClick={onCodeSend}
         >
