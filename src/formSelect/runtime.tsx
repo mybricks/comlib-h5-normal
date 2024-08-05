@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useMemo, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  useRef,
+} from "react";
 import { View } from "@tarojs/components";
 import { ArrowRight } from "@taroify/icons";
 import { Input, Picker } from "brickd-mobile";
@@ -8,29 +14,26 @@ import InputDisplay from "../components/input-display";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-  const [selectIndex, setSelectIdx] = useState(data.value);
+  const _valueCache = useRef(data.value);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setSelectIdx("");
+          data.value = "";
           break;
         }
         case isString(val) || isNumber(val):
-          // 注意不要使用全等号
-          let index = data.options.findIndex((item) => item.value == val);
-          setSelectIdx(index);
+          data.value = val;
           break;
         case isObject(val):
-          let index = data.options.findIndex(
-            (item) => item.value == val[data.name]
-          );
-          setSelectIdx(index);
+          data.value = val[data.name];
           break;
         default:
-          break;
+          return;
       }
+
+      _onChange(data.value);
     });
 
     // 设置数据源
@@ -41,44 +44,52 @@ export default function (props) {
     });
   }, []);
 
-  const onChange = useCallback(
-    (index) => {
-      console.log("onChange", index);
-      setSelectIdx(+index);
+  const onChange = useCallback((index) => {
+    const value = data.options?.[index]?.value;
+    data.value = value;
 
-      const value = data.options?.[index]?.value;
+    _onChange(data.value);
+  }, []);
 
-      parentSlot?._inputs["onChange"]?.({
-        id: props.id,
-        name: props.name,
-        value,
-      });
-      outputs["onChange"](value);
-    },
-    [setSelectIdx]
-  );
-
-  const onCancel = useCallback(
-    (e) => {
-      const value = data.options?.[selectIndex]?.value;
-
-      parentSlot?._inputs["onCancel"]?.({
-        id: props.id,
-        name: props.name,
-        value,
-      });
-      outputs["onCancel"](value);
-    },
-    [selectIndex, data.options]
-  );
+  const onCancel = useCallback(() => {
+    _onChange(data.value);
+  }, [data.value, data.options]);
 
   const selectItem = useMemo(() => {
-    return data.options?.[selectIndex];
-  }, [selectIndex, data.options]);
+    let item = data.options.find((item) => {
+      return item.value == data.value;
+    });
+
+    return (
+      item || {
+        label: data.value,
+        value: data.value,
+      }
+    );
+  }, [data.value, data.options]);
 
   const displayValue = useMemo(() => {
     return !!selectItem;
   }, [selectItem]);
+
+  const selectIndex = useMemo(() => {
+    return data.options.findIndex((item) => item.value == data.value);
+  }, [data.value, data.options]);
+
+  const _onChange = useCallback((value) => {
+    if (value == _valueCache.current) {
+      return;
+    }
+    _valueCache.current = value;
+
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
+
+    outputs["onChange"](value);
+  }, []);
 
   return (
     <>
@@ -90,14 +101,6 @@ export default function (props) {
           onCancel={onCancel}
         >
           <View className={css.select}>
-            {/* <Input
-              readonly
-              // align="right"
-              disabled={!displayValue}
-              placeholder={data.placeholder}
-              value={selectItem?.label}
-              style={{ flex: 1 }}
-            /> */}
             <InputDisplay
               placeholder={data.placeholder}
               value={selectItem?.label}
