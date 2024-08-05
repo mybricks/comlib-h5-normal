@@ -15,16 +15,6 @@ export default {
       },
     ],
     items: ({ data, inputs, output, style }, cate0, cate1, cate2) => {
-      if (!inputs.get("setPlaceholder")) {
-        inputs.add({
-          id: "setPlaceholder",
-          title: "设置提示内容",
-          schema: {
-            type: "string",
-          },
-        });
-      }
-
       cate0.title = "常规";
       cate0.items = [
         {
