@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useLayoutEffect,
 } from "react";
 import { View, Button, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
@@ -62,8 +63,7 @@ const useForm = ({ items, childrenInputs }) => {
         const res = formRef?.current?.getValues();
 
         // 如果值相同，不广播更新
-        if (res[name] == value) {
-          console.warn("setFieldValue value is same", name, value);
+        if (res[name] === value) {
           return;
         }
 
@@ -104,47 +104,47 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [form, formRef] = useForm({ items: data.items, childrenInputs });
   const [loading, setLoading] = useState(false);
 
-  // 提交表单
-  inputs["submit"]((val, outputRels) => {
-    form
-      ?.validate()
-      .then((res) => {
-        outputRels["onSubmit"](res);
-      })
-      .catch((err) => {
-        console.error("validate", err);
-      });
-  });
-
-  inputs["submitAndMerge"]((val, outputRels) => {
-    let _val = isObject(val) ? val : {};
-
-    form
-      ?.validate()
-      .then((res) => {
-        outputRels["onMergeSubmit"]({
-          ...res,
-          ..._val,
-        });
-      })
-      .catch((err) => {
-        console.error("validate", err);
-      });
-  });
-
-  // 重置表单
-  inputs["resetFields"]((val, outputRels) => {
-    form.setValues({});
-    outputRels["onReset"]();
-  });
-
-  // 异步提交完成
-  inputs["finishLoading"]?.(() => {
-    setLoading(false);
-  });
-
   //设置值
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // 提交表单
+    inputs["submit"]((val, outputRels) => {
+      form
+        ?.validate()
+        .then((res) => {
+          outputRels["onSubmit"](res);
+        })
+        .catch((err) => {
+          console.error("validate", err);
+        });
+    });
+
+    inputs["submitAndMerge"]((val, outputRels) => {
+      let _val = isObject(val) ? val : {};
+
+      form
+        ?.validate()
+        .then((res) => {
+          outputRels["onMergeSubmit"]({
+            ...res,
+            ..._val,
+          });
+        })
+        .catch((err) => {
+          console.error("validate", err);
+        });
+    });
+
+    // 重置表单
+    inputs["resetFields"]((val, outputRels) => {
+      form.setValues({});
+      outputRels["onReset"]();
+    });
+
+    // 异步提交完成
+    inputs["finishLoading"]?.(() => {
+      setLoading(false);
+    });
+
     inputs["setFieldsValue"]((val) => {
       if (isEmpty(val) || !isObject(val)) {
         return;
@@ -164,6 +164,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
       const item = getFormItem(data.items, { id, name });
       if (item) {
         form.setFieldValue(item.name || item.label, value);
+      }
+    });
+
+    /** 动态修改标题等属性 */
+    slots["content"]._inputs["setProps"](({ id, name, value }) => {
+      const item = getFormItem(data.items, { id, name });
+      if (item) {
+        Object.keys(value).forEach((key) => {
+          item[key] = value[key];
+        });
       }
     });
   }, []);

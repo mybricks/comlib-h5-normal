@@ -53,12 +53,15 @@ export default function (props) {
     }
 
     setValue(value);
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onChange"](value);
+
+    setTimeout(() => {
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value,
+      });
+      outputs["onChange"](value);
+    }, 10);
   }, []);
 
   return (

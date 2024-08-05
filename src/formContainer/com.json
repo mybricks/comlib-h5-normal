@@ -140,6 +140,23 @@
               }
             }
           }
+        },
+        {
+          "id": "setProps",
+          "title": "设置表单项配置",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "组件ID"
+              },
+              "value": {
+                "type": "any",
+                "title": "组件值"
+              }
+            }
+          }
         }
       ]
     }

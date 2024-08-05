@@ -19,23 +19,27 @@ export default function (props) {
     });
 
     inputs["setValue"]((val) => {
-      switch (true) {
-        case isEmpty(val): {
-          data.value = "";
-          slots["formItem"].inputs["curValue"](data.value);
-          break;
-        }
-        case isString(val) || isNumber(val):
-          data.value = val;
-          slots["formItem"].inputs["curValue"](data.value);
-          break;
-        case isObject(val):
-          data.value = val[data.name];
-          slots["formItem"].inputs["curValue"](data.value);
-          break;
-        default:
-          break;
-      }
+      console.log("setValue", val);
+      data.value = val;
+      slots["formItem"].inputs["curValue"](data.value);
+      
+      // switch (true) {
+      //   case isEmpty(val): {
+      //     data.value = "";
+      //     slots["formItem"].inputs["curValue"](data.value);
+      //     break;
+      //   }
+      //   case isString(val) || isNumber(val):
+      //     data.value = val;
+      //     slots["formItem"].inputs["curValue"](data.value);
+      //     break;
+      //   case isObject(val):
+      //     data.value = val[data.name];
+      //     slots["formItem"].inputs["curValue"](data.value);
+      //     break;
+      //   default:
+      //     break;
+      // }
     });
 
     inputs["getValue"]((val, outputRels) => {

@@ -14,7 +14,17 @@ export default {
         target: ".taroify-input",
       },
     ],
-    items: ({ data, output, style }, cate0, cate1, cate2) => {
+    items: ({ data, inputs, output, style }, cate0, cate1, cate2) => {
+      if (!inputs.get("setPlaceholder")) {
+        inputs.add({
+          id: "setPlaceholder",
+          title: "设置提示内容",
+          schema: {
+            type: "string",
+          },
+        });
+      }
+
       cate0.title = "常规";
       cate0.items = [
         {
@@ -50,14 +60,14 @@ export default {
           },
         },
         {
-          title: "禁止编辑",
+          title: "禁用编辑",
           type: "Switch",
           value: {
             get({ data }) {
               return data.disabled;
             },
             set({ data }, value) {
-              return (data.disabled = value);
+              data.disabled = value;
             },
           },
         },

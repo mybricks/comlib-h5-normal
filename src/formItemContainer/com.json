@@ -187,7 +187,7 @@
       "inputs": [
         {
           "id": "curValue",
-          "title": "初始值输入",
+          "title": "设置值",
           "schema": {
             "type": "any"
           }

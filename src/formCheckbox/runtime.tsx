@@ -22,7 +22,7 @@ export default function (props) {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setValue("");
+          setValue([]);
           break;
         }
         case isString(val):
@@ -44,7 +44,6 @@ export default function (props) {
       }
     });
 
-    // 设置数据源
     inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
         data.options = val;
@@ -61,12 +60,15 @@ export default function (props) {
     let resVal = (Array.isArray(value) ? value : []).filter((v) => v);
 
     setValue(resVal);
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-    outputs["onChange"](resVal);
+
+    setTimeout(() => {
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value,
+      });
+      outputs["onChange"](resVal);
+    }, 10);
   }, []);
 
   return (
