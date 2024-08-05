@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { View, Button } from "@tarojs/components";
 import { Input } from "brickd-mobile";
 import css from "./style.less";
@@ -8,6 +8,8 @@ import { isEmpty, isString, isNumber, isObject } from "./../utils/core/type";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+
+  const _valueCache = useRef(data.value);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -23,8 +25,10 @@ export default function (props) {
           data.value = val[data.name];
           break;
         default:
-          break;
+          return;
       }
+
+      _onChange(data.value);
     });
 
     inputs["getValue"]((val, outputRels) => {
@@ -43,6 +47,7 @@ export default function (props) {
 
     inputs["resetValue"]((val) => {
       data.value = null;
+      _onChange(data.value);
     });
   }, []);
 
@@ -89,56 +94,25 @@ export default function (props) {
     }
   }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
 
-  // const onGetPhoneNumber = useCallback(
-  //   (e) => {
-  //     if (!env.runtime) {
-  //       return;
-  //     }
-
-  //     if (!!e.detail.errno) {
-  //       //noop
-  //       return;
-  //     }
-
-  //     const app = Taro.getApp();
-  //     const status = app?.mybricks?.status || {};
-
-  //     Taro.request({
-  //       url: `${status.callServiceHost}/runtime/api/domain/service/run`,
-  //       method: "POST",
-  //       data: {
-  //         projectId: status?.appid,
-  //         fileId: status?.appid,
-  //         serviceId: "getPhoneNumber",
-  //         params: {
-  //           code: e.detail.code,
-  //         },
-  //       },
-  //       success: (res) => {
-  //         if (
-  //           res?.data?.code === 1 &&
-  //           res.data.data &&
-  //           res.data.data.phone_info
-  //         ) {
-  //           data.value = res.data.data.phone_info.phoneNumber;
-  //           outputs["onChange"](data.value);
-  //         } else {
-  //           //noop
-  //         }
-  //       },
-  //     });
-  //   },
-  //   [env.runtime, data.value]
-  // );
-
   const onChange = useCallback((e) => {
     let value = e.detail.value;
     data.value = value;
+
+    _onChange(value);
+  }, []);
+
+  const _onChange = useCallback((value) => {
+    if (value == _valueCache.current) {
+      return;
+    }
+    _valueCache.current = value;
+
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
       value,
     });
+
     outputs["onChange"](value);
   }, []);
 

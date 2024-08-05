@@ -10,7 +10,7 @@ import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import { Tabs } from "brickd-mobile";
 import css from "./style.less";
-import classNames from "classnames";
+import cx from "classnames";
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -355,7 +355,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
   return (
     emptyView || (
-      <View className={css.tab_box}>
+      <View className={cx(css.tab_box, "mybricks-tabs")}>
         <Tabs
           id={TabID}
           className={css.tabs_normal}
@@ -394,7 +394,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                 height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
                 display: isActive ? "block" : "none", // 控制显示和隐藏
               }}
-              className={classNames(css.tab_content, env.edit && css.minHeight)}
+              className={cx(css.tab_content, env.edit && css.minHeight)}
             >
               {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
                 key: tab._id,

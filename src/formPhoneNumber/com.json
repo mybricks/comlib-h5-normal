@@ -19,14 +19,6 @@
       }
     },
     {
-      "id": "setInitialValue",
-      "title": "设置初始值",
-      "desc": "设置单行输入的初始值，并触发初始化事件输出",
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
       "id": "validate",
       "title": "校验",
       "desc": "触发单行输入的校验检查，并输出校验结果",

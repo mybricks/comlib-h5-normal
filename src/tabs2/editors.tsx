@@ -49,6 +49,13 @@ export default {
   ":root": {
     style: [
       {
+        title: "Tabs",
+        options: [
+          { type: "background", config: { disableBackgroundImage: true } },
+        ],
+        target: ".mybricks-tabs",
+      },
+      {
         title: "标签栏",
         options: [
           "border",
@@ -233,8 +240,8 @@ export default {
                 });
 
                 // 插槽配置为智能布局
-                const slotInstance = slot.get(action?.value._id);
-                setSlotLayout(slotInstance, data.slotStyle);
+                // const slotInstance = slot.get(action?.value._id);
+                // setSlotLayout(slotInstance, data.slotStyle);
               },
               onUpdate: ({ slot }, action) => {
                 slot.setTitle(action?.value._id, action?.value.tabName);
@@ -348,6 +355,25 @@ export default {
           ],
         },
       ];
+
+      cate1.title = "高级";
+      cate1.items = [
+        {
+          title: "升级",
+          type: "button",
+          value: {
+            set({ data, slots }) {
+              console.log("升级", slots.get("tabId1"));
+              console.log("升级", slots.get("tabId2"));
+
+              slots.get("tabId1").setLayout("flex-column");
+              slots.get("tabId2").setLayout("flex-column");
+
+
+            },
+          },
+        }
+      ];
     },
   },
 
@@ -386,7 +412,7 @@ export default {
               title: "删除标签项",
               type: "Button",
               value: {
-                set({ data, slot,input, focusArea }) {
+                set({ data, slot, input, focusArea }) {
                   if (!focusArea) return;
                   data.tabs.splice(focusArea.index, 1);
                   input.remove(focusItem._id);

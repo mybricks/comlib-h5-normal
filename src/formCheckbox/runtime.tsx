@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Checkbox, Image } from "brickd-mobile";
-import { isObject, isString, isEmpty } from './../utils/core/type';
+import { isObject, isString, isEmpty } from "./../utils/core/type";
 
 import cx from "classnames";
 
@@ -11,18 +11,18 @@ export default function (props) {
     env.edit ? data.options[0]?.value : data.value
   );
 
-  useEffect(()=>{
-    inputs["getValue"]((val,relOutputs) => {
-      console.log("value",value)
-      relOutputs["returnValue"](value)
-    })
-  },[value])
+  useEffect(() => {
+    inputs["getValue"]((val, relOutputs) => {
+      console.log("value", value);
+      relOutputs["returnValue"](value);
+    });
+  }, [value]);
 
   useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
-          setValue('')
+          setValue("");
           break;
         }
         case isString(val):
@@ -43,6 +43,13 @@ export default function (props) {
           break;
       }
     });
+
+    // 设置数据源
+    inputs["setOptions"]((val) => {
+      if (Array.isArray(val)) {
+        data.options = val;
+      }
+    });
   }, []);
 
   const onChange = useCallback((value) => {
@@ -51,10 +58,14 @@ export default function (props) {
     }
 
     /** 不知道为啥会出来['', 'xx']这样的结构，先兼容一下 */
-    let resVal = (Array.isArray(value) ? value : []).filter(v => v)
+    let resVal = (Array.isArray(value) ? value : []).filter((v) => v);
 
     setValue(resVal);
-    parentSlot?._inputs['onChange']?.({ id: props.id, name: props.name, value })
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value,
+    });
     outputs["onChange"](resVal);
   }, []);
 
