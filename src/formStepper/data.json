@@ -2,7 +2,7 @@
   "label": "数字输入",
   "hideLabel": false,
   "name": "数字输入",
-  "value": 6,
+  "value": 0,
   "step": 1,
   "min": 0,
   "max": 999

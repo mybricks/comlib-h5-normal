@@ -38,47 +38,6 @@ export default {
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
-        // {
-        //   title: "标题",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.label;
-        //     },
-        //     set({ data }, value) {
-        //       if (data.label === data.name) {
-        //         data.label = value;
-        //         data.name = value;
-        //       } else {
-        //         data.label = value;
-        //       }
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "隐藏标题",
-        //   type: "switch",
-        //   value: {
-        //     get({ data }) {
-        //       return data.hideLabel;
-        //     },
-        //     set({ data }, value) {
-        //       data.hideLabel = value;
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "字段",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.name;
-        //     },
-        //     set({ data }, value) {
-        //       return (data.name = value);
-        //     },
-        //   },
-        // },
         {
           title: "选项排列方向",
           type: "radio",
@@ -134,6 +93,24 @@ export default {
             },
             set({ data }, value) {
               data.options = value;
+            },
+          },
+        },
+        {
+          title: "选项默认渲染方式",
+          type: "radio",
+          description:
+            "当选择使用动态数据时，默认不渲染选项，需要通过「设置选项」输入项动态设置",
+          options: [
+            { label: "使用静态数据", value: "static" },
+            { label: "使用动态数据", value: "dynamic" },
+          ],
+          value: {
+            get({ data }) {
+              return data.defaultRnderMode || "static";
+            },
+            set({ data }, value) {
+              data.defaultRnderMode = value;
             },
           },
         },

@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
-
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { isNumber, isObject, isString, isEmpty } from "../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { Input } from "brickd-mobile";
@@ -15,7 +8,6 @@ export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
-    console.log("useFormItemValue onChange", typeof val, val);
     //
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
@@ -81,7 +73,7 @@ export default function (props) {
       data.placeholder = val;
     });
 
-    // 设置禁用
+    /* 设置禁用 */
     inputs["setDisabled"]((val, outputRels) => {
       data.disabled = !!val;
       outputRels["setDisabledComplete"]?.(data.disabled);
@@ -103,7 +95,7 @@ export default function (props) {
       disabled={data.disabled}
       clearable={data.clearable}
       cursorSpacing={28}
-      cursor={data.value.length}
+      cursor={value.length}
     />
   );
 }

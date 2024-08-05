@@ -1,60 +1,82 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { View } from "@tarojs/components";
-import { isObject, isString, isEmpty, isBoolean } from "./../utils/core/type";
+import { isObject, isString, isEmpty, isBoolean } from "../utils/type";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { Switch, Checkbox } from "brickd-mobile";
 import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
-  useEffect(() => {
-    inputs["setValue"]((val) => {
-      switch (true) {
-        case isEmpty(val): {
-          data.value = false;
-          break;
-        }
-        case isBoolean(val):
-          data.value = !!val;
-          break;
-        case isObject(val):
-          data.value = !!val[data.name];
-          break;
-        default:
-          data.value = !!val;
-          break;
-      }
-    });
-
-    inputs["getValue"]((val, outputRels) => {
-      outputRels["returnValue"](!!data.value);
-    });
-  }, []);
-
-  const onChange = useCallback((value) => {
-    data.value = value;
-
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    //
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
-      value,
+      value: val,
     });
-    outputs["onChange"](value);
+
+    //
+    outputs["onChange"](val);
+  });
+
+  useEffect(() => {
+    /* 设置值 */
+    inputs["setValue"]((val, outputRels) => {
+      setValue(!!val);
+      outputRels["setValueComplete"]?.(!!val); // 表单容器调用 setValue 时，没有 outputRels
+    });
+
+    /* 获取值 */
+    inputs["getValue"]((val, outputRels) => {
+      outputRels["returnValue"](getValue());
+    });
+
+    /* 重置值 */
+    inputs["resetValue"]((val, outputRels) => {
+      setValue(false);
+      outputRels["resetValueComplete"]?.(false);
+    });
+
+    /* 设置标题 */
+    inputs["setLabel"]((val) => {
+      if (!isString(val)) {
+        return;
+      }
+
+      parentSlot?._inputs["setProps"]?.({
+        id: props.id,
+        name: props.name,
+        value: {
+          label: val,
+        },
+      });
+    });
+
+    /* 设置禁用 */
+    inputs["setDisabled"]((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
+    });
+  }, [value]);
+
+  const onChange = useCallback((value) => {
+    setValue(value);
   }, []);
 
   const checkboxValue = useMemo(() => {
-    if (data.value) {
+    if (value) {
       return ["active"];
     } else {
       return [];
     }
-  }, [data.value]);
+  }, [value]);
 
   const onChangeCheckbox = useCallback((value) => {
     if (value.includes("active")) {
-      onChange(true);
+      setValue(true);
     } else {
-      onChange(false);
+      setValue(false);
     }
   }, []);
 
@@ -63,9 +85,9 @@ export default function (props) {
       {data.type === "switch" || !data.type ? (
         <Switch
           style={{ marginLeft: "auto" }}
-          value={data.value}
+          value={value}
           size={24}
-          checked={env.edit ? true : data.value}
+          checked={env.edit ? true : value}
           onChange={onChange}
         />
       ) : null}
@@ -74,8 +96,8 @@ export default function (props) {
         <Checkbox.Group value={checkboxValue} onChange={onChangeCheckbox}>
           <Checkbox
             className={cx({
-              ["mybricks-inactive"]: !data.value,
-              ["mybricks-active"]: !!data.value,
+              ["mybricks-inactive"]: !value,
+              ["mybricks-active"]: !!value,
             })}
             name="active"
             shape="square"
