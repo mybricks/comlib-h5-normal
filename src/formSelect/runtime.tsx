@@ -8,88 +8,124 @@ import React, {
 import { View } from "@tarojs/components";
 import { ArrowRight } from "@taroify/icons";
 import { Input, Picker } from "brickd-mobile";
-import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
+import { isObject, isString, isNumber, isEmpty } from "./../utils/type";
 import css from "./style.less";
 import InputDisplay from "../components/input-display";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-  const _valueCache = useRef(data.value);
+
+  const [value, setValue, getValue] = useFormItemValue(
+    env.edit ? data.options[0]?.value : data.value,
+    (val) => {
+      //
+      parentSlot?._inputs["onChange"]?.({
+        id: props.id,
+        name: props.name,
+        value: val,
+      });
+
+      //
+      outputs["onChange"](val);
+    }
+  );
 
   useEffect(() => {
-    inputs["setValue"]((val) => {
+    /* 设置值 */
+    inputs["setValue"]((val, outputRels) => {
+      let result;
+
       switch (true) {
         case isEmpty(val): {
-          data.value = "";
+          result = "";
           break;
         }
         case isString(val) || isNumber(val):
-          data.value = val;
-          break;
-        case isObject(val):
-          data.value = val[data.name];
+          result = val;
           break;
         default:
+          // 其他类型的值，直接返回
           return;
       }
 
-      _onChange(data.value);
+      setValue(result);
+      outputRels["setValueComplete"]?.(result); // 表单容器调用 setValue 时，没有 outputRels
     });
 
-    // 设置数据源
+    /* 获取值 */
+    inputs["getValue"]((val, outputRels) => {
+      outputRels["returnValue"](getValue());
+    });
+
+    /* 重置值 */
+    inputs["resetValue"]((val, outputRels) => {
+      setValue("");
+      outputRels["resetValueComplete"]?.("");
+    });
+
+    /* 设置标题 */
+    inputs["setLabel"]((val) => {
+      if (!isString(val)) {
+        return;
+      }
+
+      parentSlot?._inputs["setProps"]?.({
+        id: props.id,
+        name: props.name,
+        value: {
+          label: val,
+        },
+      });
+    });
+
+    /* 设置数据源 */
     inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
         data.options = val;
+        setReady(true);
       }
+    });
+
+    /* 设置禁用 */
+    inputs["setDisabled"]((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
     });
   }, []);
 
-  const onChange = useCallback((index) => {
-    const value = data.options?.[index]?.value;
-    data.value = value;
-
-    _onChange(data.value);
-  }, []);
+  const onChange = useCallback(
+    (index) => {
+      const value = data.options?.[index]?.value;
+      setValue(value);
+    },
+    [data.options]
+  );
 
   const onCancel = useCallback(() => {
-    _onChange(data.value);
-  }, [data.value, data.options]);
+    outputs["onCancel"](value);
+  }, [value]);
 
   const selectItem = useMemo(() => {
     let item = data.options.find((item) => {
-      return item.value == data.value;
+      return item.value == value;
     });
 
     return (
       item || {
-        label: data.value,
-        value: data.value,
+        label: value,
+        value: value,
       }
     );
-  }, [data.value, data.options]);
+  }, [value, data.options]);
 
   const displayValue = useMemo(() => {
     return !!selectItem;
   }, [selectItem]);
 
   const selectIndex = useMemo(() => {
-    return data.options.findIndex((item) => item.value == data.value);
-  }, [data.value, data.options]);
-
-  const _onChange = useCallback((value) => {
-    if (value == _valueCache.current) {
-      return;
-    }
-    _valueCache.current = value;
-
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-
-    outputs["onChange"](value);
-  }, []);
+    return data.options.findIndex((item) => item.value == value);
+  }, [value, data.options]);
 
   return (
     <>

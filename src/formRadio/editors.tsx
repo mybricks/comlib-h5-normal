@@ -72,7 +72,7 @@ export default {
           },
         },
         {
-          title: "选项",
+          title: "单选项",
           type: "array",
           options: {
             getTitle: (item, index) => {
@@ -115,6 +115,24 @@ export default {
             },
             set({ data }, value) {
               data.options = value;
+            },
+          },
+        },
+        {
+          title: "选项默认渲染方式",
+          type: "radio",
+          description:
+            "当选择使用动态数据时，默认不渲染选项，需要通过「设置选项」输入项动态设置",
+          options: [
+            { label: "使用静态数据", value: "static" },
+            { label: "使用动态数据", value: "dynamic" },
+          ],
+          value: {
+            get({ data }) {
+              return data.defaultRnderMode || "static";
+            },
+            set({ data }, value) {
+              data.defaultRnderMode = value;
             },
           },
         },
