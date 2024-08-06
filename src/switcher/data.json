@@ -43,5 +43,6 @@
   "verticalGutter": [0],
   "showIcon":true,
   "switcherSize":{
-  }
+  },
+  "tabKey":"text"
 }

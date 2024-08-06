@@ -11,7 +11,7 @@
   "inputs": [
     {
       "id": "setData",
-      "title": "设置数据",
+      "title": "设置选项",
       "schema": {
         "title": "列表数据",
         "type": "array",

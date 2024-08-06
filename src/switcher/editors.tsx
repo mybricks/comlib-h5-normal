@@ -176,6 +176,20 @@ export default {
           },
         },
         {
+          title:"选项卡标题key",
+          type:"text",
+          description:
+          "动态配置选项的时候，可根据key来渲染选项名称",
+          value: {
+            get({ data }) {
+              return data.tabKey;
+            },
+            set({ data }, value) {
+              data.tabKey = value;
+            },
+          },
+        },
+        {
           ifVisible({ data }) {
             return !data.useDynamic;
           },
