@@ -85,6 +85,11 @@ export default function (props) {
     setValue(value);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    let value = e.detail.value;
+    outputs["onBlur"](value);
+  }, []);
+
   return (
     <Input
       className={css.input}
@@ -96,6 +101,7 @@ export default function (props) {
       clearable={data.clearable}
       cursorSpacing={28}
       cursor={value.length}
+      onBlur={onBlur}
     />
   );
 }

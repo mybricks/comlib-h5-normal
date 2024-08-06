@@ -71,6 +71,11 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    let value = e.detail.value;
+    outputs["onBlur"](value);
+  }, []);
+
   return (
     <View className={`${css.password} mybricks-field-password`}>
       <Input
@@ -80,6 +85,7 @@ export default function (props) {
         placeholder={data.placeholder}
         onChange={onChange}
         disabled={data.disabled}
+        onBlur={onBlur}
       />
       <View className={buttonCx} onClick={onTogglePassword}></View>
     </View>

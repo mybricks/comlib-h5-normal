@@ -219,7 +219,14 @@ export default {
               options: {
                 outputId: "onChange",
               },
-            },
+            }, 
+            {
+              title: "当失去焦点",
+              type: "_event",
+              options: {
+                outputId: "onBlur",
+              },
+            }
           ],
         },
       ];
