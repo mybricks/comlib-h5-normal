@@ -249,7 +249,7 @@ export default {
       {
         ifVisible({ id, data, name }) {
           const item = getFormItem(data.items, { id, name });
-          return !item.hideLabel;
+          return !item?.hideLabel;
         },
         title: "图标",
         type: "imageSelector",
@@ -267,7 +267,7 @@ export default {
       {
         ifVisible({ id, data, name }) {
           const item = getFormItem(data.items, { id, name });
-          return !item.hideLabel;
+          return !item?.hideLabel;
         },
         title: "标题",
         type: "text",
