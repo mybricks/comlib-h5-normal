@@ -53,7 +53,7 @@ export default function (props) {
     });
 
     /* 设置标题 */
-    inputs["setLabel"]((val) => {
+    inputs["setLabel"]?.((val) => {
       if (!isString(val)) {
         return;
       }
@@ -84,6 +84,11 @@ export default function (props) {
     setValue(value);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    let value = e.detail.value;
+    outputs["onBlur"](value);
+  }, []);
+
   const limit = useMemo(() => {
     return data.limit || false;
   }, [data.limit]);
@@ -106,6 +111,7 @@ export default function (props) {
       cursorSpacing={60}
       onChange={onChange}
       cursor={value.length}
+      onBlur={onBlur}
     />
   );
 }

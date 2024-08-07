@@ -1,23 +1,45 @@
 {
-  "title": "表格",
+  "title": "数据表格",
   "namespace": "mybricks.taro.table",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
   "runtime": "./runtime.tsx",
-  "runtime.edit": "./runtime.edit.tsx",
+  "runtime.edit": "./edit/runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
-  "icon": "./icon.svg",
+  "icon": "./icon.png",
   "slots": [],
   "inputs": [
     {
-      "id": "setList",
+      "id": "setDataSource",
       "title": "设置数据",
       "schema": {
-        "type": "array"
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
       }
     }
   ],
-  "outputs": []
+  "outputs": [
+    {
+      "id": "onClickRow",
+      "title": "单击行时",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "any"
+          },
+          "record": {
+            "type": "object"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ]
 }

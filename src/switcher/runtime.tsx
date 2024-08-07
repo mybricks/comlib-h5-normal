@@ -52,9 +52,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
       outputs["onChange"]({
         index,
-        item: {
-          text: item.text,
-        },
+        item,
       });
     },
     [selectedIndex]
@@ -180,9 +178,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
               src={icon}
             ></Image>
           ) : null}
-          {item.text ? (
+          {item[data.tabKey || "text"] ? (
             <View className={css.text} style={{ ...textStyle }}>
-              {item.text}
+              {item[data.tabKey || "text"]}
             </View>
           ) : null}
         </View>

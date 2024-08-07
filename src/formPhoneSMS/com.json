@@ -75,6 +75,13 @@
       }
     },
     {
+      "id": "onBlur",
+      "title": "当失去焦点",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
       "id": "onCodeSend",
       "title": "获取验证码",
       "schema": {

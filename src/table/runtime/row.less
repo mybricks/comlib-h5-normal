@@ -1,25 +1,26 @@
 .row {
   display: inline-flex;
   min-width: 100%;
-  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  border-bottom: 1px solid #f0f0f0;
 
-  .td {
-    padding: 12px;
-    flex-shrink: 0;
-    display: flex;
+  .col {
     background: #ffffff;
     font-size: 12px;
     line-height: 18px;
+
+    padding: 12px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .leftSticky {
     position: sticky !important;
     left: 0;
     z-index: 999 !important;
-  }
 
-  .leftStickyShadow {
-    &::after {
+    &::before {
       position: absolute;
       top: 0;
       right: 0;
@@ -41,9 +42,7 @@
     position: sticky !important;
     right: 0;
     z-index: 999 !important;
-  }
 
-  .rightStickyShadow {
     &::before {
       position: absolute;
       top: 0;
@@ -59,6 +58,21 @@
       transform: translate(-100%);
       content: "";
       pointer-events: none;
+    }
+  }
+}
+
+.row.bordered {
+  .col {
+    &::after {
+      display: none;
+    }
+  }
+
+  .col {
+    border-right: 1px solid #f0f0f0;
+    &:last-child {
+      border-right: none;
     }
   }
 }

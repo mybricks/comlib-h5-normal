@@ -12,34 +12,38 @@ export default {
   ":root": {
     style: [
       {
-        title: "隐藏表头",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.hiddenTableHeader;
-          },
-          set({ data }, value) {
-            data.hiddenTableHeader = value;
-          },
-        },
+        title: "表格",
+        options: ["border"],
+        target: ".mybricks-table",
       },
       {
-        title: "展示列边框",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.bordered;
-          },
-          set({ data }, value) {
-            data.bordered = value;
-          },
-        },
+        title: "表头",
+        options: [{ type: "size" }, "font", "background"],
+        target: ".mybricks-thead .mybricks-col",
+      },
+      {
+        title: "表格行",
+        options: ["font", "background"],
+        target: ".mybricks-row .mybricks-col",
       },
     ],
     items({ data, output, input, style, slots }, cate0, cate1, cate2) {
       cate0.items = [
         {
-          title: "列表",
+          title: "隐藏表头",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.hiddenTableHeader;
+            },
+            set({ data }, value) {
+              data.hiddenTableHeader = value;
+            },
+          },
+        },
+        {},
+        {
+          title: "表格列",
           type: "array",
           options: {
             getTitle: (item, index) => {
@@ -50,42 +54,43 @@ export default {
               let id = `column_${uid}`;
               let title = `列${uid}`;
 
-              slots.add({
-                id,
-                title: `表格列 ${title} | ${id}`,
-                type: "scope",
-                inputs: [
-                  {
-                    id: "columnData",
-                    title: "当前列数据",
-                    schema: {
-                      type: "any",
-                    },
-                  },
-                  {
-                    id: "rowData",
-                    title: "当前行数据",
-                    schema: {
-                      type: "any",
-                    },
-                  },
-                  {
-                    id: "index",
-                    title: "当前行序号",
-                    schema: {
-                      type: "number",
-                    },
-                  },
-                ],
-              });
+              // slots.add({
+              //   id,
+              //   title: `表格列 ${title} | ${id}`,
+              //   type: "scope",
+              //   inputs: [
+              //     {
+              //       id: "text",
+              //       title: "当前列数据",
+              //       schema: {
+              //         type: "any",
+              //       },
+              //     },
+              //     {
+              //       id: "record",
+              //       title: "当前行数据",
+              //       schema: {
+              //         type: "object",
+              //       },
+              //     },
+              //     {
+              //       id: "index",
+              //       title: "当前行序号",
+              //       schema: {
+              //         type: "number",
+              //       },
+              //     },
+              //   ],
+              // });
 
               return {
                 id: id,
                 title: title,
                 dataIndex: id,
-                width: "100",
+                type: "text",
                 autoWidth: true,
-                fixed: "",
+                minWidth: "90",
+                width: "100",
               };
             },
             onRemove(_id) {
@@ -118,23 +123,74 @@ export default {
 
               //更新 slots 的 title
               value.forEach((column) => {
-                slots
-                  .get(column.id)
-                  .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+                let slot = slots.get(column.id);
+                if (slot) {
+                  slot.setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+                }
               });
             },
+          },
+        },
+        {
+          ifVisible({ data }) {
+            return data.columns.length > 1;
+          },
+          title: "固定首列",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.useLeftSticky;
+            },
+            set({ data }, value) {
+              data.useLeftSticky = value;
+            },
+          },
+        },
+        {
+          ifVisible({ data }) {
+            return data.columns.length > 1;
+          },
+          title: "固定末列",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.useRightSticky;
+            },
+            set({ data }, value) {
+              data.useRightSticky = value;
+            },
+          },
+        },
+        {
+          title: "展示列边框",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.bordered;
+            },
+            set({ data }, value) {
+              data.bordered = value;
+            },
+          },
+        },
+        {},
+        {
+          title: "单击行时",
+          type: "_event",
+          options: {
+            outputId: "onClickRow",
           },
         },
       ];
     },
   },
-  ".mybricks-thead .mybricks-td": {
+  ".mybricks-thead .mybricks-col": {
     title: "表格列",
     style: [
       {
         title: "样式",
         options: ["font", "background"],
-        target: ".mybricks-thead .mybricks-td",
+        target: ".mybricks-thead .mybricks-col",
       },
     ],
     items: ({ data, focusArea }, cate0, cate1, cate2) => {
@@ -167,13 +223,14 @@ export default {
 
               // 更新 slots 的 title
               let column = columns[index];
-              slots
-                .get(column.id)
-                .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+
+              let slot = slots.get(column.id);
+              if (slot) {
+                slot.setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+              }
             },
           },
         },
-
         {
           title: "列字段",
           type: "text",
@@ -198,12 +255,78 @@ export default {
 
               // 更新 slots 的 title
               let column = columns[index];
-              slots
-                .get(column.id)
-                .setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+
+              let slot = slots.get(column.id);
+              if (slot) {
+                slot.setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+              }
             },
           },
         },
+        {
+          title: "类型",
+          type: "select",
+          options: [
+            { label: "文本", value: "text" },
+            { label: "自定义插槽", value: "slot" },
+          ],
+          value: {
+            get({ data }) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              return data.columns[index].type;
+            },
+            set({ data, slots }, value) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              let columns = [...data.columns];
+              columns[index].type = value;
+              data.columns = columns;
+
+              if (value === "text") {
+                slots.remove(columns[index].id);
+              }
+
+              if (value === "slot") {
+                slots.add({
+                  id: columns[index].id,
+                  title: `表格列 ${columns[index].title} | ${columns[index].id}`,
+                  type: "scope",
+                  inputs: [
+                    {
+                      id: "text",
+                      title: "当前列数据",
+                      schema: {
+                        type: "any",
+                      },
+                    },
+                    {
+                      id: "record",
+                      title: "当前行数据",
+                      schema: {
+                        type: "object",
+                      },
+                    },
+                    {
+                      id: "index",
+                      title: "当前行序号",
+                      schema: {
+                        type: "number",
+                      },
+                    },
+                  ],
+                });
+              }
+            },
+          },
+        },
+        {},
         {
           title: "列宽",
           type: "radio",

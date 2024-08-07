@@ -98,6 +98,11 @@ export default function (props) {
     _onChange(value);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    let value = e.detail.value;
+    outputs["onBlur"](value);
+  }, []);
+
   const onCodeSend = useCallback((e) => {
     if (data.buttonDisabled) return;
 
@@ -130,6 +135,7 @@ export default function (props) {
           value={data.value}
           placeholder={data.placeholder}
           onChange={onChange}
+          onBlur={onBlur}
         />
         <Button
           className={cx({

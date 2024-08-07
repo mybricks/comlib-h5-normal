@@ -3,7 +3,31 @@ import { View } from "@tarojs/components";
 import cx from "classnames";
 import css from "./row.less";
 
-export default function ({ rowData = {}, columns = [], slots }) {
+export default function ({
+  record = {},
+  index,
+  columns = [],
+  data,
+  env,
+  slots,
+}) {
+  //
+  const useLeftSticky = useMemo(() => {
+    if (data.columns.length > 1) {
+      return data.useLeftSticky;
+    }
+    return false;
+  }, [data.useLeftSticky, data.columns]);
+
+  //
+  const useRightSticky = useMemo(() => {
+    if (data.columns.length > 1) {
+      return data.useRightSticky;
+    }
+    return false;
+  }, [data.useRightSticky, data.columns]);
+
+  //
   const $columns = useMemo(() => {
     return columns.map((column, index) => {
       let style = {};
@@ -19,30 +43,38 @@ export default function ({ rowData = {}, columns = [], slots }) {
         <View
           data-id={column._id}
           className={cx({
-            [css.td]: true,
-            "mybricks-td": true,
-            [css.leftSticky]: column.sticky === "left" || index === 0,
-            [css.rightSticky]:
-              column.sticky === "right" || index === columns.length - 1,
-            [css.leftStickyShadow]: column.sticky === "left" || index === 0,
-            [css.rightStickyShadow]:
-              column.sticky === "right" || index === columns.length - 1,
+            [css.col]: true,
+            "mybricks-col": true,
+            [css.leftSticky]: useLeftSticky && index === 0,
+            [css.rightSticky]: useRightSticky && index === columns.length - 1,
           })}
           style={style}
         >
-          {column.title}
-
-          {/* {slots[column.id]?.render({
-                  inputValues: {
-                    columnData: item[column.dataIndex],
-                    rowData: item,
-                    index: index,
-                  },
-                })} */}
+          {column.type === "text" &&
+            (record[column.dataIndex] ?? (env.edit ? column.title : ""))}
+          {column.type === "slot" &&
+            slots[column.id]?.render({
+              inputValues: {
+                text: record[column.dataIndex],
+                record: record,
+                index: index,
+              },
+            })}
         </View>
       );
     });
-  }, [columns]);
+  }, [columns, useLeftSticky, useRightSticky]);
 
-  return <View className={css.row}>{$columns}</View>;
+  return (
+    <View
+      className={cx({
+        [css.row]: true,
+        "mybricks-row": true,
+        [css.bordered]: data.bordered,
+        ["disabled-area"]: env.edit && index > 0,
+      })}
+    >
+      {$columns}
+    </View>
+  );
 }

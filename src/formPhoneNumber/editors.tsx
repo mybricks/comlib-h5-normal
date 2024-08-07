@@ -251,6 +251,16 @@ export default {
                 outputId: "onChange",
               },
             },
+            {
+              ifVisible({ data }) {
+                return data.getPhoneNumberMethods === "customInput";
+              },
+              title: "当失去焦点",
+              type: "_event",
+              options: {
+                outputId: "onBlur",
+              },
+            }
           ],
         },
       ];

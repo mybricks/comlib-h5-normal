@@ -101,6 +101,11 @@ export default function (props) {
     _onChange(value);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    let value = e.detail.value;
+    outputs["onBlur"](value);
+  }, []);
+
   const _onChange = useCallback((value) => {
     if (value == _valueCache.current) {
       return;
@@ -124,6 +129,7 @@ export default function (props) {
           value={data.value}
           placeholder={data.placeholder}
           onChange={onChange}
+          onBlur={onBlur}
           disabled={
             data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
             data.getPhoneNumberMethods === "getPhoneNumber"
