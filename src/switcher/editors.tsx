@@ -54,6 +54,32 @@ export default {
           },
         },
         {
+          // ifVisible({ data }) {
+          //   return !data.useDynamic;
+          // },
+          title: "默认选中项",
+          type: "select",
+          options: [
+            {
+              label: "无",
+              value: -1,
+            },
+          ].concat(
+            (data.items ?? []).map((item, index) => ({
+              label: item.text,
+              value: index,
+            }))
+          ),
+          value: {
+            get({ data }) {
+              return data.defaultSelectedIndex;
+            },
+            set({ data }, value) {
+              data.defaultSelectedIndex = value;
+            },
+          },
+        },
+        {
           title: "排列方式",
           type: "radio",
           options: [
@@ -71,6 +97,7 @@ export default {
             },
           },
         },
+        
         {
           title: "列数",
           type: "Text",
@@ -161,20 +188,20 @@ export default {
             },
           },
         },
-        {
-          title: "仅使用动态渲染",
-          description:
-            "开启后，页面默认不会渲染静态的选项，数据必须经过输入项「设置数据」来设置",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.useDynamic;
-            },
-            set({ data }, val) {
-              data.useDynamic = val;
-            },
-          },
-        },
+        // {
+        //   title: "仅使用动态渲染",
+        //   description:
+        //     "开启后，页面默认不会渲染静态的选项，数据必须经过输入项「设置数据」来设置",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.useDynamic;
+        //     },
+        //     set({ data }, val) {
+        //       data.useDynamic = val;
+        //     },
+        //   },
+        // },
         {
           title:"选项卡标题key",
           type:"text",
@@ -189,32 +216,7 @@ export default {
             },
           },
         },
-        {
-          ifVisible({ data }) {
-            return !data.useDynamic;
-          },
-          title: "默认选中项",
-          type: "select",
-          options: [
-            {
-              label: "无",
-              value: -1,
-            },
-          ].concat(
-            (data.items ?? []).map((item, index) => ({
-              label: item.text,
-              value: index,
-            }))
-          ),
-          value: {
-            get({ data }) {
-              return data.defaultSelectedIndex;
-            },
-            set({ data }, value) {
-              data.defaultSelectedIndex = value;
-            },
-          },
-        },
+        
         {},
         {
           title: "事件",
