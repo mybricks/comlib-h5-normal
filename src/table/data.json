@@ -1,6 +1,10 @@
 {
   "useTHead": true,
+  
   "columns": [],
+  "useLeftSticky": false,
+  "useRightSticky": false,
+  
   "bordered": false,
   "hiddenTableHeader": false
 }

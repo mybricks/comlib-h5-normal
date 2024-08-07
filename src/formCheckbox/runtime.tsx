@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { Checkbox, Image } from "brickd-mobile";
-import { isObject, isString, isEmpty,isNumber } from "./../utils/type";
+import { isObject, isString, isEmpty, isNumber } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import cx from "classnames";
 

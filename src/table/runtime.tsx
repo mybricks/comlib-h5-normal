@@ -1,147 +1,55 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
-import { View, Image } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
+import Head from "./runtime/Head";
+import Row from "./runtime/Row";
 
 export default function ({ env, data, inputs, outputs, slots }) {
-  const [list, setList] = useState(
-    env.edit || env?.runtime?.debug?.prototype ? [{}] : []
-  );
+  const [dataSource, setDataSource] = useState(env.edit ? [{}, {}, {}] : []);
 
   useEffect(() => {
-    inputs["setList"]((val) => {
-      setList(val);
+    inputs["setDataSource"]((val) => {
+      setDataSource(val);
     });
   }, []);
 
-  const placeholder = useMemo(() => {
-    if (env.runtime) {
-      return null;
-    }
-
-    if (data.columns.length) {
-      return null;
-    } else {
-      return <View className={css.placeholder}>请添加列</View>;
-    }
-  }, [env.runtime, data.columns]);
-
-  const tHead = useMemo(() => {
-    return (
-      <View className={cx([css.tr, css.thead, "mybricks-thead"])}>
-        {data.columns.map((column, index) => {
-          let style = {};
-
-          if (column.autoWidth) {
-            style.flex = 1;
-            style.minWidth = 12;
-          } else {
-            style.width = +column.width;
-          }
-
-          return (
-            <View
-              data-id={column._id}
-              className={cx({
-                [css.td]: true,
-                "mybricks-td": true,
-                [css.leftSticky]: column.fixed === "left",
-                [css.rightSticky]: column.fixed === "right",
-              })}
-              style={style}
-            >
-              {column.title}
-            </View>
-          );
-        })}
-      </View>
-    );
-  }, [data.columns]);
-
-  const tBody = useMemo(() => {
-    list = env.edit ? [{}] : list;
-
-    return list.map((item, listIndex) => {
-      return (
-        <View className={css.tr}>
-          {data.columns.map((column, index) => {
-            let style = {};
-
-            if (column.autoWidth) {
-              style.flex = 1;
-              style.minWidth = 12;
-            } else {
-              style.width = +column.width;
-            }
-
-            return (
-              <View
-                className={cx({
-                  [css.td]: true,
-                  "mybricks-td": true,
-                  [css.leftSticky]: column.fixed === "left",
-                  [css.rightSticky]: column.fixed === "right",
-                })}
-                style={style}
-              >
-                {slots[column.id]?.render({
-                  inputValues: {
-                    columnData: item[column.dataIndex],
-                    rowData: item,
-                    index: index,
-                  },
-                })}
-              </View>
-            );
-          })}
-        </View>
-      );
-    });
-
-    return (
-      <View className={cx([css.tr])}>
-        {data.columns.map((column, index) => {
-          let style = {};
-          if (column.autoWidth) {
-            style.flex = 1;
-          } else {
-            style.width = +column.width;
-          }
-
-          return (
-            <View
-              data-id={column._id}
-              className={cx({
-                [css.td]: true,
-                "mybricks-td": true,
-                [css.leftSticky]: column.fixed === "left",
-                [css.rightSticky]: column.fixed === "right",
-              })}
-              style={style}
-            >
-              {column.title}
-            </View>
-          );
-        })}
-      </View>
-    );
-  }, [data.columns, list]);
-
   //
-  if (placeholder) {
-    return placeholder;
+  if (env.edit && !data.columns.length) {
+    return <View className={css.placeholder}>请添加表格列</View>;
   }
 
   return (
-    <View
-      className={cx({
-        [css.table]: true,
-        // "mybricks-table": true,
-        [css.bordered]: data.bordered,
-      })}
-    >
-      {data.hiddenTableHeader ? null : tHead}
-      {tBody}
+    <View className={cx(css["table-wrapper"], "mybricks-table")}>
+      <View className={css["table-track"]}>
+        <View
+          className={cx({
+            [css.table]: true,
+            [css.bordered]: data.bordered,
+          })}
+        >
+          {/* thead */}
+          {data.hiddenTableHeader ? null : (
+            <Head columns={data.columns} data={data}></Head>
+          )}
+
+          {/* tbody */}
+          {dataSource.map((item, index) => {
+            return (
+              <Row
+                record={item}
+                index={index}
+                columns={data.columns}
+                data={data}
+                env={env}
+                outputs={outputs}
+                slots={slots}
+                key={index}
+              ></Row>
+            );
+          })}
+        </View>
+      </View>
     </View>
   );
 }
