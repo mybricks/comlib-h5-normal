@@ -226,6 +226,18 @@ export default {
                 outputId: "onChange",
               },
             },
+            {
+              title: "初始化时是否触发「选中项变化」事件",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.initChangeTab;
+                },
+                set({ data }, value) {
+                  data.initChangeTab = value;
+                },
+              },
+            },
           ],
         },
       ];
