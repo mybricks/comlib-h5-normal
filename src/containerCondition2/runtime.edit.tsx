@@ -109,9 +109,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return (
           <View className={css.content} key={`${renderMode}${item.id}`}>
             {slots[item.id]?.render({
-              inputValues: {
-                itemData: bool,
-              },
+                key:item.id
             })}
           </View>
         );

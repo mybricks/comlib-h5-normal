@@ -39,12 +39,13 @@ export default {
             const uid = uuid("", 5);
             const id = `condition_${uid}`;
             const title = `条件${data.new_index++}`;
+            const outputId = `changeCondition_${uid}`;
 
             slots.add({
               id,
               title,
-              type: "scope",
-              inputs: ScopeSlotInputs,
+              // type: "scope",
+              // inputs: ScopeSlotInputs,
             });
 
             input.add({
@@ -58,14 +59,36 @@ export default {
 
             input.get(id).setRels(["changeDone"]);
 
+
+            output.add({
+              id: `changeCondition_${uid}`,
+              title: `切换到 ${title}`,
+              schema: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                  tabName: {
+                    type: "string",
+                  },
+                  index: {
+                    type: "number",
+                  },
+                },
+              },
+            });
+
             return {
               id,
               title,
+              outputId
             };
           },
           onSelect(_id) {
             data._editSelectId_ =
               findItemByInnerId(_id, data)?.id ?? data._editSelectId_;
+            data._editSelectOutputId_ = findItemByInnerId(_id, data)?.outputId ?? data._editSelectOutputId_;
           },
           onRemove(_id) {
             const id = findItemByInnerId(_id, data)?.id;
@@ -174,6 +197,25 @@ export default {
             data.defaultActiveId = value === "none" ? undefined : value;
           },
         },
+      },
+      {
+        title: "事件",
+        items: [
+          {
+            title:"条件切换",
+            type: "_event",
+            options: {
+              outputId: "changeCondition",
+            },
+          },
+          {
+            title: `切换到当前条件时`,
+            type: "_event",
+            options: {
+              outputId: data._editSelectOutputId_,
+            },
+          },
+        ],
       },
       {
         title: "渲染模式",
