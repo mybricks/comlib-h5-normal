@@ -53,36 +53,6 @@ export default {
               let uid = uuid("", 5);
               let id = `column_${uid}`;
               let title = `列${uid}`;
-
-              // slots.add({
-              //   id,
-              //   title: `表格列 ${title} | ${id}`,
-              //   type: "scope",
-              //   inputs: [
-              //     {
-              //       id: "text",
-              //       title: "当前列数据",
-              //       schema: {
-              //         type: "any",
-              //       },
-              //     },
-              //     {
-              //       id: "record",
-              //       title: "当前行数据",
-              //       schema: {
-              //         type: "object",
-              //       },
-              //     },
-              //     {
-              //       id: "index",
-              //       title: "当前行序号",
-              //       schema: {
-              //         type: "number",
-              //       },
-              //     },
-              //   ],
-              // });
-
               return {
                 id: id,
                 title: title,
@@ -99,7 +69,9 @@ export default {
               });
 
               let id = data.columns[index].id;
-              slots.remove(id);
+              try {
+                slots.remove(id);
+              } catch (e) {}
             },
             items: [
               {
@@ -189,7 +161,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["font", "background"],
+        options: [{ type: "size" }, "font", "background"],
         target: ".mybricks-thead .mybricks-col",
       },
     ],
@@ -361,7 +333,41 @@ export default {
             let index = data.columns.findIndex((column) => {
               return column._id === _id;
             });
+            return data.columns[index].autoWidth;
+          },
+          title: "最小宽度",
+          description: "单位：px",
+          type: "text",
+          options: {
+            type: "Number",
+          },
+          value: {
+            get({ data }) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
 
+              return data.columns[index].minWidth;
+            },
+            set({ data }, value) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              let columns = [...data.columns];
+              columns[index].minWidth = value;
+              data.columns = columns;
+            },
+          },
+        },
+        {
+          ifVisible({ data }) {
+            let _id = focusArea.ele.dataset.id;
+            let index = data.columns.findIndex((column) => {
+              return column._id === _id;
+            });
             return !data.columns[index].autoWidth;
           },
           title: "宽度",
@@ -387,36 +393,6 @@ export default {
 
               let columns = [...data.columns];
               columns[index].width = value;
-              data.columns = columns;
-            },
-          },
-        },
-
-        {
-          title: "列固定",
-          type: "select",
-          options: [
-            { label: "无", value: "" },
-            { label: "左", value: "left" },
-            { label: "右", value: "right" },
-          ],
-          value: {
-            get({ data }) {
-              let _id = focusArea.ele.dataset.id;
-              let index = data.columns.findIndex((column) => {
-                return column._id === _id;
-              });
-
-              return data.columns[index].fixed;
-            },
-            set({ data }, value) {
-              let _id = focusArea.ele.dataset.id;
-              let index = data.columns.findIndex((column) => {
-                return column._id === _id;
-              });
-
-              let columns = [...data.columns];
-              columns[index].fixed = value;
               data.columns = columns;
             },
           },

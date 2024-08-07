@@ -42,6 +42,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
                 columns={data.columns}
                 data={data}
                 env={env}
+                outputs={outputs}
                 slots={slots}
                 key={index}
               ></Row>

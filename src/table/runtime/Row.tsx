@@ -2,6 +2,7 @@ import React, { useCallback, useState, useMemo, useEffect } from "react";
 import { View } from "@tarojs/components";
 import cx from "classnames";
 import css from "./row.less";
+import text from "src/components-h5/text";
 
 export default function ({
   record = {},
@@ -10,6 +11,7 @@ export default function ({
   data,
   env,
   slots,
+  outputs = {},
 }) {
   //
   const useLeftSticky = useMemo(() => {
@@ -27,14 +29,18 @@ export default function ({
     return false;
   }, [data.useRightSticky, data.columns]);
 
+  const onClick = useCallback((params) => {
+    outputs["onClickRow"]({ ...params });
+  }, []);
+
   //
   const $columns = useMemo(() => {
-    return columns.map((column, index) => {
+    return columns.map((column, idx) => {
       let style = {};
 
       if (column.autoWidth) {
         style.flex = 1;
-        style.minWidth = column.minWidth || 90;
+        style.minWidth = +column.minWidth;
       } else {
         style.width = +column.width;
       }
@@ -45,10 +51,22 @@ export default function ({
           className={cx({
             [css.col]: true,
             "mybricks-col": true,
-            [css.leftSticky]: useLeftSticky && index === 0,
-            [css.rightSticky]: useRightSticky && index === columns.length - 1,
+            [css.leftSticky]: useLeftSticky && idx === 0,
+            [css.rightSticky]: useRightSticky && idx === columns.length - 1,
           })}
           style={style}
+          onClick={(e) => {
+            if (!env.runtime) {
+              return;
+            }
+            e.stopPropagation();
+
+            onClick({
+              text: record[column.dataIndex],
+              record: record,
+              index: index,
+            });
+          }}
         >
           {column.type === "text" &&
             (record[column.dataIndex] ?? (env.edit ? column.title : ""))}
@@ -59,6 +77,9 @@ export default function ({
                 record: record,
                 index: index,
               },
+              style: {
+                overflow: "hidden",
+              }
             })}
         </View>
       );

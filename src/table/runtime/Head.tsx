@@ -27,7 +27,7 @@ export default function ({ columns = [], data }) {
 
       if (column.autoWidth) {
         style.flex = 1;
-        style.minWidth = column.minWidth || 90;
+        style.minWidth = +column.minWidth;
       } else {
         style.width = +column.width;
       }
