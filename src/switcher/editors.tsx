@@ -179,7 +179,7 @@ export default {
           title:"选项卡标题key",
           type:"text",
           description:
-          "动态配置选项的时候，可根据key来渲染选项名称",
+          "动态配置选项的时候，可根据key来渲染选项名称；默认值为：text",
           value: {
             get({ data }) {
               return data.tabKey;

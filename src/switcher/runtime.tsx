@@ -207,7 +207,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
     data.defaultSelectedTextStyle,
     griddingItemStyle,
     data.switcherSize,
-    showIcon
+    showIcon,
+    data.tabKey
   ]);
 
   return (
