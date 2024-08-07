@@ -1,0 +1,86 @@
+.thead {
+  display: inline-flex;
+  min-width: 100%;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  &.sticky {
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+  }
+
+  .td {
+    display: flex;
+    flex-shrink: 0;
+
+    font-size: 12px;
+    line-height: 18px;
+    background: rgb(247, 248, 250);
+    color: rgb(0, 0, 0);
+    overflow: visible;
+    padding: 10px 12px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 1px;
+      height: 1.6em;
+      transform: translateY(-50%);
+      background: #f0f0f0;
+    }
+    &:first-child::before {
+      display: none;
+    }
+  }
+
+  .leftSticky {
+    position: sticky !important;
+    left: 0;
+    z-index: 999 !important;
+  }
+
+  .leftStickyShadow {
+    &::after {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      right: 0;
+      z-index: 2;
+      width: 6px;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.06) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      transform: translate(100%);
+      content: "";
+      pointer-events: none;
+    }
+  }
+
+  .rightSticky {
+    position: sticky !important;
+    right: 0;
+    z-index: 999 !important;
+  }
+
+  .rightStickyShadow {
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 2;
+      width: 6px;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.06) 100%
+      );
+      transform: translate(-100%);
+      content: "";
+      pointer-events: none;
+    }
+  }
+}

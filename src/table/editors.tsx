@@ -6,7 +6,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width", "height"],
   },
   ":slot": {},
   ":root": {
