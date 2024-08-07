@@ -16,6 +16,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [showIcon ,setShowIcon] = useState(data.showIcon)
   const [mode,setMode] = useState(data.mode)
 
+  //判断 是否开启了初始化时触发「选中项变化」事件 开关
+  useMemo(()=>{
+    if(data.initChangeTab){
+      outputs["onChange"]({
+        index: data.defaultSelectedIndex,
+        item: data.items[data.defaultSelectedIndex],
+      });
+    }
+  },[data.items])
+
   useEffect(()=>{
     //老组件没有选择图标的开关，升级后默认打开
     if(data.showIcon == undefined){

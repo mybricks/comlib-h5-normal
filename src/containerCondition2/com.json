@@ -49,6 +49,27 @@
         "type": "string"
       },
       "title": "切换条件完成"
+    },
+    {
+      "id": "changeCondition",
+      "title": "条件切换",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "id": "changeCondition_1",
+      "title": "切换到条件1",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "id": "changeCondition_2",
+      "title": "切换到条件2",
+      "schema": {
+        "type": "number"
+      }
     }
   ],
   "slots": [

@@ -24,6 +24,8 @@ export default function ({ env, data, slots, inputs, outputs }) {
       setInputId(item.id);
       setBool(bool);
       relOutputs["setValueDone"]?.(bool);
+      outputs["changeCondition"]?.(bool)
+      outputs[item.outputId]?.(bool);
     });
 
     //通过连线来切换条件
@@ -33,11 +35,15 @@ export default function ({ env, data, slots, inputs, outputs }) {
           slots[item.id]?.inputs["itemData"]?.(bool);
           setBool(bool);
           relOutputs["changeDone"]?.(bool);
+          outputs[item.outputId]?.(bool);
+          outputs["changeCondition"]?.(bool)
           return;
         }
 
         setInputId(item.id);
         setBool(bool);
+        outputs["changeCondition"]?.(bool)
+        outputs[item.outputId]?.(bool);
         relOutputs["changeDone"]?.(bool);
       });
     });
@@ -60,9 +66,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
           return (
             <View className={css.content} key={`${renderMode}${item.id}`}>
               {slots[item.id]?.render({
-                inputValues: {
-                  itemData: bool,
-                },
+                key:item.id
               })}
             </View>
           );
@@ -72,9 +76,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
           return (
             <View className={css.content} key={`${renderMode}${item.id}`} style={activeId !== item.id ? { display: 'none' } : {}}>
               {slots[item.id]?.render({
-                inputValues: {
-                  itemData: bool,
-                },
+                key:item.id
               })}
             </View>
           );
