@@ -55,7 +55,7 @@ export default function (props) {
     });
 
     /* 设置标题 */
-    inputs["setLabel"]((val) => {
+    inputs["setLabel"]?.((val) => {
       if (!isString(val)) {
         return;
       }
