@@ -59,6 +59,7 @@
         "./src/system/systemLogin/com.json",
         "./src/containerListHorizontal/com.json",
         "./src/containerAbs/com.json",
+        "./src/containerSmart/com.json",
         "./src/containerGrid2/com.json",
         "./src/popup/com.json",
         "./src/filter-coms/sort/com.json",
@@ -84,7 +85,7 @@
     {
       "title": "容器",
       "comAry": [
-        "./src/containerSmart/com.json",
+        "./src/containerBasic/com.json",
         "./src/tabs2/com.json",
         "./src/containerSwiper/com.json",
         "./src/containerList/com.json",

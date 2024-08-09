@@ -1,79 +1,49 @@
-
-const setSlotLayout = (slot, val) => {
-  if(!slot) return;
-  if (val.position === 'absolute') {
-    slot.setLayout(val.position);
-  } else if (val.display === 'flex') {
-    if (val.flexDirection === 'row') {
-      slot.setLayout('flex-row');
-    } else if (val.flexDirection === 'column') {
-      slot.setLayout('flex-column');
-    }
-  }
-};
+import setSlotLayout from "../utils/setSlotLayout";
 
 export default {
-  '@init'({ style }) {
-    style.height = 100;
+  "@init"({ style }) {
+    style.width = "100%";
+    style.height = 160;
   },
-  '@resize': {
-    options: ['width', 'height']
+  "@resize": {
+    options: ["width", "height"],
   },
-  ':root'({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = '常规'
-    cate0.items = [
+  ":slot": {},
+  ":root": {
+    style: [
       {
-        title: '默认样式',
-        type: 'style',
-        options: {
-          plugins: ['padding', 'border', 'bgcolor', 'bgimage']
+        title: "样式",
+        options: ["padding", "border", "background", "overflow"],
+        target({ id }) {
+          return `> .mybricks-container`;
         },
-        value: {
-          get: ({ data }: EditorResult<any>) => {
-            return data.style;
-          },
-          set: ({ data }: EditorResult<any>, value) => {
-            data.style = value;
-          }
-        }
       },
-    ]
-    cate1.title = '样式'
-    cate1.items = [
-      {
-        title: '自动布局',
-        type: 'layout',
-        options: [],
-        value: {
-          get({ data, slots }) {
-            const { slotStyle = {} } = data;
-            const slotInstance = slots.get('content');
-            setSlotLayout(slotInstance, slotStyle);
-            return slotStyle;
+    ],
+    items: ({ data, output, style }, cate0, cate1, cate2) => {
+      cate0.title = "常规";
+      cate0.items = [
+        {
+          title: "布局",
+          type: "layout",
+          value: {
+            get({ data }) {
+              return data.layout;
+            },
+            set({ data, slots }, val) {
+              data.layout = val;
+              setSlotLayout(slots.get("content"), val);
+            },
           },
-          set({ data, slots }, val: any) {
-            if (!data.slotStyle) {
-              data.slotStyle = {};
-            }
-            data.slotStyle = {
-              ...data.slotStyle,
-              ...val
-            };
-            const slotInstance = slots.get('content');
-            setSlotLayout(slotInstance, val);
-          }
-        }
-      }
-    ]
-    cate2.title = '行为'
-    cate2.items = [
-      {
-        title: '单击',
-        type: '_event',
-        options: {
-          outputId: 'onClick'
-        }
-      }
-    ]
+        },
+        {},
+        {
+          title: "单击",
+          type: "_event",
+          options: {
+            outputId: "onClick",
+          },
+        },
+      ];
+    },
   },
-}
+};

@@ -7,7 +7,7 @@
   "author_name": "MyBricks",
   "icon": "./icon.svg",
   "runtime": "./runtime.ts",
-  "editors": "./editors.ts",
+  "editors": "./editors.tsx",
   "ai": "./ai.ts",
   "rtType": "js-autorun",
   "inputs": [
