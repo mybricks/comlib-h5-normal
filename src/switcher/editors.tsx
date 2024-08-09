@@ -54,6 +54,32 @@ export default {
           },
         },
         {
+          // ifVisible({ data }) {
+          //   return !data.useDynamic;
+          // },
+          title: "默认选中项",
+          type: "select",
+          options: [
+            {
+              label: "无",
+              value: -1,
+            },
+          ].concat(
+            (data.items ?? []).map((item, index) => ({
+              label: item.text,
+              value: index,
+            }))
+          ),
+          value: {
+            get({ data }) {
+              return data.defaultSelectedIndex;
+            },
+            set({ data }, value) {
+              data.defaultSelectedIndex = value;
+            },
+          },
+        },
+        {
           title: "排列方式",
           type: "radio",
           options: [
@@ -71,6 +97,7 @@ export default {
             },
           },
         },
+        
         {
           title: "列数",
           type: "Text",
@@ -161,25 +188,25 @@ export default {
             },
           },
         },
-        {
-          title: "仅使用动态渲染",
-          description:
-            "开启后，页面默认不会渲染静态的选项，数据必须经过输入项「设置数据」来设置",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.useDynamic;
-            },
-            set({ data }, val) {
-              data.useDynamic = val;
-            },
-          },
-        },
+        // {
+        //   title: "仅使用动态渲染",
+        //   description:
+        //     "开启后，页面默认不会渲染静态的选项，数据必须经过输入项「设置数据」来设置",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.useDynamic;
+        //     },
+        //     set({ data }, val) {
+        //       data.useDynamic = val;
+        //     },
+        //   },
+        // },
         {
           title:"选项卡标题key",
           type:"text",
           description:
-          "动态配置选项的时候，可根据key来渲染选项名称",
+          "动态配置选项的时候，可根据key来渲染选项名称；默认值为：text",
           value: {
             get({ data }) {
               return data.tabKey;
@@ -189,32 +216,7 @@ export default {
             },
           },
         },
-        {
-          ifVisible({ data }) {
-            return !data.useDynamic;
-          },
-          title: "默认选中项",
-          type: "select",
-          options: [
-            {
-              label: "无",
-              value: -1,
-            },
-          ].concat(
-            (data.items ?? []).map((item, index) => ({
-              label: item.text,
-              value: index,
-            }))
-          ),
-          value: {
-            get({ data }) {
-              return data.defaultSelectedIndex;
-            },
-            set({ data }, value) {
-              data.defaultSelectedIndex = value;
-            },
-          },
-        },
+        
         {},
         {
           title: "事件",
@@ -235,149 +237,6 @@ export default {
                 },
                 set({ data }, value) {
                   data.initChangeTab = value;
-                },
-              },
-            },
-          ],
-        },
-      ];
-
-      cate1.title = "样式";
-      cate1.items = [
-        {
-          title: "选项卡尺寸",
-          type: "style",
-          options: {
-            defaultOpen: true,
-            plugins: ["size"],
-          },
-          value: {
-            get({ data }) {
-              return data.switcherSize;
-            },
-            set({ data }, value) {
-              data.switcherSize = value;
-            },
-          },
-        },
-        // {
-        //   title: "选项栏样式",
-        //   type: "style",
-        //   options: {
-        //     defaultOpen: true,
-        //     plugins: ["border", "bgColor"],
-        //   },
-        //   value: {
-        //     get({ data }) {
-        //       return data.switcherStyle;
-        //     },
-        //     set({ data }, value) {
-        //       data.switcherStyle = value;
-        //     },
-        //   },
-        // },
-        {
-          title: "选项卡样式",
-          items: [
-            {
-              title: "选项卡",
-              catelog: "默认样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["size", "padding", "border", "bgColor"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultUnselectedItemStyle;
-                },
-                set({ data }, value) {
-                  data.defaultUnselectedItemStyle = value;
-                },
-              },
-            },
-            {
-              title: "图标",
-              catelog: "默认样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["size", "margin"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultUnselectedIconStyle;
-                },
-                set({ data }, value) {
-                  data.defaultUnselectedIconStyle = value;
-                },
-              },
-            },
-            {
-              title: "文本",
-              catelog: "默认样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["font", "padding", "border", "background"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultUnselectedTextStyle;
-                },
-                set({ data }, value) {
-                  data.defaultUnselectedTextStyle = value;
-                },
-              },
-            },
-            {
-              title: "选项卡",
-              catelog: "选中样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["size", "padding", "border", "bgColor"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultSelectedItemStyle;
-                },
-                set({ data }, value) {
-                  data.defaultSelectedItemStyle = value;
-                },
-              },
-            },
-            {
-              title: "图标",
-              catelog: "选中样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["size", "margin"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultSelectedIconStyle;
-                },
-                set({ data }, value) {
-                  data.defaultSelectedIconStyle = value;
-                },
-              },
-            },
-            {
-              title: "文本",
-              catelog: "选中样式",
-              type: "style",
-              options: {
-                defaultOpen: true,
-                plugins: ["font", "padding", "border", "background"],
-              },
-              value: {
-                get({ data }) {
-                  return data.defaultSelectedTextStyle;
-                },
-                set({ data }, value) {
-                  data.defaultSelectedTextStyle = value;
                 },
               },
             },
@@ -482,9 +341,45 @@ export default {
             },
           },
         },
+        // {
+        //   ifVisible({ data }) {
+        //     return !!focusItem.useCustomStyle;
+        //   },
+        //   title: "",
+        //   type: "editorRender",
+        //   options: {
+        //     render: (props) => {
+        //       return (
+        //         <div style={{color:"#555555"}}>当前tab已开启独立样式</div>
+        //       );
+        //     },
+        //   },
+        // },
         {
-          title: "",
+          title: "当前选项卡已开启独立样式",
           items: [
+            {
+              ifVisible({ data }) {
+                return !!focusItem.useCustomStyle;
+              },
+              title: "文本",
+              catelog: "默认样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["font","background"],
+              },
+              value: {
+                get({ data }) {
+                  return focusItem.unselectedTextStyle;
+                },
+                set({ data }, value) {
+                  let items = JSON.parse(JSON.stringify(data.items));
+                  items[focusArea.index].unselectedTextStyle = value;
+                  data.items = items;
+                },
+              },
+            },
             {
               ifVisible({ data }) {
                 return !!focusItem.useCustomStyle;
@@ -494,7 +389,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["padding", "border", "bgColor"],
+                plugins: ["border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -534,19 +429,19 @@ export default {
                 return !!focusItem.useCustomStyle;
               },
               title: "文本",
-              catelog: "默认样式",
+              catelog: "选中样式",
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["font", "padding", "border", "background"],
+                plugins: ["font","background"],
               },
               value: {
                 get({ data }) {
-                  return focusItem.unselectedTextStyle;
+                  return focusItem.selectedTextStyle;
                 },
                 set({ data }, value) {
                   let items = JSON.parse(JSON.stringify(data.items));
-                  items[focusArea.index].unselectedTextStyle = value;
+                  items[focusArea.index].selectedTextStyle = value;
                   data.items = items;
                 },
               },
@@ -560,7 +455,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["padding", "border", "bgColor"],
+                plugins: ["border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -595,28 +490,152 @@ export default {
                 },
               },
             },
+
+          ],
+        },
+        {
+          ifVisible({ data }) {
+            return !focusItem.useCustomStyle;
+          },
+          title: "选项卡样式",
+          type: "style",
+          options: {
+            defaultOpen: true,
+            plugins: ["size"],
+          },
+          value: {
+            get({ data }) {
+              return data.switcherSize;
+            },
+            set({ data }, value) {
+              data.switcherSize = value;
+            },
+          },
+        },
+        {
+          title: "",
+          items: [
             {
               ifVisible({ data }) {
-                return !!focusItem.useCustomStyle;
+                return !focusItem.useCustomStyle;
+              },
+              title: "文本",
+              catelog: "默认样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["font"],
+              },
+              value: {
+                get({ data }) {
+                  return data.defaultUnselectedTextStyle;
+                },
+                set({ data }, value) {
+                  data.defaultUnselectedTextStyle = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !focusItem.useCustomStyle;
+              },
+              title: "选项卡",
+              catelog: "默认样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["border", "bgColor"],
+              },
+              value: {
+                get({ data }) {
+                  return data.defaultUnselectedItemStyle;
+                },
+                set({ data }, value) {
+                  data.defaultUnselectedItemStyle = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !focusItem.useCustomStyle;
+              },
+              title: "图标",
+              catelog: "默认样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["size", "margin"],
+              },
+              value: {
+                get({ data }) {
+                  return data.defaultUnselectedIconStyle;
+                },
+                set({ data }, value) {
+                  data.defaultUnselectedIconStyle = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !focusItem.useCustomStyle;
               },
               title: "文本",
               catelog: "选中样式",
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["font", "padding", "border", "background"],
+                plugins: ["font","background"],
               },
               value: {
                 get({ data }) {
-                  return focusItem.selectedTextStyle;
+                  return data.defaultSelectedTextStyle;
                 },
                 set({ data }, value) {
-                  let items = JSON.parse(JSON.stringify(data.items));
-                  items[focusArea.index].selectedTextStyle = value;
-                  data.items = items;
+                  data.defaultSelectedTextStyle = value;
                 },
               },
             },
+            {
+              ifVisible({ data }) {
+                return !focusItem.useCustomStyle;
+              },
+              title: "选项卡",
+              catelog: "选中样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["border", "bgColor"],
+              },
+              value: {
+                get({ data }) {
+                  return data.defaultSelectedItemStyle;
+                },
+                set({ data }, value) {
+                  data.defaultSelectedItemStyle = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !focusItem.useCustomStyle;
+              },
+              title: "图标",
+              catelog: "选中样式",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["size", "margin"],
+              },
+              value: {
+                get({ data }) {
+                  return data.defaultSelectedIconStyle;
+                },
+                set({ data }, value) {
+                  data.defaultSelectedIconStyle = value;
+                },
+              },
+            },
+
           ],
         },
       ];

@@ -15,6 +15,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [selectedIndex, setSelectedIndex] = useState(data.defaultSelectedIndex);
   const [showIcon ,setShowIcon] = useState(data.showIcon)
   const [mode,setMode] = useState(data.mode)
+  const [tabKey,setTabKey] = useState(data.tabKey)
+
+  useEffect(()=>{
+    //搭建态使用text tabKey，防止显示为空
+    if(env.edit){
+      setTabKey("text")
+    }else{
+      setTabKey(data.tabKey)
+    }
+  },[data.tabKey,env])
 
   //判断 是否开启了初始化时触发「选中项变化」事件 开关
   useMemo(()=>{
@@ -188,9 +198,9 @@ export default function ({ env, data, inputs, outputs, slots }) {
               src={icon}
             ></Image>
           ) : null}
-          {item[data.tabKey || "text"] ? (
+          {item[tabKey || "text"] ? (
             <View className={css.text} style={{ ...textStyle }}>
-              {item[data.tabKey || "text"]}
+              {item[tabKey || "text"]}
             </View>
           ) : null}
         </View>
@@ -207,7 +217,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
     data.defaultSelectedTextStyle,
     griddingItemStyle,
     data.switcherSize,
-    showIcon
+    showIcon,
+    tabKey
   ]);
 
   return (
