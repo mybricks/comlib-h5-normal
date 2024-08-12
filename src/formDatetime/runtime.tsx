@@ -12,7 +12,7 @@ polyfill_taro_picker();
 
 const FORMAT_MAP = {
   date: "YYYY-MM-DD",
-  time: "hh:mm",
+  time: "HH:mm",
   "year-month": "YYYY-MM",
   year: "YYYY",
   // "month-day": "MM-DD",
@@ -99,8 +99,16 @@ export default function (props) {
     if (timePattern.test(formatDate)) {
       // 如果是时间格式，使用当前日期
       const currentDate = new Date();
-      const dateString = currentDate.toISOString().split('T')[0]; // 获取当前日期的 YYYY-MM-DD 格式
-      dateTime = new Date(`${dateString}T${formatDate}:00`); // 使用 ISO 格式
+      const [hours, minutes] = formatDate.split(':').map(Number);
+  
+      // 设置本地时间
+      dateTime = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate(),
+        hours,
+        minutes
+      );
     } else {
       // 否则，直接解析输入的日期时间字符串
       dateTime = new Date(formatDate);
