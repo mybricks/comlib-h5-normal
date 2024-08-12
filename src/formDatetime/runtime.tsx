@@ -7,6 +7,7 @@ import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
 import css from "./style.less";
 import InputDisplay from "../components/input-display";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 
 polyfill_taro_picker();
 
@@ -30,6 +31,15 @@ const AFTER_TEN_YEAR = new Date(
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: val,
+    });
+    outputs["onChange"](val);
+  });
 
   //判断组件是否需要为可交互状态
   const comOperatable = useMemo(() => {
@@ -88,6 +98,7 @@ export default function (props) {
     if (!data.value) {
       return "";
     }
+    setValue(data.value)
     return dayjs(data.value).format(FORMAT_MAP[data.type]) || "";
   }, [data.value, data.type]);
 
@@ -121,13 +132,13 @@ export default function (props) {
     }
   
     data.value = dateTime.valueOf();
-  
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value: data.value,
-    });
-    outputs["onChange"](data.value);
+    // parentSlot?._inputs["onChange"]?.({
+    //   id: props.id,
+    //   name: props.name,
+    //   value: data.value,
+    // });
+    setValue(data.value);
+    // outputs["onChange"](data.value);
   }, []);
 
   const range = useMemo(() => {
