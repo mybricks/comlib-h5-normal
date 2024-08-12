@@ -92,8 +92,28 @@ export default function (props) {
   }, [data.value, data.type]);
 
   const onChange = useCallback((formatDate) => {
-    data.value = dayjs(formatDate).valueOf();
-
+    // 检查输入的字符串是否是时间格式
+    const timePattern = /^\d{2}:\d{2}$/;
+    let dateTime;
+  
+    if (timePattern.test(formatDate)) {
+      // 如果是时间格式，使用当前日期
+      const currentDate = new Date();
+      const dateString = currentDate.toISOString().split('T')[0]; // 获取当前日期的 YYYY-MM-DD 格式
+      dateTime = new Date(`${dateString}T${formatDate}:00`); // 使用 ISO 格式
+    } else {
+      // 否则，直接解析输入的日期时间字符串
+      dateTime = new Date(formatDate);
+    }
+  
+    // 检查解析后的日期是否有效
+    if (isNaN(dateTime.valueOf())) {
+      console.error('Invalid date format:', formatDate);
+      return;
+    }
+  
+    data.value = dateTime.valueOf();
+  
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
@@ -115,6 +135,15 @@ export default function (props) {
       min: isEmpty(data.min) ? LAST_TEN_YEAR : format(data.min),
       max: isEmpty(data.max) ? AFTER_TEN_YEAR : format(data.max),
     };
+
+    //格式为mm:ss,需要把年月日补齐,否则无法正确识别出区间
+    if (data.type === "time") {
+      return {
+        min: dayjs(result.min).format("YYYY-MM-DD HH:mm"),
+        max: dayjs(result.max).format("YYYY-MM-DD HH:mm"),
+      };
+    }
+
     return {
       min: dayjs(result.min).format(FORMAT_MAP[data.type]),
       max: dayjs(result.max).format(FORMAT_MAP[data.type]),

@@ -338,23 +338,13 @@ export default {
               }
               // items[focusArea.index] = item;
               // data.items = items;
+
+              console.log("data.items",data.items)
+              console.log("focusItem",focusItem)
+              // data.items = focusItem
             },
           },
         },
-        // {
-        //   ifVisible({ data }) {
-        //     return !!focusItem.useCustomStyle;
-        //   },
-        //   title: "",
-        //   type: "editorRender",
-        //   options: {
-        //     render: (props) => {
-        //       return (
-        //         <div style={{color:"#555555"}}>当前tab已开启独立样式</div>
-        //       );
-        //     },
-        //   },
-        // },
         {
           title: "当前选项卡已开启独立样式",
           items: [
@@ -389,7 +379,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["border", "bgColor"],
+                plugins: ["size","border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -455,7 +445,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["border", "bgColor"],
+                plugins: ["size","border", "bgColor"],
               },
               value: {
                 get({ data }) {
