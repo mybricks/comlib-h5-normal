@@ -8,6 +8,7 @@ export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    
     //
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
@@ -78,7 +79,7 @@ export default function (props) {
       data.disabled = !!val;
       outputRels["setDisabledComplete"]?.(data.disabled);
     });
-  }, [value]);
+  }, []);
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;

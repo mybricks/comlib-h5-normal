@@ -29,6 +29,11 @@ export default function ({
     // inputs["onHide"]?.(() => {
     //   setShow(false);
     // });
+
+    return () => {
+      // 销毁，但没有事件
+      _env?.currentScenes?.close?.();
+    };
   }, []);
 
   const popupCx = useMemo(() => {
@@ -121,22 +126,4 @@ export default function ({
   );
 
   return popupView;
-
-  // if (env.edit) {
-  //   return createPortal(popupView);
-  // }
-
-  // if (env.runtime) {
-  //   if (show) {
-  //     return createPortal(popupView);
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
-  // if (env.runtime?.debug) {
-
-  // }
-
-  // return popupView;
 }

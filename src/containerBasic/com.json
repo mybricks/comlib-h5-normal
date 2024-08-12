@@ -1,18 +1,19 @@
 {
-  "title": "基础容器",
+  "title": "普通容器",
   "namespace": "mybricks.taro.containerBasic",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
+  "description": "基础布局组件，用于包裹和组织子组件，提供基础的样式和结构支持。【适用平台：微信小程序，H5页面】",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "inputs": [],
   "slots": [
     {
       "id": "content",
-      "title": "内容"
+      "title": "插槽",
+      "layout": "smart"
     }
   ],
   "outputs": [
