@@ -40,6 +40,8 @@ const formatRulesFromItem = (item) => {
 
 /** 去除value为undefined场景的对象 */
 const omitUndefinedKeys = (obj) => {
+  obj = obj || {};
+
   const resWithoutUndefined = {};
   Object.keys(obj).forEach((key) => {
     if (obj[key] !== undefined) {
@@ -68,7 +70,7 @@ const useForm = ({ items, childrenInputs }) => {
         }
 
         res[name] = value;
-        formRef?.current?.setValues(res);
+        formRef?.current?.setValues?.(res);
       },
       setValues: (val) => {
         const valuesWithUndefined = {};
@@ -82,7 +84,7 @@ const useForm = ({ items, childrenInputs }) => {
             itemValue !== undefined ? itemValue : undefined;
         });
 
-        formRef?.current?.setValues(valuesWithUndefined);
+        formRef?.cxurrent?.setValues?.(valuesWithUndefined);
       },
       validate: () =>
         new Promise((resolve, reject) => {
@@ -104,8 +106,25 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [form, formRef] = useForm({ items: data.items, childrenInputs });
   const [loading, setLoading] = useState(false);
 
-  //设置值
   useLayoutEffect(() => {
+    /** 下发表单项的onChange函数，用来收集表单项数据 */
+    slots["content"]._inputs["onChange"](({ id, name, value }) => {
+      const item = getFormItem(data.items, { id, name });
+      if (item) {
+        form.setFieldValue(item.name || item.label, value);
+      }
+    });
+
+    /** 动态修改标题等属性 */
+    slots["content"]._inputs["setProps"](({ id, name, value }) => {
+      const item = getFormItem(data.items, { id, name });
+      if (item) {
+        Object.keys(value).forEach((key) => {
+          item[key] = value[key];
+        });
+      }
+    });
+
     // 提交表单
     inputs["submit"]((val, outputRels) => {
       form
@@ -149,6 +168,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       if (isEmpty(val) || !isObject(val)) {
         return;
       }
+
       form.setValues(val);
       // 触发「表单数据输入」
       slots["content"].inputs["setFieldsValue"](val);
@@ -157,24 +177,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
     inputs["getFieldsValue"]((val, outputRels) => {
       const values = form.getValues();
       outputRels["returnValues"](values);
-    });
-
-    /** 下发表单项的onChange函数，用来收集表单项数据 */
-    slots["content"]._inputs["onChange"](({ id, name, value }) => {
-      const item = getFormItem(data.items, { id, name });
-      if (item) {
-        form.setFieldValue(item.name || item.label, value);
-      }
-    });
-
-    /** 动态修改标题等属性 */
-    slots["content"]._inputs["setProps"](({ id, name, value }) => {
-      const item = getFormItem(data.items, { id, name });
-      if (item) {
-        Object.keys(value).forEach((key) => {
-          item[key] = value[key];
-        });
-      }
     });
   }, []);
 

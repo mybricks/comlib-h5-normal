@@ -1,7 +1,8 @@
+import * as Taro from "@tarojs/taro";
+
 /**
  * 环境相关方法
-*/
-
+ */
 
 /* 判断是否为 edit 态 */
 export function isEdit(env): Boolean {
@@ -12,7 +13,6 @@ export function isEdit(env): Boolean {
   }
 }
 
-
 /* 判断是否在设计器中运行 */
 export function isDesigner(env): Boolean {
   if (env?.edit || env?.runtime?.debug) {
@@ -20,4 +20,8 @@ export function isDesigner(env): Boolean {
   } else {
     return false;
   }
-} 
+}
+
+export function isH5() {
+  return Taro.getEnv() === Taro.ENV_TYPE.WEB || Taro.getEnv() === "Unknown";
+}

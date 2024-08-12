@@ -52,6 +52,15 @@
       "schema": {
         "type": "boolean"
       }
+    },
+    {
+      "id": "setMaxCount",
+      "title": "设置最大上传数量",
+      "desc": "设置最大上传数量，传入 0 时表示不限制",
+      "schema": {
+        "type": "number"
+      },
+      "rels": ["setMaxCountComplete"]
     }
   ],
   "outputs": [
@@ -88,6 +97,13 @@
       "title": "是否禁用设置完成",
       "schema": {
         "type": "boolean"
+      }
+    },
+    {
+      "id": "setMaxCountComplete",
+      "title": "设置最大上传数量完成",
+      "schema": {
+        "type": "number"
       }
     }
   ],

@@ -3,40 +3,62 @@ import { Input, View, Button, Image } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
-import { isObject, isString, isEmpty } from "./../utils/core/type";
+import { isNumber, isObject, isString, isEmpty } from "./../utils/type";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isDesigner } from "../utils/env";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    let result = [...val];
+
+    // 如果是单选，且需要格式化为字符串
+    if (data.maxCount == 1 && data.useValueString) {
+      result = result[0] || "";
+    }
+
+    //
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: result,
+    });
+
+    //
+    outputs["onChange"](result);
+  });
+
   useEffect(() => {
-    inputs["setValue"]((val) => {
+    /* 设置值 */
+    inputs["setValue"]((val, outputRels) => {
+      let result;
+
       switch (true) {
         case isEmpty(val): {
-          data.value = [];
+          result = [];
           break;
         }
         case isString(val):
-          data.value = [val].filter((item) => !!item);
+          result = [val].filter((item) => !!item);
           break;
+
         case Array.isArray(val):
-          data.value = val;
+          result = val;
           break;
-        case isObject(val):
-          let _val = val[data.name];
-          if (typeof _val === "string") {
-            data.value = [val[data.name]].filter((item) => !!item);
-          } else if (Array.isArray(_val)) {
-            data.value = val[data.name];
-          }
-          break;
+
         default:
-          break;
+          // 其他类型的值，直接返回
+          return;
       }
+
+      setValue(result);
+      outputRels["setValueComplete"]?.(result); // 表单容器调用 setValue 时，没有 outputRels
     });
 
+    /* 获取值 */
     inputs["getValue"]((val, outputRels) => {
-      let result = data.value;
+      let result = getValue();
 
       // 如果是单选，且需要格式化为字符串
       if (data.maxCount == 1 && data.useValueString) {
@@ -46,36 +68,49 @@ export default function (props) {
       outputRels["returnValue"](result);
     });
 
+    /* 设置最大上传数量 */
+    inputs["setMaxCount"]?.((val, outputRels) => {
+      if (!isNumber(val) || val < 0) {
+        return;
+      }
+
+      data.maxCount = val;
+
+      if (val && value.length > val) {
+        setValue(value.slice(0, val));
+      }
+    });
+
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((filePath) => {
       if (!filePath && typeof filePath !== "string") {
         return;
       }
 
-      data.value = [filePath, ...data.value];
-      data.value = data.value.slice(0, data.maxCount);
-      onChange(data.value);
+      let result = [filePath, ...value];
+      result = result.slice(0, data.maxCount);
+      setValue(result);
     });
-  }, [data]);
+  }, [value, data.maxCount]);
 
-  const onChange = useCallback(
-    (_value) => {
-      let value = _value;
+  // const onChange = useCallback(
+  //   (_value) => {
+  //     let value = _value;
 
-      // 如果是单选，且需要格式化为字符串
-      if (data.maxCount == 1 && data.useValueString) {
-        value = _value[0] || "";
-      }
+  //     // 如果是单选，且需要格式化为字符串
+  //     if (data.maxCount == 1 && data.useValueString) {
+  //       value = _value[0] || "";
+  //     }
 
-      parentSlot?._inputs["onChange"]?.({
-        id: props.id,
-        name: props.name,
-        value,
-      });
-      outputs["onChange"](value);
-    },
-    [data.name, data.maxCount, data.useValueString]
-  );
+  //     parentSlot?._inputs["onChange"]?.({
+  //       id: props.id,
+  //       name: props.name,
+  //       value,
+  //     });
+  //     outputs["onChange"](value);
+  //   },
+  //   [data.name, data.maxCount, data.useValueString]
+  // );
 
   const onPreviewImage = useCallback((e, imageUrl) => {
     e.stopPropagation();
@@ -85,11 +120,10 @@ export default function (props) {
   const onRemoveImage = useCallback(
     (e, index) => {
       e.stopPropagation();
-      const newValue = data.value.filter((_, i) => i !== index);
-      data.value = newValue;
-      onChange(newValue);
+      const newValue = value.filter((_, i) => i !== index);
+      setValue(newValue);
     },
-    [data.value]
+    [value]
   );
 
   const onChooseImage = useCallback(() => {
@@ -98,9 +132,10 @@ export default function (props) {
     }
 
     Taro.chooseImage({
-      count: data.maxCount - data.value.length,
+      count: data.maxCount - value.length,
       sizeType: ["original", "compressed"],
-      sourceType: ["album", "camera"],
+      // sourceType: ["album", "camera"],
+      sourceType: ["album"],
       success: async (res) => {
         res.tempFilePaths.forEach((tempFilePath) => {
           slots["customUpload"]?.inputs["fileData"]({
@@ -109,20 +144,19 @@ export default function (props) {
         });
       },
     });
-  }, [env.edit, data.value, data.maxCount, slots["customUpload"]]);
+  }, [env.edit, value, data.maxCount, slots["customUpload"]]);
 
-  const onChooseAvatar = useCallback(
-    (res) => {
-      let tempPath = res.detail.avatarUrl;
-      slots["customUpload"]?.inputs["fileData"]({
-        filePath: tempPath,
-      });
-    },
-    [data.value]
-  );
+  const onChooseAvatar = useCallback((res) => {
+    let tempPath = res.detail.avatarUrl;
+    slots["customUpload"]?.inputs["fileData"]({
+      filePath: tempPath,
+    });
+  }, []);
 
   const uploader = useMemo(() => {
-    if (data.value.length >= data.maxCount) return null;
+    if (data.maxCount && value.length >= data.maxCount) {
+      return null;
+    }
 
     if (data.chooseAvatar && !isDesigner(env)) {
       return (
@@ -148,10 +182,10 @@ export default function (props) {
         </View>
       );
     }
-  }, [env, data.value, data.maxCount, data.chooseAvatar, data.iconSlot]);
+  }, [env, value, data.maxCount, data.chooseAvatar, data.iconSlot]);
 
   const thumbnails = useMemo(() => {
-    return data.value.map((raw, index) => {
+    return value.map((raw, index) => {
       return (
         <View
           className={cx(css.item, css.card, "mybricks-square")}
@@ -174,7 +208,7 @@ export default function (props) {
         </View>
       );
     });
-  }, [data.value]);
+  }, [value]);
 
   const placeholder = useMemo(() => {
     if (!data.placeholder) return null;
