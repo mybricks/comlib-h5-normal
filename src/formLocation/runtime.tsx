@@ -7,9 +7,21 @@ import { isObject, isString, isEmpty } from "./../utils/core/type";
 import css from "./style.less";
 import * as Taro from "@tarojs/taro";
 import InputDisplay from "../components/input-display";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: val,
+    });
+
+    outputs["onChange"](val);
+  });
 
   const isRelEnv = useMemo(() => {
     if (env.runtime.debug || env.edit) {
@@ -48,14 +60,17 @@ export default function (props) {
 
   const onChange = useCallback((val) => {
     data.value = val;
-
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value: val,
-    });
-    outputs["onChange"](val);
+    // parentSlot?._inputs["onChange"]?.({
+    //   id: props.id,
+    //   name: props.name,
+    //   value: val,
+    // });
+    // outputs["onChange"](val);
   }, []);
+
+  useEffect(()=>{
+    setValue(data.value)
+  },[data.value])
 
   const toast = () => {
     Taro.showToast({
@@ -75,29 +90,29 @@ export default function (props) {
       >
         <InputDisplay
           placeholder={data.placeholder}
-          value={data.value.join("/")}
+          value={value.join("/")}
         ></InputDisplay>
         <ArrowRight />
       </View>
     );
-  }, [data.value, data.placeholder]);
+  }, [value, data.placeholder]);
 
   const pickerRunTime = useMemo(() => {
     return (
-      <AreaPicker level={data.level} value={data.value} onChange={onChange}>
+      <AreaPicker level={data.level} value={value} onChange={onChange}>
         <View className={css.select}>
           <Input
             readonly
             // disabled={true}
             placeholder={data.placeholder}
-            value={data.value.join("/")}
+            value={value.join("/")}
             style={{ flex: 1 }}
           />
           <ArrowRight />
         </View>
       </AreaPicker>
     );
-  }, [data.value, data.placeholder]);
+  }, [value, data.placeholder]);
 
   return (
     <View className={css.wrap}>
