@@ -137,9 +137,10 @@ export default function (props) {
       // sourceType: ["album", "camera"],
       sourceType: ["album"],
       success: async (res) => {
-        res.tempFilePaths.forEach((tempFilePath) => {
+        res.tempFiles.forEach((tempFiles) => {
           slots["customUpload"]?.inputs["fileData"]({
-            filePath: tempFilePath,
+            filePath: tempFiles.path,
+            fileName:tempFiles.originalFileObj?.name
           });
         });
       },
