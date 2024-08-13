@@ -7,6 +7,10 @@
   }
 
   :global {
+    .taroify-cell--required:before {
+      //垂直居中 必填的*
+      top: 12px
+    }
     .taroify-cell__icon {
       display: block;
       width: 24px;
@@ -27,7 +31,8 @@
     }
 
     .mybricks-field.vertical {
-      align-items: center;
+      // background-color: gray;
+      // align-items: center;
       flex-wrap: wrap;
       :global {
         .taroify-cell__title {

@@ -19,10 +19,12 @@
         "properties": {
           "longitude": {
             "title": "经度",
+            "description": "经度",
             "type": "string"
           },
           "latitude": {
             "title": "纬度",
+            "description": "纬度",
             "type": "string"
           }
         }
@@ -70,10 +72,12 @@
               "properties": {
                 "longitude": {
                   "title": "经度",
+                  "description": "经度",
                   "type": "string"
                 },
                 "latitude": {
                   "title": "纬度",
+                  "description": "纬度",
                   "type": "string"
                 }
               }
@@ -81,6 +85,7 @@
           },
           "padding": {
             "title": "四周间距",
+            "description": "四周间距",
             "type": "array"
           }
         }
@@ -95,22 +100,27 @@
         "properties": {
           "longitude": {
             "title": "经度",
+            "description": "经度",
             "type": "string"
           },
           "latitude": {
             "title": "纬度",
+            "description": "纬度",
             "type": "string"
           },
           "iconPath": {
             "title": "图标地址",
+            "description": "图标的url地址",
             "type": "string"
           },
           "width": {
             "title": "图标宽度",
+            "description": "图标宽度",
             "type": "string"
           },
           "height": {
             "title": "图标高度",
+            "description": "图标高度",
             "type": "string"
           },
           "callout": {
@@ -144,10 +154,12 @@
               },
               "borderColor": {
                 "title": "边框颜色",
+                "description": "边框颜色",
                 "type": "string"
               },
               "bgColor": {
                 "title": "背景颜色",
+                "description": "背景颜色",
                 "type": "string"
               },
               "padding": {
