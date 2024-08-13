@@ -182,6 +182,57 @@ export default {
           },
         },
         {
+          title: "动态标签",
+          type: "switch",
+          description: "开启后，可通过连线动态配置左侧的选项列表",
+          value: {
+            get({ data,slot }) {
+              console.log("data.useDynamicTab",data.useDynamicTab)
+              if(!data.useDynamicTab){
+                slot.remove("tabItem")
+              }
+              return data.useDynamicTab;
+            },
+            set({ data , slot }, value) {
+              data.useDynamicTab = value;
+              //当动态标签开启时，把目前的全部slot存起来，后面可以还原
+              if(value){
+                data.slotStorage = data.tabs.map((item) => {
+                  slot.remove(item._id)
+                  return {
+                    id: item._id,
+                    title: item.tabName,
+                    type: "scope",
+                    input: comJson.slots[3].inputs,
+                  };
+                });
+                slot.add(comJson.slots[2])
+              }else{
+                //动态标签页关闭时，还原存储的slot
+                data.slotStorage.forEach((item) => {
+                  slot.add(item)
+                });
+                slot.remove("tabItem")
+                data.slotStorage = []
+              }
+
+            },
+          }
+        },
+        {
+          title: "标签名key",
+          type: "text",
+          description: "开启动态标签后，可通过此key获取标签名",
+          value: {
+            get({ data }) {
+              return data.tabNameKey;
+            },
+            set({ data }, value) {
+              data.tabNameKey = value;
+            },
+          }
+        },
+        {
           title: "内容展示方式",
           type: "radio",
           description:
@@ -234,6 +285,7 @@ export default {
       if (!props.focusArea) return;
 
       const focusItem = getFocusTab(props);
+      console.log("focusItem._id", focusItem._id);
       props.data.edit.currentTabId = focusItem._id;
 
       cate1.title = "常规";

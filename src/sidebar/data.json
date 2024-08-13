@@ -43,5 +43,7 @@
   },
   "navBarGutter": 12,
   "hideContent": false,
-  "contentShowType":"roll"
+  "contentShowType":"roll",
+  "tabNameKey":"tabName",
+  "slotStorage":[]
 }

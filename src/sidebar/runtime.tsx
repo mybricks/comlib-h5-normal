@@ -5,7 +5,9 @@ import cx from "classnames";
 import { TreeSelect } from "brickd-mobile";
 import { isDesigner } from "../utils/env";
 import * as Taro from "@tarojs/taro";
-import { use } from "vue/types/umd";
+import comJson from "./com.json";
+
+const rowKey = "_itemKey";
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -26,6 +28,17 @@ enum ContentShowType {
   Switch = "switch",
 }
 
+//侧边栏标签数据类型
+enum SidebarDataType {
+  Static = "static",
+  Dynamic = "dynamic",
+}
+
+//随机数6位
+const getRandomId = () => {
+  return Math.random().toString(36).slice(-6);
+};
+
 export default function ({ data, inputs, outputs, title, slots, env }) {
   const [updatedTabs, setUpdatedTabs] = useState<Tab[]>([]);
   const [topSlotHeight, setTopSlotHeight] = useState(0);
@@ -38,6 +51,25 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     getDefaultCurrTabId(data.tabs)
   );
   const [pxDelta, setPxDelta] = useState(0);
+  const [tabNameKey, setTabNameKey] = useState(data.tabNameKey)
+
+  useEffect(() => {
+    //TODO 暂时搭建态使用默认 tabKey，防止显示为空；这里更好是直接把默认的列表 tabKey 也修改一下
+    if (env.edit) {
+      setTabNameKey("tabName")
+    } else {
+      setTabNameKey(data.tabNameKey)
+    }
+  }, [data.tabNameKey, env])
+
+  //动态配置侧边选项
+  useMemo(() => {
+    inputs["setSidebarData"]?.((val, relOutputs) => {
+      data.tabs = val.map((t) => { return { ...t, _id: getRandomId() } })
+      setCurrentTabId(data.tabs[0]._id)
+      relOutputs["afterSetSidebarData"]?.(val)
+    })
+  }, [inputs, data])
 
   //判断是否是真机运行态
   const isRelEnv = () => {
@@ -58,12 +90,13 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   };
 
-  //判断data.contentShowType是否为空，如果为空，则默认为roll
+
   useEffect(() => {
+    //判断data.contentShowType是否为空，如果为空，则默认为roll
     if (!data.contentShowType) {
       data.contentShowType = ContentShowType.Roll;
     }
-  }, [data]);
+  }, [data.contentShowType]);
 
   useEffect(() => {
     //真机运行时，获取侧边栏距离顶部的高度
@@ -109,33 +142,48 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       }
       _setCurrentTabId(item._id);
     });
-  }, []);
+  }, [data.useDynamicTab]);
 
   //真机运行时，计算出每个tab的顶部距离和高度
   useEffect(() => {
-    const updateTabsData = async () => {
-      const promises = data.tabs.map(
-        (item) =>
-          new Promise((resolve) => {
-            const query = Taro.createSelectorQuery();
-            query
-              .select(`#${item._id}`)
-              .boundingClientRect()
-              .exec((res) => {
+    console.log("data.tabs", data.tabs, data.useDynamicTab);
+  
+    const updateTabsData = () => {
+      const updatedTabs = [];
+      let index = 0;
+  
+      const processNextTab = () => {
+        if (index < data.tabs.length) {
+          const item = data.tabs[index];
+          const query = Taro.createSelectorQuery();
+          query
+            .select(`#${item._id}`)
+            .boundingClientRect()
+            .exec((res) => {
+              if (res && res[0]) {
                 const { top, height } = res[0];
-                resolve({ ...item, top, height }); // 将原始的item对象和新的top属性结合起来
-              });
-          })
-      );
-
-      const results = await Promise.all(promises);
-      setUpdatedTabs(results);
+                updatedTabs.push({ ...item, top, height });
+              } else {
+                console.error(`Failed to get boundingClientRect for ${item._id}`);
+              }
+              index++;
+              processNextTab(); // 处理下一个 tab
+            });
+        } else {
+          console.log("data.tabs update", updatedTabs);
+          setUpdatedTabs(updatedTabs);
+        }
+      };
+  
+      processNextTab(); // 开始处理第一个 tab
     };
-
+  
     if (isRelEnv()) {
       updateTabsData();
     }
-  }, [data.tabs]);
+  }, [data.tabs, data.useDynamicTab]);
+  
+  
 
   const _setCurrentTabId = useCallback(
     (currentTabId) => {
@@ -160,7 +208,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       // 设置点击标志，用于判断是否是点击触发的滚动
       setInClickType(true);
       env.runtime && _setCurrentTabId(currentTabId);
-
+      console.log("_scrollToTab", currentTabId,"env.runtime",env.runtime);
       if (ContentShowType.Switch === data.contentShowType) {
         //切换页面显示的时候，需要延迟设置innerScrollId，否则无法滚动置顶页面
         setTimeout(() => {
@@ -174,7 +222,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         }, 0);
       }
     },
-    [env.runtime]
+    [env.runtime,data.contentShowType]
   );
 
   const emptyView = useMemo(() => {
@@ -237,49 +285,106 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         scrollTop + topSlotHeight < itemBottom
       );
     });
+    console.log("updatedTabs",updatedTabs,"scrollTop",scrollTop,"topSlotHeight",topSlotHeight)
     if (findItem) {
       _setCurrentTabId(findItem._id);
     }
   };
 
   const RollItems = useMemo(() => {
-    return data.tabs.map((tab) => {
-      return (
-        <View id={tab._id} key={`slot_${tab._id}`}>
-          {data.hideContent
-            ? null
-            : slots[tab._id]?.render?.({
+    //非动态标签的情况
+    if (!data.useDynamicTab) {
+      return data.tabs.map((tab) => {
+        return (
+          <View id={tab._id} key={`slot_${tab._id}`}>
+            {data.hideContent
+              ? null
+              : slots[tab._id]?.render?.({
                 inputValues: {
                   itemData: tab,
                 },
               })}
-        </View>
-      );
-    });
-  }, [data.tabs, data.hideContent, slots]);
-
-  const SwitchItems = useMemo(() => {
-    return data.tabs.map((tab) => {
-      const isActived = env.edit
-        ? tab._id === data.edit.currentTabId
-        : tab._id === currentTabId;
-
-      if (isActived) {
-        return (
-          <View key={`slot_${tab._id}`}>
-            {data.hideContent
-              ? null
-              : slots[tab._id]?.render?.({
-                  inputValues: {
-                    itemData: tab,
-                  },
-                })}
           </View>
         );
-      } else {
-        return null;
-      }
-    });
+      });
+    }
+    //动态标签页
+    if (data.useDynamicTab) {
+      return data.tabs.map((tab, _idx) => {
+        return (
+          <View id={tab._id} key={`slot_${tab._id}`}
+            className=
+            {cx({
+              ["disabled-area"]: env.edit && _idx > 0,
+              [css.disabled_area]: env.edit && _idx > 0
+            })}
+          >
+            {data.hideContent
+              ? null
+              : slots['tabItem']?.render?.({
+                inputValues: {
+                  itemData: tab,
+                  index: _idx
+                },
+              })}
+          </View>
+        );
+      });
+    }
+
+  }, [data.tabs, data.hideContent, slots, data.useDynamicTab]);
+
+  const SwitchItems = useMemo(() => {
+    if (!data.useDynamicTab) {
+      return data.tabs.map((tab, _idx) => {
+        const isActived = env.edit
+          ? tab._id === data.edit.currentTabId
+          : tab._id === currentTabId;
+
+        if (isActived) {
+          return (
+            <View key={`slot_${tab._id}`}>
+              {data.hideContent
+                ? null
+                : slots[tab._id]?.render?.({
+                  inputValues: {
+                    itemData: tab,
+                    index: _idx
+                  },
+                })}
+            </View>
+          );
+        } else {
+          return null;
+        }
+      });
+    }
+    if (data.useDynamicTab) {
+      return data.tabs.map((tab, _idx) => {
+        const isActived = env.edit
+          ? tab._id === data.edit.currentTabId
+          : tab._id === currentTabId;
+
+        if (isActived) {
+          return (
+            <View key={`slot_${tab._id}`}>
+              {data.hideContent
+                ? null
+                : slots["tabItem"]?.render?.({
+                  inputValues: {
+                    itemData: tab,
+                    index: _idx
+                  },
+                })}
+            </View>
+          );
+        } else {
+          return null;
+        }
+      });
+    }
+
+
   }, [
     data.tabs,
     data.hideContent,
@@ -287,6 +392,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     env.edit,
     data.edit.currentTabId,
     currentTabId,
+    data.useDynamicTab
   ]);
 
   const tabValue = useMemo(() => {
@@ -314,7 +420,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       >
         {data.tabs.map((tab) => {
           return (
-            <TreeSelect.Tab key={tab._id} title={tab.tabName} value={tab._id}>
+            <TreeSelect.Tab key={tab._id} title={tab[tabNameKey || "tabName"]} value={tab._id}>
               <ScrollView
                 scrollY
                 scrollIntoView={innerScrollId}
@@ -326,8 +432,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
                   {data.contentShowType === ContentShowType.Roll && RollItems}
 
                   {/* 切换显示 */}
-                  {data.contentShowType === ContentShowType.Switch &&
-                    SwitchItems}
+                  {data.contentShowType === ContentShowType.Switch && SwitchItems}
                 </View>
               </ScrollView>
             </TreeSelect.Tab>

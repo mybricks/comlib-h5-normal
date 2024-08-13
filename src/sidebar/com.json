@@ -11,6 +11,26 @@
   "editors": "./editors.tsx",
   "inputs": [
     {
+      "id": "setSidebarData",
+      "title": "配置侧边选项",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "object",
+          "properties": {
+            "tabName": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "rels": [
+        "afterSetSidebarData"
+      ]
+    },
+    {
       "id": "activeTabName",
       "desc":"输入tab名称，激活对应的tab项",
       "title": "激活tab项",
@@ -26,6 +46,18 @@
       "schema": {
         "type": "number"
       }
+    },
+    {
+      "id": "afterSetSidebarData",
+      "title": "数据设置后",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
     }
   ],
   "slots": [
@@ -36,6 +68,30 @@
     {
       "id": "content",
       "title": "内容"
+    },
+    {
+      "id": "tabItem",
+      "capacity": 1,
+      "title": "动态标签项",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "itemData",
+          "title": "当前项",
+          "desc": "当前项展示内容",
+          "schema": {
+            "type": "any"
+          }
+        },
+        {
+          "id": "index",
+          "title": "当前项序号",
+          "desc": "当前项展示的序号",
+          "schema": {
+            "type": "number"
+          }
+        }
+      ]
     },
     {
       "id": "tabName1",
