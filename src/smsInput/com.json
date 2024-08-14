@@ -26,7 +26,7 @@
       "title": "获取值",
       "desc": "获取输入的值并输出",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
       "rels": [
         "returnValue"

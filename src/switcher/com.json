@@ -20,13 +20,16 @@
           "type": "object",
           "properties": {
             "text": {
-              "type": "string"
+              "type": "string",
+              "description": "需要显示在侧边项中的key"
             },
             "unselectedIcon": {
-              "type": "string"
+              "type": "string",
+              "description": "默认图标"
             },
             "selectedIcon": {
-              "type": "string"
+              "type": "string",
+              "description": "选中图标"
             }
           }
         }

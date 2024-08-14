@@ -23,7 +23,7 @@
       "title": "获取值",
       "desc": "获取单行输入的值并输出",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
       "rels": ["returnValue"]
     },

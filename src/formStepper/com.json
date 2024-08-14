@@ -24,7 +24,7 @@
       "title": "获取值",
       "desc": "获取表单项值并输出",
       "schema": {
-        "type": "any"
+        "type": "number"
       },
       "rels": ["returnValue"]
     },

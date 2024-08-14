@@ -23,7 +23,8 @@
       "title": "获取表单数据",
       "rels": ["returnValues"],
       "schema": {
-        "type": "any"
+        "type": "object",
+        "properties": {}
       },
       "desc": "获取表单数据（不会触发校验）"
     },

@@ -13,7 +13,7 @@
     {
       "id": "setValue",
       "title": "设置值",
-      "desc": "设置值，并触发值变化事件输出",
+      "desc": "设置值，并触发值变化事件输出 示例:[\"北京\",\"杭州\"]",
       "schema": {
         "type": "array",
         "items": {
@@ -25,9 +25,12 @@
     {
       "id": "getValue",
       "title": "获取值",
-      "desc": "获取值并输出",
+      "desc": "获取值并输出 示例:[\"北京\",\"杭州\"]",
       "schema": {
-        "type": "any"
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
       },
       "rels": ["returnValue"]
     },

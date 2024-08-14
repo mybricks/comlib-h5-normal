@@ -12,7 +12,12 @@
   "inputs": [
     {
       "id": "noticeText",
-      "title": "设置内容"
+      "title": "设置内容",
+      "desc": "设置通知栏文本内容",
+      "schema": {
+        "title": "设置内容",
+        "type": "string"
+      }
     }
   ],
   "outputs": [

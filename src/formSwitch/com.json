@@ -23,7 +23,7 @@
       "title": "获取值",
       "desc": "获取值并输出",
       "schema": {
-        "type": "any"
+        "type": "boolean"
       },
       "rels": ["returnValue"]
     },

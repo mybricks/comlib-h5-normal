@@ -23,14 +23,17 @@
           "properties": {
             "label": {
               "title": "名称",
+              "desc":"名称",
               "type": "string"
             },
             "value": {
               "title": "值",
+              "desc":"值",
               "type": "string"
             },
             "children": {
-              "title": "值",
+              "title": "子级",
+              "desc":"子级",
               "type": "array"
             }
           }

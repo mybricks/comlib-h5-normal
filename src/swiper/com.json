@@ -16,11 +16,16 @@
         "type": "array",
         "items": {
           "type": "object",
+          "description":"thumbnail: 图片; customLink:点击后跳转的链接",
           "properties": {
             "thumbnail": {
+              "title":"图片",
+              "description":"图片",
               "type": "string"
             },
             "customLink": {
+              "title":"点击后跳转链接",
+              "description":"点击后跳转链接",
               "type": "string"
             }
           }

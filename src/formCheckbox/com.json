@@ -13,7 +13,7 @@
     {
       "id": "setValue",
       "title": "设置值",
-      "desc": "设置值，并触发值变化事件输出",
+      "desc": "设置值，并触发值变化事件输出 示例:[\"邮箱\",\"手机\"]",
       "schema": {
         "type": "array"
       },
@@ -22,9 +22,9 @@
     {
       "id": "getValue",
       "title": "获取值",
-      "desc": "获取值并输出",
+      "desc": "获取值并输出 示例:[\"邮箱\",\"手机\"]",
       "schema": {
-        "type": "any"
+        "type": "array"
       },
       "rels": ["returnValue"]
     },
@@ -40,6 +40,7 @@
     {
       "id": "setOptions",
       "title": "设置多选项",
+      "desc":"设置多选项",
       "schema": {
         "type": "array",
         "items": {
@@ -47,14 +48,17 @@
           "properties": {
             "label": {
               "title": "标签",
+              "description":"标签",
               "type": "string"
             },
             "value": {
               "title": "值",
+              "description":"值",
               "type": "any"
             },
             "disabled": {
               "title": "禁用",
+              "description":"禁用",
               "type": "boolean"
             }
           }

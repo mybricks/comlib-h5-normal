@@ -13,7 +13,7 @@
     {
       "id": "setValue",
       "title": "设置值",
-      "desc": "设置表单项值",
+      "desc": "设置表单项值 示例:\"公开\"",
       "schema": {
         "type": "string"
       },
@@ -22,9 +22,9 @@
     {
       "id": "getValue",
       "title": "获取值",
-      "desc": "获取表单项值并输出",
+      "desc": "获取表单项值并输出 示例:\"公开\"",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
       "rels": ["returnValue"]
     },

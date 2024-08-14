@@ -13,7 +13,9 @@
     {
       "id": "getSelectDate",
       "title": "获取已选择日期",
-      "rels": ["returnValues"],
+      "rels": [
+        "returnValues"
+      ],
       "schema": {
         "type": "any"
       },
@@ -27,15 +29,19 @@
         "properties": {
           "min": {
             "type": "string",
+            "desc": "可选择的最小日期",
             "title": "可选择的最小日期"
           },
           "max": {
             "type": "string",
+            "desc": "可选择的最大日期",
             "title": "可选择的最大日期"
           }
         }
       },
-      "rels": ["afterSetCustomRange"]
+      "rels": [
+        "afterSetCustomRange"
+      ]
     }
   ],
   "outputs": [

@@ -13,7 +13,7 @@
     {
       "id": "setValue",
       "title": "设置值",
-      "desc": "设置的值，并触发值变化事件输出",
+      "desc": "设置的值，并触发值变化事件输出 示例值:1723593600000 (毫秒时间戳)",
       "schema": {
         "type": "string"
       },
@@ -22,9 +22,9 @@
     {
       "id": "getValue",
       "title": "获取值",
-      "desc": "获取的值并输出",
+      "desc": "获取的值并输出 示例值:1723593600000 (毫秒时间戳)",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
       "rels": ["returnValue"]
     },

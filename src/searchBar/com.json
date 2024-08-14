@@ -20,7 +20,7 @@
       "id": "getValue",
       "title": "获取值",
       "schema": {
-        "type": "any"
+        "type": "string"
       },
       "rels": ["returnValue"]
     }

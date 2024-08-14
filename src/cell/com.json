@@ -16,13 +16,19 @@
         "type": "object",
         "properties": {
           "title": {
-            "type": "string"
+            "type": "string",
+            "title":"单元格标题",
+            "description":"单元格标题"
           },
           "brief": {
-            "type": "string"
+            "type": "string",
+            "title":"单元格描述",
+            "description":"单元格描述"
           },
           "content": {
-            "type": "string"
+            "type": "string",
+            "title":"单元格内容",
+             "description":"单元格内容"
           }
         }
       }

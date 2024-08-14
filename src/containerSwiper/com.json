@@ -11,7 +11,7 @@
   "inputs": [
     {
       "id": "dataSource",
-      "title": "设置数据源",
+      "title": "设置轮播数据",
       "schema": {
         "type": "array",
         "items": {
