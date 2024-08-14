@@ -6,6 +6,7 @@
   "version": "1.0.0",
   "description": "侧边栏",
   "runtime": "./runtime.tsx",
+  "runtime.edit": "./edit/runtime.tsx",
   "data": "./data.json",
   "icon": "./icon.svg",
   "editors": "./editors.tsx",
