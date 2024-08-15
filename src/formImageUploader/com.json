@@ -120,7 +120,20 @@
             "type": "object",
             "properties": {
               "filePath": {
-                "type": "string"
+                "type": "string",
+                "description": "本地临时文件路径"
+              },
+              "size": {
+                "type": "number",
+                "description": "本地文件大小，单位 B"
+              },
+              "fileName": {
+                "type": "string",
+                "description": "原始文件名称，仅在 H5 环境下有效"
+              },
+              "type": {
+                "type": "string",
+                "description": "原始文件类型，仅在 H5 环境下有效"
               }
             }
           }

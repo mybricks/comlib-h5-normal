@@ -5,7 +5,7 @@ import cx from "classnames";
 import * as Taro from "@tarojs/taro";
 import { isNumber, isObject, isString, isEmpty } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
-import { isDesigner } from "../utils/env";
+import { isDesigner, isH5 } from "../utils/env";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -134,14 +134,22 @@ export default function (props) {
     Taro.chooseImage({
       count: data.maxCount - value.length,
       sizeType: ["original", "compressed"],
-      // sourceType: ["album", "camera"],
-      sourceType: ["album"],
+      sourceType: isH5() ? ["album"] : ["album", "camera"],
       success: async (res) => {
-        res.tempFiles.forEach((tempFiles) => {
-          slots["customUpload"]?.inputs["fileData"]({
-            filePath: tempFiles.path,
-            fileName:tempFiles.originalFileObj?.name
-          });
+        res.tempFiles.forEach((tempFile) => {
+          console.log("tempFile", tempFile);
+
+          let result = {
+            filePath: tempFile.path,
+            size: tempFile.size,
+          };
+
+          if (isH5()) {
+            result.fileName = tempFile.originalFileObj?.name;
+            result.type = tempFile.originalFileObj?.type;
+          }
+
+          slots["customUpload"]?.inputs["fileData"](result);
         });
       },
     });
