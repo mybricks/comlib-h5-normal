@@ -19,8 +19,7 @@ export default function ({ env, data, inputs, outputs }) {
     // }
 
     if (data.mode === "custom") {
-      env.uploadFile({
-        // header: header,
+      let params = {
         withCredentials: false,
         url: data.custom.url,
         filePath: value.filePath,
@@ -28,6 +27,14 @@ export default function ({ env, data, inputs, outputs }) {
         formData: {
           ...(value.formData || {}),
         },
+      };
+
+      if (typeof value.fileName === "string") {
+        params.fileName = value.fileName;
+      }
+
+      env.uploadFile({
+        ...params,
         success(res) {
           // 接口返回的信息
           let data = res.data;

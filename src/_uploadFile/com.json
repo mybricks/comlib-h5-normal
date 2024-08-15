@@ -21,7 +21,12 @@
             "type": "object"
           },
           "filePath": {
-            "type": "string"
+            "type": "string",
+            "description": "要上传文件资源的路径"
+          },
+          "fileName": {
+            "type": "string",
+            "description": "上传的文件名，仅在 H5 端生效"
           }
         }
       }
