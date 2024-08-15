@@ -10,7 +10,7 @@ export default {
       {
         title: "输入框",
         options: ["font", "border", "size", "padding", "background"],
-        target: ".taroify-input",
+        target: ".taroify-input .taroify-native-input",
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

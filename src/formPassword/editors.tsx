@@ -12,7 +12,7 @@ export default {
       {
         title: "输入框",
         options: ["font", "border", "size", "padding", "background"],
-        target: ".mybricks-field-password",
+        target: ".mybricks-field-password .taroify-native-input",
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {

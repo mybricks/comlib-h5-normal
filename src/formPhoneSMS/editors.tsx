@@ -127,7 +127,7 @@ export default {
       {
         title: "输入框",
         options: ["font", "border", "size", "padding", "background"],
-        target: ".taroify-input",
+        target: ".taroify-input .taroify-native-input",
       },
       {
         title: "验证码按钮",
