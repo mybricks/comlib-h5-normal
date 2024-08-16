@@ -42,5 +42,12 @@
         display: none;
       }
     }
+
+    .custom_input_black {
+      /* 覆盖禁用状态下的样式 */
+      color: #000; /* 使禁用状态下的文字颜色与正常状态一致 */
+      pointer-events: none; /* 禁用用户交互 */
+      -webkit-text-fill-color:#000
+    }
   }
 }

@@ -121,20 +121,26 @@ export default function (props) {
     outputs["onChange"](value);
   }, []);
 
+  const disable = useMemo(()=>{
+    if(data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
+      data.getPhoneNumberMethods === "getPhoneNumber"){
+        return true;
+      }else{
+        return false;
+      }
+  },[data.getPhoneNumberMethods])
+
   return (
     <View className={css.outerPhoneNumber}>
       <View className={css.phoneNumber}>
         <Input
-          className={css.input}
+          className={cx(css.input,disable && data.value ? css.custom_input_black : "")}
           value={data.value}
           placeholder={data.placeholder}
           onChange={onChange}
           onBlur={onBlur}
           disabled={
-            data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
-            data.getPhoneNumberMethods === "getPhoneNumber"
-              ? true
-              : false
+            disable ? true : false
           }
         />
         {data.getPhoneNumberMethods !== "customInput" && (
