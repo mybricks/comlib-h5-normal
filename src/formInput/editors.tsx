@@ -10,8 +10,31 @@ export default {
     style: [
       {
         title: "输入框",
-        options: ["font", "border", "size", "padding", "background"],
-        target: ".taroify-input .taroify-native-input",
+        options: ["border", "size", "padding", "background"],
+        target({ id }) {
+          return [
+            `.${id} .taroify-input`,
+            `.${id} .taroify-input .taroify-native-input`,
+          ];
+        },
+      },
+      {
+        title: "内容文本",
+        options: ["font"],
+        target({ id }) {
+          return [
+            `.${id} .taroify-input`,
+            `.${id} .taroify-input .taroify-native-input`,
+          ];
+        },
+      },
+      {
+        title: "提示内容文本",
+        options: ["font"],
+        target: [
+          ".taroify-input .taroify-native-input::placeholder",
+          ".taroify-input .taroify-input__placeholder",
+        ],
       },
     ],
     items: ({ data, inputs, output, style }, cate0, cate1, cate2) => {
@@ -90,7 +113,7 @@ export default {
               options: {
                 outputId: "onBlur",
               },
-            }
+            },
           ],
         },
       ];

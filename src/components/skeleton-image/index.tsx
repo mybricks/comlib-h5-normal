@@ -87,21 +87,23 @@ export default function ({
         className={loading ? `${css.place}` : `${css.place} ${css.none}`}
         style={skeletonStyle}
       ></View>
-      <Image
-        // 开启懒加载，官方解释是 在即将进入一定范围（上下三屏）时才开始加载
-        lazyLoad
-        className={className}
-        src={_src}
-        mode={mode}
-        onClick={_onClick}
-        onLoad={_onLoad}
-        onError={_onError}
-        nativeProps={{
-          loading: "lazy",
-          decoding: "async",
-        }}
-        {...props}
-      />
+      {_src && (
+        <Image
+          // 开启懒加载，官方解释是 在即将进入一定范围（上下三屏）时才开始加载
+          lazyLoad
+          className={className}
+          src={_src}
+          mode={mode}
+          onClick={_onClick}
+          onLoad={_onLoad}
+          onError={_onError}
+          nativeProps={{
+            loading: "lazy",
+            decoding: "async",
+          }}
+          {...props}
+        />
+      )}
     </View>
   );
 }

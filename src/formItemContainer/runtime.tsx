@@ -47,12 +47,12 @@ export default function (props) {
     });
 
     // 设置禁用
-    inputs["setDisabled"](() => {
+    inputs["setDisabled"]?.(() => {
       data.disabled = true;
     });
 
     // 设置启用
-    inputs["setEnabled"](() => {
+    inputs["setEnabled"]?.(() => {
       data.disabled = false;
     });
   }, []);
