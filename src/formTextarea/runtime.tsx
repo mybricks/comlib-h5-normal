@@ -3,6 +3,8 @@ import { Textarea } from "brickd-mobile";
 import { isNumber, isString, isObject, isEmpty } from "../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import css from "./style.less";
+import { isH5 } from "../utils/env";
+import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -103,7 +105,11 @@ export default function (props) {
 
   return (
     <Textarea
-      className={css.textarea}
+      className={cx({
+        [css.textarea]: true,
+        "mybricks-textarea": !isH5(),
+        "mybricks-h5Textarea": isH5(),
+      })}
       value={value}
       autoHeight={isAutoHeight}
       limit={limit}

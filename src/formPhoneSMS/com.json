@@ -13,15 +13,16 @@
     {
       "id": "setValue",
       "title": "设置值",
-      "desc": "设置单行输入的值，并触发值变化事件输出",
+      "desc": "设置表单项值",
       "schema": {
         "type": "string"
-      }
+      },
+      "rels": ["setValueComplete"]
     },
     {
       "id": "getValue",
       "title": "获取值",
-      "desc": "获取单行输入的值并输出",
+      "desc": "获取表单项值并输出",
       "schema": {
         "type": "string"
       },
@@ -30,18 +31,11 @@
     {
       "id": "resetValue",
       "title": "重置值",
-      "desc": "清空单行输入的值",
+      "desc": "清空表单项值",
       "schema": {
         "type": "any"
-      }
-    },
-    {
-      "id": "startCountDown",
-      "title": "开始倒数",
-      "desc": "触发后开始倒计时",
-      "schema": {
-        "type": "any"
-      }
+      },
+      "rels": ["resetValueComplete"]
     },
     {
       "id": "clearCountDown",
@@ -49,20 +43,30 @@
       "desc": "触发后停止倒计时",
       "schema": {
         "type": "any"
+      },
+      "rels": ["clearCountDownComplete"]
+    },
+    {
+      "id": "setLabel",
+      "title": "设置标题",
+      "desc": "设置表单项标题，仅当表单项在表单容器内时生效",
+      "schema": {
+        "type": "string"
       }
     },
     {
-      "id": "setButtonDisabled",
-      "title": "禁用获取验证码按钮",
+      "id": "setPlaceholder",
+      "title": "设置提示内容",
       "schema": {
-        "type": "any"
+        "type": "string"
       }
     },
     {
-      "id": "setButtonEnabled",
-      "title": "启用获取验证码按钮",
+      "id": "setDisabled",
+      "title": "设置是否禁用",
+      "desc": "设置表单项是否禁用，传入 true 时禁用表单项，传入 false 时启用表单项",
       "schema": {
-        "type": "any"
+        "type": "boolean"
       }
     }
   ],
@@ -89,10 +93,38 @@
       }
     },
     {
+      "id": "setValueComplete",
+      "title": "设置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
       "id": "returnValue",
       "title": "值输出",
       "schema": {
         "type": "string"
+      }
+    },
+    {
+      "id": "resetValueComplete",
+      "title": "重置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabledComplete",
+      "title": "是否禁用设置完成",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "id": "clearCountDownComplete",
+      "title": "清除完成",
+      "schema": {
+        "type": "any"
       }
     }
   ],

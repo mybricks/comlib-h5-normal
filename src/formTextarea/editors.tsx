@@ -10,21 +10,28 @@ export default {
     style: [
       {
         title: "输入框",
-        options: ["size", "font", "border", "padding", "background"],
+        options: ["size", "border", "padding", "background"],
         target: ".taroify-textarea__wrapper",
       },
       {
         title: "内容文本",
         options: ["font"],
-        target: ".taroify-input .taroify-native-textarea",
+        target({ id }) {
+          return [
+            ".taroify-textarea__wrapper .mybricks-textarea",
+            ".taroify-textarea__wrapper .mybricks-h5Textarea .taroify-native-textarea",
+          ];
+        },
       },
       {
         title: "提示内容文本",
         options: ["font"],
-        target: [
-          ".taroify-input .taroify-native-textarea::placeholder",
-          ".taroify-input .taroify-textarea__placeholder",
-        ],
+        target({ id }) {
+          return [
+            ".taroify-textarea__wrapper .taroify-textarea__placeholder",
+            ".taroify-textarea__wrapper .mybricks-h5Textarea .taroify-native-textarea::placeholder",
+          ];
+        },
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {

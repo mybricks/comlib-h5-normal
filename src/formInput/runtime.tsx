@@ -3,12 +3,13 @@ import { isNumber, isObject, isString, isEmpty } from "../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { Input } from "brickd-mobile";
 import css from "./style.less";
+import { isH5 } from "../utils/env";
+import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
-    
     //
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
@@ -93,7 +94,11 @@ export default function (props) {
 
   return (
     <Input
-      className={css.input}
+      className={cx({
+        [css.input]: !isH5(),
+        "mybricks-input": !isH5(),
+        "mybricks-h5Input": isH5(),
+      })}
       value={value}
       type={data.type}
       placeholder={data.placeholder}

@@ -11,42 +11,35 @@ export default {
     style: [
       {
         title: "输入框",
-        options: ["font", "border", "size", "padding", "background"],
-        target: ".mybricks-field-password .taroify-native-input",
+        options: ["border", "size", "padding", "background"],
+        target({ id }) {
+          return [".mybricks-password", ".mybricks-h5Password"];
+        },
+      },
+      {
+        title: "内容文本",
+        options: ["font"],
+        target({ id }) {
+          return [
+            `.mybricks-password .taroify-input`,
+            `.mybricks-h5Password .taroify-input .taroify-native-input`,
+          ];
+        },
+      },
+      {
+        title: "提示内容文本",
+        options: ["font"],
+        target({ id }) {
+          return [
+            `.mybricks-password .taroify-input__placeholder`,
+            `.mybricks-h5Password .taroify-native-input::placeholder`,
+          ];
+        },
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
-        // {
-        //   title: "标题",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.label;
-        //     },
-        //     set({ data }, value) {
-        //       if (data.label === data.name) {
-        //         data.label = value;
-        //         data.name = value;
-        //       } else {
-        //         data.label = value;
-        //       }
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "字段",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.name;
-        //     },
-        //     set({ data }, value) {
-        //       return (data.name = value);
-        //     },
-        //   },
-        // },
         {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",
@@ -74,7 +67,7 @@ export default {
           options: {
             outputId: "onBlur",
           },
-        }
+        },
       ];
     },
   },
