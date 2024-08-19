@@ -1,4 +1,5 @@
 import * as Taro from "@tarojs/taro";
+import { isH5 } from "../utils/env";
 
 export default function ({ env, data, inputs, outputs }) {
   if (!env.runtime) {
@@ -9,11 +10,18 @@ export default function ({ env, data, inputs, outputs }) {
     let elements = val;
 
     // 创建离屏 2D canvas 实例
-    const canvas = Taro.createOffscreenCanvas({
-      type: "2d",
-      width: data.canvasWidth,
-      height: data.canvasHeight,
-    });
+    let canvas;
+    if (isH5()) {
+      canvas = document.createElement("canvas");
+      canvas.width = data.canvasWidth;
+      canvas.height = data.canvasHeight;
+    } else {
+      canvas = Taro.createOffscreenCanvas({
+        type: "2d",
+        width: data.canvasWidth,
+        height: data.canvasHeight,
+      });
+    }
 
     // 获取 context
     const context = canvas.getContext("2d");
@@ -22,12 +30,22 @@ export default function ({ env, data, inputs, outputs }) {
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i];
       if (element.type === "image") {
-        const image = canvas.createImage();
-        await new Promise((resolve) => {
-          image.onload = resolve;
-          image.src = element.content;
-        });
-        elements[i].imageObj = image;
+        if (isH5()) {
+          const image = new Image();
+          await new Promise((resolve) => {
+            image.onload = resolve;
+            image.crossOrigin = "anonymous"; // 设置跨域属性
+            image.src = element.content;
+          });
+          elements[i].imageObj = image;
+        } else {
+          const image = canvas.createImage();
+          await new Promise((resolve) => {
+            image.onload = resolve;
+            image.src = element.content;
+          });
+          elements[i].imageObj = image;
+        }
       }
     }
 
