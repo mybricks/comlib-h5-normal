@@ -117,7 +117,7 @@ export default {
     style: [
       {
         title: "授权按钮",
-        options: ["size", "padding"],
+        options: ["size", "padding", "margin", "boxshadow"],
         target({ id }) {
           return [".mybricks-button", ".mybricks-button-disabled"];
         },
