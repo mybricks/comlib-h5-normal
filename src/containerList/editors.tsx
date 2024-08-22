@@ -164,6 +164,19 @@ export default {
           },
         },
       },
+      {
+        title:"自动展示无内容状态",
+        description:"当传入的数据源为一个空数组[]时，自动切换列表到空状态",
+        type:"switch",
+        value: {
+          get({ data }) {
+            return data.autoEmptyCondition;
+          },
+          set({ data, slot }, value) {
+            data.autoEmptyCondition = value;
+          },
+        },
+      },
       {},
       {
         title: "瀑布流配置",
