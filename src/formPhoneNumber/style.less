@@ -1,53 +1,65 @@
-.outerPhoneNumber {
+.phoneNumber {
+  position: relative;
+  height: 24px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  .phoneNumber {
-    // height: 44px;
+  .inner {
     width: 100%;
+    height: 100%;
     position: relative;
+  }
 
-    :global {
+  .input {
+    height: 100%;
+  }
 
-      // H5的垫片，不能让他有样式
-      .taroify-native-input {
-        // H5兼容，给input配置字体大小，不然不会编译成vw
+  :global {
+    // H5的垫片，不能让他有样式
+    .taroify-native-input {
+      // H5兼容，给input配置字体大小，不然不会编译成vw
+      font-size: 14px;
+      border: none;
+      background: transparent;
+      &::placeholder {
         font-size: 14px;
-        border: none;
-        background: transparent;
+        color: #c8c9cc;
       }
     }
 
-    .button {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      width: fit-content;
-      padding: 0 12px;
-      height: 100%;
-      border: none;
+    .taroify-input__placeholder,
+    .taroify-input__placeholder--readonly {
+      font-size: 14px;
+      color: #c8c9cc;
+    }
+  }
+
+  .button {
+    position: absolute !important;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: fit-content;
+    padding: 0;
+    border: none;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      display: none;
+    }
+
+    &.enabled {
       color: #ea732e;
-      font-size: 13px;
-      font-weight: 500;
-      background: none;
-      border: none;
-      z-index: 99;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &::after {
-        display: none;
-      }
     }
 
-    .custom_input_black {
-      /* 覆盖禁用状态下的样式 */
-      color: #000; /* 使禁用状态下的文字颜色与正常状态一致 */
-      pointer-events: none; /* 禁用用户交互 */
-      -webkit-text-fill-color:#000
+    &.disabled {
+      color: #999999;
     }
   }
 }

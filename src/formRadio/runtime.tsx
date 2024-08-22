@@ -86,7 +86,7 @@ export default function (props) {
     });
 
     /* 设置禁用 */
-    inputs["setDisabled"]((val, outputRels) => {
+    inputs["setDisabled"]?.((val, outputRels) => {
       data.disabled = !!val;
       outputRels["setDisabledComplete"]?.(data.disabled);
     });

@@ -3,7 +3,9 @@ import { isNumber, isObject, isString, isEmpty } from "./../utils/core/type";
 import { View } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
-import { Input, Field } from "brickd-mobile";
+import { Input } from "brickd-mobile";
+import { isH5 } from "../utils/env";
+import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -35,14 +37,13 @@ export default function (props) {
       }
     });
 
-
     // 设置禁用
-    inputs["setDisabled"](() => {
+    inputs["setDisabled"]?.(() => {
       data.disabled = true;
     });
 
     // 设置启用
-    inputs["setEnabled"](() => {
+    inputs["setEnabled"]?.(() => {
       data.disabled = false;
     });
   }, []);
@@ -77,7 +78,13 @@ export default function (props) {
   }, []);
 
   return (
-    <View className={`${css.password} mybricks-field-password`}>
+    <View
+      className={cx({
+        [css.password]: true,
+        "mybricks-password": !isH5(),
+        "mybricks-h5Password": isH5(),
+      })}
+    >
       <Input
         value={value}
         password={paasword}

@@ -4,50 +4,82 @@ import { Input } from "brickd-mobile";
 import css from "./style.less";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
-import { isEmpty, isString, isNumber, isObject } from "./../utils/core/type";
+import { isEmpty, isString, isNumber, isObject } from "./../utils/type";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
+import { isH5 } from "../utils/env";
+import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
-  const _valueCache = useRef(data.value);
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    //
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: val,
+    });
+
+    //
+    outputs["onChange"](val);
+  });
 
   useEffect(() => {
-    inputs["setValue"]((val) => {
+    /* 设置值 */
+    inputs["setValue"]((val, outputRels) => {
+      let result;
+
       switch (true) {
         case isEmpty(val): {
-          data.value = "";
+          result = "";
           break;
         }
         case isString(val) || isNumber(val):
-          data.value = val;
-          break;
-        case isObject(val):
-          data.value = val[data.name];
+          result = `${val}`;
           break;
         default:
+          // 其他类型的值，直接返回
           return;
       }
-
-      _onChange(data.value);
+      setValue(result);
+      outputRels["setValueComplete"]?.(result); // 表单容器调用 setValue 时，没有 outputRels
     });
 
+    /* 获取值 */
     inputs["getValue"]((val, outputRels) => {
-      outputRels["returnValue"](data.value);
+      outputRels["returnValue"](getValue());
     });
 
-    // 设置禁用
-    inputs["setDisabled"](() => {
-      data.disabled = true;
+    /* 重置值 */
+    inputs["resetValue"]((val, outputRels) => {
+      setValue("");
+      outputRels["resetValueComplete"]?.("");
     });
 
-    // 设置启用
-    inputs["setEnabled"](() => {
-      data.disabled = false;
+    /* 设置标题 */
+    inputs["setLabel"]?.((val) => {
+      if (!isString(val)) {
+        return;
+      }
+
+      parentSlot?._inputs["setProps"]?.({
+        id: props.id,
+        name: props.name,
+        value: {
+          label: val,
+        },
+      });
     });
 
-    inputs["resetValue"]((val) => {
-      data.value = null;
-      _onChange(data.value);
+    /* 设置提示内容 */
+    inputs["setPlaceholder"]((val) => {
+      data.placeholder = val;
+    });
+
+    /* 设置禁用 */
+    inputs["setDisabled"]?.((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
     });
   }, []);
 
@@ -57,12 +89,14 @@ export default function (props) {
         return {
           openType: "getPhoneNumber",
           onGetPhoneNumber: (e) => {
+            e.stopPropagation();
+
             if (!!e.detail.errno) {
-              outputs["getPhoneNumberFail"]({
+              outputs["getCodeFail"]({
                 ...e.detail,
               });
             } else {
-              outputs["getPhoneNumberSuccess"]({
+              outputs["getCodeSuccess"]({
                 ...e.detail,
               });
             }
@@ -74,83 +108,56 @@ export default function (props) {
         return {
           openType: "getRealtimePhoneNumber",
           onGetRealtimePhoneNumber: (e) => {
+            e.stopPropagation();
+
             if (!!e.detail.errno) {
-              outputs["getRealtimePhoneNumberFail"]({
+              outputs["getCodeFail"]({
                 ...e.detail,
               });
             } else {
-              outputs["getRealtimePhoneNumberSuccess"]({
+              outputs["getCodeSuccess"]({
                 ...e.detail,
               });
             }
           },
         };
       }
-
-      default: {
-        // 命中兜底逻辑
-        return null;
-      }
     }
-  }, [data.getPhoneNumberMethods, data.buttonText, env.runtime]);
+  }, [data.getPhoneNumberMethods]);
 
   const onChange = useCallback((e) => {
     let value = e.detail.value;
-    data.value = value;
-
-    _onChange(value);
+    setValue(value);
   }, []);
-
-  const onBlur = useCallback((e) => {
-    let value = e.detail.value;
-    outputs["onBlur"](value);
-  }, []);
-
-  const _onChange = useCallback((value) => {
-    if (value == _valueCache.current) {
-      return;
-    }
-    _valueCache.current = value;
-
-    parentSlot?._inputs["onChange"]?.({
-      id: props.id,
-      name: props.name,
-      value,
-    });
-
-    outputs["onChange"](value);
-  }, []);
-
-  const disable = useMemo(()=>{
-    if(data.getPhoneNumberMethods === "getRealtimePhoneNumber" ||
-      data.getPhoneNumberMethods === "getPhoneNumber"){
-        return true;
-      }else{
-        return false;
-      }
-  },[data.getPhoneNumberMethods])
 
   return (
-    <View className={css.outerPhoneNumber}>
-      <View className={css.phoneNumber}>
+    <View
+      className={cx({
+        [css.phoneNumber]: true,
+        "mybricks-phoneNumber": !isH5(),
+        "mybricks-h5PhoneNumber": isH5(),
+      })}
+    >
+      <View className={css.inner}>
         <Input
-          className={cx(css.input,disable && data.value ? css.custom_input_black : "")}
-          value={data.value}
+          className={css.input}
+          value={value}
           placeholder={data.placeholder}
           onChange={onChange}
-          onBlur={onBlur}
-          disabled={
-            disable ? true : false
-          }
+          readonly={true}
         />
-        {data.getPhoneNumberMethods !== "customInput" && (
-          <Button
-            className={cx("mybricks-getphonenumber-button", css.button)}
-            {...openType}
-          >
-            {data.buttonText || "点击授权"}
-          </Button>
-        )}
+        <Button
+          className={cx({
+            [css.button]: true,
+            [css.enabled]: !data.disabled,
+            "mybricks-button": !data.disabled,
+            [css.disabled]: data.disabled,
+            "mybricks-button-disabled": data.disabled,
+          })}
+          {...openType}
+        >
+          {data.buttonText || "点击授权"}
+        </Button>
       </View>
     </View>
   );

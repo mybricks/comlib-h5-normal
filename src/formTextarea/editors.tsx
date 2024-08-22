@@ -10,42 +10,33 @@ export default {
     style: [
       {
         title: "输入框",
-        options: ["size", "font", "border", "padding", "background"],
+        options: ["size", "border", "padding", "background"],
         target: ".taroify-textarea__wrapper",
+      },
+      {
+        title: "内容文本",
+        options: ["font"],
+        target({ id }) {
+          return [
+            ".taroify-textarea__wrapper .mybricks-textarea",
+            ".taroify-textarea__wrapper .mybricks-h5Textarea .taroify-native-textarea",
+          ];
+        },
+      },
+      {
+        title: "提示内容文本",
+        options: ["font"],
+        target({ id }) {
+          return [
+            ".taroify-textarea__wrapper .taroify-textarea__placeholder",
+            ".taroify-textarea__wrapper .mybricks-h5Textarea .taroify-native-textarea::placeholder",
+          ];
+        },
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
-        // {
-        //   title: "标题",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.label;
-        //     },
-        //     set({ data }, value) {
-        //       if (data.label === data.name) {
-        //         data.label = value;
-        //         data.name = value;
-        //       } else {
-        //         data.label = value;
-        //       }
-        //     },
-        //   },
-        // },
-        // {
-        //   title: "字段",
-        //   type: "text",
-        //   value: {
-        //     get({ data }) {
-        //       return data.name;
-        //     },
-        //     set({ data }, value) {
-        //       return (data.name = value);
-        //     },
-        //   },
-        // },
         {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",
@@ -99,7 +90,7 @@ export default {
           options: {
             outputId: "onBlur",
           },
-        }
+        },
       ];
     },
   },
