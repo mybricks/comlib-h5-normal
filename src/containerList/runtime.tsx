@@ -315,10 +315,10 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                 <List.Placeholder>
                   {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                   {error && (data.errorTip ?? "加载失败，请重试")}
-                  {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
+                  {empty && data.showEmptySlot ? <View className={css.empty_slot}> {slots["emptySlot"].render({
                     style: {
-                      minHeight: 100,
-                      width: 375
+                      minHeight: 130,
+                      minWidth:200
                     }
                   })}</View> : empty && data.initialEmptyTip}
                 </List.Placeholder>
