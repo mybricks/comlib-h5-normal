@@ -1,0 +1,9 @@
+{
+  "mediaType": ["image"],
+  "count": 1,
+  "sourceType": ["album", "camera"],
+  "sizeType": ["original", "compressed"],
+
+  "maxDuration": 60,
+  "camera": "back"
+}

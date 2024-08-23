@@ -18,7 +18,7 @@ export function isDesigner(env): Boolean {
   if (env?.edit || env?.runtime?.debug) {
     return true;
   } else {
-    return false;
+    return !!window?.mybricks;
   }
 }
 

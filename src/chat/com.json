@@ -1,0 +1,30 @@
+{
+  "title": "对话",
+  "namespace": "mybricks.taro.chat",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "runtime.edit": "./runtime.edit.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/12312312.svg",
+  "slots": [
+    {
+      "id": "message",
+      "description": "自定义消息卡片",
+      "defer": true,
+      "title": "自定义消息卡片",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "content",
+          "title": "消息内容",
+          "schema": {
+            "type": "any"
+          }
+        }
+      ]
+    }
+  ]
+}

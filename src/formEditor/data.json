@@ -1,0 +1,12 @@
+{
+  "hideLabel": false,
+  "label": "富文本输入",
+  "name": "富文本输入",
+  "value": "",
+  "placeholder": "请输入内容",
+  "type": "text",
+  "disabled": false,
+  "required": false,
+  "hidden": false,
+  "plugins": []
+}

@@ -1,0 +1,144 @@
+{
+  "title": "富文本编辑器",
+  "namespace": "mybricks.taro.formEditor",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "desc": "设置表单项值",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["setValueComplete"]
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取表单项值并输出",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["returnValue"]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空表单项值",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["resetValueComplete"]
+    },
+    {
+      "id": "setLabel",
+      "title": "设置标题",
+      "desc": "设置表单项标题，仅当表单项在表单容器内时生效",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setPlaceholder",
+      "title": "设置提示内容",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabled",
+      "title": "设置是否禁用",
+      "desc": "设置表单项是否禁用，传入 true 时禁用表单项，传入 false 时启用表单项",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "当值变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "onBlur",
+      "title": "当失去焦点",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setValueComplete",
+      "title": "设置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "resetValueComplete",
+      "title": "重置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabledComplete",
+      "title": "是否禁用设置完成",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "uploadImage",
+      "title": "图片上传处理",
+      "type": "scope",
+      "inputs": [
+        {
+          "id": "fileData",
+          "title": "输出图片本地文件路径",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "description": "本地临时文件路径"
+              },
+              "size": {
+                "type": "number",
+                "description": "本地文件大小，单位 B"
+              }
+            }
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "id": "setFileInfo",
+          "title": "设置图片上传后地址",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+}

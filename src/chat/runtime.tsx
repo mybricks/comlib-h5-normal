@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text, Image, ScrollView } from "@tarojs/components";
 import cx from "classnames";
 import css from "./style.less";
 import { Textarea } from "brickd-mobile";
 import * as Taro from "@tarojs/taro";
 
-export default function ({ data, env }) {
+export default function ({ data, inputs, outputs, env, extra }) {
   const [messages, setMessages] = useState([
     {
       avatar:
@@ -139,11 +139,8 @@ export default function ({ data, env }) {
   }, [messages]);
 
   useEffect(() => {
-    Taro.nextTick(() => {
-
-    });
+    Taro.nextTick(() => {});
     // console.log("messages", messages);
-    
   }, [$messages]);
 
   const onSend = useCallback(() => {
@@ -161,10 +158,27 @@ export default function ({ data, env }) {
 
   return (
     <View className={chatRoomCx}>
-      {/* messages */}
-      {/* messages */}
-      {/* messages */}
-      <View className={css.messages}>{$messages}</View>
+      {/* messages before */}
+      <ScrollView
+        className={css.messages}
+        scrollY
+        // scrollIntoView={latestMessageId}
+        // onScrollToUpper={loadMoreMessages}
+        upperThreshold={50} // 距离顶部多远时触发加载更多
+      >
+        {messages
+          .slice()
+          .reverse()
+          .map((message, index) => (
+            <View id={`message-${message.id}`} className="message" key={index}>
+              {/* 消息内容渲染 */}
+            </View>
+          ))}
+        <View className="toolbar">
+          <Textarea className="input" />
+        </View>
+      </ScrollView>
+      {/* messages after */}
 
       {/* toolbar */}
       {/* toolbar */}

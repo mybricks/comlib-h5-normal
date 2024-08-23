@@ -1,0 +1,85 @@
+.editor {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: relative;
+  background: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+
+  .input {
+    height: 100%;
+    min-height: 210px;
+    padding: 8px;
+    font-size: 14px;
+    line-height: 22px;
+    :global {
+      .editor-image {
+        display: block;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .placeholder {
+    width: 100%;
+    height: 40px;
+  }
+
+  .toolbar {
+    display: flex;
+    background: #ffffff;
+    border-bottom: 1px solid #cccccc;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    &.fixed {
+      position: fixed;
+    }
+
+    .item {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      .icon {
+        position: relative;
+        display: block;
+        width: 24px;
+        height: 24px;
+        z-index: 2;
+      }
+      &.active::before {
+        z-index: 1;
+        content: "";
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: rgba(200, 203, 207, 0.4);
+        border-radius: 3px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 20px;
+      background: #cccccc;
+      margin: 10px 8px;
+      margin-left: auto;
+    }
+  }
+}

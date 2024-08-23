@@ -1,0 +1,75 @@
+{
+  "title": "选择图片或视频",
+  "namespace": "mybricks.taro._chooseMedia",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "拍摄或从手机相册中选择图片或视频",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "chooseMedia",
+      "title": "触发",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "成功",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "failedCount": {
+            "description": "失败的文件数量",
+            "type": "number"
+          },
+          "type": {
+            "description": "选择的媒体类型，例如'image'",
+            "type": "string"
+          },
+          "tempFiles": {
+            "description": "临时文件列表",
+            "type": "array",
+            "items": {
+              "description": "临时文件的详细信息",
+              "type": "object",
+              "properties": {
+                "tempFilePath": {
+                  "description": "临时文件的路径",
+                  "type": "string"
+                },
+                "size": {
+                  "description": "文件的大小，单位为字节",
+                  "type": "number"
+                },
+                "fileType": {
+                  "description": "文件的类型，例如'image'",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "取消或失败",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errMsg": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}
