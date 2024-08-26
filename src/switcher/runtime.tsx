@@ -94,7 +94,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
         flexDirection: "row",
         justifyContent: "flex-start",
         gap: `${data.horizontalGutter}px`,
-        height: "100%"
+        height: "100%",
+        overflowX: `auto`
       }
     }
 
@@ -122,6 +123,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       return {
         flexGrow: 1,
         flexShrink: 0,
+        minWidth: `100px`,
         height: "100%",
       }
     }
