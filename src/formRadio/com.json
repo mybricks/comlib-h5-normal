@@ -64,6 +64,10 @@
             "disabled": {
               "title": "禁用",
               "type": "boolean"
+            },
+            "checked": {
+              "title": "默认选中",
+              "type": "boolean"
             }
           }
         }

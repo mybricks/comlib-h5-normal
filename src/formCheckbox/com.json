@@ -40,7 +40,7 @@
     {
       "id": "setOptions",
       "title": "设置多选项",
-      "desc":"设置多选项",
+      "desc": "设置多选项",
       "schema": {
         "type": "array",
         "items": {
@@ -48,17 +48,22 @@
           "properties": {
             "label": {
               "title": "标签",
-              "description":"标签",
+              "description": "标签",
               "type": "string"
             },
             "value": {
               "title": "值",
-              "description":"值",
+              "description": "值",
               "type": "any"
             },
             "disabled": {
               "title": "禁用",
-              "description":"禁用",
+              "description": "禁用",
+              "type": "boolean"
+            },
+            "checked": {
+              "title": "默认选中",
+              "description": "默认选中",
               "type": "boolean"
             }
           }

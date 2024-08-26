@@ -84,6 +84,12 @@ export default function (props) {
       if (Array.isArray(val)) {
         data.options = val;
         setReady(true);
+
+        // 如果选项中有 checked 为 true 的项，则设置为当前值
+        let checkedItems = val.filter((item) => item.checked);
+        if (checkedItems.length) {
+          setValue(checkedItems.map((item) => item.value));
+        }
       }
     });
 
