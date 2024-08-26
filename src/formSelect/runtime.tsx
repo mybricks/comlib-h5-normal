@@ -16,6 +16,10 @@ import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
+  const [ready, setReady] = useState(
+    env.edit ? true : data.defaultRnderMode === "dynamic" ? false : true
+  );
+
   const [value, setValue, getValue] = useFormItemValue(
     env.edit ? data.options[0]?.value : data.value,
     (val) => {
@@ -127,12 +131,16 @@ export default function (props) {
     return data.options.findIndex((item) => item.value == value);
   }, [value, data.options]);
 
+  const options = useMemo(() => {
+    return ready ? data.options : [];
+  }, [ready, data.options]);
+
   return (
     <>
       <View className={css.wrap}>
         <Picker
           value={selectIndex}
-          options={data.options}
+          options={options}
           onChange={onChange}
           onCancel={onCancel}
         >
