@@ -34,9 +34,7 @@
           }
         }
       },
-      "rels": [
-        "afterSetData"
-      ]
+      "rels": ["afterSetData"]
     },
     {
       "id": "selectItem",

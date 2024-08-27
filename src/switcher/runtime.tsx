@@ -9,54 +9,54 @@ import { View, Image } from "@tarojs/components";
 import css from "./style.less";
 import { uuid, debounce } from "../utils";
 import cx from "classnames";
-import { Mode } from "./constants"
+import { Mode } from "./constants";
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const [selectedIndex, setSelectedIndex] = useState(data.defaultSelectedIndex);
-  const [showIcon ,setShowIcon] = useState(data.showIcon)
-  const [mode,setMode] = useState(data.mode)
-  const [tabKey,setTabKey] = useState(data.tabKey)
+  const [showIcon, setShowIcon] = useState(data.showIcon);
+  const [mode, setMode] = useState(data.mode);
+  const [tabKey, setTabKey] = useState(data.tabKey);
 
-  useEffect(()=>{
+  useEffect(() => {
     //搭建态使用text tabKey，防止显示为空
-    if(env.edit){
-      setTabKey("text")
-    }else{
-      setTabKey(data.tabKey)
+    if (env.edit) {
+      setTabKey("text");
+    } else {
+      setTabKey(data.tabKey);
     }
-  },[data.tabKey,env])
+  }, [data.tabKey, env]);
 
   //判断 是否开启了初始化时触发「选中项变化」事件 开关
-  useMemo(()=>{
-    if(data.initChangeTab){
+  useMemo(() => {
+    if (data.initChangeTab) {
       outputs["onChange"]({
         index: data.defaultSelectedIndex,
         item: data.items[data.defaultSelectedIndex],
       });
     }
-  },[data.items])
+  }, [data.items]);
 
-  useEffect(()=>{
+  useEffect(() => {
     //老组件没有选择图标的开关，升级后默认打开
-    if(data.showIcon == undefined){
-      setShowIcon(true)
-    }else{
-      setShowIcon(data.showIcon)
+    if (data.showIcon == undefined) {
+      setShowIcon(true);
+    } else {
+      setShowIcon(data.showIcon);
     }
     //老组件没有排列方式选项，升级后默认选中横向排列
-    if(data.mode == undefined){
-      setMode(Mode.horizontal)
-    }else{
-      setMode(data.mode)
+    if (data.mode == undefined) {
+      setMode(Mode.horizontal);
+    } else {
+      setMode(data.mode);
     }
-  },[data.showIcon,data.mode])
+  }, [data.showIcon, data.mode]);
 
   useMemo(() => {
     inputs["setData"]((val, relOutputs) => {
-      data.items = val
-      relOutputs["afterSetData"]?.(val)
-    })
-  }, [inputs,data])
+      data.items = val;
+      relOutputs["afterSetData"]?.(val);
+    });
+  }, [inputs, data]);
 
   const onChange = useCallback(
     ({ item, index }) => {
@@ -95,8 +95,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
         justifyContent: "flex-start",
         gap: `${data.horizontalGutter}px`,
         height: "100%",
-        overflowX: `auto`
-      }
+        overflowX: `auto`,
+      };
     }
 
     if (mode == Mode.vertical) {
@@ -104,16 +104,20 @@ export default function ({ env, data, inputs, outputs, slots }) {
         // flexDirection: "column",
         // justifyContent: "space-between",
         // gap: `${data.verticalGutter}px`,
-        display: "block"
-      }
+        display: "block",
+      };
     }
   }, [mode, data.horizontalGutter, data.verticalGutter, data.gutter]);
 
   const griddingItemStyle = useMemo(() => {
     if (mode == Mode.gridding) {
       return {
-        maxWidth: `calc((100% - ${(data.column - 1) * data.gutter[1] || 0}px) / ${data.column})`,
-        flexBasis: `calc((100% - ${(data.column - 1) * data.gutter[1] || 0}px) / ${data.column})`,
+        maxWidth: `calc((100% - ${
+          (data.column - 1) * data.gutter[1] || 0
+        }px) / ${data.column})`,
+        flexBasis: `calc((100% - ${
+          (data.column - 1) * data.gutter[1] || 0
+        }px) / ${data.column})`,
         flexGrow: 1,
         flexShrink: 0,
       };
@@ -125,7 +129,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         flexShrink: 0,
         minWidth: `100px`,
         height: "100%",
-      }
+      };
     }
 
     if (mode == Mode.vertical) {
@@ -134,11 +138,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
         // flexShrink: 0,
         width: "100%",
         marginBottom: `${data.verticalGutter}px`,
-      }
+      };
     }
-
-  }, [mode, data.column, data.gutter, data.horizontalGutter, data.verticalGutter])
-
+  }, [
+    mode,
+    data.column,
+    data.gutter,
+    data.horizontalGutter,
+    data.verticalGutter,
+  ]);
 
   const $items = useMemo(() => {
     return data.items.map((item, index) => {
@@ -220,12 +228,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
     griddingItemStyle,
     data.switcherSize,
     showIcon,
-    tabKey
+    tabKey,
   ]);
 
   return (
     <View className={cx([css.switcher, "mybricks-switcher"])}>
-      <View className={cx([css.inner, { [css.wrap]: data.wrap }])} style={boxStyle}>
+      <View
+        className={cx([css.inner, { [css.wrap]: data.wrap }])}
+        style={boxStyle}
+      >
         {$items}
       </View>
     </View>

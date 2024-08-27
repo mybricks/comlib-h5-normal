@@ -10,8 +10,9 @@ import { ArrowRight } from "@taroify/icons";
 import { Input, Picker } from "brickd-mobile";
 import { isObject, isString, isNumber, isEmpty } from "./../utils/type";
 import css from "./style.less";
-import InputDisplay from "../components/input-display";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
+import { isH5 } from "../utils/env";
+import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -20,20 +21,17 @@ export default function (props) {
     env.edit ? true : data.defaultRnderMode === "dynamic" ? false : true
   );
 
-  const [value, setValue, getValue] = useFormItemValue(
-    env.edit ? data.options[0]?.value : data.value,
-    (val) => {
-      //
-      parentSlot?._inputs["onChange"]?.({
-        id: props.id,
-        name: props.name,
-        value: val,
-      });
+  const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
+    //
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: val,
+    });
 
-      //
-      outputs["onChange"](val);
-    }
-  );
+    //
+    outputs["onChange"](val);
+  });
 
   useEffect(() => {
     /* 设置值 */
@@ -143,19 +141,38 @@ export default function (props) {
 
   return (
     <>
-      <View className={css.wrap}>
+      <View
+        className={cx({
+          [css.select]: true,
+          "mybricks-select": !isH5(),
+          "mybricks-h5Select": isH5(),
+        })}
+      >
         <Picker
+          className={css.picker}
           value={selectIndex}
           options={options}
           onChange={onChange}
           onCancel={onCancel}
         >
-          <View className={css.select}>
-            <InputDisplay
-              placeholder={data.placeholder}
-              value={selectItem?.label}
-            ></InputDisplay>
-            <ArrowRight />
+          <View className={css.display}>
+            <View
+              className={cx({
+                [css.input]: true,
+                "mybricks-input": value,
+                [css.placeholder]: !value,
+                "mybricks-placeholder": !value,
+              })}
+            >
+              {value || data.placeholder}
+            </View>
+            <ArrowRight
+              className={cx({
+                [css.right]: data.arrow === "right",
+                [css.down]: data.arrow === "down",
+                [css.none]: data.arrow === "none",
+              })}
+            />
           </View>
         </Picker>
       </View>

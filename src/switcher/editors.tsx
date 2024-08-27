@@ -1,8 +1,8 @@
-import { Mode } from "./constants"
+import { Mode } from "./constants";
 export default {
   "@init": ({ style, data }) => {
-    style.width = 375;
-    style.height = 60;
+    style.width = "100%";
+    style.height = "auto";
   },
   ":slot": {},
   "@resize": {
@@ -54,6 +54,22 @@ export default {
           },
         },
         {
+          title: "模式",
+          type: "radio",
+          options: [
+            { label: "单选", value: "" },
+            { label: "多选", value: "multiple" },
+          ],
+          value: {
+            get({ data }) {
+              return data.multiple;
+            },
+            set({ data }, value) {
+              data.multiple = value;
+            },
+          },
+        },
+        {
           // ifVisible({ data }) {
           //   return !data.useDynamic;
           // },
@@ -97,14 +113,14 @@ export default {
             },
           },
         },
-        
+
         {
           title: "列数",
           type: "Text",
           catelog: "默认",
           options: {
             type: "number",
-            min: 2
+            min: 2,
           },
           ifVisible: ({ data }) => {
             return data.mode == Mode.gridding;
@@ -203,10 +219,10 @@ export default {
         //   },
         // },
         {
-          title:"选项卡标题key",
-          type:"text",
+          title: "选项卡标题key",
+          type: "text",
           description:
-          "动态配置选项的时候，可根据key来渲染选项名称；默认值为：text",
+            "动态配置选项的时候，可根据key来渲染选项名称；默认值为：text",
           value: {
             get({ data }) {
               return data.tabKey;
@@ -216,7 +232,7 @@ export default {
             },
           },
         },
-        
+
         {},
         {
           title: "事件",
@@ -339,8 +355,8 @@ export default {
               // items[focusArea.index] = item;
               // data.items = items;
 
-              console.log("data.items",data.items)
-              console.log("focusItem",focusItem)
+              console.log("data.items", data.items);
+              console.log("focusItem", focusItem);
               // data.items = focusItem
             },
           },
@@ -357,7 +373,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["font","background"],
+                plugins: ["font", "background"],
               },
               value: {
                 get({ data }) {
@@ -379,7 +395,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["size","border", "bgColor"],
+                plugins: ["size", "border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -423,7 +439,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["font","background"],
+                plugins: ["font", "background"],
               },
               value: {
                 get({ data }) {
@@ -445,7 +461,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["size","border", "bgColor"],
+                plugins: ["size", "border", "bgColor"],
               },
               value: {
                 get({ data }) {
@@ -480,7 +496,6 @@ export default {
                 },
               },
             },
-
           ],
         },
         {
@@ -574,7 +589,7 @@ export default {
               type: "style",
               options: {
                 defaultOpen: true,
-                plugins: ["font","background"],
+                plugins: ["font", "background"],
               },
               value: {
                 get({ data }) {
@@ -625,7 +640,6 @@ export default {
                 },
               },
             },
-
           ],
         },
       ];
