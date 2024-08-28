@@ -46,6 +46,10 @@
               "type": "number",
               "description": "文字字号（仅文本类型时生效）"
             },
+            "fontWeight": {
+              "type": "string",
+              "description": "文字粗细，（仅文本类型时生效）"
+            },
             "lineHeight": {
               "type": "number",
               "description": "行高（仅文本类型时生效）"

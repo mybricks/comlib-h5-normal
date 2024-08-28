@@ -1,13 +1,14 @@
 {
-  "title": "可选择列表",
-  "namespace": "mybricks.taro.checkList",
+  "title": "选择器",
+  "namespace": "mybricks.taro.picker",
   "author": "mybricks-team",
   "author_name": "板砖团队",
   "version": "1.0.0",
-  "runtime": "./runtime.tsx",
-  "data": "./data.json",
-  "editors": "./editors.tsx",
+  "description": "选择器",
   "icon": "./icon.svg",
+  "data": "./data.json",
+  "runtime": "./runtime.tsx",
+  "editors": "./editors.tsx",
   "inputs": [
     {
       "id": "setValue",
@@ -28,15 +29,6 @@
       "rels": ["returnValue"]
     },
     {
-      "id": "resetValue",
-      "title": "重置值",
-      "desc": "清空值",
-      "schema": {
-        "type": "any"
-      },
-      "rels": ["resetValueComplete"]
-    },
-    {
       "id": "setOptions",
       "title": "设置选项",
       "schema": {
@@ -54,18 +46,6 @@
               "type": "string",
               "description": "选项值"
             },
-            "icon": {
-              "type": "string",
-              "description": "默认图标"
-            },
-            "selectedIcon": {
-              "type": "string",
-              "description": "选中时图标"
-            },
-            "disabled": {
-              "type": "boolean",
-              "description": "是否禁用"
-            },
             "selected": {
               "type": "boolean",
               "description": "是否选中"
@@ -81,7 +61,7 @@
       "id": "onChange",
       "title": "当值变化",
       "schema": {
-        "type": "array"
+        "type": "string"
       }
     },
     {
@@ -100,21 +80,28 @@
       "id": "setValueComplete",
       "title": "设置值完成",
       "schema": {
-        "type": "array"
+        "type": "string"
       }
     },
     {
       "id": "returnValue",
       "title": "值输出",
       "schema": {
-        "type": "array"
+        "type": "string"
       }
     },
     {
-      "id": "resetValueComplete",
-      "title": "重置值完成",
+      "id": "onCancel",
+      "title": "取消",
       "schema": {
-        "type": "array"
+        "type": "string"
+      }
+    },
+    {
+      "id": "onConfirm",
+      "title": "确认",
+      "schema": {
+        "type": "string"
       }
     }
   ]

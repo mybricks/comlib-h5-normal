@@ -54,6 +54,13 @@ export default {
           },
         },
       },
+      {
+        title: "确定颜色",
+        options: ["font"],
+        target({ id }) {
+          return ".weui-picker__action";
+        },
+      },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {
       cate0.title = "常规";

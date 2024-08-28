@@ -255,6 +255,7 @@ export default function ({ env, data, inputs, outputs }) {
      * height: 30
      * color: #000000
      * fontSize: 30
+     * fontWeight: normal | bold
      * lineHeight: 30
      * textAlign: center | left | right
      * content: "Hello World"
@@ -268,13 +269,14 @@ export default function ({ env, data, inputs, outputs }) {
         height = 999999999,
         color = "#000000",
         fontSize = 12,
+        fontWeight = "normal",
         lineHeight,
         textAlign = "left",
         content = "",
       } = element;
 
       // 设置字体
-      context.font = `${fontSize}px system-ui`;
+      context.font = `${fontWeight} ${fontSize}px system-ui`;
       context.fillStyle = color;
       context.textBaseline = "bottom";
 

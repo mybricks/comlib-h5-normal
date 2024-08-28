@@ -129,7 +129,8 @@
         "./src/table/com.json",
         "./src/timeLine/com.json",
         "./src/cell/com.json",
-        "./src/checkList/com.json"
+        "./src/checkList/com.json",
+        "./src/picker/com.json"
       ]
     },
     {
