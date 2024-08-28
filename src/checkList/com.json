@@ -1,0 +1,124 @@
+{
+  "title": "可选择列表",
+  "namespace": "mybricks.taro.checkList",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "desc": "设置值",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["setValueComplete"]
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取值",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["returnValue"]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空值",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["resetValueComplete"]
+    },
+    {
+      "id": "setOptions",
+      "title": "设置选项",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "标签"
+            },
+            "icon": {
+              "type": "string",
+              "description": "默认图标"
+            },
+            "selectedIcon": {
+              "type": "string",
+              "description": "选中时图标"
+            },
+            "disabled": {
+              "type": "boolean",
+              "description": "是否禁用"
+            },
+            "selected": {
+              "type": "boolean",
+              "description": "是否选中"
+            }
+          }
+        }
+      },
+      "rels": ["setOptionsComplete"]
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "当值变化",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "setOptionsComplete",
+      "title": "设置选项完成",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
+    },
+    {
+      "id": "setValueComplete",
+      "title": "设置值完成",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "resetValueComplete",
+      "title": "重置值完成",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "setOptionsComplete",
+      "title": "选项设置完成",
+      "schema": {
+        "type": "array"
+      }
+    }
+  ]
+}

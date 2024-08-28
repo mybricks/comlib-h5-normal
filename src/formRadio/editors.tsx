@@ -129,10 +129,10 @@ export default {
           ],
           value: {
             get({ data }) {
-              return data.defaultRnderMode || "static";
+              return data.defaultRenderMode || "static";
             },
             set({ data }, value) {
-              data.defaultRnderMode = value;
+              data.defaultRenderMode = value;
             },
           },
         },

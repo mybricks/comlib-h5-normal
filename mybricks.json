@@ -68,7 +68,8 @@
         "./src/filter-coms/custom/com.json",
         "./src/selectorWaterfall/com.json",
         "./src/tabs/com.json",
-        "./src/containerCondition/com.json"
+        "./src/containerCondition/com.json",
+        "./src/switcher/com.json"
       ]
     },
     {
@@ -127,14 +128,14 @@
       "comAry": [
         "./src/table/com.json",
         "./src/timeLine/com.json",
-        "./src/cell/com.json"
+        "./src/cell/com.json",
+        "./src/checkList/com.json"
       ]
     },
     {
       "title": "其它",
       "comAry": [
         "./src/filter-coms/contaniner/com.json",
-        "./src/switcher/com.json",
         "./src/calendar/com.json",
         "./src/cascader/com.json",
         "./src/noticeBar/com.json",

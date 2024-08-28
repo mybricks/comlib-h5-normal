@@ -8,7 +8,7 @@ export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   const [ready, setReady] = useState(
-    env.edit ? true : data.defaultRnderMode === "dynamic" ? false : true
+    env.edit ? true : data.defaultRenderMode === "dynamic" ? false : true
   );
 
   const [value, setValue, getValue] = useFormItemValue(

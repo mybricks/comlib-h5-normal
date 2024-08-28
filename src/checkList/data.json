@@ -1,0 +1,26 @@
+{
+  "options": [
+    {
+      "label": "选项1",
+      "value": "选项1",
+      "icon": "",
+      "selectedIcon": ""
+    },
+    {
+      "label": "选项2",
+      "value": "选项2",
+      "icon": "",
+      "selectedIcon": ""
+    }
+  ],
+  "defaultRenderMode": "static",
+
+  "useWrap": false,
+  "itemMinWidth": 75,
+  "column": 1,
+  "gutter": [6, 6],
+
+  "itemLayout": "vertical",
+  "useMultiple": false,
+  "defaultValue": []
+}

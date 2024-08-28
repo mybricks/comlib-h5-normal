@@ -13,7 +13,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["padding", "border", "background", "overflow"],
+        options: ["padding", "border", "background", "overflow", "boxShadow"],
         target({ id }) {
           return `> .mybricks-container`;
         },
