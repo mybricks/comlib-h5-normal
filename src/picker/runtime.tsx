@@ -10,10 +10,12 @@ export default function (props) {
 
   const defaultValue = useMemo(() => {
     if (env.edit) {
-      return [data.options[0]?.value];
+      return data.options[0]?.value;
     }
-    return data.defaultValue || "";
-  }, [env.edit, data.options, data.defaultValue]);
+    return data.defaultRenderMode === "static"
+      ? data.options[0]?.value ?? ""
+      : "";
+  }, [env.edit, data.options, data.defaultValue, data.defaultRenderMode]);
 
   const [value, setValue, getValue] = useFormItemValue(defaultValue, (val) => {
     //
@@ -64,7 +66,6 @@ export default function (props) {
 
     /* 获取值 */
     inputs["getValue"]((val, outputRels) => {
-      console.warn("getValue", getValue());
       outputRels["returnValue"](getValue());
     });
 
@@ -92,6 +93,9 @@ export default function (props) {
           setTimeout(() => {
             scrollViewRef.current.scrollTo({ top: newScrollTop });
           }, 20);
+        } else {
+          // 如果没有选中的项，则设置第一个为选中项
+          setValue(data.options[0]?.value);
         }
       }
     });
