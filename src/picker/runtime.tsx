@@ -106,6 +106,9 @@ export default function (props) {
     const newScrollTop = index * itemHeight;
     setScrollTop(newScrollTop);
     scrollViewRef.current.scrollTo({ top: newScrollTop, behavior: "smooth" });
+
+    // 修改 value
+    setValue(data.options[index]?.value);
   };
 
   const handleCancel = () => {
@@ -160,6 +163,7 @@ export default function (props) {
           scrollY
           className={css.scrollView}
           onScroll={handleScroll}
+          onScrollEnd={handleScrollEnd}
           onScrollToLower={handleScrollEnd}
           onScrollToUpper={handleScrollEnd}
         >
