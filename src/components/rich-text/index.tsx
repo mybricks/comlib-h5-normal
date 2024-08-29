@@ -21,11 +21,17 @@ function styleStringToCSSProperties(styleString) {
   for (let i = 0; i < styleArray.length; i++) {
     const style = styleArray[i].split(":");
     if (style.length === 2) {
-      const key = style[0].trim();
+      let key = style[0].trim();
+      
+      key = key.replace(/-(\w)/g, function (all, letter) {
+        return letter.toUpperCase();
+      });
+
       const value = style[1].trim();
       cssProperties[key] = value;
     }
   }
+
   return cssProperties;
 }
 
@@ -80,8 +86,6 @@ const Element = ({ item }) => {
 };
 
 const Level = ({ node }) => {
-  console.log("~~~", node);
-
   // if (!node.continue || node.name == 'a') {
   //   return <Element item={node} />
   // }
@@ -115,7 +119,6 @@ export default ({
   useEffect(() => {
     html2nodes(content, {}).then((res) => {
       setRoot({ children: res.nodes });
-      console.log("~~~", content, res);
     });
   }, [content]);
 
