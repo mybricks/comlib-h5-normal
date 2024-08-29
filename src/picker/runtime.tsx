@@ -165,6 +165,9 @@ export default function (props) {
         <ScrollView
           ref={scrollViewRef}
           scrollY
+          enhanced={true}
+          showScrollbar={false}
+          enablePassive={true}
           className={css.scrollView}
           onScroll={handleScroll}
           onScrollEnd={handleScrollEnd}

@@ -69,7 +69,8 @@
         "./src/selectorWaterfall/com.json",
         "./src/tabs/com.json",
         "./src/containerCondition/com.json",
-        "./src/switcher/com.json"
+        "./src/switcher/com.json",
+        "./src/containerFixed/com.json"
       ]
     },
     {
@@ -94,8 +95,7 @@
         "./src/containerWaterfall/com.json",
         "./src/containerCondition2/com.json",
         "./src/sidebar/com.json",
-        "./src/collapse/com.json",
-        "./src/containerFixed/com.json"
+        "./src/collapse/com.json"
       ]
     },
     {
