@@ -27,7 +27,11 @@ const defaultMenuButtonBoundingClientRect = {
   left: 281,
 };
 
-const usePullDownRefresh = ({ enabled = false, onLoad }) => {
+const usePullDownRefresh = ({
+  enabled = false,
+  onLoad,
+  setDisableScrollWhenPulling,
+}) => {
   const [state, setState] = useState({
     refresherTriggered: false,
   });
@@ -74,6 +78,20 @@ const usePullDownRefresh = ({ enabled = false, onLoad }) => {
     refresherBackground: "transparent",
     refresherTriggered: state.refresherTriggered,
     onRefresherRefresh: onRefresh,
+    onRefresherPulling: (e) => {
+      // 下拉时，禁止 scroll-view 滚动
+      setDisableScrollWhenPulling(true);
+    },
+    onRefresherStatusChange: (e) => {
+      console.log("onRefresherStatusChange", e.detail);
+      if (e.detail === "releasing") {
+        Taro.vibrateShort();
+      }
+    },
+    onRefresherRestore: (e) => {
+      console.log("onRefresherRestore", e.detail);
+      setDisableScrollWhenPulling(false);
+    },
     // onRefresherRestore: onRestore,
   };
 };
@@ -87,6 +105,8 @@ export default function (props) {
 
   const scrollRef = useRef(null);
   const [scrollTop, setScrollTop] = useState(0);
+
+  const [disableScrollWhenPulling, setDisableScrollWhenPulling] = useState(false);
 
   /**
    * 监听页面重新显示、隐藏
@@ -184,6 +204,7 @@ export default function (props) {
   const { cancelPullRefresh, ...pulldownProps } = usePullDownRefresh({
     enabled: data.enabledPulldown,
     onLoad,
+    setDisableScrollWhenPulling,
   });
 
   useEffect(() => {
@@ -407,7 +428,8 @@ export default function (props) {
         <ScrollView
           key={"page"}
           id="root_scroll"
-          scrollY={!data.disableScroll}
+          scrollY={!data.disableScroll && !disableScrollWhenPulling}
+          // scrollY={!data.disableScroll}
           enhanced={isIOS && data.enabledPulldown ? false : true}
           // enhanced={true}
           // enhancedBounce={false}

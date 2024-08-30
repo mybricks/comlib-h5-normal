@@ -341,7 +341,7 @@ export default {
                 get({ data }) {
                   return data.enabledPulldown;
                 },
-                set({ data }, value) {
+                set({ data, slots }, value) {
                   data.enabledPulldown = value;
                 },
               },
