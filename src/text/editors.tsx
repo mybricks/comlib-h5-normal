@@ -73,6 +73,12 @@ export default {
               // }
             },
           },
+          binding: {
+            with: 'data.text',
+            scheme: {
+              type: 'string'
+            }
+          }
         },
         // {
         //   title: "仅使用动态渲染",

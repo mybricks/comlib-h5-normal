@@ -75,6 +75,12 @@ export default {
             data.navigationBarBackgroundColor = value;
           },
         },
+        binding: {
+          with: 'data.navigationBarBackgroundColor',
+          scheme: {
+            type: 'string'
+          }
+        }
       },
       {
         title: "导航栏标题颜色",
@@ -112,6 +118,12 @@ export default {
             data.navigationBarTitleText = value;
           },
         },
+        binding: {
+          with: 'data.navigationBarTitleText',
+          scheme: {
+            type: 'string'
+          }
+        }
       },
       {
         ifVisible({ data }) {

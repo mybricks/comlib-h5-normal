@@ -246,6 +246,12 @@ export default {
             data.text = value;
           },
         },
+        binding: {
+          with: 'data.text',
+          scheme: {
+            type: 'string'
+          }
+        }
       },
       {
         title: "展示前置图标",
