@@ -296,8 +296,23 @@ export default {
         title: "分页配置",
         items: [
           {
+            title:"开启触底加载",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.enableLoadMore;
+              },
+              set({ data }, value) {
+                  data.enableLoadMore = value;
+              },
+            },
+          },
+          {
             title: "起始页码",
             type: "Text",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
             options: {
               type: "number",
             },
@@ -315,6 +330,9 @@ export default {
           {
             title: "每次加载条数",
             type: "Text",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
             options: {
               type: "number",
             },
@@ -332,6 +350,9 @@ export default {
           {
             title: "当触发加载时",
             type: "_event",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
             options: {
               outputId: "onScrollLoad",
             },
