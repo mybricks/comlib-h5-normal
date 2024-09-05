@@ -14,40 +14,79 @@ import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
 import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
 
+const getDefaultTabItem = (id) => {
+  return {
+    scene: {
+      id,
+    },
+    text: "标签项",
+    selectedIconPath: defaultSelectedIconPath,
+    selectedIconStyle: {
+      width: "22px",
+      height: "22px",
+    },
+    selectedTextStyle: {
+      fontSize: 12,
+      color: "#FD6A00",
+    },
+    normalIconPath: defaultNormalIconPath,
+    normalIconStyle: {
+      width: "22px",
+      height: "22px",
+    },
+    normalTextStyle: {
+      fontSize: 12,
+      color: "#909093",
+    },
+  };
+};
+
 export default function ({ env, data, inputs, outputs, slots }) {
   data.id = env.canvas.id;
-
-  /**
-   * 监听 tabBar 广播，更新 data
-   */
-  const onHandleTabBar = useCallback(
-    (value) => {
-      console.warn("监听到广播", env.canvas.id, value);
-      data.tabBar = value;
-    },
-    [data.tabBar, env.canvas.id]
-  );
-
   /**
    * 页面初始化
    */
   useEffect(() => {
-    console.warn(`[systemPage] 页面初始化`, data.id);
+    // 监听数据
+    window.__tabbar__?.on(data.id, (val) => {
+      data.tabBar = JSON.parse(JSON.stringify(val));
+    });
+
     let defaultTabBar = window.__tabbar__?.get() ?? [];
 
-    // 回滚
-    if (data.tabBar.length > defaultTabBar.length) {
-      // noop
-      window.__tabbar__?.set(JSON.parse(JSON.stringify(data.tabBar)));
-    } else {
-      onHandleTabBar(defaultTabBar);
+    // 复制
+    // data.useTabBar 为 true
+    // data.tabBar.length 等于 defaultTabBar.length
+    // 当前页面 不在 defaultTabBar 中
+    if (
+      data.useTabBar &&
+      data.tabBar.length === defaultTabBar.length &&
+      !isContain(data.id, defaultTabBar)
+    ) {
+      setTimeout(() => {
+        let tabBar = JSON.parse(JSON.stringify(defaultTabBar));
+        tabBar.push(getDefaultTabItem(data.id));
+
+        window.__tabbar__?.set(JSON.parse(JSON.stringify(tabBar)));
+      }, 0);
     }
 
-    // 监听数据
-    window.__tabbar__?.on(data.id, onHandleTabBar);
+    // 回滚：
+    // data.useTabBar 为 true
+    // data.tabBar.length 比 defaultTabBar.length 大
+    // 当前页面 不在 defaultTabBar 中
+    if (
+      data.useTabbar &&
+      data.tabBar.length > defaultTabBar.length &&
+      !isContain(data.id, defaultTabBar)
+    ) {
+      window.__tabbar__?.set(JSON.parse(JSON.stringify(data.tabBar)));
+    } else {
+      data.tabBar = defaultTabBar;
+    }
+
     return () => {
-      // 这里顺序不能变，先 off 再 set，否则回滚操作会失效
-      window.__tabbar__?.off(data.id, onHandleTabBar);
+      window.__tabbar__?.off(data.id);
     };
   }, []);
 
@@ -79,6 +118,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   // const editFinishRef = useRef();
   const tabBar = useMemo(() => {
+    console.log("tabBar~!!!!", useTabBar, data.tabBar);
+
     switch (useTabBar) {
       case 0:
         return null;
@@ -97,7 +138,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       default:
         return <CustomTabBar data={data} env={env} />;
     }
-  }, [data, useTabBar]);
+  }, [data, env, useTabBar]);
 
   const pageBackgroundStyle = useMemo(() => {
     let result = {};
@@ -133,6 +174,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   return (
     <View
+      key={env.canvas.id}
       className={css.page}
       //自定义导航和隐藏导航，在这里配置背景
       style={{

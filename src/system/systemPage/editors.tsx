@@ -3,6 +3,8 @@ import MybricksTabBarEditor from "./editor/mybricks-tabBar";
 import css from "./editors.less";
 import SkeletonEditor from "./editor/skeleton";
 import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
+import setSlotLayout from "../../utils/setSlotLayout";
+import asEntryPagePathEditor from "./editor/asEntryPagePath";
 
 const message = window.antd?.message;
 
@@ -23,41 +25,6 @@ function rgbaToHex(rgba) {
 
   return "#" + toHex(r) + toHex(g) + toHex(b);
 }
-
-const setSlotLayout = (slot, value) => {
-  if (!slot) return;
-  if (value.position === "smart") {
-    slot.setLayout("smart");
-  } else if (value.position === "absolute") {
-    slot.setLayout(value.position);
-  } else if (value.display === "flex") {
-    if (value.flexDirection === "row") {
-      slot.setLayout("flex-row");
-    } else if (value.flexDirection === "column") {
-      slot.setLayout("flex-column");
-    }
-  }
-};
-
-const getDefaultLayoutFromSlot = (slot) => {
-  if (!slot) {
-    return {};
-  }
-  const position = slot.getLayout();
-  if (position === "smart") {
-    return {
-      position: "smart",
-    };
-  } else if (position === "flex-column") {
-    return {
-      flexDirection: "column",
-    };
-  } else if (position === "flex-row") {
-    return {
-      flexDirection: "row",
-    };
-  }
-};
 
 const getDefaultTabItem = (id) => {
   return {
@@ -88,17 +55,13 @@ const getDefaultTabItem = (id) => {
 
 export default {
   "@init": ({ style, data, env }) => {
-    //
     style.width = "100%";
     data.id = env.canvas.id;
 
     setTimeout(() => {
-      console.warn("@init", data.id, data.useTabBar);
+      if (!data.useTabBar) return;
 
-      if (!data.useTabBar) {
-        return;
-      }
-
+      // 如果模式为标签页，且当前页面不在标签页中，则添加到标签页中
       let globalTabBar = window.__tabbar__?.get() ?? [];
       if (!globalTabBar.find((item) => item.scene.id === data.id)) {
         globalTabBar.push(getDefaultTabItem(data.id));
@@ -107,6 +70,7 @@ export default {
       window.__tabbar__?.set(JSON.parse(JSON.stringify(globalTabBar)));
     }, 0);
   },
+
   "@delete": ({ data, env }) => {
     console.warn("@delete", data.id);
 
@@ -164,6 +128,7 @@ export default {
             },
           },
         },
+        // { ...asEntryPagePathEditor },
         {
           title: "顶部导航栏",
           items: MybricksNavigationEditor[".mybricks-navigation"].items,
@@ -467,9 +432,6 @@ export default {
           type: "layout",
           value: {
             get({ data, slots }) {
-              if (!data.layout) {
-                data.layout = getDefaultLayoutFromSlot(slots.get("content"));
-              }
               return data.layout;
             },
             set({ data, slots }, value) {

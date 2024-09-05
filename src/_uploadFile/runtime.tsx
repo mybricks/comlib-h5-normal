@@ -9,15 +9,6 @@ export default function ({ env, data, inputs, outputs }) {
     /**
      * 自定义
      */
-
-    // let header = {};
-    // let mybricksGlobalHeaders = Taro.getStorageSync(
-    //   "_MYBRICKS_GLOBAL_HEADERS_"
-    // );
-    // if (mybricksGlobalHeaders) {
-    //   Object.assign(header, mybricksGlobalHeaders);
-    // }
-
     if (data.mode === "custom") {
       let params = {
         withCredentials: false,
@@ -83,6 +74,9 @@ export default function ({ env, data, inputs, outputs }) {
           } else {
             outputs["onFail"](res);
           }
+        },
+        fail(err) {
+          outputs["onFail"](err);
         },
       });
       return;

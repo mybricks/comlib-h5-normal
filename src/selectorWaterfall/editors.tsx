@@ -1,17 +1,4 @@
-const setSlotLayout = (slot, value) => {
-  if (!slot) return;
-  if (value.position === "smart") {
-    slot.setLayout("smart");
-  } else if (value.position === "absolute") {
-    slot.setLayout(value.position);
-  } else if (value.display === "flex") {
-    if (value.flexDirection === "row") {
-      slot.setLayout("flex-row");
-    } else if (value.flexDirection === "column") {
-      slot.setLayout("flex-column");
-    }
-  }
-};
+import setSlotLayout from "../utils/setSlotLayout";
 
 export default {
   "@init": ({ style, data }) => {

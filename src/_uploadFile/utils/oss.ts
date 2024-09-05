@@ -1,5 +1,6 @@
 import jsSHA from "jssha";
 import * as Taro from "@tarojs/taro";
+import { isH5 } from "../../utils/env";
 
 class UploadOssHelper {
   constructor(options) {
@@ -25,16 +26,17 @@ class UploadOssHelper {
     let srcT = date.toISOString();
     const policyText = {
       expiration: srcT,
-      conditions: [
-        ["content-length-range", 0, this.maxSize * 1024 * 1024],
-      ],
+      conditions: [["content-length-range", 0, this.maxSize * 1024 * 1024]],
     };
     const policy = JSON.stringify(policyText);
-    if (Taro.getEnv() === Taro.ENV_TYPE.WEAPP) {
-      const policyBuffer = new Uint8Array(policy.split('').map(char => char.charCodeAt(0))).buffer;
-      return Taro.arrayBufferToBase64(policyBuffer);
-    } else {
+
+    if (isH5()) {
       return btoa(unescape(encodeURIComponent(policy)));
+    } else {
+      const policyBuffer = new Uint8Array(
+        policy.split("").map((char) => char.charCodeAt(0))
+      ).buffer;
+      return Taro.arrayBufferToBase64(policyBuffer);
     }
   }
 

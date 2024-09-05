@@ -1,4 +1,5 @@
 import DatePicker from "./editor/datePicker";
+import setSlotLayout from "../utils/setSlotLayout";
 
 const LAST_TEN_YEAR = new Date(
   new Date().setFullYear(new Date().getFullYear() - 10)
@@ -6,21 +7,6 @@ const LAST_TEN_YEAR = new Date(
 const AFTER_TEN_YEAR = new Date(
   new Date().setFullYear(new Date().getFullYear() + 10)
 );
-
-export const setSlotLayout = (slot, val) => {
-  if (!slot) return;
-  if (val.position === "smart") {
-    slot.setLayout("smart");
-  } else if (val.position === "absolute") {
-    slot.setLayout(val.position);
-  } else if (val.display === "flex") {
-    if (val.flexDirection === "row") {
-      slot.setLayout("flex-row");
-    } else if (val.flexDirection === "column") {
-      slot.setLayout("flex-column");
-    }
-  }
-};
 
 export default {
   "@init": ({ style, data }) => {
