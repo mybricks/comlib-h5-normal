@@ -133,7 +133,6 @@ const Delete: FC = ({ editConfig }: any) => {
   const onChange = (_type) => {
     switch (true) {
       case _type === IMAGE_TYPE.CUT: {
-        console.log('CUT')
         if (
           (isNumber(style.width) || style.width === "100%") &&
           isNumber(style.height)
@@ -147,7 +146,6 @@ const Delete: FC = ({ editConfig }: any) => {
         return;
       }
       case _type === IMAGE_TYPE.SCALE: {
-        console.log('SCALE')
         if (
           (isNumber(style.width) || style.width === "100%") &&
           isNumber(style.height)
@@ -161,7 +159,6 @@ const Delete: FC = ({ editConfig }: any) => {
         return;
       }
       case _type === IMAGE_TYPE.ADAPT: {
-        console.log('ADAPT')
         if (
           (isNumber(style.width) || style.width === "100%") &&
           style.height === 'auto'
@@ -181,7 +178,6 @@ const Delete: FC = ({ editConfig }: any) => {
   };
 
   const changeCutMode = useCallback((v) => {
-    console.log('changeCutMode',v)
     setMode(v);
     value.set(v);
   }, []);
