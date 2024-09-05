@@ -147,6 +147,12 @@ export default {
                   data.background = value;
                 },
               },
+              binding: {
+                with: 'data.background',
+                scheme: {
+                  type: 'string'
+                }
+              }
             },
             {
               title: "背景图",

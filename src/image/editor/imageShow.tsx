@@ -15,6 +15,7 @@ const showToast = (msg: string) => {
 
 enum IMAGE_MODE {
   ASPECTFILL = "aspectFill",
+  OBJECTFIT = "objectFit",
   TOP = "top",
   LEFT = "left",
   RIGHT = "right",
@@ -34,6 +35,7 @@ enum IMAGE_TYPE {
 const MODEL_MAP = {
   [IMAGE_TYPE.CUT]: [
     { label: "尽可能显示更多内容", value: IMAGE_MODE.ASPECTFILL },
+    { label: "图片保持比例铺满", value: IMAGE_MODE.OBJECTFIT },
     // { label: "显示图片的顶部区域", value: IMAGE_MODE.TOP },
     // { label: "显示图片的左边区域", value: IMAGE_MODE.LEFT },
     // { label: "显示图片的右边区域", value: IMAGE_MODE.RIGHT },
@@ -91,8 +93,8 @@ const Delete: FC = ({ editConfig }: any) => {
             value.set(_mode);
             return _mode
           } else {
-            value.set(IMAGE_MODE.ASPECTFILL);
-            return IMAGE_MODE.ASPECTFILL
+            value.set(IMAGE_MODE.OBJECTFIT);
+            return IMAGE_MODE.OBJECTFIT
           }
         }
         

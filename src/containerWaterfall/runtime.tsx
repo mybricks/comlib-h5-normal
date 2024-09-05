@@ -69,6 +69,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   useReachBottom(
     () => {
+      if(!data.enableLoadMore) return;
       setStatus((s) => {
         if (s === ListStatus.IDLE) {
           outputs["onScrollLoad"]?.();
@@ -342,11 +343,12 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const useLoadingBar = useMemo(() => {
     if (env.runtime) {
+      if(!data.enableLoadMore) return false;
       return status === ListStatus.LOADING && dataSource.length > 0;
     } else {
       return data._edit_status_ === "加载中";
     }
-  }, [env.runtime, status, dataSource]);
+  }, [env.runtime, status, dataSource,data.enableLoadMore]);
 
   const $loadingBar = useMemo(() => {
     return (
