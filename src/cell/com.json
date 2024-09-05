@@ -17,18 +17,23 @@
         "properties": {
           "title": {
             "type": "string",
-            "title":"单元格标题",
-            "description":"单元格标题"
+            "title": "单元格标题",
+            "description": "单元格标题"
+          },
+          "thumb": {
+            "type": "string",
+            "title": "单元格icon",
+            "description": "单元格icon"
           },
           "brief": {
             "type": "string",
-            "title":"单元格描述",
-            "description":"单元格描述"
+            "title": "单元格描述",
+            "description": "单元格描述"
           },
           "content": {
             "type": "string",
-            "title":"单元格内容",
-             "description":"单元格内容"
+            "title": "单元格内容",
+            "description": "单元格内容"
           }
         }
       }
