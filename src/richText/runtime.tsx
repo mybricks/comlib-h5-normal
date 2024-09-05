@@ -6,6 +6,41 @@ import RichText from "./../components/rich-text";
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const [ready, setReady] = useState(false);
+  const [pxDelta, setPxDelta] = useState(1)
+
+  //判断是否是真机运行态
+  const isRelEnv = () => {
+    if (env.runtime.debug || env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const calculatePxDelta = (windowWidth) => {
+    return windowWidth / 375;
+  };
+
+  const handleResize = () => {
+    if (isRelEnv()) {
+      Taro.getSystemInfo().then((res) => {
+        const { windowWidth } = res;
+        const initialPxDelta = calculatePxDelta(windowWidth);
+        setPxDelta(initialPxDelta);
+      });
+    } else {
+      setPxDelta(1);
+    }
+  };
+
+  useEffect(() => {
+    handleResize()
+    Taro.onWindowResize(handleResize);
+    return () => {
+      Taro.offWindowResize(handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
     inputs["setDataSource"]((val) => {
@@ -33,6 +68,14 @@ export default function ({ env, data, inputs, outputs, slots }) {
     }
   };
 
+  function scalePxValues(richText, scaleFactor) {
+    const pxRegex = /(\d+(\.\d+)?)px/g;
+    return richText.replace(pxRegex, (match, p1) => {
+        const newPxValue = parseFloat(p1) * scaleFactor;
+        return `${newPxValue}px`;
+    });
+}
+
   const content = useMemo(() => {
     let result;
 
@@ -52,8 +95,11 @@ export default function ({ env, data, inputs, outputs, slots }) {
       /<img/gi,
       '<img class style="display: block; width: 100%; height: auto;"'
     );
+
+    result = scalePxValues(result, pxDelta);
+
     return result;
-  }, [data.content]);
+  }, [data.content,pxDelta]);
 
   // 处理图片点击事件
   // const handleImageTap = useCallback(
