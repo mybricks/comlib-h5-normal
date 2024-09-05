@@ -10,7 +10,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   //判断是否是真机运行态
   const isRelEnv = () => {
-    if (env.runtime.debug || env.edit) {
+    if (env.runtime.debug || env.edit || env.edit === null) {
       return false;
     } else {
       return true;
@@ -39,7 +39,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
     return () => {
       Taro.offWindowResize(handleResize);
     };
-  }, []);
+  }, [env]);
 
 
   useEffect(() => {
