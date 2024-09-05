@@ -1,9 +1,21 @@
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, {
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { View, ScrollView } from "@tarojs/components";
 import css from "./runtime.less";
 import cx from "classnames";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isObject, isString, isNumber, isEmpty } from "./../utils/type";
+import { isH5, isDesigner } from "../utils/env";
+import * as Taro from "@tarojs/taro";
+
+function getRandomNumber() {
+  return Number(Math.random() * 0.1 + 0.01);
+}
 
 export default function (props) {
   const { env, data, inputs, outputs, slots } = props;
@@ -24,11 +36,27 @@ export default function (props) {
 
   const [ready, setReady] = useState(data.defaultRenderMode === "static");
 
+  const [isTouching, setIsTouching] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+
   const [scrollTop, setScrollTop] = useState(0);
+  const scrollTopRef = useRef(0);
+
   const itemHeight = 44; // 每个选项的高度
   const visibleItems = 5; // 可见的选项数量
   const middleIndex = Math.floor(visibleItems / 2); // 中间选项的索引
   const scrollViewRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+  const pauseHandleScrollEndRef = useRef(null);
+
+  // 计算实际的 itemHeight
+  const realItemHeight = useMemo(() => {
+    const windowWidth = isDesigner(env)
+      ? 375
+      : Taro.getSystemInfoSync().windowWidth;
+    let ratio = windowWidth / 375;
+    return parseInt(itemHeight * ratio);
+  }, [itemHeight]);
 
   useEffect(() => {
     /* 设置值 */
@@ -53,12 +81,14 @@ export default function (props) {
       if (index === -1) {
         return;
       }
-      const newScrollTop = index * itemHeight;
+      const newScrollTop = index * newItemHeight;
 
-      setScrollTop(newScrollTop);
-      setTimeout(() => {
-        scrollViewRef.current.scrollTo({ top: newScrollTop });
-      }, 20);
+      pauseHandleScrollEndRef.current = true;
+      scrollTopRef.current = newScrollTop;
+      setScrollTop(newScrollTop + getRandomNumber());
+      Taro.nextTick(() => {
+        pauseHandleScrollEndRef.current = false;
+      });
 
       setValue(result);
       outputRels["setValueComplete"]?.(result);
@@ -87,33 +117,81 @@ export default function (props) {
           if (index === -1) {
             return;
           }
-          const newScrollTop = index * itemHeight;
 
-          setScrollTop(newScrollTop);
           setTimeout(() => {
-            scrollViewRef.current.scrollTo({ top: newScrollTop });
-          }, 20);
+            const newScrollTop = index * realItemHeight;
+
+            pauseHandleScrollEndRef.current = true;
+            scrollTopRef.current = newScrollTop;
+            setScrollTop(newScrollTop + getRandomNumber());
+            Taro.nextTick(() => {
+              pauseHandleScrollEndRef.current = false;
+            });
+          }, 0);
         } else {
           // 如果没有选中的项，则设置第一个为选中项
           setValue(data.options[0]?.value);
         }
       }
     });
-  }, [data.options, setScrollTop, setValue]);
+  }, [data.options, setValue]);
 
   const handleScroll = (e) => {
-    setScrollTop(e.detail.scrollTop);
+    //
+    if (pauseHandleScrollEndRef.current) return;
+
+    scrollTopRef.current = e.detail.scrollTop;
+
+    console.warn("onScroll");
+    setIsScrolling(true); // 标记滚动状态
+
+    // 清除之前的 timeout
+    console.log("clearTimeout", scrollTimeoutRef.current);
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // 设置新的 timeout
+    scrollTimeoutRef.current = setTimeout(() => {
+      console.warn("stopScroll");
+      setIsScrolling(false); // 清除滚动状态
+    }, 200);
   };
 
   const handleScrollEnd = () => {
-    const index = Math.round(scrollTop / itemHeight);
-    const newScrollTop = index * itemHeight;
-    setScrollTop(newScrollTop);
-    scrollViewRef.current.scrollTo({ top: newScrollTop, behavior: "smooth" });
+    const index = Math.round(scrollTopRef.current / realItemHeight);
+    const newScrollTop = index * realItemHeight;
+
+    pauseHandleScrollEndRef.current = true;
+    scrollTopRef.current = newScrollTop;
+    setScrollTop(newScrollTop + getRandomNumber());
+    Taro.nextTick(() => {
+      pauseHandleScrollEndRef.current = false;
+    });
 
     // 修改 value
     setValue(data.options[index]?.value);
   };
+
+  const handleTouchStart = useCallback(() => {
+    setIsTouching(true); // 标记触摸状态
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    console.warn("handleTouchEnd");
+
+    setTimeout(() => {
+      setIsTouching(false); // 清除触摸状态
+    }, 200);
+  }, []);
+
+  useEffect(() => {
+    if (!isScrolling && !isTouching) {
+      Taro.nextTick(() => {
+        handleScrollEnd();
+      });
+    }
+  }, [isScrolling, isTouching]);
 
   const handleCancel = () => {
     // 处理取消操作
@@ -135,7 +213,13 @@ export default function (props) {
     }
 
     if (result.length) {
-      return [{}, {}, ...result, {}, {}];
+      return [
+        { value: Math.random() },
+        { value: Math.random() },
+        ...result,
+        { value: Math.random() },
+        { value: Math.random() },
+      ];
     } else {
       return [];
     }
@@ -164,20 +248,24 @@ export default function (props) {
       <View className={css.content}>
         <ScrollView
           ref={scrollViewRef}
+          className={css.scrollView}
           scrollY
           enhanced={true}
           showScrollbar={false}
           enablePassive={true}
-          className={css.scrollView}
+          scrollTop={scrollTop}
           onScroll={handleScroll}
-          onScrollEnd={handleScrollEnd}
-          onScrollToLower={handleScrollEnd}
-          onScrollToUpper={handleScrollEnd}
+          // onScrollEnd={handleScrollEnd}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          // onScrollToLower={handleScrollEnd}
+          // onScrollToUpper={handleScrollEnd}
         >
           {options.map((option, index) => {
             const offsetIndex = Math.abs(
-              index - Math.round(scrollTop / itemHeight)
+              index - Math.round(scrollTopRef.current / realItemHeight)
             );
+
             let className = css.option;
             if (offsetIndex === middleIndex) {
               className = cx(css.option, css.selected);
@@ -186,15 +274,12 @@ export default function (props) {
               offsetIndex === middleIndex + 1
             ) {
               className = cx(css.option, css.nearSelected);
-            } else if (
-              offsetIndex === middleIndex - 2 ||
-              offsetIndex === middleIndex + 2
-            ) {
+            } else {
               className = cx(css.option, css.farSelected);
             }
             return (
               <View
-                key={index}
+                key={option.value + "_" + index}
                 className={className}
                 style={{ height: `${itemHeight}px` }}
               >

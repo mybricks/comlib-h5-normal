@@ -226,9 +226,11 @@ export default function ({ env, data, inputs, outputs }) {
       context.closePath();
 
       // 设置边框样式
-      context.lineWidth = borderWidth;
-      context.strokeStyle = borderColor;
-      context.stroke();
+      if (borderWidth > 0) {
+        context.lineWidth = borderWidth;
+        context.strokeStyle = borderColor;
+        context.stroke();
+      }
 
       // 裁剪到圆角矩形区域
       context.clip();

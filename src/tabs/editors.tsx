@@ -22,21 +22,6 @@ const getFocusTab = (props) => {
   return data.tabs[index];
 };
 
-export const setSlotLayout = (slot, val) => {
-  if (!slot) return;
-  if (val.position === "smart") {
-    slot.setLayout("smart");
-  } else if (val.position === "absolute") {
-    slot.setLayout(val.position);
-  } else if (val.display === "flex") {
-    if (val.flexDirection === "row") {
-      slot.setLayout("flex-row");
-    } else if (val.flexDirection === "column") {
-      slot.setLayout("flex-column");
-    }
-  }
-};
-
 export default {
   "@init"({ style, data, ...opt }) {
     style.width = 375;
@@ -279,9 +264,6 @@ export default {
                   type: "scope",
                   inputs: ScopeSlotInputs,
                 });
-                //插槽配置为智能布局
-                // const slotInstance = slot.get(action?.value._id);
-                // setSlotLayout(slotInstance, data.slotStyle);
               },
               onUpdate: ({ slot }, action) => {
                 slot.setTitle(action?.value._id, action?.value.tabName);

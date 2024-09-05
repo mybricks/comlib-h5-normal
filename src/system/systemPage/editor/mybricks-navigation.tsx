@@ -1,15 +1,4 @@
-const setSlotLayout = (slot, val) => {
-  if (!slot) return;
-  if (val.position === "absolute") {
-    slot.setLayout(val.position);
-  } else if (val.display === "flex") {
-    if (val.flexDirection === "row") {
-      slot.setLayout("flex-row");
-    } else if (val.flexDirection === "column") {
-      slot.setLayout("flex-column");
-    }
-  }
-};
+import setSlotLayout from "../../../utils/setSlotLayout";
 
 export default {
   ".mybricks-navigation": {

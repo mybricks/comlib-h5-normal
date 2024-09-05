@@ -89,7 +89,7 @@ export default function (props) {
     });
 
     /* 清除倒计时 */
-    inputs["clearCountDown"](() => {
+    inputs["clearCountDown"]((val) => {
       clearTimeout(timer.current);
       countDownRef.current = 0;
       data.buttonText = data.buttonTextRetry;
@@ -103,9 +103,13 @@ export default function (props) {
   }, []);
 
   const countDown = useCallback(
-    (cd) => {
+    (cd, callback) => {
       countDownRef.current = cd;
       data.buttonText = `${cd}s 后重试`;
+
+      if (typeof callback === "function") {
+        callback();
+      }
 
       timer.current = setTimeout(() => {
         countDownRef.current--;
@@ -130,27 +134,31 @@ export default function (props) {
     outputs["onBlur"](value);
   }, []);
 
-  const onCodeSend = useCallback((e) => {
-    if (!env.runtime) {
-      return;
-    }
+  const onCodeSend = useCallback(
+    (e) => {
+      if (!env.runtime) {
+        return;
+      }
 
-    e.stopPropagation();
+      e.stopPropagation();
 
-    // 禁用时不可点击
-    if (data.disabled) {
-      return;
-    }
+      // 禁用时不可点击
+      if (data.disabled) {
+        return;
+      }
 
-    // 倒计时中不可点击
-    if (countDownRef.current) {
-      return;
-    }
+      // 倒计时中不可点击
+      if (countDownRef.current > 0) {
+        return;
+      }
 
-    // 发送验证码，并开始倒计时
-    outputs["onCodeSend"]();
-    countDown(data.smsCountdown);
-  }, []);
+      // 发送验证码，并开始倒计时
+      countDown(data.smsCountdown, () => {
+        outputs["onCodeSend"]();
+      });
+    },
+    [countDownRef.current]
+  );
 
   return (
     <View
@@ -170,10 +178,10 @@ export default function (props) {
       <Button
         className={cx({
           [css.button]: true,
-          [css.enabled]: !data.disabled && !countDownRef.current,
-          "mybricks-button": !data.disabled && !countDownRef.current,
-          [css.disabled]: data.disabled || countDownRef.current,
-          "mybricks-button-disabled": data.disabled || countDownRef.current,
+          [css.enabled]: !data.disabled && countDownRef.current <= 0,
+          "mybricks-button": !data.disabled && countDownRef.current <= 0,
+          [css.disabled]: data.disabled || countDownRef.current > 0,
+          "mybricks-button-disabled": data.disabled || countDownRef.current > 0,
         })}
         onClick={onCodeSend}
       >
