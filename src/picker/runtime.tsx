@@ -18,7 +18,7 @@ function getRandomNumber() {
 }
 
 export default function (props) {
-  const { env, data, inputs, outputs, slots } = props;
+  const { id, env, data, inputs, outputs, slots } = props;
 
   const defaultValue = useMemo(() => {
     if (env.edit) {
@@ -36,16 +36,19 @@ export default function (props) {
 
   const [ready, setReady] = useState(data.defaultRenderMode === "static");
 
-  const [isTouching, setIsTouching] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const isTouching = useRef(false);
+  const isScrolling = useRef(false);
 
-  const [scrollTop, setScrollTop] = useState(0);
+  const [scrollToProps, setScrollToProps] = useState({
+    scrollWithAnimation: false,
+    scrollAnimationDuration: 0,
+    scrollTop: 0,
+  });
+
   const scrollTopRef = useRef(0);
 
   const itemHeight = 44; // 每个选项的高度
-  const visibleItems = 5; // 可见的选项数量
-  const middleIndex = Math.floor(visibleItems / 2); // 中间选项的索引
-  const scrollViewRef = useRef(null);
+
   const scrollTimeoutRef = useRef(null);
   const pauseHandleScrollEndRef = useRef(null);
 
@@ -81,14 +84,14 @@ export default function (props) {
       if (index === -1) {
         return;
       }
-      const newScrollTop = index * newItemHeight;
+      const newScrollTop = index * realItemHeight;
 
-      pauseHandleScrollEndRef.current = true;
-      scrollTopRef.current = newScrollTop;
-      setScrollTop(newScrollTop + getRandomNumber());
-      Taro.nextTick(() => {
-        pauseHandleScrollEndRef.current = false;
-      });
+      let randomNumber = getRandomNumber();
+      scrollTopRef.current = newScrollTop + randomNumber;
+      setScrollToProps((c) => ({
+        ...c,
+        scrollTop: newScrollTop + randomNumber,
+      }));
 
       setValue(result);
       outputRels["setValueComplete"]?.(result);
@@ -121,12 +124,12 @@ export default function (props) {
           setTimeout(() => {
             const newScrollTop = index * realItemHeight;
 
-            pauseHandleScrollEndRef.current = true;
-            scrollTopRef.current = newScrollTop;
-            setScrollTop(newScrollTop + getRandomNumber());
-            Taro.nextTick(() => {
-              pauseHandleScrollEndRef.current = false;
-            });
+            let randomNumber = getRandomNumber();
+            scrollTopRef.current = newScrollTop + randomNumber;
+            setScrollToProps((c) => ({
+              ...c,
+              scrollTop: newScrollTop + randomNumber,
+            }));
           }, 0);
         } else {
           // 如果没有选中的项，则设置第一个为选中项
@@ -136,62 +139,69 @@ export default function (props) {
     });
   }, [data.options, setValue]);
 
-  const handleScroll = (e) => {
-    //
-    if (pauseHandleScrollEndRef.current) return;
+  const handleTouchStart = () => {
+    isTouching.current = true;
+  };
 
-    scrollTopRef.current = e.detail.scrollTop;
+  const handleTouchEnd = () => {
+    console.error("触摸结束");
+    isTouching.current = false;
 
-    console.warn("onScroll");
-    setIsScrolling(true); // 标记滚动状态
-
-    // 清除之前的 timeout
-    console.log("clearTimeout", scrollTimeoutRef.current);
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
+    if (!isScrolling.current) {
+      handleScrollEnd();
     }
+  };
 
-    // 设置新的 timeout
+  /**
+   * 处理滚动
+   */
+  const handleScroll = (e) => {
+    console.log(
+      "触发滚动",
+      `当前值：${scrollTopRef.current}`,
+      `目标值：${e.detail.scrollTop}`
+    );
+
+    isScrolling.current = true;
+
+    scrollTopRef.current = e.detail.scrollTop + getRandomNumber();
+
+    clearTimeout(scrollTimeoutRef.current);
+
     scrollTimeoutRef.current = setTimeout(() => {
-      console.warn("stopScroll");
-      setIsScrolling(false); // 清除滚动状态
-    }, 200);
+      console.error("滚动结束");
+      isScrolling.current = false;
+
+      if (isTouching.current) {
+        console.warn("正在触摸中，不处理滚动结束");
+        return;
+      }
+      handleScrollEnd();
+    }, 100);
   };
 
   const handleScrollEnd = () => {
+    // 如果已经在处理滚动结束，则不处理
+    if (pauseHandleScrollEndRef.current) {
+      console.log("[handleScrollEnd]", "已经在处理滚动结束，则不处理");
+      return;
+    }
+    pauseHandleScrollEndRef.current = true;
+
     const index = Math.round(scrollTopRef.current / realItemHeight);
     const newScrollTop = index * realItemHeight;
 
-    pauseHandleScrollEndRef.current = true;
-    scrollTopRef.current = newScrollTop;
-    setScrollTop(newScrollTop + getRandomNumber());
-    Taro.nextTick(() => {
-      pauseHandleScrollEndRef.current = false;
-    });
-
     // 修改 value
     setValue(data.options[index]?.value);
-  };
 
-  const handleTouchStart = useCallback(() => {
-    setIsTouching(true); // 标记触摸状态
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    console.warn("handleTouchEnd");
+    // 修改 scrollTop
+    scrollTopRef.current = newScrollTop + getRandomNumber();
 
     setTimeout(() => {
-      setIsTouching(false); // 清除触摸状态
-    }, 200);
-  }, []);
-
-  useEffect(() => {
-    if (!isScrolling && !isTouching) {
-      Taro.nextTick(() => {
-        handleScrollEnd();
-      });
-    }
-  }, [isScrolling, isTouching]);
+      console.log("[handleScrollEnd]", "结束处理");
+      pauseHandleScrollEndRef.current = false;
+    }, 0);
+  };
 
   const handleCancel = () => {
     // 处理取消操作
@@ -246,14 +256,21 @@ export default function (props) {
 
       {/* content */}
       <View className={css.content}>
+        <View
+          className={cx([css.centerIndicator, "mybricks-centerIndicator"])}
+        ></View>
+
         <ScrollView
-          ref={scrollViewRef}
+          key={id}
           className={css.scrollView}
           scrollY
           enhanced={true}
-          showScrollbar={false}
           enablePassive={true}
-          scrollTop={scrollTop}
+          showScrollbar={false}
+          // {...scrollToProps}
+          scrollWithAnimation={false}
+          scrollAnimationDuration={0}
+          scrollTop={scrollTopRef.current}
           onScroll={handleScroll}
           // onScrollEnd={handleScrollEnd}
           onTouchStart={handleTouchStart}
@@ -267,12 +284,9 @@ export default function (props) {
             );
 
             let className = css.option;
-            if (offsetIndex === middleIndex) {
+            if (offsetIndex === 2) {
               className = cx(css.option, css.selected);
-            } else if (
-              offsetIndex === middleIndex - 1 ||
-              offsetIndex === middleIndex + 1
-            ) {
+            } else if (offsetIndex === 1 || offsetIndex === 3) {
               className = cx(css.option, css.nearSelected);
             } else {
               className = cx(css.option, css.farSelected);
@@ -288,10 +302,6 @@ export default function (props) {
             );
           })}
         </ScrollView>
-
-        <View
-          className={cx([css.centerIndicator, "mybricks-centerIndicator"])}
-        ></View>
       </View>
     </View>
   );
