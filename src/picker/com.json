@@ -54,6 +54,13 @@
         }
       },
       "rels": ["setOptionsComplete"]
+    },
+    {
+      "id": "setTitle",
+      "title": "设置标题",
+      "schema": {
+        "type": "string"
+      }
     }
   ],
   "outputs": [

@@ -137,6 +137,11 @@ export default function (props) {
         }
       }
     });
+
+    // 设置标题
+    inputs["setTitle"]((val) => {
+      data.title = val;
+    });
   }, [data.options, setValue]);
 
   const handleTouchStart = () => {
@@ -190,12 +195,12 @@ export default function (props) {
 
     const index = Math.round(scrollTopRef.current / realItemHeight);
     const newScrollTop = index * realItemHeight;
+    
+    // 修改 scrollTop
+    scrollTopRef.current = newScrollTop + getRandomNumber();
 
     // 修改 value
     setValue(data.options[index]?.value);
-
-    // 修改 scrollTop
-    scrollTopRef.current = newScrollTop + getRandomNumber();
 
     setTimeout(() => {
       console.log("[handleScrollEnd]", "结束处理");
