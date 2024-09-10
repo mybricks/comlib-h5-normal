@@ -15,6 +15,10 @@ function getTabItem(data, focusArea) {
   return {};
 }
 
+function findItemByInnerId(_id, data) {
+  return data.tabs.find((t) => t._id === _id) ?? {};
+}
+
 const getFocusTab = (props) => {
   const { data, focusArea } = props;
   if (!focusArea) return {};
@@ -155,7 +159,9 @@ export default {
                   }
                 },
                 onRemove(_id) {
+                  const item = findItemByInnerId(_id, data)
                   input.remove(_id);
+                  outputs.remove(`changeTab_${item._id}`);
                   // slots.remove(_id);
 
                   // if (id === data.defaultActiveId) {
@@ -393,8 +399,10 @@ export default {
               title: "删除标签项",
               type: "Button",
               value: {
-                set({ data, slot, input, focusArea }) {
+                set({ data, slot, input,outputs, focusArea }) {
                   if (!focusArea) return;
+                  const item = findItemByInnerId(focusItem._id, data)
+                  outputs.remove(`changeTab_${item._id}`);
                   data.tabs.splice(focusArea.index, 1);
                   input.remove(focusItem._id);
                   slot.remove(focusItem._id);

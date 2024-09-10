@@ -92,8 +92,10 @@ export default {
           },
           onRemove(_id) {
             const id = findItemByInnerId(_id, data)?.id;
+            const outputId = findItemByInnerId(_id, data)?.outputId;
             input.remove(id);
             slots.remove(id);
+            output.remove(outputId);
 
             if (id === data.defaultActiveId) {
               data.defaultActiveId = undefined;
