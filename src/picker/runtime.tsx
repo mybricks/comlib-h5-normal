@@ -58,7 +58,7 @@ export default function (props) {
       ? 375
       : Taro.getSystemInfoSync().windowWidth;
     let ratio = windowWidth / 375;
-    return parseInt(itemHeight * ratio);
+    return Number(itemHeight * ratio);
   }, [itemHeight]);
 
   useEffect(() => {
@@ -195,7 +195,7 @@ export default function (props) {
 
     const index = Math.round(scrollTopRef.current / realItemHeight);
     const newScrollTop = index * realItemHeight;
-    
+
     // 修改 scrollTop
     scrollTopRef.current = newScrollTop + getRandomNumber();
 
@@ -280,8 +280,8 @@ export default function (props) {
           // onScrollEnd={handleScrollEnd}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          // onScrollToLower={handleScrollEnd}
-          // onScrollToUpper={handleScrollEnd}
+        // onScrollToLower={handleScrollEnd}
+        // onScrollToUpper={handleScrollEnd}
         >
           {options.map((option, index) => {
             const offsetIndex = Math.abs(
