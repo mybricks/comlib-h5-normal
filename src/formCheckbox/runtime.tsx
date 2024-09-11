@@ -114,6 +114,20 @@ export default function (props) {
     return ready ? data.options : [];
   }, [ready, data.options]);
 
+  const gapStyle = useMemo(()=>{
+    if(data.direction === 'vertical'){
+      return {
+        marginBottom : `${data.gap}px`
+      }
+    }
+    if(data.direction === 'horizontal'){
+      return {
+        marginRight : `${data.gap}px`
+      }
+    }
+
+  },[data.direction,data.gap])
+
   return (
     <Checkbox.Group
       direction={data.direction}
@@ -136,6 +150,7 @@ export default function (props) {
             shape="square"
             disabled={item.disabled ?? false}
             {...restProps}
+            style={gapStyle}
           >
             {item.label}
           </Checkbox>

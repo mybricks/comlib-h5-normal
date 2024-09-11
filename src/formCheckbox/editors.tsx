@@ -114,6 +114,18 @@ export default {
             },
           },
         },
+        {
+          title:"选项间距",
+          type:"number",
+          value:{
+            get({data}){
+              return data.gap || 12
+            },
+            set({data},value){
+              data.gap = value
+            }
+          }
+        },
         {},
         {
           title: "当值变化",

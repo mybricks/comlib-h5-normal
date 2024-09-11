@@ -4,6 +4,7 @@
   "name": "多选",
   "direction": "vertical",
   "value": [],
+  "gap":12,
   "options": [
     {
       "label": "邮箱",
