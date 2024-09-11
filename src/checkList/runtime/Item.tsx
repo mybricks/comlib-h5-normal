@@ -22,6 +22,10 @@ export default function (props) {
         [css.horizontal]: data.itemLayout === "horizontal",
       })}
       onClick={(e) => {
+        if (env.edit) {
+          return;
+        }
+        
         e.stopPropagation();
         onChange(item.value);
       }}
