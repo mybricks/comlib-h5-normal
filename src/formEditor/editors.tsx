@@ -9,6 +9,13 @@ export default {
   ":root": {
     style: [
       {
+        title: "工具条",
+        options: ["border", "padding", "background"],
+        target({ id }) {
+          return [`.mybricks-toolbar`];
+        },
+      },
+      {
         title: "输入框",
         options: ["border", "size", "padding", "background"],
         target({ id }) {

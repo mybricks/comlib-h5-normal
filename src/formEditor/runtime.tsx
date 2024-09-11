@@ -349,6 +349,7 @@ export default function (props) {
         className={cx({
           [css.toolbar]: true,
           [css.fixed]: useFixedToolbar,
+          "mybricks-toolbar": true,
         })}
       >
         <View
