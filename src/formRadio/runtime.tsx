@@ -109,6 +109,20 @@ export default function (props) {
     return ready ? data.options : [];
   }, [ready, data.options]);
 
+  const gapStyle = useMemo(()=>{
+    if(data.direction === 'vertical'){
+      return {
+        marginBottom : `${data.gap}px`
+      }
+    }
+    if(data.direction === 'horizontal'){
+      return {
+        marginRight : `${data.gap}px`
+      }
+    }
+
+  },[data.direction,data.gap])
+
   return (
     <Radio.Group direction={data.direction} value={value} onChange={onChange}>
       {options.map((item) => {
@@ -124,6 +138,7 @@ export default function (props) {
               ["mybricks-active"]: value == item.value,
             })}
             name={item.value}
+            style={gapStyle}
             {...restProps}
           >
             <View className={cx("mybricks-label", css.label)}>
