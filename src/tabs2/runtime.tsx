@@ -85,9 +85,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   useLayoutEffect(() => {
     //通过连线来切换tab
     data.tabs.forEach((item) => {
-      console.log("item", item);
       inputs[item._id]?.((bool, relOutputs) => {
-        console.log("连线切换", item._id);
         _setCurrentTabId(item._id);
         relOutputs["changeDone"]?.(bool);
       });
@@ -147,6 +145,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             tabName: item.tabName,
           };
         });
+        _setCurrentTabId(data.tabs[0]._id);
       }
     });
 
@@ -353,6 +352,63 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     };
   }, [data.tabWidthType, data.tabItemGap]);
 
+  const tabContent = useMemo(()=>{
+    //非动态标签页的情况
+    if(!data.useDynamicTab){
+      return data.tabs.map((tab, index) => {
+        const isActive = currentTabIdRef.current === tab._id;
+          return (
+            <View
+              key={tab._id}
+              id={tabpaneId}
+              style={{
+                height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
+                display: isActive ? "block" : "none", // 控制显示和隐藏
+              }}
+              className={cx(css.tab_content, env.edit && css.minHeight)}
+            >
+              {slots[tab._id]?.render?.({
+                key: tab._id,
+              })}
+            </View>
+          );
+        
+      });
+    }
+
+    //动态标签页的情况
+    if(data.useDynamicTab){
+      return data.tabs.map((tab, index) => {
+        const isActive = currentTabIdRef.current === tab._id;
+        if(isActive){
+          return (
+            <View
+              key={tab._id}
+              id={tabpaneId}
+              style={{
+                height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
+                display: isActive ? "block" : "none", // 控制显示和隐藏
+              }}
+              className={cx(css.tab_content, env.edit && css.minHeight)}
+            >
+              {slots["tabItem"]?.render?.({
+                  inputValues: {
+                    itemData: tab,
+                    index: index
+                  },
+                })}
+            </View>
+          );
+        }else{
+          return null
+        }
+
+        
+      });
+    }
+
+  },[data.useDynamicTab,data.tabs,slots])
+
   return (
     emptyView || (
       <View className={cx(css.tab_box, "mybricks-tabs")}>
@@ -383,25 +439,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             );
           })}
         </Tabs>
-
-        {data.tabs.map((tab, index) => {
-          const isActive = currentTabIdRef.current === tab._id;
-          return (
-            <View
-              key={tab._id}
-              id={tabpaneId}
-              style={{
-                height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
-                display: isActive ? "block" : "none", // 控制显示和隐藏
-              }}
-              className={cx(css.tab_content, env.edit && css.minHeight)}
-            >
-              {slots[data.tabs_dynamic ? "item" : tab._id].render?.({
-                key: tab._id,
-              })}
-            </View>
-          );
-        })}
+        {tabContent}
       </View>
     )
   );

@@ -272,6 +272,42 @@ export default {
             },
           }
         ),
+        {
+          title: "动态标签",
+          type: "switch",
+          description: "开启后，可通过连线动态配置左侧的选项列表",
+          value: {
+            get({ data,slot }) {
+              console.log("data.useDynamicTab",data.useDynamicTab)
+              if(!data.useDynamicTab){
+                slot.remove("tabItem")
+              }
+              return data.useDynamicTab;
+            },
+            set({ data , slot }, value) {
+              data.useDynamicTab = value;
+              //当动态标签开启时，把目前的全部slot存起来，后面可以还原
+              if(value){
+                data.slotStorage = data.tabs.map((item) => {
+                  slot.remove(item._id)
+                  return {
+                    id: item._id,
+                    title: item.tabName,
+                  };
+                });
+                slot.add(comJson.slots[0])
+              }else{
+                //动态标签页关闭时，还原存储的slot
+                data.slotStorage.forEach((item) => {
+                  slot.add(item)
+                });
+                slot.remove("tabItem")
+                data.slotStorage = []
+              }
+
+            },
+          }
+        },
         // {
         //   title: "支持滑动",
         //   type: "switch",
