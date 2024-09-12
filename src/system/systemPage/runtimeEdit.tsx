@@ -118,7 +118,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   // const editFinishRef = useRef();
   const tabBar = useMemo(() => {
-    console.log("tabBar~!!!!", useTabBar, data.tabBar);
+    // console.log("tabBar~!!!!", useTabBar, data.tabBar);
 
     switch (useTabBar) {
       case 0:
