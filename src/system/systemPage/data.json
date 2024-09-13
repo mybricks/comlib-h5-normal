@@ -50,5 +50,6 @@
   },
   "bottomSpace": 30,
   "useLoading": false,
-  "backgroundSize":"cover"
+  "backgroundSize": "cover",
+  "isEntryPagePath": false
 }

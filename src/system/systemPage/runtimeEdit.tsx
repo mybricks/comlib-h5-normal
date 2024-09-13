@@ -43,6 +43,20 @@ const getDefaultTabItem = (id) => {
 
 export default function ({ env, data, inputs, outputs, slots }) {
   data.id = env.canvas.id;
+
+  useEffect(() => {
+    window.__entryPagePath__?.on(data.id, (val) => {
+      data.isEntryPagePath = val === data.id;
+    });
+
+    let defaultEntryPagePath = window.__entryPagePath__?.get() ?? "";
+    data.isEntryPagePath = defaultEntryPagePath === data.id;
+
+    return () => {
+      window.__entryPagePath__?.off(data.id);
+    };
+  }, []);
+
   /**
    * 页面初始化
    */
@@ -116,10 +130,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
     return true;
   }, [data.useTabBar, data.tabBar, env.canvas.id]);
 
-  // const editFinishRef = useRef();
   const tabBar = useMemo(() => {
-    // console.log("tabBar~!!!!", useTabBar, data.tabBar);
-
     switch (useTabBar) {
       case 0:
         return null;
