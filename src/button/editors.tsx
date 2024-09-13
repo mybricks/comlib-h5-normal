@@ -254,7 +254,7 @@ export default {
         }
       },
       {
-        title: "展示前置图标",
+        title: "前置图标",
         type: "switch",
         value: {
           get({ data }) {
@@ -266,7 +266,22 @@ export default {
         },
       },
       {
-        title: "展示后置图标",
+        title:"图标地址",
+        type:"imageSelector",
+        ifVisible({ data }) {
+          return data.useBeforeIcon;
+        },
+        value: {
+          get({ data }) {
+            return data.beforeIconUrl;
+          },
+          set({ data }, value) {
+            data.beforeIconUrl = value;
+          }
+        }
+      },
+      {
+        title: "后置图标",
         type: "switch",
         value: {
           get({ data }) {
@@ -276,6 +291,21 @@ export default {
             data.useAfterIcon = value;
           },
         },
+      },
+      {
+        title:"图标地址",
+        type:"imageSelector",
+        ifVisible({ data }) {
+          return data.useAfterIcon;
+        },
+        value: {
+          get({ data }) {
+            return data.afterIconUrl;
+          },
+          set({ data }, value) {
+            data.afterIconUrl = value;
+          }
+        }
       },
       {
         title: "禁用按钮",
