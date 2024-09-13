@@ -6,7 +6,15 @@ export default {
   "@resize": {
     options: ["width"],
   },
-  ":root"({ data, output, style }, cate0, cate1, cate2) {
+  ":root": {
+    style: [
+      {
+        title: "星星样式",
+        options: ["font"],
+        target: ".taroify-icon",
+      },
+    ],
+    items: ({ data, output, style }, cate0, cate1, cate2) => {
     cate0.title = "常规";
     cate0.items = [
       // {
@@ -72,5 +80,6 @@ export default {
         },
       },
     ];
-  },
-};
+  }
+}
+}
