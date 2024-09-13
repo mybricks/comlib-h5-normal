@@ -359,10 +359,10 @@ export default function (props) {
           })}
           onClick={toggleBold}
         >
-          <Image className={css.icon} src={boldIcon} svg={true}></Image>
+          <Image className={cx("mybricks-boldIcon",css.icon)} src={data.boldIconUrl || boldIcon} svg={true}></Image>
         </View>
         <View className={css.item} onClick={insertImage}>
-          <Image className={css.icon} src={imageIcon} svg={true}></Image>
+          <Image className={cx("mybricks-imgIcon",css.icon)} src={data.imgIconUrl || imageIcon} svg={true}></Image>
         </View>
 
         {/* 扩展 */}
@@ -383,10 +383,10 @@ export default function (props) {
         <View className={css.divider}></View>
 
         <View className={css.item} onClick={undo}>
-          <Image className={css.icon} src={undoIcon} svg={true}></Image>
+          <Image className={cx("mybricks-backward",css.icon)} src={data.backwardIconUrl || undoIcon} svg={true}></Image>
         </View>
         <View className={css.item} onClick={redo}>
-          <Image className={css.icon} src={redoIcon} svg={true}></Image>
+          <Image className={cx("mybricks-forward",css.icon)} src={data.forwardIconUrl || redoIcon} svg={true}></Image>
         </View>
       </View>
       <View className={css.placeholder}></View>

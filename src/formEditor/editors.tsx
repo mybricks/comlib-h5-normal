@@ -157,4 +157,96 @@ export default {
       ];
     },
   },
+  ".mybricks-boldIcon": {
+    style: [
+      {
+        title: "文字加粗图标",
+        options: ["size"],
+        target: ".mybricks-boldIcon",
+      },
+    ],
+    items: [
+      {
+        title: "图标修改",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.boldIconUrl;
+          },
+          set({ data }, value) {
+            data.boldIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-imgIcon": {
+    style: [
+      {
+        title: "图片选择图标",
+        options: ["size"],
+        target: ".mybricks-imgIcon",
+      },
+    ],
+    items: [
+      {
+        title: "图标修改",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.imgIconUrl;
+          },
+          set({ data }, value) {
+            data.imgIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-backward": {
+    style: [
+      {
+        title: "后退图标",
+        options: ["size"],
+        target: ".mybricks-backwardIcon",
+      },
+    ],
+    items: [
+      {
+        title: "图标修改",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.backwardIconUrl;
+          },
+          set({ data }, value) {
+            data.backwardIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-forward": {
+    style: [
+      {
+        title: "后退图标",
+        options: ["size"],
+        target: ".mybricks-forwardIcon",
+      },
+    ],
+    items: [
+      {
+        title: "图标修改",
+        type: "imageSelector",
+        value: {
+          get({ data }) {
+            return data.forwardIconUrl;
+          },
+          set({ data }, value) {
+            data.forwardIconUrl = value;
+          },
+        },
+      },
+    ],
+  },
 };
