@@ -56,7 +56,7 @@ export default function (props) {
 
   useEffect(() => {
     const query = Taro.createSelectorQuery();
-    query.select(`#${sanitizedId}`).boundingClientRect();
+    query.select(`.mybricks_com >>> .${sanitizedId}e`).boundingClientRect();
 
     env?.rootScroll?.onScroll?.((e) => {
       query.exec((res) => {
@@ -288,8 +288,9 @@ export default function (props) {
   }, []);
 
   const onEditorReady = useCallback(() => {
+    //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
     Taro.createSelectorQuery()
-      .select(`#${sanitizedId}e`)
+      .select(`.mybricks_com >>> .${sanitizedId}e`)
       .context((res) => {
         editorRef.current = res.context;
         setReady(true);
@@ -393,10 +394,11 @@ export default function (props) {
 
       {/* Editor */}
       <Editor
-        id={`${sanitizedId}e`}
+        // id={`${sanitizedId}e`}
         className={cx({
           [css.input]: true,
           "mybricks-input": true,
+          [`${sanitizedId}e`]:true
         })}
         showImgToolbar={true}
         value={value}
