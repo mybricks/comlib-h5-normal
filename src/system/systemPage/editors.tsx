@@ -4,7 +4,7 @@ import css from "./editors.less";
 import SkeletonEditor from "./editor/skeleton";
 import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
 import setSlotLayout from "../../utils/setSlotLayout";
-import asEntryPagePathEditor from "./editor/asEntryPagePath";
+import entryPagePathEditor from "./editor/entryPagePath";
 
 const message = window.antd?.message;
 
@@ -128,7 +128,7 @@ export default {
             },
           },
         },
-        // { ...asEntryPagePathEditor },
+        { ...entryPagePathEditor },
         {
           title: "顶部导航栏",
           items: MybricksNavigationEditor[".mybricks-navigation"].items,
