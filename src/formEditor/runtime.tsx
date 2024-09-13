@@ -239,7 +239,7 @@ export default function (props) {
   //     Taro.eventCenter.off(
   //       "onKeyboardHeightChange",
   //       onKeyboardHeightChangeHandler
-  //     );
+  //     );x
   //   };
   // }, []);
 
@@ -249,7 +249,16 @@ export default function (props) {
         setValue(res.html);
       },
     });
-  }, []);
+  }, [useBold,editorRef.current]);
+
+  const onStatusChange = (e) => {
+    // console.log("onStatusChange", e.mpEvent.detail?.bold);
+    if(e.mpEvent.detail?.bold == "strong"){
+      setUseBold(true);
+    }else{
+      setUseBold(false);
+    }
+  }
 
   const onBlur = useCallback((e) => {
     outputs["onBlur"]();
@@ -309,16 +318,16 @@ export default function (props) {
       .exec();
   }, [id, contentPool]);
 
-  const toggleBold = useCallback(() => {
+  const toggleBold = () => {
     if (!ready) {
       return;
     }
-
-    setUseBold((prev) => {
-      editorRef.current?.format?.("bold");
-      return !prev;
-    });
-  }, [ready, useBold]);
+    editorRef.current?.format?.("bold");
+    // setUseBold((prev) => {
+    //   console.log("editorRef.current", editorRef.current);
+    //   return !prev;
+    // });
+  }
 
   const undo = useCallback(() => {
     if (!ready) {
@@ -326,7 +335,7 @@ export default function (props) {
     }
 
     editorRef.current?.undo?.();
-  }, []);
+  }, [ready]);
 
   const redo = useCallback(() => {
     if (!ready) {
@@ -334,7 +343,7 @@ export default function (props) {
     }
 
     editorRef.current?.redo?.();
-  }, []);
+  }, [ready]);
 
   return (
     <View
@@ -408,7 +417,7 @@ export default function (props) {
         onBlur={onBlur}
         onReady={onEditorReady}
         onInput={onChange}
-        onStatusChange={onChange}
+        onStatusChange={onStatusChange}
       >
         该组件仅支持在微信小程序中运行
       </Editor>
