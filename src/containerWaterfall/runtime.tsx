@@ -69,7 +69,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   useReachBottom(
     () => {
-      if(!data.enableLoadMore) return;
+      if (!data.enableLoadMore) return;
       setStatus((s) => {
         if (s === ListStatus.IDLE) {
           outputs["onScrollLoad"]?.();
@@ -126,6 +126,13 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     })
 
   }, []);
+
+  useEffect(() => {
+    /* 获取值 */
+    inputs["getDataSource"]((val, outputRels) => {
+      outputRels["getDataSourceSuccess"](dataSource.map((item,index) => ({...item.item})));
+    });
+  }, [dataSource])
 
   /**
    * 列表项
@@ -343,12 +350,12 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   const useLoadingBar = useMemo(() => {
     if (env.runtime) {
-      if(!data.enableLoadMore) return false;
+      if (!data.enableLoadMore) return false;
       return status === ListStatus.LOADING && dataSource.length > 0;
     } else {
       return data._edit_status_ === "加载中";
     }
-  }, [env.runtime, status, dataSource,data.enableLoadMore]);
+  }, [env.runtime, status, dataSource, data.enableLoadMore]);
 
   const $loadingBar = useMemo(() => {
     return (
@@ -474,11 +481,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       {useWaterfall && $waterfall}
 
       {useLoading ||
-      useLoadingBar ||
-      useError ||
-      useErrorBar ||
-      useEmpty ||
-      useEmptyBar ? (
+        useLoadingBar ||
+        useError ||
+        useErrorBar ||
+        useEmpty ||
+        useEmptyBar ? (
         <View
           className={css.placeholder}
           style={{
