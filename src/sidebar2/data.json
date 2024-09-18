@@ -1,0 +1,50 @@
+{
+  "mode": "topbar",
+  "navBarListStyle": {
+    "paddingTop": "8px",
+    "paddingBottom": "8px",
+    "paddingLeft": "12px",
+    "paddingRight": "12px",
+    "justifyContent": "center"
+  },
+  "normalNavItemStyle": {
+    "borderRadius": "16px",
+    "background": "rgba(255, 255, 255, 0.5)",
+    "width": "80px",
+    "height": "32px",
+    "fontSize": "14px",
+    "paddingLeft": "12px",
+    "paddingRight": "12px",
+    "color": "#000000"
+  },
+  "activeNavItemStyle": {
+    "borderRadius": "16px",
+    "fontSize": "14px",
+    "background": "rgba(255, 255, 255, 0.8)",
+    "color": "#000000",
+    "fontWeight": 500
+  },
+  "tabs": [
+    {
+      "_id": "tabName1",
+      "tabName": "标签项1",
+      "normalNavItemStyle": {},
+      "activeNavItemStyle": {}
+    },
+    {
+      "_id": "tabName2",
+      "tabName": "标签项2",
+      "normalNavItemStyle": {},
+      "activeNavItemStyle": {}
+    }
+  ],
+  "edit": {
+    "currentTabId": "tabName1"
+  },
+  "navBarGutter": 12,
+  "hideContent": false,
+  "contentShowType":"roll",
+  "tabNameKey":"tabName",
+  "slotStorage":[],
+  "useDynamicTab":false
+}

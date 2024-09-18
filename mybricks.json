@@ -94,7 +94,7 @@
         "./src/containerList/com.json",
         "./src/containerWaterfall/com.json",
         "./src/containerCondition2/com.json",
-        "./src/sidebar/com.json",
+        "./src/sidebar2/com.json",
         "./src/collapse/com.json"
       ]
     },

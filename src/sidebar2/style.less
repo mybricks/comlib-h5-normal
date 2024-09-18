@@ -1,0 +1,43 @@
+.treeSelect {
+  width: 100vw;
+  height: 100vh;
+  &.edit {
+    width: 375px;
+    min-height: (667 - 84) * 1px;
+    height: (667 - 84) * 1px;
+  }
+
+  :global {
+    .taroify-tree-select__sidebar {
+      max-width: 120px;
+      min-width: 100px;
+      flex: none;
+
+      .taroify-badge-wrapper {
+        width: 100%;
+        overflow: hidden;
+        white-space: pre-wrap;
+        word-break: break-word;
+
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+.itemTabName{
+  color: rgb(62, 62, 62);
+  font-weight: 700;
+  font-size: 13px;
+  margin-left: 4px;
+  border-bottom: rgb(243, 243, 243) solid 1px;
+  width: 100%;
+}
+
+.disabled_area {
+  opacity: 0.4;
+  filter: blur(0.8px);
+  pointer-events: none !important;
+}
