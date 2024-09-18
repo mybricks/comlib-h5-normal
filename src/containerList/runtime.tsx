@@ -303,8 +303,8 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                 {!hasMore && (data.emptyTip ?? "没有更多了")}
                 {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
                   style: {
-                    minHeight: 100,
-                    width: 375
+                    minHeight: 130,
+                    minWidth:200
                   },
                 })}</View> : empty && data.initialEmptyTip}
               </List.Placeholder>
