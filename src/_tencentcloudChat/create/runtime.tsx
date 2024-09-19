@@ -2,9 +2,6 @@ import TencentCloudChat from "@tencentcloud/chat";
 import TIMUploadPlugin from "tim-upload-plugin";
 import TIMProfanityFilterPlugin from "tim-profanity-filter-plugin";
 import { genUserSig } from "./utils/GenerateUserSig";
-import * as Taro from "@tarojs/taro";
-
-let app = Taro.getApp();
 
 export default function ({ env, data, inputs, outputs }) {
   if (!env.runtime) {
@@ -12,7 +9,6 @@ export default function ({ env, data, inputs, outputs }) {
   }
 
   let chat;
-  let globalKey = `tencentcloudChat`;
 
   inputs["create"](({ userID }, outputRels) => {
     if (typeof userID !== "string") {
@@ -47,7 +43,10 @@ export default function ({ env, data, inputs, outputs }) {
     // 监听事件，如：
     chat.on(TencentCloudChat.EVENT.SDK_READY, function (event) {
       console.warn("SDK_READY", event);
+      env.global['tencentcloudChat'] = chat;
       outputRels["onSDKReady"]();
+
+
       // 收到离线消息和会话列表同步完毕通知，接入侧可以调用 sendMessage 等需要鉴权的接口
       // event.name - TencentCloudChat.EVENT.SDK_READY
     });

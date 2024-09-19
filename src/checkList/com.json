@@ -23,7 +23,7 @@
       "title": "获取值",
       "desc": "获取值",
       "schema": {
-        "type": "string"
+        "type": "any"
       },
       "rels": ["returnValue"]
     },

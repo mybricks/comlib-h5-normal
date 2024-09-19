@@ -15,9 +15,41 @@
       "id": "call",
       "title": "发送",
       "schema": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "消息类型",
+            "type": "string"
+          },
+          "to": {
+            "title": "userID",
+            "type": "string"
+          },
+          "text": {
+            "title": "文本",
+            "description": "如果是文本消息（text），则必填",
+            "type": "string"
+          }
+        }
       }
     }
   ],
-  "outputs": []
+  "outputs": [
+    {
+      "id": "onSuccess",
+      "title": "消息发送成功",
+      "description": "消息发送成功",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
+      "id": "onFail",
+      "title": "消息发送失败",
+      "description": "消息发送失败",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
 }

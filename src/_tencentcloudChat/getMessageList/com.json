@@ -15,9 +15,28 @@
       "id": "call",
       "title": "获取",
       "schema": {
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "conversationID": {
+            "title": "会话ID",
+            "type": "string"
+          },
+          "nextReqMessageID": {
+            "title": "下一次请求的消息ID",
+            "type": "string"
+          }
+        }
       }
     }
   ],
-  "outputs": []
+  "outputs": [
+    {
+      "id": "messageList",
+      "title": "消息列表",
+      "description": "消息列表",
+      "schema": {
+        "type": "any"
+      }
+    }
+  ]
 }

@@ -1,15 +1,11 @@
-import * as Taro from "@tarojs/taro";
-
-let app = Taro.getApp();
-
 export default function ({ env, data, inputs, outputs }) {
   if (!env.runtime) {
     return;
   }
 
   inputs["call"]((val, outputRels) => {
-    let globalKey = `tencentcloudChat`;
-    let chat = app?.globalData?.[globalKey] || null;
+
+    let chat = env.global?.["tencentcloudChat"] || null;
 
     if (!chat) {
       return;

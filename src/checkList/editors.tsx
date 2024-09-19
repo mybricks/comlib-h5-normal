@@ -18,21 +18,52 @@ export default {
         title: "选项",
         items: [
           {
-            title: "图文排列方向",
-            type: "radio",
-            options: [
-              { label: "上下排列", value: "vertical" },
-              { label: "左右排列", value: "horizontal" },
-            ],
+            title: "图文排列",
+            type: "layout",
+            options: {
+              defaultDirection: ["column", "row"],
+            },
             value: {
               get({ data }) {
-                return data.itemLayout;
+                return data.itemLayoutStyle || {};
               },
               set({ data }, value) {
-                data.itemLayout = value;
+                data.itemLayoutStyle = value;
               },
             },
           },
+          {
+            title: "高度",
+            description: "单位 px，如果设置为 0，则高度自适应",
+            type: "text",
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.itemHeight;
+              },
+              set({ data }, value) {
+                data.itemHeight = value;
+              },
+            },
+          },
+          // {
+          //   title: "图文排列方向",
+          //   type: "radio",
+          //   options: [
+          //     { label: "上下排列", value: "vertical" },
+          //     { label: "左右排列", value: "horizontal" },
+          //   ],
+          //   value: {
+          //     get({ data }) {
+          //       return data.itemLayout;
+          //     },
+          //     set({ data }, value) {
+          //       data.itemLayout = value;
+          //     },
+          //   },
+          // },
           {
             title: "选项卡",
             items: [
@@ -53,7 +84,12 @@ export default {
           {
             title: "选项卡图标",
             options: ["size", "margin"],
-            target: ".mybricks-item .mybricks-icon",
+            target() {
+              return [
+                ".mybricks-item .mybricks-icon",
+                ".mybricks-item-selected .mybricks-icon",
+              ];
+            },
           },
           {
             title: "文字",

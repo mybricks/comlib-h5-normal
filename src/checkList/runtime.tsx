@@ -34,6 +34,28 @@ export default function (props) {
   );
 
   useEffect(() => {
+    inputs["setValue"]((val, outputRels) => {
+      setValue(val);
+      outputRels["setValueComplete"](val);
+    });
+
+    inputs["getValue"]((val, outputRels) => {
+      let result = getValue();
+
+      if (data.useMultiple) {
+        // noop
+      } else {
+        result = result[0];
+      }
+
+      outputRels["returnValue"](result);
+    });
+
+    inputs["resetValue"]((val, outputRels) => {
+      setValue("");
+      outputRels["resetValueComplete"]("");
+    });
+
     inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
         data.options = val;

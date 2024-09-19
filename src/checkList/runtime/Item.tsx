@@ -18,14 +18,18 @@ export default function (props) {
         "mybricks-item": !isSelected,
         [css.itemSelected]: isSelected,
         "mybricks-item-selected": isSelected,
-        [css.vertical]: data.itemLayout === "vertical",
-        [css.horizontal]: data.itemLayout === "horizontal",
+        // [css.vertical]: data.itemLayout === "vertical",
+        // [css.horizontal]: data.itemLayout === "horizontal",
       })}
+      style={{ 
+        ...(data.itemLayoutStyle ?? {}),
+        height: data.itemHeight ? data.itemHeight : "auto",
+      }}
       onClick={(e) => {
         if (env.edit) {
           return;
         }
-        
+
         e.stopPropagation();
         onChange(item.value);
       }}
