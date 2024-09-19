@@ -40,18 +40,12 @@ export default {
             customOptRender({ item, setList }) {
               return (
                 <div className={css.my_edit}>
-                  {data._editSelectId_ === item.id && (
-                    <div className={css.selected_title}>当前条件</div>
-                  )}
                   <div
                     className={css.edit}
                     onClick={(e) => {
                       e.stopPropagation();
 
-                      const title = window.prompt(
-                        "请输入新的条件名称",
-                        item.title
-                      );
+                      const title = window.prompt("请输入类型值", item.title);
 
                       // 重复 title 校验
                       if (title && data.items.some((t) => t.title === title)) {
@@ -101,7 +95,7 @@ export default {
             },
             editable: false,
             draggable: false,
-            selectable: true,
+            selectable: false,
             items: [],
           },
           value: {

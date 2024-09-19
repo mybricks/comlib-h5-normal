@@ -4,105 +4,12 @@ import cx from "classnames";
 import css from "./style.less";
 import { Textarea } from "brickd-mobile";
 import * as Taro from "@tarojs/taro";
+import Toolbar from "./runtime/toolbar";
 
-export default function ({ data, inputs, outputs, env, extra }) {
-  const [messages, setMessages] = useState([
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "assistant",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "assistant",
-      contentType: "image",
-      content:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "assistant",
-      contentType: "image",
-      content:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "assistant",
-      contentType: "image",
-      content:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "assistant",
-      contentType: "image",
-      content:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-    },
-    {
-      avatar:
-        "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      role: "user",
-      contentType: "text",
-      content: "啊开发接口的飞机啊看大煞风景大法",
-    },
-  ]);
+export default function (props) {
+  const { data, inputs, outputs, env, extra } = props;
+
+  const [messages, setMessages] = useState(extra?.defaultMessages || []);
 
   const chatRoomCx = useMemo(() => {
     return cx(css.chatRoom, {
@@ -162,18 +69,34 @@ export default function ({ data, inputs, outputs, env, extra }) {
       <ScrollView
         className={css.messages}
         scrollY
+        reverse={true}
         // scrollIntoView={latestMessageId}
         // onScrollToUpper={loadMoreMessages}
         upperThreshold={50} // 距离顶部多远时触发加载更多
       >
-        {messages
-          .slice()
-          .reverse()
-          .map((message, index) => (
-            <View id={`message-${message.id}`} className="message" key={index}>
-              {/* 消息内容渲染 */}
+        {messages.map((message, index) => (
+          <View
+            id={`message-${message.id}`}
+            className={cx(css.message, css.text, {
+              [css.me]: message.role === "user",
+            })}
+            key={index}
+          >
+            {/* 消息内容渲染 */}
+            <Image
+              className={css.avatar}
+              mode={"scaleToFill"}
+              src="https://comm.tencentcs.com/im/static-files/demo_sample_customer_avatar.png"
+            />
+            <View className={css.entry}>
+              <View className={css.username}>张三</View>
+              <View className={css.content}>
+                叔叔撒地方都是负担叔叔撒地方都是负担叔叔撒地方都是负担叔叔撒地方都是负担叔撒地方都是负担
+              </View>
             </View>
-          ))}
+            {/* 消息内容渲染 */}
+          </View>
+        ))}
         <View className="toolbar">
           <Textarea className="input" />
         </View>
@@ -181,23 +104,7 @@ export default function ({ data, inputs, outputs, env, extra }) {
       {/* messages after */}
 
       {/* toolbar */}
-      {/* toolbar */}
-      {/* toolbar */}
-      <View className={css.toolbar}>
-        <View className={css.inner}>
-          <Textarea
-            className={css.input}
-            cursorSpacing={0}
-            autoHeight
-            value={data.value}
-            placeholder={data.placeholder}
-            cursor={data.value.length}
-          />
-          <View className={css.send} onClick={onSend}>
-            发送
-          </View>
-        </View>
-      </View>
+      <Toolbar {...props} className={css.toolbar} onSend={onSend} />
     </View>
   );
 }

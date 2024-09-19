@@ -1,0 +1,23 @@
+{
+  "title": "腾讯云 Chat 发送消息",
+  "namespace": "mybricks.taro._tencentcloudChat.sendMessage",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "腾讯云 Chat 发送消息",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "发送",
+      "schema": {
+        "type": "object"
+      }
+    }
+  ],
+  "outputs": []
+}

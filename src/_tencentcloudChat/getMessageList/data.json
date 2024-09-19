@@ -1,0 +1,9 @@
+{
+  "SDKAPPID": 1600050055,
+  "SECRETKEY": "44ba6d48475d66a8e9a358fc0a8a1c14c2d9de81279c115e0648d55d926aa873",
+  "proxyServer": "",
+  "fileUploadProxy": "",
+  "fileDownloadProxy": "",
+
+  "logLevel": 1
+}

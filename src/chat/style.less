@@ -19,88 +19,60 @@
   .message {
     display: flex;
     align-items: flex-start;
-    padding: 12px;
+    padding: 10px 15px;
 
     .avatar {
       display: block;
-      width: 42px;
-      height: 42px;
-      border-radius: 4px;
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
     }
 
-    .content {
-      width: 243px;
-      margin-left: 12px;
-      margin-right: 12px;
-      &.image {
+    .entry {
+      display: flex;
+      flex-direction: column;
+      max-width: 287px;
+      margin-left: 8px;
+      margin-right: 8px;
+
+      .username {
         display: block;
-        max-width: 72px;
-        max-height: 120px;
-        border-radius: 4px;
+        margin-bottom: 4px;
+        font-size: 12px;
+        line-height: 17px;
+        color: #999;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
-      &.text {
-        border-radius: 4px;
-        color: #333333;
-        padding: 9px;
-        font-size: 14px;
-        line-height: 24px;
-      }
-    }
 
-    &.assistant {
       .content {
-        &.text {
-          color: #333333;
-          background: #ffffff;
-        }
-      }
-    }
-    &.user {
-      flex-direction: row-reverse;
-      .content {
-        &.text {
-          color: #ffffff;
-          background: #ea732e;
-        }
+        background: #fbfbfb;
+        border-radius: 10px;
+        padding: 12px;
       }
     }
   }
-}
 
-.toolbar {
-  width: 100%;
-  background-color: #f8f8f8;
-  padding: 12px;
-  .inner {
-    display: flex;
-    align-items: center;
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom);
-
-    .input {
-      flex: 1;
-      background: #ffffff;
-      min-height: 42px;
-
-      padding: 9px;
-      font-size: 14px;
-      line-height: 24px;
-      color: #333333;
-      border-radius: 4px;
+  .text {
+    .entry {
+      .content {
+        font-size: 14px;
+        color: #000;
+        letter-spacing: 0;
+        word-wrap: break-word;
+        word-break: break-all;
+        position: relative;
+      }
     }
+  }
 
-    .send {
-      margin-left: 12px;
-      width: 72px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      background: #ea732e;
-      color: #ffffff;
-      font-size: 14px;
-      font-weight: 500;
+  .me {
+    flex-direction: row-reverse;
+    .entry {
+      .content {
+      }
     }
   }
 }

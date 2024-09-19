@@ -1,0 +1,32 @@
+{
+  "title": "腾讯云 Chat 获取会话列表",
+  "namespace": "mybricks.taro._tencentcloudChat.getConversationList",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "腾讯云 Chat 获取会话列表",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "call",
+      "title": "获取",
+      "schema": {
+        "type": "object"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "conversationList",
+      "title": "会话列表",
+      "description": "会话列表",
+      "schema": {
+        "type": "array"
+      }
+    }
+  ]
+}

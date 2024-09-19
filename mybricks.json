@@ -46,6 +46,10 @@
     "./src/_startFacialRecognitionVerify/com.json",
     "./src/_timer-debounce/com.json",
     "./src/_timer-throttle/com.json",
+    "./src/_tencentcloudChat/create/com.json",
+    "./src/_tencentcloudChat/getConversationList/com.json",
+    "./src/_tencentcloudChat/getMessageList/com.json",
+    "./src/_tencentcloudChat/sendMessage/com.json",
     {
       "title": "系统",
       "visible": false,
@@ -147,6 +151,7 @@
         "./src/anchor/com.json",
         "./src/safeArea/com.json",
         "./src/timer/com.json",
+        "./src/chat/com.json",
         "./src/support/com.json"
       ]
     }

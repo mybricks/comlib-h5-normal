@@ -84,7 +84,11 @@ export default function (props) {
         setReady(true);
 
         // 如果选项中有 checked 为 true 的项，则设置为当前值
-        let lastCheckedItem = val.findLast((item) => item.checked);
+        let checkedValue = val.filter((item) => {
+          return item.checked;
+        });
+        let lastCheckedItem = checkedValue[checkedValue.length - 1];
+
         if (lastCheckedItem) {
           setValue(lastCheckedItem.value);
         }

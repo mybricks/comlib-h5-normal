@@ -2,16 +2,29 @@ import css from "./style.less";
 export default {
   ":root": [
     {
-      title: "SDKAppID",
+      title: "SDKAPPID",
       description:
-        "您可以在腾讯云即时通信 IM 控制台查看所有的 SDKAppID，单击 创建新应用，可以创建新的 SDKAppID。",
+        "您可以在腾讯云即时通信 IM 控制台查看所有的 SDKAPPID，单击 创建新应用，可以创建新的 SDKAPPID。",
       type: "text",
       value: {
         get({ data }) {
-          return data.SDKAppID;
+          return data.SDKAPPID;
         },
         set({ data }, val) {
-          data.SDKAppID = val;
+          data.SDKAPPID = isNaN(+val) ? "" : +val;
+        },
+      },
+    },
+    {
+      title: "SECRETKEY",
+      description: "",
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.SECRETKEY;
+        },
+        set({ data }, val) {
+          data.SECRETKEY = val;
         },
       },
     },
