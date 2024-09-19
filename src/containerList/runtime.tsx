@@ -297,17 +297,18 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           {!!data?.scrollRefresh ? (
             <>
               {!empty && $list}
+              {status !== ListStatus.IDLE && 
               <List.Placeholder>
                 {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                 {error && (data.errorTip ?? "加载失败，请重试")}
                 {!hasMore && (data.emptyTip ?? "没有更多了")}
                 {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
                   style: {
-                    minHeight: 100,
-                    width: 375
+                    minHeight: 130,
+                    minWidth: 200
                   },
                 })}</View> : empty && data.initialEmptyTip}
-              </List.Placeholder>
+              </List.Placeholder>}
             </>
           ) : (
             <>
@@ -318,7 +319,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                   {empty && data.showEmptySlot ? <View className={css.empty_slot}> {slots["emptySlot"].render({
                     style: {
                       minHeight: 130,
-                      minWidth:200
+                      minWidth: 200
                     }
                   })}</View> : empty && data.initialEmptyTip}
                 </List.Placeholder>
