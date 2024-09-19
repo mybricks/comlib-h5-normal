@@ -338,7 +338,7 @@ export default function (props) {
     }
 
     if (data.background) {
-      result["background"] = data.background;
+      result["backgroundColor"] = data.background;
     }
 
     return result;

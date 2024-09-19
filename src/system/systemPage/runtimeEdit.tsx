@@ -171,7 +171,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
     }
 
     if (data.background) {
-      result["background"] = data.background;
+      result["backgroundColor"] = data.background;
     }
 
     return result;
