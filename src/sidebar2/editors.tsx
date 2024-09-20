@@ -153,6 +153,8 @@ export default {
 
               switch (action?.name) {
                 case "remove":
+                  console.log("remove",`changeTab_${action?.value._id}`)
+                  outputs.remove(`changeTab_${action?.value._id}`);
                   slot.remove(action?.value._id);
                   break;
                 case "add":
@@ -347,10 +349,12 @@ export default {
           title: "删除标签项",
           type: "Button",
           value: {
-            set({ data, slot, focusArea }) {
+            set({ data,outputs, slot, focusArea }) {
               if (!focusArea) return;
               data.tabs.splice(focusArea.index, 1);
               // const _id = getFocusTab({ data, focusArea })?._id
+              console.log("remove",`changeTab_${focusItem._id}`)
+              outputs.remove(`changeTab_${focusItem._id}`);
               slot.remove(focusItem._id);
               data.edit.currentTabId = data.tabs[0]?._id;
             },

@@ -5,8 +5,5 @@
   "min": "",
   "max": "",
   "placeholder": "请选择日期",
-  "isSlot": false,
-  "slotStyle": {
-    "position": "smart"
-  }
+  "isSlot": false
 }
