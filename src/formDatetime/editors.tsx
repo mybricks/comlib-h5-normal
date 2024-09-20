@@ -18,7 +18,13 @@ export default {
   },
   ":slot": {},
   ":root": {
-    style: [],
+    style: [
+      {
+        title: "样式",
+        options: ["border", "background"],
+        target: `.mybricks-datetime`,
+      }
+    ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
       cate0.items = [
@@ -32,8 +38,8 @@ export default {
             set({ data, slot, style }, value) {
               data.isSlot = value;
               if (value) {
-                const slotInstance = slot.get("content");
-                setSlotLayout(slotInstance, data.slotStyle);
+                // const slotInstance = slot.get("content");
+                // setSlotLayout(slotInstance, data.slotStyle);
                 style.height = 50;
                 style.width = 50;
               } else {

@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import css from "./style.less";
 import InputDisplay from "../components/input-display";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
+import cx from "classnames";
 
 polyfill_taro_picker();
 
@@ -172,7 +173,7 @@ export default function (props) {
   //普通表单视图
   const normalView = useMemo(() => {
     return (
-      <View className={css.wrap} key="normalView">
+      <View className={cx(css.wrap,"mybricks-datetime")} key="normalView">
         {/* 防止在搭建态 点击调起日期选择 */}
         {comOperatable ? (
           <DatetimePicker
@@ -221,7 +222,7 @@ export default function (props) {
   //切换为插槽视图
   const slotsView = useMemo(() => {
     return (
-      <View className={css.slot_default_style} key="slotsView">
+      <View className={cx(css.slot_default_style,"mybricks-datetime")} key="slotsView">
         {/* 防止在搭建态 点击调起日期选择 */}
         {comOperatable ? (
           <DatetimePicker
@@ -233,7 +234,7 @@ export default function (props) {
           >
             {slots?.["content"]?.render({
               style: {
-                position: "smart",
+                // position: "smart",
                 height: "100%",
               },
             })}
@@ -241,7 +242,7 @@ export default function (props) {
         ) : (
           slots?.["content"]?.render({
             style: {
-              position: "smart",
+              // position: "smart",
               height: "100%",
             },
           })
