@@ -51,9 +51,14 @@ export default function ({ env, data, inputs, outputs }) {
     }, 0);
   }, []);
 
+  const onButtonClick = useCallback(() => {
+    outputs["onSearch"]?.(value);
+  }, [value]);
+
   return (
+    <div className={cx(css.searchBox,"mybricks-searchBar")}>
     <Search
-      className={cx(css.searchBar, "mybricks-searchBar")}
+      className={cx(css.searchBar)}
       label={data.label}
       value={value}
       placeholder={data?.placeholderText}
@@ -66,5 +71,7 @@ export default function ({ env, data, inputs, outputs }) {
       onClear={onClear}
       onSearch={onSearch}
     />
+    {data.showSearchButton && <div className={cx(css.searchButton,"mybricks-searchButton")} onClick={onButtonClick}>{data.searchButtonText}</div>}
+    </div>
   );
 }

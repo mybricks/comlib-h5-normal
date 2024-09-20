@@ -42,6 +42,33 @@ export default {
           },
         },
         {
+          title: "展示搜索按钮",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.showSearchButton;
+            },
+            set({ data }, value: boolean) {
+              data.showSearchButton = value;
+            },
+          },
+        },
+        {
+          title: "搜索按钮文本",
+          type: "text",
+          ifVisible({ data }) {
+            return data.showSearchButton;
+          },
+          value: {
+            get({ data }) {
+              return data.searchButtonText;
+            },
+            set({ data }, value: string) {
+              data.searchButtonText = value;
+            },
+          },
+        },
+        {
           title: "动作",
           items: [
             {
@@ -104,4 +131,41 @@ export default {
       ];
     },
   },
+  ".mybricks-searchButton": {
+    '@dblclick': {
+      type: 'text',
+      value: {
+        get({ data }) {
+          return data.searchButtonText;
+        },
+        set({ data }, value) {
+          data.searchButtonText = value;
+        }
+      }
+    },
+    style: [
+      {
+        title: "样式",
+        options: ["border", "background","size","font","margin"],
+        target: `.mybricks-searchButton`,
+      }
+    ],
+    items: (props, cate1, cate2, cate3) => {
+      cate1.title = "常规";
+      cate1.items = [
+        {
+          title: "按钮文本",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              return data.searchButtonText
+            },
+            set({ data, focusArea, slot, output }, value) {
+              data.searchButtonText = value;
+            },
+          },
+        },
+      ]
+    }
+  }
 };

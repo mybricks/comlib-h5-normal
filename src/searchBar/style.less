@@ -1,20 +1,48 @@
-.searchBar {
+.searchBox{
+  width: 100%;
   height: 100%;
-  padding: 0;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
   :global {
-    .taroify-search__field {
-      background: transparent;
-      padding: 5px 5px 5px 0px;
+    .taroify-search {
+      background: transparent !important;
     }
-
-    .taroify-search__content {
-      background: #ffffff00 !important;
+  }
+  .searchBar {
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    flex: 1;
+    :global {
+      .taroify-search {
+        background: transparent !important;
+        background-color:yellow !important
+      }
+      .taroify-search__field {
+        background: transparent;
+        padding: 5px 5px 5px 0px;
+      }
+  
+      .taroify-search__content {
+        background: #ffffff00 !important;
+      }
+  
+      .taroify-search__field .taroify-icon {
+        display: flex;
+        align-items: center;
+      }
     }
-
-    .taroify-search__field .taroify-icon {
-      display: flex;
-      align-items: center;
-    }
+  }
+  .searchButton{
+    background-color: #FA6400;
+    text-align: center;
+    color: white;
+    width: 60px;
+    height: 25px;
+    border-radius: 30px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
