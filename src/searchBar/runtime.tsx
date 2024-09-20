@@ -4,6 +4,8 @@ import cx from "classnames";
 import { View } from "@tarojs/components";
 import { Search } from "brickd-mobile";
 import { debounce } from "./../utils/core";
+import { Button } from "@tarojs/components";
+
 export default function ({ env, data, inputs, outputs }) {
   const [value, setValue] = useState("");
 
@@ -45,7 +47,7 @@ export default function ({ env, data, inputs, outputs }) {
 
   const onClear = useCallback((e) => {
     setValue("");
-    
+
     setTimeout(() => {
       outputs["onClear"]?.("");
     }, 0);
@@ -56,22 +58,28 @@ export default function ({ env, data, inputs, outputs }) {
   }, [value]);
 
   return (
-    <div className={cx(css.searchBox,"mybricks-searchBar")}>
-    <Search
-      className={cx(css.searchBar)}
-      label={data.label}
-      value={value}
-      placeholder={data?.placeholderText}
-      // disabled={data.disabled}
-      onClick={onClick}
-      onInput={onInput}
-      onChange={onChange}
-      // action
-      onCancel={onCancel}
-      onClear={onClear}
-      onSearch={onSearch}
-    />
-    {data.showSearchButton && <div className={cx(css.searchButton,"mybricks-searchButton")} onClick={onButtonClick}>{data.searchButtonText}</div>}
+    <div className={cx(css.searchBox, "mybricks-searchBar")}>
+      <Search
+        className={cx(css.searchBar)}
+        label={data.label}
+        value={value}
+        placeholder={data?.placeholderText}
+        // disabled={data.disabled}
+        onClick={onClick}
+        onInput={onInput}
+        onChange={onChange}
+        // action
+        onCancel={onCancel}
+        onClear={onClear}
+        onSearch={onSearch}
+      />
+      {data.showSearchButton &&
+        <Button
+          className={cx(css.searchButton, "mybricks-searchButton")}
+          onClick={onButtonClick}>
+          {data.searchButtonText}
+        </Button>
+      }
     </div>
   );
 }
