@@ -6,5 +6,7 @@
   },
 
   "label":"",
-  "disabled": false
+  "disabled": false,
+  "showSearchButton":false,
+  "searchButtonText":"搜索"
 }
