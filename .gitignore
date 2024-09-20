@@ -2,7 +2,6 @@
 .idea/
 .DS_Store
 node_modules
-/src/**/*.js
 tags/*
 .history
 .vscode/

@@ -4,6 +4,7 @@
   "description": "小程序通用组件库",
   "main": "./dist/index.js",
   "scripts": {
+    "dev2": "/Users/stuzhaoxing-office/Program/mybricks-uni/packages/cli/bin/index.js dev",
     "dev": "mybricks dev",
     "build": "mybricks build"
   },
