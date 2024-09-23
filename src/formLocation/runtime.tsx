@@ -31,6 +31,7 @@ export default function (props) {
     }
   }, [env]);
 
+
   useEffect(() => {
     //
     inputs["setValue"]((val) => {
@@ -68,55 +69,88 @@ export default function (props) {
     // outputs["onChange"](val);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setValue(data.value)
-  },[data.value])
+  }, [data.value])
 
-  const toast = () => {
-    Taro.showToast({
-      title: "地区选择仅支持小程序真机端",
-      icon: "none",
-      duration: 1000,
-    });
-  };
+  const toast = useCallback(() => {
+    if (env.runtime.debug) {
+      Taro.showToast({
+        title: "地区选择仅支持小程序真机端",
+        icon: "none",
+        duration: 1000,
+      });
+    }
 
-  const pickerEditTime = useMemo(() => {
-    return (
-      <View
-        className={css.select}
-        onClick={() => {
-          toast();
-        }}
-      >
-        <InputDisplay
-          placeholder={data.placeholder}
-          value={value.join("/")}
-        ></InputDisplay>
-        <ArrowRight />
-      </View>
-    );
-  }, [value, data.placeholder]);
+  }, [env])
 
-  const pickerRunTime = useMemo(() => {
-    return (
-      <AreaPicker level={data.level} value={value} onChange={onChange}>
-        <View className={css.select}>
-          <Input
-            readonly
-            // disabled={true}
-            placeholder={data.placeholder}
-            value={value.join("/")}
-            style={{ flex: 1 }}
-          />
-          <ArrowRight />
+  const $view = useMemo(() => {
+    if (isRelEnv) {
+      //真机运行态
+      return (
+        <AreaPicker level={data.level} value={value} onChange={onChange}>
+          {/* 非插槽视图 */}
+          {!data.isSlot && <View className={css.select}>
+            <Input
+              readonly
+              // disabled={true}
+              placeholder={data.placeholder}
+              value={value.join("/")}
+              style={{ flex: 1 }}
+            />
+            <ArrowRight />
+          </View>}
+          {/* 插槽视图 */}
+          {data.isSlot && <View className={css.slot_style}>
+            {slots?.["content"]?.render({
+              style: {
+                // position: "smart",
+                height: "100%",
+              },
+            })}
+          </View>}
+
+        </AreaPicker>
+      );
+    } else {
+      //调试态
+      return (
+        <View>
+          {/* 非插槽视图 */}
+          {!data.isSlot &&
+            <View className={css.select}
+              onClick={() => {
+                toast();
+              }}>
+              <InputDisplay
+                placeholder={data.placeholder}
+                value={value.join("/")}
+              ></InputDisplay>
+              <ArrowRight />
+            </View>}
+          {/* 插槽视图 */}
+          {data.isSlot &&
+            <View className={css.slot_style}
+              onClick={() => {
+                toast();
+              }}>
+              {slots?.["content"]?.render({
+                style: {
+                  // position: "smart",
+                  height: "100%",
+                },
+              })}
+            </View>}
+
         </View>
-      </AreaPicker>
-    );
-  }, [value, data.placeholder]);
+      );
+    }
+  }, [value, data.placeholder, isRelEnv, env, data.isSlot])
+
 
   return (
-    <View className={css.wrap}>
-      {isRelEnv ? pickerRunTime : pickerEditTime}
+    <View className={cx({ [css.wrap]: true, "mybricks-formLocation": true, [css.slot_style]: data.isSlot })}>
+      {$view}
     </View>
   );
 }
