@@ -131,17 +131,22 @@ export default function (props) {
     );
   }, [value, data.options]);
 
-  const displayValue = useMemo(() => {
-    return !!selectItem;
-  }, [selectItem]);
-
-  const selectIndex = useMemo(() => {
-    return data.options.findIndex((item) => item.value == value);
-  }, [value, data.options]);
-
   const options = useMemo(() => {
     return ready ? data.options : [];
   }, [ready, data.options]);
+
+  const selectIndex = useMemo(() => {
+    return options.findIndex((item) => item.value == value);
+  }, [value, options]);
+
+  const displayValue = useMemo(() => {
+    if (selectIndex > -1) {
+      return data.options[selectIndex].label;
+    } else {
+      return "";
+    }
+  }, [value, selectIndex, data.options]);
+
 
   return (
     <>
@@ -168,7 +173,7 @@ export default function (props) {
                 "mybricks-placeholder": !value,
               })}
             >
-              {value || data.placeholder}
+              {displayValue || data.placeholder}
             </View>
             <ArrowRight
               className={cx({
