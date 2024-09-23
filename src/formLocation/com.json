@@ -107,5 +107,11 @@
       }
     }
   ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "可点击插槽"
+    }
+  ],
   "schema": ["mybricks.taro.formContainer/formItem", "*"]
 }
