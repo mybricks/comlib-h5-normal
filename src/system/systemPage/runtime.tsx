@@ -92,6 +92,10 @@ const usePullDownRefresh = ({
       console.log("onRefresherRestore", e.detail);
       setDisableScrollWhenPulling(false);
     },
+    onRefresherAbort: (e) => {
+      console.log("onRefresherAbort", e.detail);
+      setDisableScrollWhenPulling(false);
+    }
     // onRefresherRestore: onRestore,
   };
 };
