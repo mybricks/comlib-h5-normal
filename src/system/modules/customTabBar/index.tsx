@@ -44,6 +44,7 @@ export default ({ data, env, _inputsCallable }) => {
 
       let iconStyle = isSelected ? raw.selectedIconStyle : raw.normalIconStyle;
       let textStyle = isSelected ? raw.selectedTextStyle : raw.normalTextStyle;
+      let backgroundStyle = isSelected ? raw.selectedBackgroundStyle : raw.normalBackgroundStyle;
 
       let iconSlotCx = cx({
         [css.iconSlot]: true,
@@ -53,6 +54,7 @@ export default ({ data, env, _inputsCallable }) => {
       return (
         <View
           className={itemCx}
+          style={{ ...backgroundStyle }}
           onClick={() => {
             onClickItem(raw);
           }}

@@ -48,7 +48,7 @@ export default {
 
             // 开启
             let globalTabBar = window.__tabbar__?.get() ?? [];
-            
+
             let isContain = globalTabBar.find((item) => {
               return item.scene.id == data.id;
             });
@@ -338,5 +338,57 @@ export default {
         },
       },
     ];
+    cate1.title = "样式";
+    cate1.items = [
+      {
+        catelog: "激活",
+        title: "背景色",
+        type: "styleNew",
+        options: {
+          defaultOpen: true,
+          plugins: ["background", "border"],
+        },
+        value: {
+          get({ data, focusArea }) {
+            if (!focusArea) return;
+            return data.tabBar[focusArea.index]?.selectedBackgroundStyle;
+          },
+          set({ data, focusArea, slot }, value) {
+            let tabBar = JSON.parse(JSON.stringify(data.tabBar));
+            tabBar[focusArea.index].selectedBackgroundStyle = {
+              ...value,
+            };
+            data.tabBar = tabBar;
+
+            window.__tabbar__?.set(tabBar);
+          },
+        },
+      },
+      {
+        catelog: "默认",
+        title: "背景色",
+        type: "styleNew",
+        options: {
+          defaultOpen: true,
+          plugins: ["background", "border"],
+        },
+        value: {
+          get({ data, focusArea }) {
+            if (!focusArea) return;
+            return data.tabBar[focusArea.index]?.normalBackgroundStyle;
+          },
+          set({ data, focusArea, slot }, value) {
+            let tabBar = JSON.parse(JSON.stringify(data.tabBar));
+            tabBar[focusArea.index].normalBackgroundStyle = {
+              ...value,
+            };
+            data.tabBar = tabBar;
+
+            window.__tabbar__?.set(tabBar);
+          },
+        },
+      },
+
+    ]
   },
 };
