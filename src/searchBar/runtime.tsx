@@ -58,7 +58,7 @@ export default function ({ env, data, inputs, outputs }) {
   }, [value]);
 
   return (
-    <div className={cx(css.searchBox, "mybricks-searchBar")}>
+    <View className={cx(css.searchBox, "mybricks-searchBar")}>
       <Search
         className={cx(css.searchBar)}
         label={data.label}
@@ -80,6 +80,6 @@ export default function ({ env, data, inputs, outputs }) {
           {data.searchButtonText}
         </Button>
       }
-    </div>
+    </View>
   );
 }
