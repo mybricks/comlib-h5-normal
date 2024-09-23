@@ -38,6 +38,14 @@
       "schema": {
         "type": "string"
       }
+    },
+    {
+      "id": "getActiveTabId",
+      "title": "获取激活tab项",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["activeTabId"]
     }
   ],
   "outputs": [
@@ -81,6 +89,24 @@
     {
       "id": "changeTab_tabName2",
       "title": "标签项",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tabName": {
+            "type": "string"
+          },
+          "index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "id": "activeTabId",
+      "title": "tab激活项",
       "schema": {
         "type": "object",
         "properties": {

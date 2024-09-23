@@ -78,6 +78,17 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     }
   }, [data.tabs]);
 
+  useEffect(()=>{
+    inputs["getActiveTabId"]?.((_, relOutputs) => {
+      relOutputs["activeTabId"]?.({
+        id:currentTabId,
+        title: data.tabs.find((tab) => tab._id == currentTabId)
+          ?.tabName,
+        index: data.tabs.findIndex((tab) => tab._id == currentTabId),
+      });
+    });
+  },[currentTabId])
+
   //动态配置侧边选项
   useMemo(() => {
     inputs["setSidebarData"]?.((val, relOutputs) => {
