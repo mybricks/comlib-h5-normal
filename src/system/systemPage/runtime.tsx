@@ -326,7 +326,7 @@ export default function (props) {
     let result = {};
 
     if (data.backgroundImage) {
-      result["backgroundImage"] = `url(${data.backgroundImage})`;
+      result["backgroundImage"] = `${data.backgroundImage}`;
     }
 
     if (data.backgroundSize) {

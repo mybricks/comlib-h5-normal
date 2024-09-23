@@ -155,7 +155,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
     let result = {};
 
     if (data.backgroundImage) {
-      result["backgroundImage"] = `url(${data.backgroundImage})`;
+      result["backgroundImage"] = `${data.backgroundImage}`;
     }
 
     if (data.backgroundSize) {

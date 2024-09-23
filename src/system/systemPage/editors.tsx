@@ -25,6 +25,49 @@ function rgbaToHex(rgba) {
 
   return "#" + toHex(r) + toHex(g) + toHex(b);
 }
+//     { label: "居上", value: "top" },
+//     { label: "居中", value: "center" },
+//     { label: "居下", value: "bottom" },
+//     { label: "居左", value: "left" },
+//     { label: "居右", value: "right" },
+//     { label: "左上", value: "top left" },
+//     { label: "左下", value: "bottom left" },
+//     { label: "右上", value: "top right" },
+//     { label: "右下", value: "bottom right" },
+const positionTransform = (position) => {
+  switch (position) {
+    case "center top":
+      return "top";
+      break;
+    case "center center":
+      return "center";
+      break;
+    case "center bottom":
+      return "bottom";
+      break;
+    case "left center":
+      return "left";
+      break;
+    case "right center":
+      return "right";
+      break;
+    case "left top":
+      return "top left";
+      break;
+    case "left bottom":
+      return "bottom left"
+      break;
+    case "right top":
+      return "top right"
+      break
+    case "right bottom":
+      return "bottom right"
+      break
+    default:
+      return "top";
+      break;
+  }
+};
 
 const getDefaultTabItem = (id) => {
   return {
@@ -137,101 +180,97 @@ export default {
           title: "页面背景",
           items: [
             {
-              title: "背景色",
-              type: "colorpicker",
-              value: {
-                get({ data }) {
-                  return data.background;
-                },
-                set({ data }, value) {
-                  data.background = value;
-                },
-              },
-              binding: {
-                with: 'data.background',
-                scheme: {
-                  type: 'string'
-                }
-              }
-            },
-            {
-              title: "背景图",
-              type: "imageSelector",
-              value: {
-                get({ data }) {
-                  return data.backgroundImage;
-                },
-                set({ data }, value) {
-                  data.backgroundImage = value;
-                },
-              },
-            },
-            {
-              title: "大小",
-              type: "select",
-              options: [
-                { label: "填充（无留白）", value: "cover" },
-                { label: "适应（有留白）", value: "contain" },
-                { label: "拉伸", value: "100% 100%" },
-                { label: "原始大小", value: "auto" },
-              ],
-              value: {
-                get({ data }) {
-                  return data.backgroundSize || "cover";
-                },
-                set({ data }, value) {
-                  data.backgroundSize = value;
-                },
-              },
-            },
-            {
-              title: "平铺",
-              type: "select",
-              options: [
-                { label: "平铺", value: "repeat" },
-                { label: "不平铺", value: "no-repeat" },
-              ],
-              ifVisible({ data }: EditorResult<Data>) {
-                return (
-                  data.backgroundSize === "contain" ||
-                  data.backgroundSize === "auto"
-                );
+              title: "配置",
+              type: "style",
+              options: {
+                defaultOpen: true,
+                plugins: ["bgimage"],
               },
               value: {
                 get({ data }) {
-                  return data.backgroundRepeat || "repeat";
+                  return {
+                    backgroundImage: data.backgroundImage,
+                    backgroundPosition: data.backgroundPosition || "center top",
+                    backgroundSize: data.backgroundSize,
+                    backgroundRepeat: data.backgroundRepeat || "repeat",
+                  };
+
                 },
                 set({ data }, value) {
-                  data.backgroundRepeat = value;
+                  data.backgroundImage = value?.backgroundImage !== undefined ? value.backgroundImage : data.backgroundImage;
+                  let backgroundPosition = value?.backgroundPosition !== undefined ? value.backgroundPosition : data.backgroundPosition;
+                  data.backgroundPosition = positionTransform(backgroundPosition);
+                  data.backgroundSize = value?.backgroundSize !== undefined ? value.backgroundSize : data.backgroundSize;
+                  data.backgroundRepeat = value?.backgroundRepeat !== undefined ? value.backgroundRepeat : data.backgroundRepeat;
                 },
               },
             },
-            {
-              title: "位置",
-              type: "select",
-              options: [
-                { label: "居上", value: "top" },
-                { label: "居中", value: "center" },
-                { label: "居下", value: "bottom" },
-                { label: "居左", value: "left" },
-                { label: "居右", value: "right" },
-                { label: "左上", value: "top left" },
-                { label: "左下", value: "bottom left" },
-                { label: "右上", value: "top right" },
-                { label: "右下", value: "bottom right" },
-              ],
-              ifVisible({ data }: EditorResult<Data>) {
-                return data.backgroundSize !== "100% 100%";
-              },
-              value: {
-                get({ data }) {
-                  return data.backgroundPosition || "top";
-                },
-                set({ data }, value) {
-                  data.backgroundPosition = value;
-                },
-              },
-            },
+            // {
+            //   title: "大小",
+            //   type: "select",
+            //   options: [
+            //     { label: "填充（无留白）", value: "cover" },
+            //     { label: "适应（有留白）", value: "contain" },
+            //     { label: "拉伸", value: "100% 100%" },
+            //     { label: "原始大小", value: "auto" },
+            //   ],
+            //   value: {
+            //     get({ data }) {
+            //       return data.backgroundSize || "cover";
+            //     },
+            //     set({ data }, value) {
+            //       data.backgroundSize = value;
+            //     },
+            //   },
+            // },
+            // {
+            //   title: "平铺",
+            //   type: "select",
+            //   options: [
+            //     { label: "平铺", value: "repeat" },
+            //     { label: "不平铺", value: "no-repeat" },
+            //   ],
+            //   ifVisible({ data }: EditorResult<Data>) {
+            //     return (
+            //       data.backgroundSize === "contain" ||
+            //       data.backgroundSize === "auto"
+            //     );
+            //   },
+            //   value: {
+            //     get({ data }) {
+            //       return data.backgroundRepeat || "repeat";
+            //     },
+            //     set({ data }, value) {
+            //       data.backgroundRepeat = value;
+            //     },
+            //   },
+            // },
+            // {
+            //   title: "位置",
+            //   type: "select",
+            //   options: [
+            //     { label: "居上", value: "top" },
+            //     { label: "居中", value: "center" },
+            //     { label: "居下", value: "bottom" },
+            //     { label: "居左", value: "left" },
+            //     { label: "居右", value: "right" },
+            //     { label: "左上", value: "top left" },
+            //     { label: "左下", value: "bottom left" },
+            //     { label: "右上", value: "top right" },
+            //     { label: "右下", value: "bottom right" },
+            //   ],
+            //   ifVisible({ data }: EditorResult<Data>) {
+            //     return data.backgroundSize !== "100% 100%";
+            //   },
+            //   value: {
+            //     get({ data }) {
+            //       return data.backgroundPosition || "top";
+            //     },
+            //     set({ data }, value) {
+            //       data.backgroundPosition = value;
+            //     },
+            //   },
+            // },
           ],
         },
 
