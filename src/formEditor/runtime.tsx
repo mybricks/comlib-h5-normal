@@ -409,6 +409,8 @@ export default function (props) {
           "mybricks-input": true,
           [`${sanitizedId}e`]:true
         })}
+        showImgSize={true}
+        showImgResize={true}
         showImgToolbar={true}
         value={value}
         type={data.type}
