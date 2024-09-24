@@ -170,6 +170,12 @@ export default {
         target: ".mybricks-field",
       },
       {
+        title: "表单标题",
+        options: ["size"],
+        target: ".taroify-form-label"
+
+      },
+      {
         title: "提交按钮",
         options: ["border", "background", "font"],
         target: ".mybricks-submit .taroify-button",
