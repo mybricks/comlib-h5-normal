@@ -60,10 +60,12 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
         e.stopPropagation();
         return;
       }
-      e.stopPropagation();
+      if(data.stopPropagation){
+        e.stopPropagation();
+      }
       outputs["onClick"](data.src);
     },
-    [data.clickType, data.src]
+    [data.clickType, data.src,data.stopPropagation]
   );
 
   const onError = useCallback(() => {
