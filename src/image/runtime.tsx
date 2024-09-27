@@ -60,9 +60,10 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
         e.stopPropagation();
         return;
       }
-      if(data.stopPropagation){
-        e.stopPropagation();
-      }
+    // 当配置了单击事件，阻止事件冒泡
+    if (outputs["onClick"].getConnections().length) {
+      e.stopPropagation();
+    }
       outputs["onClick"](data.src);
     },
     [data.clickType, data.src,data.stopPropagation]

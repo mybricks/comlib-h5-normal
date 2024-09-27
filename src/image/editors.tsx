@@ -168,18 +168,6 @@ export default {
               options: {
                 outputId: "onError",
               },
-            },
-            {
-              title: "阻止冒泡",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.stopPropagation;
-                },
-                set({ data, output }, value) {
-                  data.stopPropagation = value
-                }
-              }
             }
           ],
         },
