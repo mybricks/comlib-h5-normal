@@ -72,14 +72,6 @@
         "type": "boolean"
       },
       "rels": ["isEnableDone"]
-    },
-    {
-      "id": "setOptions",
-      "title": "设置数据源输入",
-      "schema": {
-        "type": "any"
-      },
-      "rels": ["setOptionsDone"]
     }
   ],
   "outputs": [
@@ -188,27 +180,6 @@
         {
           "id": "curValue",
           "title": "设置值",
-          "schema": {
-            "type": "any"
-          }
-        },
-        {
-          "id": "fieldSource",
-          "title": "数据源选项输入",
-          "schema": {
-            "type": "any"
-          }
-        },
-        {
-          "id": "onEnabled",
-          "title": "启用时",
-          "schema": {
-            "type": "any"
-          }
-        },
-        {
-          "id": "onDisabled",
-          "title": "禁用时",
           "schema": {
             "type": "any"
           }
