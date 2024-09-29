@@ -51,5 +51,6 @@
   "bottomSpace": 30,
   "useLoading": false,
   "backgroundSize": "cover",
-  "isEntryPagePath": false
+  "isEntryPagePath": false,
+  "showNavigationBarCapsule": true
 }

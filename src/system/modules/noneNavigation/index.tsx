@@ -88,7 +88,7 @@ export default function (props) {
           </View>
         ) : null}
 
-        {isDesigner(env) && (
+        {isDesigner(env) &&  (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined ) && (
           <Image
             className={css.right}
             src={

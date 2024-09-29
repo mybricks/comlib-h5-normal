@@ -63,7 +63,7 @@ export default function (props) {
         }}
       >
         {/* 仅在设计器中展示 */}
-        {isDesigner(env) && (
+        {isDesigner(env) && (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined ) && (
           <Image
             className={css.right}
             src={

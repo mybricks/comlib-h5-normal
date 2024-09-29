@@ -72,6 +72,22 @@ export default {
         }
       },
       {
+        title: "显示小程序胶囊",
+        type: "switch",
+        ifVisible({ data }: EditorResult<Data>) {
+          return data.navigationStyle !== 'default';
+        },
+        value: {
+          get({ data }) {
+            if(data.showNavigationBarCapsule == undefined) return true
+            return data.showNavigationBarCapsule ;
+          },
+          set({ data }, value) {
+            data.showNavigationBarCapsule = value;
+          },
+        },
+      },
+      {
         title: "导航栏标题颜色",
         type: "radio",
         options: [
