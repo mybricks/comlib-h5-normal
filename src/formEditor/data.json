@@ -8,5 +8,6 @@
   "disabled": false,
   "required": false,
   "hidden": false,
+  "showUndoRedo":true,
   "plugins": []
 }

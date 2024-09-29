@@ -249,13 +249,13 @@ export default function (props) {
         setValue(res.html);
       },
     });
-  }, [useBold,editorRef.current]);
+  }, [useBold, editorRef.current]);
 
   const onStatusChange = (e) => {
     // console.log("onStatusChange", e.mpEvent.detail?.bold);
-    if(e.mpEvent.detail?.bold == "strong"){
+    if (e.mpEvent.detail?.bold == "strong") {
       setUseBold(true);
-    }else{
+    } else {
       setUseBold(false);
     }
   }
@@ -369,10 +369,10 @@ export default function (props) {
           })}
           onClick={toggleBold}
         >
-          <Image className={cx("mybricks-boldIcon",css.icon)} src={data.boldIconUrl || boldIcon} svg={true}></Image>
+          <Image className={cx("mybricks-boldIcon", css.icon)} src={data.boldIconUrl || boldIcon} svg={true}></Image>
         </View>
         <View className={css.item} onClick={insertImage}>
-          <Image className={cx("mybricks-imgIcon",css.icon)} src={data.imgIconUrl || imageIcon} svg={true}></Image>
+          <Image className={cx("mybricks-imgIcon", css.icon)} src={data.imgIconUrl || imageIcon} svg={true}></Image>
         </View>
 
         {/* 扩展 */}
@@ -390,14 +390,17 @@ export default function (props) {
           );
         })}
 
-        <View className={css.divider}></View>
-
-        <View className={css.item} onClick={undo}>
-          <Image className={cx("mybricks-backward",css.icon)} src={data.backwardIconUrl || undoIcon} svg={true}></Image>
-        </View>
-        <View className={css.item} onClick={redo}>
-          <Image className={cx("mybricks-forward",css.icon)} src={data.forwardIconUrl || redoIcon} svg={true}></Image>
-        </View>
+        {data.showUndoRedo &&
+          <>
+            <View className={css.divider}></View>
+            <View className={css.item} onClick={undo}>
+              <Image className={cx("mybricks-backward", css.icon)} src={data.backwardIconUrl || undoIcon} svg={true}></Image>
+            </View>
+            <View className={css.item} onClick={redo}>
+              <Image className={cx("mybricks-forward", css.icon)} src={data.forwardIconUrl || redoIcon} svg={true}></Image>
+            </View>
+          </>
+        }
       </View>
       <View className={css.placeholder}></View>
 
@@ -407,7 +410,7 @@ export default function (props) {
         className={cx({
           [css.input]: true,
           "mybricks-input": true,
-          [`${sanitizedId}e`]:true
+          [`${sanitizedId}e`]: true
         })}
         showImgSize={true}
         showImgResize={true}

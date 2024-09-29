@@ -39,7 +39,6 @@ export default {
             },
           },
         },
-
         {
           title: "禁用编辑",
           type: "Switch",
@@ -51,6 +50,18 @@ export default {
               data.disabled = value;
             },
           },
+        },
+        {
+          title: "显示撤销重做",
+          type: "Switch",
+          value: {
+            get({ data }) {
+              return data.showUndoRedo;
+            },
+            set({ data }, value) {
+              data.showUndoRedo = value;
+            },
+          }
         },
         {
           title: "添加自定义插件",
