@@ -1,0 +1,100 @@
+@import "../styles/prefix";
+@import "./variables";
+
+.#{$component-prefix}picker {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  background-color: var(--picker-background-color, $picker-background-color);
+  text-size-adjust: 100%; /* avoid iOS text size adjust */
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--picker-toolbar-height, $picker-toolbar-height);
+  }
+
+  &__cancel,
+  &__confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--picker-action-padding, $picker-action-padding);
+    font-size: var(--picker-action-font-size, $picker-action-font-size);
+    cursor: pointer;
+    background-color: transparent;
+    border: none 0;
+
+    &:active {
+      opacity: var(--active-opacity, $active-opacity);
+    }
+  }
+
+  &__confirm {
+    color: var(--picker-confirm-action-color, $picker-confirm-action-color);
+  }
+
+  &__cancel {
+    color: var(--picker-cancel-action-color, $picker-cancel-action-color);
+  }
+
+  &__title {
+    max-width: 50%;
+    font-size: var(--picker-title-font-size, $picker-title-font-size);
+    font-weight: var(--font-weight-bold, $font-weight-bold);
+    line-height: var(--picker-title-line-height, $picker-title-line-height);
+    text-align: center;
+  }
+
+  &__loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--picker-loading-icon-color, $picker-loading-icon-color);
+    background-color: var(--picker-loading-mask-color, $picker-loading-mask-color);
+  }
+
+  &__columns {
+    position: relative;
+    display: flex;
+    cursor: grab;
+  }
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: linear-gradient(
+                    180deg,
+                    hsla(0, 0%, 100%, 0.9),
+                    hsla(0, 0%, 100%, 0.4)
+    ),
+    linear-gradient(0deg, hsla(0, 0%, 100%, 0.9), hsla(0, 0%, 100%, 0.4));
+    background-repeat: no-repeat;
+    background-position: top, bottom;
+    // fix rendering failure during animation on safari
+    transform: translateZ(0);
+  }
+
+  &__frame {
+    position: absolute;
+    top: 50%;
+    right: var(--padding-md, $padding-md);
+    left: var(--padding-md, $padding-md);
+    z-index: 2;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+}

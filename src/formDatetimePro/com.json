@@ -1,0 +1,108 @@
+{
+  "title": "时间选择Pro",
+  "namespace": "mybricks.taro.formDatetimePro",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "preview": "./preview.png",
+  "inputs": [
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "desc": "设置的值，并触发值变化事件输出 示例值:1723593600000 (毫秒时间戳)",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["setValueComplete"]
+    },
+    {
+      "id": "getValue",
+      "title": "获取值",
+      "desc": "获取的值并输出 示例值:1723593600000 (毫秒时间戳)",
+      "schema": {
+        "type": "string"
+      },
+      "rels": ["returnValue"]
+    },
+    {
+      "id": "resetValue",
+      "title": "重置值",
+      "desc": "清空的值",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["resetValueComplete"]
+    },
+    {
+      "id": "setLabel",
+      "title": "设置标题",
+      "desc": "设置表单项标题，仅当表单项在表单容器内时生效",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setPlaceholder",
+      "title": "设置提示内容",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabled",
+      "title": "设置是否禁用",
+      "desc": "设置表单项是否禁用，传入 true 时禁用表单项，传入 false 时启用表单项",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onChange",
+      "title": "当值变化",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setValueComplete",
+      "title": "设置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "returnValue",
+      "title": "值输出",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "resetValueComplete",
+      "title": "重置值完成",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "setDisabledComplete",
+      "title": "是否禁用设置完成",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "slots": [
+    {
+      "id": "content",
+      "title": "可点击插槽"
+    }
+  ],
+  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+}

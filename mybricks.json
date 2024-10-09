@@ -116,6 +116,7 @@
         "./src/formRate/com.json",
         "./src/formSelect/com.json",
         "./src/formDatetime/com.json",
+        "./src/formDatetimePro/com.json",
         "./src/formLocation/com.json",
         "./src/formPhoneNumber/com.json",
         "./src/formPhoneSMS/com.json",
