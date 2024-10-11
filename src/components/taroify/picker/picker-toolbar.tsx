@@ -4,9 +4,9 @@ import classNames from "classnames"
 import * as _ from "lodash"
 import * as React from "react"
 import { Children, cloneElement, isValidElement, ReactElement, ReactNode, useMemo } from "react"
-import { prefixClassname } from "../styles"
 import PickerButton, { PickerButtonProps, PickerButtonType } from "./picker-button"
 import PickerTitle from "./picker-title"
+import less from "./picker.less"
 
 interface PickerToolbarChildren {
   title: ReactNode
@@ -61,7 +61,7 @@ export default function PickerToolbar(props: PickerToolbarProps) {
   const { title, cancel, confirm } = usePickerToolbarChildren(childrenProp)
 
   return (
-    <View className={classNames(prefixClassname("picker__toolbar"), className)} {...restProps}>
+    <View className={classNames(less.taroify_picker__toolbar, className)} {...restProps}>
       {cancel}
       {title}
       {confirm}

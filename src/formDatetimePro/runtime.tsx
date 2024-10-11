@@ -1,15 +1,17 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import { Input, DatetimePicker } from "brickd-mobile";
-import { View } from "@tarojs/components";
+import { Input, DatetimePicker, Popup } from "brickd-mobile";
+import { View, RootPortal } from "@tarojs/components";
+import * as Taro from "@tarojs/taro";
 import { ArrowRight } from "@taroify/icons";
 import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
 import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
 import css from "./style.less";
 import InputDisplay from "../components/input-display";
-import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
+import useFormItemValue from "../utils/hooks/useFormItemValue";
 import cx from "classnames";
 import Picker from "../components/taroify/datetime-picker";
+import { createPortal } from "@tarojs/react";
 
 polyfill_taro_picker();
 
@@ -33,7 +35,8 @@ const AFTER_TEN_YEAR = new Date(
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
-
+  const [showPicker, setShowPicker] = useState(false);
+  const [showPickerVisible, setShowPickerVisible] = useState(false)
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
@@ -42,15 +45,19 @@ export default function (props) {
     });
     outputs["onChange"](val);
   });
+  const [valueInDate, setvalueInDate] = useState<Date | undefined>(undefined)
 
-  //判断组件是否需要为可交互状态
-  const comOperatable = useMemo(() => {
-    if (env.edit) {
+  const [targetElement, setTargetElement] = useState();
+
+
+  const isRelEnv = useMemo(() => {
+    if (env.runtime.debug || env.edit) {
       return false;
     } else {
       return true;
     }
-  }, [env.edit]);
+  }, [env]);
+
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -96,14 +103,6 @@ export default function (props) {
     });
   }, []);
 
-  const displayValue = useMemo(() => {
-    if (!data.value) {
-      return "";
-    }
-    setValue(data.value);
-    return dayjs(data.value).format(FORMAT_MAP[data.type]) || "";
-  }, [data.value, data.type]);
-
   const onChange = useCallback((formatDate) => {
     // 检查输入的字符串是否是时间格式
     const timePattern = /^\d{2}:\d{2}$/;
@@ -133,14 +132,19 @@ export default function (props) {
       return;
     }
 
-    data.value = dateTime.valueOf();
-    // parentSlot?._inputs["onChange"]?.({
-    //   id: props.id,
-    //   name: props.name,
-    //   value: data.value,
-    // });
-    setValue(data.value);
-    // outputs["onChange"](data.value);
+    parentSlot?._inputs["onChange"]?.({
+      id: props.id,
+      name: props.name,
+      value: dateTime.valueOf(),
+    });
+    outputs["onChange"](dateTime.valueOf());
+  }, []);
+
+  const onConfirm = useCallback((e) => {
+    console.log("onConfirm", e)
+    setValue(e.valueOf());
+    setShowPicker(false)
+    outputs["onConfirm"](e.valueOf());
   }, []);
 
   const range = useMemo(() => {
@@ -171,82 +175,167 @@ export default function (props) {
     };
   }, [data.min, data.max, data.type]);
 
-  //普通表单视图
-  const normalView = useMemo(() => {
-    return (
-      <View className={cx(css.wrap, "mybricks-datetime")} key="normalView">
-        {/* 防止在搭建态 点击调起日期选择 */}
-        {comOperatable ? (
-          <DatetimePicker
-            type={data.type}
-            value={displayValue}
-            min={range.min}
-            max={range.max}
-            onChange={onChange}
-          >
-            <View className={css.select}>
-              <InputDisplay
-                placeholder={data.placeholder}
-                value={displayValue}
-              ></InputDisplay>
-              <ArrowRight />
-            </View>
-          </DatetimePicker>
-        ) : (
-          <View className={css.select}>
-            <Input
-              readonly
-              disabled={!displayValue}
-              placeholder={data.placeholder}
-              value={displayValue}
-              style={{ flex: 1 }}
-            />
-            <ArrowRight />
-          </View>
-        )}
-      </View>
-    );
-  }, [
-    data.type,
-    range.min,
-    range.max,
-    displayValue,
-    data.placeholder,
-    data.isSlot,
-  ]);
+  const onShowPicker = () => {
+    if (!isRelEnv && !env.edit) {
+      Taro.showToast({
+        title: "时间选择仅支持真机端",
+        icon: "none",
+        duration: 1000,
+      });
+      return
+    }
+    setShowPicker(true)
+  }
 
-  //切换为插槽视图
+
+  useEffect(() => {
+    if (!isRelEnv) return
+    // 获取根元素,挂载弹窗
+    const query = Taro.createSelectorQuery();
+    query.select('#root').node().exec((res) => {
+      if (res[0]) {
+        console.log("#root", res[0])
+        setTargetElement(res[0].node);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!value) return
+    setvalueInDate(new Date(value))
+  }, [value])
+
+  const timePicker = useMemo(() => {
+    return (
+      <View onClick={() => setShowPicker(false)} className={cx({ [css.popup_overlay]: true, [css.visible]: showPickerVisible })}>
+        <View className={css.popup_content} onClick={(e) => {
+          e.stopPropagation()
+        }}><Picker
+          type={data.type}
+          formatter={(type, val) => {
+            if (type === "year") {
+              return `${val}年`
+            }
+            if (type === "month") {
+              return `${val}月`
+            }
+            if (type === "day") {
+              return `${val}日`
+            }
+            if (type === "hour") {
+              return `${val}时`
+            }
+            if (type === "minute") {
+              return `${val}分`
+            }
+            if (type === "second") {
+              return `${val}秒`
+            }
+            return val
+          }}
+          onChange={onChange}
+          onConfirm={(e) => {
+            onConfirm(e)
+          }}
+          onCancel={() => {
+            setShowPicker(false)
+          }}
+          defaultValue={valueInDate}
+          min={new Date(range.min)}
+          max={new Date(range.max)}
+        >
+            <Picker.Toolbar>
+              <Picker.Button>取消</Picker.Button>
+              <Picker.Title>{data.selectorTitle}</Picker.Title>
+              <Picker.Button>确认</Picker.Button>
+            </Picker.Toolbar>
+          </Picker></View>
+      </View>
+
+    )
+  }, [range.min, range.max, valueInDate, showPickerVisible, data.type, data.selectorTitle])
+
+  //延时显示，用于整体弹窗渐显动画
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPickerVisible(showPicker);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [showPicker]);
+
+  const $popup = useMemo(() => {
+    if (showPicker) {
+      if (process.env.TARO_ENV === 'weapp') {
+        return <RootPortal>
+          {timePicker}
+        </RootPortal>
+      }
+
+      if (process.env.TARO_ENV === 'h5') {
+        if (!targetElement) return null;
+        return createPortal(
+          <View>{timePicker}</View>, targetElement
+        );
+      }
+    } else {
+      return null
+    }
+
+  }, [timePicker, showPicker, targetElement, process.env.TARO_ENV, showPickerVisible]);
+
+  const timeDisplay = useCallback((timestamp) => {
+    if (!timestamp) return null
+    const date = new Date(timestamp);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    if (data.type == "date") {
+      return `${year}年${month}月${day}日`;
+    }
+    if (data.type == "time") {
+      return `${hours}时${minutes}分`;
+    }
+    if (data.type == "year-month") {
+      return `${year}年${month}月`;
+    }
+    if (data.type == "date-hour") {
+      return `${year}年${month}月${day}日 ${hours}时`;
+    }
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }, [data.type])
+
+  const normalView = useMemo(() => {
+    return (<View className={cx(css.wrap)} key="normalView">
+      <View onClick={onShowPicker} className={css.select}>
+        <InputDisplay
+          placeholder={data.placeholder}
+          value={timeDisplay(value)}
+        ></InputDisplay>
+        <ArrowRight />
+      </View>
+      {$popup}
+    </View>)
+  }, [$popup, data.placeholder, value])
+
   const slotsView = useMemo(() => {
     return (
-      <View
-        className={cx(css.slot_default_style, "mybricks-datetime")}
-        key="slotsView"
-      >
-        {/* 防止在搭建态 点击调起日期选择 */}
-        {comOperatable ? (
-          <DatetimePicker
-            type={data.type}
-            value={displayValue}
-            min={range.min}
-            max={range.max}
-            onChange={onChange}
-          >
-            {slots?.["content"]?.render({
-              style: {
-                height: "100%",
-              },
-            })}
-          </DatetimePicker>
-        ) : (
-          slots?.["content"]?.render({
-            style: {
-              height: "100%",
-            },
-          })
-        )}
+      <View key="slotsView" className={css.slot_default_style} onClick={onShowPicker}>
+        {slots?.["content"]?.render({
+          style: {
+            height: "100%",
+          },
+        })}
+        {$popup}
       </View>
-    );
-  }, [data.type, range.min, range.max, displayValue, data.isSlot]);
+    )
+  }, [$popup])
+
 
   if (data.isSlot) {
     return slotsView;

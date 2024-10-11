@@ -276,7 +276,7 @@ export default function (props) {
     editorRef.current.blur();
 
     Taro.chooseImage({
-      count: 1,
+      count: data.maxImageCount,
       sizeType: ["original", "compressed"],
       sourceType: ["album", "camera"],
       success: function (res) {
@@ -289,7 +289,7 @@ export default function (props) {
         });
       },
     });
-  }, [env.runtime]);
+  }, [env.runtime,data.maxImageCount]);
 
   // 插件点击
   const onClickPluginItem = useCallback((plugin) => {

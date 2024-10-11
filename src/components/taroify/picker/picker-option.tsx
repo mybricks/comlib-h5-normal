@@ -3,9 +3,9 @@ import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
 import * as React from "react"
 import { CSSProperties, isValidElement, ReactNode, useMemo, useContext } from "react"
-import { prefixClassname } from "../styles"
 import { isTextElement } from "../utils/validate"
 import PickerContext from "./picker.context"
+import less from "./picker-option.less"
 
 export interface PickerOptionProps extends ViewProps {
   className?: string
@@ -34,22 +34,22 @@ export default function PickerOption(props: PickerOptionProps) {
       return childrenProp
     }
     if (isTextElement(childrenProp)) {
-      return <View className={prefixClassname("ellipsis")}>{childrenProp}</View>
+      return <View className="ellipsis">{childrenProp}</View>
     }
     if (isValidElement(label)) {
       return label
     }
     if (isTextElement(label)) {
-      return <View className={prefixClassname("ellipsis")}>{label}</View>
+      return <View className="ellipsis">{label}</View>
     }
   }, [childrenProp, label])
 
   return (
     <View
       className={classNames(
-        prefixClassname("picker-option"),
+        less.taroify_picker_option,
         {
-          [prefixClassname("picker-option--disabled")]: disabled,
+          [less.taroify_picker_option__disabled]: disabled,
         },
         className,
       )}

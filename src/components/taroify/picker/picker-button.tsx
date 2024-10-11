@@ -4,6 +4,7 @@ import * as React from "react"
 import { ReactNode, useContext } from "react"
 import { prefixClassname } from "../styles"
 import PickerContext from "./picker.context"
+import less from "./picker.less"
 
 export enum PickerButtonType {
   Cancel = "cancel",
@@ -27,8 +28,8 @@ export default function PickerButton(props: PickerButtonProps) {
   return (
     <View
       className={classNames({
-        [prefixClassname("picker__cancel")]: type === PickerButtonType.Cancel,
-        [prefixClassname("picker__confirm")]: type === PickerButtonType.Confirm,
+        [less.taroify_picker__cancel]: type === PickerButtonType.Cancel,
+        [less.taroify_picker__confirm]: type === PickerButtonType.Confirm,
       })}
       children={children}
       onClick={(e) => {

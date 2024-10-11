@@ -70,6 +70,13 @@
       }
     },
     {
+      "id": "onConfirm",
+      "title": "点击确认按钮",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
       "id": "setValueComplete",
       "title": "设置值完成",
       "schema": {

@@ -1,18 +1,15 @@
-@import "../styles/prefix";
-@import "./variables";
-
-.#{$component-prefix}picker {
-  position: relative;
+.taroify_picker {
+  // position: relative;
   overflow: hidden;
   user-select: none;
-  background-color: var(--picker-background-color, $picker-background-color);
+  // background-color: #fff;
   text-size-adjust: 100%; /* avoid iOS text size adjust */
 
   &__toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: var(--picker-toolbar-height, $picker-toolbar-height);
+    height: 50px;
   }
 
   &__cancel,
@@ -21,30 +18,29 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: var(--picker-action-padding, $picker-action-padding);
-    font-size: var(--picker-action-font-size, $picker-action-font-size);
+    padding: 0 15px;
+    font-size: 15px;
     cursor: pointer;
     background-color: transparent;
     border: none 0;
 
     &:active {
-      opacity: var(--active-opacity, $active-opacity);
+      opacity: 0.7;
     }
   }
 
   &__confirm {
-    color: var(--picker-confirm-action-color, $picker-confirm-action-color);
+    color: #1989fa;
   }
 
   &__cancel {
-    color: var(--picker-cancel-action-color, $picker-cancel-action-color);
+    color: #969799;
   }
 
   &__title {
     max-width: 50%;
-    font-size: var(--picker-title-font-size, $picker-title-font-size);
-    font-weight: var(--font-weight-bold, $font-weight-bold);
-    line-height: var(--picker-title-line-height, $picker-title-line-height);
+    font-size: 15px;
+    font-weight: 700;
     text-align: center;
   }
 
@@ -58,8 +54,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--picker-loading-icon-color, $picker-loading-icon-color);
-    background-color: var(--picker-loading-mask-color, $picker-loading-mask-color);
+    // color: var(--picker-loading-icon-color, $picker-loading-icon-color);
+    // background-color: var(--picker-loading-mask-color, $picker-loading-mask-color);
   }
 
   &__columns {
@@ -91,9 +87,10 @@
   &__frame {
     position: absolute;
     top: 50%;
-    right: var(--padding-md, $padding-md);
-    left: var(--padding-md, $padding-md);
+    // right: var(--padding-md, $padding-md);
+    // left: var(--padding-md, $padding-md);
     z-index: 2;
+    width: 100%;
     pointer-events: none;
     transform: translateY(-50%);
   }
