@@ -8,7 +8,7 @@ import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
 import css from "./style.less";
 import InputDisplay from "../components/input-display";
-import useFormItemValue from "../utils/hooks/useFormItemValue";
+import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import cx from "classnames";
 import Picker from "../components/taroify/datetime-picker";
 import { createPortal } from "@tarojs/react";

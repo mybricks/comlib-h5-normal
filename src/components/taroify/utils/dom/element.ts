@@ -1,6 +1,6 @@
 import { TaroElement } from "@tarojs/runtime"
 import { createSelectorQuery, getCurrentInstance, useRouter } from "@tarojs/taro"
-import * as _ from "lodash"
+import * as _ from "../../../../utils/core"
 import { inWechat } from "../base"
 
 export const ELEMENT_NODE_TYPE = 1
@@ -35,16 +35,6 @@ export function matchSelector(aSelector?: string, bSelector?: string) {
   return aSelector === bSelector
 }
 
-export function getElementSelector(id?: string, className?: string) {
-  const selectors: string[] = []
-  if (!_.isEmpty(id)) {
-    selectors.push(`#${id}`)
-  }
-  if (!_.isEmpty(className)) {
-    selectors.push(_.split(className, " ").join("."))
-  }
-  return selectors.join(".")
-}
 
 export function prependPageSelector(selector?: string) {
   const path = getCurrentInstance().router?.path

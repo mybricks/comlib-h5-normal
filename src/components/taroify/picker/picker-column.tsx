@@ -1,7 +1,7 @@
 import { View } from "@tarojs/components"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash/index"
 import * as React from "react"
 import * as Taro from "@tarojs/taro"
 import {

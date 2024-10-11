@@ -1,4 +1,4 @@
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 
 export function isPromise<T = any>(val: any): val is Promise<T> {
   return _.isObjectLike(val) && _.isFunction((val as Promise<T>).then) && _.isFunction(val.catch)

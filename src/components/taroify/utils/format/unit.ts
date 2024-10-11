@@ -1,5 +1,5 @@
 import { getSystemInfoSync } from "@tarojs/taro"
-import * as _ from "lodash"
+import * as _ from "../../../../utils/lodash"
 import { CSSProperties } from "react"
 
 export function addUnitPx(value?: string | number): string {

@@ -1,4 +1,4 @@
-import * as _ from "lodash"
+import * as _ from "../../../../utils/lodash"
 
 function trimExtraChar(value: string, char: string, regExp: RegExp) {
   const index = value.indexOf(char)

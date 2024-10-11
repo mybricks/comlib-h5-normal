@@ -1,4 +1,4 @@
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 import { Children as ReactChildren, ReactNode } from "react"
 import { isObjectElement } from "./validate"
 

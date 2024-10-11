@@ -26,7 +26,8 @@ import {
     isEqual,
     isString,
     isNull,
-    endsWith
+    endsWith,
+    toString
 } from 'lodash-es';
 
 
@@ -58,5 +59,6 @@ export {
     isEqual,
     isString,
     isNull,
-    endsWith
+    endsWith,
+    toString
 };
