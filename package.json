@@ -17,9 +17,9 @@
   "dependencies": {
     "@taroify/hooks": "^0.4.1-alpha.0",
     "@taroify/icons": "^0.1.0-alpha.1",
-    "@tarojs/components": "3.6.13",
-    "@tarojs/react": "^3.6.13",
-    "@tarojs/taro-h5": "3.6.13",
+    "@tarojs/components": "4.0.6",
+    "@tarojs/react": "^4.0.6",
+    "@tarojs/taro-h5": "4.0.6",
     "@tencentcloud/chat": "^3.4.2",
     "brickd-mobile": "^0.0.46",
     "classnames": "^2.3.2",
