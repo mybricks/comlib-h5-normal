@@ -101,9 +101,13 @@ export default function ({ id, env, data, style, inputs, outputs }) {
     }
   }, [data.ellipsis, data.maxLines]);
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback((e) => {
     if (!env.runtime) {
       return;
+    }
+    // 当配置了单击事件，阻止事件冒泡
+    if (outputs["onClick"].getConnections().length) {
+      e.stopPropagation();
     }
 
     outputs["onClick"](data.text);
