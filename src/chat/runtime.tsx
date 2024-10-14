@@ -6,10 +6,15 @@ import { Textarea } from "brickd-mobile";
 import * as Taro from "@tarojs/taro";
 import Toolbar from "./runtime/toolbar";
 
+import MessageText from "./runtime/MessageText";
+import MessageImage from "./runtime/MessageImage";
+import MessageCustom from "./runtime/MessageCustom";
+
 export default function (props) {
   const { data, inputs, outputs, env, extra } = props;
 
-  const [messages, setMessages] = useState(extra?.defaultMessages || []);
+  const [loginUserId, setLoginUserId] = useState(extra?.loginUserId || "");
+  const [messages, setMessages] = useState(extra?.messages || []);
 
   const chatRoomCx = useMemo(() => {
     return cx(css.chatRoom, {
@@ -77,10 +82,10 @@ export default function (props) {
         {messages.map((message, index) => (
           <View
             id={`message-${message.id}`}
-            className={cx(css.message, css.text, {
+            className={cx(css.message, message.text, {
               [css.me]: message.role === "user",
             })}
-            key={index}
+            key={message.messageId}
           >
             {/* 消息内容渲染 */}
             <Image
@@ -89,17 +94,22 @@ export default function (props) {
               src="https://comm.tencentcs.com/im/static-files/demo_sample_customer_avatar.png"
             />
             <View className={css.entry}>
-              <View className={css.username}>张三</View>
+              <View className={css.nickname}>
+                {message.userProfile.nickname}
+              </View>
               <View className={css.content}>
-                叔叔撒地方都是负担叔叔撒地方都是负担叔叔撒地方都是负担叔叔撒地方都是负担叔撒地方都是负担
+                {message.message.payload.text}
               </View>
             </View>
             {/* 消息内容渲染 */}
           </View>
         ))}
+
+        {/* 
         <View className="toolbar">
           <Textarea className="input" />
-        </View>
+        </View> 
+        */}
       </ScrollView>
       {/* messages after */}
 
