@@ -1,5 +1,5 @@
 import { ViewProps } from "@tarojs/components/types/View"
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 import * as React from "react"
 import { CSSProperties, ReactNode, useCallback, useContext } from "react"
 import PickerColumnsRender from "./picker-columns-render"

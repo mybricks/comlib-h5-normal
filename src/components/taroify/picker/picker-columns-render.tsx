@@ -1,7 +1,7 @@
 import { View } from "@tarojs/components"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 import * as React from "react"
 import { CSSProperties, ReactNode, useContext, useMemo } from "react"
 import { prefixClassname } from "../styles"
@@ -13,6 +13,7 @@ import PickerColumn from "./picker-column"
 import PickerContext from "./picker.context"
 import { getPickerOptionKey, PickerOptionObject } from "./picker.shared"
 import usePickerOptions from "./use-picker-options"
+import less from "./picker.less"
 
 export interface PickerColumnsRenderProps extends Omit<ViewProps, "children"> {
   style?: CSSProperties
@@ -103,16 +104,16 @@ function PickerColumnsRender(props: PickerColumnsRenderProps) {
 
   return (
     <View
-      className={classNames(prefixClassname("picker__columns"), className)}
+      className={classNames(less.taroify_picker__columns, className)}
       style={rootStyle}
       catchMove
       onTouchMove={preventDefault}
       {...restProps}
     >
       {columnsRender}
-      <View className={prefixClassname("picker__mask")} style={maskStyle} />
+      <View className={less.taroify_picker__mask} style={maskStyle} />
       <View
-        className={classNames([HAIRLINE_BORDER_UNSET_TOP_BOTTOM, prefixClassname("picker__frame")])}
+        className={classNames([HAIRLINE_BORDER_UNSET_TOP_BOTTOM, less.taroify_picker__frame])}
         style={frameStyle}
       />
     </View>

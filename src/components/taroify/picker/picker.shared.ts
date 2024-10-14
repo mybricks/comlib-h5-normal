@@ -1,4 +1,4 @@
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 import { Key, ReactNode } from "react"
 import { isTextElement } from "../utils/validate"
 

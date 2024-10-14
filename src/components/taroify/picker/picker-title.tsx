@@ -1,7 +1,7 @@
 import { View } from "@tarojs/components"
 import * as React from "react"
 import { ReactNode } from "react"
-import { prefixClassname } from "../styles"
+import less from "./picker.less"
 
 interface PickerTitleProps {
   className?: string
@@ -10,5 +10,5 @@ interface PickerTitleProps {
 
 export default function PickerTitle(props: PickerTitleProps) {
   const { children } = props
-  return <View className={prefixClassname("picker__title")} children={children} />
+  return <View className={less.taroify_picker__title} children={children} />
 }

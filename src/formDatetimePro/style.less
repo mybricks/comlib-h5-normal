@@ -1,8 +1,39 @@
 .wrap {
   width: 100%;
+  height: 100%;
 }
 
-.slot_default_style{
+.popup_overlay {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+
+
+  .popup_content {
+    z-index: 1001;
+    width: 100%;
+    height: 350px;
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+  }
+}
+
+.visible {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  opacity: 1 !important;
+}
+
+
+
+.slot_default_style {
   width: 100%;
   height: 100%;
 }
@@ -14,7 +45,7 @@
 
   :global {
     .taroify-input--readonly {
-      color: var(--input-color, var(--text-color, var(--gray-8, #323233)))
+      color: #323233
     }
   }
 }

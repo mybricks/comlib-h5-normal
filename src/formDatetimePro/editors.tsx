@@ -50,12 +50,8 @@ export default {
           },
         },
         {
-          title: "提示内容",
-          description: "该提示内容会在值为空时显示",
+          title:"提示内容",
           type: "text",
-          ifVisible({ data }) {
-            return !data.isSlot;
-          },
           value: {
             get({ data }) {
               return data.placeholder;
@@ -66,13 +62,26 @@ export default {
           },
         },
         {
+          title:"弹窗选择器标题",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.selectorTitle;
+            },
+            set({ data }, value) {
+              data.selectorTitle = value;
+            },
+          },
+        },
+        {
           title: "时间类型",
           type: "select",
           options: [
             { label: "日期", value: "date" },
             { label: "时间", value: "time" },
-            { label: "年", value: "year" },
             { label: "年-月", value: "year-month" },
+            { label: "年-月-日-小时", value: "date-hour" },
+            { label: "完整时间", value: "datetime" },
             // { label: "月-日", value: "month-day" },
             // { label: "日期 小时", value: "date-hour" },
             // { label: "日期 小时:分", value: "date-minute" },
@@ -122,32 +131,18 @@ export default {
             },
           ],
         },
-
-        // {
-        //   title: '时间范围',
-        //   type: 'editorRender',
-        //   description: '只有时间范围内的时间可以被选择',
-        //   options: {
-        //     render: DatePicker,
-        //   },
-        //   value: {
-        //     get({ data, style }) {
-        //       if (data.min == '' && data.max == '') {
-        //         return [LAST_TEN_YEAR.getTime(), AFTER_TEN_YEAR.getTime()]
-        //       }
-        //       return [data.min, data.max]
-        //     },
-        //     set({}, value) {
-        //     //  data.mode = value
-        //     }
-        //   }
-        // },
-
         {
           title: "当值变化",
           type: "_event",
           options: {
             outputId: "onChange",
+          },
+        },
+        {
+          title: "当点击确认",
+          type: "_event",
+          options: {
+            outputId: "onConfirm",
           },
         },
       ];

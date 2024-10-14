@@ -2,11 +2,9 @@ import { useUncontrolled } from "@taroify/hooks"
 import { View } from "@tarojs/components"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash"
 import * as React from "react"
 import { Children, ReactElement, ReactNode, useCallback, useRef, useMemo } from "react"
-import Loading from "../loading"
-import { prefixClassname } from "../styles"
 import { useRefs, useToRef } from "../utils/state"
 import { isElementOf } from "../utils/validate"
 import { unitToPx } from "../utils/format/unit"
@@ -25,6 +23,7 @@ import {
   PickerOptionData,
   validPickerColumn,
 } from "./picker.shared"
+import less from "./picker.less"
 
 
 function usePickerValues(value?: any): any[] {
@@ -195,8 +194,8 @@ function Picker(props: PickerProps) {
         onCancel: handleAction(onCancel),
       }}
     >
-      <View className={classNames(prefixClassname("picker"), className)} {...restProps}>
-        {loading && <Loading className={prefixClassname("picker__loading")} />}
+      <View className={classNames(less.taroify_picker, className,"mybricks-datetime")} {...restProps}>
+        {/* {loading && <Loading className={less.taroify_picker__loading} />} */}
         {children}
       </View>
     </PickerContext.Provider>

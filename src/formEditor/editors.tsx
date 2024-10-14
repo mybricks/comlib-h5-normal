@@ -64,6 +64,18 @@ export default {
           }
         },
         {
+          title:"单次图片上传数",
+          type:"number",
+          value:{
+            get({data}){
+              return data.maxImageCount;
+            },
+            set({data},value){
+              data.maxImageCount = value;
+            }
+          }
+        },
+        {
           title: "添加自定义插件",
           type: "array",
           options: {

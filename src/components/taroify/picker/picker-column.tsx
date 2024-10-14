@@ -1,8 +1,9 @@
 import { View } from "@tarojs/components"
 import { ViewProps } from "@tarojs/components/types/View"
 import classNames from "classnames"
-import * as _ from "lodash"
+import * as _ from "../../../utils/lodash/index"
 import * as React from "react"
+import * as Taro from "@tarojs/taro"
 import {
   forwardRef,
   useCallback,
@@ -12,7 +13,6 @@ import {
   useRef,
   useState,
 } from "react"
-import { prefixClassname } from "../styles"
 import { getComputedStyle } from "../utils/dom/computed-style"
 import { preventDefault } from "../utils/dom/event"
 import { addUnitPx } from "../utils/format/unit"
@@ -21,6 +21,7 @@ import { useRendered, useRenderedRef, useToRef } from "../utils/state"
 import { useTouch } from "../utils/touch"
 import PickerOption from "./picker-option"
 import { getPickerOptionKey, PickerColumnInstance, PickerOptionObject, DEFAULT_SIBLING_COUNT, DEFAULT_OPTION_HEIGHT } from "./picker.shared"
+import less from "./picker-column.less"
 
 // 惯性滑动思路:
 // 在手指离开屏幕时，如果和上一次 move 时的间隔小于 `MOMENTUM_LIMIT_TIME` 且 move
@@ -86,6 +87,8 @@ const PickerColumn = forwardRef<PickerColumnInstance, PickerColumnProps>(
     const baseOffset = useMemo(() => (optionHeight * (+visibleCount - 1)) / 2, [visibleCount, optionHeight])
 
     const countRef = useRenderedRef(() => _.size(childrenProp))
+
+    const [pxDelta, setPxDelta] = useState(0)
 
     const adjustIndex = useCallback(
       (index: number) => {
@@ -267,13 +270,25 @@ const PickerColumn = forwardRef<PickerColumnInstance, PickerColumnProps>(
       }, 0)
     }
 
+    useEffect(() => {
+      Taro.getSystemInfo().then((res) => {
+        const { windowHeight, windowWidth } = res;
+        const pxDelta = windowWidth / 375;
+        if(process.env.TARO_ENV === 'weapp'){
+          setPxDelta(pxDelta * 0.992);//在微信小程序中会有偏移的情况，先给一个偏移值来处理
+        }else{
+          setPxDelta(pxDelta);
+        }
+      });
+    }, [process.env.TARO_ENV]);
+
     const wrapperStyle = useMemo(
       () => ({
-        transform: `translate3d(0, ${addUnitPx(activeOffset + baseOffset)}, 0)`,
+        transform: `translate3d(0, ${(activeOffset + baseOffset) * pxDelta}px, 0)`,
         transitionDuration: `${currentDurationRef.current}ms`,
         transitionProperty: currentDurationRef.current ? "all" : "none",
       }),
-      [activeOffset, baseOffset],
+      [activeOffset, baseOffset, pxDelta],
     )
 
     useImperativeHandle(
@@ -286,7 +301,7 @@ const PickerColumn = forwardRef<PickerColumnInstance, PickerColumnProps>(
 
     return (
       <View
-        className={classNames(prefixClassname("picker-column"), className)}
+        className={classNames(less.taroify_picker_column, className)}
         catchMove
         onTouchStart={(event) => {
           fulfillPromise(handleTouchStart(event))
@@ -309,7 +324,7 @@ const PickerColumn = forwardRef<PickerColumnInstance, PickerColumnProps>(
         <View
           ref={wrapperRef}
           style={wrapperStyle}
-          className={classNames(prefixClassname("picker-column__wrapper"), {
+          className={classNames(less.taroify_picker_column__wrapper, {
             // [prefixClassname("picker-column__wrapper--zero")]: duration === "zero",
             // [prefixClassname("picker-column__wrapper--momentum")]: duration === "momentum",
             // [prefixClassname("picker-column__wrapper--switch")]: duration === "switch",
