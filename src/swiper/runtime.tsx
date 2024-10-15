@@ -98,9 +98,24 @@ export default function ({ env, data, inputs, outputs, style }) {
       circular={env.edit ? false : data.circular}
       {...extra}
     >
-      {data.items.map((item, index) => {
+      {env.edit && <SwiperItem
+        className={css.swiperItem}
+      >
+        <SkeletonImage
+          className={css.thumbnail}
+          mode="aspectFill"
+          src={data.items[current]?.thumbnail}
+          nativeProps={{
+            loading: "lazy",
+            decoding: "async",
+          }}
+          cdnCut="auto"
+          cdnCutOption={{ width: style.width, height: style.height }}
+        />
+      </SwiperItem>}
+      {!env.edit && data.items.map((item, index) => {
         // 搭建态下加载全部
-        const shouldLoad = env.edit ? true : loadedImages.includes(index);
+        const shouldLoad = loadedImages.includes(index);
         return (
           <SwiperItem
             key={item._id}
