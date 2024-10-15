@@ -189,12 +189,20 @@ export default function (props) {
 
   useEffect(() => {
     if (!isRelEnv) return
-    // 获取根元素,挂载弹窗
+
+    // 先获取看有没有mybricks弹窗, 挂在弹窗上面
     const query = Taro.createSelectorQuery();
-    query.select('#root').node().exec((res) => {
+    query.select('.mybricks-overlay').node().exec((res) => {
       if (res[0]) {
-        console.log("#root", res[0])
         setTargetElement(res[0].node);
+      } else {
+        // 如果前面没有检测到mybricks弹窗，挂在root上面
+        const query2 = Taro.createSelectorQuery();
+        query2.select('#root').node().exec((res) => {
+          if (res[0]) {
+            setTargetElement(res[0].node);
+          }
+        });
       }
     });
   }, []);

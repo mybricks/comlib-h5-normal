@@ -23,6 +23,18 @@
     position: absolute;
     bottom: 0;
     background-color: #fff;
+    border-radius: 8px 8px 0px 0px;
+    animation: slideInBottom ease-in-out 0.3s
+  }
+}
+
+@keyframes slideInBottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 
