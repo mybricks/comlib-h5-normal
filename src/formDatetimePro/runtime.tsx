@@ -57,9 +57,14 @@ export default function (props) {
     }
   }, [env]);
 
+  useEffect(() => {
+    setValue(data.value)
+  }, [data.value])
+
 
   useEffect(() => {
-    inputs["setValue"]((val) => {
+    //设置值
+    inputs["setValue"]((val, rel) => {
       switch (true) {
         case isEmpty(val): {
           data.value = undefined;
@@ -99,8 +104,48 @@ export default function (props) {
         default:
           break;
       }
+      rel["setValueComplete"](val)
     });
+
+    //重置值
+    inputs["resetValue"]((val, rel) => {
+      setValue(undefined)
+      rel["resetValueComplete"](val)
+    })
+
+    //设置placeholder
+    inputs["setPlaceholder"]((val) => {
+      data.placeholder = val
+    })
+
+    //设置禁用
+    inputs["setDisabled"]((val) => {
+      data.disabled = val
+    })
+
+    //设置标题
+    inputs["setLabel"]?.((val) => {
+      if (!isString(val)) {
+        return;
+      }
+
+      parentSlot?._inputs["setProps"]?.({
+        id: props.id,
+        name: props.name,
+        value: {
+          label: val,
+        },
+      });
+    });
+
   }, []);
+
+  useEffect(() => {
+    //获取值
+    inputs["getValue"]((val, rel) => {
+      rel["returnValue"](value)
+    })
+  }, [value])
 
   const onChange = useCallback((formatDate) => {
     // 检查输入的字符串是否是时间格式
@@ -175,6 +220,7 @@ export default function (props) {
   }, [data.min, data.max, data.type]);
 
   const onShowPicker = () => {
+    if (data.disabled) return
     if (!isRelEnv && !env.edit) {
       Taro.showToast({
         title: "时间选择仅支持真机端",
@@ -323,12 +369,13 @@ export default function (props) {
         <InputDisplay
           placeholder={data.placeholder}
           value={timeDisplay(value)}
+          disabled={data.disabled}
         ></InputDisplay>
         <ArrowRight />
       </View>
       {$popup}
     </View>)
-  }, [$popup, data.placeholder, value])
+  }, [$popup, data.placeholder, value, data.disabled])
 
   const slotsView = useMemo(() => {
     return (
