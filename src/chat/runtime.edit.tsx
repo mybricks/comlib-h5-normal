@@ -3,173 +3,65 @@ import Runtime from "./runtime";
 
 export default function (props) {
   const extra = {
-    defaultMessages: [
+    messages: [
       {
-        conversationID: "C2Cstuzhaoxing",
-        unreadCount: 3,
-        type: "C2C",
-        lastMessage: {
-          lastTime: 1726642706,
-          lastSequence: 1458260001,
-          fromAccount: "stuzhaoxing",
-          type: "TIMTextElem",
-          payload: { text: "Hello world!" },
-          cloudCustomData: "",
-          isRevoked: false,
-          onlineOnlyFlag: false,
-          nick: "",
-          nameCard: "",
-          version: 0,
-          isPeerRead: false,
-          revoker: null,
-          messageForShow: "Hello world!",
-        },
-        _isInfoCompleted: false,
-        peerReadTime: 0,
-        groupAtInfoList: [],
-        remark: "",
-        isPinned: false,
-        messageRemindType: "AcceptAndNotify",
-        markList: [],
-        customData: "",
-        conversationGroupList: [],
-        draftText: "",
+        id: "a",
         userProfile: {
-          userID: "stuzhaoxing",
-          nick: "",
-          gender: "",
-          birthday: 0,
-          location: "",
-          selfSignature: "",
-          allowType: "AllowType_Type_AllowAny",
-          language: 0,
-          avatar: "",
-          messageSettings: 0,
-          adminForbidType: "AdminForbid_Type_None",
-          level: 0,
-          role: 0,
-          lastUpdatedTime: 0,
-          profileCustomField: [],
-        },
-        subType: "",
-      },
-      {
-        recordId: "xxxxx",
-        userProfile: {
-          userID: "stuzhaoxing",
-          nickname: "stuzhaoxing",
-          avatar:
-            "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-          role: "assistant",
+          userID: "zhangsan",
+          nickname: "张三",
+          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
         },
         message: {
           type: "text",
           payload: { text: "Hello world!" },
+          forShow: "Hello world!",
           timestamp: 1726642706,
-          
-          cloudCustomData: "",
-          isRevoked: false,
-          onlineOnlyFlag: false,
-          nick: "",
-          nameCard: "",
-          version: 0,
-          isPeerRead: false,
-          revoker: null,
-          messageForShow: "Hello world!",
-
-          contentType: "text",
-          content: "啊开发接口的飞机啊看大煞风景大法",
         },
       },
       {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
+        id: "b",
+        userProfile: {
+          userID: "lisi",
+          nickname: "李四",
+          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        },
+        message: {
+          type: "text",
+          payload: { text: "Hello world!" },
+          forShow: "Hello world!",
+          timestamp: 1726642706,
+        },
       },
       {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "assistant",
-        contentType: "image",
-        content:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        id: "c",
+        userProfile: {
+          userID: "zhangsan",
+          nickname: "张三",
+          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        },
+        message: {
+          type: "image",
+          payload: { image: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png" },
+          forShow: "[图片]",
+          timestamp: 1726642706,
+        },
       },
       {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "assistant",
-        contentType: "image",
-        content:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "assistant",
-        contentType: "image",
-        content:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "assistant",
-        contentType: "image",
-        content:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-      },
-      {
-        avatar:
-          "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        role: "user",
-        contentType: "text",
-        content: "啊开发接口的飞机啊看大煞风景大法",
+        id: "d",
+        userProfile: {
+          userID: "lisi",
+          nickname: "李四",
+          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        },
+        message: {
+          type: "image",
+          payload: { image: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png" },
+          forShow: "[图片]",
+          timestamp: 1726642706,
+        },
       },
     ],
+    loginUserId: "zhangsan",
   };
 
   return <Runtime {...props} extra={extra} />;
