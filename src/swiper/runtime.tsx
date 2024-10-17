@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState} from "react";
 import { View, Image } from "@tarojs/components";
 import cx from "classnames";
 import { Swiper, SwiperItem } from "./../components/swiper";
@@ -16,6 +16,15 @@ export default function ({ env, data, inputs, outputs, style }) {
     current + 1,
     data.items?.length ? data.items?.length - 1 : 0,
   ]); // 默认加载第一个和最后一个图片
+
+  //判断是否是真机运行态
+  const isRelEnv = useMemo(() => {
+    if (env.runtime.debug || env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  }, [env.runtime.debug, env.edit])
 
   useEffect(() => {
     if (env.edit && !isUndef(data?.edit?.current)) {
@@ -78,7 +87,7 @@ export default function ({ env, data, inputs, outputs, style }) {
       }
       return c;
     });
-  }, [current]);
+  }, [current, data.items.length]);
 
   if (env.runtime && !data.items.length) {
     return null;
@@ -90,6 +99,8 @@ export default function ({ env, data, inputs, outputs, style }) {
 
   return (
     <Swiper
+      env={env}
+      data={data}
       className={css.swiper}
       style={{ height: style.height }}
       current={current}
@@ -98,7 +109,7 @@ export default function ({ env, data, inputs, outputs, style }) {
       circular={env.edit ? false : data.circular}
       {...extra}
     >
-      {env.edit && <SwiperItem
+      {!isRelEnv && <SwiperItem
         className={css.swiperItem}
       >
         <SkeletonImage
@@ -113,7 +124,7 @@ export default function ({ env, data, inputs, outputs, style }) {
           cdnCutOption={{ width: style.width, height: style.height }}
         />
       </SwiperItem>}
-      {!env.edit && data.items.map((item, index) => {
+      {isRelEnv && data.items.map((item, index) => {
         // 搭建态下加载全部
         const shouldLoad = loadedImages.includes(index);
         return (
