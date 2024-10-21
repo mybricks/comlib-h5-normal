@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import css from "./style.less";
 import cx from "classnames";
-import { View } from "@tarojs/components";
+import { View,Image } from "@tarojs/components";
 import { Search } from "brickd-mobile";
 import { debounce } from "./../utils/core";
 import { Button } from "@tarojs/components";
@@ -57,6 +57,15 @@ export default function ({ env, data, inputs, outputs }) {
     outputs["onSearch"]?.(value);
   }, [value]);
 
+  const icon = useMemo(()=>{
+    if(data.isCustom && !!data.src){
+      return <Image style={{width:data.contentSize?.[1] ?? 14,height:data.contentSize?.[0] ?? 14,marginRight:data.iconDistance}} src={data?.src} alt={' '} />
+    }else{
+      return undefined
+    }
+    
+  },[data.contentSize,data.src,data.isCustom,data.iconDistance])
+
   return (
     <View className={cx(css.searchBox, "mybricks-searchBar")}>
       <Search
@@ -72,6 +81,7 @@ export default function ({ env, data, inputs, outputs }) {
         onCancel={onCancel}
         onClear={onClear}
         onSearch={onSearch}
+        icon={icon}
       />
       {data.showSearchButton &&
         <Button

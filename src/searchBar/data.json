@@ -8,5 +8,6 @@
   "label":"",
   "disabled": false,
   "showSearchButton":false,
-  "searchButtonText":"搜索"
+  "searchButtonText":"搜索",
+  "iconDistance":4
 }

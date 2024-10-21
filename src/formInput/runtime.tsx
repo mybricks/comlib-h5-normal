@@ -93,6 +93,15 @@ export default function (props) {
     outputs["onBlur"](value);
   }, []);
 
+  const $showCount = useMemo(() => {
+    if(data.showCount){
+      return <View className={css.showCount}>{data.maxlength == -1 ? value.length : `${value.length}/${data.maxlength}`}</View>
+    }else{
+      return null
+    }
+
+  }, [data.maxlength,data.showCount,value]);
+
   return (
     <View className={css.formItem}>
       <Input
@@ -110,7 +119,9 @@ export default function (props) {
         cursorSpacing={28}
         cursor={value.length}
         onBlur={onBlur}
+        maxlength={data.maxlength}
       />
+      {$showCount}
     </View>
   );
 }

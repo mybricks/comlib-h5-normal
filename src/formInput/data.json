@@ -7,5 +7,6 @@
   "type": "text",
   "disabled": false,
   "required": false,
-  "hidden": false
+  "hidden": false,
+  "maxlength":-1
 }
