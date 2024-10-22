@@ -14,7 +14,7 @@ import DefaultNavigation from "../modules/defaultNavigation";
 import CustomNavigation from "../modules/customNavigation";
 import NoneNavigation from "../modules/noneNavigation";
 import CustomTabBar from "../modules/customTabBar";
-import { isDesigner } from "../../utils/env";
+import { isH5, isDesigner } from "../../utils/env";
 
 const isIOS = Taro.getSystemInfoSync().platform === "ios";
 
@@ -95,7 +95,7 @@ const usePullDownRefresh = ({
     onRefresherAbort: (e) => {
       console.log("onRefresherAbort", e.detail);
       setDisableScrollWhenPulling(false);
-    }
+    },
     // onRefresherRestore: onRestore,
   };
 };
@@ -110,7 +110,8 @@ export default function (props) {
   const scrollRef = useRef(null);
   const [scrollTop, setScrollTop] = useState(0);
 
-  const [disableScrollWhenPulling, setDisableScrollWhenPulling] = useState(false);
+  const [disableScrollWhenPulling, setDisableScrollWhenPulling] =
+    useState(false);
 
   /**
    * 监听页面重新显示、隐藏
@@ -249,9 +250,20 @@ export default function (props) {
         /** 这里务必注意，scrollTop的优先级比scrollIntoView高，且这两个值只会在变化时生效，所以每次setScrollToProps务必只设置变化的字段，保证之前字段不变 */
         const isAnimte = duration > 0;
         if (id) {
+          // H5
+          if (isH5()) {
+            let anchor = document.querySelector(id);
+            document.querySelector("#root_scroll").scrollTo({
+              top: anchor.offsetTop,
+              behavior: isAnimte ? "smooth" : "auto",
+            });
+            return;
+          }
+
           setScrollToProps((c) => ({
             ...c,
             scrollIntoView: id,
+            scrollTop: Math.random() + 20,
             scrollAnimationDuration: duration,
             scrollWithAnimation: isAnimte,
           }));

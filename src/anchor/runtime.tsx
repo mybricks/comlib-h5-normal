@@ -3,6 +3,7 @@ import { View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import css from "./style.less";
 import cx from "classnames";
+import { isH5 } from "../utils/env";
 
 export default function ({ id, env, data, inputs, outputs }) {
   const io = Taro.createIntersectionObserver(Taro.getCurrentInstance().page);
@@ -23,14 +24,9 @@ export default function ({ id, env, data, inputs, outputs }) {
     });
 
     inputs["scrollTo"](() => {
-
       env?.rootScroll.scrollTo?.({
         id: `#${id}`,
-      })
-      // Taro.pageScrollTo({
-      //   selector: `#${id} .mybricks-anchor`,
-      //   duration: 0,
-      // });
+      });
     });
 
     return () => {
@@ -38,5 +34,9 @@ export default function ({ id, env, data, inputs, outputs }) {
     };
   });
 
-  return <View className={cx(css.anchor, "mybricks-anchor")}></View>;
+  return (
+    <View style={{ position: "relative" }}>
+      <View className={cx(css.anchor, "mybricks-anchor")}></View>
+    </View>
+  );
 }
