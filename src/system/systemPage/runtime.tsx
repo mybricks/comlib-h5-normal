@@ -254,7 +254,7 @@ export default function (props) {
           if (isH5()) {
             let anchor = document.querySelector(id);
             document.querySelector("#root_scroll").scrollTo({
-              top: anchor.offsetTop,
+              top: -anchor.offsetTop,
               behavior: isAnimte ? "smooth" : "auto",
             });
             return;
