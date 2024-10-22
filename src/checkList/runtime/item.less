@@ -5,13 +5,6 @@
   border: 1px solid rgb(200, 201, 204);
   border-radius: 3px;
 
-  &.itemSelected {
-    background: #fa6400;
-    color: #ffffff;
-    font-weight: 500;
-    border: 1px solid #fa6400;
-  }
-
   &.horizontal {
     display: flex;
     align-items: center;
@@ -51,4 +44,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.itemSelected {
+  width: 100%;
+  overflow: hidden;
+  padding: 6px;
+  border-radius: 3px;
+  background: #fa6400;
+  color: #ffffff;
+  font-weight: 500;
+  border: 1px solid #fa6400;
 }

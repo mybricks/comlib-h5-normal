@@ -14,7 +14,7 @@ export default function (props) {
   return (
     <View
       className={cx({
-        [css.item]: true,
+        [css.item]: !isSelected,
         "mybricks-item": !isSelected,
         [css.itemSelected]: isSelected,
         "mybricks-item-selected": isSelected,
