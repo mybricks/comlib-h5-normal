@@ -376,7 +376,11 @@ export default function (props) {
 
   return (
     <View
-      className={cx({ [css.page]: true, [css.debug]: isDesigner(env) })}
+      className={cx({ 
+        [css.page]: true, 
+        [css.h5page]: isH5(), 
+        [css.debug]: isDesigner(env) 
+      })}
       style={{ ...background }}
     >
       {/* Header ⬇️⬇️⬇️ */}
@@ -486,8 +490,8 @@ export default function (props) {
       ) : null}
 
       {/* runtime 时渲染 tabbar placeholder */}
-      {useTabBar && !env.runtime.debug ? (
-        <View className={css.tabBarPlaceholder}></View>
+      {useTabBar && !env.runtime.debug && !isH5() ? (
+        <View className={cx(css.tabBarPlaceholder)}></View>
       ) : null}
 
       {/* 开启了页脚插槽 */}
