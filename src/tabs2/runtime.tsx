@@ -156,9 +156,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         +index >= 0 &&
         +index < data.tabs.length
       ) {
-        let currentTabId = data.tabs[index]._id;
-
-        _setCurrentTabId(currentTabId);
+        let currentTabId = data.tabs[index]?._id;
+        if (currentTabId) {
+          _setCurrentTabId(currentTabId);
+        }
       }
     });
 
@@ -352,35 +353,34 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     };
   }, [data.tabWidthType, data.tabItemGap]);
 
-  const tabContent = useMemo(()=>{
+  const tabContent = useMemo(() => {
     //非动态标签页的情况
-    if(!data.useDynamicTab){
+    if (!data.useDynamicTab) {
       return data.tabs.map((tab, index) => {
         const isActive = currentTabIdRef.current === tab._id;
-          return (
-            <View
-              key={tab._id}
-              id={tabpaneId}
-              style={{
-                height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
-                display: isActive ? "block" : "none", // 控制显示和隐藏
-              }}
-              className={cx(css.tab_content, env.edit && css.minHeight)}
-            >
-              {slots[tab._id]?.render?.({
-                key: tab._id,
-              })}
-            </View>
-          );
-        
+        return (
+          <View
+            key={tab._id}
+            id={tabpaneId}
+            style={{
+              height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`,
+              display: isActive ? "block" : "none", // 控制显示和隐藏
+            }}
+            className={cx(css.tab_content, env.edit && css.minHeight)}
+          >
+            {slots[tab._id]?.render?.({
+              key: tab._id,
+            })}
+          </View>
+        );
       });
     }
 
     //动态标签页的情况
-    if(data.useDynamicTab){
+    if (data.useDynamicTab) {
       return data.tabs.map((tab, index) => {
         const isActive = currentTabIdRef.current === tab._id;
-        if(isActive){
+        if (isActive) {
           return (
             <View
               key={tab._id}
@@ -392,22 +392,19 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
               className={cx(css.tab_content, env.edit && css.minHeight)}
             >
               {slots["tabItem"]?.render?.({
-                  inputValues: {
-                    itemData: tab,
-                    index: index
-                  },
-                })}
+                inputValues: {
+                  itemData: tab,
+                  index: index,
+                },
+              })}
             </View>
           );
-        }else{
-          return null
+        } else {
+          return null;
         }
-
-        
       });
     }
-
-  },[data.useDynamicTab,data.tabs,slots])
+  }, [data.useDynamicTab, data.tabs, slots]);
 
   return (
     emptyView || (
