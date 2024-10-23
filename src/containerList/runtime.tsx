@@ -198,6 +198,8 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       //显示加载中和错误的时候，居中对齐
       if (loading || error) {
         return `${css.list} ${css.row} ${css.scroll_x} ${css.justify_content_center} `;
+      } else if(data.wrap) {
+        return `${css.list} ${css.row} ${css.scroll_x} ${css.flex_wrap}`;
       } else {
         return `${css.list} ${css.row} ${css.scroll_x}`;
       }
@@ -206,7 +208,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     return data.scrollRefresh
       ? `${css.list} ${css.scroll}`
       : `${css.list} ${css.normal}`;
-  }, [data.scrollRefresh, data.direction, loading, error]);
+  }, [data.scrollRefresh, data.direction, loading, error,data.wrap]);
 
   const didMount = useRef(false);
   useEffect(() => {

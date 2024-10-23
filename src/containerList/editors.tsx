@@ -54,6 +54,21 @@ export default {
           },
         },
       },
+      {
+        title: "开启换行",
+        type: "switch",
+        ifVisible({ data }) {
+          return data.direction === Direction.Row;
+        },
+        value: {
+          get({ data }) {
+            return data.wrap;
+          },
+          set({ data }, value) {
+            data.wrap = value;
+          },
+        },
+      },
       {},
       {
         catelogChange: {
