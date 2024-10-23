@@ -82,6 +82,7 @@ export default function ({ env, data, inputs, outputs }) {
         onClear={onClear}
         onSearch={onSearch}
         icon={icon}
+        clearable={false}
       />
       {data.showSearchButton &&
         <Button
