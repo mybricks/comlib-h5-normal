@@ -137,6 +137,13 @@ export default {
                 outputId: "onBlur",
               },
             },
+            {
+              title: "当点击确定",
+              type: "_event",
+              options: {
+                outputId: "onConfirm",
+              },
+            }
           ],
         },
       ];

@@ -86,12 +86,18 @@ export default function (props) {
   const onChange = useCallback((e) => {
     let value = e.detail.value;
     setValue(value);
+    outputs?.["onChange"](value);
   }, []);
 
   const onBlur = useCallback((e) => {
     let value = e.detail.value;
-    outputs["onBlur"](value);
+    outputs?.["onBlur"](value);
   }, []);
+
+  const onConfirm = useCallback((e) => {
+    let value = e.detail.value;
+    outputs?.["onConfirm"](value);
+    }, []);
 
   const $showCount = useMemo(() => {
     if(data.showCount){
@@ -120,6 +126,8 @@ export default function (props) {
         cursor={value.length}
         onBlur={onBlur}
         maxlength={data.maxlength}
+        confirmType={"done"}
+        onConfirm={onConfirm}
       />
       {$showCount}
     </View>
