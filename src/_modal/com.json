@@ -15,7 +15,17 @@
       "id": "show",
       "title": "展示",
       "schema": {
-        "type": "follow"
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "标题"
+          },
+          "content": {
+            "type": "string",
+            "title": "内容"
+          }
+        }
       }
     }
   ],

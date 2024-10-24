@@ -7,6 +7,9 @@ export default {
       {
         title: "提示标题",
         type: "text",
+        ifVisible: ({ data }) => {
+          return !data.dynamic;
+        },
         value: {
           get({ data }) {
             return data.title;
@@ -19,6 +22,9 @@ export default {
       {
         title: "提示内容",
         type: "textarea",
+        ifVisible: ({ data }) => {
+          return !data.dynamic;
+        },
         value: {
           get({ data }) {
             return data.content;
@@ -29,17 +35,37 @@ export default {
         },
       },
       {
-        title: "提示内容是否可编辑",
+        title: "动态输入",
         type: "Switch",
         value: {
           get({ data }) {
-            return data.editable;
+            return data.dynamic;
           },
-          set({ data }, value: boolean) {
-            data.editable = value;
-          },
-        },
+          set({ data, input, setDesc }, value: boolean) {
+            data.dynamic = value;
+            // setDescByData({ data, setDesc });
+            // if (value) {
+            //   input.add(InputIds.Dynamic, '动态输入', Schemas.Dynamic);
+            //   input.remove(InputIds.Trigger);
+            // } else {
+            //   input.remove(InputIds.Dynamic);
+            //   input.add(InputIds.Trigger, '触发', Schemas.Follow);
+            // }
+          }
+        }
       },
+      // {
+      //   title: "提示内容是否可编辑",
+      //   type: "Switch",
+      //   value: {
+      //     get({ data }) {
+      //       return data.editable;
+      //     },
+      //     set({ data }, value: boolean) {
+      //       data.editable = value;
+      //     },
+      //   },
+      // },
       {
         title: "是否显示取消按钮",
         type: "Switch",
