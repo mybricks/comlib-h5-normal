@@ -1,11 +1,14 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useLayoutEffect , useState } from "react";
 import { View, Video } from "@tarojs/components";
 import css from "./style.less";
+import { isH5 } from "../utils/env";
 
 export default function ({ env, data, inputs, outputs, title, style }) {
-  useEffect(() => {
+  const [videoSrc,setVideoSrc] = useState(data.src)
+
+  useLayoutEffect(() => {
     inputs["setSrc"]((src) => {
-      data.src = src;
+      setVideoSrc(src)
     });
   }, []);
 
@@ -37,9 +40,12 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     return <View className={css.mockVideo}></View>;
   }
 
-  if (process.env.TARO_ENV === 'h5') {
+  console.log("isH5()",isH5())
+
+  if (isH5()) {
     // console.log("h5的视频兼容")
     return <video
+      x5-video-player-type="h5"
       className={css.video}
       width="100%"
       height="100%"
@@ -58,7 +64,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
       onWaiting={onWaiting}
       onError={onError}
       >
-      <source src={data.src} type="video/mp4" />
+      <source src={videoSrc} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   }
@@ -66,7 +72,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
   return (
     <Video
       className={css.video}
-      src={data.src}
+      src={videoSrc}
       controls={data.controls}
       poster={data.poster}
       autoplay={data.autoplay}
