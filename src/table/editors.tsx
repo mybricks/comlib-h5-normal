@@ -22,9 +22,14 @@ export default {
         target: ".mybricks-thead .mybricks-col",
       },
       {
-        title: "表格行",
+        title: "表格行(奇数)",
         options: ["font", "background"],
         target: ".mybricks-row .mybricks-col",
+      },
+      {
+        title: "表格行(偶数)",
+        options: ["font", "background"],
+        target: ".mybricks-row-double .mybricks-col",
       },
     ],
     items({ data, output, input, style, slots }, cate0, cate1, cate2) {

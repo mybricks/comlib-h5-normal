@@ -90,7 +90,8 @@ export default function ({
     <View
       className={cx({
         [css.row]: true,
-        "mybricks-row": true,
+        "mybricks-row": index % 2 === 0,
+        "mybricks-row-double": index % 2 !== 0,
         [css.bordered]: data.bordered,
         ["disabled-area"]: env.edit && index > 0,
       })}
