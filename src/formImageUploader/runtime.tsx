@@ -136,21 +136,33 @@ export default function (props) {
       sizeType: ["original", "compressed"],
       sourceType: isH5() ? ["album"] : ["album", "camera"],
       success: async (res) => {
-        res.tempFiles.forEach((tempFile) => {
+        for (const tempFile of res.tempFiles) {
           console.log("tempFile", tempFile);
-
+    
           let result = {
             filePath: tempFile.path,
             size: tempFile.size,
           };
-
+    
           if (isH5()) {
             result.fileName = tempFile.originalFileObj?.name;
             result.type = tempFile.originalFileObj?.type;
+    
+            try {
+              const response = await fetch(result.filePath);
+              const blob = await response.blob();
+              const formData = new FormData();
+              formData.append(data.name ?? "name", blob, data.filename ?? "filename");
+              result.formData = formData
+              console.log("h5 formData",formData)
+              // 在这里可以继续处理 formData，比如上传到服务器
+            } catch (error) {
+              console.error("Error fetching file:", error);
+            }
           }
-
+    
           slots["customUpload"]?.inputs["fileData"](result);
-        });
+        }
       },
     });
   }, [env.edit, value, data.maxCount, slots["customUpload"]]);

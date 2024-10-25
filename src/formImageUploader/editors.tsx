@@ -85,6 +85,30 @@ export default {
           },
         },
         {
+          title:"上传name(h5生效)",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.uploadName;
+            },
+            set({ data }, value) {
+              data.uploadName = value;
+            },
+          },
+        },
+        {
+          title:"上传filename(h5生效)",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.uploadFileName;
+            },
+            set({ data }, value) {
+              data.uploadFileName = value;
+            },
+          },
+        },
+        {
           title: "事件",
           items: [
             {

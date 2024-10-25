@@ -134,6 +134,10 @@
               "type": {
                 "type": "string",
                 "description": "原始文件类型，仅在 H5 环境下有效"
+              },
+              "formData": {
+                "type": "any",
+                "description": "表单项数据，仅在 H5 环境下有效"
               }
             }
           }
