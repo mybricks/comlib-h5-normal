@@ -51,7 +51,7 @@ export default {
           "padding",
           { type: "background", config: { disableBackgroundImage: true } },
         ],
-        target: ".taroify-tabs__wrap__scroll",
+        target: ".taroify-tabs__wrap .taroify-tabs__wrap__scroll",
       },
       {
         title: "标签项",
