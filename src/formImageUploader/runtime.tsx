@@ -154,8 +154,6 @@ export default function (props) {
               const formData = new FormData();
               formData.append(data.name ?? "name", blob, data.filename ?? "filename");
               result.formData = formData
-              console.log("h5 formData",formData)
-              // 在这里可以继续处理 formData，比如上传到服务器
             } catch (error) {
               console.error("Error fetching file:", error);
             }

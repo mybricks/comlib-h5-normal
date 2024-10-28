@@ -57,18 +57,22 @@ const useReachBottom = (callback, { env, enable = false }) => {
       return;
     }
 
-    const offset = 400;
+    const offset = 100;
 
     env?.rootScroll?.onScroll?.((e) => {
       const { scrollTop, scrollHeight } = e.detail ?? {};
       updateScrollRect();
-      if (scrollMeta.current.clientHeight) {
+      // console.log(" scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight",scrollTop,scrollMeta.current.clientHeight,offset,">",scrollHeight)
+      // if (scrollMeta.current.clientHeight) {
+      
+      //支付宝 scrollMeta.current.clientHeight 会取不到，先直接设置为750兼容一下
+        const clientHeight = scrollMeta.current.clientHeight == 0 ? 750 : scrollMeta.current.clientHeight
         const isReachEdge =
-          scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight;
+          scrollTop + clientHeight + offset > scrollHeight;
         if (isReachEdge) {
           cbRef.current?.();
         }
-      }
+      // }
     });
   }, [enable]);
 };
@@ -125,7 +129,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           index: index,
         }));
         setDataSource((c) => c.concat(ds));
-        setStatus(ListStatus.IDLE);
+        setTimeout(() => { setStatus(ListStatus.IDLE); }, 0)
       }
     });
 

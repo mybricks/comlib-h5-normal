@@ -10,6 +10,7 @@ export default function ({ env, data, inputs, outputs }) {
           ...(typeof val === "string"
             ? {
                 title: val,
+                duration: 1000,
               }
             : {...val,duration:val.duration === undefined || isNaN(val.duration) ? 1000 : typeof val.duration === "string" ? Number(val.duration) : val.duration}),
           complete: () => {
