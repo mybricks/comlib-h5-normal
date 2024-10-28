@@ -1,0 +1,73 @@
+{
+  "title": "文件选择",
+  "namespace": "mybricks.taro._choosemessagefile",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "文件选择器（只支持微信小程序）",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "onSelect",
+      "title": "选择文件",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onComplete",
+      "title": "完成",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errMsg": {
+            "type": "string",
+            "description":"调用结果",
+            "title": "调用结果"
+          },
+          "tempFiles": {
+            "type": "array",
+            "title": "本地临时文件对象数组",
+            "description":"本地临时文件对象数组",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "选择的文件名称",
+                  "type": "string",
+                  "description":"选择的文件名称"
+                },
+                "path": {
+                  "title": "本地临时文件路径",
+                  "type": "string",
+                  "description":"本地临时文件路径"
+                },
+                "size": {
+                  "title": "本地临时文件大小，单位B",
+                  "type": "number",
+                  "description":"本地临时文件大小，单位B"
+                },
+                "time": {
+                  "title": "选择的文件的会话发送时间，Unix时间戳，工具暂不支持此属性",
+                  "type": "number",
+                  "description":"选择的文件的会话发送时间，Unix时间戳，工具暂不支持此属性"
+                },
+                "type": {
+                  "title": "选择的文件类型",
+                  "type": "string",
+                  "description":"选择的文件类型"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
