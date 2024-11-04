@@ -72,10 +72,13 @@ export default function ({ env, data, inputs, outputs, style }) {
   }, [env.edit, data.autoplay, data.duration]);
 
   const onChange = useCallback((e) => {
+    let source = e.detail.source
     if (env?.edit) {
       return;
     }
-    setCurrent(e.detail?.current);
+    if(source === 'autoplay' || source === 'touch') {
+      setCurrent(e.detail?.current)
+    }
   }, []);
 
   useEffect(() => {
