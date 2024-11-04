@@ -14,7 +14,7 @@
       "title": "设置值",
       "desc": "设置值",
       "schema": {
-        "type": "string"
+        "type": "array"
       },
       "rels": ["setValueComplete"]
     },
