@@ -107,6 +107,25 @@ export default {
             },
           },
         },
+        {
+          title:"事件",
+          items:[
+            {
+              title: "触顶获取历史消息",
+              type: "_event",
+              options: {
+                outputId: "getNextMessage",
+              },
+            },
+            {
+              title:"点击发送",
+              type: "_event",
+              options: {
+                outputId: "sendMessage",
+              },
+            }
+          ]
+        },
       ];
     },
   },

@@ -7,6 +7,7 @@ import px2rpx from "../../utils/px2rpx";
 
 export default function ({ data, inputs, outputs, env, extra, onSend }) {
   const [toolbarStyle, setToolbarStyle] = useState({});
+  const [Input,setInput] = useState("");
 
   const onKeyboardHeightChange = useCallback((e) => {
     let height = px2rpx(e.detail.height);
@@ -17,8 +18,13 @@ export default function ({ data, inputs, outputs, env, extra, onSend }) {
     });
   }, []);
 
+  const onInput = useCallback((e) => {
+    const inputValue = e.detail.value;
+    setInput(inputValue)
+  }, []);
+
   return (
-    <View className={css.toolbar} style={{ ...toolbarStyle }}>
+    <View id="chat_toolbar" className={css.toolbar} style={{ ...toolbarStyle }}>
       <View className={css.inner}>
         <Textarea
           fixed={true}
@@ -29,7 +35,7 @@ export default function ({ data, inputs, outputs, env, extra, onSend }) {
           cursorSpacing={8}
           adjustPosition={false}
           autoHeight
-          // value={data.value}
+          // value={Input}
           placeholder={data.placeholder}
           cursor={data.value.length}
           onKeyboardHeightChange={onKeyboardHeightChange}
@@ -40,8 +46,10 @@ export default function ({ data, inputs, outputs, env, extra, onSend }) {
           confirmType="send"
           confirmHold={true}
           onConfirm={(e) => {}}
+          onInput={onInput}
+          // controlled={true}
         />
-        <View className={css.send} onClick={onSend}>
+        <View className={css.send} onClick={()=>{onSend(Input)}}>
           发送
         </View>
       </View>

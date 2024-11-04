@@ -43,6 +43,14 @@
       }
     },
     {
+      "id": "onGroupListUpdated",
+      "title": "收到群列表更新",
+      "description": "收到群列表更新",
+      "schema": {
+        "type": "any"
+      }
+    },
+    {
       "id": "onMessageReceived",
       "title": "收到新消息通知",
       "description": "收到新消息通知",

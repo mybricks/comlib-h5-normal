@@ -7,7 +7,8 @@ export default function ({ env, data, inputs, outputs }) {
 
   inputs["call"]((val, outputRels) => {
     let globalKey = `tencentcloudChat`;
-    let chat = app?.globalData?.[globalKey] || null;
+    let chat = wx.env?.[globalKey] || null;
+    console.log("wx", wx);
 
     if (!chat) {
       return;
@@ -18,10 +19,11 @@ export default function ({ env, data, inputs, outputs }) {
     }
 
     let message;
-    switch (val.type.toLowerCase()) {
+    switch (val.messageType.toLowerCase()) {
       case "text":
         message = chat.createTextMessage({
-          to: val.to,
+          to: val.receiverID,
+          conversationType: val.conversationType,
           payload: {
             text: val.text,
           },
@@ -35,7 +37,8 @@ export default function ({ env, data, inputs, outputs }) {
           count: 1,
           success(res) {
             message = chat.createImageMessage({
-              to: val.to,
+              to: val.receiverID,
+              conversationType: val.conversationType,
               payload: {
                 file: res,
               },

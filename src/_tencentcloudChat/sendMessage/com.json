@@ -17,17 +17,21 @@
       "schema": {
         "type": "object",
         "properties": {
-          "type": {
+          "messageType": {
             "title": "消息类型",
             "type": "string"
           },
-          "to": {
-            "title": "userID",
+          "receiverID": {
+            "title": "接受者ID(userID/groupID)",
             "type": "string"
           },
           "text": {
             "title": "文本",
             "description": "如果是文本消息（text），则必填",
+            "type": "string"
+          },
+          "conversationType": {
+            "title": "会话类型",
             "type": "string"
           }
         }

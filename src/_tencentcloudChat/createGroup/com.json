@@ -1,0 +1,58 @@
+{
+  "title": "腾讯云 Chat 创建群聊",
+  "namespace": "mybricks.taro._tencentcloudChat.createGroup",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "腾讯云 Chat 创建群聊",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "runtime": "./runtime.tsx",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "groupInfo",
+      "title": "群聊信息",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "群聊名称"
+          },
+          "type": {
+            "type": "string",
+            "title": "群类型"
+          },
+          "introduction": {
+            "type": "string",
+            "title": "群简介"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "title": "群头像"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "createGroupDone",
+      "title": "创建群聊成功",
+      "description": "创建群聊成功",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "createGroupError",
+      "title": "创建群聊失败",
+      "description": "创建群聊失败",
+      "schema": {
+        "type": "array"
+      }
+    }
+  ]
+}

@@ -9,6 +9,139 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/temp/12312312.svg",
+  "inputs": [
+    {
+      "id": "initChatList",
+      "title": "初始化对话列表",
+      "desc": "初始化对话列表",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "messageList": {
+            "type": "array",
+            "title": "对话列表"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "title": "是否加载完成"
+          },
+          "nextReqMessageID": {
+            "type": "string",
+            "title": "下次请求的messageID"
+          },
+          "conversationID": {
+            "type": "string",
+            "title": "会话ID"
+          },
+          "receiverID": {
+            "type": "string",
+            "title": "接收人ID"
+          },
+          "conversationType": {
+            "type": "string",
+            "title": "会话类型(C2C/GROUP)"
+          }
+        }
+      },
+      "rels": [
+        "initChatListDone"
+      ]
+    },
+    {
+      "id": "setNextMessage",
+      "title": "追加上一页消息",
+      "desc": "追加上一页消息",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "messageList": {
+            "type": "array",
+            "title": "对话列表"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "title": "是否加载完成"
+          },
+          "nextReqMessageID": {
+            "type": "string",
+            "title": "下次请求的messageID"
+          },
+          "conversationID": {
+            "type": "string",
+            "title": "会话ID"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "sendMessage",
+      "title": "发送消息",
+      "desc": "发送消息",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "文本消息"
+          },
+          "receiveID": {
+            "type": "string",
+            "title": "接收人ID"
+          },
+          "conversationType": {
+            "type": "string",
+            "title": "会话类型(C2C/GROUP)"
+          }
+        }
+      }
+    },
+    {
+      "id": "getNextMessage",
+      "title": "继续拉取消息",
+      "desc": "继续拉取消息",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "isCompleted": {
+            "type": "boolean",
+            "title": "是否加载完成"
+          },
+          "nextReqMessageID": {
+            "type": "string",
+            "title": "下次请求的messageID"
+          },
+          "conversationID": {
+            "type": "string",
+            "title": "会话ID"
+          }
+        }
+      }
+    },
+    {
+      "id": "initChatListDone",
+      "title": "初始化完成",
+      "desc": "初始化完成",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "messageList": {
+            "type": "array",
+            "title": "对话列表"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "title": "是否加载完成"
+          },
+          "nextReqMessageID": {
+            "type": "string",
+            "title": "下次请求的messageID"
+          }
+        }
+      }
+    }
+  ],
   "slots": [
     {
       "id": "message",

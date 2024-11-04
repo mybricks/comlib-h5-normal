@@ -5,60 +5,34 @@ export default function (props) {
   const extra = {
     messages: [
       {
-        id: "a",
-        userProfile: {
-          userID: "zhangsan",
-          nickname: "张三",
-          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        ID: "112",
+        flow:"out",
+        nick: "张三",
+        avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        payload:{
+          text:"hello!"
         },
-        message: {
-          type: "text",
-          payload: { text: "Hello world!" },
-          forShow: "Hello world!",
-          timestamp: 1726642706,
-        },
+        type: "TIMTextElem"
       },
       {
-        id: "b",
-        userProfile: {
-          userID: "lisi",
-          nickname: "李四",
-          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        ID: "113",
+        flow:"in",
+        nick: "李四",
+        avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        payload:{
+          text:"hello! MyFriend~"
         },
-        message: {
-          type: "text",
-          payload: { text: "Hello world!" },
-          forShow: "Hello world!",
-          timestamp: 1726642706,
-        },
+        type: "TIMTextElem"
       },
       {
-        id: "c",
-        userProfile: {
-          userID: "zhangsan",
-          nickname: "张三",
-          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        ID: "114",
+        flow:"out",
+        nick: "张三",
+        avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
+        payload:{
+          text:"hello!"
         },
-        message: {
-          type: "image",
-          payload: { image: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png" },
-          forShow: "[图片]",
-          timestamp: 1726642706,
-        },
-      },
-      {
-        id: "d",
-        userProfile: {
-          userID: "lisi",
-          nickname: "李四",
-          avatar: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png",
-        },
-        message: {
-          type: "image",
-          payload: { image: "https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-05-30/1685451722186.3a6d5fa5deb9456f.png" },
-          forShow: "[图片]",
-          timestamp: 1726642706,
-        },
+        type: "TIMTextElem"
       },
     ],
     loginUserId: "zhangsan",

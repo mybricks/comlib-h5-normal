@@ -2,11 +2,19 @@ import TencentCloudChat from "@tencentcloud/chat";
 import TIMUploadPlugin from "tim-upload-plugin";
 import TIMProfanityFilterPlugin from "tim-profanity-filter-plugin";
 import { genUserSig } from "./utils/GenerateUserSig";
+import eventBus from '../../chat/eventBus';
+import * as EventBus from "../../system/modules/eventBusForWx";
 
 export default function ({ env, data, inputs, outputs }) {
   if (!env.runtime) {
     return;
   }
+
+  //初始化conversationList
+  wx.env["conversationListUpdated"] = []
+
+  //初始化messageReceivedList
+  wx.env["messageReceivedList"] = []
 
   let chat;
 
@@ -43,8 +51,8 @@ export default function ({ env, data, inputs, outputs }) {
     // 监听事件，如：
     chat.on(TencentCloudChat.EVENT.SDK_READY, function (event) {
       console.warn("SDK_READY", event);
-      env.global['tencentcloudChat'] = chat;
-      outputRels["onSDKReady"]();
+      wx.env['tencentcloudChat'] = chat;
+      outputRels["onSDKReady"](event.data);
 
 
       // 收到离线消息和会话列表同步完毕通知，接入侧可以调用 sendMessage 等需要鉴权的接口
@@ -52,8 +60,21 @@ export default function ({ env, data, inputs, outputs }) {
     });
 
     chat.on(TencentCloudChat.EVENT.MESSAGE_RECEIVED, function (event) {
+      console.log("MESSAGE_RECEIVED", event)
       console.warn("MESSAGE_RECEIVED", event);
       outputRels["onMessageReceived"](event.data);
+
+      //推送消息到总线
+      // eventBus.emit('message', event.data);
+
+      if (wx.env["messageReceivedList"].length === 0) {
+        //如果List是空的，直接覆盖
+        wx.env["messageReceivedList"] = event.data;
+      } else {
+        //如果List数组里面已经有对象了，要追加进去
+        wx.env["messageReceivedList"] = wx.env["messageReceivedList"].concat(event.data);
+      }
+
       // 收到推送的单聊、群聊、群提示、群系统通知的新消息，可通过遍历 event.data 获取消息列表数据并渲染到页面
       // event.name - TencentCloudChat.EVENT.MESSAGE_RECEIVED
       // event.data - 存储 Message 对象的数组 - [Message]
@@ -81,12 +102,23 @@ export default function ({ env, data, inputs, outputs }) {
       console.warn("CONVERSATION_LIST_UPDATED", event);
       outputRels["onConversationListUpdated"](event.data);
 
+      if (wx.env["conversationListUpdated"].length === 0) {
+        //如果List是空的，直接覆盖
+        wx.env["conversationListUpdated"] = event.data;
+      } else {
+        //如果List数组里面已经有对象了，要追加进去
+        wx.env["conversationListUpdated"] = wx.env["conversationListUpdated"].concat(event.data);
+      }
+
+
       // 收到会话列表更新通知，可通过遍历 event.data 获取会话列表数据并渲染到页面
       // event.name - TencentCloudChat.EVENT.CONVERSATION_LIST_UPDATED
       // event.data - 存储 Conversation 对象的数组 - [Conversation]
     });
 
     chat.on(TencentCloudChat.EVENT.GROUP_LIST_UPDATED, function (event) {
+      console.warn("GROUP_LIST_UPDATED", event);
+      outputRels["onGroupListUpdated"](event.data);
       // 收到群组列表更新通知，可通过遍历 event.data 获取群组列表数据并渲染到页面
       // event.name - TencentCloudChat.EVENT.GROUP_LIST_UPDATED
       // event.data - 存储 Group 对象的数组 - [Group]
@@ -166,7 +198,7 @@ export default function ({ env, data, inputs, outputs }) {
       EXPIRETIME: 7 * 24 * 60 * 60,
       userID: userID,
     });
-    
+
     chat.login({ userID: userID, userSig: userSig });
   });
 }

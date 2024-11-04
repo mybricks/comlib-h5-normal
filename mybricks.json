@@ -48,7 +48,12 @@
     "./src/_timer-debounce/com.json",
     "./src/_timer-throttle/com.json",
     "./src/_tencentcloudChat/create/com.json",
+    "./src/_tencentcloudChat/createGroup/com.json",
+    "./src/_tencentcloudChat/joinGroup/com.json",
+     "./src/_tencentcloudChat/quitGroup/com.json",
     "./src/_tencentcloudChat/getConversationList/com.json",
+    "./src/_tencentcloudChat/getGroupApplicationList/com.json",
+    "./src/_tencentcloudChat/handleGroupApplication/com.json",
     "./src/_tencentcloudChat/getMessageList/com.json",
     "./src/_tencentcloudChat/sendMessage/com.json",
     {

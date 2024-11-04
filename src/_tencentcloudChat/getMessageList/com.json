@@ -32,11 +32,43 @@
   "outputs": [
     {
       "id": "messageList",
-      "title": "消息列表",
-      "description": "消息列表",
+      "title": "对话列表",
+      "description": "对话列表",
       "schema": {
-        "type": "any"
+        "type": "object",
+        "properties": {
+          "messageList": {
+            "type": "array",
+            "title":"对话列表",
+            "description":"对话列表"
+          },
+          "isCompleted": {
+            "type":"boolean",
+            "title": "是否加载完成",
+            "description": "是否加载完成"
+          },
+          "nextReqMessageID": {
+            "type":"string",
+            "title": "下次请求的messageID",
+            "description": "下次请求的messageID"
+          },
+          "conversationID": {
+            "type":"string",
+            "title": "会话ID",
+            "description": "会话ID"
+          },
+          "receiverID": {
+            "type":"string",
+            "title": "接收ID(群聊id/用户id)",
+            "description": "接收ID(群聊id/用户id)"
+          },
+          "conversationType": {
+            "type":"string",
+            "title": "会话类型",
+            "description": "会话类型(C2C/GROUP)"
+          }
       }
     }
+  }
   ]
 }
