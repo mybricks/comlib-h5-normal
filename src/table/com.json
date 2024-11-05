@@ -20,6 +20,19 @@
           "type": "object"
         }
       }
+    },
+    {
+      "id": "addDataSource",
+      "title": "添加数据",
+      "desc": "在列表数据的末尾插入添加的数据",
+      "schema": {
+        "title": "列表数据",
+        "type": "array",
+        "items": {
+          "title": "列项数据",
+          "type": "any"
+        }
+      }
     }
   ],
   "outputs": [
@@ -36,6 +49,21 @@
             "type": "object"
           },
           "index": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "id": "onScrollLoad",
+      "title": "当滚动加载时",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "pageSize": {
             "type": "number"
           }
         }

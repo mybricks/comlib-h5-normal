@@ -20,13 +20,13 @@
           "prepay_id": {
             "type": "string"
           },
-          "timestamp": {
+          "timeStamp": {
             "type": "string"
           },
-          "nonce_str": {
+          "nonceStr": {
             "type": "string"
           },
-          "pay_sign": {
+          "paySign": {
             "type": "string"
           }
         }

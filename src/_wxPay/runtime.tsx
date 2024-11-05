@@ -5,10 +5,10 @@ export default function ({ env, data, inputs, outputs, logger }) {
     console.log("进入前端支付组件", val);
     const signType = "RSA"; //签名算法
     Taro.requestPayment({
-      nonceStr: val.nonce_str,
-      timeStamp: val.timestamp,
+      nonceStr: val.nonce_str ?? val.nonceStr, //兼容之前的下划线参数
+      timeStamp: val.timestamp ?? val.timeStamp,
       signType,
-      paySign: val.pay_sign,
+      paySign: val.pay_sign ?? val.paySign,
       package: `prepay_id=${val.prepay_id}`,
       success: (res) => {
         outputs["onSuccess"](res);

@@ -41,7 +41,7 @@ export default function ({ columns = [], data }) {
             [css.leftSticky]: useLeftSticky && index === 0,
             [css.rightSticky]: useRightSticky && index === columns.length - 1,
           })}
-          style={style}
+          style={{...style,backgroundColor:column.bgColor}}
         >
           {column.title}
         </View>

@@ -1,6 +1,9 @@
 {
   "useTHead": true,
-  
+  "pagenation": {
+    "page": 1,
+    "pageSize": 10
+  },
   "columns": [],
   "useLeftSticky": false,
   "useRightSticky": false,

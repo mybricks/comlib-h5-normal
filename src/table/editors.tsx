@@ -76,7 +76,7 @@ export default {
               let id = data.columns[index].id;
               try {
                 slots.remove(id);
-              } catch (e) {}
+              } catch (e) { }
             },
             items: [
               {
@@ -158,6 +158,74 @@ export default {
             outputId: "onClickRow",
           },
         },
+        {},
+        {
+          title: "分页配置",
+          items: [
+            {
+              title:"开启触底加载",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.enableLoadMore;
+                },
+                set({ data }, value) {
+                    data.enableLoadMore = value;
+                },
+              },
+            },
+            {
+              title: "起始页码",
+              type: "Text",
+              ifVisible: ({ data }) => {
+                return data.enableLoadMore;
+              },
+              options: {
+                type: "number",
+              },
+              value: {
+                get({ data }) {
+                  return data.pagenation.page;
+                },
+                set({ data }, value: number) {
+                  if (value) {
+                    data.pagenation.page = +value;
+                  }
+                },
+              },
+            },
+            {
+              title: "每次加载条数",
+              type: "Text",
+              ifVisible: ({ data }) => {
+                return data.enableLoadMore;
+              },
+              options: {
+                type: "number",
+              },
+              value: {
+                get({ data }) {
+                  return data.pagenation.pageSize;
+                },
+                set({ data }, value: number) {
+                  if (value) {
+                    data.pagenation.pageSize = +value;
+                  }
+                },
+              },
+            },
+            {
+              title: "当触发加载时",
+              type: "_event",
+              ifVisible: ({ data }) => {
+                return data.enableLoadMore;
+              },
+              options: {
+                outputId: "onScrollLoad",
+              },
+            },
+          ],
+        }
       ];
     },
   },
@@ -363,6 +431,33 @@ export default {
 
               let columns = [...data.columns];
               columns[index].minWidth = value;
+              data.columns = columns;
+            },
+          },
+        },
+        {
+          title: "表格列头背景色",
+          description: "单独配置列头背景色",
+          type: "colorpicker",
+          value: {
+            get({ data }) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              return data.columns[index].bgColor;
+            },
+            set({ data }, value) {
+              let _id = focusArea.ele.dataset.id;
+              let index = data.columns.findIndex((column) => {
+                return column._id === _id;
+              });
+
+              console.log("set", value, "index", index);
+
+              let columns = [...data.columns];
+              columns[index].bgColor = value;
               data.columns = columns;
             },
           },
