@@ -1,0 +1,14 @@
+{
+  "title": "Taro Ai",
+  "namespace": "mybricks.basic-comlib.ai",
+  "author": "CheMingjun",
+  "author_name": "CheMingjun",
+  "version": "1.0.0",
+  "description": "面向Taro的AI组件",
+  "icon": "./icon.svg",
+  "runtime": "./runtime.tsx",
+  "editors": "./editors/index.tsx",
+  "data": "./data.json",
+  "slots": [],
+  "docs": ""
+}

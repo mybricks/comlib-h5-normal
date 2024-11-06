@@ -84,6 +84,12 @@
       ]
     },
     {
+      "title": "AI组件",
+      "comAry": [
+        "./src/taroAi2/com.json"
+      ]
+    },
+    {
       "title": "基础",
       "comAry": [
         "./src/image/com.json",
