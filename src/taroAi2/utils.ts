@@ -1,6 +1,7 @@
 import {transformLess, transformTsx} from "./transform";
 import LibsReg from "./editors/libs";
 import React from "react";
+import * as Taro from "@tarojs/components";
 
 export function uuid(pre = 'u_', len = 6) {
   const seed = 'abcdefhijkmnprstwxyz0123456789', maxPos = seed.length;
@@ -44,8 +45,7 @@ export function getComponentFromJSX(jsxCode, libs: { mybricksSdk }): Promise<Fun
       try {
         const rtn = runRender(code, {
             'react': React,
-            'antd': window['antd_5_21_4'],
-            '@ant-design/icons': window['icons'],
+            '@tarojs/components': Taro,
             'mybricks': libs.mybricksSdk,
           }
         )

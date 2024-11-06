@@ -1,6 +1,6 @@
 {
   "title": "Taro Ai",
-  "namespace": "mybricks.basic-comlib.ai",
+  "namespace": "mybricks.taro.ai",
   "author": "CheMingjun",
   "author_name": "CheMingjun",
   "version": "1.0.0",

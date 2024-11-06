@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useRef, useCallback} from 'react';
 import {polyfillRuntime, runRender} from './utils'
+import * as Taro from "@tarojs/components";
 
 import { copyToClipboard } from "./utils/ai-code";
 import css from "./runtime.less";
@@ -18,7 +19,7 @@ const ErrorStatus = ({title = '未知错误', children = null, onError}) => {
   )
 }
 
-const IdlePlaceholder = ({ title = 'Ant-Design 5', examples = [] }) => {
+const IdlePlaceholder = ({examples = [] }) => {
   const copy = useCallback((text) => {
     copyToClipboard(text).then((res) => {
       window?.antd?.message
@@ -131,8 +132,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         const oriCode = decodeURIComponent(data._renderCode)
         const com = runRender(oriCode, {
           'react': React,
-          'antd': window['antd_5_21_4'],
-          '@ant-design/icons': window['icons'],
+          '@tarojs/components': Taro,
           'mybricks': env.mybricksSdk,
         })
 
