@@ -22,7 +22,7 @@ export function transformTsx(code): Promise<string> {
               isTSX: true
             }
           ],
-          //transformImportPlugin()
+          transformImportPlugin()
         ]
       }
 
@@ -76,10 +76,36 @@ export function transformLess(code): Promise<string> {
 const transformImportPlugin = () => {
   return {
     visitor: {
-      ImportDeclaration(path) {
-        const {source} = path.node;
-        if (source.value === 'antd') {
-          source.value = "antd_5_21_4";
+      Program: {
+        enter(path) {
+          const importReact = path.node.body.some(
+            node => {
+              return node.type === 'ImportDeclaration' && 
+              node.source.value === 'react'
+            }
+          );
+          
+          if (!importReact) {
+            // 手动构建AST节点
+            const importAst = {
+              type: "ImportDeclaration",
+              specifiers: [
+                {
+                  type: "ImportDefaultSpecifier",
+                  local: {
+                    type: "Identifier",
+                    name: "React"
+                  }
+                }
+              ],
+              source: {
+                type: "StringLiteral",
+                value: "react"
+              }
+            };
+            
+            path.unshiftContainer('body', importAst);
+          }
         }
       }
     }
