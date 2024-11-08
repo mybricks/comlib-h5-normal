@@ -80,8 +80,17 @@ const transformImportPlugin = () => {
         enter(path) {
           const importReact = path.node.body.some(
             node => {
-              return node.type === 'ImportDeclaration' && 
-              node.source.value === 'react'
+              // 检查是否为import声明
+              if (node.type !== 'ImportDeclaration' || node.source.value !== 'react') {
+                return false;
+              }
+              
+              // 检查是否有默认导入且名称为React
+              return node.specifiers.some(
+                specifier => 
+                  specifier.type === 'ImportDefaultSpecifier' && 
+                  specifier.local.name === 'React'
+              );
             }
           );
           
