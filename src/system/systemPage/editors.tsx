@@ -181,10 +181,10 @@ export default {
           items: [
             {
               title: "配置",
-              type: "style",
+              type: "styleNew",
               options: {
                 defaultOpen: true,
-                plugins: ["bgimage"],
+                plugins: ["background"],
               },
               value: {
                 get({ data }) {
@@ -202,6 +202,7 @@ export default {
                   data.backgroundPosition = positionTransform(backgroundPosition);
                   data.backgroundSize = value?.backgroundSize !== undefined ? value.backgroundSize : data.backgroundSize;
                   data.backgroundRepeat = value?.backgroundRepeat !== undefined ? value.backgroundRepeat : data.backgroundRepeat;
+                  data.background = value?.backgroundColor !== undefined ? value.backgroundColor : data.backgroundColor;
                 },
               },
             },
