@@ -38,7 +38,7 @@ const mdMap = {
   IMAGE: Image, // ✅ 开发一个图片组件，图片默认是“https://test.mybricks.world/image/icon.png”，要求图片充满容器，但是无论容器如何变化，需要展示完整的图片，并且保持原始比例
   LABEL: Label, // ✅ 开发一个多选框，选项有A、B、C，展示标签
   PICKER: Picker, // ✅ 开发一个选择器，选项有A、B、C和一个月份选择器
-  BUTTON: Button, // 开发一小尺寸的主按钮，点击开启加载状态，两秒后恢复，并且它被用作表单提交
+  BUTTON: Button, // ✅ 开发一个小尺寸的主按钮，点击并且获取用户信息，用户信息语言设置为英文，同时它需要有点击事件，点击输出随机数
   CHECKBOX: Checkbox,
   CHECKBOXGROUP: CheckboxGroup,
   EDITOR: Editor,
