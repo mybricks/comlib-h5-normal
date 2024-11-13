@@ -23,7 +23,7 @@ export default {
           Checkbox(多选框),
           CheckboxGroup(多选框组),
           Editor(富文本编辑器),
-          Form(表单),
+          Form(表单、表单容器),
           Input(输入框),
           Progress(进度条),
           RichText(富文本),

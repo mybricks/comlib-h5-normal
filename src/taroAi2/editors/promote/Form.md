@@ -6,6 +6,28 @@
 ComponentType<FormProps>
 ```
 
+## 最佳实践
+```render
+import { View, Form, Switch, Button } from '@tarojs/components';
+
+export default () => {
+  const formSubmit = e => {
+    console.log(e)
+  }
+  const formReset = (e) => {
+    console.log(e)
+  }
+  return (
+    <Form onSubmit={formSubmit} onReset={formReset} >
+      <View>
+        <Switch name='switch'></Switch>
+      </View>
+      <Button formTyp="submit">提交表单</Button>
+    </Form>
+  )
+}
+```
+
 ## FormProps
 
 | 参数 | 类型 | 默认值 | 必填 | 说明 |
