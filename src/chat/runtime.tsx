@@ -54,6 +54,15 @@ export default function (props) {
   const [receiverID, setReceiverID] = useState("")
   const [conversationType, setConversationType] = useState("")
 
+  //判断是否是真机运行态
+  const isRelEnv = () => {
+    if (env.runtime.debug || env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   useEffect(() => {
     console.log("开始轮询")
     if (process.env.TARO_ENV !== "weapp") {
@@ -136,6 +145,8 @@ export default function (props) {
   }, [env.edit]);
 
   useEffect(() => {
+    if(!isRelEnv()) return
+    
     const query = Taro.createSelectorQuery();
     query
       .select(`#chat_toolbar`)
@@ -159,15 +170,15 @@ export default function (props) {
       return [
         ...res,
         {
-          payload:{
-            text:e
+          payload: {
+            text: e
           },
           conversationID: conversationID,
           conversationType: conversationType,
           nick: "我发出的",
-          avatar:"",
-          type:"TIMTextElem",
-          flow:"out"
+          avatar: "",
+          type: "TIMTextElem",
+          flow: "out"
         }
       ]
     })

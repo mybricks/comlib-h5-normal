@@ -197,6 +197,7 @@ export default {
 
                 },
                 set({ data }, value) {
+                  console.log("set", value);
                   data.backgroundImage = value?.backgroundImage !== undefined ? value.backgroundImage : data.backgroundImage;
                   let backgroundPosition = value?.backgroundPosition !== undefined ? value.backgroundPosition : data.backgroundPosition;
                   data.backgroundPosition = positionTransform(backgroundPosition);
