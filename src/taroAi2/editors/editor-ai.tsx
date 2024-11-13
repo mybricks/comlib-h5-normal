@@ -1,190 +1,86 @@
 import { transformLess } from "../transform";
 import { getComponentFromJSX, updateRender, updateStyle } from "../utils";
+import getKnowledge from "./promote";
 
 export default {
   ':root': {
     active: true,
     role: 'comDev',//定义AI的角色
     getSystemPrompts() {
-      console.log("进来getSystemPrompts")
-      return `
-    对于小程序、h5需求，首选基于 taro 进行开发.
-    如果 taro 组件库中的组件确实不能满足需求，才可以基于react、html进行 普通h5 开发。
-    
-    以下是Taro支持的组件列表，请根据需求选择组件进行开发。
-    组件名称 组件说明
-    # 轮播组件 Swiper & SwiperItem
-    ## 轮播的 最佳实践
-
-    render
-      import {useMemo} from 'react';
-      import {comRef} from 'mybricks';//使用mybricks中的comRef包裹组件
-      import {Swiper, SwiperItem} from '@tarojs/components';//@tarojs/components中的组件
-      import css from 'style.less';//style.less为返回的less代码
-      
-      /**
-      * @param env 环境对象
-      * @param data 数据，对应model数据
-      * @param inputs 输入项
-      * @param outputs 输出项
-      * @param slots 插槽
-      */
-      export default comRef(({env,data,inputs,outputs,slots})=>{
-      // 当前选中的tab
-  const [current, setCurrent] = useState(0);
-  const [loadedImages, setLoadedImages] = useState([
-    current,
-    current + 1,
-    data.items?.length ? data.items?.length - 1 : 0,
-  ]); // 默认加载第一个和最后一个图片
-
-  //判断是否是真机运行态
-  const isRelEnv = useMemo(() => {
-    if (env.runtime.debug || env.edit) {
-      return false;
-    } else {
-      return true;
-    }
-  }, [env.runtime.debug, env.edit])
-
-  useEffect(() => {
-    if (env.edit && !isUndef(data?.edit?.current)) {
-      setCurrent(data?.edit?.current);
-    }
-  }, [env.edit, data?.edit?.current]);
-
-  useEffect(() => {
-    inputs["setItems"]((val) => {
-      data.items = val;
-    });
-  }, []);
-
-  const onClick = useCallback(({ item, index }) => {
-    // if (item.customLink) {
-    //   Taro.navigateTo({
-    //     url: item.customLink,
-    //     fail: () => {
-    //       Taro.switchTab({
-    //         url: item.customLink,
-    //       });
-    //     },
-    //   });
-    //   return;
-    // }
-    outputs["onClick"]?.({ item, index });
-  }, []);
-
-  const showIndicator = useMemo(() => {
-    return data.showIndicator ?? true;
-  }, [data.showIndicator]);
-
-  const extra = useMemo(() => {
-    if (env.edit) {
+      console.log("getSystemPrompts: ")
       return {
-        autoplay: false,
-        duration: 0,
-      };
-    }
-    return {
-      autoplay: !env.edit && !!data.autoplay,
-      interval: data.interval || 5000,
-      duration: data.duration ?? 500,
-    };
-  }, [env.edit, data.autoplay, data.duration]);
+        langs: "react、@tarojs/components、CSS、Javascript、Less、mybricks",
+        renderFileTemplate: `() => {
+          return <View>HELLO WORLD</View>
+        }`,
+        prompts: `
+          不允许使用原生HTML标签,必须使用@tarojs/components提供的组件.
+          @tarojs/components库提供了如下组件:
+          Image(图片),
+          Label(展示标签、标题,点击标题触发控件的点击，用来改进表单组件的可用性),
+          Picker(从底部弹起的滚动选择器,包含普通、多列、时间、日期、省市区选择器),
+          Button(按钮),
+          Checkbox(多选框),
+          CheckboxGroup(多选框组),
+          Editor(富文本编辑器),
+          Form(表单),
+          Input(输入框),
+          Progress(进度条),
+          RichText(富文本),
+          RootPortal(脱离dom树,用于制作弹窗、弹出层),
+          ScrollView(可滚动视图区域),
+          Swiper(轮播图),
+          SwiperItem(轮播图项),
+          Text(文本),
+          View(视图),
+          Radio(单选框),
+          RadioGroup(单选框组),
+          Slider(滑动条),
+          Switch(开关),
+          Textarea(多行输入框),
+          Video(视频),
+          WebView(配置网址,嵌入显示网页).
 
-  const onChange = useCallback((e) => {
-    let source = e.detail.source
-    if (env?.edit) {
-      return;
-    }
-    if(source === 'autoplay' || source === 'touch') {
-      setCurrent(e.detail?.current)
-    }
-  }, []);
-
-  useEffect(() => {
-    setLoadedImages((c) => {
-      const newLoadedImages = new Set(c);
-      if (current + 1 < data.items.length) {
-        newLoadedImages.add(current + 1); // 预加载后面一张图片
-        return Array.from(newLoadedImages);
+          以下是类型定义:
+          interface Target {
+            id: string
+            tagName: string
+            dataset: {
+              [key: string]: any
+            }
+          }
+          interface BaseEventOrig<T = any> {
+            type: string
+            timeStamp: number
+            target: Target
+            currentTarget: Target
+            detail: T
+            preventDefault: () => void
+            stopPropagation: () => void
+          }
+          type EventFunction<T = any> = (event: BaseEventOrig<T>) => void
+          type ComponentType<T> = ComponentType<T>
+        `
       }
-      return c;
-    });
-  }, [current, data.items.length]);
+    },
+    loadKnowledge(items) {
+      console.log("loadKnowledge: ", items);
+      const rtn = []
 
-  if (env.runtime && !data.items.length) {
-    return null;
-  }
-
-  if (env.edit && !data.items.length) {
-    return <EmptyCom title="请配置幻灯片" />;
-  }
-
-  return (
-    <Swiper
-      env={env}
-      data={data}
-      className={css.swiper}
-      style={{ height: style.height }}
-      current={current}
-      onChange={onChange}
-      indicator={showIndicator}
-      circular={env.edit ? false : data.circular}
-      {...extra}
-    >
-      {!isRelEnv && <SwiperItem
-        className={css.swiperItem}
-      >
-        <SkeletonImage
-          className={css.thumbnail}
-          mode="aspectFill"
-          src={data.items[current]?.thumbnail}
-          nativeProps={{
-            loading: "lazy",
-            decoding: "async",
-          }}
-          cdnCut="auto"
-          cdnCutOption={{ width: style.width, height: style.height }}
-        />
-      </SwiperItem>}
-      {isRelEnv && data.items.map((item, index) => {
-        // 搭建态下加载全部
-        const shouldLoad = loadedImages.includes(index);
-        return (
-          <SwiperItem
-            key={item._id}
-            className={css.swiperItem}
-            onClick={() => {
-              onClick({ item, index });
-            }}
-          >
-            <SkeletonImage
-              className={css.thumbnail}
-              mode="aspectFill"
-              src={shouldLoad ? item.thumbnail : ""}
-              nativeProps={{
-                loading: "lazy",
-                decoding: "async",
-              }}
-              cdnCut="auto"
-              cdnCutOption={{ width: style.width, height: style.height }}
-            />
-          </SwiperItem>
-        );
-      })}
-    </Swiper>
-  );  },{
-        type:'main',//主组件
-        title:'swiper',//组件标题
-        inputs:[//定义输入项
-          {id:'u_i6',title:'标题',schema:{type:'string'}}
-        ],
-        outputs:[//定义输出项
-          {id:'o_03',title:'点击标题',schema:{type:'string'}}
-        ],
+      items.forEach(now => {
+        if (!now.from.match(/react/)) {
+          const knowledge = getKnowledge(now.from, now.item)
+          if (knowledge) {
+            rtn.push({
+              from: now.from,
+              item: now.item,
+              knowledge
+            })
+          }
+        }
       })
-    `
+
+      return rtn
     },
     getComDocs() {
       //没用可以忽略
