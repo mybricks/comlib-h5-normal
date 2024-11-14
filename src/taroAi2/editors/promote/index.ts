@@ -42,9 +42,9 @@ const mdMap = {
   CHECKBOX: Checkbox,// ✅ 📱✅开发一个多选框，选项有A、B、C （现在不提Label也会自动加上）
   CHECKBOXGROUP: CheckboxGroup, // ✅ 
   EDITOR: Editor, // ❌ 开发一个富文本编辑器，支持撤回和重做功能（taro文档这块不全，且目前还没给最佳实践案例，撤回、重做等api完全生成不了）
-  FORM: Form, // 
-  INPUT: Input,
-  PROGRESS: Progress,
+  FORM: Form, // ✅ 📱✅ 开发一个表单，输入用户名，身份证，密码，然后可以提交
+  INPUT: Input, // ✅ 📱✅ 开发一个输入框，占位符颜色是红色的
+  PROGRESS: Progress, //✅ 📱✅ 开发一个角度条，进度条颜色是红色的
   RICHTEXT: RichText,
   ROOTPORTAL: RootPortal,
   SCROLLVIEW: ScrollView,

@@ -14,7 +14,7 @@ ComponentType<InputProps>
 | type | `keyof Type` | `"text"` | 否 | input 的类型 |
 | password | `boolean` | `false` | 否 | 是否是密码类型 |
 | placeholder | `string` |  | 否 | 输入框为空时占位符 |
-| placeholderStyle | `string` |  | 否 | 指定 placeholder 的样式 |
+| placeholderStyle | `string` |  | 否 | 指定 placeholder 的样式（注意，格式必须为 "color:red"） | 
 | placeholderClass | `string` | `"input-placeholder"` | 否 | 指定 placeholder 的样式类 |
 | disabled | `boolean` | `false` | 否 | 是否禁用 |
 | maxlength | `number` | `140` | 否 | 最大输入长度，设置为 -1 的时候不限制最大长度 |

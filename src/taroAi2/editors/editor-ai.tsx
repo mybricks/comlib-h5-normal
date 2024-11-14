@@ -14,7 +14,7 @@ export default {
           return <View>HELLO WORLD</View>
         }`,
         prompts: `
-          不允许使用原生HTML标签,必须使用@tarojs/components提供的组件.
+          不允许使用原生HTML标签,必须使用@tarojs/components提供的组件.另外在对组件进行操作时，必须严格优先按照组件props定义的方法进行操作.
           @tarojs/components库提供了如下组件:
           Image(图片),
           Label(展示标签、标题,点击标题触发控件的点击，用来改进表单组件的可用性),
