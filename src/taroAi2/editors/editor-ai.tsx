@@ -32,7 +32,7 @@ export default {
           Swiper(轮播图),
           SwiperItem(轮播图项),
           Text(文本),
-          View(视图),
+          View(视图，所有div一律必须用这个View来替代),
           Radio(单选框),
           RadioGroup(单选框组),
           Slider(滑动条),
