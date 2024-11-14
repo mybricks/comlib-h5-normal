@@ -151,7 +151,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         return (
           <IdlePlaceholder
             examples={[
-              "实现一个登录表单"
+              "实现一个滚动容器"
             ]}
           />
         )
