@@ -5,14 +5,116 @@
 ComponentType<ScrollViewProps>
 ```
 
+## 最佳实践
+- 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
+
+```render
+import css from 'style.less';
+import {comRef} from 'mybricks';
+import {useCallback} from 'react';
+import {ScrollView, Text, View} from '@tarojs/components';
+
+export default comRef(({data, outputs})=>{
+  const onScrollToLower = () => {
+    outputs['o_01']("加载更多内容"); // 输出内容
+  }
+
+  const onRefresherRefresh = useCallback(() => {
+    data.refreshing = true;
+    // 模拟加载
+    setTimeout(() => {
+      data.refreshing = false; 
+    }, 2000);
+  }, []);
+
+  return (
+    <View className={css.scrollContainer}>
+      <ScrollView
+        className={css.scrollView}
+        scrollY
+        lowerThreshold={20}
+        enableBackToTop
+        onScrollToLower={onScrollToLower}
+        refresherEnabled={true}
+        refresherBallisticRefreshEnabled={true}
+        onRefresherRefresh={onRefresherRefresh}
+        refresherTriggered={data.refreshing}
+      >
+        {data.list.map((item, index) => (
+          <View key={index} className={css.listItem}>
+            <Text>{item}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  )
+},{
+  type:'main',
+  title:'滚动容器',
+  outputs:[
+    {id:'o_01',title:'加载更多内容',schema:{type:'string'}}
+  ],
+  selectors:[
+    {
+      selector:':root',
+      title:'滚动容器'
+    }
+  ]
+})
+```
+
+```style
+.scrollContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+  padding: 0; // 移除内边距
+  overflow: hidden; // 关键属性，隐藏溢出内容
+}
+
+.scrollView {
+  height: 100%; // 确保滚动区域占满父容器
+  padding: 10px; // 给滚动区域添加内边距
+  box-sizing: border-box; // 使内边距不会影响宽高
+}
+  
+.listItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+```
+
+```model
+{
+  "refreshing": false,
+  "list": [
+    "数据项1",
+    "数据项2",
+    "数据项3",
+    "数据项4",
+    "数据项5",
+    "数据项6",
+    "数据项7",
+    "数据项8",
+    "数据项9",
+    "数据项10",
+    "数据项11",
+    "数据项12",
+    "数据项13",
+    "数据项14",
+    "数据项15"
+  ]
+}
+```
+
 ## ScrollViewProps
 
 | 参数 | 类型 | 默认值 | 必填 | 说明 |
 | --- | --- | :---: | :---: | --- |
 | scrollX | `boolean` | `false` | 否 | 允许横向滚动 |
 | scrollY | `boolean` | `false` | 否 | 允许纵向滚动 |
-| upperThreshold | `number` | `50` | 否 | 距顶部/左边多远时（单位px），触发 scrolltoupper 事件 |
-| lowerThreshold | `number` | `50` | 否 | 距底部/右边多远时（单位px），触发 scrolltolower 事件 |
+| upperThreshold | `number` | `50` | 否 | 距顶部/左边多远时（单位px），触发 scrolltoupper 事件 | 注意，在提及加载更多时，请用这个属性来实现
+| lowerThreshold | `number` | `50` | 否 | 距底部/右边多远时（单位px），触发 scrolltolower 事件 | 注意，在提及加载更多时，请用这个属性来实现
 | scrollTop | `number` |  | 否 | 设置竖向滚动条位置 |
 | scrollLeft | `number` |  | 否 | 设置横向滚动条位置 |
 | scrollIntoView | `string` |  | 否 | 值应为某子元素id（id不能以数字开头）。设置哪个方向可滚动，则在哪个方向滚动到该元素 |
