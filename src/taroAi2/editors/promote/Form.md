@@ -18,11 +18,11 @@ export default () => {
     console.log(e)
   }
   return (
-    <Form onSubmit={formSubmit} onReset={formReset} >
+    <Form onSubmit={formSubmit} onReset={formReset} > // 表单里面有button formType="submit",则表单的onSubmit必须要有对应的事件，才能触发提交
       <View>
         <Switch name='switch'></Switch>
       </View>
-      <Button formTyp="submit">提交表单</Button>
+      <Button formType="submit">提交表单</Button>
     </Form>
   )
 }

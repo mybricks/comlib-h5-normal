@@ -36,13 +36,13 @@ import WebView from './WebView.md';
 
 const mdMap = {
   IMAGE: Image, // ✅ 📱✅ 开发一个图片组件，图片默认是“https://test.mybricks.world/image/icon.png”，要求图片充满容器，但是无论容器如何变化，需要展示完整的图片，并且保持原始比例
-  LABEL: Label, // ✅ 📱 开发一个多选框，选项有A、B、C，展示标签
-  PICKER: Picker, // ✅ 开发一个选择器，选项有A、B、C和一个月份选择器
-  BUTTON: Button, // ✅ 开发一个小尺寸的主按钮，点击并且获取用户信息，用户信息语言设置为英文，同时它需要有点击事件，点击输出随机数
-  CHECKBOX: Checkbox,// ✅ 开发一个多选框，选项有A、B、C （现在不提Label也会自动加上）
-  CHECKBOXGROUP: CheckboxGroup, // ✅
-  EDITOR: Editor, //
-  FORM: Form,
+  LABEL: Label, // ✅ 📱✅ 开发一个多选框，选项有A、B、C，展示标签
+  PICKER: Picker, // ✅ 📱✅ 开发一个选择器，选项有A、B、C和一个月份选择器
+  BUTTON: Button, // ✅ 📱✅开发一个小尺寸的主按钮，点击并且获取用户信息，用户信息语言设置为英文，同时它需要有点击事件，点击输出随机数
+  CHECKBOX: Checkbox,// ✅ 📱✅开发一个多选框，选项有A、B、C （现在不提Label也会自动加上）
+  CHECKBOXGROUP: CheckboxGroup, // ✅ 
+  EDITOR: Editor, // ❌ 开发一个富文本编辑器，支持撤回和重做功能（taro文档这块不全，且目前还没给最佳实践案例，撤回、重做等api完全生成不了）
+  FORM: Form, // 
   INPUT: Input,
   PROGRESS: Progress,
   RICHTEXT: RichText,
