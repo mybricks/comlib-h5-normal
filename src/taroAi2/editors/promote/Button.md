@@ -5,6 +5,20 @@
 ComponentType<ButtonProps>
 ```
 
+## 最佳实践
+### 获取用户信息
+```render
+import { Button } from '@tarojs/components';
+export default () => {
+  return (
+    <Button
+      openType="getUserInfo"
+      onGetUserInfo={(e) => console.log(e)}
+    >获取用户信息</Button>
+  )
+}
+```
+
 ## ButtonProps
 
 | 参数 | 类型 | 默认值 | 必填 | 说明 |
