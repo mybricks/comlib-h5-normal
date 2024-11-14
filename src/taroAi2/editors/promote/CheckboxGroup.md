@@ -5,6 +5,62 @@
 ComponentType<CheckboxGroupProps>
 ```
 
+## 最佳实践
+
+- 生成一个多选框组件，可以通过 `<CheckboxGroup/>` 的 `onChange` 事件获取选中项的 value 数组
+  
+```render
+import { CheckboxGroup, Checkbox, Label, View } from '@tarojs/components';
+import { useState } from 'react';
+import { comRef } from 'mybricks'; 
+
+export default comRef(({ outputs }) => {
+  const [state, setState] = useState({
+    options: [
+      { value: 'A', text: '选项A', checked: false },
+      { value: 'B', text: '选项B', checked: false },
+      { value: 'C', text: '选项C', checked: false }
+    ]
+  });
+
+  const handleChange = (e) => {
+    let selectedValues = e.detail.value // 获取选中项的 value 数组,必须要这样取值
+  
+    const updatedOptions = state.options.map((option) => ({
+      ...option,
+      checked: selectedValues.indexOf(option.value) !== -1
+    }));
+
+    setState({ options: updatedOptions });
+    outputs['o_selection'](selectedValues); // 直接输出选中项
+  };
+
+  return (
+    <View>
+      <CheckboxGroup onChange={handleChange}>
+        {state.options.map((item, index) => (
+          <Label for={item.value} key={index}>
+            <Checkbox value={item.value} checked={item.checked}>{item.text}</Checkbox>
+          </Label>
+        ))}
+      </CheckboxGroup>
+    </View>
+  );
+}, {
+  type: 'main',
+  title: '多选框',
+  outputs: [
+    { id: 'o_selection', title: '选中项', schema: { type: 'array' } }
+  ],
+  selectors: [
+    {
+      selector: ':root',
+      title: '整体'
+    }
+  ]
+});
+```
+
 ## CheckboxGroupProps
 
 | 参数 | 类型 | 必填 | 说明 |
