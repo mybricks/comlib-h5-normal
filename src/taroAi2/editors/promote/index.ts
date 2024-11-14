@@ -45,8 +45,8 @@ const mdMap = {
   FORM: Form, // ✅ 📱✅ 开发一个表单，输入用户名，身份证，密码，然后可以提交
   INPUT: Input, // ✅ 📱✅ 开发一个输入框，占位符颜色是红色的
   PROGRESS: Progress, //✅ 📱✅ 开发一个角度条，进度条颜色是红色的
-  RICHTEXT: RichText,
-  ROOTPORTAL: RootPortal,
+  RICHTEXT: RichText, // ❌ 开发一个组件来显示富文本，可以支持长按选中富文本内容（不会按照props定义来开发）
+  ROOTPORTAL: RootPortal, //开发一个按钮，点击后弹出一个弹窗，弹窗内容为“Hello World”
   SCROLLVIEW: ScrollView,
   SWIPER: Swiper,
   SWIPERITEM: SwiperItem,
