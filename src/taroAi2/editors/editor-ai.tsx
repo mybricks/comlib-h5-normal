@@ -27,7 +27,7 @@ export default {
           Input(输入框),
           Progress(进度条),
           RichText(富文本),
-          RootPortal(脱离dom树,用于制作弹窗、弹出层),
+          RootPortal(脱离dom树,用于制作弹窗、弹出层，当用户要求制作一个弹窗时，必须使用这个组件),
           ScrollView(可滚动视图区域),
           Swiper(轮播图),
           SwiperItem(轮播图项),
