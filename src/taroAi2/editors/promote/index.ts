@@ -58,7 +58,7 @@ const mdMap = {
   SWITCH: Switch,
   TEXTAREA: Textarea,
   VIDEO: Video,
-  WEBVIEW: WebView,
+  WEBVIEW: WebView, // ✅ 📱✅ 内置网站，地址https://docs.mybricks.world/，网页加载成功和失败都要打印日志，同时接收网站消息
 }
 
 export default function getKnowledge(packageName: string, com: string) {
