@@ -57,7 +57,7 @@ const mdMap = {
   SLIDER: Slider,
   SWITCH: Switch,
   TEXTAREA: Textarea,
-  VIDEO: Video,
+  VIDEO: Video, // ✅ 📱✅ 开发一个视频播放器，视频地址https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4，封面图https://test.mybricks.world/image/icon.png，需要立即播放！！！后续继续聊了几轮，使用的api都符合预期
   WEBVIEW: WebView, // ✅ 📱✅ 内置网站，地址https://docs.mybricks.world/，网页加载成功和失败都要打印日志，同时接收网站消息
 }
 
