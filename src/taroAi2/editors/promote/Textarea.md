@@ -8,11 +8,10 @@ ComponentType<TextareaProps>
 ## 最佳实践
 ```render
 import { View, Text, Textarea } from '@tarojs/components';
-import css from 'index.less';
 
 export default () => {
   return (
-    <View className={css['components-page']}>
+    <View>
       <Text>输入区域高度自适应，不会出现滚动条</Text>
       <Textarea style='background:#fff;width:100%;min-height:80px;padding:0 30rpx;' autoHeight/>
       <Text>这是一个可以自动聚焦的 textarea</Text>
