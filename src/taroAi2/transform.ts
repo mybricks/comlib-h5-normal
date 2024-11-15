@@ -44,6 +44,9 @@ export function transformTsx(code): Promise<string> {
 }
 
 export function transformLess(code): Promise<string> {
+  if (!code) {
+    return Promise.resolve("")
+  }
   return new Promise((resolve, reject) => {
     let res = ''
     try {

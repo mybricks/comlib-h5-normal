@@ -57,8 +57,8 @@ const mdMap = {
   SLIDER: Slider, // ❌
   SWITCH: Switch, // ✅ 📱✅ 开发一个开关，点击后可以输出开关状态，颜色为红色
   TEXTAREA: Textarea, // ❌ 开发一个多行输入框，占位符为“请输入内容”，显示输入的文本数，同时限制文本输入数量30，文本颜色是红色
-  VIDEO: Video,  // ✅ 📱✅开发一个视频组件，可以通过配置项动态加载视频，加载后自动播放
-  WEBVIEW: WebView,
+  VIDEO: Video, // ✅ 📱✅ 开发一个视频播放器，视频地址https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4，封面图https://test.mybricks.world/image/icon.png，需要立即播放！！！后续继续聊了几轮，使用的api都符合预期
+  WEBVIEW: WebView, // ✅ 📱✅ 内置网站，地址https://docs.mybricks.world/，网页加载成功和失败都要打印日志，同时接收网站消息
 }
 
 export default function getKnowledge(packageName: string, com: string) {
