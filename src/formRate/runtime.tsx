@@ -25,6 +25,10 @@ export default function (props) {
           break;
       }
     });
+
+    inputs["setDisabled"]((val) => {
+      data.disabled = !!val;
+    })
   }, []);
 
   const onChange = useCallback((value) => {
@@ -35,7 +39,7 @@ export default function (props) {
 
   return (
     // <Field label={data.label} name={data.name}>
-    <Rate value={value} onChange={onChange} count={data.count} allowHalf={data.allowHalf} />
+    <Rate value={value} onChange={onChange} count={data.count} allowHalf={data.allowHalf} disabled={data.disabled}/>
     // </Field>
   );
 }

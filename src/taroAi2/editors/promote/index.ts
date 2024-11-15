@@ -48,7 +48,7 @@ const mdMap = {
   RICHTEXT: RichText, // ❌ 开发一个组件来显示富文本，可以支持长按选中富文本内容（不会按照props定义来开发）
   ROOTPORTAL: RootPortal, // ❌ 开发一个按钮，点击后弹出一个弹窗，弹窗内容为“Hello World”
   SCROLLVIEW: ScrollView, // ✅ 📱✅ 开发一个可滚动视图，支持下拉刷新，然后在滚动到距离底部20px时，触发加载更多
-  SWIPER: Swiper, // ❌ 开发一个轮播图，包含三张图片，设置轮播时间2s
+  SWIPER: Swiper, // ❌ 开发一个轮播图，包含三张图片，设置轮播时间2s（指示点需要手动加上，这块需要补例子）
   SWIPERITEM: SwiperItem, // ❌
   TEXT: Text, // ✅ 📱✅ 开发一个文本组件，文本内容为“Hello World”，文本颜色是绿色
   VIEW: View, // ✅ 📱✅ 开发一个视图组件，背景颜色是红色
