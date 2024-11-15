@@ -6,21 +6,58 @@ ComponentType<SwitchProps>
 ```
 
 ## 最佳实践
+
+```model
+{
+  "title":"开关",
+  "items":[
+    {
+      "title":"开关状态",
+      "checked":true
+    }
+  ]
+}
+```
+
 ```render
 import { View, Text, Switch } from '@tarojs/components';
-import css from 'index.less';
+import { comRef } from 'mybricks';
+import css from 'style.less';
 
-export default () => {
+export default comRef(({ data, outputs }) => {
+  const handleChange = (e) => {
+    data.items[0].checked = e.detail.value; // 更新开关状态
+    outputs['o_01'](e.detail.value); // 输出状态变化
+  };
+
   return (
-    <View className={css['components-page']}>
-      <Text>默认样式</Text>
-      <Switch checked/>
-      <Switch/>
-      <Text>推荐展示样式</Text>
-      <Switch checked/>
-      <Switch/>
+    <View className={css['container']}>
+      <Text>开关状态: {data.items[0].checked ? '开启' : '关闭'}</Text>
+      <Switch 
+        checked={data.items[0].checked} 
+        onChange={handleChange}
+        color="#04BE02" 
+      />
     </View>
   )
+}, {
+  type: 'main',
+  title: '开关',
+  outputs: [
+    { id: 'o_01', title: '开关状态变化', schema: { type: 'boolean' } }
+  ],
+  selectors: [],
+})
+```
+
+```style
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 ```
 
