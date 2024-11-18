@@ -95,6 +95,12 @@ export default function (props) {
     });
   }, []);
 
+  useEffect(()=>{
+    inputs["getValue"]((val,relOutputs) => {
+      relOutputs["returnValue"](value)
+    })
+  },[value])
+
   const displayValue = useMemo(() => {
     if (!data.value) {
       return "";
