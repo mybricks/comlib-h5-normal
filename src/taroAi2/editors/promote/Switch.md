@@ -6,58 +6,16 @@ ComponentType<SwitchProps>
 ```
 
 ## 最佳实践
-
-```model
-{
-  "title":"开关",
-  "items":[
-    {
-      "title":"开关状态",
-      "checked":true
-    }
-  ]
-}
-```
-
 ```render
-import { View, Text, Switch } from '@tarojs/components';
-import { comRef } from 'mybricks';
-import css from 'style.less';
+import { Switch } from '@tarojs/components';
 
-export default comRef(({ data, outputs }) => {
-  const handleChange = (e) => {
-    data.items[0].checked = e.detail.value; // 更新开关状态
-    outputs['o_01'](e.detail.value); // 输出状态变化
-  };
-
+export default () => {
   return (
-    <View className={css['container']}>
-      <Text>开关状态: {data.items[0].checked ? '开启' : '关闭'}</Text>
-      <Switch 
-        checked={data.items[0].checked} 
-        onChange={handleChange}
-        color="#04BE02" 
-      />
-    </View>
-  );
-}, {
-  type: 'main',
-  title: '开关',
-  outputs: [
-    { id: 'o_01', title: '开关状态变化', schema: { type: 'boolean' } }
-  ],
-  selectors: [],
-})
-```
-
-```style
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    <Switch
+      checked
+      onChange={e => console.log(e.detail.value)}
+    />
+  )
 }
 ```
 
@@ -71,10 +29,4 @@ export default comRef(({ data, outputs }) => {
 | type | "switch" or "checkbox" | `"switch"` | 否 | 样式，有效值：switch, checkbox |
 | color | `string` | `"#04BE02"` | 否 | switch 的颜色，同 css 的 color |
 | nativeProps | `Record<string, unknown>` |  | 否 | 用于透传 `WebComponents` 上的属性到内部 H5 标签上 |
-| onChange | `EventFunction<onChangeEventDetail>` |  | 否 | checked 改变时触发 change 事件 |
-
-### onChangeEventDetail
-
-| 参数 | 类型 |
-| --- | --- |
-| value | `boolean` |
+| onChange | `EventFunction<{value: boolean}>` |  | 否 | checked 改变时触发 change 事件 |
