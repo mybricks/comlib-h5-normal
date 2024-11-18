@@ -212,8 +212,10 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         .select(`#${tabpaneId}`)
         .boundingClientRect()
         .exec((res) => {
-          const rect = res[0];
-          setTabsPaneHeight(rect.height);
+          if(res && res[0]){
+            const rect = res[0];
+            setTabsPaneHeight(rect.height);
+          }
         });
     }
   }, [currentTabIdRef.current]);

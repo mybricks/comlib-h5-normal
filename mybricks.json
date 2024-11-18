@@ -56,6 +56,7 @@
     "./src/_tencentcloudChat/handleGroupApplication/com.json",
     "./src/_tencentcloudChat/getMessageList/com.json",
     "./src/_tencentcloudChat/sendMessage/com.json",
+    "./src/_tencentcloudChat/logOut/com.json",
     {
       "title": "系统",
       "visible": false,
