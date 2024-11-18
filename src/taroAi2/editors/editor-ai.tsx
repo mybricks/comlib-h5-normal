@@ -680,13 +680,15 @@ export default {
       const rtn = []
 
       items.forEach(now => {
-        if (!now.lib.match(/react/)) {
-          if (now.lib === "@tarojs/components") {
+        const lib = now.lib || now.from
+        if (!lib.match(/react/)) {
+          if (lib === "@tarojs/components") {
             const upperCom = now.item.toUpperCase()
-            const knowledge = getKnowledge(now.lib, upperCom)
+            const knowledge = getKnowledge(lib, upperCom)
             if (knowledge) {
               rtn.push({
-                lib: now.lib,
+                from: lib,
+                lib,
                 item: now.item,
                 knowledge
               })
