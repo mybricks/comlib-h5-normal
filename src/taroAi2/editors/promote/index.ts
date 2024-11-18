@@ -54,7 +54,7 @@ const mdMap = {
   VIEW: View, // ✅ 📱✅ 开发一个视图组件，背景颜色是红色
   RADIO: Radio, // ✅ 📱✅ 开发一个单选框，选项有A、B、C
   RADIOGROUP: RadioGroup, // ✅
-  SLIDER: Slider, // ❌
+  SLIDER: Slider, // ✅ 📱✅ 开发一个滑动选择器，设置最小值为5，最大20，单次移动5个单位，选择器背景色红色，选中的颜色使用绿色，滑块要紫色并且大小尽量小一些，变更后输出，并且支持外部输入当前值
   SWITCH: Switch, // ✅ 📱✅ 开发一个开关，点击后可以输出开关状态，颜色为红色
   TEXTAREA: Textarea, // ✅ 📱✅ 开发一个多行输入框，占位符为“请输入内容”，显示输入的文本数，同时限制文本输入数量30，文本颜色是红色
   VIDEO: Video, // ✅ 📱✅ 开发一个视频播放器，视频地址https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4，封面图https://test.mybricks.world/image/icon.png，需要立即播放！！！后续继续聊了几轮，使用的api都符合预期
