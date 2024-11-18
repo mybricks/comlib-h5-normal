@@ -105,11 +105,11 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
     }
   }, [data._styleCode, dynCss])
 
-  useEffect(() => {
-    return () => {
-      dynCss.remove()
-    }
-  }, [])
+  // useEffect(() => {
+  //   return () => {
+  //     dynCss.remove()
+  //   }
+  // }, [])
 
   const errorInfo = useMemo(() => {
     if (!!data._jsxErr) {
