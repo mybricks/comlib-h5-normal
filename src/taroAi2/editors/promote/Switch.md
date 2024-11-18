@@ -39,7 +39,7 @@ export default comRef(({ data, outputs }) => {
         color="#04BE02" 
       />
     </View>
-  )
+  );
 }, {
   type: 'main',
   title: '开关',

@@ -46,7 +46,7 @@ const mdMap = {
   INPUT: Input, // ✅ 📱✅ 开发一个输入框，占位符颜色是红色的
   PROGRESS: Progress, // ✅ 📱✅ 开发一个进度条，进度条颜色是红色的
   RICHTEXT: RichText, // ❌ 开发一个组件来显示富文本，可以支持长按选中富文本内容（不会按照props定义来开发）
-  ROOTPORTAL: RootPortal, // ❌ 开发一个按钮，点击后弹出一个弹窗，弹窗内容为“Hello World”
+  ROOTPORTAL: RootPortal, // ✅ 📱✅ 开发一个按钮，点击后弹出一个弹窗，弹窗内容为“Hello World”
   SCROLLVIEW: ScrollView, // ✅ 📱✅ 开发一个可滚动视图，支持下拉刷新，然后在滚动到距离底部20px时，触发加载更多
   SWIPER: Swiper, // ✅ 📱✅ 开发一个轮播图，包含三张图片，设置轮播时间2s
   SWIPERITEM: SwiperItem, // ✅
@@ -56,7 +56,7 @@ const mdMap = {
   RADIOGROUP: RadioGroup, // ✅
   SLIDER: Slider, // ❌
   SWITCH: Switch, // ✅ 📱✅ 开发一个开关，点击后可以输出开关状态，颜色为红色
-  TEXTAREA: Textarea, // ❌ 开发一个多行输入框，占位符为“请输入内容”，显示输入的文本数，同时限制文本输入数量30，文本颜色是红色
+  TEXTAREA: Textarea, // ✅ 📱✅ 开发一个多行输入框，占位符为“请输入内容”，显示输入的文本数，同时限制文本输入数量30，文本颜色是红色
   VIDEO: Video, // ✅ 📱✅ 开发一个视频播放器，视频地址https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4，封面图https://test.mybricks.world/image/icon.png，需要立即播放！！！后续继续聊了几轮，使用的api都符合预期
   WEBVIEW: WebView, // ✅ 📱✅ 内置网站，地址https://docs.mybricks.world/，网页加载成功和失败都要打印日志，同时接收网站消息
 }
