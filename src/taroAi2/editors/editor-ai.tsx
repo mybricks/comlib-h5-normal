@@ -677,6 +677,7 @@ export default {
       }
     },
     loadKnowledge(items) {
+      console.log("loadKnowledge", items);
       const rtn = []
 
       items.forEach(now => {

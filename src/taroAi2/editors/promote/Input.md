@@ -5,6 +5,70 @@
 ComponentType<InputProps>
 ```
 
+
+## 最佳实践
+### 默认样式
+> 使用 Input 组件时，须给 Input 的 class 额外增加一个后代选择器 input { opacity: 1; }
+```render
+import { Input } from '@tarojs/components';
+import css from 'style.less';
+
+export default () => {
+  return (
+    <Input className={css.myinput} />
+  )
+}
+
+.myinput {
+  input { 
+    opacity: 1;
+  }
+}
+```
+
+### 设置文字颜色
+> 为 Input 组件设置文字颜色时，须额外增加一个后代选择器 input，同时为 Input 和后代选择器 input 设置 color 属性。
+
+```render
+import { Input } from '@tarojs/components';
+import css from 'style.less';
+
+export default () => {
+  return (
+    <Input className={css.myinput} />
+  )
+}
+
+.myinput {
+    color: #333;
+  input { 
+    color: #333;
+  }
+}
+```
+
+### 设置占位符颜色
+
+> 为 Input 组件设置占位符文字颜色时，须额外增加一个后代选择器 input::placeholder 并且为其设置颜色。
+
+```render
+import { Input } from '@tarojs/components';
+import css from 'style.less';
+
+export default () => {
+  return (
+    <Input className={css.myinput} />
+  )
+}
+
+.myinput {
+    color: #333;
+  input { 
+    color: #333;
+  }
+}
+```
+
 ## InputProps
 
 | 参数 | 类型 | 默认值 | 必填 | 说明 |
