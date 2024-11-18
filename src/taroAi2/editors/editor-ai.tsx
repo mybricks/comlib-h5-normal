@@ -34,7 +34,7 @@ export default {
           View(视图),
           Radio(单选框),
           RadioGroup(单选框组),
-          Slider(滑动条),
+          Slider(滑动选择器、滑块),
           Switch(开关),
           Textarea(多行输入框),
           Video(视频),
