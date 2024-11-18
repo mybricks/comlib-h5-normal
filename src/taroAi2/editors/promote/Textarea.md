@@ -6,17 +6,23 @@ ComponentType<TextareaProps>
 ```
 
 ## 最佳实践
+必须生成样式文件来覆盖默认的固定宽度。
+```style
+.textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 48px;
+}
+```
 ```render
-import { View, Text, Textarea } from '@tarojs/components';
+import { Textarea } from '@tarojs/components';
+import css from 'index.less';
 
 export default () => {
   return (
-    <View>
-      <Text>输入区域高度自适应，不会出现滚动条</Text>
-      <Textarea autoHeight/>
-      <Text>这是一个可以自动聚焦的 textarea</Text>
-      <Textarea autoFocus/>
-    </View>
+    <Textarea
+      className={css.textarea}
+    />
   )
 }
 ```
@@ -34,7 +40,7 @@ export default () => {
 | maxlength | `number` | `140` | 否 | 最大输入长度，设置为 -1 的时候不限制最大长度 |
 | autoFocus | `boolean` | `false` | 否 | 自动聚焦，拉起键盘 |
 | focus | `boolean` | `false` | 否 | 获取焦点 |
-| autoHeight | `boolean` | `false` | 否 | 是否自动增高，设置 autoHeight 时，style.height不生效 |
+| autoHeight | `boolean` | `false` | 否 | 是否自动增高、禁止滚动，设置 autoHeight 时，style.height不生效 |
 | fixed | `boolean` | `false` | 否 | 如果 Textarea 是在一个 `position:fixed` 的区域，需要显示指定属性 fixed 为 true |
 | cursorSpacing | `number` | `0` | 否 | 指定光标与键盘的距离，单位 px 。取 Textarea 距离底部的距离和 cursorSpacing 指定的距离的最小值作为光标与键盘的距离 |
 | cursor | `number` | `-1` | 否 | 指定 focus 时的光标位置 |
@@ -50,7 +56,7 @@ export default () => {
 | adjustKeyboardTo | `boolean` | `false` | 否 | 键盘对齐位置 |
 | onFocus | `EventFunction<onFocusEventDetail>` |  | 否 | 输入框聚焦时触发 |
 | onBlur | `EventFunction<onBlurEventDetail>` |  | 否 | 输入框失去焦点时触发 |
-| onLineChange | `EventFunction<onLineChangeEventDetail>` |  | 否 | 输入框行数变化时调用 |
+| onLineChange | `EventFunction<{height:number;heightRpx:number;lineCount:number;}>` |  | 否 | 输入框行数变化时调用 |
 | onInput | `EventFunction<onInputEventDetail>` |  | 否 | 当键盘输入时，触发 input 事件<br /><br />**onInput 处理函数的返回值并不会反映到 textarea 上** |
 | onConfirm | `EventFunction<onConfirmEventDetail>` |  | 否 | 点击完成时， 触发 confirm 事件 |
 | onKeyboardHeightChange | `EventFunction<onKeyboardHeightChangeEventDetail>` |  | 否 | 键盘高度发生变化的时候触发此事件 |
@@ -68,14 +74,6 @@ export default () => {
 | --- | --- | --- |
 | value | `string` | 输入值 |
 | cursor | `number` | 光标位置 |
-
-### onLineChangeEventDetail
-
-| 参数 | 类型 |
-| --- | --- |
-| height | `number` |
-| heightRpx | `number` |
-| lineCount | `number` |
 
 ### onInputEventDetail
 
