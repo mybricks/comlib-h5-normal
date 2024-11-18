@@ -51,13 +51,12 @@ export function transformLess(code): Promise<string> {
     let res = ''
     try {
       if (window?.less) {
-        const newCode = `#__id__ {${code}}`//#__id__ 为占位符
-        window.less.render(newCode, {}, (error, result) => {
+        window.less.render(code, {}, (error, result) => {
           if (error) {
             console.error(error)
             res = ''
 
-            console.warn(`当前代码：${newCode}`)
+            console.warn(`当前代码：${code}`)
 
             reject(`Less代码编译失败: ${error.message}`)
           } else {
