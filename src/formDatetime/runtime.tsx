@@ -123,7 +123,7 @@ export default function (props) {
       );
     } else {
       // 否则，直接解析输入的日期时间字符串
-      dateTime = new Date(formatDate);
+      dateTime = new Date(dayjs(formatDate).toDate());
     }
 
     // 检查解析后的日期是否有效
