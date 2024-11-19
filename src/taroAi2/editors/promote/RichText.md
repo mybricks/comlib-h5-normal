@@ -5,6 +5,25 @@
 ComponentType<RichTextProps>
 ```
 
+## 最佳实践
+
+<mybricks-file type="render" lang="jsx">
+import { useState } from 'react';
+import { RichText } from '@tarojs/components';
+
+export default () => {
+    const node = `<div>hello world!</div>`
+    return (
+       <RichText 
+        nodes={node} 
+        selectable={true}  // 富文本是否可以长按选中
+        space="emsp"  // 中文字符空格大小
+        userSelect={true} // 文本是否可选
+       /> 
+    )
+}
+</mybricks-file>
+
 ## RichTextProps
 
 | 参数 | 类型 | 默认值 | 必填 | 说明 |
