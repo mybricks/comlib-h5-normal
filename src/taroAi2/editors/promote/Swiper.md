@@ -30,7 +30,7 @@ ComponentType<SwiperProps>
     "duration": 500
   }
 }
-```
+</mybricks-file>
 
 <mybricks-file type="render" lang="jsx">
 import css from 'style.less';
@@ -63,7 +63,7 @@ export default comRef(({data}) => {
     }
   ]
 })
-```
+</mybricks-file>
 
 <mybricks-file type="style" lang="less">
 .swiper {
@@ -79,7 +79,7 @@ export default comRef(({data}) => {
   }
 
 }
-```
+</mybricks-file>
 
 ## SwiperProps
 
