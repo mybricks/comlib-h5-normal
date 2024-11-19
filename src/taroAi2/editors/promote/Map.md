@@ -6,7 +6,7 @@ ComponentType<MapProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { Map } from '@tarojs/components';
 
 export default () => {
@@ -14,7 +14,7 @@ export default () => {
     <Map onClick={() => {}} />
   )
 }
-```
+</mybricks-file>
 
 ## MapProps
 

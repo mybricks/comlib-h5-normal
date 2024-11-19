@@ -7,10 +7,7 @@ ComponentType<ButtonProps>
 
 ## 最佳实践
 ### 获取用户信息
-
-> 如果没有用到 openType 等特殊属性，尽量使用 View 标签代替
-
-```render
+<mybricks-file type="render" lang="jsx">
 import { Button } from '@tarojs/components';
 export default () => {
   return (
@@ -20,7 +17,8 @@ export default () => {
     >获取用户信息</Button>
   )
 }
-```
+</mybricks-file>
+
 
 ## ButtonProps
 

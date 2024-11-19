@@ -7,14 +7,15 @@ ComponentType<TextareaProps>
 
 ## 最佳实践
 必须生成样式文件来覆盖默认的固定宽度。
-```style
+<mybricks-file type="style" lang="less">
 .textarea {
   width: 100%;
   height: 100%;
   min-height: 48px;
 }
-```
-```render
+</mybricks-file>
+
+<mybricks-file type="render" lang="jsx">
 import { Textarea } from '@tarojs/components';
 import css from 'index.less';
 
@@ -25,7 +26,7 @@ export default () => {
     />
   )
 }
-```
+</mybricks-file>
 
 ## TextareaProps
 

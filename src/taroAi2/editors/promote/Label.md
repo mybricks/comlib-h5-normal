@@ -7,7 +7,7 @@ ComponentType<LabelProps>
 ```
 
 ## 最佳实践
-``` render
+<mybricks-file type="render" lang="jsx">
 import { RadioGroup, Label, Radio } from '@tarojs/components';
 
 export default () => {
@@ -24,7 +24,8 @@ export default () => {
     </RadioGroup>
   )
 }
-```
+</mybricks-file>
+
 
 ## LabelProps
 

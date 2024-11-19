@@ -6,7 +6,7 @@ ComponentType<SliderProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { Slider } from '@tarojs/components';
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
     />
   )
 }
-```
+</mybricks-file>
 
 ## SliderProps
 

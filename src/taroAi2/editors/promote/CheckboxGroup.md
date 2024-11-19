@@ -9,7 +9,7 @@ ComponentType<CheckboxGroupProps>
 
 - 生成一个多选框组件，可以通过 `<CheckboxGroup/>` 的 `onChange` 事件获取选中项的 value 数组
   
-```render
+<mybricks-file type="render" lang="jsx">
 import { CheckboxGroup, Checkbox, Label, View } from '@tarojs/components';
 import { useState } from 'react';
 import { comRef } from 'mybricks'; 
@@ -59,7 +59,7 @@ export default comRef(({ outputs }) => {
     }
   ]
 });
-```
+</mybricks-file>
 
 ## CheckboxGroupProps
 

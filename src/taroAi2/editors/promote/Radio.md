@@ -6,7 +6,7 @@ ComponentType<RadioProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { useState } from 'react';
 import { View, Head, Text, Radio, RadioGroup, Label } from '@tarojs/components';
 
@@ -38,7 +38,7 @@ export default () => {
     </RadioGroup>
   )
 }
-```
+</mybricks-file>
 
 ## RadioProps
 

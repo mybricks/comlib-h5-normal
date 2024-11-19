@@ -7,7 +7,7 @@ ComponentType<FormProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { View, Form, Switch, Button } from '@tarojs/components';
 
 export default () => {
@@ -26,7 +26,7 @@ export default () => {
     </Form>
   )
 }
-```
+</mybricks-file>
 
 ## FormProps
 

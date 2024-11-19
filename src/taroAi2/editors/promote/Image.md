@@ -6,7 +6,7 @@ ComponentType<ImageProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { Image } from '@tarojs/components';
 
 export default () => {
@@ -16,7 +16,7 @@ export default () => {
     />
   )
 }
-```
+</mybricks-file>
 
 ## ImageProps
 

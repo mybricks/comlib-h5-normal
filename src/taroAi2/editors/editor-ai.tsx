@@ -59,6 +59,9 @@ export default {
           }
           type EventFunction<T = any> = (event: BaseEventOrig<T>) => void
           type ComponentType<T> = ComponentType<T>
+
+
+          在为组件设置样式时，尽量不要使用内联样式，而是使用style文件进行样式设置。
         `,
         // examples:`
         // <例子>

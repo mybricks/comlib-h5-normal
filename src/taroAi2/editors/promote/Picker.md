@@ -6,7 +6,7 @@ ComponentType<PickerSelectorProps | PickerMultiSelectorProps | PickerTimeProps |
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { useState } from 'react';
 import { View, Text, Picker } from '@tarojs/components';
 
@@ -79,7 +79,7 @@ export default () => {
     </View>
   )
 }
-```
+</mybricks-file>
 
 ## PickerStandardProps
 

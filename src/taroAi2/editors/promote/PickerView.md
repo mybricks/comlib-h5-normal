@@ -7,7 +7,7 @@ ComponentType<PickerViewProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { useState } from 'react';
 import { View, PickerView, PickerViewColumn } from '@tarojs/components';
 import css from 'index.less';
@@ -77,7 +77,7 @@ export default () => {
     </View>
   )
 }
-```
+</mybricks-file>
 
 ## PickerViewProps
 

@@ -6,7 +6,7 @@ ComponentType<CheckboxProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { Checkbox } from '@tarojs/components';
 import { useState } from 'react';
 
@@ -38,7 +38,8 @@ export default () => {
     </View>
   )
 }
-```
+</mybricks-file>
+
 
 ## CheckboxProps
 

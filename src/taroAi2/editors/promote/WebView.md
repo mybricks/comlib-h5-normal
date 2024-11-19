@@ -6,7 +6,7 @@ ComponentType<WebViewProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { WebView } from '@tarojs/components';
 
 export default () => {
@@ -14,7 +14,7 @@ export default () => {
     <WebView src='https://mp.weixin.qq.com/' onMessage={() => {}} />
   )
 }
-```
+</mybricks-file>
 
 ## WebViewProps
 

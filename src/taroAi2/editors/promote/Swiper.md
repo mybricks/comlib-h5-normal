@@ -7,7 +7,7 @@ ComponentType<SwiperProps>
 ```
 
 ## 最佳实践
-```model
+<mybricks-file type="model" lang="json">
 {
   "images":[
     {
@@ -32,7 +32,7 @@ ComponentType<SwiperProps>
 }
 ```
 
-```render
+<mybricks-file type="render" lang="jsx">
 import css from 'style.less';
 import {comRef} from 'mybricks';
 import { Swiper, SwiperItem, Image} from '@tarojs/components';
@@ -65,7 +65,7 @@ export default comRef(({data}) => {
 })
 ```
 
-```style
+<mybricks-file type="style" lang="less">
 .swiper {
   width: 100%;
   height: 100%;

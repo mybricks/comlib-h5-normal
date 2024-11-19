@@ -6,7 +6,7 @@ ComponentType<CanvasProps>
 ```
 
 ## 最佳实践
-```render
+<mybricks-file type="render" lang="jsx">
 import { Canvas } from '@tarojs/components';
 
 export default () => {
@@ -14,7 +14,7 @@ export default () => {
     <Canvas style='width: 300px; height: 200px;' canvasId='canvas' />
   )
 }
-```
+</mybricks-file>
 
 ## CanvasProps
 
