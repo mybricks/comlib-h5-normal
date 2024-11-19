@@ -7,10 +7,14 @@ ComponentType<FormProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useState } from 'react';
 import { View, Form, Switch, Button } from '@tarojs/components';
 
-export default () => {
+
+export default comRef(({ data, inputs, outputs, slots }) => {
   const formSubmit = e => {
     console.log(e)
   }
@@ -25,8 +29,11 @@ export default () => {
       <Button formType="submit">提交表单</Button>
     </Form>
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## FormProps
 

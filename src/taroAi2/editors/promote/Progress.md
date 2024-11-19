@@ -8,15 +8,21 @@ ComponentType<ProgressProps>
 ## 最佳实践
 - 开发一个进度条，进度条颜色是红色的
 
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useState } from 'react';
 import { Progress } from '@tarojs/components';
 
-export default () => {
-   return (
-        <Progress percent={80}  strokeWidth={2} active activeColor='#FF000F' />
-    )
-}
-</mybricks-file>
+export default comRef(({ data, inputs, outputs, slots }) => {
+  return (
+    <Progress percent={80}  strokeWidth={2} active activeColor='#FF000F' />
+  )
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## ProgressProps
 

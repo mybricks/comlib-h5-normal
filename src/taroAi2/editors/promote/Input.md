@@ -9,65 +9,86 @@ ComponentType<InputProps>
 ## 最佳实践
 ### 默认样式
 > 使用 Input 组件时，须给 Input 的 class 额外增加一个后代选择器 input { opacity: 1; }
-<mybricks-file type="render" lang="jsx">
-import { Input } from '@tarojs/components';
+```render
+import { comRef } from 'mybricks';
 import css from 'style.less';
+import { useState } from 'react';
+import { Input } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
-}
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
+```style
 .myinput {
   input { 
     opacity: 1;
   }
 }
-</mybricks-file>
+```
 
 ### 设置文字颜色
 > 为 Input 组件设置文字颜色时，须额外增加一个后代选择器 input，同时为 Input 和后代选择器 input 设置 color 属性。
 
-<mybricks-file type="render" lang="jsx">
-import { Input } from '@tarojs/components';
+```render
+import { comRef } from 'mybricks';
 import css from 'style.less';
+import { useState } from 'react';
+import { Input } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
-}
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
+```style
 .myinput {
     color: #333;
   input { 
     color: #333;
   }
 }
-</mybricks-file>
+```
 
 ### 设置占位符颜色
 
 > 为 Input 组件设置占位符文字颜色时，须额外增加一个后代选择器 input::placeholder 并且为其设置颜色。
 
-<mybricks-file type="render" lang="jsx">
-import { Input } from '@tarojs/components';
+```render
+import { comRef } from 'mybricks';
 import css from 'style.less';
+import { useState } from 'react';
+import { Input } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
-}
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
+```style
 .myinput {
     color: #333;
   input { 
     color: #333;
   }
 }
-</mybricks-file>
+```
 
 ## InputProps
 

@@ -8,10 +8,10 @@ ComponentType<ScrollViewProps>
 ## 最佳实践
 - 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
 
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
 import css from 'style.less';
-import {comRef} from 'mybricks';
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 import {ScrollView, Text, View} from '@tarojs/components';
 
 export default comRef(({data, outputs})=>{
@@ -61,9 +61,9 @@ export default comRef(({data, outputs})=>{
     }
   ]
 })
-</mybricks-file>
+```
 
-<mybricks-file type="style" lang="less">
+```style
 .scrollContainer {
   width: 100%;
   height: 100%;
@@ -82,9 +82,9 @@ export default comRef(({data, outputs})=>{
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
-</mybricks-file>
+```
 
-<mybricks-file type="model" lang="json">
+```model
 {
   "refreshing": false,
   "list": [
@@ -105,7 +105,7 @@ export default comRef(({data, outputs})=>{
     "数据项15"
   ]
 }
-</mybricks-file>
+```
 
 ## ScrollViewProps
 

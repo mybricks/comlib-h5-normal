@@ -7,18 +7,20 @@ ComponentType<VideoProps>
 
 ## 最佳实践
 必须生成样式文件来覆盖默认的固定宽高。
-<mybricks-file type="style" lang="less">
+```style
 .video {
   width: 100%;
   height: 100%;
 }
-</mybricks-file>
+```
 
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useCallback } from 'react';
 import { View, Video } from '@tarojs/components';
-import css from 'index.less';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Video
       id='video'
@@ -32,8 +34,11 @@ export default () => {
       muted={false}
     />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## VideoProps
 

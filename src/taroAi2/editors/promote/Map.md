@@ -6,15 +6,21 @@ ComponentType<MapProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useState } from 'react';
 import { Map } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Map onClick={() => {}} />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## MapProps
 

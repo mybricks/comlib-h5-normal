@@ -7,18 +7,24 @@ ComponentType<ButtonProps>
 
 ## 最佳实践
 ### 获取用户信息
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useState } from 'react';
 import { Button } from '@tarojs/components';
-export default () => {
+
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Button
       openType="getUserInfo"
       onGetUserInfo={(e) => console.log(e)}
     >获取用户信息</Button>
   )
-}
-</mybricks-file>
-
+}, {
+  type: 'main',
+  title: '示例组件'
+})
+```
 
 ## ButtonProps
 

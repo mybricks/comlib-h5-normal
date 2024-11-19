@@ -6,11 +6,13 @@ ComponentType<PickerSelectorProps | PickerMultiSelectorProps | PickerTimeProps |
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
 import { useState } from 'react';
 import { View, Text, Picker } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   const [state, setState] = useState({
     selector: ['美国', '中国', '巴西', '日本'],
     selectorChecked: '美国',
@@ -78,8 +80,11 @@ export default () => {
       </View>
     </View>
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## PickerStandardProps
 

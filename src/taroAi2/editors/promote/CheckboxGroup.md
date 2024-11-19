@@ -9,12 +9,13 @@ ComponentType<CheckboxGroupProps>
 
 - 生成一个多选框组件，可以通过 `<CheckboxGroup/>` 的 `onChange` 事件获取选中项的 value 数组
   
-<mybricks-file type="render" lang="jsx">
-import { CheckboxGroup, Checkbox, Label, View } from '@tarojs/components';
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
 import { useState } from 'react';
-import { comRef } from 'mybricks'; 
+import { CheckboxGroup, Checkbox, Label, View } from '@tarojs/components';
 
-export default comRef(({ outputs }) => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   const [state, setState] = useState({
     options: [
       { value: 'A', text: '选项A', checked: false },
@@ -59,7 +60,7 @@ export default comRef(({ outputs }) => {
     }
   ]
 });
-</mybricks-file>
+```
 
 ## CheckboxGroupProps
 

@@ -7,12 +7,13 @@ ComponentType<PickerViewProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
 import { useState } from 'react';
 import { View, PickerView, PickerViewColumn } from '@tarojs/components';
-import css from 'index.less';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   const [state, setState] = useState({
     "years": [
       2023,
@@ -76,8 +77,11 @@ export default () => {
       </PickerView>
     </View>
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## PickerViewProps
 

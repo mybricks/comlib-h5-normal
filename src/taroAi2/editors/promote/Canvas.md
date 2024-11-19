@@ -6,15 +6,21 @@ ComponentType<CanvasProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useState } from 'react';
 import { Canvas } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Canvas style='width: 300px; height: 200px;' canvasId='canvas' />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## CanvasProps
 

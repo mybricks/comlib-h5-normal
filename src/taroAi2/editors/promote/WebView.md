@@ -6,15 +6,21 @@ ComponentType<WebViewProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useCallback } from 'react';
 import { WebView } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <WebView src='https://mp.weixin.qq.com/' onMessage={() => {}} />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## WebViewProps
 

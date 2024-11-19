@@ -6,10 +6,13 @@ ComponentType<SliderProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useCallback } from 'react';
 import { Slider } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   const [value, setValue] = useState(50);
   return (
     <Slider
@@ -23,8 +26,11 @@ export default () => {
       }}
     />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## SliderProps
 

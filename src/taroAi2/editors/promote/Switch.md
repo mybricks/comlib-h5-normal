@@ -6,18 +6,24 @@ ComponentType<SwitchProps>
 ```
 
 ## 最佳实践
-<mybricks-file type="render" lang="jsx">
+```render
+import { comRef } from 'mybricks';
+import css from 'style.less';
+import { useCallback } from 'react';
 import { Switch } from '@tarojs/components';
 
-export default () => {
+export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Switch
       checked
       onChange={e => console.log(e.detail.value)}
     />
   )
-}
-</mybricks-file>
+}, {
+  type: 'main',
+  title: '示例组件'
+});
+```
 
 ## SwitchProps
 

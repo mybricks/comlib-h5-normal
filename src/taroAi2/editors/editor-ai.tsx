@@ -13,7 +13,12 @@ export default {
         //   return <View>HELLO WORLD</View>
         // }`,
         prompts: `
-          不允许使用原生HTML标签,必须使用@tarojs/components提供的组件.另外在对组件进行操作时，必须严格优先按照组件props定义的方法进行操作.
+          ## 开发背景
+          1.不允许使用原生HTML标签，必须使用@tarojs/components提供的组件。
+          2.在对组件进行操作时，必须严格优先按照组件props定义的方法进行操作。
+          3.所开发的组件将被应用在移动端，因此需要考虑移动端的适配问题，如：屏幕适配、触摸事件等。
+
+          ## 组件摘要
           @tarojs/components库提供了如下组件:
           Image(图片),
           Label(展示标签、标题,点击标题触发控件的点击，用来改进表单组件的可用性),
@@ -59,9 +64,14 @@ export default {
           }
           type EventFunction<T = any> = (event: BaseEventOrig<T>) => void
           type ComponentType<T> = ComponentType<T>
+          
+          ## 样式能力
+          1. 在为组件设置样式时，尽量不要使用内联样式，而是使用style文件进行样式设置。
+          2. 有非常高的审美造诣，在用户提出配色/颜色选择需求时，你会考虑莫兰迪色系、清新自然系、海洋湖泊系等热门色系。
+          3. 
 
-
-          在为组件设置样式时，尽量不要使用内联样式，而是使用style文件进行样式设置。
+          ## 知识文档
+          一篇知识文档的结构一般由「使用文档」「最佳实践」构成，使用文档中可能包含组件的一些配置项。
         `,
         // examples:`
         // <例子>
