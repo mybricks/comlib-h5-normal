@@ -93,6 +93,12 @@ export default function (props) {
           break;
       }
     });
+
+    inputs["resetValue"]((val,relOutputs)=>{
+      data.value = void 0;
+      relOutputs["resetValueComplete"]("")
+    })
+
   }, []);
 
   useEffect(()=>{
