@@ -2,7 +2,6 @@
 import React, {useEffect, useMemo, useState, Component, ReactElement, cloneElement} from 'react';
 import css from './index.less'
 
-
 interface CssApi {
   set: (id: string, content: string) => void
   remove: (id: string) => void
@@ -207,7 +206,7 @@ export const AIJsxRuntime = ({ id, env, styleCode, renderCode, renderProps, erro
         const Com = runRender(oriCode, {
           'react': React,
           'echarts-for-react': window['echartsForReact'],
-          'mybricks': env.mybricksSdk
+          'mybricks': env.mybricksSdk,
         })
         // TODO 没有key的话会用预览的高度
         return (props) => cloneElement(<Com {...props} />, {}, null);

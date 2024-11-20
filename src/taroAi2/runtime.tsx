@@ -3,6 +3,7 @@ import * as Taro from "@tarojs/components";
 import { View } from "@tarojs/components";
 import { isH5 } from "../utils/env";
 import H5 from "./h5";
+import { useF2 } from "./hooks/f2";
 
 function getComponent(render, require) {
   const exports = {
@@ -24,8 +25,6 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
     )
   }
 
-
-
   const ReactNode = useMemo(() => {
     try {
       let render = env.mybricksSdk.render(id);
@@ -37,6 +36,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         'react': React,
         '@tarojs/components': Taro,
         'mybricks': env.mybricksSdk,
+        'useF2': useF2
       })
       
       return (
