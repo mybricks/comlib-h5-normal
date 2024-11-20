@@ -41,7 +41,7 @@ const mdMap = {
   BUTTON: Button, // ✅ 📱✅开发一个小尺寸的主按钮，点击并且获取用户信息，用户信息语言设置为英文，同时它需要有点击事件，点击输出随机数
   CHECKBOX: Checkbox,// ✅ 📱✅开发一个多选框，选项有A、B、C （现在不提Label也会自动加上）
   CHECKBOXGROUP: CheckboxGroup, // ✅ 
-  EDITOR: Editor, // ❌ 开发一个富文本编辑器，支持撤回和重做功能（taro文档这块不全，且目前还没给最佳实践案例，撤回、重做等api完全生成不了）
+  EDITOR: Editor, // ✅ 📱✅ 开发一个富文本编辑器，支持撤回和重做功能
   FORM: Form, // ✅ 📱✅ 开发一个表单，输入用户名，身份证，密码，然后可以提交
   INPUT: Input, // ✅ 📱✅ 开发一个输入框，占位符颜色是红色的
   PROGRESS: Progress, // ✅ 📱✅ 开发一个进度条，进度条颜色是红色的
