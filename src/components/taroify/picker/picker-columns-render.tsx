@@ -102,22 +102,26 @@ function PickerColumnsRender(props: PickerColumnsRenderProps) {
     }),
   )
 
-  return (
-    <View
-      className={classNames(less.taroify_picker__columns, className)}
-      style={rootStyle}
-      catchMove
-      onTouchMove={preventDefault}
-      {...restProps}
-    >
-      {columnsRender}
-      <View className={less.taroify_picker__mask} style={maskStyle} />
+  if(children.length != 0){
+    return (
       <View
-        className={classNames([HAIRLINE_BORDER_UNSET_TOP_BOTTOM, less.taroify_picker__frame])}
-        style={frameStyle}
-      />
-    </View>
-  )
+        className={classNames(less.taroify_picker__columns, className)}
+        style={rootStyle}
+        catchMove
+        onTouchMove={preventDefault}
+        {...restProps}
+      >
+        {columnsRender}
+        <View className={less.taroify_picker__mask} style={maskStyle} />
+        <View
+          className={classNames([HAIRLINE_BORDER_UNSET_TOP_BOTTOM, less.taroify_picker__frame])}
+          style={frameStyle}
+        />
+      </View>
+    )
+  }
+
+
 }
 
 export default PickerColumnsRender
