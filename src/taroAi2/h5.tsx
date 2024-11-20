@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useRef, useCallback} from 'react';
 import {runRender} from './utils'
 import * as Taro from "@tarojs/components";
 import { View } from "@tarojs/components";
+import F2 from '@antv/f2';
 
 import { copyToClipboard } from "./utils/ai-code";
 import css from "./runtime.less";
@@ -137,6 +138,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
           'react': React,
           '@tarojs/components': Taro,
           'mybricks': env.mybricksSdk,
+          '@antv/f2': F2
         })
         return com
       } catch (error) {
