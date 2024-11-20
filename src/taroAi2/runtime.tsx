@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import * as Taro from "@tarojs/components";
+import * as TaroAPI from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { isH5 } from "../utils/env";
 import H5 from "./h5";
@@ -35,6 +36,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
       const Render = getComponent(render, {
         'react': React,
         '@tarojs/components': Taro,
+        '@tarojs/taro': TaroAPI,
         'mybricks': env.mybricksSdk,
         'useF2': useF2
       })

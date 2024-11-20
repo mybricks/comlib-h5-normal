@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useRef, useCallback} from 'react';
 import {runRender} from './utils'
 import * as Taro from "@tarojs/components";
+import * as TaroAPI from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { useF2 } from "./hooks/f2";
 import { copyToClipboard } from "./utils/ai-code";
@@ -136,6 +137,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         const com = runRender(oriCode, {
           'react': React,
           '@tarojs/components': Taro,
+          '@tarojs/taro': TaroAPI,
           'mybricks': env.mybricksSdk,
           'useF2': useF2
         })
