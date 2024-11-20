@@ -19,7 +19,7 @@ useF2 是一个基于@antv/f2 的封装库，可以更方便地在 React 项目�
 
 ## useF2 注意事项
 - ```const { chart, Canvas, ...props } = useF2(env);``` 特别注意：useF2函数的env参数是必须的，不可省略
-- 如果需要对 Canvas 进行尺寸调整，需要同时设置内联、外联样式。
+- 如果需要对 Canvas 进行尺寸调整，需要同时设置内联、外联样式，并且尽量给到 Canvas 一个默认的尺寸，比如{width: "100%", height: "100%"}。
 
 ## useF2 示例
 

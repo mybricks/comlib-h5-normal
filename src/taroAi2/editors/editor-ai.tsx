@@ -73,6 +73,8 @@ export default {
             });
           };
 
+          console.warn("~~~~~~", libs);
+
           Promise.all([
             new Promise((resolve, reject) => {
               getComponentFromJSX(response.render, libs).then((com) => {

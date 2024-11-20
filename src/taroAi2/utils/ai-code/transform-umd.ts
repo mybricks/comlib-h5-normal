@@ -27,7 +27,8 @@ export function getComponentFromJSX(jsxCode, libs: { mybricksSdk }): Promise<Fun
         const rtn = runRender(code, {
             'react': window['react'],
             'echarts-for-react': window['echartsForReact'],
-            'mybricks': libs.mybricksSdk
+            'mybricks': libs.mybricksSdk,
+            
           }
         )
 
