@@ -28,8 +28,6 @@ import Radio from './Radio.md';
 import RadioGroup from './RadioGroup.md';
 import Slider from './Slider.md';
 import Switch from './Switch.md';
-// import TabItem from './TabItem.md';
-// import Tabs from './Tabs.md';
 import Textarea from './Textarea.md';
 import Video from './Video.md';
 import WebView from './WebView.md';

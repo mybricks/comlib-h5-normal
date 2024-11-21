@@ -159,7 +159,7 @@ export default {
           {
             catelog: "激活样式",
             title: "图标",
-            type: "style",
+            type: "styleNew",
             options: {
               defaultOpen: true,
               plugins: ["size"],
@@ -183,7 +183,7 @@ export default {
           {
             catelog: "激活样式",
             title: "文案",
-            type: "style",
+            type: "styleNew",
             options: {
               defaultOpen: true,
               plugins: ["font"],
@@ -207,7 +207,7 @@ export default {
           {
             catelog: "默认样式",
             title: "图标",
-            type: "style",
+            type: "styleNew",
             options: {
               defaultOpen: true,
               plugins: ["size"],
@@ -231,7 +231,7 @@ export default {
           {
             catelog: "默认样式",
             title: "文案",
-            type: "style",
+            type: "styleNew",
             options: {
               defaultOpen: true,
               plugins: ["font"],
