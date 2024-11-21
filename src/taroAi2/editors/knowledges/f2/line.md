@@ -1,10 +1,14 @@
 ## 基础折线图示例代码
+要点
+- 使用*line*方法来绘制折线
+- 针对移动端屏幕，配置较小的*tickCount*时文字不会挤在一起
+
 ```render
 import { comRef } from 'mybricks';
 import { useEffect } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2 from "useF2";
+import useF2, { Line } from "useF2";
 
 export default comRef(({ data, env }) => {
   const { chart, Canvas, ...props } = useF2(env);
@@ -23,147 +27,6 @@ export default comRef(({ data, env }) => {
     }, {
       date: '2017-06-07',
       value: 135
-    }, {
-      date: '2017-06-08',
-      value: 86
-    }, {
-      date: '2017-06-09',
-      value: 73
-    }, {
-      date: '2017-06-10',
-      value: 85
-    }, {
-      date: '2017-06-11',
-      value: 73
-    }, {
-      date: '2017-06-12',
-      value: 68
-    }, {
-      date: '2017-06-13',
-      value: 92
-    }, {
-      date: '2017-06-14',
-      value: 130
-    }, {
-      date: '2017-06-15',
-      value: 245
-    }, {
-      date: '2017-06-16',
-      value: 139
-    }, {
-      date: '2017-06-17',
-      value: 115
-    }, {
-      date: '2017-06-18',
-      value: 111
-    }, {
-      date: '2017-06-19',
-      value: 309
-    }, {
-      date: '2017-06-20',
-      value: 206
-    }, {
-      date: '2017-06-21',
-      value: 137
-    }, {
-      date: '2017-06-22',
-      value: 128
-    }, {
-      date: '2017-06-23',
-      value: 85
-    }, {
-      date: '2017-06-24',
-      value: 94
-    }, {
-      date: '2017-06-25',
-      value: 71
-    }, {
-      date: '2017-06-26',
-      value: 106
-    }, {
-      date: '2017-06-27',
-      value: 84
-    }, {
-      date: '2017-06-28',
-      value: 93
-    }, {
-      date: '2017-06-29',
-      value: 85
-    }, {
-      date: '2017-06-30',
-      value: 73
-    }, {
-      date: '2017-07-01',
-      value: 83
-    }, {
-      date: '2017-07-02',
-      value: 125
-    }, {
-      date: '2017-07-03',
-      value: 107
-    }, {
-      date: '2017-07-04',
-      value: 82
-    }, {
-      date: '2017-07-05',
-      value: 44
-    }, {
-      date: '2017-07-06',
-      value: 72
-    }, {
-      date: '2017-07-07',
-      value: 106
-    }, {
-      date: '2017-07-08',
-      value: 107
-    }, {
-      date: '2017-07-09',
-      value: 66
-    }, {
-      date: '2017-07-10',
-      value: 91
-    }, {
-      date: '2017-07-11',
-      value: 92
-    }, {
-      date: '2017-07-12',
-      value: 113
-    }, {
-      date: '2017-07-13',
-      value: 107
-    }, {
-      date: '2017-07-14',
-      value: 131
-    }, {
-      date: '2017-07-15',
-      value: 111
-    }, {
-      date: '2017-07-16',
-      value: 64
-    }, {
-      date: '2017-07-17',
-      value: 69
-    }, {
-      date: '2017-07-18',
-      value: 88
-    }, {
-      date: '2017-07-19',
-      value: 77
-    }, {
-      date: '2017-07-20',
-      value: 83
-    }, {
-      date: '2017-07-21',
-      value: 111
-    }, {
-      date: '2017-07-22',
-      value: 57
-    }, {
-      date: '2017-07-23',
-      value: 55
-    }, {
-      date: '2017-07-24',
-      value: 60
     }];
 
     chart.source(data, {
@@ -174,30 +37,10 @@ export default comRef(({ data, env }) => {
       date: {
         type: 'timeCat',
         range: [ 0, 1 ],
-        tickCount: 3
+        tickCount: 3 // 日期太长，只展示三个
       }
     });
-    chart.tooltip({
-      custom: true,
-      showXTip: true,
-      showYTip: true,
-      snap: true,
-      crosshairsType: 'xy',
-      crosshairsStyle: {
-        lineDash: [ 2 ]
-      }
-    });
-    chart.axis('date', {
-      label: function label(text, index, total) {
-        const textCfg = {};
-        if (index === 0) {
-          textCfg.textAlign = 'left';
-        } else if (index === total - 1) {
-          textCfg.textAlign = 'right';
-        }
-        return textCfg;
-      }
-    });
+
     chart.line().position('date*value');
     chart.render();
 
@@ -210,6 +53,74 @@ export default comRef(({ data, env }) => {
   );
 }, {
   type: 'main',
-  title: '示例图表'
+  title: '基础折线图'
+});
+```
+
+## 对比折线图示例代码
+场景：常常在多条数据做对比时使用。
+要点：
+- 多条对比数据最终都汇总到一个数组里，用不同的*维度*指标作区分，比如下方代码就用*type*区分不同维度的线。
+
+```render
+import { comRef } from 'mybricks';
+import { useEffect } from 'react';
+import css from 'style.less';
+import { View } from "@tarojs/components";
+import useF2, { Line } from "useF2";
+
+export default comRef(({ data, env }) => {
+  const { chart, Canvas, ...props } = useF2(env);
+
+  useEffect(() => {
+    if (!chart) {
+      return;
+    }
+
+    const data = [
+      {
+        date: '2017-06-05',
+        type: '预期收益率',
+        value: 100
+      }, {
+        date: '2017-06-05',
+        type: '实际收益率',
+        value: 116
+      }, {
+        date: '2017-06-06',
+        type: '预期收益率',
+        value: 129
+      }, {
+        date: '2017-06-06',
+        type: '实际收益率',
+        value: 135
+      }
+    ];
+
+    chart.source(data, {
+      value: {
+        min: 0 // y轴从0开始绘制
+      },
+      date: {
+        type: 'timeCat',
+        range: [0, 1],
+        tickCount: 3
+      }
+    });
+    chart.line()
+      .position('date*value')
+      .color('type'); // 用type作为维度来绘制不同的线
+    chart.render();
+
+  }, [chart, data.dataSource]);
+
+  return (
+    <View className={css.myChart}>
+      <Canvas className={css.canvas} {...props} />
+    </View>
+  );
+}, {
+  type: 'main',
+  title: '对比折线图'
 });
 ```

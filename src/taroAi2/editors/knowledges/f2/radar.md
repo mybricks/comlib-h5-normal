@@ -4,7 +4,7 @@ import { comRef } from 'mybricks';
 import { useEffect } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2 from "useF2";
+import useF2, { Radar } from "useF2";
 
 export default comRef(({ data, env }) => {
   const { chart, Canvas, ...props } = useF2(env);

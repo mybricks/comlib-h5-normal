@@ -2,6 +2,12 @@ declare module "*.less" {
   const resource: { [key: string]: string };
   export = resource;
 }
+
+declare module '*.md' {
+  const content: string;
+  export default content;
+}
+
 interface RuntimeParams<T> {
   /** 环境注入 */
   env: Env;

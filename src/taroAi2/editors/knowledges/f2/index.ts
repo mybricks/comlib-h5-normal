@@ -1,20 +1,20 @@
 import Area from "./area.md";
 import Funnel from "./funnel.md";
-import Interval1 from "./interval1.md";
-import Interval2 from "./interval2.md";
+import Column from "./column.md";
+import Bar from "./bar.md";
 import Line from "./line.md";
 import Pie from "./pie.md";
-import Polygon from "./polygon.md";
+import Heatmap from "./heatmap.md";
 import Radar from "./radar.md";
 
 const mdMap = {
   AREA: Area,
   FUNNEL: Funnel,
-  INTERVAL1: Interval1,
-  INTERVAL2: Interval2,
+  COLUMN: Column,
+  BAR: Bar,
   LINE: Line,
   PIE: Pie,
-  POLYGON: Polygon,
+  HEATMAP: Heatmap,
   RADAR: Radar,
 };
 

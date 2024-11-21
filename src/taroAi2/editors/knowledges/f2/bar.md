@@ -4,7 +4,7 @@ import { comRef } from 'mybricks';
 import { useEffect } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2 from "useF2";
+import useF2, { Bar } from "useF2";
 
 export default comRef(({ data, env }) => {
   const { chart, Canvas, ...props } = useF2(env);
@@ -20,24 +20,6 @@ export default comRef(({ data, env }) => {
     }, {
       year: '1952 年',
       sales: 52
-    }, {
-      year: '1956 年',
-      sales: 61
-    }, {
-      year: '1957 年',
-      sales: 145
-    }, {
-      year: '1958 年',
-      sales: 48
-    }, {
-      year: '1959 年',
-      sales: 38
-    }, {
-      year: '1960 年',
-      sales: 38
-    }, {
-      year: '1962 年',
-      sales: 38
     }];
 
     chart.source(data, {
@@ -47,15 +29,6 @@ export default comRef(({ data, env }) => {
     });
     chart.coord({
       transposed: true
-    });
-    chart.tooltip({
-      showItemMarker: false,
-      onShow: function onShow(ev) {
-        const items = ev.items;
-        items[0].name = null;
-        items[0].name = items[0].title;
-        items[0].value = '¥ ' + items[0].value;
-      }
     });
     chart.interval().position('year*sales');
     chart.render();

@@ -1,10 +1,26 @@
 ## 基础饼图示例代码
+要点
+- 绘制饼图时，数据集中的每一条记录中必须包含一个常量字段（并且必须是字符串类型），用来当作*position*方法的第一个字段，如下面的字段*a*所示：
+```
+const data = [
+  { name: '芳华', percent: 0.4, a: '1' },
+  { name: '妖猫传', percent: 0.2, a: '1' },
+  { name: '机器之血', percent: 0.18, a: '1' },
+  { name: '心理罪', percent: 0.15, a: '1' },
+  { name: '寻梦环游记', percent: 0.05, a: '1' },
+  { name: '其他', percent: 0.02, a: '1' }
+];
+```
+- 配置*coord*极坐标，关闭*axis*直角坐标
+- 为了查看和交互更直观，常常关闭*tooltip*能力，直接地用*legend*来展示百分比数据
+- 添加*animate*效果让展示更丝滑
+
 ```render
 import { comRef } from 'mybricks';
 import { useEffect } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2 from "useF2";
+import useF2, { Pie } from "useF2";
 
 export default comRef(({ data, env }) => {
   const { chart, Canvas, ...props } = useF2(env);
@@ -55,6 +71,13 @@ export default comRef(({ data, env }) => {
         }
       }
     });
+
+    chart.coord('polar', {
+      transposed: true,
+      radius: 0.85
+    });
+    chart.axis(false);
+
     chart.legend({
       position: 'right',
       itemFormatter: function itemFormatter(val) {
@@ -62,22 +85,19 @@ export default comRef(({ data, env }) => {
       }
     });
     chart.tooltip(false);
-    chart.coord('polar', {
-      transposed: true,
-      radius: 0.85
-    });
-    chart.axis(false);
+
     chart.interval()
       .position('a*percent')
-      .color('name', [ '#1890FF', '#13C2C2', '#2FC25B', '#FACC14', '#F04864', '#8543E0' ])
+      .color('name')
       .adjust('stack')
-      .style({
+      .style({ // 给每个扇形都增加1px的白线当作间距
         lineWidth: 1,
         stroke: '#fff',
         lineJoin: 'round',
         lineCap: 'round'
-      })
-      .animate({
+      });
+
+    chart.animate({
         appear: {
           duration: 1200,
           easing: 'bounceOut'
