@@ -4,7 +4,10 @@ import * as TaroAPI from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { isH5 } from "../utils/env";
 import H5 from "./h5";
-import { useF2 } from "./hooks/f2";
+// import { f2-for-taro } from "./hooks/f2";
+import F2ForTaro from './f2-for-taro';
+
+console.log(12312213)
 
 function getComponent(render, require) {
   const exports = {
@@ -35,10 +38,10 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
 
       const Render = getComponent(render, {
         'react': React,
+        'mybricks': env.mybricksSdk,
         '@tarojs/components': Taro,
         '@tarojs/taro': TaroAPI,
-        'mybricks': env.mybricksSdk,
-        'useF2': useF2
+        'f2-for-taro': F2ForTaro,
       })
       
       return (

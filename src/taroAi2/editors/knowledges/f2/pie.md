@@ -17,13 +17,13 @@ const data = [
 
 ```render
 import { comRef } from 'mybricks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2, { Pie } from "useF2";
+import { Pie } from "f2-for-taro";
 
 export default comRef(({ data, env }) => {
-  const { chart, Canvas, ...props } = useF2(env);
+  const [chart, setChart] = useState(null);
 
   useEffect(() => {
     if (!chart) {
@@ -111,7 +111,7 @@ export default comRef(({ data, env }) => {
 
   return (
     <View className={css.myChart}>
-      <Canvas className={css.canvas} {...props} />
+      <Pie env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
 }, {

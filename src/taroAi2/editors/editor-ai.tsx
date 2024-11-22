@@ -8,6 +8,10 @@ import basePrompt from "./prompts/base.md";
 import taroComponentsPrompt from "./prompts/taro-components-summary.md";
 import f2Prompt from "./prompts/f2-summary.md";
 
+import F2ForTaro from './../f2-for-taro';
+import * as Taro from "@tarojs/components";
+import * as TaroAPI from "@tarojs/taro";
+
 export default {
   ":root": {
     active: true,
@@ -15,7 +19,7 @@ export default {
     getSystemPrompts() {
       return {
         langs:
-          "react、@tarojs/components、useF2、CSS、Javascript、Less、mybricks",
+          "react、@tarojs/components、f2-for-taro、CSS、Javascript、Less、mybricks",
         // renderFileTemplate: `({env,data,inputs,outputs,slots}) => {
         //   return <View>HELLO WORLD</View>
         // }`,
@@ -23,8 +27,7 @@ export default {
       };
     },
     loadKnowledge(items) {
-      console.log("loadKnowledge", items);
-      const rtn = [];
+      const rtn: any = [];
 
       items.forEach((now) => {
         const lib = now.lib || now.from;
@@ -42,7 +45,7 @@ export default {
             }
           }
 
-          if (lib === "useF2") {
+          if (lib === "f2-for-taro") {
             const upperCom = now.item.toUpperCase();
             const knowledge = getF2Knowledge(lib, upperCom);
             if (knowledge) {
@@ -77,7 +80,11 @@ export default {
 
           Promise.all([
             new Promise((resolve, reject) => {
-              getComponentFromJSX(response.render, libs).then((com) => {
+              getComponentFromJSX(response.render, libs, {
+                '@tarojs/components': Taro,
+                '@tarojs/taro': TaroAPI,
+                'f2-for-taro': F2ForTaro,
+              }).then((com) => {
                 resolve(com);
               });
             }),

@@ -3,7 +3,7 @@ import {runRender} from './utils'
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
 import { View } from "@tarojs/components";
-import { useF2 } from "./hooks/f2";
+import F2ForTaro from './f2-for-taro';
 import { copyToClipboard } from "./utils/ai-code";
 import css from "./runtime.less";
 
@@ -139,7 +139,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
           '@tarojs/components': Taro,
           '@tarojs/taro': TaroAPI,
           'mybricks': env.mybricksSdk,
-          'useF2': useF2
+          'f2-for-taro': F2ForTaro,
         })
         return com
       } catch (error) {

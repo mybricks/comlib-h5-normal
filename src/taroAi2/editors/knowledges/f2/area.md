@@ -2,13 +2,13 @@
 
 ```render
 import { comRef } from 'mybricks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2, { Area } from "useF2";
+import { Area } from "f2-for-taro";
 
 export default comRef(({ data, env }) => {
-  const { chart, Canvas, ...props } = useF2(env);
+  const [chart, setChart] = useState(null);
 
   useEffect(() => {
     if (!chart) {
@@ -35,11 +35,11 @@ export default comRef(({ data, env }) => {
 
   return (
     <View className={css.myChart}>
-      <Canvas className={css.canvas} {...props} />
+      <Area env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
 }, {
   type: 'main',
-  title: '示例图表'
+  title: '面积图'
 });
 ```
