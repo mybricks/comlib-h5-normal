@@ -1,13 +1,13 @@
 ## 基础条形图示例代码
 ```render
 import { comRef } from 'mybricks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
-import useF2, { Bar } from "useF2";
+import { Bar } from "f2-for-taro";
 
 export default comRef(({ data, env }) => {
-  const { chart, Canvas, events, ...props } = useF2(env);
+  const [chart, setChart] = useState(null);
 
   useEffect(() => {
     if (!chart) {
@@ -39,8 +39,8 @@ export default comRef(({ data, env }) => {
   }, [chart, data.dataSource]);
 
   return (
-    <View className={css.myChart} {...events}>
-      <Canvas className={css.canvas} {...props} />
+    <View className={css.myChart}>
+      <Bar env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
 }, {

@@ -19,7 +19,7 @@ const mdMap = {
 };
 
 export default function getKnowledge(packageName: string, com: string) {
-  if (packageName === "useF2") {
+  if (packageName === "f2-for-taro") {
     const upperCom = com.toUpperCase();
     return mdMap[upperCom];
   }
