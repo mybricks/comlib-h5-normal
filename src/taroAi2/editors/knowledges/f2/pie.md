@@ -23,7 +23,7 @@ import { View } from "@tarojs/components";
 import useF2, { Pie } from "useF2";
 
 export default comRef(({ data, env }) => {
-  const { chart, Canvas, ...props } = useF2(env);
+  const { chart, Canvas, events, ...props } = useF2(env);
 
   useEffect(() => {
     if (!chart) {
@@ -110,7 +110,7 @@ export default comRef(({ data, env }) => {
   }, [chart, data.dataSource]);
 
   return (
-    <View className={css.myChart}>
+    <View className={css.myChart} {...events}>
       <Canvas className={css.canvas} {...props} />
     </View>
   );
@@ -118,4 +118,11 @@ export default comRef(({ data, env }) => {
   type: 'main',
   title: '示例图表'
 });
+```
+
+```style
+.canvas{
+  width: 100%;
+  height: 100%;
+}
 ```
