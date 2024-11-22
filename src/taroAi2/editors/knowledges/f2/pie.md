@@ -30,6 +30,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const map = {
       芳华: '40%',
       妖猫传: '20%',

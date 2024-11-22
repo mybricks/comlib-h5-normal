@@ -80,4 +80,52 @@ export default comRef(({ data, env }) => {
 }
 ```
 
-## API 
+### axis
+
+坐标轴配置。
+
+```
+chart.axis(false)
+```
+
+不渲染坐标轴。
+
+```
+chart.axis(field, false)
+```
+
+关闭 field 对应的坐标轴。
+field 代表坐标轴对应的数据字段名。
+
+```
+chart.axis(field, config)
+```
+
+为 field 对应的坐标轴进行配置。
+field 代表坐标轴对应的数据字段名。
+
+config 坐标轴的配置信息，可对坐标轴的各个组成元素进行配置，config 是由以下参数组成的对象：
+
+| 属性        | 类型                 | 使用说明                                                                                                                                                                                                                                      |
+| ----------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| line        | Object/null          | 坐标轴的配置信息，设置 null 时不显示，支持所有的 canvas 属性，参考绘图属性，如需调整显示层级，可设置 top: true 展示在最上层图形或者 top: false 展示在最下层图形。                                                                             |
+| labelOffset | Number               | 坐标轴文本距离                                                                                                                                                                                                                                |
+| grid        | Object/Function/null | 坐标轴网格线的样式配置，设置 null 时不显示，支持所有的 canvas 属性，参考绘图属性，支持回调函数，另外在极坐标下，可以通过配置 type: 'arc'将其绘制为圆弧；如需调整显示层级，可设置 top: true 展示在最上层图形或者 top: false 展示在最下层图形。 |
+| tickLine    | Object/null          | 坐标轴刻度线的配置项，设置 null 时不显示，支持所有的 canvas 属性，参考绘图属性，支持回调函数，如需调整显示层级，可设置 top: true 展示在最上层图形或者 top: false 展示在最下层图形。                                                           |
+| label       | Object/Function/null | 坐标轴文本配置，设置 null 时不显示，支持所有的 canvas 属性，参考绘图属性，支持回调函数，如需调整显示层级，可设置 top: true 展示在最上层图形或者 top: false 展示在最下层图形。                                                                 |
+| position    | String               | 坐标轴显示位置，x 轴默认位于底部'bottom'，y 轴可设置 position 为'left'、'right'                                                                                                                                                               |
+
+注意: grid 和 label 为回调函数时，返回值必须是对象!
+
+### 横滑
+```
+chart.interaction('pan');
+
+// 定义进度条
+chart.scrollBar({
+  mode: 'x',
+  xStyle: {
+    offsetY: -5
+  }
+});
+```

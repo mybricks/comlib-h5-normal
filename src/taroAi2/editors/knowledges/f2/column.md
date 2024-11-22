@@ -14,6 +14,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [{
       year: '1951 年',
       sales: 38

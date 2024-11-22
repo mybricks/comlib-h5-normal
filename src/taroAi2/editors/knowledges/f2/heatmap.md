@@ -14,6 +14,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [
       [ 0, 0, 10 ],
       [ 0, 1, 19 ],

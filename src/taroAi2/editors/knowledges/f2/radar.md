@@ -14,6 +14,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [{
       item: 'Design',
       user: '用户 A',

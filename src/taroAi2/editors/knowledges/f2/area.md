@@ -15,6 +15,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [{
       time: 'Jan.',
       tem: 1000

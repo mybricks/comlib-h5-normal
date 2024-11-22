@@ -18,6 +18,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [{
       date: '2017-06-05',
       value: 116
