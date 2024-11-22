@@ -133,3 +133,16 @@ export default comRef(({ data, env }) => {
   height: 100%;
 }
 ```
+
+
+## 折线图平移示例代码
+```
+chart.interaction('pan');
+// 定义进度条
+chart.scrollBar({
+  mode: 'x',
+  xStyle: {
+    offsetY: -5
+  }
+});
+```

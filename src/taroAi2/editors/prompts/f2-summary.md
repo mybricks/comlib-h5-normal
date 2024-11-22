@@ -82,6 +82,93 @@ export default comRef(({ data, env }) => {
 }
 ```
 
+### source
+装载数据
+
+```
+chart.source(data)
+```
+data：Array，可视化数据
+
+
+```
+chart.source(data, colDefs)
+```
+data：Array，可视化数据
+colDefs：Object，可选，列定义配置（各个字段的度量配置）
+
+```
+chart.source(data, {
+  a: {
+    min: 0,
+    max: 100
+  }
+});
+```
+
+图表数据的列定义用于对数据字段进行定义，如数据的类型，显示别名，数值的格式化等，不同的数字类型的配置项不同，支持的数据类型有：
+- linear: 数值类型
+- cat: 分类类型
+- timeCat：时间类型
+
+
+### scale
+度量 Scale，是数据空间到图形空间的转换桥梁，负责原始数据到 [0, 1] 区间数值的相互转换工作。针对不同的数据类型对应不同类型的度量。
+根据数据的类型，F2 支持以下几种度量类型：
+● identity，常量类型的数值，也就是说数据的某个字段是不变的常量；
+● linear，连续的数字 [1, 2, 3, 4, 5]；
+● cat，分类, ['男','女']；
+● timeCat，时间类型；
+在 F2 的使用中，我们主要通过列定义操作来接触度量：
+
+```
+const data = [
+  { a: 'a', b: 20 },
+  { a: 'b', b: 12 },
+  { a: 'c', b: 8 },
+];
+const defs = {
+  a: {
+    type: 'cat' // 声明 a 字段的类型
+  },
+  b: {
+    min: 0, // 手动指定最小值
+    max: 100 // 手动指定最大值
+  }
+};
+
+chart.source(data, defs);
+```
+
+#### 通用属性
+```
+chart.scale('fieldName', {
+  // 各个属性配置
+});
+```
+
+| 属性名 | 类型 | 说明 |
+|----|----|----|
+| type | String | 指定不同的度量类型，支持的type为identity、linear、cat、time、ecat。 |
+| formatter | Function | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴axis、图例legend、提示信息tooltip上的显示。 |
+| range | Array | 输出数据的范围，数值类型的默认值为[0, 1]，格式为[min, max]，min和max均为0至1范围的数据。 |
+| alias | String | 该数据字段的显示别名，一般用于将字段的英文名转换成中文名。 |
+| tickCount | Number | 坐标轴上刻度点的个数，不同的度量类型对应不同的默认值。 |
+| ticks | Array | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
+
+```
+chart.scale('aqi',  {
+  min: 0,
+  ticks: [ 0, 50, 100, 150, 200, 300, 500 ],
+  alias: 'AQI(空气质量指数)',
+});
+```
+
+#### 各个 Scale 类型对应的属性
+
+
+
+
 ### axis
 
 坐标轴配置。
@@ -119,15 +206,3 @@ config 坐标轴的配置信息，可对坐标轴的各个组成元素进行配�
 
 注意: grid 和 label 为回调函数时，返回值必须是对象!
 
-### 横滑
-```
-chart.interaction('pan');
-
-// 定义进度条
-chart.scrollBar({
-  mode: 'x',
-  xStyle: {
-    offsetY: -5
-  }
-});
-```

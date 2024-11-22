@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { Canvas as TaroCanvas } from "@tarojs/components";
+import { View, Canvas as TaroCanvas } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import F2 from "@antv/f2";
 import ScrollBar from "@antv/f2/lib/plugin/scroll-bar";
@@ -144,7 +144,11 @@ const Chart = ({ env, onInit }) => {
     };
   }, []);
 
-  return <Canvas style={{ width: '100%', height: '100%' }} id={chartId.current} events={events} type="2d" />
+  return (
+    <View style={{ width: '100%', height: '100%' }} {...events}>
+      <Canvas style={{ width: '100%', height: '100%' }} id={chartId.current} type="2d" />
+    </View>
+  )
 }
 
 function createSelfReferencingFunction() {
