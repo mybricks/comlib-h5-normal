@@ -70,10 +70,16 @@ export default comRef(({ data, env }) => {
 });
 ```
 
-```less
+```style
 .myChart {
+  width: 100%;
+  height: 100%;
+}
+
+.canvas{
   width: 100%;
   height: 100%;
 }
 ```
 
+## API 

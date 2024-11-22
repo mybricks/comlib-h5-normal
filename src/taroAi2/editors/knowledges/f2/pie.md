@@ -119,3 +119,10 @@ export default comRef(({ data, env }) => {
   title: '示例图表'
 });
 ```
+
+```style
+.canvas{
+  width: 100%;
+  height: 100%;
+}
+```
