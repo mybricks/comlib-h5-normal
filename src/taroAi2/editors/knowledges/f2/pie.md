@@ -1,16 +1,21 @@
 ## 基础饼图示例代码
+
 要点
+
 - 绘制饼图时，数据集中的每一条记录中必须包含一个常量字段（并且必须是字符串类型），用来当作*position*方法的第一个字段，如下面的字段*a*所示：
+
+```model
+{"dataSource": [
+    { name: '芳华', percent: 0.4, a: '1' },
+    { name: '妖猫传', percent: 0.2, a: '1' },
+    { name: '机器之血', percent: 0.18, a: '1' },
+    { name: '心理罪', percent: 0.15, a: '1' },
+    { name: '寻梦环游记', percent: 0.05, a: '1' },
+    { name: '其他', percent: 0.02, a: '1' }
+  ]
+}
 ```
-const data = [
-  { name: '芳华', percent: 0.4, a: '1' },
-  { name: '妖猫传', percent: 0.2, a: '1' },
-  { name: '机器之血', percent: 0.18, a: '1' },
-  { name: '心理罪', percent: 0.15, a: '1' },
-  { name: '寻梦环游记', percent: 0.05, a: '1' },
-  { name: '其他', percent: 0.02, a: '1' }
-];
-```
+
 - 配置*coord*极坐标，关闭*axis*直角坐标
 - 为了查看和交互更直观，常常关闭*tooltip*能力，直接地用*legend*来展示百分比数据
 - 添加*animate*效果让展示更丝滑
@@ -40,37 +45,12 @@ export default comRef(({ data, env }) => {
       寻梦环游记: '5%',
       其他: '2%'
     };
-    const data = [{
-      name: '芳华',
-      percent: 0.4,
-      a: '1'
-    }, {
-      name: '妖猫传',
-      percent: 0.2,
-      a: '1'
-    }, {
-      name: '机器之血',
-      percent: 0.18,
-      a: '1'
-    }, {
-      name: '心理罪',
-      percent: 0.15,
-      a: '1'
-    }, {
-      name: '寻梦环游记',
-      percent: 0.05,
-      a: '1'
-    }, {
-      name: '其他',
-      percent: 0.02,
-      a: '1'
-    }];
 
-    chart.source(data, {
-      percent: {
-        formatter: function formatter(val) {
-          return val * 100 + '%';
-        }
+    chart.source(data.dataSource);
+
+    chart.scale('percent', {
+      formatter: function formatter(val) {
+        return val * 100 + '%';
       }
     });
 
@@ -78,6 +58,7 @@ export default comRef(({ data, env }) => {
       transposed: true,
       radius: 0.85
     });
+
     chart.axis(false);
 
     chart.legend({
@@ -86,6 +67,7 @@ export default comRef(({ data, env }) => {
         return val + '  ' + map[val];
       }
     });
+
     chart.tooltip(false);
 
     chart.interval()
@@ -107,8 +89,6 @@ export default comRef(({ data, env }) => {
       });
 
     chart.render();
-
-
   }, [chart, data.dataSource]);
 
   return (
@@ -123,6 +103,10 @@ export default comRef(({ data, env }) => {
 ```
 
 ```style
+.myChart{
+  width: 100%;
+  height: 100%;
+}
 .canvas{
   width: 100%;
   height: 100%;

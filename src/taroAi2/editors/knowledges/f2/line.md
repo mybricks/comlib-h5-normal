@@ -194,7 +194,6 @@ export default comRef(({ data, env }) => {
 
     chart.line().position('date*value');
     chart.render();
-
   }, [chart, data.dataSource]);
 
   return (

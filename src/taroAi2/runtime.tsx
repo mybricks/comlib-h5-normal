@@ -4,10 +4,7 @@ import * as TaroAPI from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { isH5 } from "../utils/env";
 import H5 from "./h5";
-// import { f2-for-taro } from "./hooks/f2";
 import F2ForTaro from './f2-for-taro';
-
-console.log(12312213)
 
 function getComponent(render, require) {
   const exports = {
