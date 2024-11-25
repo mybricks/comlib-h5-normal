@@ -27,6 +27,7 @@ export default {
       };
     },
     loadKnowledge(items) {
+      console.log("loadKnowledge", items);
       const rtn: any = [];
 
       items.forEach((now) => {
@@ -48,6 +49,7 @@ export default {
           if (lib === "f2-for-taro") {
             const upperCom = now.item.toUpperCase();
             const knowledge = getF2Knowledge(lib, upperCom);
+
             if (knowledge) {
               rtn.push({
                 from: lib,
@@ -59,6 +61,8 @@ export default {
           }
         }
       });
+
+      console.warn("loadKnowledge", rtn);
 
       return rtn;
     },
