@@ -19,6 +19,7 @@ f2-for-taro 是一个基于@antv/f2 的封装库，可以更方便地在 React �
 ## f2-for-taro 注意事项
 - 引用f2-for-taro时，一定要引入所使用的图表类型，比如```import { Line, Pie } from 'f2-for-taro'```则代表引入了 Line、Pie两种类型的图表。
 - 使用f2-for-taro时，必须引入@tarojs/components类库的*View*组件。
+- 使用对应的图表组件时，必须传入*env*这个props，同时通过*onInit*props获取图表实例，比如```<Line env={env} onInit={(ref) => setChart(ref)} />```。
 
 ## f2-for-taro 示例
 要点
