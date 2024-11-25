@@ -54,6 +54,15 @@ export default comRef(({ data, env }) => {
 
     chart.source(dataSource);
 
+    chart.scale('date', {
+      min: 0,
+      type: 'timeCat',
+    });
+
+    chart.scale('value', {
+      min: 0,
+    });
+
     chart.line().position('date*value');
     chart.render();
 
@@ -142,7 +151,6 @@ const data = [
   { time: '2015-09-11', range: [ 6.87, 6.81, 7.01, 6.68 ], trend: 1 }
 ];
 ```
-
 
 ### 度量
 度量 Scale，是数据空间到图形空间的转换桥梁，负责原始数据到 [0, 1] 区间数值的相互转换工作。针对不同的数据类型对应不同类型的度量。
