@@ -18,6 +18,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [{
       date: '2017-06-05',
       value: 116
@@ -130,4 +132,17 @@ export default comRef(({ data, env }) => {
   width: 100%;
   height: 100%;
 }
+```
+
+
+## 折线图平移示例代码
+```
+chart.interaction('pan');
+// 定义进度条
+chart.scrollBar({
+  mode: 'x',
+  xStyle: {
+    offsetY: -5
+  }
+});
 ```

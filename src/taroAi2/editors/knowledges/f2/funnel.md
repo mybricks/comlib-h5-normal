@@ -14,6 +14,8 @@ export default comRef(({ data, env }) => {
       return;
     }
 
+    chart.clear();
+
     const data = [
       { action: '浏览网站', pv: 50000, percent: 1 },
       { action: '放入购物车', pv: 35000, percent: 0.7 },
