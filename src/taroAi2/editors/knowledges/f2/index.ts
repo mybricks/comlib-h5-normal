@@ -1,15 +1,13 @@
-import Base from "./base.md";
-import Area from "./area.md";
-import Funnel from "./funnel.md";
-import Column from "./column.md";
-import Bar from "./bar.md";
+import Area from "./area.ts";
+import Funnel from "./funnel.ts";
+import Column from "./column.ts";
+import Bar from "./bar.ts";
 import Line from "./line.ts";
-import Pie from "./pie.md";
-import Heatmap from "./heatmap.md";
-import Radar from "./radar.md";
+import Pie from "./pie.ts";
+import Heatmap from "./heatmap.ts";
+import Radar from "./radar.ts";
 
 const mdMap = {
-  BASE: Base,
   AREA: Area,
   FUNNEL: Funnel,
   COLUMN: Column,

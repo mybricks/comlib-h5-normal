@@ -22,6 +22,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 }, {
   type: 'main',
   title: '示例组件'
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

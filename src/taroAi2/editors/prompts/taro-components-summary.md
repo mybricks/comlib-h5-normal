@@ -7,7 +7,7 @@
 - Image(图片),
 - Label(展示标签、标题,点击标题触发控件的点击，用来改进表单组件的可用性),
 - Picker(从底部弹起的滚动选择器,包含普通、多列、时间、日期、省市区选择器),
-- Button(按钮,带有openType类型的按钮优先考虑使用),,
+- Button(按钮,带有openType类型的按钮优先考虑使用),
 - Checkbox(多选框),
 - CheckboxGroup(多选框组),
 - Editor(富文本编辑器),
@@ -139,73 +139,8 @@ type ComponentType<T> = ComponentType<T>
       </View>
     );
   }, {
-    type: 'main',
-    title: 'Tab组件',
-    selectors: [
-      {
-        selector: ':root',
-        title: 'Tab组件',
-        configs: [
-          {
-            title: '背景颜色',
-            type: 'style',
-            options: ['background']
-          }
-        ]
-      },
-      {
-        selector: '.tab',
-        title: '标签',
-        configs: [
-          {
-            title: '字体',
-            type: 'style',
-            options: ['font', 'color']
-          }
-        ]
-    },
-    {
-      selector: '.activeTab',
-      title: '激活标签',
-      configs: [
-        {
-          title: '激活背景颜色',
-          type: 'style',
-          options: ['background']
-        }
-      ]
-    },
-    {
-      selector: '.tabContent',
-      title: '内容区域',
-      configs: [
-        {
-          title: '字体',
-          type: 'style',
-          options: ['font', 'color']
-        },
-        {
-          title: '背景颜色',
-          type: 'style',
-          options: ['background']
-        }
-      ]
-    }
-  ],
-  slots: [
-    {
-      id: 's_content_标签1',
-      title: '内容插槽-标签1'
-    },
-    {
-      id: 's_content_标签2',
-      title: '内容插槽-标签2'
-    },
-    {
-      id: 's_content_标签3',
-      title: '内容插槽-标签3'
-    }
-  ]
-});
+    type: "main"
+    title: "组件",
+  });
 
   ```

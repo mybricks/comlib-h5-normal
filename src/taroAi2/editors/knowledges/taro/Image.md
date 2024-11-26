@@ -18,6 +18,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       src='https://temp.im/300x100'
     />
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

@@ -29,6 +29,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       <Button formType="submit">提交表单</Button>
     </Form>
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

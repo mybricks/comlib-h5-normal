@@ -19,6 +19,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       onChange={e => console.log(e.detail.value)}
     />
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

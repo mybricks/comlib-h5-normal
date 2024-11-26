@@ -159,6 +159,9 @@ export default comRef(({ data,env, inputs, outputs, slots }) => {
       </Editor>
     </View>
   );
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

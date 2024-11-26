@@ -7,6 +7,7 @@ f2-for-taro 是一个基于@antv/f2 的封装库，可以更方便地在 React �
 - 依赖库：@antv/f2 的 3.8.12 版本
 
 ## f2-for-taro 组件摘要
+
 - 折线图（Line）：用于展现数据随时间或有序类别的变化趋势，通过点和线的连接，清晰地展示数据的上升、下降或平稳趋势，包含折线图、对比折线图。
 - 面积图（Area）：适用于展示数据的累积变化情况，类似于折线图，但通过填充线下的区域来强调总量的变化，包含面积图、堆叠面积图。
 - 柱状图（Column）：一系列垂直的柱状图形，适用于比较不同类别之间的数值大小，通常用于展示离散数据，包含柱状图、堆叠柱状图、分组柱状图。
@@ -17,13 +18,16 @@ f2-for-taro 是一个基于@antv/f2 的封装库，可以更方便地在 React �
 - 热力图（Heatmap）：通过颜色变化展示数据的密集度和分布，包含热力图、日历热力图、地图热力图。
 
 ## f2-for-taro 注意事项
-- 引用f2-for-taro时，一定要引入所使用的图表类型，比如```import { Line, Pie } from 'f2-for-taro'```则代表引入了 Line、Pie两种类型的图表。
-- 使用f2-for-taro时，必须引入@tarojs/components类库的*View*组件。
-- 使用对应的图表组件时，必须传入*env*这个props，同时通过*onInit*props获取图表实例，比如```<Line env={env} onInit={(ref) => setChart(ref)} />```。
-- 图表横滑不要使用```ScrollView```
+
+- 引用 f2-for-taro 时，一定要引入所使用的图表类型，比如`import { Line, Pie } from 'f2-for-taro'`则代表引入了 Line、Pie 两种类型的图表。
+- 使用 f2-for-taro 时，必须引入@tarojs/components 类库的*View*组件。
+- 使用对应的图表组件时，必须传入*env*这个 props，同时通过*onInit*props 获取图表实例，比如`<Line env={env} onInit={(ref) => setChart(ref)} />`。
+- 图表横滑不要使用`ScrollView`
 
 ## f2-for-taro 示例
+
 要点
+
 - 必须引入 @tarojs/components 类库的*View*组件
 - 引入*f2-for-taro*对应的图表组件
 - 使用*onInit*方法获取图表实例
@@ -76,8 +80,8 @@ export default comRef(({ data, env }) => {
     </View>
   );
 }, {
-  type: 'main',
-  title: '折线图'
+  type: "main"
+  title: "组件",
 });
 ```
 
@@ -96,7 +100,9 @@ export default comRef(({ data, env }) => {
 ## f2-for-taro 基础 API 用法
 
 ### 数据
+
 数据是绘制一张图表最基本的部分。F2 支持的数据格式及装载数据的方法如下：
+
 ```
 // 数据
 const data = [
@@ -117,6 +123,7 @@ chart.source(data);
 
 **特殊图表的数据说明**
 饼图：绘制饼图时，数据集中的每一条记录中必须包含一个常量字段（并且必须是字符串类型），如下所示：
+
 ```
 const data = [
   { name: '芳华', percent: 0.4, a: '1' },
@@ -129,6 +136,7 @@ const data = [
 ```
 
 区间柱状图：当 x 轴或者 y 轴的数据为数组时，我们默认会将映射为一段区间，进而绘制为区间柱状图。如下数据格式：
+
 ```
 const data = [
   { x: '分类一', y: [ 76, 100 ] },
@@ -143,6 +151,7 @@ const data = [
 ```
 
 股票图：股票图的 Y 轴数据由收盘价、开盘价、最高价和最低价组成，所以在绘制时，需要将 Y 轴对应的数据构造成一个数组（不用进行排序），如下所示：
+
 ```
 const data = [
   { time: '2015-09-02', range: [ 6.2, 5.99, 6.84, 5.98 ], trend:1 },
@@ -155,15 +164,18 @@ const data = [
 ```
 
 ### 度量
+
 度量 Scale，是数据空间到图形空间的转换桥梁，负责原始数据到 [0, 1] 区间数值的相互转换工作。针对不同的数据类型对应不同类型的度量。
 
 根据数据的类型，F2 支持以下几种度量类型：
+
 - identity，常量类型的数值，也就是说数据的某个字段是不变的常量；
 - linear，连续的数字 [1, 2, 3, 4, 5]；
 - cat，分类, ['男','女']；
 - timeCat，时间类型；
 
 在 f2-for-taro 的使用中，我们主要通过列定义操作来接触度量：
+
 ```
 chart.scale('fieldName', {
   min: 0,
@@ -176,9 +188,9 @@ chart.scale('fieldName', {
 **通用属性**
 | 属性名 | 类型 | 说明 |
 |----|----|----|
-| type | String | 指定不同的度量类型，支持的type为identity、linear、cat、time、ecat。 |
-| formatter | Function | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴axis、图例legend、提示信息tooltip上的显示。 |
-| range | Array | 输出数据的范围，数值类型的默认值为[0, 1]，格式为[min, max]，min和max均为0至1范围的数据。 |
+| type | String | 指定不同的度量类型，支持的 type 为 identity、linear、cat、time、ecat。 |
+| formatter | Function | 回调函数，用于格式化坐标轴刻度点的文本显示，会影响数据在坐标轴 axis、图例 legend、提示信息 tooltip 上的显示。 |
+| range | Array | 输出数据的范围，数值类型的默认值为[0, 1]，格式为[min, max]，min 和 max 均为 0 至 1 范围的数据。 |
 | alias | String | 该数据字段的显示别名，一般用于将字段的英文名转换成中文名。 |
 | tickCount | Number | 坐标轴上刻度点的个数，不同的度量类型对应不同的默认值。 |
 | ticks | Array | 用于指定坐标轴上刻度点的文本信息，当用户设置了 ticks 就会按照 ticks 的个数和文本来显示。 |
@@ -188,20 +200,20 @@ chart.scale('fieldName', {
 **linear**
 | 属性名 | 类型 | 说明 |
 |----|----|----|
-| nice | Boolean | 默认为true，用于优化数值范围，使绘制的坐标轴刻度均匀分布。例如原始数据的范围为[3, 97]，如果nice为true，那么就会将数值范围调整为[0, 100]。 |
+| nice | Boolean | 默认为 true，用于优化数值范围，使绘制的坐标轴刻度均匀分布。例如原始数据的范围为[3, 97]，如果 nice 为 true，那么就会将数值范围调整为[0, 100]。 |
 | min | Number | 定义数值范围的最小值。 |
 | max | Number | 定义数值范围的最大值。 |
-| tickInterval | Number | 用于指定坐标轴各个标度点之间的间距，是原始数据之间的间距值，tickCount和tickInterval不可以同时声明。 |
+| tickInterval | Number | 用于指定坐标轴各个标度点之间的间距，是原始数据之间的间距值，tickCount 和 tickInterval 不可以同时声明。 |
 
 **cat**
 | 属性名 | 类型 | 说明 |
 |----|----|----|
 | values | Array | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系。 |
-| isRounding | Boolean | 默认值为false，在计算ticks的时候是否允许取整以满足刻度之间的均匀分布，取整后可能会和用户设置的tickCount不符合。 |
+| isRounding | Boolean | 默认值为 false，在计算 ticks 的时候是否允许取整以满足刻度之间的均匀分布，取整后可能会和用户设置的 tickCount 不符合。 |
 
 values 属性常用于 2 个场景：
 
-1. 需要制定分类的顺序时，例如：c 字段有'最大','最小'和'适中'3种类型，我们想指定这些数值在坐标轴或者图例上的显示顺序时：
+1. 需要制定分类的顺序时，例如：c 字段有'最大','最小'和'适中'3 种类型，我们想指定这些数值在坐标轴或者图例上的显示顺序时：
 
 ```
 const defs = {
@@ -233,20 +245,20 @@ const defs = {
 };
 ```
 
-
 **timeCat**
 时间分类类型，默认会对数据做排序。
 
-| 属性名 | 类型 | 说明 |
-|----|----|----|
-| nice | Boolean | 是否将ticks进行优化，变更数据的最小值、最大值，使得每个tick都是用户易于理解的数据。 |
-| mask | String | 数据的格式化格式，默认：'YY - MM - DD'。 |
-| values | Array | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系。 |
-| isRounding | Boolean | 默认值为false，在计算ticks的时候是否允许取整以满足刻度之间的均匀分布，取整后可能会和用户设置的tickCount不符合。 |
+| 属性名     | 类型    | 说明                                                                                                                 |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| nice       | Boolean | 是否将 ticks 进行优化，变更数据的最小值、最大值，使得每个 tick 都是用户易于理解的数据。                              |
+| mask       | String  | 数据的格式化格式，默认：'YY - MM - DD'。                                                                             |
+| values     | Array   | 具体的分类的值，一般用于指定具体的顺序和枚举的对应关系。                                                             |
+| isRounding | Boolean | 默认值为 false，在计算 ticks 的时候是否允许取整以满足刻度之间的均匀分布，取整后可能会和用户设置的 tickCount 不符合。 |
 
 注意：mask 和 formatter 这两个属性不可共用，如果同时设置了，会根据 formatter 进行格式化，mask 属性将不生效。
 
 ### 坐标轴
+
 axis 坐标轴配置。
 
 ```

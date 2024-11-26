@@ -1,12 +1,16 @@
 export default {
   description: `组件`,
   editors: {
-    ":root": [
-      {
-        type: "style",
-        options: ["background"],
-      },
-    ],
+    ":root": {
+      title: "按钮",
+      items: [
+        {
+          title: "样式",
+          type: "style",
+          options: ["background", "font"],
+        },
+      ],
+    },
   },
   docs: require("./View.md").default,
 };

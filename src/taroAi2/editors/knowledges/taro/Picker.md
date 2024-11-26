@@ -80,6 +80,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       </View>
     </View>
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

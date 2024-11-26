@@ -18,6 +18,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Progress percent={80}  strokeWidth={2} active activeColor='#FF000F' />
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

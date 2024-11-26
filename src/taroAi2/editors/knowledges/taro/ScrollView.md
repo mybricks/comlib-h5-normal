@@ -48,6 +48,9 @@ export default comRef(({data, outputs})=>{
       </ScrollView>
     </View>
   )
+}, {
+  type: "main"
+  title: "组件",
 })
 ```
 

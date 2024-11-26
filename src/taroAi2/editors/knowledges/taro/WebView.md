@@ -16,6 +16,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <WebView src='https://mp.weixin.qq.com/' onMessage={() => {}} />
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

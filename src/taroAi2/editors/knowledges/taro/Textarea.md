@@ -27,6 +27,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       className={css.textarea}
     />
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

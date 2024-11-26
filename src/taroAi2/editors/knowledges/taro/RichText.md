@@ -24,6 +24,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
         userSelect={true} // 文本是否可选
       />
     )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

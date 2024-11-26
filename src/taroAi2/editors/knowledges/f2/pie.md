@@ -96,6 +96,9 @@ export default comRef(({ data, env }) => {
       <Pie env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

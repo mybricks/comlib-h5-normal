@@ -47,6 +47,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       </CheckboxGroup>
     </View>
   );
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

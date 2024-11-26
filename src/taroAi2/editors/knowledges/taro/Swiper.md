@@ -54,6 +54,9 @@ export default comRef(({data}) => {
       ))}
     </Swiper>
   )
+}, {
+  type: "main"
+  title: "组件",
 })
 ```
 

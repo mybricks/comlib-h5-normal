@@ -39,6 +39,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       })}
     </View>
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

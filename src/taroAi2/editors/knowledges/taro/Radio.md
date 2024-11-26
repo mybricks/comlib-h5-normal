@@ -39,6 +39,9 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       })}
     </RadioGroup>
   )
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
 

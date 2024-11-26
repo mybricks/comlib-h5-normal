@@ -201,5 +201,8 @@ export default comRef(({ data, env }) => {
       <Line env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
+}, {
+  type: "main"
+  title: "组件",
 });
 ```
