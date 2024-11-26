@@ -34,9 +34,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       muted={false}
     />
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
 

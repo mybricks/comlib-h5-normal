@@ -54,15 +54,6 @@ export default comRef(({data}) => {
       ))}
     </Swiper>
   )
-},{
-  type:'main',
-  title:'轮播图',
-  selectors:[
-    {
-      selector:':root',
-      title:'整体'
-    }
-  ]
 })
 ```
 

@@ -77,9 +77,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       </PickerView>
     </View>
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
 

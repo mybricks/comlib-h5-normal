@@ -159,19 +159,6 @@ export default comRef(({ data,env, inputs, outputs, slots }) => {
       </Editor>
     </View>
   );
-}, {
-  type: 'main',
-  title: '富文本编辑器',
-  inputs: [
-    { id: 'setValue', title: '设置内容', schema: { type: 'string' } }
-  ],
-  outputs: [
-    { id: 'onChange', title: '内容修改', schema: { type: 'string' } }
-  ],
-  selectors: [
-    { selector: ':root', title: '整体' },
-    { selector: '.item', title: '操作按钮'}
-  ]
 });
 ```
 

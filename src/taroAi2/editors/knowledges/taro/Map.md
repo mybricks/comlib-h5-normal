@@ -16,9 +16,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Map onClick={() => {}} />
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
 

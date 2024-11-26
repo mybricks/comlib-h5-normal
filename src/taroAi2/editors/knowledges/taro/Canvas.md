@@ -16,9 +16,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Canvas style='width: 300px; height: 200px;' canvasId='canvas' />
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
 

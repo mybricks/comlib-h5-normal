@@ -67,9 +67,6 @@ export default comRef(({ data, env }) => {
       <Heatmap env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
-}, {
-  type: 'main',
-  title: '基础热力图'
 });
 ```
 

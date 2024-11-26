@@ -47,18 +47,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       </CheckboxGroup>
     </View>
   );
-}, {
-  type: 'main',
-  title: '多选框',
-  outputs: [
-    { id: 'o_selection', title: '选中项', schema: { type: 'array' } }
-  ],
-  selectors: [
-    {
-      selector: ':root',
-      title: '整体'
-    }
-  ]
 });
 ```
 

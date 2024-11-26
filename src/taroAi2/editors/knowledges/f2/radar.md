@@ -49,9 +49,6 @@ export default comRef(({ data, env }) => {
       <Radar env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
-}, {
-  type: 'main',
-  title: '基础雷达图'
 });
 ```
 

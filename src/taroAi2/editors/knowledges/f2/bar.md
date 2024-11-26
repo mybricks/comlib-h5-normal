@@ -43,9 +43,6 @@ export default comRef(({ data, env }) => {
       <Bar env={env} onInit={(ref) => setChart(ref)} />
     </View>
   );
-}, {
-  type: 'main',
-  title: '示例图表'
 });
 ```
 

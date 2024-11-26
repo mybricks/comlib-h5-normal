@@ -48,18 +48,6 @@ export default comRef(({data, outputs})=>{
       </ScrollView>
     </View>
   )
-},{
-  type:'main',
-  title:'滚动容器',
-  outputs:[
-    {id:'o_01',title:'加载更多内容',schema:{type:'string'}}
-  ],
-  selectors:[
-    {
-      selector:':root',
-      title:'滚动容器'
-    }
-  ]
 })
 ```
 

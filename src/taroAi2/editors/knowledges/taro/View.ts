@@ -1,5 +1,12 @@
 export default {
   description: `组件`,
-  editors: {},
+  editors: {
+    ":root": [
+      {
+        type: "style",
+        options: ["background"],
+      },
+    ],
+  },
   docs: require("./View.md").default,
 };

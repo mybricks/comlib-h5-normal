@@ -20,9 +20,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       onGetUserInfo={(e) => console.log(e)}
     >获取用户信息</Button>
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 })
 ```
 

@@ -75,9 +75,6 @@ export default comRef(({ data, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
 

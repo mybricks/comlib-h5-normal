@@ -22,8 +22,5 @@ export default comRef(({ data, inputs, outputs, slots }) => {
       </KeyboardAccessory>
     </Textarea>
   )
-}, {
-  type: 'main',
-  title: '示例组件'
 });
 ```
