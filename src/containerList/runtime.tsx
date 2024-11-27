@@ -140,7 +140,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           [rowKey]: data.rowKey === "" ? uuid() : item[data.rowKey] || uuid(),
           index: index,
         }));
-        setDataSource(ds);
+        //覆盖数据前先清空，放置输入重复内容时，列表项不会触发
+        setDataSource([])
+        setTimeout(()=>{
+          setDataSource(ds);
+        },0)
         if (data.autoEmptyCondition && val.length === 0) {
           setStatus(ListStatus.EMPTY);
         } else {
@@ -148,7 +152,16 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         }
       }
     });
+
   }, []);
+
+  useEffect(() => {
+    /* 获取值 */
+    inputs["getDataSource"]((val, outputRels) => {
+      outputRels["getDataSourceSuccess"](dataSource.map((item,index) => ({...item.item})));
+    });
+  }, [dataSource])
+
 
   // const $placeholder = useMemo(() => {
   //   if (env.edit && !slots["item"].size) {

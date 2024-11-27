@@ -37,6 +37,15 @@
       }
     },
     {
+      "id": "getDataSource",
+      "title": "获取数据",
+      "desc": "获取列表数据",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["getDataSourceSuccess"]
+    },
+    {
       "id": "loading",
       "title": "切换到加载中",
       "desc": "提示用户正在加载中",
@@ -81,6 +90,13 @@
     {
       "id": "onRefresh",
       "title": "当下拉刷新时"
+    },
+    {
+      "id": "getDataSourceSuccess",
+      "title": "获取瀑布流数据",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "slots": [
