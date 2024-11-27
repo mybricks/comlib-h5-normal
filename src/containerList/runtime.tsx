@@ -157,7 +157,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
 
   useEffect(() => {
     /* 获取值 */
-    inputs["getDataSource"]((val, outputRels) => {
+    inputs["getDataSource"]?.((val, outputRels) => {
       outputRels["getDataSourceSuccess"](dataSource.map((item,index) => ({...item.item})));
     });
   }, [dataSource])
