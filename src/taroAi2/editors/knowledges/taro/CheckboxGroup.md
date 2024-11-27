@@ -9,7 +9,7 @@ ComponentType<CheckboxGroupProps>
 
 - 生成一个多选框组件，可以通过 `<CheckboxGroup/>` 的 `onChange` 事件获取选中项的 value 数组
   
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';

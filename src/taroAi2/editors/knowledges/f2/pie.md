@@ -4,7 +4,7 @@
 
 - 绘制饼图时，数据集中的每一条记录中必须包含一个常量字段（并且必须是字符串类型），用来当作*position*方法的第一个字段，如下面的字段*a*所示：
 
-```model
+```json file="model.json"
 {"dataSource": [
     { name: '芳华', percent: 0.4, a: '1' },
     { name: '妖猫传', percent: 0.2, a: '1' },
@@ -20,7 +20,7 @@
 - 为了查看和交互更直观，常常关闭*tooltip*能力，直接地用*legend*来展示百分比数据
 - 添加*animate*效果让展示更丝滑
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
@@ -102,7 +102,7 @@ export default comRef(({ data, env }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .myChart{
   width: 100%;
   height: 100%;

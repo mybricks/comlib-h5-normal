@@ -5,7 +5,7 @@
 - 使用*line*和*point*方法绘制点和线。
 - 提供*5项及以上*的数据，用于展示多维效果。
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
@@ -55,7 +55,7 @@ export default comRef(({ data, env }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .canvas{
   width: 100%;
   height: 100%;

@@ -17,7 +17,7 @@ ComponentType<EditorProps>
 ## 最佳实践
 - 请注意，如果用户要开发一个富文本编辑器，必须严格按照下方的示例来做。
 
-```model
+```json file="model.json"
 {
   "value": "",
   "placeholder": "请输入内容",
@@ -26,7 +26,7 @@ ComponentType<EditorProps>
 }
 ```
 
-```render
+```jsx file="runtime.jsx"
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Editor, View, Image } from '@tarojs/components';
 import * as Taro from "@tarojs/taro";
@@ -165,7 +165,7 @@ export default comRef(({ data,env, inputs, outputs, slots }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .editor {
   width: 100%;
   height: 100%;

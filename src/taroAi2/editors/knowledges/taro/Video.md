@@ -7,14 +7,14 @@ ComponentType<VideoProps>
 
 ## 最佳实践
 必须生成样式文件来覆盖默认的固定宽高。
-```style
+```less file="style.less"
 .video {
   width: 100%;
   height: 100%;
 }
 ```
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';

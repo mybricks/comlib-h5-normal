@@ -6,7 +6,7 @@ ComponentType<SwitchProps>
 ```
 
 ## 最佳实践
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';

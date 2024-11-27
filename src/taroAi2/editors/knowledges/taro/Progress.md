@@ -8,7 +8,7 @@ ComponentType<ProgressProps>
 ## 最佳实践
 - 开发一个进度条，进度条颜色是红色的
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';

@@ -7,7 +7,7 @@ ComponentType<SwiperProps>
 ```
 
 ## 最佳实践
-```model
+```json file="model.json"
 {
   "images":[
     {
@@ -32,7 +32,7 @@ ComponentType<SwiperProps>
 }
 ```
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';
@@ -60,7 +60,7 @@ export default comRef(({data}) => {
 })
 ```
 
-```style
+```less file="style.less"
 .swiper {
   width: 100%;
   height: 100%;

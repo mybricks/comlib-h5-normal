@@ -8,7 +8,7 @@ ComponentType<ScrollViewProps>
 ## 最佳实践
 - 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';
@@ -54,7 +54,7 @@ export default comRef(({data, outputs})=>{
 })
 ```
 
-```style
+```less file="style.less"
 .scrollContainer {
   width: 100%;
   height: 100%;
@@ -75,7 +75,7 @@ export default comRef(({data, outputs})=>{
 }
 ```
 
-```model
+```json file="model.json"
 {
   "refreshing": false,
   "list": [

@@ -33,7 +33,7 @@ f2-for-taro 是一个基于@antv/f2 的封装库，可以更方便地在 React �
 - 使用*onInit*方法获取图表实例
 - 使用图表实例绘制图形
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import { useEffect, useState, useRef } from 'react';
 import css from 'style.less';
@@ -85,7 +85,7 @@ export default comRef(({ data, env }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .myChart {
   width: 100%;
   height: 100%;

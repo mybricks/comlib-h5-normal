@@ -7,7 +7,7 @@ ComponentType<StandardProps>
 ```
 
 ## 最佳实践 - 在一个文本输入框下方显示一个自定义的键盘附件，附件包含两个可点击的区域，分别显示绿色和红色背景，并且点击时会触发一个待实现的回调函数。
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';

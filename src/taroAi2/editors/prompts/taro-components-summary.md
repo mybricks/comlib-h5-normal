@@ -60,7 +60,7 @@ type ComponentType<T> = ComponentType<T>
 ## 常见组件开发示例
 1. 开发一个tab
 
-```style
+```less file="style.less"
   .tabContainer {
     width: 100%;
     height: 100%;
@@ -86,7 +86,7 @@ type ComponentType<T> = ComponentType<T>
   }
   ```
   
-  ```model
+  ```json file="model.json"
   {
   "tabs": [
     {
@@ -106,7 +106,7 @@ type ComponentType<T> = ComponentType<T>
   }
   ```
   
-  ```render
+  ```jsx file="runtime.jsx"
   import css from 'style.less';
   import { comRef } from 'mybricks';
   import { View, Text } from '@tarojs/components';

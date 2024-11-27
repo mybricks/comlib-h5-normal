@@ -7,7 +7,7 @@ ComponentType<PickerViewProps>
 ```
 
 ## 最佳实践
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';

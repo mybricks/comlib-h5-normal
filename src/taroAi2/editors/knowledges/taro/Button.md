@@ -7,7 +7,7 @@ ComponentType<ButtonProps>
 
 ## 最佳实践
 ### 获取用户信息
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';

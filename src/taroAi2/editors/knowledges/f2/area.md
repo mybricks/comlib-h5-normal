@@ -1,6 +1,6 @@
 ## 基础面积图示例代码
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
@@ -46,7 +46,7 @@ export default comRef(({ data, env }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .canvas{
   width: 100%;
   height: 100%;

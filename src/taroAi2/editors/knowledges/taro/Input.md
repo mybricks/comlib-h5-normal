@@ -9,7 +9,7 @@ ComponentType<InputProps>
 ## 最佳实践
 ### 默认样式
 > 使用 Input 组件时，须给 Input 的 class 额外增加一个后代选择器 input { opacity: 1; }
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .myinput {
   input { 
     opacity: 1;
@@ -39,7 +39,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 ### 设置文字颜色
 > 为 Input 组件设置文字颜色时，须额外增加一个后代选择器 input，同时为 Input 和后代选择器 input 设置 color 属性。
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
@@ -55,7 +55,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .myinput {
     color: #333;
   input { 
@@ -68,7 +68,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 
 > 为 Input 组件设置占位符文字颜色时，须额外增加一个后代选择器 input::placeholder 并且为其设置颜色。
 
-```render
+```jsx file="runtime.jsx"
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
@@ -81,7 +81,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 });
 ```
 
-```style
+```less file="style.less"
 .myinput {
     color: #333;
   input { 
