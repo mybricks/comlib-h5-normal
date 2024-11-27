@@ -70,7 +70,8 @@ export default {
       //没用可以忽略
       debugger;
     },
-    preview(response: { id; render; style }, edtCtx, libs: { mybricksSdk }) {
+    preview(response: { id; runtime; style }, edtCtx, libs: { mybricksSdk }) {
+
       return new Promise((resolve, reject) => {
         if (response) {
           const rtn = (com, css) => {
@@ -82,7 +83,7 @@ export default {
 
           Promise.all([
             new Promise((resolve, reject) => {
-              getComponentFromJSX(response.render, libs, {
+              getComponentFromJSX(response.runtime, libs, {
                 '@tarojs/components': Taro,
                 '@tarojs/taro': TaroAPI,
                 'f2-for-taro': F2ForTaro,
@@ -108,12 +109,12 @@ export default {
     },
     execute(
       { id, data, inputs, outputs, slots },
-      response: { render; style },
+      response: { runtime; style },
       { refresh } = {}
     ) {
       return new Promise((resolve, reject) => {
-        if (response.render) {
-          updateRender({ data }, response.render);
+        if (response.runtime) {
+          updateRender({ data }, response.runtime);
         }
 
         if (response.style) {
