@@ -1,5 +1,16 @@
 export default {
   description: `组件`,
-  editors: {},
+  editors: {
+    ":root": {
+      title: "文本域",
+      items: [
+        {
+          title: "样式",
+          type: "style",
+          options: ["background", "font", "border", "padding", "margin"],
+        },
+      ],
+    },
+  },
   docs: require("./Textarea.md").default,
 };

@@ -12,7 +12,8 @@ function getDefaultCurrTabId(tabs) {
   return "";
 }
 
-export default function ({ env, data, inputs, outputs, style, slots }) {
+export default function (props) {
+  const { env, data, inputs, outputs, style, slots } = props;
   // 当前选中的tab
   const [currentTabId, setCurrentTabId] = useState(
     getDefaultCurrTabId(data.items)
@@ -41,6 +42,7 @@ export default function ({ env, data, inputs, outputs, style, slots }) {
 
   return (
     <Swiper
+      {...props}
       style={{ height: style.height }}
       current={current}
       onChange={onChange}

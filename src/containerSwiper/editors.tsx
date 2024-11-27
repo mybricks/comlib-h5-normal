@@ -75,6 +75,7 @@ export default {
   "@resize": {
     options: ["width", "height"],
   },
+  ":slot": {},
   ":root": {
     style: [
       {

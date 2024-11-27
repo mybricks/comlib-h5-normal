@@ -33,7 +33,7 @@ export function Swiper(props: SwiperProps) {
     } else {
       return true;
     }
-  }, [env.runtime.debug,env.edit])
+  }, [env?.runtime?.debug,env.edit])
 
   useEffect(()=>{
     const randomNumber = Math.floor(Math.random() * 1000000000);
