@@ -1,5 +1,7 @@
+import Base from './Base.ts';
 // import Camera from './Camera.md';
 // import Canvas from './Canvas.md';
+
 import Image from './Image.ts';
 // import KeyboardAccessory from './KeyboardAccessory.ts';
 import Label from './Label.ts';
@@ -33,6 +35,7 @@ import Video from './Video.ts';
 import WebView from './WebView.ts';
 
 const mdMap = {
+  BASE: Base,
   IMAGE: Image, // ✅ 📱✅ 开发一个图片组件，图片默认是“https://test.mybricks.world/image/icon.png”，要求图片充满容器，但是无论容器如何变化，需要展示完整的图片，并且保持原始比例
   LABEL: Label, // ✅ 📱✅ 开发一个多选框，选项有A、B、C，展示标签
   PICKER: Picker, // ✅ 📱✅ 开发一个选择器，选项有A、B、C和一个月份选择器
