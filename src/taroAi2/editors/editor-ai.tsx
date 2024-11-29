@@ -18,11 +18,7 @@ export default {
     role: "comDev", //定义AI的角色
     getSystemPrompts() {
       return {
-        langs:
-          "react、@tarojs/components、f2-for-taro、CSS、Javascript、Less、mybricks",
-        // renderFileTemplate: `({env,data,inputs,outputs,slots}) => {
-        //   return <View>HELLO WORLD</View>
-        // }`,
+        langs: "@tarojs/components、@tarojs/taro、CSS、Javascript、react",
         prompts: `${basePrompt} \n ${taroComponentsPrompt} \n ${f2Prompt}`,
       };
     },
