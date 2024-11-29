@@ -34,6 +34,19 @@ export default {
         const lib = now.lib || now.from;
         if (!lib.match(/react/)) {
           if (lib === "@tarojs/components") {
+
+            // 加载 Base 组件
+            const baseKnowledge = getTaroKnowledge(lib, "BASE");
+            if(baseKnowledge) {
+              rtn.push({
+                from: lib,
+                lib,
+                item: '基础知识',
+                knowledge: baseKnowledge,
+              });
+            }
+
+            //
             const upperCom = now.item.toUpperCase();
             const knowledge = getTaroKnowledge(lib, upperCom);
             if (knowledge) {
@@ -47,6 +60,19 @@ export default {
           }
 
           if (lib === "f2-for-taro") {
+
+            // 加载 Base 组件
+            const baseKnowledge = getF2Knowledge(lib, "BASE");
+            if(baseKnowledge) {
+              rtn.push({
+                from: lib,
+                lib,
+                item: '基础知识',
+                knowledge: baseKnowledge,
+              });
+            }
+
+            //
             const upperCom = now.item.toUpperCase();
             const knowledge = getF2Knowledge(lib, upperCom);
 
