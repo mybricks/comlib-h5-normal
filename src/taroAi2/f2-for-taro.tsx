@@ -12,8 +12,6 @@ import ScrollBar from "@antv/f2/lib/plugin/scroll-bar";
 import Pan from "@antv/f2/lib/interaction/pan";
 import PieLabel from "@antv/f2/lib/plugin/pie-label";
 
-F2.Chart.registerInteraction("pan", Pan);
-
 const getCanvasInTaro = async (id) => {
   return new Promise((resolve, reject) => {
     Taro.createSelectorQuery()
@@ -85,6 +83,11 @@ const Chart = ({ env, onInit }) => {
   const chartId = useRef(uuid());
 
   useEffect(() => {
+    // 没有 F2 时，不执行
+    if (!F2) {
+      return;
+    }
+
     let _chart = {
       ref: {},
     };
@@ -93,8 +96,10 @@ const Chart = ({ env, onInit }) => {
       const options = await (isDesigner(env)
         ? getCanvasInDesn(chartEl.current)
         : getCanvasInTaro(chartId.current));
-      
-        _chart.ref = new F2.Chart({
+
+      F2.Chart.registerInteraction("pan", Pan);
+
+      _chart.ref = new F2.Chart({
         ...options,
         plugins: [ScrollBar, PieLabel],
       });
@@ -128,12 +133,12 @@ const Chart = ({ env, onInit }) => {
   const onInitRef = useRef<any>(onInit);
   useEffect(() => {
     onInitRef.current = onInit;
-  }, [onInit])
+  }, [onInit]);
   useEffect(() => {
     if (chart) {
-      onInitRef.current?.(chart)
+      onInitRef.current?.(chart);
     }
-  }, [chart])
+  }, [chart]);
 
   const events = useMemo(() => {
     return {
@@ -145,23 +150,27 @@ const Chart = ({ env, onInit }) => {
   }, []);
 
   return (
-    <View style={{ width: '100%', height: '100%' }} {...events}>
-      <Canvas style={{ width: '100%', height: '100%' }} id={chartId.current} type="2d" />
+    <View style={{ width: "100%", height: "100%" }} {...events}>
+      <Canvas
+        style={{ width: "100%", height: "100%" }}
+        id={chartId.current}
+        type="2d"
+      />
     </View>
-  )
-}
+  );
+};
 
 function createSelfReferencingFunction() {
   const handler = {
     get(target, prop, receiver) {
-      console.log(prop)
+      console.log(prop);
       // 当访问属性时，返回函数自身
       return target;
     },
     apply(target, thisArg, argumentsList) {
       // 当调用函数时，执行实际的函数逻辑
       return target.apply(thisArg, argumentsList);
-    }
+    },
   };
   return new Proxy(Chart, handler);
 }
