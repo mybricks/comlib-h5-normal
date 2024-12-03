@@ -134,6 +134,7 @@
         "./src/formPhoneNumber/com.json",
         "./src/formPhoneSMS/com.json",
         "./src/formImageUploader/com.json",
+        "./src/formFileUploader/com.json",
         "./src/formEditor/com.json",
         "./src/searchBar/com.json",
         "./src/smsInput/com.json",
