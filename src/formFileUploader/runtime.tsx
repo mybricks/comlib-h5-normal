@@ -110,9 +110,7 @@ export default function (props) {
     Taro.chooseMessageFile({
       count: data.maxCount - value.length,
       type: "all",
-      extension: data.extension?.length ? data.extension : ["jpg"],
-      // sizeType: ["original", "compressed"],
-      // sourceType: isH5() ? ["album"] : ["album", "camera"],
+      extension: data.extension?.length ? data.extension : [],
       success: async (res) => {
         for (const tempFile of res.tempFiles) {
           console.log("tempFile", tempFile);
@@ -121,25 +119,6 @@ export default function (props) {
             filePath: tempFile.path,
             size: tempFile.size,
           };
-
-          if (isH5()) {
-            result.fileName = tempFile.originalFileObj?.name;
-            result.type = tempFile.originalFileObj?.type;
-
-            try {
-              const response = await fetch(result.filePath);
-              const blob = await response.blob();
-              const formData = new FormData();
-              formData.append(
-                data.name ?? "name",
-                blob,
-                data.filename ?? "filename"
-              );
-              result.formData = formData;
-            } catch (error) {
-              console.error("Error fetching file:", error);
-            }
-          }
 
           slots["customUpload"]?.inputs["fileData"](result);
         }
@@ -157,14 +136,7 @@ export default function (props) {
         fileName: file.name,
         type: file.type,
         size: file.size,
-        formData: new FormData(),
       };
-
-      result.formData.append(
-        data.uploadName ?? "name",
-        file,
-        data.uploadFileName ?? "filename"
-      );
 
       slots["customUpload"]?.inputs["fileData"](result);
     },
@@ -178,27 +150,20 @@ export default function (props) {
 
     if (isH5()) {
       return (
-        <label className={cx(css.uploader, css.card, "mybricks-square")}>
-          <input className={css.input} type="file" onChange={handleFileChange} />
-          {data.iconSlot ? (
-            <div>{slots["iconSlot"]?.render({})}</div>
-          ) : (
-            <div className={css.icon_placeholder}>+</div>
-          )}
+        <label className={cx(css.uploader)}>
+          <input
+            className={css.input}
+            type="file"
+            onChange={handleFileChange}
+          />
+          <div className={css.icon_placeholder}>+上传文件</div>
         </label>
       );
     }
 
     return (
-      <View
-        className={cx(css.uploader, css.card, "mybricks-square")}
-        onClick={onChooseFile}
-      >
-        {data.iconSlot ? (
-          <View>{slots["iconSlot"]?.render({})}</View>
-        ) : (
-          <View className={css.icon_placeholder}>+</View>
-        )}
+      <View className={cx(css.uploader)} onClick={onChooseFile}>
+        <View className={css.icon_placeholder}>+上传文件</View>
       </View>
     );
   }, [env, value, data.maxCount, data.iconSlot]);
@@ -207,14 +172,10 @@ export default function (props) {
     return value.map((raw, index) => {
       return (
         <View
-          className={cx(css.item, css.card, "mybricks-square")}
+          className={cx(css.item)}
           key={raw + "_" + index}
         >
-          <Image
-            className={css.thumbnail}
-            mode={"aspectFill"}
-            src={raw}
-          ></Image>
+          <View className={css.thumbnail}>{raw}</View>
           <View
             className={css.remove}
             onClick={(e) => {
