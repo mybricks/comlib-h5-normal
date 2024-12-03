@@ -6,14 +6,14 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width", "height"],
+    options: ["width","height"],
   },
-  ":slot": {},
+  ":slot":{},
   ":root": {
     style: [
       {
         title: "样式",
-        options: ["border", "background", "padding"],
+        options: ["border", "background","padding"],
         target: `.mybricks-cell`,
       },
     ],
@@ -158,90 +158,6 @@ export default {
           ],
         },
         {
-          title: "卡片滑动",
-          items: [
-            {
-              title: "支持左滑",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.useSwipeLeft;
-                },
-                set({ data, outputs }, value) {
-                  data.useSwipeLeft = value;
-
-                  if (value) {
-                    outputs.add({
-                      id: "onClickLeftAction",
-                      title: "单击左滑按钮",
-                      schema: {
-                        type: "any",
-                      },
-                    });
-                  } else {
-                    outputs.remove("onClickLeftAction");
-                  }
-                },
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeft;
-              },
-              title: "左滑按钮文案",
-              type: "text",
-              value: {
-                get({ data }) {
-                  return data.leftSwipeText;
-                },
-                set({ data }, value) {
-                  data.leftSwipeText = value;
-                },
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeft;
-              },
-              title: "左滑按钮宽度",
-              type: "number",
-              value: {
-                get({ data }) {
-                  return data.leftSwipeWidth;
-                },
-                set({ data }, value) {
-                  data.leftSwipeWidth = value;
-                },
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeft;
-              },
-              title: "左滑按钮背景色",
-              type: "colorpicker",
-              value: {
-                get({ data }) {
-                  return data.leftSwipeBgColor;
-                },
-                set({ data }, value) {
-                  data.leftSwipeBgColor = value;
-                },
-              },
-            },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeft;
-              },
-              title: "单击行为按钮",
-              type: "_event",
-              options: {
-                outputId: "onClickLeftAction",
-              },
-            },
-          ],
-        },
-        {
           title: "事件",
           items: [
             {
@@ -311,7 +227,7 @@ export default {
     style: [
       {
         title: "",
-        options: ["font", "margin"],
+        options: ["font","margin"],
         target: ".mybricks-title",
       },
     ],
@@ -381,7 +297,7 @@ export default {
     style: [
       {
         title: "",
-        options: ["font", "margin"],
+        options: ["font","margin"],
         target: ".mybricks-content",
       },
     ],

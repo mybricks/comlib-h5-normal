@@ -6,6 +6,7 @@ import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
 import setSlotLayout from "../../utils/setSlotLayout";
 import entryPagePathEditor from "./editor/entryPagePath";
 
+const Input = window.antd.Input;
 const message = window.antd?.message;
 
 function rgbaToHex(rgba) {
@@ -55,14 +56,14 @@ const positionTransform = (position) => {
       return "top left";
       break;
     case "left bottom":
-      return "bottom left"
+      return "bottom left";
       break;
     case "right top":
-      return "top right"
-      break
+      return "top right";
+      break;
     case "right bottom":
-      return "bottom right"
-      break
+      return "bottom right";
+      break;
     default:
       return "top";
       break;
@@ -171,6 +172,41 @@ export default {
             },
           },
         },
+        {
+          title: "页面别名",
+          description: "如果设置了页面别名，则将使用别名覆盖默认页面地址，多张页面设置别名时，所设置的值请勿重复",
+          type: "editorRender",
+          options: {
+            render: (props) => {
+              let url = `/pages/${props.editConfig.value.get()}/index`;
+
+              return (
+                <div className={css.pageAlias}>
+                  <div className={css.url}>
+                    {
+                      <Input
+                        className={css.input}
+                        defaultValue={props.editConfig.value.get()}
+                        onChange={(e) => {
+                          let value = e.target.value;
+                          props.editConfig.value.set(value);
+                        }}
+                      />
+                    }
+                  </div>
+                </div>
+              );
+            },
+          },
+          value: {
+            get({ data }) {
+              return data.alias || "";
+            },
+            set({ data }, val) {
+              data.alias = val;
+            },
+          },
+        },
         { ...entryPagePathEditor },
         {
           title: "顶部导航栏",
@@ -194,16 +230,31 @@ export default {
                     backgroundSize: data.backgroundSize,
                     backgroundRepeat: data.backgroundRepeat || "repeat",
                   };
-
                 },
                 set({ data }, value) {
                   console.log("set", value);
-                  data.backgroundImage = value?.backgroundImage !== undefined ? value.backgroundImage : data.backgroundImage;
-                  let backgroundPosition = value?.backgroundPosition !== undefined ? value.backgroundPosition : data.backgroundPosition;
-                  data.backgroundPosition = positionTransform(backgroundPosition);
-                  data.backgroundSize = value?.backgroundSize !== undefined ? value.backgroundSize : data.backgroundSize;
-                  data.backgroundRepeat = value?.backgroundRepeat !== undefined ? value.backgroundRepeat : data.backgroundRepeat;
-                  data.background = value?.backgroundColor !== undefined ? value.backgroundColor : data.backgroundColor;
+                  data.backgroundImage =
+                    value?.backgroundImage !== undefined
+                      ? value.backgroundImage
+                      : data.backgroundImage;
+                  let backgroundPosition =
+                    value?.backgroundPosition !== undefined
+                      ? value.backgroundPosition
+                      : data.backgroundPosition;
+                  data.backgroundPosition =
+                    positionTransform(backgroundPosition);
+                  data.backgroundSize =
+                    value?.backgroundSize !== undefined
+                      ? value.backgroundSize
+                      : data.backgroundSize;
+                  data.backgroundRepeat =
+                    value?.backgroundRepeat !== undefined
+                      ? value.backgroundRepeat
+                      : data.backgroundRepeat;
+                  data.background =
+                    value?.backgroundColor !== undefined
+                      ? value.backgroundColor
+                      : data.backgroundColor;
                 },
               },
             },

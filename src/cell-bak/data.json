@@ -9,10 +9,5 @@
   "slotStyle": {},
   "content": "内容",
   "useArrowIcon": true,
-  "arrowIconColor": "#969799",
-
-  "useSwipeLeft": false,
-  "leftSwipeText": "删除",
-  "leftSwipeWidth": 80,
-  "leftSwipeBgColor": "#df505c"
+  "arrowIconColor": "#969799"
 }
