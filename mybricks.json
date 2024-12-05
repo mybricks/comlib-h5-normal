@@ -47,6 +47,8 @@
     "./src/_startFacialRecognitionVerify/com.json",
     "./src/_timer-debounce/com.json",
     "./src/_timer-throttle/com.json",
+    "./src/_aesEncode/com.json",
+    "./src/_aesDecode/com.json",
     "./src/_tencentcloudChat/create/com.json",
     "./src/_tencentcloudChat/createGroup/com.json",
     "./src/_tencentcloudChat/joinGroup/com.json",

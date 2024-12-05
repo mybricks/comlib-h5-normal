@@ -12,6 +12,14 @@
   "slots": [],
   "inputs": [
     {
+      "id": "getDataSource",
+      "title": "获取数据",
+      "schema": {
+        "type": "any"
+      },
+      "rels": ["afterGetDataSource"]
+    },
+    {
       "id": "setDataSource",
       "title": "设置数据",
       "schema": {
@@ -19,7 +27,8 @@
         "items": {
           "type": "object"
         }
-      }
+      },
+      "rels": ["afterSetDataSource"]
     },
     {
       "id": "addDataSource",
@@ -66,6 +75,26 @@
           "pageSize": {
             "type": "number"
           }
+        }
+      }
+    },
+    {
+      "id": "afterGetDataSource",
+      "title": "表格数据",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "id": "afterSetDataSource",
+      "title": "设置完成",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object"
         }
       }
     }

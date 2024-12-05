@@ -1,4 +1,10 @@
-import React, { useCallback, useState, useRef, useMemo, useEffect } from "react";
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+  useEffect,
+} from "react";
 import { View } from "@tarojs/components";
 import css from "./style.less";
 import cx from "classnames";
@@ -41,9 +47,11 @@ const useReachBottom = (callback, { env }) => {
       updateScrollRect();
       // console.log(" scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight",scrollTop,scrollMeta.current.clientHeight,offset,">",scrollHeight)
       // if (scrollMeta.current.clientHeight) {
-      const clientHeight = scrollMeta.current.clientHeight == 0 ? 750 : scrollMeta.current.clientHeight
-      const isReachEdge =
-        scrollTop + clientHeight + offset > scrollHeight;
+      const clientHeight =
+        scrollMeta.current.clientHeight == 0
+          ? 750
+          : scrollMeta.current.clientHeight;
+      const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
       if (isReachEdge) {
         cbRef.current?.();
       }
@@ -54,9 +62,10 @@ const useReachBottom = (callback, { env }) => {
 
 export default function ({ env, data, inputs, outputs, slots }) {
   const [dataSource, setDataSource] = useState(env.edit ? [{}, {}, {}] : []);
+  const dataSourceRef = useRef(dataSource);
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
-  
-  let page = data.pagenation.page ?? 1
+
+  let page = data.pagenation.page ?? 1;
 
   useReachBottom(
     () => {
@@ -76,19 +85,20 @@ export default function ({ env, data, inputs, outputs, slots }) {
             page: page,
             pageSize: data.pagenation.pageSize ?? 10,
           });
-          page++
+          page++;
           return ListStatus.LOADING;
         }
         return s;
       });
-
     },
     { env }
   );
 
   useEffect(() => {
-    inputs["setDataSource"]((val) => {
+    inputs["setDataSource"]((val, outputRels) => {
       setDataSource(val);
+      dataSourceRef.current = val;
+      outputRels["afterSetDataSource"](val);
     });
 
     inputs["addDataSource"]((val) => {
@@ -99,15 +109,21 @@ export default function ({ env, data, inputs, outputs, slots }) {
           index: index,
         }));
         setDataSource((c) => c.concat(ds));
-        setTimeout(() => { setStatus(ListStatus.IDLE); }, 0)
+        dataSourceRef.current = dataSourceRef.current.concat(ds);
+        setTimeout(() => {
+          setStatus(ListStatus.IDLE);
+        }, 0);
       }
     });
 
-  }, []);
+    inputs?.["getDataSource"]((val, outputRels) => {
+      outputRels["afterGetDataSource"]?.(dataSourceRef.current);
+    });
+  }, [dataSource]);
 
-  const $loading = useMemo(()=>{
-    return <View className={css.loading}>加载中…</View>
-  },[])
+  const $loading = useMemo(() => {
+    return <View className={css.loading}>加载中…</View>;
+  }, []);
 
   //
   if (env.edit && !data.columns.length) {
