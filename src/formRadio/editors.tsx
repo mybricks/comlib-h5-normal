@@ -72,6 +72,22 @@ export default {
           },
         },
         {
+          ifVisible({ data }) {
+            return data.direction === "horizontal";
+          },
+          title: "水平列数",
+          type: "number",
+          description: "0 表示不限制，根据内容自动调整",
+          value: {
+            get({ data }) {
+              return data.columns || 0;
+            },
+            set({ data }, value) {
+              data.columns = value;
+            },
+          },
+        },
+        {
           title: "单选项",
           type: "array",
           options: {

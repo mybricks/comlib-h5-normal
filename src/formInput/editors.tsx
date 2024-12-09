@@ -12,14 +12,14 @@ export default {
         title: "输入框",
         options: ["border", "size", "padding", "background"],
         target({ id }) {
-          return [`.mybricks-input`, `.mybricks-h5Input .taroify-native-input`];
+          return [`#${id} .mybricks-input`, `#${id} .mybricks-h5Input .taroify-native-input`];
         },
       },
       {
         title: "内容文本",
         options: ["font"],
         target({ id }) {
-          return [`.mybricks-input`, `.mybricks-h5Input .taroify-native-input`];
+          return [`#${id} .mybricks-input`, `#${id} .mybricks-h5Input .taroify-native-input`];
         },
       },
       {
@@ -27,8 +27,8 @@ export default {
         options: ["font"],
         target({ id }) {
           return [
-            `.mybricks-input .taroify-input__placeholder`,
-            `.mybricks-h5Input .taroify-native-input::placeholder`,
+            `#${id} .mybricks-input .taroify-input__placeholder`,
+            `#${id} .mybricks-h5Input .taroify-native-input::placeholder`,
           ];
         },
       },
