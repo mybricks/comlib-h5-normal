@@ -155,7 +155,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
                 env={env}
                 outputs={outputs}
                 slots={slots}
-                key={index}
+                key={`${index}-${JSON.stringify(item)}`}
               ></Row>
             );
           })}

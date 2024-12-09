@@ -199,6 +199,8 @@ export default function ({ env, data, inputs, outputs, slots }) {
               <Image mode="scaleToFill" src={item.icon} />
             ) : null;
 
+            const itemLayout = (!item.itemLayout || item.itemLayout === "unset") ? data.itemLayout : item.itemLayout;
+
             return (
               <Field
                 className={cx(
@@ -206,7 +208,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
                   { ["border-bottom"]: !isLast },
                   { ["border-none"]: isLast },
                   { [css.hidden]: !env?.edit && item.hidden },
-                  { ["vertical"]: data.itemLayout === "vertical" }
+                  { ["vertical"]: itemLayout === "vertical" }
                 )}
                 required={showRequired}
                 rules={rules}

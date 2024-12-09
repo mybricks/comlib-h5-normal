@@ -172,8 +172,7 @@ export default {
       {
         title: "表单标题",
         options: ["size"],
-        target: ".taroify-form-label"
-
+        target: ".taroify-form-label",
       },
       {
         title: "提交按钮",
@@ -248,6 +247,27 @@ export default {
             const item = getFormItem(data.items, { id, name });
             if (item) {
               item.hideLabel = val;
+            }
+          },
+        },
+      },
+      {
+        title: "表单项布局",
+        type: "radio",
+        options: [
+          { label: "跟随", value: "unset" },
+          { label: "水平", value: "horizontal" },
+          { label: "垂直", value: "vertical" },
+        ],
+        value: {
+          get({ id, data, name }: any) {
+            const item = getFormItem(data.items, { id, name });
+            return item?.itemLayout || "unset";
+          },
+          set({ id, data, name, input, output, slots }, val) {
+            const item = getFormItem(data.items, { id, name });
+            if (item) {
+              item.itemLayout = val;
             }
           },
         },
