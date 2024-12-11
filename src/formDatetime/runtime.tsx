@@ -94,18 +94,24 @@ export default function (props) {
       }
     });
 
-    inputs["resetValue"]((val,relOutputs)=>{
+    inputs["resetValue"]((val, relOutputs) => {
       data.value = void 0;
       relOutputs["resetValueComplete"]("")
     })
 
+    /* 设置禁用 */
+    inputs["setDisabled"]?.((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
+    });
+
   }, []);
 
-  useEffect(()=>{
-    inputs["getValue"]((val,relOutputs) => {
+  useEffect(() => {
+    inputs["getValue"]((val, relOutputs) => {
       relOutputs["returnValue"](value)
     })
-  },[value])
+  }, [value])
 
   const displayValue = useMemo(() => {
     if (!data.value) {
@@ -187,8 +193,9 @@ export default function (props) {
     return (
       <View className={cx(css.wrap, "mybricks-datetime")} key="normalView">
         {/* 防止在搭建态 点击调起日期选择 */}
-        {comOperatable ? (
+        {comOperatable && !data.disabled ? (
           <DatetimePicker
+            readonly={data.disabled}
             type={data.type}
             value={displayValue}
             min={range.min}

@@ -17,6 +17,10 @@ export default function ({ env, data, slots, inputs, outputs }) {
     transform: `translateX(0px)`,
   });
 
+  const [buttonGroupStyle,setButtonGroupStyle] = useState({
+    opacity: 0,
+  })
+
   inputs["value"]((val) => {
     Object.keys(val).forEach((key) => {
       data[key] = val[key];
@@ -38,6 +42,14 @@ export default function ({ env, data, slots, inputs, outputs }) {
       return;
     }
     outputs["onClickLeftAction"](raw);
+  }, []);
+
+
+  const onClickLeftActionSecondary = useCallback((raw) => {
+    if (!env.runtime) {
+      return;
+    }
+    outputs["onClickLeftActionSecondary"](raw);
   }, []);
 
   const onTouchStart = useCallback(
@@ -69,17 +81,30 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
 
-      if (translateXRef.current <= -data.leftSwipeWidth && deltaX < 0) {
+      if (translateXRef.current <= -(data.leftSwipeWidth+data.leftSwipeWidthSecondary) && deltaX < 0) {
         return;
       }
 
       let result = deltaX + translateXRef.current;
       if (result > 0) {
         result = 0;
-      } else if (result < -data.leftSwipeWidth) {
-        result = -data.leftSwipeWidth;
+      } else if (result < -(data.leftSwipeWidth+data.leftSwipeWidthSecondary)) {
+        result = -(data.leftSwipeWidth+data.leftSwipeWidthSecondary);
       }
       console.log("onTouchMove", result);
+
+      if(result == 0){
+        //左滑复原，需要把按钮隐藏
+        setButtonGroupStyle({
+          opacity: 0,
+        })
+      }else{
+        //左滑打开状态，需要显示按钮
+        setButtonGroupStyle({
+          opacity: 1,
+        })
+
+      }
 
       setCellStyle({
         transform: `translateX(${result}px)`,
@@ -105,9 +130,9 @@ export default function ({ env, data, slots, inputs, outputs }) {
           transition: "transform 0.3s",
         });
       } else {
-        translateXRef.current = -data.leftSwipeWidth;
+        translateXRef.current = -(data.leftSwipeWidth+data.leftSwipeWidthSecondary);
         setCellStyle({
-          transform: `translateX(${-data.leftSwipeWidth}px)`,
+          transform: `translateX(${-(data.leftSwipeWidth+data.leftSwipeWidthSecondary)}px)`,
           transition: "transform 0.3s",
         });
       }
@@ -189,12 +214,36 @@ export default function ({ env, data, slots, inputs, outputs }) {
           ) : null}
         </View>
       </View>
-
+      
+      <View
+        className={css.action}
+        style={{
+          width: data.leftSwipeWidthSecondary,
+          background: data.leftSwipeBgColorSecondary,
+          color:data.leftSwipeFontColorSecondary,
+          right:`${data.leftSwipeWidth}px`,
+          ...buttonGroupStyle
+        }}
+        onClick={(e) => {
+          if (env.runtime) {
+            e.stopPropagation();
+          }
+          setCellStyle({
+            transform: `translateX(0px)`,
+            transition: "transform 0.3s",
+          });
+          onClickLeftActionSecondary({ title: data.title });
+        }}
+        >
+          {data.leftSwipeTextSecondary}
+        </View>
       <View
         className={css.action}
         style={{
           width: data.leftSwipeWidth,
           background: data.leftSwipeBgColor,
+          color:data.leftSwipeFontColor,
+          ...buttonGroupStyle
         }}
         onClick={(e) => {
           if (env.runtime) {

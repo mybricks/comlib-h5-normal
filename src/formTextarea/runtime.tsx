@@ -105,6 +105,7 @@ export default function (props) {
 
   return (
     <Textarea
+      disabled={data.disabled}
       className={cx({
         [css.textarea]: true,
         "mybricks-textarea": !isH5(),

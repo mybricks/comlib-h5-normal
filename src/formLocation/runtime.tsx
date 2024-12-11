@@ -57,6 +57,12 @@ export default function (props) {
     inputs["getValue"]((val, outputRels) => {
       outputRels["returnValue"](data.value);
     });
+
+    /* 设置禁用 */
+    inputs["setDisabled"]?.((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
+    });
   }, []);
 
   const onChange = useCallback((val) => {
@@ -88,7 +94,7 @@ export default function (props) {
     if (isRelEnv) {
       //真机运行态
       return (
-        <AreaPicker level={data.level} value={value} onChange={onChange}>
+        <AreaPicker readonly={data.disabled} disabled={data.disabled} level={data.level} value={value} onChange={onChange}>
           {/* 非插槽视图 */}
           {!data.isSlot && <View className={css.select}>
             <Input

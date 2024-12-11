@@ -145,6 +145,7 @@ export default function (props) {
 
         return (
           <Radio
+            disabled={data.disabled} 
             className={cx({
               ["mybricks-inactive"]: value != item.value,
               ["mybricks-active"]: value == item.value,

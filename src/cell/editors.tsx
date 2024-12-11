@@ -173,7 +173,7 @@ export default {
                   if (value) {
                     outputs.add({
                       id: "onClickLeftAction",
-                      title: "单击左滑按钮",
+                      title: "单击左滑主按钮",
                       schema: {
                         type: "any",
                       },
@@ -188,7 +188,7 @@ export default {
               ifVisible({ data }) {
                 return data.useSwipeLeft;
               },
-              title: "左滑按钮文案",
+              title: "左滑主按钮文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -203,7 +203,7 @@ export default {
               ifVisible({ data }) {
                 return data.useSwipeLeft;
               },
-              title: "左滑按钮宽度",
+              title: "左滑主按钮宽度",
               type: "number",
               value: {
                 get({ data }) {
@@ -218,7 +218,22 @@ export default {
               ifVisible({ data }) {
                 return data.useSwipeLeft;
               },
-              title: "左滑按钮背景色",
+              title: "左滑主按钮文字色",
+              type: "colorpicker",
+              value: {
+                get({ data }) {
+                  return data.leftSwipeFontColor;
+                },
+                set({ data }, value) {
+                  data.leftSwipeFontColor = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeft;
+              },
+              title: "左滑主按钮背景色",
               type: "colorpicker",
               value: {
                 get({ data }) {
@@ -233,10 +248,107 @@ export default {
               ifVisible({ data }) {
                 return data.useSwipeLeft;
               },
-              title: "单击行为按钮",
+              title: "单击主按钮",
               type: "_event",
               options: {
                 outputId: "onClickLeftAction",
+              },
+            },
+            {
+              title: "开启左滑副按钮",
+              type: "switch",
+              ifVisible({ data }) {
+                return data.useSwipeLeft;
+              },
+              value: {
+                get({ data }) {
+                  return data.useSwipeLeftSecondary;
+                },
+                set({ data, outputs }, value) {
+                  data.useSwipeLeftSecondary = value;
+
+                  if (value) {
+                    outputs.add({
+                      id: "onClickLeftActionSecondary",
+                      title: "单击左滑副按钮",
+                      schema: {
+                        type: "any",
+                      },
+                    });
+                  } else {
+                    outputs.remove("onClickLeftActionSecondary");
+                  }
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "左滑副按钮文案",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.leftSwipeTextSecondary;
+                },
+                set({ data }, value) {
+                  data.leftSwipeTextSecondary = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "左滑副按钮宽度",
+              type: "number",
+              value: {
+                get({ data }) {
+                  return data.leftSwipeWidthSecondary;
+                },
+                set({ data }, value) {
+                  data.leftSwipeWidthSecondary = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "左滑主按钮文字色",
+              type: "colorpicker",
+              value: {
+                get({ data }) {
+                  return data.leftSwipeFontColorSecondary;
+                },
+                set({ data }, value) {
+                  data.leftSwipeFontColorSecondary = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "左滑副按钮背景色",
+              type: "colorpicker",
+              value: {
+                get({ data }) {
+                  return data.leftSwipeBgColorSecondary;
+                },
+                set({ data }, value) {
+                  data.leftSwipeBgColorSecondary = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "单击副按钮",
+              type: "_event",
+              options: {
+                outputId: "onClickLeftActionSecondary",
               },
             },
           ],

@@ -158,6 +158,7 @@ export default function (props) {
         })}
       >
         <Picker
+          disabled={data.disabled}
           className={css.picker}
           value={selectIndex}
           options={options}
