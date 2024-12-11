@@ -5,6 +5,7 @@ import { View } from "@tarojs/components";
 import { isH5 } from "../utils/env";
 import H5 from "./h5";
 import F2ForTaro from './f2-for-taro';
+import * as BrickdMobile from 'brickd-mobile';
 
 function getComponent(render, require) {
   const exports = {
@@ -39,6 +40,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         '@tarojs/components': Taro,
         '@tarojs/taro': TaroAPI,
         'f2-for-taro': F2ForTaro,
+        'brickd-mobile': BrickdMobile
       })
       
       return (

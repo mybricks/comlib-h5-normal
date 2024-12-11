@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useRef, useCallback} from 'react';
 import {runRender} from './utils'
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
+import * as BrickdMobile from 'brickd-mobile';
 import { View } from "@tarojs/components";
 import F2ForTaro from './f2-for-taro';
 import { copyToClipboard } from "./utils/ai-code";
@@ -140,6 +141,7 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
           '@tarojs/taro': TaroAPI,
           'mybricks': env.mybricksSdk,
           'f2-for-taro': F2ForTaro,
+          'brickd-mobile': BrickdMobile
         })
         return com
       } catch (error) {
