@@ -17,10 +17,6 @@ export default function ({ env, data, slots, inputs, outputs }) {
     transform: `translateX(0px)`,
   });
 
-  const [buttonGroupStyle,setButtonGroupStyle] = useState({
-    opacity: 0,
-  })
-
   inputs["value"]((val) => {
     Object.keys(val).forEach((key) => {
       data[key] = val[key];
@@ -59,7 +55,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       }
       touchStartX.current = e.touches[0].clientX;
 
-      console.log("onTouchStart", e.touches[0].clientX);
+      // console.log("onTouchStart", e.touches[0].clientX);
     },
     [data.useSwipeLeft]
   );
@@ -85,32 +81,21 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
 
+      // console.log("deltaX",deltaX,"translateXRef.current",translateXRef.current)
+
       let result = deltaX + translateXRef.current;
       if (result > 0) {
         result = 0;
       } else if (result < -(data.leftSwipeWidth+data.leftSwipeWidthSecondary)) {
         result = -(data.leftSwipeWidth+data.leftSwipeWidthSecondary);
       }
-      console.log("onTouchMove", result);
-
-      if(result == 0){
-        //左滑复原，需要把按钮隐藏
-        setButtonGroupStyle({
-          opacity: 0,
-        })
-      }else{
-        //左滑打开状态，需要显示按钮
-        setButtonGroupStyle({
-          opacity: 1,
-        })
-
-      }
+      // console.log("onTouchMove", result);
 
       setCellStyle({
         transform: `translateX(${result}px)`,
       });
     },
-    [data.useSwipeLeft]
+    [data.useSwipeLeft,touchStartX.current]
   );
 
   const onTouchEnd = useCallback(
@@ -119,7 +104,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
 
-      console.log("touchend", e.changedTouches[0]);
+      // console.log("touchend", e.changedTouches[0]);
 
       let touche = e.changedTouches[0];
 
@@ -130,9 +115,10 @@ export default function ({ env, data, slots, inputs, outputs }) {
           transition: "transform 0.3s",
         });
       } else {
-        translateXRef.current = -(data.leftSwipeWidth+data.leftSwipeWidthSecondary);
+        translateXRef.current = -(parseInt(data.leftSwipeStyle.width)+parseInt(data.leftSwipeStyleSecondary.width));
+        // console.log("data.leftSwipeStyle.width2",parseInt(data.leftSwipeStyle.width),"data.leftSwipeStyleSecondary.width2",parseInt(data.leftSwipeStyleSecondary.width))
         setCellStyle({
-          transform: `translateX(${-(data.leftSwipeWidth+data.leftSwipeWidthSecondary)}px)`,
+          transform: `translateX(${-(parseInt(data.leftSwipeStyle.width)+parseInt(data.leftSwipeStyleSecondary.width))}px)`,
           transition: "transform 0.3s",
         });
       }
@@ -218,11 +204,8 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View
         className={css.action}
         style={{
-          width: data.leftSwipeWidthSecondary,
-          background: data.leftSwipeBgColorSecondary,
-          color:data.leftSwipeFontColorSecondary,
-          right:`${data.leftSwipeWidth}px`,
-          ...buttonGroupStyle
+          ...data.leftSwipeStyleSecondary,
+          right:`${data.leftSwipeStyle?.width ?? 50}px`
         }}
         onClick={(e) => {
           if (env.runtime) {
@@ -240,10 +223,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
       <View
         className={css.action}
         style={{
-          width: data.leftSwipeWidth,
-          background: data.leftSwipeBgColor,
-          color:data.leftSwipeFontColor,
-          ...buttonGroupStyle
+          ...data.leftSwipeStyle
         }}
         onClick={(e) => {
           if (env.runtime) {

@@ -42,9 +42,13 @@ export default ({ data, inputs, outputs }) => {
         setMin(val.min);
         setMax(val.max);
       }
-
       outputRels["afterSetCustomRange"]();
     });
+
+    //todo 设置值
+    inputs["setValue"]?.((val,outputRels) => {
+      outputRels["setValueDone"](val);
+    })
   }, []);
 
   const range = useMemo(() => {

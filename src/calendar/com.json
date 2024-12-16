@@ -42,9 +42,27 @@
       "rels": [
         "afterSetCustomRange"
       ]
+    },
+    {
+      "id": "setValue",
+      "title": "设置值",
+      "rels": [
+        "setValueDone"
+      ],
+      "schema": {
+        "type": "any"
+      },
+      "desc": "设置日期值"
     }
   ],
   "outputs": [
+    {
+      "id": "setValueDone",
+      "title": "设置日期值完成",
+      "schema": {
+        "type": "any"
+      }
+    },
     {
       "id": "onSelect",
       "title": "当选择日期时",
