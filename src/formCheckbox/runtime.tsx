@@ -151,13 +151,14 @@ export default function (props) {
 
         return (
           <Checkbox
+            disabled={data.disabled} 
             className={cx({
               ["mybricks-inactive"]: value?.indexOf?.(item.value) === -1,
               ["mybricks-active"]: value?.indexOf?.(item.value) !== -1,
             })}
             name={item.value}
             shape="square"
-            disabled={item.disabled ?? false}
+
             {...restProps}
             style={gapStyle}
           >
