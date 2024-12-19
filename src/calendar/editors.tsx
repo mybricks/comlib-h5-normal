@@ -46,6 +46,52 @@ export default {
             },
           },
         },
+        {
+          title: "时间范围选择",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.showRange;
+            },
+            set({ data }, value) {
+              data.showRange = value;
+              if(!value){
+                data.available_start_time = ""
+                data.available_end_time = ""
+              }
+            },
+          },
+        },
+        {
+          title: "起始时间",
+          ifVisible({ data }) {
+            return data.showRange;
+          },
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.available_start_time;
+            },
+            set({ data }, value) {
+              data.available_start_time = value;
+            },
+          },
+        },
+        {
+          title: "终止时间",
+          ifVisible({ data }) {
+            return data.showRange;
+          },
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.available_end_time;
+            },
+            set({ data }, value) {
+              data.available_end_time = value;
+            },
+          },
+        },
         {},
         {
           title: "事件",

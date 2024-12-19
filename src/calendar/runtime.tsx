@@ -1,13 +1,15 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { View, Image } from "@tarojs/components";
 import { Calendar } from "brickd-mobile";
+// import { Calendar } from "../../../brickd-mobile/src";
+// import  Calendar  from "./calendar/index";
 import { isDate } from "./../utils/core";
 
 import css from "./runtime.less";
 
 export default ({ data, inputs, outputs }) => {
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
+  const [min, setMin] = useState(new Date(data.available_start_time).getTime() ?? "");
+  const [max, setMax] = useState(new Date(data.available_end_time).getTime() ?? "");
 
   const selectDateRef = useRef(null);
 
