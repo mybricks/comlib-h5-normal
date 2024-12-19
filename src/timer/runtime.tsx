@@ -120,7 +120,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
     return () => {
       clearInterval(newTimerId);
     };
-  }, [data.clockType, env.runtime]);
+  }, [data.clockType, env.runtime, countDown]);
 
   // const myStyle = useMemo(() => {
   //   return {
