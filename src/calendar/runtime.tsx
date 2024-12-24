@@ -38,8 +38,6 @@ export default ({ data, inputs, outputs }) => {
     });
 
     inputs["setCustomRange"]?.((val, outputRels) => {
-      console.log("setCustomRange", val);
-
       if (val?.min && val?.max) {
         setMin(val.min);
         setMax(val.max);
@@ -63,10 +61,6 @@ export default ({ data, inputs, outputs }) => {
 
     return {};
   }, [min, max]);
-
-  useEffect(()=>{
-    console.log("range",range)
-  },[range])
 
   return (
     <View className={`mybricks-calendar ${css.calendar}`}>
