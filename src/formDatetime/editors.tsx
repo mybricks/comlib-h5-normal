@@ -29,6 +29,18 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
+          title: "开启清空按钮",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.clearable;
+            },
+            set({ data }, value) {
+              data.clearable = value;
+            },
+          }
+        },
+        {
           title: "配置为插槽",
           type: "switch",
           value: {
@@ -86,6 +98,25 @@ export default {
               data.type = value;
             },
           },
+        },
+        {
+          title:"输出日期格式",
+          type: "select",
+          ifVisible({ data }) {
+            return data.type == "date";
+          },
+          options:[
+            {label: "时间戳", value: "timestamp"},
+            {label: "YYYY-MM-DD", value: "YYYY-MM-DD"}
+          ],
+          value: {
+            get({ data }) {
+              return data.outputType;
+            },
+            set({ data }, value) {
+              data.outputType = value;
+            },
+          }
         },
         {
           title: "时间范围",

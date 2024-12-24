@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Input, DatetimePicker } from "brickd-mobile";
 import { View } from "@tarojs/components";
-import { ArrowRight } from "@taroify/icons";
+import { ArrowRight, Cross } from "@taroify/icons";
 import { isObject, isString, isNumber, isEmpty } from "./../utils/core/type";
 import { polyfill_taro_picker } from "./../utils/h5-polyfill";
 import dayjs from "dayjs";
@@ -117,9 +117,12 @@ export default function (props) {
     if (!data.value) {
       return "";
     }
-    setValue(data.value);
     return dayjs(data.value).format(FORMAT_MAP[data.type]) || "";
   }, [data.value, data.type]);
+
+  useEffect(()=>{
+    setValue(data.value);
+  },[data.value])
 
   const onChange = useCallback((formatDate) => {
     // 检查输入的字符串是否是时间格式
@@ -150,15 +153,19 @@ export default function (props) {
       return;
     }
 
-    data.value = dateTime.valueOf();
-    // parentSlot?._inputs["onChange"]?.({
-    //   id: props.id,
-    //   name: props.name,
-    //   value: data.value,
-    // });
-    setValue(data.value);
-    // outputs["onChange"](data.value);
-  }, []);
+    if (data.type == "date" && data.outputType == "YYYY-MM-DD") {
+      //日期选择，且格式为 YYYY-MM-DD 
+      let timestamp = dateTime.valueOf();
+      let YMD = dayjs(timestamp).format("YYYY-MM-DD")
+      data.value = YMD;
+      setValue(YMD);
+    } else {
+      data.value = dateTime.valueOf();
+      setValue(data.value);
+    }
+
+
+  }, [data.type, data.outputType]);
 
   const range = useMemo(() => {
     function format(input) {
@@ -188,6 +195,32 @@ export default function (props) {
     };
   }, [data.min, data.max, data.type]);
 
+  const clearSelect = useCallback((e) => {
+    e.stopPropagation();
+    data.value = void 0;
+    outputs["onChange"](void 0);
+  }, []);
+
+  const RightBtn = useMemo(() => {
+    if (!data.clearable) {
+      return (
+        <ArrowRight />
+      );
+    }
+    if (displayValue == "") {
+      return (
+        <ArrowRight />
+      );
+    } else {
+      return (
+        <View onClick={clearSelect}>
+          <Cross size="13" />
+        </View>
+      )
+    }
+
+  }, [data.clearable, displayValue]);
+
   //普通表单视图
   const normalView = useMemo(() => {
     return (
@@ -207,7 +240,7 @@ export default function (props) {
                 placeholder={data.placeholder}
                 value={displayValue}
               ></InputDisplay>
-              <ArrowRight />
+              {RightBtn}
             </View>
           </DatetimePicker>
         ) : (
@@ -219,7 +252,7 @@ export default function (props) {
               value={displayValue}
               style={{ flex: 1 }}
             />
-            <ArrowRight />
+            {RightBtn}
           </View>
         )}
       </View>
