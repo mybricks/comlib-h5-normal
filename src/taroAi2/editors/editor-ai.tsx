@@ -27,7 +27,6 @@ export default {
       };
     },
     loadKnowledge(items) {
-      console.log("loadKnowledge", items);
       const rtn: any = [];
 
       items.forEach((now) => {
@@ -100,8 +99,6 @@ export default {
           }
         }
       });
-
-      console.warn("loadKnowledge", rtn);
 
       return rtn;
     },
