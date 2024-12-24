@@ -3,14 +3,18 @@ import { getComponentFromJSX, updateRender, updateStyle } from "../utils";
 
 import getTaroKnowledge from "./knowledges/taro";
 import getF2Knowledge from "./knowledges/f2";
+import getBrickdKnowledge from './knowledges/brickd-mobile-knowledeges';
 
 import basePrompt from "./prompts/base.md";
 import taroComponentsPrompt from "./prompts/taro-components-summary.md";
 import f2Prompt from "./prompts/f2-summary.md";
+import brickdMobilePrompt from './prompts/brickd-mobile-summary.md';
 
 import F2ForTaro from './../f2-for-taro';
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
+import * as BrickdMobile from 'brickd-mobile';
+import dayjs from "dayjs";
 
 export default {
   ":root": {
@@ -18,8 +22,8 @@ export default {
     role: "comDev", //定义AI的角色
     getSystemPrompts() {
       return {
-        langs: "@tarojs/components、@tarojs/taro、CSS、Javascript、react",
-        prompts: `${basePrompt} \n ${taroComponentsPrompt} \n ${f2Prompt}`,
+        langs: "@tarojs/components、@tarojs/taro、brickd-mobile、CSS、Javascript、react",
+        prompts: `${basePrompt} \n ${taroComponentsPrompt} \n ${brickdMobilePrompt} \n ${f2Prompt}`,
       };
     },
     loadKnowledge(items) {
@@ -45,6 +49,19 @@ export default {
             //
             const upperCom = now.item.toUpperCase();
             const knowledge = getTaroKnowledge(lib, upperCom);
+            if (knowledge) {
+              rtn.push({
+                from: lib,
+                lib,
+                item: now.item,
+                knowledge,
+              });
+            }
+          }
+
+          if (lib === 'brickd-mobile') {
+            const upperCom = now.item.toUpperCase();
+            const knowledge = getBrickdKnowledge(lib, upperCom);
             if (knowledge) {
               rtn.push({
                 from: lib,
@@ -109,6 +126,8 @@ export default {
                 '@tarojs/components': Taro,
                 '@tarojs/taro': TaroAPI,
                 'f2-for-taro': F2ForTaro,
+                'brickd-mobile': BrickdMobile,
+                'dayjs': dayjs
               }).then((com) => {
                 resolve(com);
               });
