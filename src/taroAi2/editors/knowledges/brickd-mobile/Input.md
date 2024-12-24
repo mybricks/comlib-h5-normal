@@ -64,7 +64,7 @@ function CustomField() {
 要点：
 - `height`一定要配置，且设置为`auto`，除非特殊要求。
 
-#### 灰色背景，无边框的输入框
+#### 无背景，带边框的输入框
 ```less
 .input {
   border-radius: 4px;
@@ -78,7 +78,7 @@ function CustomField() {
 <Input className={css.input} placeholder="请输入文本" />
 ```
 
-#### 无背景，带边框的输入框
+#### 灰色背景，无边框的输入框
 ```less
 .input {
   background: #f7f8fa;

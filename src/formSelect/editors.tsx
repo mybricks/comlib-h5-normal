@@ -6,7 +6,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width","height"],
   },
   ":root": {
     style: [
@@ -65,6 +65,27 @@ export default {
     items({ data, output, style }, cate0, cate1, cate2) {
       cate0.title = "常规";
       cate0.items = [
+        {
+          title: "配置为插槽",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.isSlot;
+            },
+            set({ data, slot, style }, value) {
+              data.isSlot = value;
+              if (value) {
+                // const slotInstance = slot.get("content");
+                // setSlotLayout(slotInstance, data.slotStyle);
+                style.height = 50;
+                style.width = 50;
+              } else {
+                style.height = 24;
+                style.width = 375;
+              }
+            },
+          },
+        },
         {
           title: "提示内容",
           description: "该提示内容会在值为空时显示",

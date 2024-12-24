@@ -145,14 +145,55 @@ export default function (props) {
     } else {
       return "";
     }
-  }, [value, selectIndex, data.options]);
+  }, [value, selectIndex, data.options, data.placeholder]);
 
+  const normalView = useMemo(() => {
+    return (<View
+      key="normalView"
+      className={cx({
+        [css.select]: true,
+        "mybricks-select": !isH5(),
+        "mybricks-h5Select": isH5(),
+      })}
+    >
+      <Picker
+        disabled={data.disabled}
+        className={css.picker}
+        value={selectIndex}
+        options={options}
+        onChange={onChange}
+        onCancel={onCancel}
+      >
+        <View className={css.display}>
+          <View
+            className={cx({
+              [css.input]: true,
+              "mybricks-input": value,
+              [css.placeholder]: !value,
+              "mybricks-placeholder": !value,
+            })}
+          >
+            {displayValue || data.placeholder}
+          </View>
+          <ArrowRight
+            className={cx({
+              [css.right]: data.arrow === "right",
+              [css.down]: data.arrow === "down",
+              [css.none]: data.arrow === "none",
+            })}
+          />
+        </View>
+      </Picker>
+    </View>)
+  }, [data.disabled, selectIndex, options, displayValue, data.placeholder, data.arrow])
 
-  return (
-    <>
+  const slotsView = useMemo(() => {
+    return (
       <View
+        key="slotsView"
         className={cx({
           [css.select]: true,
+          [css.slot_default_style]: true,
           "mybricks-select": !isH5(),
           "mybricks-h5Select": isH5(),
         })}
@@ -165,27 +206,20 @@ export default function (props) {
           onChange={onChange}
           onCancel={onCancel}
         >
-          <View className={css.display}>
-            <View
-              className={cx({
-                [css.input]: true,
-                "mybricks-input": value,
-                [css.placeholder]: !value,
-                "mybricks-placeholder": !value,
-              })}
-            >
-              {displayValue || data.placeholder}
-            </View>
-            <ArrowRight
-              className={cx({
-                [css.right]: data.arrow === "right",
-                [css.down]: data.arrow === "down",
-                [css.none]: data.arrow === "none",
-              })}
-            />
-          </View>
+          {slots?.["content"]?.render({
+            style: {
+              height: "100%",
+            },
+          })}
         </Picker>
       </View>
-    </>
-  );
+    )
+  }, [data.disabled, selectIndex, options])
+
+
+  if (data.isSlot) {
+    return slotsView
+  } else {
+    return normalView
+  }
 }

@@ -48,6 +48,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
   const [initTime, setInitTime] = useState(new Date());
   const [countDown, setCountDown] = useState(data.countdown);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | undefined>(undefined);
+  const timerIdRef = useRef(null);
 
   //更新当前时间
   const updateCurrentTime = () => {
@@ -65,7 +66,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
   }
 
   //倒计时
-  const updateCountDown = () => {
+  const updateCountDown = useCallback(() => {
     let countDownStamp = timeStringToTimestamp(countDown)
     let endTimeStamp = initTime.getTime() + countDownStamp
     let currentTimeStamp = new Date().getTime()
@@ -74,11 +75,12 @@ export default function ({ env, data, inputs, outputs, title, style }) {
       setShowTime(formatTimeDiff(timeDiff));
       outputs.currentTime?.(timeDiff);
     } else {
-      clearInterval(timerId)
+      console.log("清除计时器",timerIdRef.current)
+      clearInterval(timerIdRef.current)
       outputs.finishCountDown?.(countDownStamp);
     }
 
-  }
+  },[timerId,countDown])
 
   useEffect(() => {
     inputs["countDownTimeStamp"]?.((ds) => {
@@ -90,10 +92,10 @@ export default function ({ env, data, inputs, outputs, title, style }) {
   useEffect(() => {
     if (!env.runtime) return;
 
-    // 清除之前的定时器
-    if (timerId) {
-      clearInterval(timerId);
-    }
+  // 清除之前的定时器
+  if (timerIdRef.current) {
+    clearInterval(timerIdRef.current);
+  }
 
     let newTimerId;
     switch (data.clockType) {
@@ -112,8 +114,7 @@ export default function ({ env, data, inputs, outputs, title, style }) {
         newTimerId = setInterval(updateCountDown, 1000);
         break;
     }
-
-    setTimerId(newTimerId);
+    timerIdRef.current = newTimerId; // Use ref to store timer ID
 
     // 清理函数，在组件卸载时清除定时器
     return () => {

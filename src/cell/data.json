@@ -14,5 +14,12 @@
   "useSwipeLeft": false,
   "leftSwipeText": "删除",
   "leftSwipeWidth": 80,
-  "leftSwipeBgColor": "#df505c"
+  "leftSwipeBgColor": "#df505c",
+
+  "leftSwipeStyle":{
+    "width": 50
+  },
+  "leftSwipeStyleSecondary":{
+    "width": 50
+  }
 }

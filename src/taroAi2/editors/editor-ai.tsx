@@ -14,6 +14,7 @@ import F2ForTaro from './../f2-for-taro';
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
 import * as BrickdMobile from 'brickd-mobile';
+import dayjs from "dayjs";
 
 export default {
   ":root": {
@@ -125,7 +126,8 @@ export default {
                 '@tarojs/components': Taro,
                 '@tarojs/taro': TaroAPI,
                 'f2-for-taro': F2ForTaro,
-                'brickd-mobile': BrickdMobile
+                'brickd-mobile': BrickdMobile,
+                'dayjs': dayjs
               }).then((com) => {
                 resolve(com);
               });

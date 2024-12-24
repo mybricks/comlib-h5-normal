@@ -1,0 +1,63 @@
+.pagePath {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  height: 24px;
+  padding: 0 7px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  .url {
+    font-size: 12px;
+    color: #434343;
+  }
+
+  .copy {
+    width: 16px;
+    height: 16px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAQMAAABtzGvEAAAABlBMVEUAAABDQ0PjOoa6AAAAAXRSTlMAQObYZgAAADBJREFUGNNjIAXY//9/AIOyYGDEpBgwKeb///83YlANDMwUUv2YFAiRS4Fdhk4RDwCFTUQdZYYbsgAAAABJRU5ErkJggg==")
+      no-repeat center center ~"/" contain;
+  }
+}
+
+.pageAlias {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  height: 24px;
+
+  .url {
+    font-size: 12px;
+    line-height: 22px;
+    color: #434343;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+
+    &::before {
+      content: "/pages/";
+      background: rgba(0, 0, 0, 0.02);
+      padding: 0 7px;
+      border-right: 1px solid #d9d9d9;
+    }
+    &::after {
+      content: "/index";
+      background: rgba(0, 0, 0, 0.02);
+      padding: 0 7px;
+      border-left: 1px solid #d9d9d9;
+    }
+
+    .input {
+      flex: 1;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+      padding: 0 4px;
+      font-size: 12px;
+      outline: none;
+    }
+  }
+}

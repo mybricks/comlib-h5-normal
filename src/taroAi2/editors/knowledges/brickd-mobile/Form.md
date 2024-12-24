@@ -1,20 +1,33 @@
 # Form 表单
 
+## 常见思路
+
+<提问意图>
+比如以下情况：
+- 包含「勾选协议」、「操作按钮」等非常规表单项内容
+</提问意图>
+<编程注意项>
+检查是否应该由`Form.Item`来包裹这些内容。
+</编程注意项>
+
 ## 代码示例
 
 ### 基础用法
-在表单中，每个 `Form.Item` 代表一个表单项。
+在表单中，每个 `Form.Item` 代表一个表单项， `Form`组件可以收集、校验所有表单项的值。
 
 要点：
-- 使用`Form`时，必须要使用`Form.Item`、`Form.Label`和`Form.Control`三个组件来包裹元素，保证`Form`组件收集数据和校验等能力生效。
-- `Form.Item`的`required`属性，可以添加在表单标签处添加必填标记（红色星号圆点），如果有小红点实现，可以优先使用此属性配置。
+- 使用`Form`时，必须要使用`Form.Item`、和`Form.Control`三个组件来包裹元素，保证`Form`组件收集数据和校验等能力生效。
+- `Form.Label`为需要在`Form.Item`内部的组件，在不需要标签文本的时候可以不使用。
 - 使用`ref`获取表单实例，并且通过`validate`方法获取校验后的数据。
 - `Form`本身对外部有`padding`内边距的属性，如果不是必要，请勿对`Form`配置内边距和布局等样式。
+- `Form.Item`也有10px的`padding`内边距，所以包裹的组件请注意是否需要配置`padding`，也不要为了表单项之间的间距轻易配置`margin`。
 
 ```jsx file="runtime.jsx"
-import { Form } from 'brickd-mobile';
+import { useRef } from 'react';
+import { Form, Input } from 'brickd-mobile';
+import { View } from '@tarojs/components'
 
-function BasicForm() {
+export default ({ data }) => {
   const onSubmit = () => {
     // 表单校验通过时，获取表单数据
     formRef?.currunt?.validate().then(result => {
@@ -27,14 +40,17 @@ function BasicForm() {
   const formRef = useRef(null);
 
   return (
-    <Form ref={formRef}>
-      <Form.Item required name ="username" rules={[{ required: true, message: "请填写用户名" }]}>
+    <Form
+      className={css.form}
+      ref={formRef}
+    >
+      <Form.Item requiredMark name="username" rules={[{ required: true, message: "请填写用户名" }]}>
         <Form.Label>用户名</Form.Label>
         <Form.Control>
           <Input placeholder="用户名" />
         </Form.Control>
       </Form.Item>
-      <Form.Item required name="password" rules={[{ required: true, message: "请填写密码" }]}>
+      <Form.Item requiredMark name="password" rules={[{ required: true, message: "请填写密码" }]}>
         <Form.Label>密码</Form.Label>
         <Form.Control>
           <Input password placeholder="密码" />
@@ -48,12 +64,59 @@ function BasicForm() {
 }
 ```
 
+```less file="style.less"
+.form {
+  width: 100%; // 默认配置宽度100%
+}
+```
+
+### 表单项的基础使用
+
+基础使用如下
+- `Form.Item`的`requiredMark`属性，内置了表单项的必填样式，内置了标签左侧的小红点样式，可以展示/隐藏。
+- `Form.Item`内置了*padding=10*样式，小于10px的间距会导致`requiredMark`的显示出错。
+- `Form.Item`内置的间距已经提供了上下表单项的间距，如果需要增加或者减小间距，可以通过调整*padding*来解决问题。
+
+```jsx file="runtime.jsx"
+import { useRef } from 'react';
+import { Form, Input } from 'brickd-mobile';
+import { View } from '@tarojs/components'
+
+export default ({ data }) => {
+  return (
+    <Form>
+      <Form.Item className={css.formItem} requiredMark name="username">
+        <Form.Label>用户名</Form.Label>
+        <Form.Control>
+          <Input placeholder="用户名" />
+        </Form.Control>
+      </Form.Item>
+      <View className={css.btn} style={{ margin: "16px" }} onClick={onSubmit}>
+        提交按钮
+      </View>
+    </Form>
+  )
+}
+```
+
+```less file="style.less"
+.formItem {
+  border-bottom: 1px solid #eee; // 示例代码，给每个formItem添加一个下边框，用于分隔表单项
+  padding: 10px 12px; // 注意如果要配置padding，左右的10px不要随意调整
+}
+```
+
+
 ### 校验规则
 
 通过 `rules` 定义表单校验规则，所有可用字段见[下方表格](#rule-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)。
 
 ```jsx file="runtime.jsx"
-function FormWithRules() {
+import { useRef } from 'react';
+import { Form, Input } from 'brickd-mobile';
+import { View } from '@tarojs/components'
+
+export default ({ data }) => {
   const formRef = useRef(null);
 
   const onSubmit = () => {
@@ -117,6 +180,31 @@ function FormWithRules() {
 
 form设置disabled后，也可以单独为表单项和组件设置disabled={false}, 优先级：表单 < 表单项 < 组件
 
+### 表单项使用-添加必填样式
+表单支持展示表单项的必填样式，`Form.Item`的`requiredMark`属性，内置了标签左侧的小红点样式。
+
+```jsx file="runtime.jsx"
+import { useRef } from 'react';
+import { Form, Input } from 'brickd-mobile';
+import { View } from '@tarojs/components'
+
+export default ({ data }) => {
+  return (
+    <Form>
+      <Form.Item
+        name ="username"
+        requiredMark // 展示当前标签项的必填样式
+      >
+        <Form.Label>用户名</Form.Label>
+        <Form.Control>
+          <Input placeholder="用户名" />
+        </Form.Control>
+      </Form.Item>
+    </Form>
+  )
+}
+```
+
 ### 表单项类型 - 开关
 
 在表单中使用 [Switch 组件](/components/switch)。
@@ -172,6 +260,80 @@ form设置disabled后，也可以单独为表单项和组件设置disabled={fals
 </Form.Item>
 ```
 
+### 表单项类型 - 日期时间选择器
+
+在表单中使用 [DatetimePicker 组件](/components/datetimepicker)。
+
+要点：
+- 必须在`Form.Control`组件中用render Props来渲染`Picker`组件，同时必须从中解构出*value*和*onChange*参数，并使用此参数给到`Picker`组件，否则*value*无法正确回显到里面的元素中。
+
+```jsx file="runtime.jsx"
+<Form.Item name="datetimepicker">
+  <Form.Label>时间选择器</Form.Label>
+  <Form.Control>
+    {
+      ({ value, onChange }) => {
+        return (
+          <DatetimePicker
+            type="date"
+            value={value}
+            onChange={onChange}
+          >
+            <View className={css.displayValue}>{value || '请选择日期'}</View>
+          </Picker>
+        )
+      }
+    }
+  </Form.Control>
+</Form.Item>
+```
+
+### 表单项类型 - 单列选择器
+
+在表单中使用 [Picker 组件](/components/picker)。
+
+要点：
+- 必须在`Form.Control`组件中用render Props来渲染`Picker`组件，同时必须从中解构出*value*和*onChange*参数，并使用此参数给到`Picker`组件，否则*value*无法正确回显到里面的元素中。
+- 回显的时候需要获取到当前*value*的标签。
+
+```jsx file="runtime.jsx"
+const options = [
+  { label: '选项一', value: 1 },
+  { label: '选项二', value: 2 }
+]
+
+<Form.Item name="picker">
+  <Form.Label>单列选择器</Form.Label>
+  <Form.Control>
+    {
+      ({ value, onChange }) => {
+        return (
+          <Picker
+            options={options}
+            value={value} // 使用render Props中解构的value，将值被Form组件代理
+            onChange={(selectIndex) => { // 使用render Props中解构的onChange，将值被Form组件代理
+              onChange?.(options[selectIndex]?.value)
+            }} 
+          >
+            <View className={css.displayValue}>{options.find(t => t.value === value)?.label || '请选择'}</View>
+          </Picker>
+        )
+      }
+    }
+  </Form.Control>
+</Form.Item>
+```
+
+```less file="style.less"
+.displayValue {
+  width: 100%;
+  color: #323233;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+```
+
 ## API
 
 ### Form Props
@@ -183,15 +345,6 @@ form设置disabled后，也可以单独为表单项和组件设置disabled={fals
 | colon           | 是否在 label 后面添加冒号                         | _boolean_  | `false`  |
 | disabled        | 是否禁用表单             | _boolean_ | `false` |
 | layout          | 所有表单项的布局设置，调整表单项标题和输入区的布局，可选值为 `horizontal`、`vertical`   | _string_ | `horizontal` |
-
-### Form Events
-
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
-| onSubmit | 提交表单且验证通过后触发 | _event: BaseEventOrig<FormProps.onSubmitEventDetail>_ |
-| onReset  | 重置表单后触发         | _event: BaseEventOrig_ |
-| onValidate | 提交表单且验证不通过后触发 | _errors: { name: string, errors: string[] }[]_ |
-| onValuesChange | 字段值更新后触发 | _changedValues: object, allValues: object_ |
 
 ### Form Methods
 
@@ -223,7 +376,7 @@ form设置disabled后，也可以单独为表单项和组件设置disabled={fals
 | --- | --- | --- | --- |
 | name | 表单项名称，提交表单的标识符 | _string_ | - |
 | defaultValue | 表单项默认值 | _any_ | - |
-| required | 是否显示表单必填星号 | _boolean_ | `false` |
+| requiredMark | 是否显示表单必填星号 | _boolean_ | `false` |
 | rules | 表单校验规则 | _FormRule[]_ | - |
 
 > 属性继承自 Cell 组件，更多属性参见：[Cell 组件](/components/cell/#cell-props)

@@ -1,13 +1,15 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View, Image } from "@tarojs/components";
 import { Calendar } from "brickd-mobile";
+// import { Calendar } from "../../../brickd-mobile/src";
+// import  Calendar  from "./calendar/index";
 import { isDate } from "./../utils/core";
 
 import css from "./runtime.less";
 
 export default ({ data, inputs, outputs }) => {
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
+  const [min, setMin] = useState(data.available_start_time || "");
+  const [max, setMax] = useState(data.available_end_time || "");
 
   const selectDateRef = useRef(null);
 
@@ -36,15 +38,17 @@ export default ({ data, inputs, outputs }) => {
     });
 
     inputs["setCustomRange"]?.((val, outputRels) => {
-      console.log("setCustomRange", val);
-
       if (val?.min && val?.max) {
         setMin(val.min);
         setMax(val.max);
       }
-
       outputRels["afterSetCustomRange"]();
     });
+
+    //todo 设置值
+    inputs["setValue"]?.((val,outputRels) => {
+      outputRels["setValueDone"](val);
+    })
   }, []);
 
   const range = useMemo(() => {

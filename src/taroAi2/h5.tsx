@@ -3,6 +3,7 @@ import {runRender} from './utils'
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
 import * as BrickdMobile from 'brickd-mobile';
+import dayjs from "dayjs";
 import { View } from "@tarojs/components";
 import F2ForTaro from './f2-for-taro';
 import { copyToClipboard } from "./utils/ai-code";
@@ -141,7 +142,8 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
           '@tarojs/taro': TaroAPI,
           'mybricks': env.mybricksSdk,
           'f2-for-taro': F2ForTaro,
-          'brickd-mobile': BrickdMobile
+          'brickd-mobile': BrickdMobile,
+          'dayjs': dayjs,
         })
         return com
       } catch (error) {
@@ -156,7 +158,10 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
         return (
           <IdlePlaceholder
             examples={[
-              "实现一个滚动容器"
+              "实现一个九宫格导航入口",
+              "给我一个登录表单",
+              "开发一个支持点击打开日期选择并回显日期的按钮",
+              "给我一个日历，并对双休日做一些特殊的提示"
             ]}
           />
         )

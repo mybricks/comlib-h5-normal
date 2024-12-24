@@ -114,19 +114,28 @@ export default function (props) {
     return ready ? data.options : [];
   }, [ready, data.options]);
 
-  const gapStyle = useMemo(()=>{
-    if(data.direction === 'vertical'){
+  const gapStyle = useMemo(() => {
+    if (data.direction === 'vertical') {
       return {
-        marginBottom : `${data.gap}px`
+        marginBottom: `${data.gap}px`
       }
     }
-    if(data.direction === 'horizontal'){
-      return {
-        marginRight : `${data.gap}px`
+    if (data.direction === 'horizontal') {
+      if (data.columns) {
+        return {
+          flex: `1 1 ${100 / data.columns}%`,
+          maxWidth: `${100 / data.columns}%`,
+          paddingRight: `${data.gap}px`,
+          marginRight: `0px`,
+        };
+      } else {
+        return {
+          marginRight: `${data.gap}px`
+        }
       }
     }
 
-  },[data.direction,data.gap])
+  }, [data.direction, data.gap])
 
   return (
     <Checkbox.Group
@@ -142,13 +151,14 @@ export default function (props) {
 
         return (
           <Checkbox
+            disabled={data.disabled} 
             className={cx({
               ["mybricks-inactive"]: value?.indexOf?.(item.value) === -1,
               ["mybricks-active"]: value?.indexOf?.(item.value) !== -1,
             })}
             name={item.value}
             shape="square"
-            disabled={item.disabled ?? false}
+
             {...restProps}
             style={gapStyle}
           >
