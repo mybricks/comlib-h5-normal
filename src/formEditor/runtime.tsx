@@ -36,6 +36,13 @@ const fixMalformedURI = (str) => {
 export default function (props) {
   const { id, env, data, inputs, outputs, slots, parentSlot } = props;
 
+  const [sanitizedId,setSanitizedId] = useState(Math.random().toString(36).substr(2, 6).toLowerCase())
+
+  // 不能使用组件自己的id，因为放在模块里面后，使用多次这个模块，id都是不会变的
+  // const sanitizedId = useMemo(() => {
+  //   return "u" + id.toLowerCase().replace(/^u_/, "");
+  // }, [id]);
+
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
     //
     parentSlot?._inputs["onChange"]?.({
@@ -70,7 +77,7 @@ export default function (props) {
         }
       });
     });
-  }, []);
+  }, [sanitizedId]);
 
   /**
    * 生命周期
@@ -164,10 +171,7 @@ export default function (props) {
   /**
    * Editor
    */
-  const editorRef = useRef(null);
-  const sanitizedId = useMemo(() => {
-    return "u" + id.toLowerCase().replace(/^u_/, "");
-  }, [id]);
+  const editorRef = useRef(null)
 
   /**
    * Toolbar
@@ -316,7 +320,7 @@ export default function (props) {
         }
       })
       .exec();
-  }, [id, contentPool]);
+  }, [id, contentPool,sanitizedId]);
 
   const toggleBold = () => {
     if (!ready) {
