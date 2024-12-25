@@ -1,0 +1,50 @@
+{
+  "title": "打开视频号",
+  "namespace": "mybricks.taro._openChannelsActivity",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "跳转到视频号播放指定视频",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "openChannelsActivity",
+      "title": "打开视频号",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "finderUserName": {
+            "type": "string",
+            "title": "视频号 id",
+            "description":"视频号 id"
+          },
+          "feedId": {
+            "type": "string",
+            "title": "视频 feedId",
+            "description":"视频 feedId"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "openChannelsActivitySuccess",
+      "title": "打开视频号成功",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "openChannelsActivityFail",
+      "title": "打开视频号失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

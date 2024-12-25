@@ -43,6 +43,7 @@
     "./src/_setTabbarBadge/com.json",
     "./src/_removeTabBarBadge/com.json",
     "./src/_wxPay/com.json",
+    "./src/_openChannelsActivity/com.json",
     "./src/_getWeRunData/com.json",
     "./src/_startFacialRecognitionVerify/com.json",
     "./src/_timer-debounce/com.json",
