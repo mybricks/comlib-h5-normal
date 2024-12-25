@@ -69,7 +69,7 @@ export default function ({ env, data, inputs, outputs }) {
   return (
     <View className={cx(css.searchBox, "mybricks-searchBar")}>
       <Search
-        className={cx(css.searchBar)}
+        className={cx(css.searchBar, "mybricks-searchBar-input")}
         label={data.label}
         value={value}
         placeholder={data?.placeholderText}
