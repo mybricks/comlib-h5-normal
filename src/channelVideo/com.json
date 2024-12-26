@@ -1,0 +1,67 @@
+{
+  "title": "微信视频号",
+  "namespace": "mybricks.taro.channelVideo",
+  "version": "1.0.0",
+  "description": "内嵌显示微信视频号",
+  "author": "MyBricks",
+  "author_name": "MyBricks",
+  "icon": "./icon.svg",
+  "data": "./data.json",
+  "runtime": "./runtime.tsx",
+  "editors": "./editors.tsx",
+  "inputs": [
+    {
+      "id": "channelVideo",
+      "title": "视频号参数",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "feedId": {
+            "type": "string",
+            "title": "视频Id(必填)",
+            "description": "视频Id(必填)"
+          },
+          "finderUserName": {
+            "type": "string",
+            "title": "视频号Id(必填)",
+            "description": "视频号Id(必填)"
+          },
+          "loop": {
+            "type": "boolean",
+            "title": "是否循环播放(可选)",
+            "description": "是否循环播放(可选)"
+          },
+          "muted": {
+            "type": "boolean",
+            "title": "是否静音播放(可选)",
+            "description": "是否静音播放(可选)"
+          },
+          "objectFit": {
+            "type": "string",
+            "title": "视频缩放模式(可选)",
+            "description": "视频缩放模式(可选) 枚举:fill contain cover"
+          },
+          "autoplay": {
+            "type": "boolean",
+            "title": "是否自动播放(可选)",
+            "description": "是否自动播放(可选)"
+          },
+          "feedToken": {
+            "type": "string",
+            "title": "视频token(可选)",
+            "description": "仅内嵌小程序非同主体视频号视频时使用(可选)"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "onError",
+      "title": "错误",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}

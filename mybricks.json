@@ -164,6 +164,7 @@
         "./src/noticeBar/com.json",
         "./src/qrcode/com.json",
         "./src/map/com.json",
+        "./src/channelVideo/com.json",
         "./src/line/com.json",
         "./src/ad-popup/com.json",
         "./src/anchor/com.json",
