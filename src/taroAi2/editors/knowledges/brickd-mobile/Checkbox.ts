@@ -1,8 +1,18 @@
 export default {
   description: `复选框`,
   editors: {
+    ':root': {
+      title: '复选框',
+      items: [
+        {
+          title: '样式',
+          type: 'style',
+          options: ['margin'],
+        }
+      ]
+    },
     '.taroify-icon': {
-      title: '选择图标',
+      title: '图标',
       items: [
         {
           title: '样式',
@@ -12,7 +22,7 @@ export default {
       ]
     },
     '.taroify-checkbox__label': {
-      title: '标题文本',
+      title: '选项内容',
       items: [
         {
           title: '样式',

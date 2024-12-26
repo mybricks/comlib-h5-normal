@@ -13,7 +13,7 @@
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
-import { Button } from '@tarojs/components';
+import { Button } from 'brickd-mobile';
 
 export default comRef(({ data, inputs, outputs, slots }) => {
   return (
@@ -37,7 +37,7 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 import { comRef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
-import { Button } from '@tarojs/components';
+import { Button } from 'brickd-mobile';
 
 export default comRef(({ data, inputs, outputs, slots }) => {
   return (
