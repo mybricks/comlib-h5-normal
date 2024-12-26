@@ -20,6 +20,29 @@
       "rels": ["afterGetDataSource"]
     },
     {
+      "id": "setTableHeader",
+      "title": "设置表头",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "title": "列标题",
+              "description": "列标题"
+            },
+            "dataIndex": {
+              "type": "string",
+              "title": "列序号",
+              "description": "列序号"
+            }
+          }
+        }
+      },
+      "rels": ["afterSetTableHeader"]
+    },
+    {
       "id": "setDataSource",
       "title": "设置数据",
       "schema": {
@@ -91,6 +114,16 @@
     {
       "id": "afterSetDataSource",
       "title": "设置完成",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "id": "afterSetTableHeader",
+      "title": "设置表头完成",
       "schema": {
         "type": "array",
         "items": {

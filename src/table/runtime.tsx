@@ -64,6 +64,18 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [dataSource, setDataSource] = useState(env.edit ? [{}, {}, {}] : []);
   const dataSourceRef = useRef(dataSource);
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
+  const [column, setColumn] = useState(data.columns)
+
+  const defaultColumn = () => {
+    return {
+      id: uuid().slice(0, 6),
+      type: "text",
+      autoWidth: true,
+      minWidth: "90",
+      width: "100",
+    }
+
+  }
 
   let page = data.pagenation.page ?? 1;
 
@@ -119,6 +131,17 @@ export default function ({ env, data, inputs, outputs, slots }) {
     inputs?.["getDataSource"]((val, outputRels) => {
       outputRels["afterGetDataSource"]?.(dataSourceRef.current);
     });
+
+    inputs?.["setTableHeader"]((val, outputRels) => {
+      let headerArray = val.map((item) => {
+        return {
+          ...defaultColumn(),
+          ...item,
+        }
+      })
+      setColumn(headerArray)
+      outputRels?.["afterSetTableHeader"]?.(headerArray);
+    })
   }, [dataSource]);
 
   const $loading = useMemo(() => {
@@ -126,7 +149,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
   }, []);
 
   //
-  if (env.edit && !data.columns.length) {
+  if (env.edit && !column.length) {
     return <View className={css.placeholder}>请添加表格列</View>;
   }
 
@@ -141,7 +164,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         >
           {/* thead */}
           {data.hiddenTableHeader ? null : (
-            <Head columns={data.columns} data={data}></Head>
+            <Head columns={column} data={data}></Head>
           )}
 
           {/* tbody */}
@@ -150,7 +173,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
               <Row
                 record={item}
                 index={index}
-                columns={data.columns}
+                columns={column}
                 data={data}
                 env={env}
                 outputs={outputs}
