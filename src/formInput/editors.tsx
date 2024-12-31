@@ -12,14 +12,14 @@ export default {
         title: "输入框",
         options: ["border", "size", "padding", "background"],
         target({ id }) {
-          return [`#${id} .mybricks-input`, `#${id} .mybricks-h5Input .taroify-native-input`];
+          return [`.mybricks-input`, `.mybricks-h5Input .taroify-native-input`];
         },
       },
       {
         title: "内容文本",
         options: ["font"],
         target({ id }) {
-          return [`#${id} .mybricks-input`, `#${id} .mybricks-h5Input .taroify-native-input`];
+          return [`.mybricks-input`, `.mybricks-h5Input .taroify-native-input`];
         },
       },
       {
@@ -27,8 +27,8 @@ export default {
         options: ["font"],
         target({ id }) {
           return [
-            `#${id} .mybricks-input .taroify-input__placeholder`,
-            `#${id} .mybricks-h5Input .taroify-native-input::placeholder`,
+            `.mybricks-input .taroify-input__placeholder`,
+            `.mybricks-h5Input .taroify-native-input::placeholder`,
           ];
         },
       },
@@ -65,6 +65,23 @@ export default {
             },
             set({ data }, value) {
               return (data.type = value);
+            },
+          },
+        },
+        {
+          title: "文本对齐方式",
+          description: "文本对齐方式，需要真机预览",
+          type: "select",
+          options: [
+            { label: "左对齐", value: "left" },
+            { label: "右对齐", value: "right" },
+          ],
+          value: {
+            get({ data }) {
+              return data.inputAlign;
+            },
+            set({ data }, value) {
+              data.inputAlign = value;
             },
           },
         },

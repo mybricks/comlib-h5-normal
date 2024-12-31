@@ -119,6 +119,7 @@ export default function (props) {
         value={value}
         type={data.type}
         placeholder={data.placeholder}
+        align={data.inputAlign}
         onChange={onChange}
         disabled={data.disabled}
         clearable={data.clearable}

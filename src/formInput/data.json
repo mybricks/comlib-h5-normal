@@ -8,5 +8,6 @@
   "disabled": false,
   "required": false,
   "hidden": false,
-  "maxlength":-1
+  "maxlength": -1,
+  "inputAlign": "left"
 }

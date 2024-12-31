@@ -7,7 +7,7 @@ export default {
         {
           title: "样式",
           type: "style",
-          options: ["background", "font", "border", "padding", "margin"],
+          options: ["background", "font", "border", "padding", "margin","boxShadow"],
         },
       ],
     },
