@@ -13,6 +13,7 @@ import css from "./style.less";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isH5 } from "../utils/env";
 import cx from "classnames";
+import { uuid } from "../utils";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -149,7 +150,7 @@ export default function (props) {
 
   const normalView = useMemo(() => {
     return (<View
-      key="normalView"
+      key={`normalView-${uuid()}`}
       className={cx({
         [css.select]: true,
         "mybricks-select": !isH5(),
@@ -190,7 +191,7 @@ export default function (props) {
   const slotsView = useMemo(() => {
     return (
       <View
-        key="slotsView"
+        key={`slotsView-${uuid()}`}
         className={cx({
           [css.select]: true,
           [css.slot_default_style]: true,
