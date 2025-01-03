@@ -9,6 +9,7 @@ import basePrompt from "./prompts/base.md";
 import taroComponentsPrompt from "./prompts/taro-components-summary.md";
 import f2Prompt from "./prompts/f2-summary.md";
 import brickdMobilePrompt from './prompts/brickd-mobile-summary.md';
+import MyBricksEnv from './prompts/mybricks-env-summary.md'
 
 import F2ForTaro from './../f2-for-taro';
 import * as Taro from "@tarojs/components";
@@ -23,7 +24,7 @@ export default {
     getSystemPrompts() {
       return {
         langs: "@tarojs/components、@tarojs/taro、brickd-mobile、CSS、Javascript、react",
-        prompts: `${basePrompt} \n ${taroComponentsPrompt} \n ${brickdMobilePrompt} \n ${f2Prompt}`,
+        prompts: `${basePrompt} \n ${taroComponentsPrompt} \n ${brickdMobilePrompt} \n ${f2Prompt} \n ${MyBricksEnv}`,
       };
     },
     loadKnowledge(items) {

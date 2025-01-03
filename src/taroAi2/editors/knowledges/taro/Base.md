@@ -113,3 +113,200 @@ export default comRef(({ data, slots }) => {
 });
 
 ```
+
+
+1. 开发一个列表，支持触底加载更多
+
+```less file="style.less"
+.item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+}
+
+.loading {
+  text-align: center;
+  padding: 10px;
+  color: #999;
+}
+
+
+```
+
+```json file="model.json"
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "列表项1",
+      "description": "描述1"
+    },
+    {
+      "id": "2",
+      "title": "列表项2",
+      "description": "描述2"
+    },
+    {
+      "id": "3",
+      "title": "列表项3",
+      "description": "描述3"
+    }
+  ],
+  "enableLoadMore": true,
+  "isLoading": false
+}
+```
+
+```jsx file="runtime.jsx"
+import css from 'style.less';
+import { comDef } from 'mybricks';
+import { View, Text } from '@tarojs/components';
+import { useEffect, useCallback, useMemo } from 'react';
+
+export default comDef(({
+  env,
+  data,
+  inputs,
+  outputs
+}) => {
+  // 加载更多逻辑
+  const loadMore = useCallback(() => {
+    if (data.enableLoadMore && !data.isLoading) {
+      data.isLoading = true; // 进入loading状态
+      outputs['loadMore']();
+    }
+  }, [data.enableLoadMore, data.isLoading, outputs]);
+
+  // 监听触底事件
+  useEffect(() => {
+    const offset = 50; // 预触底偏移值
+    const checkScroll = () => {
+      env?.rootScroll?.getBoundingClientRect?.().then(({
+        height
+      }) => {
+        const clientHeight = height || 750;
+        env?.rootScroll?.onScroll?.(({
+          detail
+        }) => {
+          const {
+            scrollTop,
+            scrollHeight
+          } = detail;
+          if (scrollTop + clientHeight + offset > scrollHeight) {
+            loadMore();
+          }
+        });
+      });
+    };
+    checkScroll();
+  }, [loadMore, env]);
+
+  // 监听输入项「初始化数据源」
+  useMemo(() => {
+    inputs['initData'](initialItems => {
+      if (initialItems && Array.isArray(initialItems)) {
+        data.items = initialItems; // 初始化数据
+      }
+    });
+  }, [inputs, data]);
+
+  // 监听输入项「追加数据」
+  useMemo(() => {
+    inputs['appendData']((newItems, outputRels) => {
+      if (newItems && Array.isArray(newItems)) {
+        data.items = [...data.items, ...newItems]; // 追加新数据
+        data.isLoading = false; // 退出loading状态
+        outputRels?.['appendDataDone'](newItems);
+      }
+    });
+  }, [inputs, data]);
+
+
+  return <View className={css.listContainer}>
+      {data.items.map(item => <View className={css.item} key={item.id}}>
+          <Text className={css.title}>
+            {item.title}
+          </Text>
+          <Text className={css.description}>
+            {item.description}
+          </Text>
+        </View>)}
+         {data.isLoading && <View className={css.loading}>
+          <Text>加载中...</Text>
+        </View>}
+    </View>;
+}, {
+  title: '列表',
+  inputs: [{
+    id: 'initData',
+    title: '初始化数据源',
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string'
+          },
+          title: {
+            type: 'string'
+          },
+          description: {
+            type: 'string'
+          }
+        }
+      }
+    },
+    rels: ["initDataDone"]
+  },{
+    id: 'appendData',
+    title: '追加数据',
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string'
+          },
+          title: {
+            type: 'string'
+          },
+          description: {
+            type: 'string'
+          }
+        }
+      }
+    },
+    rels: ["appendDataDone"]
+  }],
+  outputs: [{
+    id: 'loadMore',
+    title: '加载更多',
+    schema: {
+      type: 'void'
+    }
+  },{
+    id: 'initDataDone',
+    title: '初始化数据完成',
+    schema: {
+      type: 'void'
+    }
+  },{
+    id: 'appendDataDone',
+    title: '追加数据完成',
+    schema: {
+      type: 'void'
+    }
+  }]
+});
+```
