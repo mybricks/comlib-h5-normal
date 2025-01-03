@@ -17,7 +17,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ['border', 'background'],
+          // options: ['border', 'background'],
         }
       ]
     },
@@ -27,7 +27,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ['font', 'margin'],
+          // options: ['font', 'margin'],
         }
       ]
     }

@@ -21,7 +21,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ["padding", "border", "background", "font"],
+          // options: ["padding", "border", "background", "font"],
         },
         {
           title: "提示内容",
@@ -44,7 +44,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ["padding"],
+          // options: ["padding"],
         }
       ]
     }
