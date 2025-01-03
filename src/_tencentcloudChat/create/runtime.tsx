@@ -52,7 +52,8 @@ export default function ({ env, data, inputs, outputs }) {
     chat.on(TencentCloudChat.EVENT.SDK_READY, function (event) {
       console.warn("SDK_READY", event);
       wx.env['tencentcloudChat'] = chat;
-      outputRels["onSDKReady"](event.data);
+      console.log("准备完成",event)
+      outputRels["onSdkReady"](event);
 
 
       // 收到离线消息和会话列表同步完毕通知，接入侧可以调用 sendMessage 等需要鉴权的接口
