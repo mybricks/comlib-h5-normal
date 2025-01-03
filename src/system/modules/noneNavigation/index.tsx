@@ -70,8 +70,8 @@ export default function (props) {
                 data.customBackIcon
                   ? data.customBackIcon
                   : data.navigationBarTextStyle === "white"
-                  ? backIconWhite
-                  : backIconBlack
+                    ? backIconWhite
+                    : backIconBlack
               }
               onClick={(e) => {
                 if (!env.runtime) {
@@ -87,8 +87,14 @@ export default function (props) {
             />
           </View>
         ) : null}
+        <View
+          className={cx(css.title, "mybricks-navTitle")}
+          style={{ color: data.navigationBarTextStyle }}
+        >
+          {data.navigationBarTitleText}
+        </View>
 
-        {isDesigner(env) &&  (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined ) && (
+        {isDesigner(env) && (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined) && (
           <Image
             className={css.right}
             src={

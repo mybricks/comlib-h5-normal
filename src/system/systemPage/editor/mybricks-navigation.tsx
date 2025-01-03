@@ -111,7 +111,7 @@ export default {
       },
       {
         ifVisible({ data }) {
-          return data.useNavigationStyle === "default";
+          return data.useNavigationStyle === "default" || data.useNavigationStyle === "none";
         },
         title: "导航栏标题文字内容",
         type: "text",
@@ -198,6 +198,33 @@ export default {
         title: "样式",
         options: ["size"],
         target: ".mybricks-backIcon",
+      },
+    ],
+    items: [
+      {
+        title: "自定义图标",
+        type: "imageselector",
+        options: {
+          fileSizeLimit: 10,
+          useBase64Only: true,
+        },
+        value: {
+          get({ data }) {
+            return data.customBackIcon;
+          },
+          set({ data }, value) {
+            data.customBackIcon = value;
+          },
+        },
+      },
+    ],
+  },
+  ".mybricks-navTitle": {
+    style: [
+      {
+        title: "样式",
+        options: ["size","color"],
+        target: ".mybricks-navTitle",
       },
     ],
     items: [
