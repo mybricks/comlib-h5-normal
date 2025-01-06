@@ -108,14 +108,14 @@
       "id": "afterRefreshDataSource",
       "title": "覆盖数据后",
       "schema": {
-        "type": "array"
+        "type": "any"
       }
     },
     {
       "id": "afterAddDataSource",
       "title": "添加数据后",
       "schema": {
-        "type": "array"
+        "type": "any"
       }
     }
   ],

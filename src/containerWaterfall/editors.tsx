@@ -346,6 +346,40 @@ export default {
           },
         ],
       },
+      {
+        type: "editorRender",
+        options: {
+          render: (props) => {
+            console.warn("~~~~~!!!!!!");
+            console.warn(props.editConfig.value.get());
+            return <div></div>;
+          },
+        },
+        value: {
+          get({ inputs, outputs }) {
+            console.log("~~~~~~~~~~~~~~~~");
+            if (!outputs.get("afterRefreshDataSource")) {
+              outputs.add("afterRefreshDataSource", "覆盖数据后", {
+                type: "any",
+              });
+
+              inputs
+                .get("refreshDataSource")
+                .setRels(["afterRefreshDataSource"]);
+            }
+
+            if (!outputs.get("afterAddDataSource")) {
+              outputs.add("afterAddDataSource", "添加数据后", {
+                type: "any",
+              });
+
+              inputs.get("addDataSource").setRels(["afterAddDataSource"]);
+            }
+
+            return "";
+          },
+        },
+      },
     ];
     cate1.title = "高级";
     cate1.items = [
