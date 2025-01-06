@@ -161,7 +161,6 @@ export default comRef(({ data, slots }) => {
       "description": "描述3"
     }
   ],
-  "enableLoadMore": true,
   "isLoading": false
 }
 ```
@@ -180,13 +179,13 @@ export default comDef(({
 }) => {
   // 加载更多逻辑
   const loadMore = useCallback(() => {
-    if (data.enableLoadMore && !data.isLoading) {
+    if (!data.isLoading) { //这个是必须要的。当组件加载中的状态，不可触发加载更多。不然会多次重复触发。
       data.isLoading = true; // 进入loading状态
       outputs['loadMore']();
     }
   }, [data.enableLoadMore, data.isLoading, outputs]);
 
-  // 监听触底事件
+  // 监听触底事件，每次用户提及要触底加载更多时，必须按照下面这个函数的范式进行识别。其他自由发挥的不生效。
   useEffect(() => {
     const offset = 50; // 预触底偏移值
     const checkScroll = () => {
