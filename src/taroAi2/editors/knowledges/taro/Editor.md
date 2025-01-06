@@ -30,7 +30,7 @@ ComponentType<EditorProps>
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Editor, View, Image } from '@tarojs/components';
 import * as Taro from "@tarojs/taro";
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 
 //下面是图标，不能省略
@@ -39,7 +39,7 @@ const undoIcon = `https://assets.mybricks.world/UYt6gtgsgUciIy3cEZYERqitzoUZah6a
 const redoIcon = `https://assets.mybricks.world/maPE3g6WxzkyvSTuKQuZYajmgYNC6OGJ-1732074820848.png`;
 //上面是图标，不能省略
 
-export default comRef(({ data,env, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [value, setValue] = useState(data.value);
   const [ready, setReady] = useState(false);
   const [contentPool, setContentPool] = useState(null);

@@ -6,13 +6,13 @@
 - 针对移动端屏幕，配置较小的*tickCount*时文字不会挤在一起。
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Line } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   useEffect(() => {
@@ -69,13 +69,13 @@ export default comRef(({ data, env }) => {
 - 多条对比数据最终都汇总到一个数组里，用不同的*维度*指标作区分，比如下方代码就用*type*区分不同维度的线。
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Line } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   useEffect(() => {
@@ -144,13 +144,13 @@ export default comRef(({ data, env }) => {
 - 使用 ```chart.interaction('pan')``` 插件实现，而不是使用```ScrollView```
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Line } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   useEffect(() => {

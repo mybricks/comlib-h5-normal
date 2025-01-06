@@ -7,12 +7,12 @@ ComponentType<WebViewProps>
 
 ## 最佳实践
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';
 import { WebView } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <WebView src='https://mp.weixin.qq.com/' onMessage={() => {}} />
   )

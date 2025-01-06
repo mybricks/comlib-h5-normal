@@ -9,12 +9,12 @@ ComponentType<ProgressProps>
 - 开发一个进度条，进度条颜色是红色的
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Progress } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Progress percent={80}  strokeWidth={2} active activeColor='#FF000F' />
   )

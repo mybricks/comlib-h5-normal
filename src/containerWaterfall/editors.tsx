@@ -283,14 +283,14 @@ export default {
         title: "分页配置",
         items: [
           {
-            title:"开启触底加载",
+            title: "开启触底加载",
             type: "switch",
             value: {
               get({ data }) {
                 return data.enableLoadMore;
               },
               set({ data }, value) {
-                  data.enableLoadMore = value;
+                data.enableLoadMore = value;
               },
             },
           },
@@ -345,6 +345,40 @@ export default {
             },
           },
         ],
+      },
+      {
+        type: "editorRender",
+        options: {
+          render: (props) => {
+            console.warn("~~~~~!!!!!!");
+            console.warn(props.editConfig.value.get());
+            return <div></div>;
+          },
+        },
+        value: {
+          get({ inputs, outputs }) {
+            console.log("~~~~~~~~~~~~~~~~");
+            if (!outputs.get("afterRefreshDataSource")) {
+              outputs.add("afterRefreshDataSource", "覆盖数据后", {
+                type: "any",
+              });
+
+              inputs
+                .get("refreshDataSource")
+                .setRels(["afterRefreshDataSource"]);
+            }
+
+            if (!outputs.get("afterAddDataSource")) {
+              outputs.add("afterAddDataSource", "添加数据后", {
+                type: "any",
+              });
+
+              inputs.get("addDataSource").setRels(["afterAddDataSource"]);
+            }
+
+            return "";
+          },
+        },
       },
     ];
     cate1.title = "高级";
@@ -534,10 +568,9 @@ export default {
         type: "imageselector",
         value: {
           get({ data }) {
-            
-            console.warn(JSON.stringify(data.empty))
-            console.warn(JSON.stringify(data.empty))
-            console.warn(JSON.stringify(data.empty))
+            console.warn(JSON.stringify(data.empty));
+            console.warn(JSON.stringify(data.empty));
+            console.warn(JSON.stringify(data.empty));
 
             return data.empty.icon;
           },

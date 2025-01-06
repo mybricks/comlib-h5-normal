@@ -6,13 +6,13 @@
 - 提供*5项及以上*的数据，用于展示多维效果。
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Radar } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   useEffect(() => {

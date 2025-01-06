@@ -1,23 +1,23 @@
 export default {
   description: `表单`,
   editors: {
-    ':root': {
-      title: '表单',
-      items: [
-        {
-          title: '样式',
-          type: 'style',
-          options: ['padding', 'border', 'background'],
-        }
-      ]
-    },
+    // ':root': {
+    //   title: '表单',
+    //   items: [
+    //     {
+    //       title: '样式',
+    //       type: 'style',
+    //       options: ['padding', 'border', 'background'],
+    //     }
+    //   ]
+    // },
     '.taroify-form-item': {
       title: '表单项',
       items: [
         {
           title: '样式',
           type: 'style',
-          options: ['padding', 'border', 'background'],
+          // options: ['padding', 'border', 'background'],
         }
       ]
     },
@@ -27,7 +27,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ['font'],
+          // options: ['font'],
         }
       ]
     },

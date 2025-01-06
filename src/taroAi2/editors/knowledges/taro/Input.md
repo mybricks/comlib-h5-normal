@@ -10,12 +10,12 @@ ComponentType<InputProps>
 ### 默认样式
 > 使用 Input 组件时，须给 Input 的 class 额外增加一个后代选择器 input { opacity: 1; }
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Input } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
@@ -40,12 +40,12 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 > 为 Input 组件设置文字颜色时，须额外增加一个后代选择器 input，同时为 Input 和后代选择器 input 设置 color 属性。
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Input } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )
@@ -69,12 +69,12 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 > 为 Input 组件设置占位符文字颜色时，须额外增加一个后代选择器 input::placeholder 并且为其设置颜色。
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Input } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Input className={css.myinput} />
   )

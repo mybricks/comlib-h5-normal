@@ -16,12 +16,12 @@ ComponentType<TextareaProps>
 ```
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';
 import { Textarea } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Textarea
       className={css.textarea}

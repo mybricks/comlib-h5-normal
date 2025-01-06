@@ -1,23 +1,23 @@
 export default {
   description: `复选框`,
   editors: {
-    ':root': {
-      title: '复选框',
-      items: [
-        {
-          title: '样式',
-          type: 'style',
-          options: ['margin'],
-        }
-      ]
-    },
+    // ':root': {
+    //   title: '复选框',
+    //   items: [
+    //     {
+    //       title: '样式',
+    //       type: 'style',
+    //       options: ['margin'],
+    //     }
+    //   ]
+    // },
     '.taroify-icon': {
       title: '图标',
       items: [
         {
           title: '样式',
           type: 'style',
-          options: ['border', 'background'],
+          // options: ['border', 'background'],
         }
       ]
     },
@@ -27,7 +27,7 @@ export default {
         {
           title: '样式',
           type: 'style',
-          options: ['font', 'margin'],
+          // options: ['font', 'margin'],
         }
       ]
     }

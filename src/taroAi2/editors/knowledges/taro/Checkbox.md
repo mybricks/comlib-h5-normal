@@ -7,12 +7,12 @@ ComponentType<CheckboxProps>
 
 ## 最佳实践
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Checkbox } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [state, setState] = useState({
     list: [
       {
