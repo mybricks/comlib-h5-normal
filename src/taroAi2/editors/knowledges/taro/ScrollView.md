@@ -9,12 +9,12 @@ ComponentType<ScrollViewProps>
 - 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useCallback } from 'react';
 import {ScrollView, Text, View} from '@tarojs/components';
 
-export default comRef(({data, outputs})=>{
+export default comDef(({ data, env, inputs, outputs, slots })=>{
   const onScrollToLower = () => {
     outputs['o_01']("加载更多内容"); // 输出内容
   }

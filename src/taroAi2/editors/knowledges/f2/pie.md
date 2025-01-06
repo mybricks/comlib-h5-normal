@@ -21,13 +21,13 @@
 - 添加*animate*效果让展示更丝滑
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Pie } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   useEffect(() => {

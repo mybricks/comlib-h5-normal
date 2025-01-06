@@ -9,13 +9,13 @@
 - 使用图表实例绘制图形
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { useEffect, useState, useRef } from 'react';
 import css from 'style.less';
 import { View } from "@tarojs/components";
 import { Line } from "f2-for-taro";
 
-export default comRef(({ data, env }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [chart, setChart] = useState(null);
 
   const dataSource = [{

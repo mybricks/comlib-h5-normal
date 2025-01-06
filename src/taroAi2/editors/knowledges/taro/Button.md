@@ -8,12 +8,12 @@ ComponentType<ButtonProps>
 ## 最佳实践
 ### 获取用户信息
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Button } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Button
       openType="getUserInfo"

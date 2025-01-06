@@ -77,11 +77,11 @@ type ComponentType<T> = ComponentType<T>
 
 ```jsx file="runtime.jsx"
 import css from 'style.less';
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import { View, Text } from '@tarojs/components';
 import { useState } from 'react';
 
-export default comRef(({ data, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   const [activeIndex, setActiveIndex] = useState(data.activeIndex);
 
   return (

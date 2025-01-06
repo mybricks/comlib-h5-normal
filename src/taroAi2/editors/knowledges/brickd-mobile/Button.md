@@ -10,12 +10,12 @@
 - 组件默认的样式是无边框、高度42、字体大小14、背景色#f8f8f8，如果需要请通过类型覆盖样式
 
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Button } from 'brickd-mobile';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Button className={css.button}>基础按钮</Button>
   )
@@ -34,12 +34,12 @@ export default comRef(({ data, inputs, outputs, slots }) => {
 
 ### 获取用户信息
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Button } from 'brickd-mobile';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Button
       openType="getUserInfo"

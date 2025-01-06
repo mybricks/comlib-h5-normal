@@ -9,7 +9,7 @@
 env 在组件中可以这样引入然后使用：
 
 ```jsx file="runtime.jsx"
-export default comRef(({ env, data, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
     env?.rootScroll?.onScroll((res)=>{ // ！！必须用这种可选表达式，因为在编辑环境中，env可能为空，会导致报错！！
         //页面滚动时这里对接收到的滚动信息进行处理
     })

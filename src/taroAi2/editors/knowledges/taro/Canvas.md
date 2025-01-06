@@ -7,12 +7,12 @@ ComponentType<CanvasProps>
 
 ## 最佳实践
 ```jsx file="runtime.jsx"
-import { comRef } from 'mybricks';
+import { comDef } from 'mybricks';
 import css from 'style.less';
 import { useState } from 'react';
 import { Canvas } from '@tarojs/components';
 
-export default comRef(({ data, inputs, outputs, slots }) => {
+export default comDef(({ data, env, inputs, outputs, slots }) => {
   return (
     <Canvas style='width: 300px; height: 200px;' canvasId='canvas' />
   )

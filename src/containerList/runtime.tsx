@@ -67,8 +67,7 @@ const useReachBottom = (callback, { env, enable = false }) => {
       
       //支付宝 scrollMeta.current.clientHeight 会取不到，先直接设置为750兼容一下
         const clientHeight = scrollMeta.current.clientHeight == 0 ? 750 : scrollMeta.current.clientHeight
-        const isReachEdge =
-          scrollTop + clientHeight + offset > scrollHeight;
+        const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
         if (isReachEdge) {
           cbRef.current?.();
         }
