@@ -21,7 +21,8 @@
           "title": "列项数据",
           "type": "any"
         }
-      }
+      },
+      "rels": ["afterRefreshDataSource"]
     },
     {
       "id": "addDataSource",
@@ -34,7 +35,8 @@
           "title": "列项数据",
           "type": "any"
         }
-      }
+      },
+      "rels": ["afterAddDataSource"]
     },
     {
       "id": "getDataSource",
@@ -100,6 +102,20 @@
       "title": "获取瀑布流数据",
       "schema": {
         "type": "any"
+      }
+    },
+    {
+      "id": "afterRefreshDataSource",
+      "title": "覆盖数据后",
+      "schema": {
+        "type": "array"
+      }
+    },
+    {
+      "id": "afterAddDataSource",
+      "title": "添加数据后",
+      "schema": {
+        "type": "array"
       }
     }
   ],

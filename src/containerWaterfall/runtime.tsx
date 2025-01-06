@@ -53,12 +53,14 @@ const useReachBottom = (callback, { env }) => {
       updateScrollRect();
       // console.log(" scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight",scrollTop,scrollMeta.current.clientHeight,offset,">",scrollHeight)
       // if (scrollMeta.current.clientHeight) {
-        const clientHeight = scrollMeta.current.clientHeight == 0 ? 750 : scrollMeta.current.clientHeight
-        const isReachEdge =
-          scrollTop + clientHeight + offset > scrollHeight;
-        if (isReachEdge) {
-          cbRef.current?.();
-        }
+      const clientHeight =
+        scrollMeta.current.clientHeight == 0
+          ? 750
+          : scrollMeta.current.clientHeight;
+      const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
+      if (isReachEdge) {
+        cbRef.current?.();
+      }
       // }
     });
   }, []);
@@ -98,7 +100,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       setStatus(ListStatus.ERROR);
     });
 
-    inputs["addDataSource"]((val) => {
+    inputs["addDataSource"]((val, outputRels) => {
       if (Array.isArray(val)) {
         const ds = val.map((item, index) => ({
           item,
@@ -106,11 +108,17 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           index: index,
         }));
         setDataSource((c) => c.concat(ds));
-        setTimeout(() => { setStatus(ListStatus.IDLE); }, 0)
+        setTimeout(() => {
+          setStatus(ListStatus.IDLE);
+        }, 0);
+
+        setTimeout(() => {
+          outputRels["afterAddDataSource"]?.();
+        }, 10);
       }
     });
 
-    inputs["refreshDataSource"]((val) => {
+    inputs["refreshDataSource"]((val, outputRels) => {
       if (Array.isArray(val)) {
         const ds = val.map((item, index) => ({
           item,
@@ -119,22 +127,27 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         }));
         setDataSource(ds);
         setStatus(ListStatus.IDLE);
+
+        setTimeout(() => {
+          outputRels["afterRefreshDataSource"]?.();
+        }, 10);
       }
     });
 
-    inputs['reset']((val, relOutputs) => {
+    inputs["reset"]((val, relOutputs) => {
       setDataSource([]);
       relOutputs["afterReset"]?.();
-    })
-
+    });
   }, []);
 
   useEffect(() => {
     /* 获取值 */
     inputs["getDataSource"]((val, outputRels) => {
-      outputRels["getDataSourceSuccess"](dataSource.map((item,index) => ({...item.item})));
+      outputRels["getDataSourceSuccess"](
+        dataSource.map((item, index) => ({ ...item.item }))
+      );
     });
-  }, [dataSource])
+  }, [dataSource]);
 
   /**
    * 列表项
@@ -483,11 +496,11 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       {useWaterfall && $waterfall}
 
       {useLoading ||
-        useLoadingBar ||
-        useError ||
-        useErrorBar ||
-        useEmpty ||
-        useEmptyBar ? (
+      useLoadingBar ||
+      useError ||
+      useErrorBar ||
+      useEmpty ||
+      useEmptyBar ? (
         <View
           className={css.placeholder}
           style={{

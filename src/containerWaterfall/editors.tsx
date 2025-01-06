@@ -283,14 +283,14 @@ export default {
         title: "分页配置",
         items: [
           {
-            title:"开启触底加载",
+            title: "开启触底加载",
             type: "switch",
             value: {
               get({ data }) {
                 return data.enableLoadMore;
               },
               set({ data }, value) {
-                  data.enableLoadMore = value;
+                data.enableLoadMore = value;
               },
             },
           },
@@ -534,10 +534,9 @@ export default {
         type: "imageselector",
         value: {
           get({ data }) {
-            
-            console.warn(JSON.stringify(data.empty))
-            console.warn(JSON.stringify(data.empty))
-            console.warn(JSON.stringify(data.empty))
+            console.warn(JSON.stringify(data.empty));
+            console.warn(JSON.stringify(data.empty));
+            console.warn(JSON.stringify(data.empty));
 
             return data.empty.icon;
           },
