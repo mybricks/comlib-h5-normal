@@ -46,6 +46,14 @@
       }
     },
     {
+      "id": "setPlaceholder",
+      "title": "设置提示内容",
+      "desc": "设置图片上传下方的文本提示内容",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
       "id": "setDisabled",
       "title": "设置是否禁用",
       "desc": "设置表单项是否禁用，传入 true 时禁用表单项，传入 false 时启用表单项",

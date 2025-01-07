@@ -85,7 +85,7 @@ export default {
           },
         },
         {
-          title:"上传name(h5生效)",
+          title: "上传name(h5生效)",
           type: "text",
           value: {
             get({ data }) {
@@ -97,7 +97,7 @@ export default {
           },
         },
         {
-          title:"上传filename(h5生效)",
+          title: "上传filename(h5生效)",
           type: "text",
           value: {
             get({ data }) {
@@ -137,6 +137,22 @@ export default {
             },
           },
         },
+        {
+          title: "升级",
+          type: "button",
+          value: {
+            set({ data, inputs, outputs }) {
+              inputs.add({
+                id: "setPlaceholder",
+                title: "设置提示内容",
+                desc: "设置图片上传下方的文本提示内容",
+                schema: {
+                  type: "string"
+                }
+              });
+            }
+          }
+        }
       ];
     },
   },

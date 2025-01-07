@@ -93,6 +93,13 @@ export default function (props) {
     });
   }, [value, data.maxCount]);
 
+  useEffect(()=>{
+    //设置提示文本
+    inputs["setPlaceholder"]?.((val, outputRels) => {
+      data.placeholderText = val;
+    });
+  },[])
+
   // const onChange = useCallback(
   //   (_value) => {
   //     let value = _value;
