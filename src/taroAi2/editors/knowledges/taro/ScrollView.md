@@ -6,7 +6,7 @@ ComponentType<ScrollViewProps>
 ```
 
 ## 最佳实践
-- 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
+1. 开发一个滚动容器，支持下拉刷新，并且支持滚动到底部时，加载更多
 
 ```jsx file="runtime.jsx"
 import { comDef } from 'mybricks';
@@ -83,19 +83,55 @@ export default comDef(({ data, env, inputs, outputs, slots })=>{
     "数据项2",
     "数据项3",
     "数据项4",
-    "数据项5",
-    "数据项6",
-    "数据项7",
-    "数据项8",
-    "数据项9",
-    "数据项10",
-    "数据项11",
-    "数据项12",
-    "数据项13",
-    "数据项14",
-    "数据项15"
   ]
 }
+```
+
+2. 开发一个 滚动/瀑布流 列表，当选中其中一项后，数据变化时，仍然能保持住当前的滚动位置。
+
+```jsx file="runtime.jsx"
+import { comDef } from 'mybricks';
+import css from 'style.less';
+import { useCallback, useState } from 'react';
+import {ScrollView, Text, View} from '@tarojs/components';
+
+export default comDef(({ data, env, inputs, outputs, slots })=>{
+    const [scrollTop, setScrollTop] = useState(0);
+    const handleSelect = index => {
+    data.images.forEach((image, i) => {
+      image.selected = i === index;
+    });
+    const selectedImage = data.images[index];
+  };
+  const debounce = (func, delay) => {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+  // 滚动时记录滚动位置，这样当列表数据更新时，也不会回到顶部
+  const handleScroll = debounce(e => {
+    setScrollTop(e?.mpEvent?.detail?.scrollTop || 0);
+  }, 200);
+
+  return (
+    <ScrollView onScroll={handleScroll} scrollTop={scrollTop} className={css.scrollContainer} scrollY>
+      <View className={css.uploadContainer}>
+        {data.images.map((item, index) => <View key={index} className={css.imageWrapper} onClick={() => handleSelect(index)}>
+            <Image src={item.image} className={css.image} mode="aspectFill"/>
+            <View className={item.selected ? css.mask : css.hiddenMask}>
+              已选择
+            </View>
+          </View>)}
+      </View>
+    </ScrollView>
+  )
+
+},{
+  type: "main"
+  title: "滚动列表",
+})
 ```
 
 ## ScrollViewProps

@@ -24,6 +24,7 @@ type ComponentType<T> = ComponentType<T>
 
 1. 在为组件设置样式时，尽量不要使用内联样式，而是使用 style 文件进行样式设置。
 2. 有非常高的审美造诣，在用户提出配色/颜色选择需求时，你会考虑莫兰迪色系、清新自然系、海洋湖泊系等热门色系。
+3. 简单的列表滚动不需要引入 *ScrollView* 组件，直接使用 *View* 组件即可。通过给外层View配置 CSS: overflow-y: scroll; 属性，即可实现滚动。
 
 ## 常见组件开发示例
 
@@ -115,7 +116,7 @@ export default comDef(({ data, env, inputs, outputs, slots }) => {
 ```
 
 
-1. 开发一个列表，支持触底加载更多
+2. 开发一个列表，支持触底加载更多
 
 ```less file="style.less"
 .item {
@@ -309,3 +310,42 @@ export default comDef(({
   }]
 });
 ```
+
+3. 开发一个列表，支持上下滚动
+> 注意：一般简单的滚动不需要引入 *ScrollView* 组件，直接使用 *View* 组件即可。通过给外层View配置 CSS: overflow-y: scroll; 属性，即可实现滚动。
+
+```less file="style.less"
+.listContainer {
+  overflow-y: scroll; // 通过这个来使列表可以上下滚动
+  width: 100%;
+  height: 100%;
+}
+```
+
+```jsx file="runtime.jsx"
+import css from 'style.less';
+import { comDef } from 'mybricks';
+import { View, Text } from '@tarojs/components';
+import { useEffect, useCallback, useMemo } from 'react';
+
+export default comDef(({
+  env,
+  data,
+  inputs,
+  outputs
+}) => {
+
+return (
+  <View className={css.listContainer}>
+      {data.items.map(item => <View className={css.item} key={item.id}}>
+          <Text className={css.title}>{item.title}</Text>
+          <Text className={css.description}>{item.description}</Text>
+        </View>)}
+    </View>
+    )
+},{
+title: '滚动列表',
+})
+
+```
+
