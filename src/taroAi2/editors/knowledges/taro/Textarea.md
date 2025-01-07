@@ -1,4 +1,5 @@
 # Textarea - 多行输入框。该组件是原生组件，使用时请注意相关限制。
+- 注意：Textarea并没有onChange事件。因此当从其他组件修改为Textarea时，应注意要把onChange改为onInput
 
 ## 类型
 ```tsx
@@ -18,13 +19,20 @@ ComponentType<TextareaProps>
 ```jsx file="runtime.jsx"
 import { comDef } from 'mybricks';
 import css from 'style.less';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Textarea } from '@tarojs/components';
 
 export default comDef(({ data, env, inputs, outputs, slots }) => {
+  const [value, setValue] = useState('');
+
+  const handleInput = (e)=> {
+      setValue(e.detail.value)
+  }
   return (
     <Textarea
       className={css.textarea}
+      onInput={handleInput} // 注意！！ 必须要用onInput，不能用onChange
+      value={value}
     />
   )
 }, {
@@ -69,35 +77,35 @@ export default comDef(({ data, env, inputs, outputs, slots }) => {
 
 ### onFocusEventDetail
 
-| 参数 | 类型 | 说明 |
-| --- | --- | --- |
-| value | `string` | 输入值 |
+| 参数   | 类型     | 说明     |
+| ------ | -------- | -------- |
+| value  | `string` | 输入值   |
 | height | `number` | 键盘高度 |
 
 ### onBlurEventDetail
 
-| 参数 | 类型 | 说明 |
-| --- | --- | --- |
-| value | `string` | 输入值 |
+| 参数   | 类型     | 说明     |
+| ------ | -------- | -------- |
+| value  | `string` | 输入值   |
 | cursor | `number` | 光标位置 |
 
 ### onInputEventDetail
 
-| 参数 | 类型 | 说明 |
-| --- | --- | --- |
-| value | `string` | 输入值 |
-| cursor | `number` | 光标位置 |
-| keyCode | `number` | 键值 |
+| 参数    | 类型     | 说明     |
+| ------- | -------- | -------- |
+| value   | `string` | 输入值   |
+| cursor  | `number` | 光标位置 |
+| keyCode | `number` | 键值     |
 
 ### onConfirmEventDetail
 
-| 参数 | 类型 | 说明 |
-| --- | --- | --- |
+| 参数  | 类型     | 说明   |
+| ----- | -------- | ------ |
 | value | `string` | 输入值 |
 
 ### onKeyboardHeightChangeEventDetail
 
-| 参数 | 类型 | 说明 |
-| --- | --- | --- |
-| height | `number` | 键盘高度 |
+| 参数     | 类型     | 说明     |
+| -------- | -------- | -------- |
+| height   | `number` | 键盘高度 |
 | duration | `number` | 持续时间 |
