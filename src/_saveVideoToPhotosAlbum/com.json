@@ -1,10 +1,10 @@
 {
-  "title": "打开文档",
-  "namespace": "mybricks.taro._openDocument",
-  "author": "",
-  "author_name": "",
+  "title": "保存视频到系统相册",
+  "namespace": "mybricks.taro._saveVideoToPhotosAlbum",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
   "version": "1.0.0",
-  "description": "打开文档",
+  "description": "保存视频到系统相册",
   "icon": "./icon.svg",
   "data": "./data.json",
   "editors": "./editors.tsx",
@@ -12,8 +12,8 @@
   "rtType": "js",
   "inputs": [
     {
-      "id": "url",
-      "title": "文件路径",
+      "id": "call",
+      "title": "保存",
       "schema": {
         "type": "string"
       }
@@ -22,21 +22,16 @@
   "outputs": [
     {
       "id": "onSuccess",
-      "title": "打开成功",
+      "title": "保存成功",
       "schema": {
         "type": "any"
       }
     },
     {
       "id": "onFail",
-      "title": "打开失败",
+      "title": "保存失败",
       "schema": {
-        "type": "object",
-        "properties": {
-          "errMsg": {
-            "type": "string"
-          }
-        }
+        "type": "any"
       }
     }
   ]

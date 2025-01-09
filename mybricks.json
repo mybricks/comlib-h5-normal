@@ -38,6 +38,7 @@
     "./src/_open-location/com.json",
     "./src/_previewImage/com.json",
     "./src/_saveImageToPhotosAlbum/com.json",
+    "./src/_saveVideoToPhotosAlbum/com.json",
     "./src/_poster/com.json",
     "./src/_requestSubscribeMessage/com.json",
     "./src/_setTabbarBadge/com.json",
