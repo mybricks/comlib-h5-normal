@@ -247,13 +247,18 @@ export default function (props) {
   //   };
   // }, []);
 
-  const onChange = useCallback((e) => {
+  const onChange = (e) => {
+    if(!ready || !editorRef.current) {
+      console.log("编辑器未准备好")
+      return
+    }
+    // console.log("内容变更",editorRef.current)
     editorRef.current.getContents({
       success: (res) => {
         setValue(res.html);
       },
     });
-  }, [useBold, editorRef.current]);
+  }
 
   const onStatusChange = (e) => {
     // console.log("onStatusChange", e.mpEvent.detail?.bold);
