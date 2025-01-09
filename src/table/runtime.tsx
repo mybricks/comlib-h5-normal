@@ -66,6 +66,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
   const [column, setColumn] = useState(data.columns)
 
+  useEffect(()=>{
+      setColumn(data.columns)
+  },[data.columns])
+
   const defaultColumn = () => {
     return {
       id: uuid().slice(0, 6),
