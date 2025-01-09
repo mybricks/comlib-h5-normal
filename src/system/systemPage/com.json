@@ -23,15 +23,18 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "标题"
+            "title": "标题",
+            "description":"分享卡片标题"
           },
           "path": {
             "type": "string",
-            "title": "路径"
+            "title": "路径",
+            "description":"页面路径"
           },
           "imageUrl": {
             "type": "string",
-            "title": "图片地址"
+            "title": "图片地址",
+            "description":"分享卡片图片地址"
           }
         }
       }
