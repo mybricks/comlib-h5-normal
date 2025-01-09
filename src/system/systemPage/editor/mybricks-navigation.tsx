@@ -74,6 +74,7 @@ export default {
       {
         title: "显示小程序胶囊",
         type: "switch",
+        description:"仅在编辑态下有效，真机小程序胶囊会一直显示",
         ifVisible({ data }: EditorResult<Data>) {
           return data.navigationStyle !== 'default';
         },
@@ -86,6 +87,36 @@ export default {
             data.showNavigationBarCapsule = value;
           },
         },
+      },
+      {
+        ifVisible({ data }) {
+          return data.useNavigationStyle === "none";
+        },
+        title: "显示导航栏标题",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.showNavigationTextInNone;
+          },
+          set({ data }, value) {
+            data.showNavigationTextInNone = value;
+          },
+        }
+      },
+      {
+        ifVisible({ data }) {
+          return data.useNavigationStyle === "none";
+        },
+        title: "显示返回按钮",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.showNavigationBackBtnInNone;
+          },
+          set({ data }, value) {
+            data.showNavigationBackBtnInNone = value;
+          },
+        }
       },
       {
         title: "导航栏标题颜色",

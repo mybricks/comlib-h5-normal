@@ -62,7 +62,7 @@ export default function (props) {
         }}
       >
         {/* tabbar 页面不渲染返回按钮 */}
-        {!data.useTabBar ? (
+        {(!data.useTabBar && data.showNavigationBackBtnInNone) ? (
           <View className={css.left}>
             <Image
               className={cx(css.backIcon, "mybricks-backIcon")}
@@ -91,7 +91,7 @@ export default function (props) {
           className={cx(css.title, "mybricks-navTitle")}
           style={{ color: data.navigationBarTextStyle }}
         >
-          {data.navigationBarTitleText}
+          {data.showNavigationTextInNone ? data.navigationBarTitleText : ""}
         </View>
 
         {isDesigner(env) && (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined) && (
