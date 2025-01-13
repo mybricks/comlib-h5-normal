@@ -54,7 +54,7 @@
     "./src/_tencentcloudChat/create/com.json",
     "./src/_tencentcloudChat/createGroup/com.json",
     "./src/_tencentcloudChat/joinGroup/com.json",
-     "./src/_tencentcloudChat/quitGroup/com.json",
+    "./src/_tencentcloudChat/quitGroup/com.json",
     "./src/_tencentcloudChat/getConversationList/com.json",
     "./src/_tencentcloudChat/getGroupApplicationList/com.json",
     "./src/_tencentcloudChat/handleGroupApplication/com.json",
@@ -85,14 +85,21 @@
         "./src/tabs/com.json",
         "./src/containerCondition/com.json",
         "./src/switcher/com.json",
-        "./src/containerFixed/com.json"
+        "./src/containerFixed/com.json",
+        "./src/chat/com.json",
+        "./src/noticeBar/com.json",
+        "./src/collapse/com.json",
+        "./src/typography/com.json",
+        "./src/containerSwiper/com.json",
+        "./src/timeLine/com.json",
+        "./src/picker/com.json",
+        "./src/safeArea/com.json",
+        "./src/timer/com.json"
       ]
     },
     {
       "title": "AI组件",
-      "comAry": [
-        "./src/taroAi2/com.json"
-      ]
+      "comAry": ["./src/taroAi2/com.json"]
     },
     {
       "title": "基础",
@@ -101,7 +108,6 @@
         "./src/video/com.json",
         "./src/button/com.json",
         "./src/text/com.json",
-        "./src/typography/com.json",
         "./src/richText/com.json",
         "./src/swiper/com.json"
       ]
@@ -111,12 +117,10 @@
       "comAry": [
         "./src/containerBasic/com.json",
         "./src/tabs2/com.json",
-        "./src/containerSwiper/com.json",
         "./src/containerList/com.json",
         "./src/containerWaterfall/com.json",
         "./src/containerCondition2/com.json",
-        "./src/sidebar2/com.json",
-        "./src/collapse/com.json"
+        "./src/sidebar2/com.json"
       ]
     },
     {
@@ -150,28 +154,27 @@
       "title": "数据展示",
       "comAry": [
         "./src/table/com.json",
-        "./src/timeLine/com.json",
         "./src/cell/com.json",
         "./src/checkList/com.json",
-        "./src/picker/com.json"
+        "./src/filter-coms/contaniner/com.json",
+        "./src/calendar/com.json",
+        "./src/cascader/com.json",
+        "./src/qrcode/com.json"
+      ]
+    },
+    {
+      "title": "微信",
+      "comAry": [
+        "./src/map/com.json",
+        "./src/ad-popup/com.json",
+        "./src/channelVideo/com.json"
       ]
     },
     {
       "title": "其它",
       "comAry": [
-        "./src/filter-coms/contaniner/com.json",
-        "./src/calendar/com.json",
-        "./src/cascader/com.json",
-        "./src/noticeBar/com.json",
-        "./src/qrcode/com.json",
-        "./src/map/com.json",
-        "./src/channelVideo/com.json",
         "./src/line/com.json",
-        "./src/ad-popup/com.json",
         "./src/anchor/com.json",
-        "./src/safeArea/com.json",
-        "./src/timer/com.json",
-        "./src/chat/com.json",
         "./src/support/com.json"
       ]
     }

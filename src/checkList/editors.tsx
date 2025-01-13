@@ -1,7 +1,7 @@
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "auto";
+    // style.height = "auto";
   },
   ":slot": {},
   "@resize": {
