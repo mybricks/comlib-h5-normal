@@ -36,7 +36,11 @@ const fixMalformedURI = (str) => {
 export default function (props) {
   const { id, env, data, inputs, outputs, slots, parentSlot } = props;
 
-  const [sanitizedId,setSanitizedId] = useState(Math.random().toString(36).substr(2, 6).toLowerCase())
+  const sanitizedId = useMemo(
+    () => Math.random().toString(36).substr(2, 6).toLowerCase(),
+    []
+  );
+  const [contentPool, setContentPool] = useState(null);
 
   // 不能使用组件自己的id，因为放在模块里面后，使用多次这个模块，id都是不会变的
   // const sanitizedId = useMemo(() => {
@@ -56,8 +60,6 @@ export default function (props) {
   });
 
   const [ready, setReady] = useState(false);
-  const [contentPool, setContentPool] = useState(null);
-
   const [useFixedToolbar, setUseFixedToolbar] = useState(false);
   const [useBold, setUseBold] = useState(false);
 
@@ -306,10 +308,15 @@ export default function (props) {
   }, []);
 
   const onEditorReady = useCallback(() => {
+    console.log("onEditorReady-contentPool",contentPool,sanitizedId);
     //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
     Taro.createSelectorQuery()
       .select(`.mybricks_com >>> .${sanitizedId}e`)
-      .context((res) => {
+      ?.context?.((res) => {
+        console.log("onEditorReady-context",res);
+        if(res == null){
+          console.log("onEditorReady-重试")
+        }
         editorRef.current = res.context;
         setReady(true);
 
@@ -325,7 +332,35 @@ export default function (props) {
         }
       })
       .exec();
-  }, [id, contentPool,sanitizedId]);
+    
+  }, [contentPool,sanitizedId]);
+
+  useEffect(()=>{
+    console.log("onEditorReady-contentPool",contentPool,sanitizedId);
+    //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
+    Taro.createSelectorQuery()
+      .select(`.mybricks_com >>> .${sanitizedId}e`)
+      ?.context?.((res) => {
+        console.log("onEditorReady-context",res);
+        if(res == null){
+          console.log("onEditorReady-重试")
+        }
+        editorRef.current = res.context;
+        setReady(true);
+
+        // 如果有内容池，则设置内容
+        if (contentPool?.value) {
+          editorRef.current.setContents({
+            html: contentPool.value,
+            success: () => {
+              setValue(contentPool.value);
+              contentPool.output?.(contentPool.value); // 表单容器调用 setValue 时，没有 outputRels
+            },
+          });
+        }
+      })
+      .exec();
+  },[contentPool,sanitizedId])
 
   const toggleBold = () => {
     if (!ready) {

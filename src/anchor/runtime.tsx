@@ -25,8 +25,14 @@ export default function ({ id, env, data, inputs, outputs }) {
 
     inputs["scrollTo"](() => {
       env?.rootScroll.scrollTo?.({
-        id: `#${id}`,
+        id: `aaaa`,
       });
+      setTimeout(()=>{
+        env?.rootScroll.scrollTo?.({
+          id: `#${id}`,
+        });
+      },50)
+
     });
 
     return () => {

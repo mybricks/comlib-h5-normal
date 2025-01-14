@@ -253,11 +253,13 @@ export default function (props) {
           // H5
           if (isH5()) {
             let anchor = document.querySelector(id);
-            document.querySelector("#root_scroll").scrollTo({
-              top: anchor.offsetTop,
-              behavior: isAnimte ? "smooth" : "auto",
-            });
-            return;
+            if(anchor){
+              document.querySelector("#root_scroll").scrollTo({
+                top: anchor.offsetTop,
+                behavior: isAnimte ? "smooth" : "auto",
+              });
+              return;
+            }
           }
 
           setScrollToProps((c) => ({
