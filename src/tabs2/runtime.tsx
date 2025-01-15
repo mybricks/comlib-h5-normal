@@ -6,11 +6,25 @@ import React, {
   useRef,
   useLayoutEffect,
 } from "react";
-import { View } from "@tarojs/components";
+import { View, ScrollView } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import { Tabs } from "brickd-mobile";
 import css from "./style.less";
 import cx from "classnames";
+
+//侧边栏展示类型
+enum ContentShowType {
+  Roll = "roll",
+  Switch = "switch",
+}
+
+interface Tab {
+  _id: string;
+  tabName: string;
+  top?: number;
+  height?: number;
+}
+
 
 function getDefaultCurrTabId(tabs) {
   if (tabs.length > 0) {
@@ -58,12 +72,42 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   const [tabholderId, setTabholderId] = useState(getTabsId("tabholder", 6));
   const [tabpaneId, setTabpaneId] = useState(getTabsId("tabpane", 6));
 
+  const [innerScrollId, setInnerScrollId] = useState("");
+  const [inClickType, setInClickType] = useState(false);
+  const [updatedTabs, setUpdatedTabs] = useState<Tab[]>([]);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [safeAreaHeight, setSafeAreaHeight] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+
   // 当前选中的tab
   // const [currentTabId, setCurrentTabId] = useState(
   //   getDefaultCurrTabId(data.tabs)
   // );
 
   const currentTabIdRef = useRef(getDefaultCurrTabId(data.tabs));
+  const [currentTabId, setCurrentTabId] = useState(getDefaultCurrTabId(data.tabs))
+
+  useEffect(() => {
+    //真机运行时，获取屏幕高度和宽度
+    if (isRelEnv()) {
+      Taro.getSystemInfo().then((res) => {
+        const { windowHeight, windowWidth } = res;
+        const pxDelta = windowWidth / 375;
+        setWindowHeight(windowHeight);
+        setWindowWidth(windowWidth);
+        setPxDelta(pxDelta);
+        const safeAreaHeight = res.screenHeight - res.safeArea.bottom;
+        setSafeAreaHeight(safeAreaHeight * pxDelta);
+      });
+    } else {
+      //pc端调试态设置固定的宽高即可
+      setWindowHeight(583);
+      setWindowWidth(375);
+      setPxDelta(1);
+    }
+  }, []);
 
   useMemo(() => {
     /** 默认触发一次 */
@@ -212,7 +256,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
         .select(`#${tabpaneId}`)
         .boundingClientRect()
         .exec((res) => {
-          if(res && res[0]){
+          if (res && res[0]) {
             const rect = res[0];
             setTabsPaneHeight(rect.height);
           }
@@ -292,14 +336,32 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
   //点击tab进行切换
   const _setCurrentTabId = (currentTabId) => {
     currentTabIdRef.current = currentTabId;
-    // setCurrentTabId(currentTabId);
+
+    if (ContentShowType.Roll === data.contentShowType) {
+      setInClickType(true); // 标记为点击触发
+      console.log("点击tab进行切换", currentTabId);
+
+      // 找到对应 Tab 的位置
+      const targetTab = updatedTabs.find((tab) => tab._id === currentTabId);
+      if (targetTab) {
+        const scrollTop = targetTab.top; // Tab 的顶部位置
+        const offset = customNavigationHeight || 0; // 考虑顶部导航栏的高度
+        //滚动显示的时候，innerScrollId必须和上一次不一致，否则scroll不生效，无法滚动到对应位置
+        env.runtime && setInnerScrollId("");
+        setTimeout(() => {
+          env.runtime && setInnerScrollId(currentTabId);
+        }, 0);
+      }
+
+      // 延迟解除点击状态，避免滚动触发逻辑干扰
+      setTimeout(() => setInClickType(false), 300);
+    }
 
     const index = data.tabs.findIndex((tab) => tab._id == currentTabId);
     if (index === -1) {
       return;
     }
 
-    // 清空 badge
     data.tabs = data.tabs.map((item, i) => {
       if (i === index) {
         return {
@@ -312,21 +374,22 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
 
     const findItem = data.tabs[index];
 
-    if (isRelEnv()) {
-      const random = Number(Math.random() * 0.1 + 0.01);
-      let _tabtop;
-      if (tabsTopUpdate === -1) {
-        _tabtop = tabsTop;
-      } else {
-        _tabtop = tabsTopUpdate;
-      }
-      if (isFixed) {
-        env.rootScroll.scrollTo({
-          scrollTop: random + _tabtop - customNavigationHeight,
-        });
+    if (ContentShowType.Switch === data.contentShowType) {
+      if (isRelEnv()) {
+        const random = Number(Math.random() * 0.1 + 0.01);
+        let _tabtop;
+        if (tabsTopUpdate === -1) {
+          _tabtop = tabsTop;
+        } else {
+          _tabtop = tabsTopUpdate;
+        }
+        if (isFixed) {
+          env.rootScroll.scrollTo({
+            scrollTop: random + _tabtop - customNavigationHeight,
+          });
+        }
       }
     }
-
     outputs.changeTab?.({
       id: findItem._id,
       title: findItem.tabName,
@@ -339,6 +402,13 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
       index,
     });
   };
+
+  const _scrollingCurrentTabId = (currentTabId) => {
+    console.log("找到内容-tab高亮", currentTabId)
+    currentTabIdRef.current = currentTabId;
+    //下面这个只是为了触发页面更新 hack
+    setCurrentTabId(currentTabId);
+  }
 
   const emptyView = useMemo(() => {
     if (env.edit && data.tabs.length === 0) {
@@ -355,7 +425,127 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
     };
   }, [data.tabWidthType, data.tabItemGap]);
 
-  const tabContent = useMemo(() => {
+
+  //判断是否有tabbar
+  const ifHasTabbar = () => {
+    if (!isRelEnv()) return false;
+    if (env.useTabBar) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const scrollStyle = useMemo(() => {
+    if (env.edit) {
+      //编辑态,确保内容可见，不需要滚动
+      return { height: "max-content" };
+    } else if (isRelEnv()) {
+      //线上运行态
+      //判断是否有tabbar
+      if (ifHasTabbar()) {
+        return {
+          height:
+            (windowHeight - safeAreaHeight - 54) / pxDelta,
+        };
+      } else {
+        return {
+          height: windowHeight / pxDelta,
+        };
+      }
+    } else {
+      //pc端调试态
+      return {
+        height: "max-content",
+      };
+    }
+  }, [windowHeight, windowWidth, env, pxDelta, safeAreaHeight]);
+
+  //真机运行时，计算出每个tab的顶部距离和高度
+  useEffect(() => {
+    console.log("data.tabs", data.tabs, data.useDynamicTab);
+    if (data.contentShowType == ContentShowType.Switch || !data.contentShowType) {
+      return
+    }
+    const updateTabsData = () => {
+      const updatedTabs = [];
+      let index = 0;
+
+      const processNextTab = () => {
+        if (index < data.tabs.length) {
+          const item = data.tabs[index];
+          const query = Taro.createSelectorQuery();
+          query
+            .select(`#${item._id}`)
+            .boundingClientRect()
+            .exec((res) => {
+              if (res && res[0]) {
+                const { top, height } = res[0];
+                updatedTabs.push({ ...item, top, height });
+              } else {
+                console.error(`Failed to get boundingClientRect for ${item._id}`);
+              }
+              index++;
+              processNextTab(); // 处理下一个 tab
+            });
+        } else {
+          setUpdatedTabs(updatedTabs);
+        }
+      };
+
+      processNextTab(); // 开始处理第一个 tab
+    };
+
+    if (isRelEnv()) {
+      updateTabsData();
+    }
+  }, [data.tabs, data.useDynamicTab, data.contentShowType]);
+
+
+  const innerOnScroll = useCallback((e) => {
+
+    if (inClickType) {
+      console.log("忽略滚动事件，因为是点击触发");
+      return; // 忽略滚动事件
+    }
+
+    const scrollTop = e.detail.scrollTop;
+
+    const findItem = updatedTabs.find((item) => {
+      const itemBottom = item.top + item.height;
+      return scrollTop >= item.top && scrollTop < itemBottom;
+    });
+
+    if (findItem) {
+      console.log("找到内容", findItem)
+      _scrollingCurrentTabId(findItem._id);
+    }
+  }, [inClickType, updatedTabs]);
+
+
+  const RollContent = useMemo(() => {
+    //非动态标签页的情况
+    if (!data.useDynamicTab) {
+      return data.tabs.map((tab, index) => {
+        return (
+          <View
+            key={tab._id}
+            id={tab._id}
+            style={{
+              height: `calc(100% - ${tabsHeight != 0 ? tabsHeight : "44"}px)`
+            }}
+            className={cx(css.tab_content)}
+          >
+            {slots[tab._id]?.render?.({
+              key: tab._id,
+            })}
+          </View>
+        );
+      });
+    }
+  }, [data.useDynamicTab, data.tabs, slots]);
+
+  const SwitchContent = useMemo(() => {
     //非动态标签页的情况
     if (!data.useDynamicTab) {
       return data.tabs.map((tab, index) => {
@@ -438,7 +628,20 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
             );
           })}
         </Tabs>
-        {tabContent}
+
+
+        {/* 滚动显示 */}
+        {data.contentShowType === ContentShowType.Roll &&
+          <ScrollView
+            scrollY
+            scrollIntoView={innerScrollId}
+            onScroll={innerOnScroll}
+            style={{ ...scrollStyle }}
+          >{RollContent}
+          </ScrollView>}
+
+        {/* 切换显示 */}
+        {(data.contentShowType === ContentShowType.Switch || !data.contentShowType) && SwitchContent}
       </View>
     )
   );

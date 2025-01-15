@@ -20,5 +20,6 @@
   "slotStyle":{
     "position": "smart"
   },
-  "lastTabHeight": -1
+  "lastTabHeight": -1,
+  "contentShowType":"switch"
 }

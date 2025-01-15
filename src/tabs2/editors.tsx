@@ -338,6 +338,24 @@ export default {
             },
           },
         },
+        {
+          title: "内容展示方式",
+          type: "radio",
+          description:
+            "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
+          options: [
+            { label: "锚定显示", value: "roll" },
+            { label: "切换显示", value: "switch" },
+          ],
+          value: {
+            get({ data }) {
+              return data.contentShowType;
+            },
+            set({ data }, value) {
+              data.contentShowType = value;
+            },
+          },
+        },
         // {
         //   title: '内容最小高度（0表示不限制高度）',
         //   type: 'text',

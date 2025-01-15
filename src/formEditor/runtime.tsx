@@ -14,6 +14,7 @@ import { isH5, isDesigner } from "../utils/env";
 import cx from "classnames";
 import * as Taro from "@tarojs/taro";
 import { undoIcon, redoIcon, boldIcon, imageIcon, videoIcon } from "./icons";
+import { uuid } from "../utils/index";
 
 const fixMalformedURI = (str) => {
   try {
@@ -37,7 +38,7 @@ export default function (props) {
   const { id, env, data, inputs, outputs, slots, parentSlot } = props;
 
   const sanitizedId = useMemo(
-    () => Math.random().toString(36).substr(2, 6).toLowerCase(),
+    () => uuid(),
     []
   );
   const [contentPool, setContentPool] = useState(null);
@@ -250,7 +251,7 @@ export default function (props) {
   // }, []);
 
   const onChange = (e) => {
-    if(!ready || !editorRef.current) {
+    if (!ready || !editorRef.current) {
       console.log("编辑器未准备好")
       return
     }
@@ -300,7 +301,7 @@ export default function (props) {
         });
       },
     });
-  }, [env.runtime,data.maxImageCount]);
+  }, [env.runtime, data.maxImageCount]);
 
   // 插件点击
   const onClickPluginItem = useCallback((plugin) => {
@@ -308,14 +309,14 @@ export default function (props) {
   }, []);
 
   const onEditorReady = useCallback(() => {
-    console.log("onEditorReady-contentPool",contentPool,sanitizedId);
+    console.log("onEditorReady-contentPool", contentPool, sanitizedId);
     //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
     Taro.createSelectorQuery()
       .select(`.mybricks_com >>> .${sanitizedId}e`)
       ?.context?.((res) => {
-        console.log("onEditorReady-context",res);
-        if(res == null){
-          console.log("onEditorReady-重试")
+        console.log("onEditorReady-context", res);
+        if (res == null) {
+          console.log("onEditorReady-为空")
         }
         editorRef.current = res.context;
         setReady(true);
@@ -332,35 +333,38 @@ export default function (props) {
         }
       })
       .exec();
-    
-  }, [contentPool,sanitizedId]);
 
-  useEffect(()=>{
-    console.log("onEditorReady-contentPool",contentPool,sanitizedId);
+
+  }, [contentPool, sanitizedId]);
+
+
+  useEffect(() => {
+    console.log("onEditorReady-contentPool", contentPool, sanitizedId);
     //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
-    Taro.createSelectorQuery()
-      .select(`.mybricks_com >>> .${sanitizedId}e`)
-      ?.context?.((res) => {
-        console.log("onEditorReady-context",res);
-        if(res == null){
-          console.log("onEditorReady-重试")
-        }
-        editorRef.current = res.context;
-        setReady(true);
+      Taro.createSelectorQuery()
+        .select(`.mybricks_com >>> .${sanitizedId}e`)
+        ?.context?.((res) => {
+          console.log("onEditorReady-context", res);
+          if (res == null) {
+            console.log("onEditorReady-重试")
+          }
+          editorRef.current = res.context;
+          setReady(true);
 
-        // 如果有内容池，则设置内容
-        if (contentPool?.value) {
-          editorRef.current.setContents({
-            html: contentPool.value,
-            success: () => {
-              setValue(contentPool.value);
-              contentPool.output?.(contentPool.value); // 表单容器调用 setValue 时，没有 outputRels
-            },
-          });
-        }
-      })
-      .exec();
-  },[contentPool,sanitizedId])
+          // 如果有内容池，则设置内容
+          if (contentPool?.value) {
+            editorRef.current.setContents({
+              html: contentPool.value,
+              success: () => {
+                setValue(contentPool.value);
+                contentPool.output?.(contentPool.value); // 表单容器调用 setValue 时，没有 outputRels
+              },
+            });
+          }
+        })
+        .exec();
+
+  }, [contentPool, sanitizedId])
 
   const toggleBold = () => {
     if (!ready) {
