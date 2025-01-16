@@ -110,7 +110,11 @@ export default function ({
           })}
           // style={data.contentStyle}
         >
-          {slots["content"]?.render?.()}
+          {slots["content"]?.render?.({
+            style: {
+              ...(data.layout || {}),
+            },
+          })}
         </View>
         {data.position === "center" && data.visibleClose && (
           <View

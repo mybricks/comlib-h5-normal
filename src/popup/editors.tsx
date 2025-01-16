@@ -1,3 +1,5 @@
+import setSlotLayout from "../utils/setSlotLayout";
+
 export default {
   "@init"({ data, style }) {
     style.width = "100%";
@@ -12,9 +14,33 @@ export default {
         target: ".mybricks-overlay",
       },
       {
-        title: "内容样式",
-        options: ["border", "background"],
-        target: ".mybricks-content",
+        title: "主要内容区域",
+        items: [
+          {
+            title: "布局",
+            type: "layout",
+            value: {
+              get({ data }) {
+                return data.layout || {};
+              },
+              set({ data, slots }, val: any) {
+                data.layout = val;
+                setSlotLayout(slots.get("content"), val);
+              },
+            },
+          },
+          {
+            title: "样式",
+            options: [
+              "padding",
+              "border",
+              "background",
+              "overflow",
+              "boxShadow",
+            ],
+            target: ".mybricks-content",
+          },
+        ],
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {

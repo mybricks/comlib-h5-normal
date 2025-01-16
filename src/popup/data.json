@@ -1,4 +1,7 @@
 {
+  "layout": {
+    "position": "flex-column"
+  },
   "position": "center",
   "contentStyle": {
     "background": "#ffffff"
