@@ -24,6 +24,8 @@ export default {
                 return data.layout || {};
               },
               set({ data, slots }, val: any) {
+                console.warn("set layout", val);
+
                 data.layout = val;
                 setSlotLayout(slots.get("content"), val);
               },
@@ -32,6 +34,7 @@ export default {
           {
             title: "样式",
             options: [
+              "size",
               "padding",
               "border",
               "background",

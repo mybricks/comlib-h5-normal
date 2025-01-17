@@ -53,8 +53,9 @@ export default function ({
       [css.bottom]: data.position === "bottom",
       [css.left]: data.position === "left",
       [css.right]: data.position === "right",
+      [css.empty]: slots["content"]?.size === 0,
     });
-  }, [data.position]);
+  }, [data.position, slots["content"]?.size]);
 
   const handleOverlayClick = useCallback(() => {
     if (data.maskClose) {
@@ -105,10 +106,8 @@ export default function ({
         <View
           className={cx({
             [css.content]: true,
-            [css.empty]: slots["content"]?.size === 0,
             "mybricks-content": true,
           })}
-          // style={data.contentStyle}
         >
           {slots["content"]?.render?.({
             style: {

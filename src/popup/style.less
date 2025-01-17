@@ -81,24 +81,49 @@
     width: 100%;
     height: 100%;
     background-color: #ffffff;
+    overflow-x: hidden;
   }
 
-  .main.center .content.empty {
+  .main.center.empty {
     width: 240px;
     height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .main.top .content.empty,
-  .main.bottom .content.empty {
+  .main.top.empty,
+  .main.bottom.empty {
     width: 100%;
     height: 180px;
+    display: flex;
+    justify-content: center;
   }
 
-  .main.left .content.empty,
-  .main.right .content.empty {
+  .main.left.empty,
+  .main.right.empty {
     width: 180px;
     height: 100%;
+    display: flex;
+    align-items: center;
   }
+
+  // .main.center .content.empty {
+  //   width: 240px;
+  //   height: 300px;
+  // }
+
+  // .main.top .content.empty,
+  // .main.bottom .content.empty {
+  //   width: 100%;
+  //   height: 180px;
+  // }
+
+  // .main.left .content.empty,
+  // .main.right .content.empty {
+  //   width: 180px;
+  //   height: 100%;
+  // }
 
   &.show {
     display: block !important;
