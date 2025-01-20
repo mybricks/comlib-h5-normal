@@ -246,12 +246,12 @@ export default {
             data.text = value;
           },
         },
-        binding: {
-          with: 'data.text',
-          scheme: {
-            type: 'string'
-          }
-        }
+        // binding: {
+        //   with: 'data.text',
+        //   scheme: {
+        //     type: 'string'
+        //   }
+        // }
       },
       {
         title: "前置图标",

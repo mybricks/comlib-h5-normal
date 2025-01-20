@@ -64,12 +64,12 @@ export default {
             data.navigationBarBackgroundColor = value;
           },
         },
-        binding: {
-          with: 'data.navigationBarBackgroundColor',
-          scheme: {
-            type: 'string'
-          }
-        }
+        // binding: {
+        //   with: 'data.navigationBarBackgroundColor',
+        //   scheme: {
+        //     type: 'string'
+        //   }
+        // }
       },
       {
         title: "显示小程序胶囊",
@@ -154,12 +154,12 @@ export default {
             data.navigationBarTitleText = value;
           },
         },
-        binding: {
-          with: 'data.navigationBarTitleText',
-          scheme: {
-            type: 'string'
-          }
-        }
+        // binding: {
+        //   with: 'data.navigationBarTitleText',
+        //   scheme: {
+        //     type: 'string'
+        //   }
+        // }
       },
       {
         ifVisible({ data }) {
