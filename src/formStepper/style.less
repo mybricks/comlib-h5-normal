@@ -17,10 +17,17 @@
       border: inherit;
     }
 
+    .weui-input {
+      //这样处理先，不然在调试的时候数字会看不见
+      opacity: 1;
+      text-align: center;
+    }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
+
     input[type="number"] {
       -moz-appearance: textfield;
     }
