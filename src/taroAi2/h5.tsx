@@ -1,34 +1,34 @@
-import React, {useEffect, useMemo, useRef, useCallback} from 'react';
-import {runRender} from './utils'
+import React, { useEffect, useMemo, useRef, useCallback } from "react";
+import { runRender } from "./utils";
 import * as Taro from "@tarojs/components";
 import * as TaroAPI from "@tarojs/taro";
-import * as BrickdMobile from 'brickd-mobile';
+import * as BrickdMobile from "brickd-mobile";
 import dayjs from "dayjs";
 import { View } from "@tarojs/components";
-import F2ForTaro from './f2-for-taro';
+import F2ForTaro from "./f2-for-taro";
 import { copyToClipboard } from "./utils/ai-code";
 import css from "./runtime.less";
 
-const ErrorStatus = ({title = '未知错误', children = null, onError}) => {
-  onError(title)//向外抛出错误
+const ErrorStatus = ({ title = "未知错误", children = null, onError }) => {
+  onError(title); //向外抛出错误
 
   return (
-    <View style={{color: 'red'}}>
+    <View style={{ color: "red" }}>
       {title}
-      <br/>
+      <br />
       {children}
     </View>
-  )
-}
+  );
+};
 
-const IdlePlaceholder = ({examples = [] }) => {
+const IdlePlaceholder = ({ examples = [] }) => {
   const copy = useCallback((text) => {
     copyToClipboard(text).then((res) => {
       window?.antd?.message
-        ? window?.antd?.message.success('复制成功')
-        : alert('复制成功')
-    })
-  }, [])
+        ? window?.antd?.message.success("复制成功")
+        : alert("复制成功");
+    });
+  }, []);
 
   const CopyIcon = useCallback(() => {
     return (
@@ -36,77 +36,75 @@ const IdlePlaceholder = ({examples = [] }) => {
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        p-id="5474"
+        width="16"
+        height="16"
       >
         <path
-          d="M720 192h-544A80.096 80.096 0 0 0 96 272v608C96 924.128 131.904 960 176 960h544c44.128 0 80-35.872 80-80v-608C800 227.904 764.128 192 720 192z m16 688c0 8.8-7.2 16-16 16h-544a16 16 0 0 1-16-16v-608a16 16 0 0 1 16-16h544a16 16 0 0 1 16 16v608z"
-          p-id="5475"
-          fill="#555555"
-        ></path>
-        <path
-          d="M848 64h-544a32 32 0 0 0 0 64h544a16 16 0 0 1 16 16v608a32 32 0 1 0 64 0v-608C928 99.904 892.128 64 848 64z"
-          p-id="5476"
-          fill="#555555"
-        ></path>
-        <path
-          d="M608 360H288a32 32 0 0 0 0 64h320a32 32 0 1 0 0-64zM608 520H288a32 32 0 1 0 0 64h320a32 32 0 1 0 0-64zM480 678.656H288a32 32 0 1 0 0 64h192a32 32 0 1 0 0-64z"
-          p-id="5477"
-          fill="#555555"
+          d="M337.28 138.688a27.968 27.968 0 0 0-27.968 27.968v78.72h377.344c50.816 0 92.032 41.152 92.032 91.968v377.344h78.656a28.032 28.032 0 0 0 27.968-28.032V166.656a28.032 28.032 0 0 0-27.968-27.968H337.28z m441.408 640v78.656c0 50.816-41.216 91.968-92.032 91.968H166.656a92.032 92.032 0 0 1-91.968-91.968V337.28c0-50.816 41.152-92.032 91.968-92.032h78.72V166.656c0-50.816 41.152-91.968 91.968-91.968h520c50.816 0 91.968 41.152 91.968 91.968v520c0 50.816-41.152 92.032-91.968 92.032h-78.72zM166.656 309.312a27.968 27.968 0 0 0-27.968 28.032v520c0 15.424 12.544 27.968 27.968 27.968h520a28.032 28.032 0 0 0 28.032-27.968V337.28a28.032 28.032 0 0 0-28.032-28.032H166.656z"
+          fill="#707070"
         ></path>
       </svg>
-    )
-  }, [])
+    );
+  }, []);
 
   return (
     <View className={css.tip}>
+      {/* <View className={css.title}>AI组件</View> */}
       <View className={css.content}>
-        <strong>请通过右下角「对话框」提问生成组件</strong>
+        欢迎使用 MyBricks AI组件，
+        <strong>请和我对话完成组件开发吧</strong>
       </View>
-      比如：
-      {examples.map((example) => {
-        return (
-          <View
-            className={css.example}
-            key={example}
-            onClick={() => copy(example)}
-          >
-            - {example} <CopyIcon />
-          </View>
-        )
-      })}
-    </View>
-  )
-}
 
-export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
-  const container = useRef((env.edit || env.runtime.debug) ? document.querySelector("#_mybricks-geo-webview_")!.shadowRoot : null);
+      <View className={css.examples}>
+        {examples.map((example) => {
+          return (
+            <View
+              className={css.example}
+              key={example}
+              onClick={() => copy(example)}
+            >
+              {example} <CopyIcon />
+            </View>
+          );
+        })}
+      </View>
+    </View>
+  );
+};
+
+export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
+  const container = useRef(
+    env.edit || env.runtime.debug
+      ? document.querySelector("#_mybricks-geo-webview_")!.shadowRoot
+      : null
+  );
   useMemo(() => {
     if (env.edit) {
-      data._editors = void 0
+      data._editors = void 0;
     }
-  }, [])
+  }, []);
 
   const dynCss = useMemo(() => {
     const cssAPI = env.canvas?.css || {
-      set(){},
-      remove(){},
-    }
+      set() {},
+      remove() {},
+    };
     return {
       set(content) {
-        const myContent = content.replaceAll('__id__', id)//替换模版
-        cssAPI.set(id, myContent)
+        const myContent = content.replaceAll("__id__", id); //替换模版
+        cssAPI.set(id, myContent);
       },
       remove() {
-        return cssAPI.remove(id)
-      }
-    }
-  }, [env])
+        return cssAPI.remove(id);
+      },
+    };
+  }, [env]);
 
   useMemo(() => {
     if (data._styleCode) {
-      dynCss.set(decodeURIComponent(data._styleCode))
+      dynCss.set(decodeURIComponent(data._styleCode));
     }
-  }, [data._styleCode, dynCss])
+  }, [data._styleCode, dynCss]);
 
   // useEffect(() => {
   //   return () => {
@@ -117,121 +115,133 @@ export default ({env, data, inputs, outputs, slots, logger, id, onError}) => {
   const errorInfo = useMemo(() => {
     if (!!data._jsxErr) {
       return {
-        title: 'JSX 编译失败',
-        tip: data._jsxErr
-      }
+        title: "JSX 编译失败",
+        tip: data._jsxErr,
+      };
     }
 
     if (!!data._cssErr) {
       return {
-        title: 'Less 编译失败',
-        tip: data._cssErr
-      }
+        title: "Less 编译失败",
+        tip: data._cssErr,
+      };
     }
-  }, [data._jsxErr, data._cssErr])
+  }, [data._jsxErr, data._cssErr]);
 
   const ReactNode = useMemo(() => {
     if (errorInfo) return errorInfo.tip;
     if (data._renderCode) {
-      console.log("ai: start")
+      console.log("ai: start");
       try {
-        const oriCode = decodeURIComponent(data._renderCode)
+        const oriCode = decodeURIComponent(data._renderCode);
         const com = runRender(oriCode, {
-          'react': React,
-          '@tarojs/components': Taro,
-          '@tarojs/taro': TaroAPI,
-          'mybricks': env.mybricksSdk,
-          'f2-for-taro': F2ForTaro,
-          'brickd-mobile': BrickdMobile,
-          'dayjs': dayjs,
-        })
-        return com
+          react: React,
+          "@tarojs/components": Taro,
+          "@tarojs/taro": TaroAPI,
+          mybricks: env.mybricksSdk,
+          "f2-for-taro": F2ForTaro,
+          "brickd-mobile": BrickdMobile,
+          dayjs: dayjs,
+        });
+        return com;
       } catch (error) {
-        console.log("ai 解析错误: ", error)
-        console.log("ai 解析错误: ", error?.message)
-        console.log("ai 解析错误: ", error?.toString())
-        console.log("ai 解析错误: ", String(error))
-        return error?.toString()
+        console.log("ai 解析错误: ", error);
+        console.log("ai 解析错误: ", error?.message);
+        console.log("ai 解析错误: ", error?.toString());
+        console.log("ai 解析错误: ", String(error));
+        return error?.toString();
       }
     } else {
       return function () {
         return (
           <IdlePlaceholder
             examples={[
+              "生成一个登录表单",
               "实现一个九宫格导航入口",
-              "给我一个登录表单",
-              "开发一个支持点击打开日期选择并回显日期的按钮",
-              "给我一个日历，并对双休日做一些特殊的提示"
+              "绘制一个图书馆书本借用次数的环形图",
+              "用雷达图展示MBTI不同人格在男性女性间占比的对比",
             ]}
           />
-        )
-      }
+        );
+      };
     }
-  }, [data._renderCode, errorInfo])
+  }, [data._renderCode, errorInfo]);
 
   const scope = useMemo(() => {
     return {
       data,
-      inputs: new Proxy({}, {
-        get(_, id) {
-          if (env.runtime) {
-            return (fn) => {
-              inputs[id]((value, relOutputs) => {
-                fn(value, new Proxy({}, {
-                  get(_, key) {
-                    ///TODO
-                  }
-                }))
-              })
+      inputs: new Proxy(
+        {},
+        {
+          get(_, id) {
+            if (env.runtime) {
+              return (fn) => {
+                inputs[id]((value, relOutputs) => {
+                  fn(
+                    value,
+                    new Proxy(
+                      {},
+                      {
+                        get(_, key) {
+                          ///TODO
+                        },
+                      }
+                    )
+                  );
+                });
+              };
+              return () => {};
             }
-            return () => {
-            }
-          }
-          return () => {
-          }
+            return () => {};
+          },
         }
-      }),
-      outputs: new Proxy({}, {
-        get(obj, id) {
-          if (env.runtime) {
-            const rtn = outputs[id]
+      ),
+      outputs: new Proxy(
+        {},
+        {
+          get(obj, id) {
+            if (env.runtime) {
+              const rtn = outputs[id];
 
-            if (rtn) {
-              return rtn
-            }
-          }
-
-          return () => {
-          }
-        }
-      }),
-      slots: new Proxy({}, {
-        get(obj, id) {
-          const rtn = slots[id]
-
-          if (rtn) {
-            return rtn
-          } else {
-            return {
-              render() {
-
+              if (rtn) {
+                return rtn;
               }
             }
-          }
+
+            return () => {};
+          },
         }
-      }),
+      ),
+      slots: new Proxy(
+        {},
+        {
+          get(obj, id) {
+            const rtn = slots[id];
+
+            if (rtn) {
+              return rtn;
+            } else {
+              return {
+                render() {},
+              };
+            }
+          },
+        }
+      ),
       env,
-      context: {React}
-    }
-  }, [slots])
+      context: { React },
+    };
+  }, [slots]);
 
   return (
     <>
-      {typeof ReactNode === 'function' ? (
-          <ReactNode {...scope} />
+      {typeof ReactNode === "function" ? (
+        <ReactNode {...scope} />
       ) : (
-        <ErrorStatus title={errorInfo?.title} onError={onError}>{ReactNode}</ErrorStatus>
+        <ErrorStatus title={errorInfo?.title} onError={onError}>
+          {ReactNode}
+        </ErrorStatus>
       )}
     </>
-  )
+  );
 };
