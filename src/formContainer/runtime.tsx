@@ -106,8 +106,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
   const [form, formRef] = useForm({ items: data.items, childrenInputs });
   const [loading, setLoading] = useState(false);
 
-  const [refreshKey, setRefreshKey] = useState(0);
-
   useLayoutEffect(() => {
     /** 下发表单项的onChange函数，用来收集表单项数据 */
     slots["content"]._inputs["onChange"](({ id, name, value }) => {
@@ -214,9 +212,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
               !item.itemLayout || item.itemLayout === "unset"
                 ? data.itemLayout
                 : item.itemLayout;
-
-            // 重新渲染
-            setRefreshKey((prev) => prev + 1);
 
             return (
               <Field
