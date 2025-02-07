@@ -227,6 +227,25 @@ export default {
           ],
         }
       ];
+      cate1.title = "高级";
+      cate1.items = [
+        {
+          title: "升级",
+          type: "button",
+          value: {
+            set({ input }: EditorResult<Data>) {
+              input.add({
+                id: "noMore",
+                title:"切换到加载完毕",
+                desc: "切换到加载完毕状态，且不再触底加载",
+                schema: { type: "any" },
+                deletable: true,
+                editable: true,
+              });
+            },
+          },
+        }
+      ]
     },
   },
   ".mybricks-thead .mybricks-col": {
