@@ -100,9 +100,9 @@ const submitEditorItems = [
     description: "提交表单时，校验规则",
     type: "radio",
     options: [
-      { label: "校验所有表单项", value: "all" },
-      { label: "不校验隐藏的表单项", value: "hidden" },
-      { label: "不校验所有的表单项", value: "none" },
+      { label: "校验", value: "all" },
+      { label: "不校验隐藏表单项", value: "hidden" },
+      { label: "不校验所有表单项", value: "none" },
     ],
     value: {
       get({ data }) {

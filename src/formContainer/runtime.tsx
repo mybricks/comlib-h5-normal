@@ -182,7 +182,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   const content = useMemo(() => {
     return (
-      <View key={refreshKey}>
+      <View>
         {slots["content"].render({
           itemWrap(com: { id; jsx; name }) {
             // todo name
@@ -191,11 +191,6 @@ export default function ({ env, data, inputs, outputs, slots }) {
             let rules = formatRulesFromItem(item);
 
             if (data.skipValidation === "hidden" && item.visible === false) {
-              rules = [];
-            } else if (
-              data.skipValidation === "none" ||
-              data.skipValidation === true
-            ) {
               rules = [];
             }
 
