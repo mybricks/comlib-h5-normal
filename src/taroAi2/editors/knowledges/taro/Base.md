@@ -60,16 +60,16 @@ type ComponentType<T> = ComponentType<T>
 {
   "tabs": [
     {
-      "title": "标签1",
-      "content": "内容1"
+      "id":"tab1",
+      "title": "标签1"
     },
     {
-      "title": "标签2",
-      "content": "内容2"
+      "id":"tab2",
+      "title": "标签2"
     },
     {
-      "title": "标签3",
-      "content": "内容3"
+      "id":"tab3",
+      "title": "标签3"
     }
   ],
   "activeIndex": 0
@@ -81,36 +81,49 @@ import css from 'style.less';
 import { comDef } from 'mybricks';
 import { View, Text } from '@tarojs/components';
 import { useState } from 'react';
-
-export default comDef(({ data, env, inputs, outputs, slots }) => {
+export default comDef(({
+  data,
+  slots
+}) => {
   const [activeIndex, setActiveIndex] = useState(data.activeIndex);
-
-  return (
-    <View className={css.tabContainer}>
-      <View className={css.tabs}>
-        {data.tabs.map((tab, index) => (
-          <Text
-            key={index}
-            className={`${css.tab} ${activeIndex === index ? css.activeTab : ''}`}
-            onClick={() => {
-              setActiveIndex(index);
-            }}
-          >
-            {tab.title}
-          </Text>
-        ))}
-      </View>
-      <View className={css.tabContent}>
-        {slots[`s_content_${data.tabs[activeIndex].title}`]?.render({
-          key: `s_content_${data.tabs[activeIndex].title}`,
-        })}
-        {/* 注意，这个插槽必须要用到！ */}
-      </View>
+  return (<View className={css.tabContainer}>
+    <View className={css.tabs}> 
+      {data.tabs.map((tab, index) => <Text key={index} className={`${css.tab} ${activeIndex === index ? css.activeTab : ''}`} onClick={() => {
+        setActiveIndex(index);
+      }}>    
+        {tab.title}
+      </Text>)}
     </View>
-  );
+
+    {data.tabs.map((tab, index) => {  //必须用这种方式来渲染列表项
+      const isActive = index === activeIndex  //判断当前项是否为激活状态
+      return (
+        <View className={css.tabContent}
+              style={{
+                display: isActive ? "block" : "none" //如果当前列表项为激活，则显示出来
+                }}
+        >
+        {slots[tab.id]?.render({  //tab内容项必须是插槽，这样用户才可以往里面拖放组件
+          key: tab.id
+        })}
+      </View>
+      )
+    })}
+  </View>)
 }, {
-  type: "main"
-  title: "组件",
+  title: 'Tab 组件',
+  inputs: [],
+  outputs: [],
+  slots: [{
+    id: 'tab1',
+    title: '标签1内容'
+  }, {
+    id: 'tab2',
+    title: '标签2内容'
+  }, {
+    id: 'tab3',
+    title: '标签3内容'
+  }]
 });
 
 ```
