@@ -65,6 +65,14 @@
           "type": "any"
         }
       }
+    },
+    {
+      "id": "noMore",
+      "title": "切换到加载完毕",
+      "desc": "切换到加载完毕状态，且不再触底加载",
+      "schema": {
+        "type": "any"
+      }
     }
   ],
   "outputs": [

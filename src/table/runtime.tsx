@@ -146,11 +146,22 @@ export default function ({ env, data, inputs, outputs, slots }) {
       setColumn(headerArray)
       outputRels?.["afterSetTableHeader"]?.(headerArray);
     })
+
+    //切换到加载完毕
+    inputs?.["noMore"]?.((val,outputRels)=>{
+      setStatus(ListStatus.NOMORE);
+      data.enableLoadMore = false
+    })
+
   }, [dataSource]);
 
   const $loading = useMemo(() => {
     return <View className={css.loading}>加载中…</View>;
   }, []);
+
+  const $noMore = useMemo(()=>{
+    return <View className={css.loading}>已全部加载</View>;
+  },[])
 
   //
   if (env.edit && !column.length) {
@@ -188,6 +199,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
           })}
         </View>
         {status === ListStatus.LOADING && $loading}
+        {status === ListStatus.NOMORE && $noMore}
       </View>
     </View>
   );
