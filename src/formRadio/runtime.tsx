@@ -29,6 +29,16 @@ export default function (props) {
   );
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -145,7 +155,7 @@ export default function (props) {
 
         return (
           <Radio
-            disabled={data.disabled} 
+            disabled={data.disabled}
             className={cx({
               ["mybricks-inactive"]: value != item.value,
               ["mybricks-active"]: value == item.value,

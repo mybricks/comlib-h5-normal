@@ -52,6 +52,16 @@ export default function (props) {
   }, [env.edit]);
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     inputs["setValue"]((val) => {
       switch (true) {
         case isEmpty(val): {
@@ -96,22 +106,21 @@ export default function (props) {
 
     inputs["resetValue"]((val, relOutputs) => {
       data.value = void 0;
-      relOutputs["resetValueComplete"]("")
-    })
+      relOutputs["resetValueComplete"]("");
+    });
 
     /* 设置禁用 */
     inputs["setDisabled"]?.((val, outputRels) => {
       data.disabled = !!val;
       outputRels["setDisabledComplete"]?.(data.disabled);
     });
-
   }, []);
 
   useEffect(() => {
     inputs["getValue"]((val, relOutputs) => {
-      relOutputs["returnValue"](value)
-    })
-  }, [value])
+      relOutputs["returnValue"](value);
+    });
+  }, [value]);
 
   const displayValue = useMemo(() => {
     if (!data.value) {
@@ -120,52 +129,53 @@ export default function (props) {
     return dayjs(data.value).format(FORMAT_MAP[data.type]) || "";
   }, [data.value, data.type]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setValue(data.value);
-  },[data.value])
+  }, [data.value]);
 
-  const onChange = useCallback((formatDate) => {
-    // 检查输入的字符串是否是时间格式
-    const timePattern = /^\d{2}:\d{2}$/;
-    let dateTime;
+  const onChange = useCallback(
+    (formatDate) => {
+      // 检查输入的字符串是否是时间格式
+      const timePattern = /^\d{2}:\d{2}$/;
+      let dateTime;
 
-    if (timePattern.test(formatDate)) {
-      // 如果是时间格式，使用当前日期
-      const currentDate = new Date();
-      const [hours, minutes] = formatDate.split(":").map(Number);
+      if (timePattern.test(formatDate)) {
+        // 如果是时间格式，使用当前日期
+        const currentDate = new Date();
+        const [hours, minutes] = formatDate.split(":").map(Number);
 
-      // 设置本地时间
-      dateTime = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate(),
-        hours,
-        minutes
-      );
-    } else {
-      // 否则，直接解析输入的日期时间字符串
-      dateTime = new Date(dayjs(formatDate).toDate());
-    }
+        // 设置本地时间
+        dateTime = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate(),
+          hours,
+          minutes
+        );
+      } else {
+        // 否则，直接解析输入的日期时间字符串
+        dateTime = new Date(dayjs(formatDate).toDate());
+      }
 
-    // 检查解析后的日期是否有效
-    if (isNaN(dateTime.valueOf())) {
-      console.error("Invalid date format:", formatDate);
-      return;
-    }
+      // 检查解析后的日期是否有效
+      if (isNaN(dateTime.valueOf())) {
+        console.error("Invalid date format:", formatDate);
+        return;
+      }
 
-    if (data.type == "date" && data.outputType == "YYYY-MM-DD") {
-      //日期选择，且格式为 YYYY-MM-DD 
-      let timestamp = dateTime.valueOf();
-      let YMD = dayjs(timestamp).format("YYYY-MM-DD")
-      data.value = YMD;
-      setValue(YMD);
-    } else {
-      data.value = dateTime.valueOf();
-      setValue(data.value);
-    }
-
-
-  }, [data.type, data.outputType]);
+      if (data.type == "date" && data.outputType == "YYYY-MM-DD") {
+        //日期选择，且格式为 YYYY-MM-DD
+        let timestamp = dateTime.valueOf();
+        let YMD = dayjs(timestamp).format("YYYY-MM-DD");
+        data.value = YMD;
+        setValue(YMD);
+      } else {
+        data.value = dateTime.valueOf();
+        setValue(data.value);
+      }
+    },
+    [data.type, data.outputType]
+  );
 
   const range = useMemo(() => {
     function format(input) {
@@ -203,22 +213,17 @@ export default function (props) {
 
   const RightBtn = useMemo(() => {
     if (!data.clearable) {
-      return (
-        <ArrowRight />
-      );
+      return <ArrowRight />;
     }
     if (displayValue == "") {
-      return (
-        <ArrowRight />
-      );
+      return <ArrowRight />;
     } else {
       return (
         <View onClick={clearSelect}>
           <Cross size="13" />
         </View>
-      )
+      );
     }
-
   }, [data.clearable, displayValue]);
 
   //普通表单视图

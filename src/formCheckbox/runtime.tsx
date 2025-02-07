@@ -27,6 +27,16 @@ export default function (props) {
   );
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -115,12 +125,12 @@ export default function (props) {
   }, [ready, data.options]);
 
   const gapStyle = useMemo(() => {
-    if (data.direction === 'vertical') {
+    if (data.direction === "vertical") {
       return {
-        marginBottom: `${data.gap}px`
-      }
+        marginBottom: `${data.gap}px`,
+      };
     }
-    if (data.direction === 'horizontal') {
+    if (data.direction === "horizontal") {
       if (data.columns) {
         return {
           flex: `1 1 ${100 / data.columns}%`,
@@ -130,12 +140,11 @@ export default function (props) {
         };
       } else {
         return {
-          marginRight: `${data.gap}px`
-        }
+          marginRight: `${data.gap}px`,
+        };
       }
     }
-
-  }, [data.direction, data.gap])
+  }, [data.direction, data.gap]);
 
   return (
     <Checkbox.Group
@@ -151,14 +160,13 @@ export default function (props) {
 
         return (
           <Checkbox
-            disabled={data.disabled} 
+            disabled={data.disabled}
             className={cx({
               ["mybricks-inactive"]: value?.indexOf?.(item.value) === -1,
               ["mybricks-active"]: value?.indexOf?.(item.value) !== -1,
             })}
             name={item.value}
             shape="square"
-
             {...restProps}
             style={gapStyle}
           >

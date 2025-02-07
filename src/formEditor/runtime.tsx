@@ -37,10 +37,7 @@ const fixMalformedURI = (str) => {
 export default function (props) {
   const { id, env, data, inputs, outputs, slots, parentSlot } = props;
 
-  const sanitizedId = useMemo(
-    () => uuid(),
-    []
-  );
+  const sanitizedId = useMemo(() => uuid(), []);
   const [contentPool, setContentPool] = useState(null);
 
   // 不能使用组件自己的id，因为放在模块里面后，使用多次这个模块，id都是不会变的
@@ -63,6 +60,16 @@ export default function (props) {
   const [ready, setReady] = useState(false);
   const [useFixedToolbar, setUseFixedToolbar] = useState(false);
   const [useBold, setUseBold] = useState(false);
+
+  useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
 
   useEffect(() => {
     const query = Taro.createSelectorQuery();
@@ -174,7 +181,7 @@ export default function (props) {
   /**
    * Editor
    */
-  const editorRef = useRef(null)
+  const editorRef = useRef(null);
 
   /**
    * Toolbar
@@ -252,8 +259,8 @@ export default function (props) {
 
   const onChange = (e) => {
     if (!ready || !editorRef.current) {
-      console.log("编辑器未准备好")
-      return
+      console.log("编辑器未准备好");
+      return;
     }
     // console.log("内容变更",editorRef.current)
     editorRef.current.getContents({
@@ -261,7 +268,7 @@ export default function (props) {
         setValue(res.html);
       },
     });
-  }
+  };
 
   const onStatusChange = (e) => {
     // console.log("onStatusChange", e.mpEvent.detail?.bold);
@@ -270,7 +277,7 @@ export default function (props) {
     } else {
       setUseBold(false);
     }
-  }
+  };
 
   const onBlur = useCallback((e) => {
     outputs["onBlur"]();
@@ -316,7 +323,7 @@ export default function (props) {
       ?.context?.((res) => {
         console.log("onEditorReady-context", res);
         if (res == null) {
-          console.log("onEditorReady-为空")
+          console.log("onEditorReady-为空");
         }
         editorRef.current = res.context;
         setReady(true);
@@ -333,38 +340,34 @@ export default function (props) {
         }
       })
       .exec();
-
-
   }, [contentPool, sanitizedId]);
-
 
   useEffect(() => {
     console.log("onEditorReady-contentPool", contentPool, sanitizedId);
     //需要用deep selector，不然放在表单容器中，嵌套太深会选不到
-      Taro.createSelectorQuery()
-        .select(`.mybricks_com >>> .${sanitizedId}e`)
-        ?.context?.((res) => {
-          console.log("onEditorReady-context", res);
-          if (res == null) {
-            console.log("onEditorReady-重试")
-          }
-          editorRef.current = res.context;
-          setReady(true);
+    Taro.createSelectorQuery()
+      .select(`.mybricks_com >>> .${sanitizedId}e`)
+      ?.context?.((res) => {
+        console.log("onEditorReady-context", res);
+        if (res == null) {
+          console.log("onEditorReady-重试");
+        }
+        editorRef.current = res.context;
+        setReady(true);
 
-          // 如果有内容池，则设置内容
-          if (contentPool?.value) {
-            editorRef.current.setContents({
-              html: contentPool.value,
-              success: () => {
-                setValue(contentPool.value);
-                contentPool.output?.(contentPool.value); // 表单容器调用 setValue 时，没有 outputRels
-              },
-            });
-          }
-        })
-        .exec();
-
-  }, [contentPool, sanitizedId])
+        // 如果有内容池，则设置内容
+        if (contentPool?.value) {
+          editorRef.current.setContents({
+            html: contentPool.value,
+            success: () => {
+              setValue(contentPool.value);
+              contentPool.output?.(contentPool.value); // 表单容器调用 setValue 时，没有 outputRels
+            },
+          });
+        }
+      })
+      .exec();
+  }, [contentPool, sanitizedId]);
 
   const toggleBold = () => {
     if (!ready) {
@@ -375,7 +378,7 @@ export default function (props) {
     //   console.log("editorRef.current", editorRef.current);
     //   return !prev;
     // });
-  }
+  };
 
   const undo = useCallback(() => {
     if (!ready) {
@@ -417,10 +420,18 @@ export default function (props) {
           })}
           onClick={toggleBold}
         >
-          <Image className={cx("mybricks-boldIcon", css.icon)} src={data.boldIconUrl || boldIcon} svg={true}></Image>
+          <Image
+            className={cx("mybricks-boldIcon", css.icon)}
+            src={data.boldIconUrl || boldIcon}
+            svg={true}
+          ></Image>
         </View>
         <View className={css.item} onClick={insertImage}>
-          <Image className={cx("mybricks-imgIcon", css.icon)} src={data.imgIconUrl || imageIcon} svg={true}></Image>
+          <Image
+            className={cx("mybricks-imgIcon", css.icon)}
+            src={data.imgIconUrl || imageIcon}
+            svg={true}
+          ></Image>
         </View>
 
         {/* 扩展 */}
@@ -438,17 +449,25 @@ export default function (props) {
           );
         })}
 
-        {data.showUndoRedo &&
+        {data.showUndoRedo && (
           <>
             <View className={css.divider}></View>
             <View className={css.item} onClick={undo}>
-              <Image className={cx("mybricks-backward", css.icon)} src={data.backwardIconUrl || undoIcon} svg={true}></Image>
+              <Image
+                className={cx("mybricks-backward", css.icon)}
+                src={data.backwardIconUrl || undoIcon}
+                svg={true}
+              ></Image>
             </View>
             <View className={css.item} onClick={redo}>
-              <Image className={cx("mybricks-forward", css.icon)} src={data.forwardIconUrl || redoIcon} svg={true}></Image>
+              <Image
+                className={cx("mybricks-forward", css.icon)}
+                src={data.forwardIconUrl || redoIcon}
+                svg={true}
+              ></Image>
             </View>
           </>
-        }
+        )}
       </View>
       <View className={css.placeholder}></View>
 
@@ -458,7 +477,7 @@ export default function (props) {
         className={cx({
           [css.input]: true,
           "mybricks-input": true,
-          [`${sanitizedId}e`]: true
+          [`${sanitizedId}e`]: true,
         })}
         showImgSize={true}
         showImgResize={true}

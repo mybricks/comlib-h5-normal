@@ -14,6 +14,16 @@ export default function (props) {
   const [paasword, setPassword] = useState(true);
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     inputs["getValue"]((val, outputRels) => {
       outputRels["returnValue"](value);
     });
