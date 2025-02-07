@@ -35,6 +35,16 @@ export default function (props) {
   });
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -149,44 +159,53 @@ export default function (props) {
   }, [value, selectIndex, data.options, data.placeholder]);
 
   const normalView = useMemo(() => {
-    return (<View
-      key={`normalView-${uuid()}`}
-      className={cx({
-        [css.select]: true,
-        "mybricks-select": !isH5(),
-        "mybricks-h5Select": isH5(),
-      })}
-    >
-      <Picker
-        disabled={data.disabled}
-        className={css.picker}
-        value={selectIndex}
-        options={options}
-        onChange={onChange}
-        onCancel={onCancel}
+    return (
+      <View
+        key={`normalView-${uuid()}`}
+        className={cx({
+          [css.select]: true,
+          "mybricks-select": !isH5(),
+          "mybricks-h5Select": isH5(),
+        })}
       >
-        <View className={css.display}>
-          <View
-            className={cx({
-              [css.input]: true,
-              "mybricks-input": value,
-              [css.placeholder]: !value,
-              "mybricks-placeholder": !value,
-            })}
-          >
-            {displayValue || data.placeholder}
+        <Picker
+          disabled={data.disabled}
+          className={css.picker}
+          value={selectIndex}
+          options={options}
+          onChange={onChange}
+          onCancel={onCancel}
+        >
+          <View className={css.display}>
+            <View
+              className={cx({
+                [css.input]: true,
+                "mybricks-input": value,
+                [css.placeholder]: !value,
+                "mybricks-placeholder": !value,
+              })}
+            >
+              {displayValue || data.placeholder}
+            </View>
+            <ArrowRight
+              className={cx({
+                [css.right]: data.arrow === "right",
+                [css.down]: data.arrow === "down",
+                [css.none]: data.arrow === "none",
+              })}
+            />
           </View>
-          <ArrowRight
-            className={cx({
-              [css.right]: data.arrow === "right",
-              [css.down]: data.arrow === "down",
-              [css.none]: data.arrow === "none",
-            })}
-          />
-        </View>
-      </Picker>
-    </View>)
-  }, [data.disabled, selectIndex, options, displayValue, data.placeholder, data.arrow])
+        </Picker>
+      </View>
+    );
+  }, [
+    data.disabled,
+    selectIndex,
+    options,
+    displayValue,
+    data.placeholder,
+    data.arrow,
+  ]);
 
   const slotsView = useMemo(() => {
     return (
@@ -214,13 +233,12 @@ export default function (props) {
           })}
         </Picker>
       </View>
-    )
-  }, [data.disabled, selectIndex, options])
-
+    );
+  }, [data.disabled, selectIndex, options]);
 
   if (data.isSlot) {
-    return slotsView
+    return slotsView;
   } else {
-    return normalView
+    return normalView;
   }
 }

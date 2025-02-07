@@ -6,6 +6,16 @@ export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     slots["formItem"].outputs["setCurValue"]((value) => {
       data.value = value;
 
@@ -22,7 +32,7 @@ export default function (props) {
       console.log("setValue", val);
       data.value = val;
       slots["formItem"].inputs["curValue"](data.value);
-      
+
       // switch (true) {
       //   case isEmpty(val): {
       //     data.value = "";

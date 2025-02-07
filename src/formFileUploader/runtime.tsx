@@ -30,6 +30,16 @@ export default function (props) {
   });
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -171,10 +181,7 @@ export default function (props) {
   const thumbnails = useMemo(() => {
     return value.map((raw, index) => {
       return (
-        <View
-          className={cx(css.item)}
-          key={raw + "_" + index}
-        >
+        <View className={cx(css.item)} key={raw + "_" + index}>
           <View className={css.thumbnail}>{raw}</View>
           <View
             className={css.remove}

@@ -30,6 +30,16 @@ export default function (props) {
   });
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -93,12 +103,12 @@ export default function (props) {
     });
   }, [value, data.maxCount]);
 
-  useEffect(()=>{
+  useEffect(() => {
     //设置提示文本
     inputs["setPlaceholder"]?.((val, outputRels) => {
       data.placeholderText = val;
     });
-  },[])
+  }, []);
 
   // const onChange = useCallback(
   //   (_value) => {
@@ -145,27 +155,31 @@ export default function (props) {
       success: async (res) => {
         for (const tempFile of res.tempFiles) {
           console.log("tempFile", tempFile);
-    
+
           let result = {
             filePath: tempFile.path,
             size: tempFile.size,
           };
-    
+
           if (isH5()) {
             result.fileName = tempFile.originalFileObj?.name;
             result.type = tempFile.originalFileObj?.type;
-    
+
             try {
               const response = await fetch(result.filePath);
               const blob = await response.blob();
               const formData = new FormData();
-              formData.append(data.name ?? "name", blob, data.filename ?? "filename");
-              result.formData = formData
+              formData.append(
+                data.name ?? "name",
+                blob,
+                data.filename ?? "filename"
+              );
+              result.formData = formData;
             } catch (error) {
               console.error("Error fetching file:", error);
             }
           }
-    
+
           slots["customUpload"]?.inputs["fileData"](result);
         }
       },

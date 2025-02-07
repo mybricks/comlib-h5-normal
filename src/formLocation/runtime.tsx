@@ -13,7 +13,6 @@ export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
-
     parentSlot?._inputs["onChange"]?.({
       id: props.id,
       name: props.name,
@@ -23,6 +22,16 @@ export default function (props) {
     outputs["onChange"](val);
   });
 
+  useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
   const isRelEnv = useMemo(() => {
     if (env.runtime.debug || env.edit) {
       return false;
@@ -30,7 +39,6 @@ export default function (props) {
       return true;
     }
   }, [env]);
-
 
   useEffect(() => {
     //
@@ -76,8 +84,8 @@ export default function (props) {
   }, []);
 
   useEffect(() => {
-    setValue(data.value)
-  }, [data.value])
+    setValue(data.value);
+  }, [data.value]);
 
   const toast = useCallback(() => {
     if (env.runtime.debug) {
@@ -87,35 +95,43 @@ export default function (props) {
         duration: 1000,
       });
     }
-
-  }, [env])
+  }, [env]);
 
   const $view = useMemo(() => {
     if (isRelEnv) {
       //真机运行态
       return (
-        <AreaPicker readonly={data.disabled} disabled={data.disabled} level={data.level} value={value} onChange={onChange}>
+        <AreaPicker
+          readonly={data.disabled}
+          disabled={data.disabled}
+          level={data.level}
+          value={value}
+          onChange={onChange}
+        >
           {/* 非插槽视图 */}
-          {!data.isSlot && <View className={css.select}>
-            <Input
-              readonly
-              // disabled={true}
-              placeholder={data.placeholder}
-              value={value.join("/")}
-              style={{ flex: 1 }}
-            />
-            <ArrowRight />
-          </View>}
+          {!data.isSlot && (
+            <View className={css.select}>
+              <Input
+                readonly
+                // disabled={true}
+                placeholder={data.placeholder}
+                value={value.join("/")}
+                style={{ flex: 1 }}
+              />
+              <ArrowRight />
+            </View>
+          )}
           {/* 插槽视图 */}
-          {data.isSlot && <View className={css.slot_style}>
-            {slots?.["content"]?.render({
-              style: {
-                // position: "smart",
-                height: "100%",
-              },
-            })}
-          </View>}
-
+          {data.isSlot && (
+            <View className={css.slot_style}>
+              {slots?.["content"]?.render({
+                style: {
+                  // position: "smart",
+                  height: "100%",
+                },
+              })}
+            </View>
+          )}
         </AreaPicker>
       );
     } else {
@@ -123,39 +139,49 @@ export default function (props) {
       return (
         <View>
           {/* 非插槽视图 */}
-          {!data.isSlot &&
-            <View className={css.select}
+          {!data.isSlot && (
+            <View
+              className={css.select}
               onClick={() => {
                 toast();
-              }}>
+              }}
+            >
               <InputDisplay
                 placeholder={data.placeholder}
                 value={value.join("/")}
               ></InputDisplay>
               <ArrowRight />
-            </View>}
+            </View>
+          )}
           {/* 插槽视图 */}
-          {data.isSlot &&
-            <View className={css.slot_style}
+          {data.isSlot && (
+            <View
+              className={css.slot_style}
               onClick={() => {
                 toast();
-              }}>
+              }}
+            >
               {slots?.["content"]?.render({
                 style: {
                   // position: "smart",
                   height: "100%",
                 },
               })}
-            </View>}
-
+            </View>
+          )}
         </View>
       );
     }
-  }, [value, data.placeholder, isRelEnv, env, data.isSlot])
-
+  }, [value, data.placeholder, isRelEnv, env, data.isSlot]);
 
   return (
-    <View className={cx({ [css.wrap]: true, "mybricks-formLocation": true, [css.slot_style]: data.isSlot })}>
+    <View
+      className={cx({
+        [css.wrap]: true,
+        "mybricks-formLocation": true,
+        [css.slot_style]: data.isSlot,
+      })}
+    >
       {$view}
     </View>
   );

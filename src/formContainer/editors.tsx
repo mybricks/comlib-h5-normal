@@ -173,6 +173,7 @@ export default {
           label: label,
           hidden: false,
           rules: [],
+          visible: true,
         });
       }
     }

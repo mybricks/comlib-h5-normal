@@ -23,6 +23,16 @@ export default function (props) {
   });
 
   useEffect(() => {
+    parentSlot?._inputs["setProps"]?.({
+      id: props.id,
+      name: props.name,
+      value: {
+        visible: props.style.display !== "none",
+      },
+    });
+  }, [props.style.display]);
+
+  useEffect(() => {
     /* 设置值 */
     inputs["setValue"]((val, outputRels) => {
       let result;
@@ -97,16 +107,21 @@ export default function (props) {
   const onConfirm = useCallback((e) => {
     let value = e.detail.value;
     outputs?.["onConfirm"](value);
-    }, []);
+  }, []);
 
   const $showCount = useMemo(() => {
-    if(data.showCount){
-      return <View className={css.showCount}>{data.maxlength == -1 ? value.length : `${value.length}/${data.maxlength}`}</View>
-    }else{
-      return null
+    if (data.showCount) {
+      return (
+        <View className={css.showCount}>
+          {data.maxlength == -1
+            ? value.length
+            : `${value.length}/${data.maxlength}`}
+        </View>
+      );
+    } else {
+      return null;
     }
-
-  }, [data.maxlength,data.showCount,value]);
+  }, [data.maxlength, data.showCount, value]);
 
   return (
     <View className={css.formItem}>
