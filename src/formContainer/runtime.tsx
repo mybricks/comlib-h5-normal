@@ -188,7 +188,16 @@ export default function ({ env, data, inputs, outputs, slots }) {
             // todo name
             const idx = findFormItemIndex(data.items, com);
             const item = data.items[idx] ?? ({} as FormItems);
-            const rules = formatRulesFromItem(item);
+            let rules = formatRulesFromItem(item);
+
+            if (data.skipValidation === "hidden" && item.visible === false) {
+              rules = [];
+            } else if (
+              data.skipValidation === "none" ||
+              data.skipValidation === true
+            ) {
+              rules = [];
+            }
 
             const showRequired = rules.findIndex((rule) => rule.required) > -1;
 
@@ -199,7 +208,10 @@ export default function ({ env, data, inputs, outputs, slots }) {
               <Image mode="scaleToFill" src={item.icon} />
             ) : null;
 
-            const itemLayout = (!item.itemLayout || item.itemLayout === "unset") ? data.itemLayout : item.itemLayout;
+            const itemLayout =
+              !item.itemLayout || item.itemLayout === "unset"
+                ? data.itemLayout
+                : item.itemLayout;
 
             return (
               <Field
@@ -227,6 +239,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
               if (com) {
                 let item = getFormItem(data.items, com);
                 item.index = idx;
+                item.visible = com.style.display !== "none";
 
                 if (!item) {
                   if (items.length === comAray.length) {
@@ -263,20 +276,57 @@ export default function ({ env, data, inputs, outputs, slots }) {
         setLoading(true);
       }
 
-      if (data.skipValidation) {
-        outputs["onSubmit"](form?.getValues());
-      } else {
-        form
-          ?.validate()
-          .then((res) => {
-            outputs["onSubmit"](res);
-          })
-          .catch((err) => {
-            // 遇到异常，自动回滚 loading 状态
-            setLoading(false);
-            console.error("validate", err);
-          });
+      switch (data.skipValidation) {
+        case false:
+        case "all":
+          // 校验所有表单项
+          form
+            ?.validate()
+            .then((res) => {
+              outputs["onSubmit"](res);
+            })
+            .catch((err) => {
+              // 遇到异常，自动回滚 loading 状态
+              setLoading(false);
+              console.error("validate", err);
+            });
+          break;
+
+        case "hidden":
+          // 不校验隐藏的表单项
+          form
+            ?.validate()
+            .then((res) => {
+              outputs["onSubmit"](res);
+            })
+            .catch((err) => {
+              // 遇到异常，自动回滚 loading 状态
+              setLoading(false);
+              console.error("validate", err);
+            });
+          break;
+
+        case true:
+        case "none":
+          // 不校验所有的表单项
+          outputs["onSubmit"](form?.getValues());
+          break;
       }
+
+      // if (data.skipValidation) {
+      //   outputs["onSubmit"](form?.getValues());
+      // } else {
+      //   form
+      //     ?.validate()
+      //     .then((res) => {
+      //       outputs["onSubmit"](res);
+      //     })
+      //     .catch((err) => {
+      //       // 遇到异常，自动回滚 loading 状态
+      //       setLoading(false);
+      //       console.error("validate", err);
+      //     });
+      // }
     }
   }, [data.useLoading, loading, data.skipValidation]);
 

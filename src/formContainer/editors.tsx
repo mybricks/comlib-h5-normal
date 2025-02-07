@@ -96,11 +96,26 @@ const submitEditorItems = [
     },
   },
   {
-    title: "跳过校验",
-    description: "开启后，提交表单将不会校验具体内容",
-    type: "switch",
+    title: "提交表单校验规则",
+    description: "提交表单时，校验规则",
+    type: "radio",
+    options: [
+      { label: "校验所有表单项", value: "all" },
+      { label: "不校验隐藏的表单项", value: "hidden" },
+      { label: "不校验所有的表单项", value: "none" },
+    ],
     value: {
       get({ data }) {
+        // 兼容老数据
+        if (!data.skipValidation) {
+          return "all";
+        }
+
+        if (data.skipValidation === true) {
+          return "none";
+        }
+
+        //
         return data.skipValidation;
       },
       set({ data }, val) {
@@ -108,6 +123,19 @@ const submitEditorItems = [
       },
     },
   },
+  // {
+  //   title: "跳过校验",
+  //   description: "开启后，提交表单将不会校验具体内容",
+  //   type: "switch",
+  //   value: {
+  //     get({ data }) {
+  //       return data.skipValidation;
+  //     },
+  //     set({ data }, val) {
+  //       data.skipValidation = val;
+  //     },
+  //   },
+  // },
 ];
 
 export default {
