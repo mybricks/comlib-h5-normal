@@ -81,6 +81,11 @@ export default function (props) {
       }
     });
 
+    inputs["resetValue"]?.((val,outputRels) => {
+      setValue([]);
+      outputRels["resetValueComplete"]?.()
+    })
+
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((filePath) => {
       if (!filePath && typeof filePath !== "string") {
