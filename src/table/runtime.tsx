@@ -117,7 +117,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
       outputRels["afterSetDataSource"](val);
     });
 
-    inputs["addDataSource"]((val) => { 
+    inputs["addDataSource"]((val, outputRels) => { 
       if (Array.isArray(val)) {
         // const ds = val.map((item, index) => ({
         //   item,
@@ -127,6 +127,7 @@ export default function ({ env, data, inputs, outputs, slots }) {
         // console.log("addDataSource", ds);
         setDataSource((c) => c.concat(val));
         dataSourceRef.current = dataSourceRef.current.concat(val);
+        outputRels["afterAddDataSource"](val);
         setTimeout(() => {
           setStatus(ListStatus.IDLE);
         }, 0);
