@@ -123,19 +123,6 @@ const submitEditorItems = [
       },
     },
   },
-  // {
-  //   title: "跳过校验",
-  //   description: "开启后，提交表单将不会校验具体内容",
-  //   type: "switch",
-  //   value: {
-  //     get({ data }) {
-  //       return data.skipValidation;
-  //     },
-  //     set({ data }, val) {
-  //       data.skipValidation = val;
-  //     },
-  //   },
-  // },
 ];
 
 export default {
