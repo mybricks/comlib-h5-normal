@@ -64,7 +64,8 @@
           "title": "列项数据",
           "type": "any"
         }
-      }
+      },
+      "rels": ["afterAddDataSource"]
     },
     {
       "id": "noMore",
@@ -121,7 +122,17 @@
     },
     {
       "id": "afterSetDataSource",
-      "title": "设置完成",
+      "title": "设置数据完成",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "id": "afterAddDataSource",
+      "title": "添加数据完成",
       "schema": {
         "type": "array",
         "items": {
