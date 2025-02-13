@@ -88,7 +88,7 @@
     },
     {
       "title": "AI组件",
-      "comAry": ["./src/taroAi2/com.json"]
+      "comAry": ["./src/taroAi/com.json"]
     },
     {
       "title": "基础",
