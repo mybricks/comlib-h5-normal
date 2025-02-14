@@ -9,6 +9,7 @@ import { isDesigner, isH5 } from "../utils/env";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
+  const [fileName, setFileName] = useState<string[]>([]);
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
     let result = [...val];
@@ -101,7 +102,22 @@ export default function (props) {
       result = result.slice(0, data.maxCount);
       setValue(result);
     });
-  }, [value, data.maxCount]);
+
+
+    // 上传完成
+    slots["customUpload"]?.outputs["setFileInfoName"]?.((name) => {
+      if (!name && typeof name !== "string") {
+        return;
+      }
+
+      let result = [name, ...fileName];
+      result = result.slice(0, data.maxCount);
+      console.log("文件回显名称",result)
+      setFileName(result);
+    });
+
+
+  }, [value, data.maxCount,fileName]);
 
   const onRemoveFile = useCallback(
     (e, index) => {
@@ -127,6 +143,7 @@ export default function (props) {
           let result = {
             filePath: tempFile.path,
             size: tempFile.size,
+            fileName: tempFile.name,
           };
 
           slots["customUpload"]?.inputs["fileData"](result);
@@ -184,7 +201,7 @@ export default function (props) {
     return value.map((raw, index) => {
       return (
         <View className={cx(css.item)} key={raw + "_" + index}>
-          <View className={css.thumbnail}>{raw}</View>
+          <View className={css.thumbnail}>{fileName[index] ? fileName[index] : raw}</View>
           <View
             className={css.remove}
             onClick={(e) => {
@@ -194,7 +211,7 @@ export default function (props) {
         </View>
       );
     });
-  }, [value]);
+  }, [value,fileName]);
 
   const placeholderText = useMemo(() => {
     if (!data.placeholderText) return null;
