@@ -129,7 +129,7 @@
               },
               "fileName": {
                 "type": "string",
-                "description": "原始文件名称，仅在 H5 环境下有效"
+                "description": "原始文件名称"
               },
               "type": {
                 "type": "string",
@@ -147,6 +147,13 @@
         {
           "id": "setFileInfo",
           "title": "设置图片上传后地址",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "id": "setFileInfoName",
+          "title": "设置图片上传后回显名称",
           "schema": {
             "type": "string"
           }
