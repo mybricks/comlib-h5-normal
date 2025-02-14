@@ -51,17 +51,18 @@ width和height若为number, 会经过 `pxTransform` 转换
 
 ### Props
 
-| 参数          | 说明                                  | 类型          | 默认值             |
-|-------------|-------------------------------------|-------------|-----------------|
-| src         | 图片链接                                | _string_    | -               |
-| mode        | 图片填充模式                              | _string_    | `scaleToFill`          |
-| alt         | 替代文本                                | _string_    | -               |
-| width       | 宽度                                    | _string\|number_ | -  |
-| height      | 长度                                    | _string\|number_ | - | 
-| shape       | 图片形状 `square` `rounded` `circle`    | _boolean_   | -               |
-| lazyLoad    | 是否开启图片懒加载                           | _boolean_   | `false`         |
-| placeholder | 加载中提示 | _ReactNode_ | -     |
-| fallback    | 加载失败提示 | _ReactNode_ | - |
+| 参数          | 说明                                  | 类型                        | 默认值             |
+|-------------|-------------------------------------|-----------------------------|-----------------|
+| src         | 图片链接                                | string                    | -               |
+| mode        | 图片填充模式                              | string                    | `scaleToFill`    |
+| alt         | 替代文本                                | string                    | -               |
+| width       | 宽度                                    | string\|number            | -               |
+| height      | 长度                                    | string\|number            | -               |
+| shape       | 图片形状 `square` `rounded` `circle`    | string                    | -               |
+| lazyLoad    | 是否开启图片懒加载                           | boolean                   | `false`         |
+| placeholder | 加载中提示                              | ReactNode                 | -               |
+| fallback    | 加载失败提示                              | ReactNode                 | -               |
+
 
 ### Modes
 
