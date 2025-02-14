@@ -120,7 +120,6 @@ export default function (props) {
     Taro.chooseMessageFile({
       count: data.maxCount - value.length,
       type: "all",
-      extension: data.extension?.length ? data.extension : [],
       success: async (res) => {
         for (const tempFile of res.tempFiles) {
           console.log("tempFile", tempFile);
@@ -132,6 +131,9 @@ export default function (props) {
 
           slots["customUpload"]?.inputs["fileData"](result);
         }
+      },
+      fail: (err) => {
+        console.log("err", err);
       },
     });
   }, [env.edit, value, data.maxCount, slots["customUpload"]]);
