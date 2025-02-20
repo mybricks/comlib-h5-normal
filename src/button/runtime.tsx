@@ -104,6 +104,21 @@ export default function ({
         };
       }
 
+      case data.openType === "chooseAvatar": {
+        return {
+          openType: "chooseAvatar",
+          onChooseAvatar: (e) => {
+            outputs["chooseAvatarSuccess"](e.mpEvent.detail.avatarUrl);
+          },
+          // onClick: (e) => {
+          //   if (env.runtime) {
+          //     e.stopPropagation();
+          //     outputs["onClick"](data.text);
+          //   }
+          // },
+        };
+      }
+
       default: {
         return {
           onClick: (e) => {
