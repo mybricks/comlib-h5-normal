@@ -1,4 +1,43 @@
 import { uuid } from "../utils";
+import { connectorEditor } from './../utils/connector/editor'
+
+function getColumnsFromSchema(schema: any, config?: { defaultWidth: number | "auto" }) {
+  const { defaultWidth } = config || { defaultWidth: 140 };
+  function getColumnsFromSchemaProperties(properties) {
+    const columns: any = [];
+    Object.keys(properties).forEach((key) => {
+      if (
+        properties[key].type === 'number' ||
+        properties[key].type === 'string' ||
+        properties[key].type === 'boolean'
+      ) {
+        columns.push({
+          title: key,
+          dataIndex: key,
+          _id: uuid(),
+          autoWidth: true,
+          type: 'text',
+          minWidth: "90",
+          width: "100",
+        });
+      }
+    });
+    return columns;
+  }
+  let columnSchema: any = {};
+  if (schema.type === 'array') {
+    columnSchema = schema.items.properties;
+  } else if (schema.type === 'object') {
+    const dataSourceKey = Object.keys(schema.properties).find(
+      (key) => schema.properties[key].type === 'array'
+    );
+    if (dataSourceKey) {
+      columnSchema = schema.properties[dataSourceKey].items.properties;
+    }
+  }
+  return getColumnsFromSchemaProperties(columnSchema);
+}
+
 
 export default {
   "@init": ({ style, data }) => {
@@ -9,6 +48,20 @@ export default {
     options: ["width", "height"],
   },
   ":slot": {},
+  ...connectorEditor<EditorResult<Data>>({
+    set({ data, input }: EditorResult<Data>, { schema }) {
+      data.columns = getColumnsFromSchema(schema, {
+        defaultWidth: "auto",
+      });
+      // if (data.columns.length) {
+      //   data.rowKey = data.columns[0].dataIndex as string;
+      //   data.columns[0].isRowKey = true;
+      // }
+      
+      // input.get(InputIds.SET_DATA_SOURCE).setSchema(schema);
+      // data[`input${InputIds.SET_DATA_SOURCE}Schema`] = schema;
+    }
+  }),
   ":root": {
     style: [
       {

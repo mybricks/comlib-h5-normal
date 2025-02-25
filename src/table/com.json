@@ -3,7 +3,7 @@
   "namespace": "mybricks.taro.table",
   "author": "mybricks-team",
   "author_name": "板砖团队",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "runtime": "./runtime.tsx",
   "runtime.edit": "./edit/runtime.tsx",
   "data": "./data.json",
@@ -150,5 +150,13 @@
         }
       }
     }
-  ]
+  ],
+  "connector": {
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
 }

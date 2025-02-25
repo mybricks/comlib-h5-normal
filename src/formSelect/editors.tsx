@@ -1,4 +1,5 @@
 import { uuid } from "../utils";
+import { connectorEditor } from './../utils/connector/editor'
 
 export default {
   "@init": ({ style, data }) => {
@@ -8,6 +9,7 @@ export default {
   "@resize": {
     options: ["width","height"],
   },
+  ...connectorEditor({}),
   ":root": {
     style: [
       {
