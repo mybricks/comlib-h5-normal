@@ -51,6 +51,7 @@
     "./src/_timer-throttle/com.json",
     "./src/_aesEncode/com.json",
     "./src/_aesDecode/com.json",
+    "./src/_openDocument/com.json",
     {
       "title": "系统",
       "visible": false,

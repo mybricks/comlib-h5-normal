@@ -10,7 +10,7 @@ export default {
     style: [
       {
         title: "搜索框样式",
-        options: ["font"],
+        options: ["font","background"],
         target({id}){
           return [`.mybricks-searchBar`]
         }
