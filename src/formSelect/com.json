@@ -3,7 +3,7 @@
   "namespace": "mybricks.taro.formSelect",
   "author": "mybricks-team",
   "author_name": "板砖团队",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
@@ -132,5 +132,21 @@
       "title": "可点击插槽"
     }
   ],
-  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+  "schema": ["mybricks.taro.formContainer/formItem", "*"],
+  "connector": {
+    "schema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
 }

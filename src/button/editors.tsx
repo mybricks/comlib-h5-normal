@@ -37,8 +37,8 @@ const MAP = {
       },
     ],
   },
-  openSetting:{
-    title:"打开设置页面",
+  openSetting: {
+    title: "打开设置页面",
     output: [
       {
         id: "openSetting",
@@ -112,6 +112,17 @@ const MAP = {
     title: "打开“意见反馈”页面",
     output: [],
   },
+  chooseAvatar: {
+    title: "选择头像成功",
+    output: [
+      {
+        id: "chooseAvatarSuccess",
+        title: "选择头像成功",
+        schema: {
+          type: "string"
+        }
+      }]
+  }
 };
 
 function clearOutput(openType, output) {
@@ -266,8 +277,8 @@ export default {
         },
       },
       {
-        title:"图标地址",
-        type:"imageSelector",
+        title: "图标地址",
+        type: "imageSelector",
         ifVisible({ data }) {
           return data.useBeforeIcon;
         },
@@ -293,8 +304,8 @@ export default {
         },
       },
       {
-        title:"图标地址",
-        type:"imageSelector",
+        title: "图标地址",
+        type: "imageSelector",
         ifVisible({ data }) {
           return data.useAfterIcon;
         },
@@ -362,10 +373,10 @@ export default {
                 label: "打开“意见反馈”页面",
                 value: "feedback",
               },
-              // {
-              //   label: "获取用户头像",
-              //   value: "chooseAvatar",
-              // },
+              {
+                label: "获取用户头像",
+                value: "chooseAvatar",
+              },
               // {
               //   label: "用户同意隐私协议按钮",
               //   value: "agreePrivacyAuthorization",
@@ -398,13 +409,19 @@ export default {
                     MAP["openSetting"].output.forEach((item) => {
                       output.add(item);
                     });
-                  break;
+                    break;
 
                   case data.openType === "share":
                     MAP["share"].output.forEach((item) => {
                       output.add(item);
                     });
-                  break;
+                    break;
+
+                  case data.openType === "chooseAvatar":
+                    MAP["chooseAvatar"].output.forEach((item) => {
+                      output.add(item);
+                    });
+                    break;
 
                   default:
                     output.add({
@@ -487,6 +504,16 @@ export default {
             type: "_event",
             options: {
               outputId: "getRealtimePhoneNumberFail",
+            },
+          },
+          {
+            ifVisible({ data }) {
+              return data.openType === "chooseAvatar";
+            },
+            title: "获取头像成功",
+            type: "_event",
+            options: {
+              outputId: "chooseAvatarSuccess",
             },
           },
         ],

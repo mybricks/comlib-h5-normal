@@ -5,6 +5,7 @@ node_modules
 tags/*
 .history
 .vscode/
+.vsCodeCounter/
 .temp
 .temp-pub/
 .debugger

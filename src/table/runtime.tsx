@@ -11,6 +11,7 @@ import cx from "classnames";
 import Head from "./runtime/Head";
 import Row from "./runtime/Row";
 import { uuid, debounce } from "../utils";
+import { useConnector } from './../utils/connector/runtime'
 
 const rowKey = "_itemKey";
 
@@ -83,6 +84,23 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   let page = data.pagenation.page ?? 1;
 
+  const dataSourceConnectorRef = useConnector({ env, data }, (promise, state) => {
+    if (!state.stop) {
+      setStatus(ListStatus.LOADING);
+      promise.then((dataSource) => {
+        if (!state.stop) {
+          setDataSource(dataSource);
+        }
+      }).finally(() => {
+        if (!state.stop) {
+          setTimeout(() => {
+            setStatus(ListStatus.IDLE);
+          }, 0);
+        }
+      })
+    }
+  })
+
   useReachBottom(
     () => {
       if (!data.enableLoadMore) return;
@@ -112,13 +130,15 @@ export default function ({ env, data, inputs, outputs, slots }) {
 
   useEffect(() => {
     inputs["setDataSource"]((val, outputRels) => {
+      dataSourceConnectorRef.stop = true
       setDataSource(val);
       dataSourceRef.current = val;
       outputRels["afterSetDataSource"](val);
     });
 
-    inputs["addDataSource"]((val, outputRels) => { 
+    inputs["addDataSource"]((val, outputRels) => {
       if (Array.isArray(val)) {
+        dataSourceConnectorRef.stop = true
         // const ds = val.map((item, index) => ({
         //   item,
         //   [rowKey]: data.rowKey === "" ? uuid() : item[data.rowKey] || uuid(),

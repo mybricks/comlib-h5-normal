@@ -14,6 +14,7 @@ import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isH5 } from "../utils/env";
 import cx from "classnames";
 import { uuid } from "../utils";
+import { useConnector } from './../utils/connector/runtime'
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -21,6 +22,8 @@ export default function (props) {
   const [ready, setReady] = useState(
     env.edit ? true : data.defaultRenderMode === "dynamic" ? false : true
   );
+
+  const [dataSource, setDataSource] = useState(env?.edit ? [] : data.options)
 
   const [value, setValue, getValue] = useFormItemValue(data.value, (val) => {
     //
@@ -43,6 +46,18 @@ export default function (props) {
       },
     });
   }, [props.style.display]);
+
+  const connectorStateRef = useConnector({ env, data }, (fetchPromise) => {
+    if (env.edit) {
+      return
+    }
+    fetchPromise.then(options => {
+      if (Array.isArray(options) && !connectorStateRef.stop) {
+        setDataSource(options)
+        setReady(true);
+      }
+    })
+  });
 
   useEffect(() => {
     /* 设置值 */
@@ -95,8 +110,9 @@ export default function (props) {
     /* 设置数据源 */
     inputs["setOptions"]((val) => {
       if (Array.isArray(val)) {
-        data.options = val;
+        setDataSource(val);
         setReady(true);
+        connectorStateRef.stop = true;
 
         // 如果选项中有 checked 为 true 的项，则设置为当前值
         let checkedValue = val.filter((item) => {
@@ -119,10 +135,10 @@ export default function (props) {
 
   const onChange = useCallback(
     (index) => {
-      const value = data.options?.[index]?.value;
+      const value = dataSource?.[index]?.value;
       setValue(value);
     },
-    [data.options]
+    [dataSource]
   );
 
   const onCancel = useCallback(() => {
@@ -130,7 +146,7 @@ export default function (props) {
   }, [value]);
 
   const selectItem = useMemo(() => {
-    let item = data.options.find((item) => {
+    let item = dataSource.find((item) => {
       return item.value == value;
     });
 
@@ -140,11 +156,11 @@ export default function (props) {
         value: value,
       }
     );
-  }, [value, data.options]);
+  }, [value, dataSource]);
 
   const options = useMemo(() => {
-    return ready ? data.options : [];
-  }, [ready, data.options]);
+    return ready ? dataSource : [];
+  }, [ready, dataSource]);
 
   const selectIndex = useMemo(() => {
     return options.findIndex((item) => item.value == value);
@@ -152,11 +168,11 @@ export default function (props) {
 
   const displayValue = useMemo(() => {
     if (selectIndex > -1) {
-      return data.options[selectIndex].label;
+      return dataSource[selectIndex].label;
     } else {
       return "";
     }
-  }, [value, selectIndex, data.options, data.placeholder]);
+  }, [value, selectIndex, dataSource, data.placeholder]);
 
   const normalView = useMemo(() => {
     return (

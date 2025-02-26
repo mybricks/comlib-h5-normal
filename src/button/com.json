@@ -60,6 +60,13 @@
       "schema": {
         "type": "string"
       }
+    },
+    {
+      "id": "chooseAvatarSuccess",
+      "title": "选择头像成功",
+      "schema": {
+        "type": "string"
+      }
     }
   ],
   "slots": []
