@@ -44,6 +44,7 @@ const getCanvasInDesn = async (el: HTMLElement) => {
     el,
     width,
     height,
+    pixelRatio: 2,
   });
 };
 

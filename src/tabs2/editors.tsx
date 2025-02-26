@@ -400,19 +400,19 @@ export default {
 
       cate1.title = "高级";
       cate1.items = [
-        {
-          title: "升级",
-          type: "button",
-          value: {
-            set({ data, slots }) {
-              console.log("升级", slots.get("tabId1"));
-              console.log("升级", slots.get("tabId2"));
+        // {
+        //   title: "升级",
+        //   type: "button",
+        //   value: {
+        //     set({ data, slots }) {
+        //       console.log("升级", slots.get("tabId1"));
+        //       console.log("升级", slots.get("tabId2"));
 
-              slots.get("tabId1").setLayout("flex-column");
-              slots.get("tabId2").setLayout("flex-column");
-            },
-          },
-        },
+        //       slots.get("tabId1").setLayout("flex-column");
+        //       slots.get("tabId2").setLayout("flex-column");
+        //     },
+        //   },
+        // },
       ];
     },
   },

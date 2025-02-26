@@ -152,18 +152,22 @@ export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
         return error?.toString();
       }
     } else {
-      return function () {
-        return (
-          <IdlePlaceholder
-            examples={[
-              "生成一个登录表单",
-              "实现一个九宫格导航入口",
-              "绘制一个图书馆书本借用次数的环形图",
-              "用雷达图展示MBTI不同人格在男性女性间占比的对比",
-            ]}
-          />
-        );
-      };
+      if (env.edit) {
+        return function () {
+          return (
+            <IdlePlaceholder
+              examples={[
+                "生成一个登录表单",
+                "实现一个九宫格导航入口",
+                "绘制一个图书馆书本借用次数的环形图",
+                "用雷达图展示MBTI不同人格在男性女性间占比的对比",
+              ]}
+            />
+          );
+        };
+      } else {
+        return null;
+      }
     }
   }, [data._renderCode, errorInfo]);
 
@@ -237,11 +241,11 @@ export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
     <>
       {typeof ReactNode === "function" ? (
         <ReactNode {...scope} />
-      ) : (
-        <ErrorStatus title={errorInfo?.title} onError={onError}>
-          {ReactNode}
-        </ErrorStatus>
-      )}
+      ) : null
+      // <ErrorStatus title={errorInfo?.title} onError={onError}>
+      // {ReactNode}
+      // </ErrorStatus>
+      }
     </>
   );
 };
