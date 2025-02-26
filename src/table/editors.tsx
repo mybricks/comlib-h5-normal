@@ -1,22 +1,30 @@
 import { uuid } from "../utils";
-import { connectorEditor } from './../utils/connector/editor'
+import { connectorEditor } from "./../utils/connector/editor";
 
-function getColumnsFromSchema(schema: any, config?: { defaultWidth: number | "auto" }) {
+function getColumnsFromSchema(
+  schema: any,
+  config?: { defaultWidth: number | "auto" }
+) {
   const { defaultWidth } = config || { defaultWidth: 140 };
   function getColumnsFromSchemaProperties(properties) {
     const columns: any = [];
     Object.keys(properties).forEach((key) => {
       if (
-        properties[key].type === 'number' ||
-        properties[key].type === 'string' ||
-        properties[key].type === 'boolean'
+        properties[key].type === "number" ||
+        properties[key].type === "string" ||
+        properties[key].type === "boolean"
       ) {
+
+        let uid = uuid("", 5);
+        let id = `column_${uid}`;
+
         columns.push({
           title: key,
           dataIndex: key,
-          _id: uuid(),
+          id: id,
+          _id: uid,
           autoWidth: true,
-          type: 'text',
+          type: "text",
           minWidth: "90",
           width: "100",
         });
@@ -25,11 +33,11 @@ function getColumnsFromSchema(schema: any, config?: { defaultWidth: number | "au
     return columns;
   }
   let columnSchema: any = {};
-  if (schema.type === 'array') {
+  if (schema.type === "array") {
     columnSchema = schema.items.properties;
-  } else if (schema.type === 'object') {
+  } else if (schema.type === "object") {
     const dataSourceKey = Object.keys(schema.properties).find(
-      (key) => schema.properties[key].type === 'array'
+      (key) => schema.properties[key].type === "array"
     );
     if (dataSourceKey) {
       columnSchema = schema.properties[dataSourceKey].items.properties;
@@ -37,7 +45,6 @@ function getColumnsFromSchema(schema: any, config?: { defaultWidth: number | "au
   }
   return getColumnsFromSchemaProperties(columnSchema);
 }
-
 
 export default {
   "@init": ({ style, data }) => {
@@ -57,10 +64,10 @@ export default {
       //   data.rowKey = data.columns[0].dataIndex as string;
       //   data.columns[0].isRowKey = true;
       // }
-      
+
       // input.get(InputIds.SET_DATA_SOURCE).setSchema(schema);
       // data[`input${InputIds.SET_DATA_SOURCE}Schema`] = schema;
-    }
+    },
   }),
   ":root": {
     style: [
@@ -129,7 +136,7 @@ export default {
               let id = data.columns[index].id;
               try {
                 slots.remove(id);
-              } catch (e) { }
+              } catch (e) {}
             },
             items: [
               {
@@ -216,14 +223,14 @@ export default {
           title: "分页配置",
           items: [
             {
-              title:"开启触底加载",
+              title: "开启触底加载",
               type: "switch",
               value: {
                 get({ data }) {
                   return data.enableLoadMore;
                 },
                 set({ data }, value) {
-                    data.enableLoadMore = value;
+                  data.enableLoadMore = value;
                 },
               },
             },
@@ -278,7 +285,7 @@ export default {
               },
             },
           ],
-        }
+        },
       ];
       cate1.title = "高级";
       cate1.items = [
@@ -289,7 +296,7 @@ export default {
             set({ input }: EditorResult<Data>) {
               input.add({
                 id: "noMore",
-                title:"切换到加载完毕",
+                title: "切换到加载完毕",
                 desc: "切换到加载完毕状态，且不再触底加载",
                 schema: { type: "any" },
                 deletable: true,
@@ -297,8 +304,8 @@ export default {
               });
             },
           },
-        }
-      ]
+        },
+      ];
     },
   },
   ".mybricks-thead .mybricks-col": {
