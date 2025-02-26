@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { View, Image } from "@tarojs/components";
 import css from "./style.less";
-import { uuid, debounce } from "../utils";
+import { uuid, debounce, throttle } from "../utils";
 import { List, Loading } from "brickd-mobile";
 import { Direction } from "./constant";
 import cx from "classnames";
@@ -45,23 +45,31 @@ const useReachBottom = (callback, { env }) => {
     []
   );
 
+  const callbackThrottle = useCallback(
+    throttle(
+      () => {
+        cbRef.current?.();
+      },
+      300,
+      true
+    ),
+    []
+  );
+
   useEffect(() => {
     const offset = 100;
 
     env?.rootScroll?.onScroll?.((e) => {
       const { scrollTop, scrollHeight } = e.detail ?? {};
       updateScrollRect();
-      // console.log(" scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight",scrollTop,scrollMeta.current.clientHeight,offset,">",scrollHeight)
-      // if (scrollMeta.current.clientHeight) {
       const clientHeight =
         scrollMeta.current.clientHeight == 0
           ? 750
           : scrollMeta.current.clientHeight;
       const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
       if (isReachEdge) {
-        cbRef.current?.();
+        callbackThrottle();
       }
-      // }
     });
   }, []);
 };
@@ -70,17 +78,17 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   const [dataSource, setDataSource] = useState<DsItem[]>([]);
 
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
+  const statusRef = useRef(false);
 
   useReachBottom(
     () => {
       if (!data.enableLoadMore) return;
-      setStatus((s) => {
-        if (s === ListStatus.IDLE) {
-          outputs["onScrollLoad"]?.();
-          return ListStatus.LOADING;
-        }
-        return s;
-      });
+
+      if (statusRef.current === ListStatus.IDLE && status === ListStatus.IDLE) {
+        setStatus(ListStatus.LOADING);
+        statusRef.current = ListStatus.LOADING;
+        outputs["onScrollLoad"]?.();
+      }
     },
     { env }
   );
@@ -88,16 +96,18 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
     inputs["loading"]?.((bool) => {
-      console.log("loading", ListStatus.LOADING);
       setStatus(ListStatus.LOADING);
+      statusRef.current = ListStatus.LOADING;
     });
 
     inputs["noMore"]?.((bool) => {
       setStatus(ListStatus.NOMORE);
+      statusRef.current = ListStatus.NOMORE;
     });
 
     inputs["error"]?.((bool) => {
       setStatus(ListStatus.ERROR);
+      statusRef.current = ListStatus.ERROR;
     });
 
     inputs["addDataSource"]((val, outputRels) => {
@@ -110,6 +120,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         setDataSource((c) => c.concat(ds));
         setTimeout(() => {
           setStatus(ListStatus.IDLE);
+          statusRef.current = ListStatus.IDLE;
         }, 0);
 
         setTimeout(() => {
@@ -127,6 +138,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
         }));
         setDataSource(ds);
         setStatus(ListStatus.IDLE);
+        statusRef.current = ListStatus.IDLE;
 
         setTimeout(() => {
           outputRels["afterRefreshDataSource"]?.();
@@ -189,18 +201,23 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       switch (true) {
         case data._edit_status_ === "加载中": {
           setStatus(ListStatus.LOADING);
+          statusRef.current = ListStatus.LOADING;
           break;
         }
         case data._edit_status_ === "加载失败": {
           setStatus(ListStatus.ERROR);
+          statusRef.current = ListStatus.ERROR;
           break;
         }
         case data._edit_status_ === "没有更多": {
           setStatus(ListStatus.NOMORE);
+          statusRef.current = ListStatus.NOMORE;
           break;
         }
         default: {
           setStatus(ListStatus.IDLE);
+          statusRef.current = ListStatus.IDLE;
+          break;
         }
       }
     }

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { View } from "@tarojs/components";
 import css from "./style.less";
-import { uuid, debounce } from "../utils";
+import { uuid, debounce, throttle } from "../utils";
 import { List, Loading } from "brickd-mobile";
 import { Direction } from "./constant";
 import cx from "classnames";
@@ -31,7 +31,7 @@ enum ListStatus {
   LOADING = "loading",
   ERROR = "error",
   NOMORE = "noMore",
-  EMPTY = "empty"
+  EMPTY = "empty",
 }
 
 const useReachBottom = (callback, { env, enable = false }) => {
@@ -52,6 +52,17 @@ const useReachBottom = (callback, { env, enable = false }) => {
     []
   );
 
+  const callbackThrottle = useCallback(
+    throttle(
+      () => {
+        cbRef.current?.();
+      },
+      300,
+      true
+    ),
+    []
+  );
+
   useEffect(() => {
     if (!enable) {
       return;
@@ -62,15 +73,15 @@ const useReachBottom = (callback, { env, enable = false }) => {
     env?.rootScroll?.onScroll?.((e) => {
       const { scrollTop, scrollHeight } = e.detail ?? {};
       updateScrollRect();
-      // console.log(" scrollTop + scrollMeta.current.clientHeight + offset > scrollHeight",scrollTop,scrollMeta.current.clientHeight,offset,">",scrollHeight)
-      // if (scrollMeta.current.clientHeight) {
-      
       //支付宝 scrollMeta.current.clientHeight 会取不到，先直接设置为750兼容一下
-        const clientHeight = scrollMeta.current.clientHeight == 0 ? 750 : scrollMeta.current.clientHeight
-        const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
-        if (isReachEdge) {
-          cbRef.current?.();
-        }
+      const clientHeight =
+        scrollMeta.current.clientHeight == 0
+          ? 750
+          : scrollMeta.current.clientHeight;
+      const isReachEdge = scrollTop + clientHeight + offset > scrollHeight;
+      if (isReachEdge) {
+        callbackThrottle();
+      }
       // }
     });
   }, [enable]);
@@ -81,16 +92,15 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     env.edit || env?.runtime?.debug?.prototype ? mockData : []
   );
   const [status, setStatus] = useState<ListStatus>(ListStatus.IDLE);
+  const statusRef = useRef(false);
 
   useReachBottom(
     () => {
-      setStatus((s) => {
-        if (s === ListStatus.IDLE) {
-          outputs["onScrollLoad"]?.();
-          return ListStatus.LOADING;
-        }
-        return s;
-      });
+      if (statusRef.current === ListStatus.IDLE && status === ListStatus.IDLE) {
+        setStatus(ListStatus.LOADING);
+        statusRef.current = ListStatus.LOADING;
+        outputs["onScrollLoad"]?.();
+      }
     },
     { env, enable: !!data.scrollRefresh && data.direction !== Direction.Row }
   );
@@ -99,25 +109,30 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
   useEffect(() => {
     if (data.defaultActive == "loading" && !env.edit) {
       setStatus(ListStatus.LOADING);
+      statusRef.current = ListStatus.LOADING;
     }
-  }, [data.defaultActive])
+  }, [data.defaultActive]);
 
   /** 注意！！！，inputs loading 必须在设置数据源之前，否则时序上会导致有可能设置数据源比loading快的情况，会导致onScrollLoad无法触发 */
   useMemo(() => {
     inputs["loading"]?.((bool) => {
       setStatus(ListStatus.LOADING);
+      statusRef.current = ListStatus.LOADING;
     });
 
     inputs["noMore"]?.((bool) => {
       setStatus(ListStatus.NOMORE);
+      statusRef.current = ListStatus.NOMORE;
     });
 
     inputs["error"]?.((bool) => {
       setStatus(ListStatus.ERROR);
+      statusRef.current = ListStatus.ERROR;
     });
 
     inputs["empty"]?.((bool) => {
       setStatus(ListStatus.EMPTY);
+      statusRef.current = ListStatus.EMPTY;
     });
 
     inputs["addDataSource"]((val) => {
@@ -128,7 +143,10 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           index: index,
         }));
         setDataSource((c) => c.concat(ds));
-        setTimeout(() => { setStatus(ListStatus.IDLE); }, 0)
+        setTimeout(() => {
+          setStatus(ListStatus.IDLE);
+          statusRef.current = ListStatus.IDLE;
+        }, 0);
       }
     });
 
@@ -140,27 +158,29 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           index: index,
         }));
         //覆盖数据前先清空，放置输入重复内容时，列表项不会触发
-        setDataSource([])
-        setTimeout(()=>{
+        setDataSource([]);
+        setTimeout(() => {
           setDataSource(ds);
-        },0)
+        }, 0);
         if (data.autoEmptyCondition && val.length === 0) {
           setStatus(ListStatus.EMPTY);
+          statusRef.current = ListStatus.EMPTY;
         } else {
           setStatus(ListStatus.IDLE);
+          statusRef.current = ListStatus.IDLE;
         }
       }
     });
-
   }, []);
 
   useEffect(() => {
     /* 获取值 */
     inputs["getDataSource"]?.((val, outputRels) => {
-      outputRels["getDataSourceSuccess"](dataSource.map((item,index) => ({...item.item})));
+      outputRels["getDataSourceSuccess"](
+        dataSource.map((item, index) => ({ ...item.item }))
+      );
     });
-  }, [dataSource])
-
+  }, [dataSource]);
 
   // const $placeholder = useMemo(() => {
   //   if (env.edit && !slots["item"].size) {
@@ -214,7 +234,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       //显示加载中和错误的时候，居中对齐
       if (loading || error) {
         return `${css.list} ${css.row} ${css.scroll_x} ${css.justify_content_center} `;
-      } else if(data.wrap) {
+      } else if (data.wrap) {
         return `${css.list} ${css.row} ${css.scroll_x} ${css.flex_wrap}`;
       } else {
         return `${css.list} ${css.row} ${css.scroll_x}`;
@@ -224,7 +244,7 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     return data.scrollRefresh
       ? `${css.list} ${css.scroll}`
       : `${css.list} ${css.normal}`;
-  }, [data.scrollRefresh, data.direction, loading, error,data.wrap]);
+  }, [data.scrollRefresh, data.direction, loading, error, data.wrap]);
 
   const didMount = useRef(false);
   useEffect(() => {
@@ -237,22 +257,28 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
       switch (true) {
         case data._edit_status_ === "加载中": {
           setStatus(ListStatus.LOADING);
+          statusRef.current = ListStatus.LOADING;
           break;
         }
         case data._edit_status_ === "加载失败": {
           setStatus(ListStatus.ERROR);
+          statusRef.current = ListStatus.ERROR;
           break;
         }
         case data._edit_status_ === "没有更多": {
           setStatus(ListStatus.NOMORE);
+          statusRef.current = ListStatus.NOMORE;
           break;
         }
         case data._edit_status_ === "无内容": {
           setStatus(ListStatus.EMPTY);
+          statusRef.current = ListStatus.EMPTY;
           break;
         }
         default: {
           setStatus(ListStatus.IDLE);
+          statusRef.current = ListStatus.IDLE;
+          break;
         }
       }
     }
@@ -279,9 +305,8 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
           key={key}
           //如果是最后一项，则不加margin
           style={{
-            [data.direction === Direction.Row
-              ? "marginRight"
-              : "marginBottom"]: isLastItem ? `0px` : `${data.spacing}px`,
+            [data.direction === Direction.Row ? "marginRight" : "marginBottom"]:
+              isLastItem ? `0px` : `${data.spacing}px`,
           }}
         >
           {/* 当前项数据和索引 */}
@@ -304,29 +329,37 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
     <View className={css.listWrapper}>
       <View
         className={wrapperCls}
-      // style={{
-      //   [data.direction === Direction.Row
-      //     ? "marginRight"
-      //     : "marginBottom"]: `-${data.spacing}px`,
-      // }}
+        // style={{
+        //   [data.direction === Direction.Row
+        //     ? "marginRight"
+        //     : "marginBottom"]: `-${data.spacing}px`,
+        // }}
       >
         {/* {$placeholder || (  */}
         <>
           {!!data?.scrollRefresh ? (
             <>
               {!empty && $list}
-              {status !== ListStatus.IDLE && 
-              <List.Placeholder>
-                {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
-                {error && (data.errorTip ?? "加载失败，请重试")}
-                {!hasMore && (data.emptyTip ?? "没有更多了")}
-                {empty && data.showEmptySlot ? <View> {slots["emptySlot"].render({
-                  style: {
-                    minHeight: 130,
-                    minWidth: 200
-                  },
-                })}</View> : empty && data.initialEmptyTip}
-              </List.Placeholder>}
+              {status !== ListStatus.IDLE && (
+                <List.Placeholder>
+                  {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
+                  {error && (data.errorTip ?? "加载失败，请重试")}
+                  {!hasMore && (data.emptyTip ?? "没有更多了")}
+                  {empty && data.showEmptySlot ? (
+                    <View>
+                      {" "}
+                      {slots["emptySlot"].render({
+                        style: {
+                          minHeight: 130,
+                          minWidth: 200,
+                        },
+                      })}
+                    </View>
+                  ) : (
+                    empty && data.initialEmptyTip
+                  )}
+                </List.Placeholder>
+              )}
             </>
           ) : (
             <>
@@ -334,12 +367,19 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
                 <List.Placeholder>
                   {loading && <Loading>{data.loadingTip ?? "..."}</Loading>}
                   {error && (data.errorTip ?? "加载失败，请重试")}
-                  {empty && data.showEmptySlot ? <View className={css.empty_slot}> {slots["emptySlot"].render({
-                    style: {
-                      minHeight: 130,
-                      minWidth: 200
-                    }
-                  })}</View> : empty && data.initialEmptyTip}
+                  {empty && data.showEmptySlot ? (
+                    <View className={css.empty_slot}>
+                      {" "}
+                      {slots["emptySlot"].render({
+                        style: {
+                          minHeight: 130,
+                          minWidth: 200,
+                        },
+                      })}
+                    </View>
+                  ) : (
+                    empty && data.initialEmptyTip
+                  )}
                 </List.Placeholder>
               ) : (
                 $list

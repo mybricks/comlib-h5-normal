@@ -20,7 +20,7 @@ export function getNavigationLayout(env) {
   const ratio = systemInfoSync.windowWidth / 375; // 页面 px2rpx 比例
 
   let menuButtonBoundingClientRect = Taro.getMenuButtonBoundingClientRect();
-  
+
   let system = (systemInfoSync.system || "").toLocaleLowerCase();
   console.log("systemInfoSync", systemInfoSync);
 
@@ -90,27 +90,45 @@ export function getUrlFromBg(bgUrl) {
   return picUrl;
 }
 
-export function throttle(fn, time = 300) {
-  let timer;
+export function throttle(fn: Function, time = 300, ignoreLast = false) {
+  let timer: NodeJS.Timeout | null = null;
   let firstTime = true;
+  let lastArgs: any[] | null = null;
 
-  return function (...args) {
-    const context = this;
+  const throttled = function (this: any, ...args: any[]) {
     if (firstTime) {
-      fn.apply(context, args);
+      fn.apply(this, args);
       firstTime = false;
       return;
     }
+
     if (timer) {
-      return false;
+      if (!ignoreLast) {
+        lastArgs = args;
+      }
+      return;
     }
 
-    timer = setTimeout(function () {
+    timer = setTimeout(() => {
+      if (lastArgs && !ignoreLast) {
+        fn.apply(this, lastArgs);
+      }
+      timer = null;
+      lastArgs = null;
+    }, time);
+
+    fn.apply(this, args);
+  };
+
+  throttled.cancel = function () {
+    if (timer) {
       clearTimeout(timer);
       timer = null;
-      fn.apply(context, args);
-    }, time);
+      lastArgs = null;
+    }
   };
+
+  return throttled;
 }
 
 // export function debounce(fn, wait = 300) {
