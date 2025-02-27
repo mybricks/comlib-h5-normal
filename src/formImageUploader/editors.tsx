@@ -137,22 +137,22 @@ export default {
             },
           },
         },
-        {
-          title: "升级",
-          type: "button",
-          value: {
-            set({ data, inputs, outputs }) {
-              inputs.add({
-                id: "setPlaceholder",
-                title: "设置提示内容",
-                desc: "设置图片上传下方的文本提示内容",
-                schema: {
-                  type: "string"
-                }
-              });
-            }
-          }
-        }
+        // {
+        //   title: "升级",
+        //   type: "button",
+        //   value: {
+        //     set({ data, inputs, outputs }) {
+        //       inputs.add({
+        //         id: "setPlaceholder",
+        //         title: "设置提示内容",
+        //         desc: "设置图片上传下方的文本提示内容",
+        //         schema: {
+        //           type: "string"
+        //         }
+        //       });
+        //     }
+        //   }
+        // }
       ];
     },
   },

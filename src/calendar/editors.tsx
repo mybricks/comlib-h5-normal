@@ -116,45 +116,45 @@ export default {
 
       cate1.title = "高级";
       cate1.items = [
-        {
-          title: "升级",
-          type: "button",
-          value: {
-            set({ data, inputs, outputs }) {
-              if (inputs.get("setCustomRange")) {
-                return;
-              }
+        // {
+        //   title: "升级",
+        //   type: "button",
+        //   value: {
+        //     set({ data, inputs, outputs }) {
+        //       if (inputs.get("setCustomRange")) {
+        //         return;
+        //       }
 
-              inputs.add({
-                id: "setCustomRange",
-                title: "设置自定义日期范围",
-                schema: {
-                  type: "object",
-                  properties: {
-                    min: {
-                      type: "string",
-                      title: "可选择的最小日期",
-                    },
-                    max: {
-                      type: "string",
-                      title: "可选择的最大日期",
-                    },
-                  },
-                },
-              });
+        //       inputs.add({
+        //         id: "setCustomRange",
+        //         title: "设置自定义日期范围",
+        //         schema: {
+        //           type: "object",
+        //           properties: {
+        //             min: {
+        //               type: "string",
+        //               title: "可选择的最小日期",
+        //             },
+        //             max: {
+        //               type: "string",
+        //               title: "可选择的最大日期",
+        //             },
+        //           },
+        //         },
+        //       });
 
-              outputs.add({
-                id: "afterSetCustomRange",
-                title: "设置自定义日期范围后",
-                schema: {
-                  type: "any"
-                }
-              });
+        //       outputs.add({
+        //         id: "afterSetCustomRange",
+        //         title: "设置自定义日期范围后",
+        //         schema: {
+        //           type: "any"
+        //         }
+        //       });
 
-              inputs.get("setCustomRange").setRels(["afterSetCustomRange"]);
-            },
-          },
-        },
+        //       inputs.get("setCustomRange").setRels(["afterSetCustomRange"]);
+        //     },
+        //   },
+        // },
       ];
     },
   },
