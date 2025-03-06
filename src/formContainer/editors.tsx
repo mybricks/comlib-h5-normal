@@ -182,7 +182,7 @@ export default {
     style: [
       {
         title: "表单项",
-        options: ["font", "border", "padding", "background"],
+        options: ["font", "border", "padding", "margin", "background"],
         target: ".mybricks-field",
       },
       {
@@ -428,6 +428,11 @@ export default {
       {},
     ],
     style: [
+      {
+        title: "表单项",
+        options: ["font", "border", "padding", "margin", "background"],
+        target: ".mybricks-field",
+      },
       {
         title: "图标",
         options: ["size", "margin"],

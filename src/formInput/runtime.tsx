@@ -124,7 +124,12 @@ export default function (props) {
   }, [data.maxlength, data.showCount, value]);
 
   return (
-    <View className={css.formItem}>
+    <View
+      className={cx({
+        [css.formItem]: true,
+        "mybricks-formItem": true,
+      })}
+    >
       <Input
         className={cx({
           [css.input]: !isH5(),

@@ -86,9 +86,9 @@ export default {
           },
         },
         {
-          title: '最大长度',
-          type: 'InputNumber',
-          description: '可输入的内容最大长度, -1 为不限制',
+          title: "最大长度",
+          type: "InputNumber",
+          description: "可输入的内容最大长度, -1 为不限制",
           options: [{ min: -1 }],
           value: {
             get({ data }) {
@@ -96,21 +96,21 @@ export default {
             },
             set({ data }, value: number) {
               data.maxlength = value[0];
-            }
-          }
+            },
+          },
         },
         {
-          title: '显示字数',
-          type: 'switch',
-          description: '是否展示字数',
+          title: "显示字数",
+          type: "switch",
+          description: "是否展示字数",
           value: {
             get({ data }) {
               return data.showCount;
             },
             set({ data }, value: boolean) {
               data.showCount = value;
-            }
-          }
+            },
+          },
         },
         {
           title: "禁用编辑",
@@ -160,7 +160,7 @@ export default {
               options: {
                 outputId: "onConfirm",
               },
-            }
+            },
           ],
         },
       ];
