@@ -91,7 +91,7 @@ export default function (props) {
       }
     });
 
-    inputs["resetValue"]?.((val,outputRels) => {
+    inputs["resetValue"]?.((val, outputRels) => {
       setValue([]);
       outputRels["resetValueComplete"]?.()
     })
@@ -257,6 +257,8 @@ export default function (props) {
 
   const placeholder = useMemo(() => {
     if (!data.placeholder) return null;
+    if (value.length > 0) return null;
+
 
     return (
       <View
@@ -273,7 +275,7 @@ export default function (props) {
         <View className={css.text}>示例图片</View>
       </View>
     );
-  }, [data.placeholder]);
+  }, [data.placeholder,value]);
 
   const placeholderText = useMemo(() => {
     if (!data.placeholderText) return null;
