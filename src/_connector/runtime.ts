@@ -1,7 +1,10 @@
 function callCon({ env, data, inputs, outputs, onError }, params = {}) {
   if (data.connector || data.dynamicConfig) {
     try {
-      let finnalConnector = data.connector;
+      let finnalConnector = {
+        ...(data.connector || {}),
+        outputSchema: data.outputSchema
+      };
 
       if (data.dynamicConfig) {
         finnalConnector = data.dynamicConfig;
@@ -11,9 +14,10 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
         .callConnector(finnalConnector, params, {
           ...(data.connectorConfig || {}),
           outputSchema: finnalConnector?.outputSchema,
+          isMultipleOutputs: true,
         })
         .then((val) => {
-          outputs["then"](val);
+          outputs[val?.__OUTPUT_ID__ ?? 'then'](val?.__ORIGIN_RESPONSE__ ?? val);
         })
         .catch((err) => {
           outputs["catch"](err);
