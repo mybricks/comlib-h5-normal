@@ -8,7 +8,10 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
       }
 
       env
-        .callConnector(finnalConnector, params, data.connectorConfig)
+        .callConnector(finnalConnector, params, {
+          ...(data.connectorConfig || {}),
+          outputSchema: finnalConnector?.outputSchema,
+        })
         .then((val) => {
           outputs["then"](val);
         })
