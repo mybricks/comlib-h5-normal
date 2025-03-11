@@ -1,5 +1,5 @@
 export default {
-  title: "设置为首页",
+  title: "设为首页",
   type: "editorRender",
   options: {
     render: (props) => {

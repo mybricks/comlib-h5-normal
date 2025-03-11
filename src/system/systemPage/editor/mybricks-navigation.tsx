@@ -52,44 +52,6 @@ export default {
       },
       {
         ifVisible({ data }) {
-          return data.useNavigationStyle === "default";
-        },
-        title: "导航栏背景颜色",
-        type: "colorpicker",
-        value: {
-          get({ data }) {
-            return data.navigationBarBackgroundColor;
-          },
-          set({ data }, value) {
-            data.navigationBarBackgroundColor = value;
-          },
-        },
-        // binding: {
-        //   with: 'data.navigationBarBackgroundColor',
-        //   scheme: {
-        //     type: 'string'
-        //   }
-        // }
-      },
-      {
-        title: "显示小程序胶囊",
-        type: "switch",
-        description:"仅在编辑态下有效，真机小程序胶囊会一直显示",
-        ifVisible({ data }: EditorResult<Data>) {
-          return data.navigationStyle !== 'default';
-        },
-        value: {
-          get({ data }) {
-            if(data.showNavigationBarCapsule == undefined) return true
-            return data.showNavigationBarCapsule ;
-          },
-          set({ data }, value) {
-            data.showNavigationBarCapsule = value;
-          },
-        },
-      },
-      {
-        ifVisible({ data }) {
           return data.useNavigationStyle === "none";
         },
         title: "显示导航栏标题",
@@ -103,6 +65,44 @@ export default {
           },
         }
       },
+      {
+        ifVisible({ data }) {
+          return data.useNavigationStyle === "default" || data.useNavigationStyle === "none";
+        },
+        title: "导航栏标题文字内容",
+        type: "text",
+        value: {
+          get({ data }) {
+            return data.navigationBarTitleText;
+          },
+          set({ data }, value) {
+            data.navigationBarTitleText = value;
+          },
+        },
+        // binding: {
+        //   with: 'data.navigationBarTitleText',
+        //   scheme: {
+        //     type: 'string'
+        //   }
+        // }
+      },
+      // {
+      //   title: "显示小程序胶囊",
+      //   type: "switch",
+      //   description:"仅在编辑态下有效，真机小程序胶囊会一直显示",
+      //   ifVisible({ data }: EditorResult<Data>) {
+      //     return data.navigationStyle !== 'default';
+      //   },
+      //   value: {
+      //     get({ data }) {
+      //       if(data.showNavigationBarCapsule == undefined) return true
+      //       return data.showNavigationBarCapsule ;
+      //     },
+      //     set({ data }, value) {
+      //       data.showNavigationBarCapsule = value;
+      //     },
+      //   },
+      // },
       {
         ifVisible({ data }) {
           return data.useNavigationStyle === "none";
@@ -142,20 +142,20 @@ export default {
       },
       {
         ifVisible({ data }) {
-          return data.useNavigationStyle === "default" || data.useNavigationStyle === "none";
+          return data.useNavigationStyle === "default";
         },
-        title: "导航栏标题文字内容",
-        type: "text",
+        title: "导航栏背景颜色",
+        type: "colorpicker",
         value: {
           get({ data }) {
-            return data.navigationBarTitleText;
+            return data.navigationBarBackgroundColor;
           },
           set({ data }, value) {
-            data.navigationBarTitleText = value;
+            data.navigationBarBackgroundColor = value;
           },
         },
         // binding: {
-        //   with: 'data.navigationBarTitleText',
+        //   with: 'data.navigationBarBackgroundColor',
         //   scheme: {
         //     type: 'string'
         //   }

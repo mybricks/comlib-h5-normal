@@ -43,6 +43,14 @@ const getDefaultTabItem = (id) => {
 
 export default function ({ env, data, inputs, outputs, slots }) {
   data.id = env.canvas.id;
+  
+  useEffect(()=>{
+    if(window.__PLATFORM__ == "h5"){
+      data.showNavigationBarCapsule = false;
+    }else{
+      data.showNavigationBarCapsule = true;
+    }
+  },[])
 
   useEffect(() => {
     window.__entryPagePath__?.on(data.id, (val) => {
