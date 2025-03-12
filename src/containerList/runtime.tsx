@@ -317,6 +317,10 @@ export const ContainerList = ({ env, data, inputs, outputs, slots }) => {
             },
             key: key,
             style: {
+              width:
+                slots["item"].size || data.direction === Direction.Column
+                  ? ""
+                  : "72px",
               height: slots["item"].size ? "unset" : "60px",
             },
           })}
