@@ -127,6 +127,7 @@ export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
           }
           env={env}
           context={{ React }}
+          logger={logger}
         />
       );
     } catch (error) {

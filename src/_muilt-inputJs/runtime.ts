@@ -6,7 +6,8 @@ export default function ({ env, data, inputs, outputs, logger, onError }: Runtim
   const { fns, runImmediate } = data;
 
   const runJSParams = {
-    outputs: convertObject2Array(outputs)
+    outputs: convertObject2Array(outputs),
+    logger
   };
 
   let sandbox;

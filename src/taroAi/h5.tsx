@@ -234,6 +234,7 @@ export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
       ),
       env,
       context: { React },
+      logger,
     };
   }, [slots]);
 
