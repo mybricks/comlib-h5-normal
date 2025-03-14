@@ -1,3 +1,5 @@
+import * as Taro from "@tarojs/taro";
+
 export default function ({ env, data, inputs, outputs, _inputsCallable }) {
   if (!env.runtime) {
     return;
@@ -6,15 +8,26 @@ export default function ({ env, data, inputs, outputs, _inputsCallable }) {
   inputs["goto"]((val) => {
     let sceneId = getSceneIdFromPath(val);
 
-    if (!sceneId || !env.canvas.pages[sceneId]) {
-      console.error("sceneId 不存在");
-      return;
-    }
-
     // 从 val 中解析出参数
     let params = getParamsFromPath(val);
-
-    env.canvas._open(sceneId, params, data.action);
+    console.log("env", env, "sceneId", sceneId, "params", params, "data.action", data.action)
+    if (env.runtime.debug) {
+      env.canvas.open(sceneId, params, data.action);
+    }else{
+      if(data.action === "redirectTo"){
+        Taro.redirectTo({
+          url: val,
+        })
+      }else if(data.action === "navigateTo"){
+        Taro.navigateTo({
+          url: val,
+        })
+      }else if(data.action === "reLaunch"){
+        Taro.reLaunch({
+          url: val,
+        })
+      }
+    }
   });
 
   function getSceneIdFromPath(path) {
@@ -44,11 +57,11 @@ export default function ({ env, data, inputs, outputs, _inputsCallable }) {
       // value 可能经过 encodeURIComponent 编码，需要解码
       try {
         value = decodeURIComponent(value);
-      } catch (e) {}
+      } catch (e) { }
 
       try {
         value = JSON.parse(value);
-      } catch (e) {}
+      } catch (e) { }
 
       params[key] = value;
     });
