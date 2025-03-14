@@ -27,37 +27,42 @@ export default function (props) {
     >
       <View className={css.safearea}></View>
       <View className={css.main}>
-        <View className={css.left}>
-          <Image
-            className={css.backIcon}
-            src={
-              data.navigationBarTextStyle === "white"
-                ? backIconWhite
-                : backIconBlack
-            }
-            onClick={onBack}
-          />
-          {data.homeButton ? (
+        {!data.useTabBar ? (
+          <View className={css.left}>
             <Image
-              className={css.homeIcon}
+              className={css.backIcon}
               src={
                 data.navigationBarTextStyle === "white"
-                  ? homeButtonWhite
-                  : homeButtonBlack
+                  ? backIconWhite
+                  : backIconBlack
+              }
+              onClick={onBack}
+            />
+            {data.homeButton ? (
+              <Image
+                className={css.homeIcon}
+                src={
+                  data.navigationBarTextStyle === "white"
+                    ? homeButtonWhite
+                    : homeButtonBlack
+                }
+              />
+            ) : null}
+          </View>
+        ) : null}
+
+        {isDesigner(env) &&
+          (data.showNavigationBarCapsule == true ||
+            data.showNavigationBarCapsule == undefined) && (
+            <Image
+              className={css.right}
+              src={
+                data.navigationBarTextStyle === "white"
+                  ? menuButtonWhite
+                  : menuButtonBlack
               }
             />
-          ) : null}
-        </View>
-        {isDesigner(env) && (data.showNavigationBarCapsule == true || data.showNavigationBarCapsule == undefined) && (
-          <Image
-            className={css.right}
-            src={
-              data.navigationBarTextStyle === "white"
-                ? menuButtonWhite
-                : menuButtonBlack
-            }
-          />
-        )}
+          )}
         {/* title */}
         <View
           className={css.title}
