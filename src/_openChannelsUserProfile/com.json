@@ -1,0 +1,45 @@
+{
+  "title": "打开视频号主页",
+  "namespace": "mybricks.taro._openChannelsUserProfile",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "description": "跳转到视频号用户主页",
+  "data": "./data.json",
+  "icon": "./icon.svg",
+  "editors": "./editors.ts",
+  "runtime": "./runtime.ts",
+  "rtType": "js",
+  "inputs": [
+    {
+      "id": "openChannelsUserProfile",
+      "title": "打开视频号主页",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "finderUserName": {
+            "type": "string",
+            "title": "视频号 id",
+            "description":"视频号 id"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "openChannelsUserProfileSuccess",
+      "title": "打开视频号主页成功",
+      "schema": {
+        "type": "follow"
+      }
+    },
+    {
+      "id": "openChannelsUserProfileFail",
+      "title": "打开视频号主页失败",
+      "schema": {
+        "type": "follow"
+      }
+    }
+  ]
+}
