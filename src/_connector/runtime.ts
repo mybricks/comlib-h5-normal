@@ -3,11 +3,15 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
     try {
       let finnalConnector = {
         ...(data.connector || {}),
-        outputSchema: data.outputSchema
+        outputSchema: data.outputSchema,
       };
 
       if (data.dynamicConfig) {
         finnalConnector = data.dynamicConfig;
+      }
+
+      if (data.timeout) {
+        finnalConnector.timeout = data.timeout;
       }
 
       env
@@ -17,7 +21,9 @@ function callCon({ env, data, inputs, outputs, onError }, params = {}) {
           isMultipleOutputs: true,
         })
         .then((val) => {
-          outputs[val?.__OUTPUT_ID__ ?? 'then'](val?.__ORIGIN_RESPONSE__ ?? val);
+          outputs[val?.__OUTPUT_ID__ ?? "then"](
+            val?.__ORIGIN_RESPONSE__ ?? val
+          );
         })
         .catch((err) => {
           outputs["catch"](err);

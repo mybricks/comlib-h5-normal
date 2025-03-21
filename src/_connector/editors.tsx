@@ -1,5 +1,5 @@
 const defaultSchema = { type: "any" };
-const defaultOutputId = 'then';
+const defaultOutputId = "then";
 
 export default {
   "@init": ({ data, setDesc, setAutoRun, isAutoRun }) => {
@@ -76,6 +76,22 @@ export default {
     },
     {},
     {
+      title: "超时时间",
+      description: "单位：毫秒, 默认值：60,000",
+      type: "text",
+      options: {
+        type: "number",
+      },
+      value: {
+        get({ data }) {
+          return data.timeout;
+        },
+        set({ data }, timeout) {
+          data.timeout = timeout;
+        },
+      },
+    },
+    {
       title: "动态配置",
       type: "switch",
       value: {
@@ -141,12 +157,10 @@ function isValidSchema(schema) {
 
 function deleteConnector({ data, input, output }) {
   output.get().forEach((o) => {
-    if (!['then', 'catch'].includes(o.id)) {
+    if (!["then", "catch"].includes(o.id)) {
       output.remove(o.id);
-    } else if (o.id === "then") (
-      output.get(o.id).setSchema(defaultSchema)
-    )
-  })
+    } else if (o.id === "then") output.get(o.id).setSchema(defaultSchema);
+  });
 }
 
 function updateConnector({ input, output, data }, connector) {
@@ -156,13 +170,13 @@ function updateConnector({ input, output, data }, connector) {
     title: connector.title,
     type: connector.type,
     connectorName: connector.connectorName,
-    script: connector.script
+    script: connector.script,
   };
   updateIO({ input, output, data }, connector);
 }
 
 function updateIO({ input, output, data }, connector) {
-  const callInt = input.get('call');
+  const callInt = input.get("call");
   if (callInt) {
     if (isValidSchema(connector.inputSchema)) {
       callInt.setSchema(connector.inputSchema);
@@ -173,15 +187,17 @@ function updateIO({ input, output, data }, connector) {
 
   if (connector.markList?.length) {
     output.get().forEach((o) => {
-      if (o.id !== 'then' && o.id !== 'catch') {
+      if (o.id !== "then" && o.id !== "catch") {
         output.remove(o.id);
       }
     });
     connector.markList?.forEach((mark) => {
-      const schema = isValidSchema(mark.outputSchema) ? mark.outputSchema : defaultSchema;
+      const schema = isValidSchema(mark.outputSchema)
+        ? mark.outputSchema
+        : defaultSchema;
 
-      if (mark.id === 'default') {
-        const then = output.get('then');
+      if (mark.id === "default") {
+        const then = output.get("then");
         then.setSchema(schema);
         then.setTitle(`${mark.title}(标记组)`);
       } else {
@@ -195,13 +211,15 @@ function updateIO({ input, output, data }, connector) {
     });
   } else {
     output.get().forEach((o) => {
-      if (o.id === 'then') {
+      if (o.id === "then") {
         output
           .get(o.id)
           .setSchema(
-            isValidSchema(connector.outputSchema) ? connector.outputSchema : defaultSchema
+            isValidSchema(connector.outputSchema)
+              ? connector.outputSchema
+              : defaultSchema
           );
-      } else if (o.id !== 'catch') {
+      } else if (o.id !== "catch") {
         output.remove(o.id);
       }
     });
