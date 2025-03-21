@@ -7,6 +7,7 @@
 基础用法与原生 `img` 标签一致，可以设置 `src`、`alt` 等原生属性。<br>
 通过 `width` 和 `height` 设置图片大小，若未指定，会从style中读取`width`,`height`属性。 <br>
 width和height若为number, 会经过 `pxTransform` 转换
+除了通过width、height配置图片大小，也需要同时通过 `style` 设置。
 
 ```tsx
 <Image width={200} height={200} src="https://img.yzcdn.cn/vant/cat.jpeg" />
