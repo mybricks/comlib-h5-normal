@@ -186,11 +186,6 @@ export default {
           const { data, focusArea } = props;
           let innerText = focusArea.ele.innerText;
           return innerText;
-          // let index = data.columns.findIndex((column) => {
-          //   return column._id === _id;
-          // });
-
-          // return data.columns[index].title;
         },
         set(props, value) {
           const { data, focusArea } = props;
