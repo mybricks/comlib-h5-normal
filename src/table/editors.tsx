@@ -136,7 +136,7 @@ export default {
               let id = data.columns[index].id;
               try {
                 slots.remove(id);
-              } catch (e) {}
+              } catch (e) { }
             },
             items: [
               {
@@ -309,6 +309,38 @@ export default {
     },
   },
   ".mybricks-thead .mybricks-col": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data, focusArea }) {
+          let _id = focusArea.ele.dataset.id;
+          console.log("table focusArea",focusArea)
+          let index = data.columns.findIndex((column) => {
+            return column._id === _id;
+          });
+
+          return data.columns[index].title;
+        },
+        set({ data, focusArea, slots }, value) {
+          let _id = focusArea.ele.dataset.id;
+          let index = data.columns.findIndex((column) => {
+            return column._id === _id;
+          });
+
+          let columns = [...data.columns];
+          columns[index].title = value;
+          data.columns = columns;
+
+          // 更新 slots 的 title
+          let column = columns[index];
+
+          let slot = slots.get(column.id);
+          if (slot) {
+            slot.setTitle(`表格列 ${column.title} | ${column.dataIndex}`);
+          }
+        },
+      },
+    },
     title: "表格列",
     style: [
       {

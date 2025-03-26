@@ -178,6 +178,36 @@ export default {
 
     // refreshSchema({ data, inputs, outputs, slots });
   },
+  ".mybricks-field .taroify-form-label": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const { data, focusArea } = props;
+          let innerText = focusArea.ele.innerText;
+          return innerText;
+          // let index = data.columns.findIndex((column) => {
+          //   return column._id === _id;
+          // });
+
+          // return data.columns[index].title;
+        },
+        set(props, value) {
+          const { data, focusArea } = props;
+          const items = data.items
+          let innerText = focusArea.ele.innerText;
+          const updateName = (items, innerText, value) => {
+            items.forEach(item => {
+              if (item.label === innerText) {
+                item.label = value;
+              }
+            });
+          }
+          updateName(items,innerText,value)
+        },
+      },
+    },
+  },
   ":root": {
     style: [
       {

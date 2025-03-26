@@ -133,7 +133,7 @@ export default {
   ":root": {
     style: [],
     items: ({ env, data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "属性";
+      cate0.title = "页面";
       cate0.items = [
         {
           title: "布局",
