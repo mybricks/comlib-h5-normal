@@ -164,4 +164,18 @@ export default {
       {},
     ],
   },
+  ".mbs-filters_extra": {
+    title:"筛选",
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          return props.data?.extraButtonText
+        },
+        set({ data }, val: string) {
+          data.extraButtonText = val
+        },
+      },
+    },
+  }
 };

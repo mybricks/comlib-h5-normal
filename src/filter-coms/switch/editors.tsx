@@ -83,5 +83,16 @@ export default {
         },
       ];
     },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          return props.data?.options?.normal?.label
+        },
+        set({ data }, val: string) {
+          data.options.normal.label = val;
+        },
+      },
+    },
   },
 };

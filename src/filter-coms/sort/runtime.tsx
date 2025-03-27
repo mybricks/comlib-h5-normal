@@ -123,6 +123,7 @@ export default (props) => {
         actived ? "mbs-filter_sort--active" : "mbs-filter_sort"
       }`}
       onClick={handleClick}
+      data-id={_optionMap.none?.label}
     >
       {env.edit ? _optionMap.none?.label ?? "暂未配置" : _optionMap.none?.label}
       <View className={css.icons}>

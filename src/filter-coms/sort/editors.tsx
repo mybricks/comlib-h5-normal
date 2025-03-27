@@ -202,5 +202,16 @@ export default {
         }
       ];
     },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          return props.data?.optionMap?.none?.label
+        },
+        set({ data }, val: string) {
+          data.optionMap.none.label = val;
+        },
+      },
+    },
   },
 };

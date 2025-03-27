@@ -83,7 +83,7 @@ export default (props) => {
     let activedLabel = data.options.actived.label || (env.edit ? "未设置" : "");
 
     return actived ? activedLabel : normalLabel;
-  }, [env.edit, actived]);
+  }, [env.edit, actived, data.options.normal.label, data.options.actived.label]);
 
   return (
     <View className={switchCx} onClick={handleClick}>
