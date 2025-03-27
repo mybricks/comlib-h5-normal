@@ -147,7 +147,7 @@ export default function (props) {
 
   return (
     <Radio.Group direction={data.direction} value={value} onChange={onChange}>
-      {options.map((item) => {
+      {options.map((item,index) => {
         const restProps = {} as any;
         if (item.icon) {
           restProps.icon = <Image src={item.icon} />;
@@ -164,7 +164,7 @@ export default function (props) {
             style={gapStyle}
             {...restProps}
           >
-            <View className={cx("mybricks-label", css.label)}>
+            <View data-index={index} className={cx("mybricks-label", css.label)}>
               {item.label}
             </View>
             {item.brief ? (

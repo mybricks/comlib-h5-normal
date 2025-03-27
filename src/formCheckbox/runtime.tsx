@@ -3,6 +3,7 @@ import { Checkbox, Image } from "brickd-mobile";
 import { isObject, isString, isEmpty, isNumber } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import cx from "classnames";
+import { View } from "@tarojs/components";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -152,7 +153,7 @@ export default function (props) {
       value={value}
       onChange={onChange}
     >
-      {options.map((item) => {
+      {options.map((item,index) => {
         const restProps = {} as any;
         if (item.icon) {
           restProps.icon = <Image src={item.icon} />;
@@ -170,7 +171,7 @@ export default function (props) {
             {...restProps}
             style={gapStyle}
           >
-            {item.label}
+            <View data-index={index} className="mybricks-label">{item.label}</View>
           </Checkbox>
         );
       })}

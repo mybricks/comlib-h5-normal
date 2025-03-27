@@ -1,5 +1,10 @@
 import { uuid } from "../utils";
-
+const getFocusItem = (props) => {
+  const { data, focusArea } = props;
+  if (!focusArea) return {};
+  let index = focusArea.dataset.index
+  return data.options[index];
+};
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
@@ -165,4 +170,38 @@ export default {
       ];
     },
   },
+  ".mybricks-label": {
+    title: "标题",
+    items: (props, cate1, cate2, cate3) => {
+      if (!props.focusArea) return;
+      const focusItem = getFocusItem(props);
+      cate1.title = "常规";
+      cate1.items = [
+        {
+          title: "标题",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              return focusItem.label
+            },
+            set({ data, focusArea, slot, output }, value) {
+              data.options[focusArea.dataset.index].label = value
+            },
+          },
+        }
+      ];
+    },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const focusItem = getFocusItem(props);
+          return focusItem.label
+        },
+        set({ data, focusArea }, value) {
+          data.options[focusArea.dataset.index].label = value
+        }
+      }
+    }
+  }
 };

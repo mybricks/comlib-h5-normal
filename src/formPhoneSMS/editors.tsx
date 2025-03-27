@@ -192,5 +192,16 @@ export default {
         },
       },
     ],
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({data}) {
+          return data.buttonText
+        },
+        set({ data, focusArea }, value) {
+          data.buttonText = value
+        }
+      }
+    }
   },
 };
