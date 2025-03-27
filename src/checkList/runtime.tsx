@@ -124,7 +124,7 @@ export default function (props) {
             marginRight: data.useWrap ? `-${data.gutter[1]}px` : 0,
           }}
         >
-          {options.map((item) => {
+          {options.map((item,index) => {
             let isSelected = value.includes(item.value);
 
             let style = {
@@ -152,6 +152,7 @@ export default function (props) {
                   item={item}
                   isSelected={isSelected}
                   onChange={onChange}
+                  index={index}
                 />
               </View>
             );

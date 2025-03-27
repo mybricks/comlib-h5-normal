@@ -4,7 +4,7 @@ import css from "./item.less";
 import cx from "classnames";
 
 export default function (props) {
-  const { env, data, inputs, outputs, slots } = props;
+  const { env, data, inputs, outputs, slots,index } = props;
   const { item, isSelected, onChange } = props;
 
   let icon = useMemo(() => {
@@ -13,11 +13,13 @@ export default function (props) {
 
   return (
     <View
+      data-index={index}
       className={cx({
         [css.item]: !isSelected,
         "mybricks-item": !isSelected,
         [css.itemSelected]: isSelected,
         "mybricks-item-selected": isSelected,
+        ["mybricks-items"]: true
         // [css.vertical]: data.itemLayout === "vertical",
         // [css.horizontal]: data.itemLayout === "horizontal",
       })}

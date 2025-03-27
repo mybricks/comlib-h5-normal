@@ -1,3 +1,10 @@
+const getFocusSelected = (props) => {
+  const { data, focusArea } = props;
+  if (!focusArea) return {};
+  const { index } = focusArea;
+  return data.options[index];
+};
+
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
@@ -326,6 +333,62 @@ export default {
           ],
         },
       ];
+    },
+  },
+  ".mybricks-items":{
+    title: "选项",
+    items:(props, cate1, cate2, cate3) => {
+      if (!props.focusArea) return;
+      const { data, focusArea } = props
+      const focusItem = getFocusSelected(props);
+      cate1.title = "常规";
+      cate1.items = [
+        {
+          title: "选项名",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              // return focusItem?.tabName;
+              return data.options[focusArea.dataset.index].label
+            },
+            set({ data, focusArea, slot, output }, value) {
+              if (!focusArea) return;
+              data.options[focusArea.dataset.index].label = value
+              // slot.setTitle(focusItem._id, value);
+              // output.setTitle("changeTab_" + focusItem._id, value);
+            },
+          },
+        },
+        {
+          title: "选项值",
+          type: "text",
+          value: {
+            get({ data, focusArea }) {
+              return data.options[focusArea.dataset.index].value
+            },
+            set({ data, focusArea, slot, output }, value) {
+              if (!focusArea) return;
+              data.options[focusArea.dataset.index].value = value
+              // slot.setTitle(focusItem._id, value);
+              // output.setTitle("changeTab_" + focusItem._id, value);
+            },
+          },
+        }
+      ];
+    },
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const { data, index,focusArea } = props
+          return data.options[focusArea.dataset.index].label
+        },
+        set(props, value) {
+          const { data, index,focusArea } = props
+          if (!focusArea) return;
+          data.options[focusArea.dataset.index].label = value
+        },
+      },
     },
   },
 };
