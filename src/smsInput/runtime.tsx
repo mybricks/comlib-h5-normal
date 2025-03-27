@@ -134,6 +134,7 @@ export default function (props) {
   };
 
   const resendSMS = () => {
+    if(env.edit) return
     if (!data.buttonAvailable) return;
     countDown();
     outputs["onSendSMS"](value);
@@ -153,7 +154,7 @@ export default function (props) {
         />
       </View>
       <View className={css.desc} id="mybricks-input-desc" onClick={resendSMS}>
-        <View>{displayNormalText}</View>
+        <View className="mybricks-desc">{displayNormalText}</View>
         {error && <View className={css.error}>{data.errorText}</View>}
       </View>
     </View>

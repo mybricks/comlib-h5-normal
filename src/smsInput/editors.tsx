@@ -139,4 +139,17 @@ export default {
       ];
     },
   },
+  ".mybricks-desc": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({data}) {
+          return data.retryText
+        },
+        set({ data, focusArea }, value) {
+          data.retryText = value
+        }
+      }
+    }
+  }
 };
