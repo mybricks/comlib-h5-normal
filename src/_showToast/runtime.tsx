@@ -14,16 +14,27 @@ export default function ({ env, data, inputs, outputs }) {
               }
             : {...val,duration:val.duration === undefined || isNaN(val.duration) ? 1000 : typeof val.duration === "string" ? Number(val.duration) : val.duration}),
           complete: () => {
-            outputs["afterShowToast"](val);
+            if(data.asynchronous){
+              setTimeout(() => {
+                outputs["afterShowToast"]();
+              }, data?.duration); //提示结束后触发
+            }else{
+              outputs["afterShowToast"](val);
+            }
           },
         });
       } else {
         /** 非动态输入 */
         Taro.showToast({
           ...data,
-          
           complete: () => {
-            outputs["afterShowToast"](val);
+            if(data.asynchronous){
+              setTimeout(() => {
+                outputs["afterShowToast"]();
+              }, data?.duration); //提示结束后触发
+            }else{
+              outputs["afterShowToast"](val);
+            }
           },
         });
       }

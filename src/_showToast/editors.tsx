@@ -81,7 +81,19 @@ export default {
         }
       }
     },
-
+    {
+      title:"提示结束后再触发输出",
+      description:"toast提示结束（消失）后，再异步触发右侧端点输出",
+      type: 'switch',
+      value: {
+        get({data}) {
+          return data.asynchronous
+        },
+        set({data},value) {
+          data.asynchronous = value
+        }
+      }
+    },
     {
       ifVisible: ({ data }) => {
         return !data.dynamic;

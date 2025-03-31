@@ -81,7 +81,19 @@ export default {
         }
       }
     },
-
+    {
+      title:"是否提示消失后输出",
+      description:"toast提示消失后，再异步触发输出",
+      type: 'switch',
+      value: {
+        get({data}) {
+          return data.asynchronous
+        },
+        set({data},value) {
+          data.asynchronous = value
+        }
+      }
+    },
     {
       ifVisible: ({ data }) => {
         return !data.dynamic;
