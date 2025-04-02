@@ -19,6 +19,16 @@ import { useConnector } from './../utils/connector/runtime'
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
 
+  //判断组件是否需要为可交互状态
+  const comOperatable = useMemo(() => {
+    if (env.edit) {
+      return false;
+    } else {
+      return true;
+    }
+  }, [env.edit]);
+  
+
   const [ready, setReady] = useState(
     env.edit ? true : data.defaultRenderMode === "dynamic" ? false : true
   );
@@ -184,7 +194,7 @@ export default function (props) {
           "mybricks-h5Select": isH5(),
         })}
       >
-        <Picker
+        {comOperatable && <Picker
           disabled={data.disabled}
           className={css.picker}
           value={selectIndex}
@@ -211,7 +221,27 @@ export default function (props) {
               })}
             />
           </View>
-        </Picker>
+        </Picker>}
+        {!comOperatable && <View className={css.display}>
+            <View
+              className={cx({
+                [css.input]: true,
+                "mybricks-input": value,
+                [css.placeholder]: !value,
+                "mybricks-placeholder": !value,
+              })}
+            >
+              {displayValue || data.placeholder}
+            </View>
+            <ArrowRight
+              className={cx({
+                [css.right]: data.arrow === "right",
+                [css.down]: data.arrow === "down",
+                [css.none]: data.arrow === "none",
+              })}
+            />
+          </View>}
+
       </View>
     );
   }, [

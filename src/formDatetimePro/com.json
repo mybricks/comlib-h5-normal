@@ -8,7 +8,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "preview": "./preview.png",
+  "preview": "https://assets.mybricks.world/ikiMrlNoNu18bfQQ42RNfUfws6gNuC97-1743579101437.png",
   "inputs": [
     {
       "id": "setValue",
@@ -17,7 +17,9 @@
       "schema": {
         "type": "string"
       },
-      "rels": ["setValueComplete"]
+      "rels": [
+        "setValueComplete"
+      ]
     },
     {
       "id": "getValue",
@@ -26,7 +28,9 @@
       "schema": {
         "type": "string"
       },
-      "rels": ["returnValue"]
+      "rels": [
+        "returnValue"
+      ]
     },
     {
       "id": "resetValue",
@@ -35,7 +39,9 @@
       "schema": {
         "type": "any"
       },
-      "rels": ["resetValueComplete"]
+      "rels": [
+        "resetValueComplete"
+      ]
     },
     {
       "id": "setLabel",
@@ -111,5 +117,8 @@
       "title": "可点击插槽"
     }
   ],
-  "schema": ["mybricks.taro.formContainer/formItem", "*"]
+  "schema": [
+    "mybricks.taro.formContainer/formItem",
+    "*"
+  ]
 }

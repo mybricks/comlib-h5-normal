@@ -8,7 +8,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "preview": "./preview.png",
+  "preview": "https://assets.mybricks.world/z9TFRr1zSB0rmVMpwYQ8x2CH58NfAj2z-1743579965212.png",
   "inputs": [
     {
       "id": "setValue",

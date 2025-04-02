@@ -9,7 +9,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
-  "preview": "./preview.png",
+  "preview": "https://assets.mybricks.world/fMG3gMXTltMrqCcL9QsNQLBXMUGKouqB-1743579525212.png",
   "inputs": [
     {
       "id": "setValue",
