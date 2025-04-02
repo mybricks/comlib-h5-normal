@@ -6,6 +6,16 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+
+  // :global(.taro-img__mode-aspectfill--width) {
+  //   height: auto;
+  // }
+
+  :global(.taro-img__mode-aspectfill) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .place {
