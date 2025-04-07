@@ -103,6 +103,7 @@ export default function (props) {
         onChange={onChange}
         disabled={data.disabled}
         onBlur={onBlur}
+        maxlength={data.maxlength || 20}
       />
       <View className={buttonCx} onClick={onTogglePassword}></View>
     </View>

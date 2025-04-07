@@ -53,6 +53,19 @@ export default {
             },
           },
         },
+        {
+          title: "最大输入长度",
+          description: "密码输入框最大输入长度",
+          type: "number",
+          value: {
+            get({ data }) {
+              return data.maxlength || 20;
+            },
+            set({ data }, value) {
+              data.maxlength = value;
+            },
+          },
+        },
         {},
         {
           title: "当值变化",

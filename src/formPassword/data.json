@@ -2,5 +2,6 @@
   "label": "密码输入",
   "name": "密码输入",
   "placeholder": "请输入密码",
-  "type": "text"
+  "type": "text",
+  "maxlength": 20
 }
