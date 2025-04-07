@@ -4,7 +4,7 @@ import { connectorEditor } from './../utils/connector/editor'
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "auto";
+    style.height = "24px";
   },
   "@resize": {
     options: ["width","height"],
@@ -12,33 +12,6 @@ export default {
   ...connectorEditor({}),
   ":root": {
     style: [
-      {
-        title: "输入框",
-        options: ["border", "size", "padding", "background"],
-        target({ id }) {
-          return [".mybricks-select", ".mybricks-h5Select"];
-        },
-      },
-      {
-        title: "内容文本",
-        options: ["font"],
-        target({ id }) {
-          return [
-            `.mybricks-select .mybricks-input`,
-            `.mybricks-h5Select .mybricks-input`,
-          ];
-        },
-      },
-      {
-        title: "提示内容文本",
-        options: ["font"],
-        target({ id }) {
-          return [
-            `.mybricks-select .mybricks-placeholder`,
-            `.mybricks-h5Select .mybricks-placeholder`,
-          ];
-        },
-      },
       {
         title: "箭头",
         type: "radio",
@@ -57,10 +30,30 @@ export default {
         },
       },
       {
-        title: "确定颜色",
-        options: ["font"],
+        title: "输入框",
+        options: ["border", "size", "padding", "background"],
         target({ id }) {
-          return ".weui-picker__action";
+          return [".mybricks-select", ".mybricks-h5Select"];
+        },
+      },
+      {
+        title: "内容文本",
+        options: ["font"],
+        description:"选择完成后，下拉框中内容的样式",
+        target({ id }) {
+          return [
+            `#a-${id} .mybricks-input`,
+          ];
+        },
+      },
+      {
+        title: "提示内容文本",
+        options: ["font"],
+        description:"未选择时，下拉框中提示内容的样式",
+        target({ id }) {
+          return [
+            `#a-${id} .mybricks-placeholder`,
+          ];
         },
       },
     ],

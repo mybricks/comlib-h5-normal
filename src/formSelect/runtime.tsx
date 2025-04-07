@@ -17,7 +17,7 @@ import { uuid } from "../utils";
 import { useConnector } from './../utils/connector/runtime'
 
 export default function (props) {
-  const { env, data, inputs, outputs, slots, parentSlot } = props;
+  const { env, data, inputs, outputs, slots, parentSlot,id } = props;
 
   //判断组件是否需要为可交互状态
   const comOperatable = useMemo(() => {
@@ -187,6 +187,7 @@ export default function (props) {
   const normalView = useMemo(() => {
     return (
       <View
+        id={`a-${id}`}
         key={`normalView-${uuid()}`}
         className={cx({
           [css.select]: true,
@@ -202,7 +203,7 @@ export default function (props) {
           onChange={onChange}
           onCancel={onCancel}
         >
-          <View className={css.display}>
+          <View className={cx(css.display,"mybricks-display")}>
             <View
               className={cx({
                 [css.input]: true,
