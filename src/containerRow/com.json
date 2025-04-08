@@ -1,0 +1,21 @@
+{
+  "title": "布局",
+  "namespace": "mybricks.taro.containerRow",
+  "author": "mybricks-team",
+  "author_name": "板砖团队",
+  "version": "1.0.0",
+  "runtime": "./runtime.tsx",
+  "data": "./data.json",
+  "editors": "./editors.tsx",
+  "icon": "./icon.svg",
+  "slots": [
+    {
+      "id": "slot1",
+      "title": "插槽1"
+    },
+    {
+      "id": "slot2",
+      "title": "插槽2"
+    }
+  ]
+}

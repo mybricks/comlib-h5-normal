@@ -1,0 +1,17 @@
+{
+  "slotStyle": {
+    "flexDirection": "row"
+  },
+  "items": [
+    {
+      "id": "slot1",
+      "widthMode": "auto",
+      "slotStyle": {}
+    },
+    {
+      "id": "slot2",
+      "widthMode": "auto",
+      "slotStyle": {}
+    }
+  ]
+}
