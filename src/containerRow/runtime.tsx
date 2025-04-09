@@ -25,6 +25,11 @@ export default function ({ env, data, slots, inputs, outputs }) {
           style.width = `${item.width}%`
         }
 
+        const slotStyle = {
+          ...style,
+          width: style.width === 'fit-content' ? 'fit-content' : '100%'
+        }
+
         return (
           <View
             className={cx(css.item, "mybricks-item")}
@@ -32,9 +37,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
             key={item.id}
           >
             {slots[item.id]?.render({
-              style: {
-                ...item.slotStyle,
-              },
+              style: slotStyle,
             })}
           </View>
         );
