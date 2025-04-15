@@ -106,7 +106,7 @@ export default {
               schema: {
                 type: "object",
               },
-              // binding: "data.dynamicConfig",
+              binding: "data.dynamicConfig",
               editor: {
                 type: "_connectorSelect",
               },

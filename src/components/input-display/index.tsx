@@ -1,6 +1,7 @@
 import React, { Children, CSSProperties, useMemo, ReactNode } from "react";
 import { View } from "@tarojs/components";
 import css from "./index.less";
+import cx from "classnames";
 
 export default ({ value, placeholder, disabled = false }) => {
     const style = useMemo(() => {
@@ -9,7 +10,12 @@ export default ({ value, placeholder, disabled = false }) => {
         };
     }, [value, placeholder, disabled]);
     return (
-        <View className={css.input} style={style}>
+        <View className={cx({
+            [css.input]:true,
+            ["mybricks-input"]:true,
+            [css.disabled]:disabled,
+            [css.normal]:!disabled
+        })}>
             {value || placeholder}
         </View>
     );

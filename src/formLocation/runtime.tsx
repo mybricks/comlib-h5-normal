@@ -141,7 +141,7 @@ export default function (props) {
           {/* 非插槽视图 */}
           {!data.isSlot && (
             <View
-              className={css.select}
+              className={cx(css.select,"mybricks-display")}
               onClick={() => {
                 toast();
               }}

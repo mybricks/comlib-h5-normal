@@ -6,6 +6,7 @@ import * as Taro from "@tarojs/taro";
 import { isNumber, isObject, isString, isEmpty } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isDesigner, isH5 } from "../utils/env";
+import { plus } from "./icon"
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -222,7 +223,7 @@ export default function (props) {
           {data.iconSlot ? (
             <View>{slots["iconSlot"]?.render({})}</View>
           ) : (
-            <View className={css.icon_placeholder}>+</View>
+            <View className={cx(css.icon_placeholder,"mybricks-icon")}>{plus()}</View>
           )}
         </View>
       );

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useMemo, useState } from "react";
 import css from "./style.less";
 import cx from "classnames";
-import { View,Image } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import { Search } from "brickd-mobile";
 import { debounce } from "./../utils/core";
 import { Button } from "@tarojs/components";
@@ -73,7 +73,7 @@ export default function ({ env, data, inputs, outputs }) {
         label={data.label}
         value={value}
         placeholder={data?.placeholderText}
-        // disabled={data.disabled}
+        disabled={data.disabled}
         onClick={onClick}
         onInput={onInput}
         onChange={onChange}
@@ -83,6 +83,7 @@ export default function ({ env, data, inputs, outputs }) {
         onSearch={onSearch}
         icon={icon}
         clearable={false}
+        autoFocus={data.autoFocus ?? false}
       />
       {data.showSearchButton &&
         <Button

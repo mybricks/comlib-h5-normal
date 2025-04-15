@@ -4,7 +4,7 @@ import { connectorEditor } from './../utils/connector/editor'
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "24px";
+    style.height = "auto";
   },
   "@resize": {
     options: ["width","height"],
