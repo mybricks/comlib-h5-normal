@@ -19,9 +19,7 @@ export default function ({ env, data, inputs, outputs, title }) {
         <View className={css.meta}>版权所有：{data.copyright}</View>
       ) : null}
       <View className={css.meta}>
-        <Image className={css.logo} mode={"aspectFill"} src={data.logo} /> MyBricks.ai
-        低代码提供制作服务
-      </View>
+        <Image className={css.logo} mode={"aspectFill"} src={data.logo} />Powerd by MyBricks.ai</View>
     </View>
   );
 }

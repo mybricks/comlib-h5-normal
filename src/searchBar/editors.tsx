@@ -166,19 +166,6 @@ export default {
                 },
               },
             },
-            {
-              title:"自动聚焦",
-              type:"switch",
-              description:"iOS 系统不支持该属性",
-              value: {
-                get({data}){
-                  return data.autoFocus ?? false;
-                },
-                set({data}, value: boolean){
-                  data.autoFocus = value;
-                }
-              }
-            },
             //
             {
               ifVisible({ data }) {

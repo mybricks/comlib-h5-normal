@@ -8,6 +8,7 @@ import { Button } from "@tarojs/components";
 
 export default function ({ env, data, inputs, outputs }) {
   const [value, setValue] = useState("");
+  const [autoFocus,setAutoFocus] = useState(false)
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -17,6 +18,11 @@ export default function ({ env, data, inputs, outputs }) {
     inputs["getValue"]?.((val, relOutputs) => {
       relOutputs["returnValue"](value);
     });
+
+    inputs["focus"]?.((val,relOutputs) => {
+      setAutoFocus(true)
+      relOutputs['focusDone'](val)
+    })
   }, [value]);
 
   const onClick = useCallback(() => {
@@ -53,6 +59,11 @@ export default function ({ env, data, inputs, outputs }) {
     }, 0);
   }, []);
 
+  const onBlur = useCallback((e) => {
+    //防止失去焦点后又自动聚焦
+    setAutoFocus(false)
+  },[])
+
   const onButtonClick = useCallback(() => {
     outputs["onSearch"]?.(value);
   }, [value]);
@@ -68,6 +79,8 @@ export default function ({ env, data, inputs, outputs }) {
 
   return (
     <View className={cx(css.searchBox, "mybricks-searchBar")}>
+      {/* 搜索框禁用时在上方加一层View，不然点击不生效 */}
+      {data.disabled && <View className={css.searchBoxDisabled} onClick={onClick}></View>}
       <Search
         className={cx(css.searchBar, "mybricks-searchBar-input")}
         label={data.label}
@@ -81,9 +94,10 @@ export default function ({ env, data, inputs, outputs }) {
         onCancel={onCancel}
         onClear={onClear}
         onSearch={onSearch}
+        onBlur={onBlur}
         icon={icon}
         clearable={false}
-        autoFocus={data.autoFocus ?? false}
+        autoFocus={autoFocus}
       />
       {data.showSearchButton &&
         <Button

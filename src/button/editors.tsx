@@ -109,7 +109,7 @@ const MAP = {
     ],
   },
   feedback: {
-    title: "打开“意见反馈”页面",
+    title: "打开意见反馈页面",
     output: [],
   },
   chooseAvatar: {
@@ -135,6 +135,7 @@ function clearOutput(openType, output) {
       output.remove("feedback");
       output.remove("openSetting");
       output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
       break;
 
     case openType === "getRealtimePhoneNumber":
@@ -145,6 +146,7 @@ function clearOutput(openType, output) {
       output.remove("feedback");
       output.remove("openSetting");
       output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
       break;
 
     case openType === "share":
@@ -156,6 +158,7 @@ function clearOutput(openType, output) {
       output.remove("feedback");
       output.remove("openSetting");
       output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
       break;
 
     case openType === "contact":
@@ -167,6 +170,7 @@ function clearOutput(openType, output) {
       output.remove("feedback");
       output.remove("openSetting");
       output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
       break;
 
     case openType === "feedback":
@@ -178,6 +182,7 @@ function clearOutput(openType, output) {
       output.remove("onContact");
       output.remove("openSetting");
       output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
       break;
 
     case openType === "openSetting":
@@ -188,6 +193,19 @@ function clearOutput(openType, output) {
       output.remove("share");
       output.remove("onContact");
       output.remove("feedback");
+      output.remove("onClick");
+      output.remove("chooseAvatarSuccess");
+      break;
+
+    case openType === "chooseAvatar":
+      output.remove("getPhoneNumberSuccess");
+      output.remove("getPhoneNumberFail");
+      output.remove("getRealtimePhoneNumberSuccess");
+      output.remove("getRealtimePhoneNumberFail");
+      output.remove("share");
+      output.remove("onContact");
+      output.remove("feedback");
+      output.remove("openSetting");
       output.remove("onClick");
       break;
 
@@ -201,6 +219,7 @@ function clearOutput(openType, output) {
       output.remove("onContact");
       output.remove("feedback");
       output.remove("openSetting");
+      output.remove("chooseAvatarSuccess");
       break;
   }
 }

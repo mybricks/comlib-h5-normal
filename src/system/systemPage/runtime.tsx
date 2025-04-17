@@ -308,7 +308,7 @@ export default function (props) {
         menus: ["shareAppMessage", "shareTimeline"],
       });
     }
-  }, []);
+  }, [data?.enabledShareMessage]);
 
   /**
    * 骨架屏

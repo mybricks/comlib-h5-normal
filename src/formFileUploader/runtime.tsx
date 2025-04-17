@@ -179,7 +179,7 @@ export default function (props) {
 
     if (isH5()) {
       return (
-        <label className={cx(css.uploader)}>
+        <label className={cx(css.uploader,"mybricks-square")}>
           <input
             className={css.input}
             type="file"
@@ -191,7 +191,7 @@ export default function (props) {
     }
 
     return (
-      <View className={cx(css.uploader)} onClick={onChooseFile}>
+      <View className={cx(css.uploader,"mybricks-square")} onClick={onChooseFile}>
         <View className={css.icon_placeholder}>+上传文件</View>
       </View>
     );
