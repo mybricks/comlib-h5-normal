@@ -67,7 +67,7 @@ export const AIJsxUmdRuntime = ({ id, env, styleCode, renderCode, renderProps, e
       const cssAPI = env.canvas.css
       return {
         set(content) {
-          const myContent = content.replaceAll('__id__', id)//替换模版
+          const myContent = content.replace(/__id__/g, id);//替换模版
           cssAPI.set(id, myContent)
         },
         remove() {
@@ -84,7 +84,7 @@ export const AIJsxUmdRuntime = ({ id, env, styleCode, renderCode, renderProps, e
         }
         const styleEle = document.createElement('style')
         styleEle.id = id;
-        const myContent = content.replaceAll('__id__', id)//替换模版
+        const myContent = content.replace(/__id__/g, id);//替换模版
         styleEle.innerText = myContent
         document.head.appendChild(styleEle);
       },
@@ -152,7 +152,7 @@ export const AIJsxRuntime = ({ id, env, styleCode, renderCode, renderProps, erro
       const cssAPI = env.canvas.css
       return {
         set(id: string, content: string) {
-          const myContent = content.replaceAll('__id__', id)//替换模版
+          const myContent = content.replace(/__id__/g, id);//替换模版
           cssAPI.set(id, myContent)
         },
         remove() {
@@ -169,7 +169,7 @@ export const AIJsxRuntime = ({ id, env, styleCode, renderCode, renderProps, erro
         }
         const styleEle = document.createElement('style')
         styleEle.id = id;
-        const myContent = content.replaceAll('__id__', id)//替换模版
+        const myContent = content.replace(/__id__/g, id);//替换模版
         styleEle.innerText = myContent
         document.head.appendChild(styleEle);
       },

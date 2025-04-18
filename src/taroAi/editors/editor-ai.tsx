@@ -132,7 +132,7 @@ export default {
             }),
             new Promise((resolve, reject) => {
               transformLess(response.style).then((css) => {
-                const myContent = css.replaceAll("__id__", response.id); //替换模版
+                const myContent = css.replace(/__id__/g, response.id); //替换模版
                 resolve(myContent);
               });
             }),

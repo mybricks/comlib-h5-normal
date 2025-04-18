@@ -91,7 +91,7 @@ export default ({ env, data, inputs, outputs, slots, logger, id, onError }) => {
     };
     return {
       set(content) {
-        const myContent = content.replaceAll("__id__", id); //替换模版
+        const myContent = content.replace(/__id__/g, id); //替换模板
         cssAPI.set(id, myContent);
       },
       remove() {
