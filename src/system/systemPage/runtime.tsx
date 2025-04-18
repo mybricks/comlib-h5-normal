@@ -331,8 +331,9 @@ export default function (props) {
     }
     return {
       height: "fit-content !important", // 防止margin重叠用，触发BFC，不可以删除
-      display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
+      // display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
       // paddingBottom: `${data.bottomSpace}px`,
+      ...data.layout,
     };
   }, [data.layout, data.bottomSpace]);
 

@@ -144,8 +144,7 @@ export default {
             },
             set({ data, slots }, value) {
               data.layout = value;
-              const slotInstance = slots.get("content");
-              setSlotLayout(slotInstance, value);
+              setSlotLayout( slots.get("content"), value);
             },
           },
         },

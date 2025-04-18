@@ -19,6 +19,42 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
+          title: "注意",
+          type: "editorRender",
+          options: {
+            render: () => {
+              return (
+                <div
+                  style={{
+                    color: "#333333",
+                    padding: 8,
+                    fontSize: 12,
+                    lineHeight: 1.5,
+                    background: "#ffffff",
+                    borderColor: "#f0f0f0",
+                    borderStyle: "solid",
+                    borderWidth: 1,
+                    borderRadius: 3,
+                  }}
+                >
+                  文件上传在微信小程序端使用时，需要从
+                  <span
+                    style={{
+                      fontWeight: 700,
+                      color: "#ea732e",
+                      marginLeft: 2,
+                      marginRight: 2,
+                    }}
+                  >
+                    微信聊天界面
+                  </span>
+                  获取文件
+                </div>
+              );
+            },
+          },
+        },
+        {
           title: "最大上传数量",
           type: "text",
           options: {

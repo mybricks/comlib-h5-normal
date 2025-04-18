@@ -15,7 +15,10 @@ export default function (slot, value) {
         slot.setLayout("flex-row");
       } else if (value.flexDirection === "column") {
         slot.setLayout("flex-column");
-      }
+      } 
+
+      slot.setAlignItems(value.alignItems);
+      slot.setJustifyContent(value.justifyContent);
       break;
   }
 }

@@ -86,7 +86,8 @@
         "./src/timeLine/com.json",
         "./src/picker/com.json",
         "./src/safeArea/com.json",
-        "./src/timer/com.json"
+        "./src/timer/com.json",
+        "./src/formDatetimePro/com.json"
       ]
     },
     {
@@ -129,7 +130,6 @@
         "./src/formRate/com.json",
         "./src/formSelect/com.json",
         "./src/formDatetime/com.json",
-        "./src/formDatetimePro/com.json",
         "./src/formLocation/com.json",
         "./src/formPhoneNumber/com.json",
         "./src/formPhoneSMS/com.json",
