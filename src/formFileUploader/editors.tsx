@@ -81,6 +81,18 @@ export default {
             },
           },
         },
+        {
+          title: "开启占位插槽",
+          type: "Switch",
+          value: {
+            get({ data }) {
+              return data.iconSlot ?? false;
+            },
+            set({ data }, value) {
+              data.iconSlot = value;
+            },
+          },
+        },
         // {
         //   title: "上传name(h5生效)",
         //   type: "text",

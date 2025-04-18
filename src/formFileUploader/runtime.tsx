@@ -112,12 +112,11 @@ export default function (props) {
 
       let result = [name, ...fileName];
       result = result.slice(0, data.maxCount);
-      console.log("文件回显名称",result)
       setFileName(result);
     });
 
 
-  }, [value, data.maxCount,fileName]);
+  }, [value, data.maxCount, fileName]);
 
   const onRemoveFile = useCallback(
     (e, index) => {
@@ -179,7 +178,7 @@ export default function (props) {
 
     if (isH5()) {
       return (
-        <label className={cx(css.uploader,"mybricks-square")}>
+        <label className={cx(css.uploader, "mybricks-square")}>
           <input
             className={css.input}
             type="file"
@@ -191,11 +190,25 @@ export default function (props) {
     }
 
     return (
-      <View className={cx(css.uploader,"mybricks-square")} onClick={onChooseFile}>
+      <View className={cx(css.uploader, "mybricks-square")} onClick={onChooseFile}>
         <View className={css.icon_placeholder}>+上传文件</View>
       </View>
     );
   }, [env, value, data.maxCount, data.iconSlot]);
+
+  const uploaderSlot = useMemo(() => {
+    if (isH5()) {
+      return <label>
+        <input
+        className={css.input}
+        type={env.runtime ? "file" : "text"} //防止在搭建态的时候触发文件选择
+        onChange={handleFileChange}
+         />
+        {slots["iconSlot"]?.render({})}
+        </label>
+    }
+    return <View onClick={onChooseFile}>{slots["iconSlot"]?.render({})}</View>
+  }, [data.iconSlot])
 
   const thumbnails = useMemo(() => {
     return value.map((raw, index) => {
@@ -211,7 +224,7 @@ export default function (props) {
         </View>
       );
     });
-  }, [value,fileName]);
+  }, [value, fileName]);
 
   const placeholderText = useMemo(() => {
     if (!data.placeholderText) return null;
@@ -221,7 +234,8 @@ export default function (props) {
 
   return (
     <View className={css.value}>
-      {uploader}
+      {data.iconSlot && uploaderSlot}
+      {!data.iconSlot && uploader}
       {thumbnails}
       {placeholderText}
       {slots["customUpload"]?.render({

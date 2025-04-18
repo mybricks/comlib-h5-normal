@@ -6,5 +6,6 @@
   "useValueString": false,
   "placeholderText": "",
   "required": false,
-  "extension": []
+  "extension": [],
+  "iconSlot": false
 }
