@@ -21,6 +21,7 @@ export default comDef(({ data, env, inputs, outputs, slots }) => {
 2. 遇到rootScroll相关的需求时，必须使用以上列出的env.rootScroll方法，不准使用其他方法。
 3. 如果需求涉及到触底加载，务必保证触底后变成加载态（此时不可重复触发触底逻辑），只有当监听到有追加数据时，才可再次触发触底逻辑。
 4. 必须要用可选表达式来获取env，否则在编辑环境下会报错。
+5. env获取不了当前是在小程序环境还是h5环境，请 `import * as Taro from '@tarojs/taro';` 并使用 `Taro.getEnv()` 来判断。
 
 
 

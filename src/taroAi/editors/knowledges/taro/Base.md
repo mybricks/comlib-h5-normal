@@ -22,9 +22,17 @@ type ComponentType<T> = ComponentType<T>
 
 ## @tarojs/components 样式能力
 
+如何引入,例如:`import { View, Text } from '@tarojs/components';`
+
 1. 在为组件设置样式时，尽量不要使用内联样式，而是使用 style 文件进行样式设置。
 2. 有非常高的审美造诣，在用户提出配色/颜色选择需求时，你会考虑莫兰迪色系、清新自然系、海洋湖泊系等热门色系。
 3. 简单的列表滚动不需要引入 *ScrollView* 组件，直接使用 *View* 组件即可。通过给外层View配置 CSS: overflow-y: scroll; 属性，即可实现滚动。
+
+## @tarojs/taro API能力
+
+注意，引入的时候必须用这个方式: `import * as Taro from '@tarojs/taro';`
+
+1. 可以用来判断当前的环境，如: `Taro.getEnv()` ,可以用来判断当前环境是小程序，还是H5（小程序的枚举值-区分大小写：WEAPP，weapp2「这两个枚举值有一个命中了即是小程序」；H5的枚举值-区分大小写：WEB）
 
 ## 常见组件开发示例
 
@@ -361,4 +369,185 @@ title: '滚动列表',
 })
 
 ```
+
+
+3. 开发一个图片上传组件
+> 注意：要兼容好小程序和H5不同环境的上传。小程序的上传是通过 *wx.chooseImage* 实现的，H5的上传是通过 *input* 元素实现的。当用户要开发一个图片上传组件时，要完完整整地按照下面的示例，给出全功能的组件。不能只是简单的定义了点击的输出事件，而没有给出图片上传的功能。
+> 注意：小程序的文件上传也同理，可以通过 *Taro.chooseMessageFile* 实现
+
+```less file="style.less"
+.uploadContainer {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #eee;
+  border-radius: 12px;
+  padding: 30px 15px;
+  margin-bottom: 20px;
+  background-color: #f8f8f8;
+}
+
+.uploadBtn {
+  width: 120px;
+  height: 40px;
+  background-color: #1890ff;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+.tips {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.fileList {
+  width: 100%;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+}
+
+.fileName {
+  font-size: 14px;
+  color: #333;
+  margin-left: 10px;
+}
+
+.deleteBtn {
+  color: red;
+  font-size: 14px;
+}
+```
+
+```jsx file="runtime.jsx"
+import { comDef } from 'mybricks';
+import { View, Text } from '@tarojs/components';
+import * as Taro from '@tarojs/taro';
+import { useRef, useState } from 'react';
+import css from 'style.less';
+export default comDef(({
+  data,
+  env
+}) => {
+  const inputRef = useRef(null);
+  const [fileList, setFileList] = useState(data.files || []);
+  const handleUpload = () => {
+    if (data.isUploading) return;
+    const envType = Taro.getEnv();
+    if (envType === 'WEB' || envType === 'H5') {
+      // H5环境下触发input点击
+      if (inputRef.current) {
+        inputRef.current.click();
+      }
+    } else {
+      // 小程序环境
+      Taro.chooseImage({
+        count: 9,
+        sizeType: ['compressed'],
+        sourceType: ['album', 'camera'],
+        success: res => {
+          handleFiles(res.tempFiles);
+        }
+      });
+    }
+  };
+  const handleFileChange = e => {
+    if (e.target.files.length > 0) {
+      const files = Array.from(e.target.files).map(file => ({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        file
+      }));
+      handleFiles(files);
+    }
+  };
+  const handleFiles = files => {
+    const validFiles = files.filter(file => {
+      if (file.size > data.maxSize * 1024 * 1024) {
+        Taro.showToast({
+          title: `${file.name}超过大小限制`,
+          icon: 'none'
+        });
+        return false;
+      }
+      if (!file.type.match('image.*')) {
+        Taro.showToast({
+          title: `${file.name}格式不支持`,
+          icon: 'none'
+        });
+        return false;
+      }
+      return true;
+    });
+    if (validFiles.length > 0) {
+      data.isUploading = true;
+      setFileList(prev => [...prev, ...validFiles]);
+      data.files = [...fileList, ...validFiles];
+      setTimeout(() => {
+        data.isUploading = false;
+      }, 1000);
+    }
+  };
+  const handleDelete = index => {
+    const newFiles = [...fileList];
+    newFiles.splice(index, 1);
+    setFileList(newFiles);
+    data.files = newFiles;
+  };
+  return <View className={css.uploadContainer} data-com-id="_tarojs_components/View/Xct">
+      <View className={css.uploadArea} data-com-id="_tarojs_components/View/em6">
+        {Taro.getEnv() === 'WEB' || Taro.getEnv() === 'H5' ? <input ref={inputRef} type="file" multiple accept={data.accept} onChange={handleFileChange} style={{
+        display: 'none'
+      }} /> : null}
+        <View className={css.uploadBtn} onClick={handleUpload} data-com-id="_tarojs_components/View/VlN">
+          {data.isUploading ? '上传中...' : data.uploadText}
+        </View>
+        <Text className={css.tips} data-com-id="_tarojs_components/Text/Xzi">{data.tips}</Text>
+      </View>
+      
+      <View className={css.fileList} data-com-id="_tarojs_components/View/NwT">
+        {fileList.map((file, index) => <View key={index} className={css.fileItem} data-com-id={"_tarojs_components/View/lRT" + index}>
+            <View className={css.fileInfo} data-com-id="_tarojs_components/View/nH9">
+              <Text className={css.fileName} data-com-id="_tarojs_components/Text/I3z">
+                {file.name}
+              </Text>
+            </View>
+            <Text className={css.deleteBtn} onClick={() => handleDelete(index)} data-com-id="_tarojs_components/Text/HOR">
+              删除
+            </Text>
+          </View>)}
+      </View>
+    </View>;
+}, {
+  title: '文件上传组件',
+  inputs: [],
+  outputs: []
+});
+```
+
 
