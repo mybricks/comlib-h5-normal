@@ -40,32 +40,40 @@ export default function (props) {
     });
   }, [props.style.display]);
 
-  useEffect(() => {
-    /* 设置值 */
-    inputs["setValue"]((val, outputRels) => {
-      let result;
+  useMemo(()=>{
+  /* 设置值 */
+  inputs["setValue"]((val, outputRels) => {
+    let result;
 
-      switch (true) {
-        case isEmpty(val): {
-          result = [];
-          break;
-        }
-        case isString(val):
-          result = [val].filter((item) => !!item);
-          break;
-
-        case Array.isArray(val):
-          result = val;
-          break;
-
-        default:
-          // 其他类型的值，直接返回
-          return;
+    switch (true) {
+      case isEmpty(val): {
+        result = [];
+        break;
       }
+      case isString(val):
+        result = [val].filter((item) => !!item);
+        break;
 
-      setValue(result);
-      outputRels["setValueComplete"]?.(result); // 表单容器调用 setValue 时，没有 outputRels
-    });
+      case Array.isArray(val):
+        result = val;
+        break;
+
+      default:
+        // 其他类型的值，直接返回
+        return;
+    }
+
+    setValue(result);
+    let filenames = []
+    result.forEach((item) => {
+      filenames.push(item.fileName)
+    })
+    setFileName(filenames)
+    outputRels["setValueComplete"]?.(result); // 表单容器调用 setValue 时，没有 outputRels
+  });
+  },[])
+
+  useEffect(() => {
 
     /* 获取值 */
     inputs["getValue"]((val, outputRels) => {
@@ -214,7 +222,7 @@ export default function (props) {
     return value.map((raw, index) => {
       return (
         <View className={cx(css.item)} key={raw + "_" + index}>
-          <View className={css.thumbnail}>{fileName[index] ? fileName[index] : raw}</View>
+          <View className={cx(css.thumbnail,"mybricks-thumbnail")}>{fileName[index] ? fileName[index] : raw}</View>
           <View
             className={css.remove}
             onClick={(e) => {

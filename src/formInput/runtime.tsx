@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { isNumber, isObject, isString, isEmpty } from "../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
-import { Input } from "brickd-mobile";
+import { Input,Image } from "brickd-mobile";
 import { View } from "@tarojs/components";
 import css from "./style.less";
 import { isH5 } from "../utils/env";
 import cx from "classnames";
+import { clearable } from "./clearable";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -123,6 +124,18 @@ export default function (props) {
     }
   }, [data.maxlength, data.showCount, value]);
 
+  const $clearIcon = useMemo(()=>{
+    if(data.clearable && value.length > 0){
+      return <View style={{width:18,height:18}} onClick={()=>{
+        setValue('')
+      }}>
+        <Image src={clearable}></Image>
+      </View>
+    }else{
+      return null
+    }
+  },[data.clearable,value.length])
+
   return (
     <View
       className={cx({
@@ -142,7 +155,6 @@ export default function (props) {
         align={data.inputAlign}
         onChange={onChange}
         disabled={data.disabled}
-        clearable={data.clearable}
         cursorSpacing={28}
         cursor={value.length}
         onBlur={onBlur}
@@ -151,6 +163,7 @@ export default function (props) {
         onConfirm={onConfirm}
       />
       {$showCount}
+      {$clearIcon}
     </View>
   );
 }

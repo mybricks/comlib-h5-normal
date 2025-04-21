@@ -14,6 +14,11 @@ export default {
         options: ["size", "border", "background"],
         target: ".mybricks-square",
       },
+      {
+        title: "文件名标题",
+        options: ["font"],
+        target: ".mybricks-thumbnail"
+      }
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
       cate0.title = "常规";
