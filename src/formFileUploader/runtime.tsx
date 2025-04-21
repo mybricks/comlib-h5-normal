@@ -205,6 +205,9 @@ export default function (props) {
   }, [env, value, data.maxCount, data.iconSlot]);
 
   const uploaderSlot = useMemo(() => {
+    if (data.maxCount && value.length >= data.maxCount) {
+      return null;
+    }
     if (isH5()) {
       return <label>
         <input
