@@ -13,6 +13,11 @@ export default {
         title: "样式",
         options: ["border", "background"],
         target: `.mybricks-formLocation`,
+      },
+      {
+        title: "字体样式",
+        options: ["font"],
+        target: `.mybricks-input`,
       }
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
