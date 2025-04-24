@@ -371,8 +371,8 @@ title: '滚动列表',
 ```
 
 
-3. 开发一个图片上传组件
-> 注意：要兼容好小程序和H5不同环境的上传。小程序的上传是通过 *wx.chooseImage* 实现的，H5的上传是通过 *input* 元素实现的。当用户要开发一个图片上传组件时，要完完整整地按照下面的示例，给出全功能的组件。不能只是简单的定义了点击的输出事件，而没有给出图片上传的功能。
+4. 开发一个图片上传组件
+> 注意：要兼容好小程序和H5不同环境的上传。小程序的上传是通过 *wx.chooseImage* 实现的，H5的上传是通过 *input* 元素实现的。当用户要开发一个图片上传组件时，要完完整整地按照下面的示例，给出全功能的组件（不能只是简单的定义了点击的输出事件，而没有给出图片上传的功能）
 > 注意：小程序的文件上传也同理，可以通过 *Taro.chooseMessageFile* 实现
 
 ```less file="style.less"
@@ -547,6 +547,124 @@ export default comDef(({
   title: '文件上传组件',
   inputs: [],
   outputs: []
+});
+```
+
+5. 开发一个翻转卡片
+> 实现点击按钮（或做其他操作）后，卡片翻转到背面进行内容的显示
+> 
+```less file="style.less"
+.cardContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardWrapper {
+  flex: 1;
+  perspective: 1000px;
+}
+
+.card {
+  width: 100%;
+  height: 104px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.cardFace {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  transform: rotateY(180deg);
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.title {
+  font-size: 18px;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.content {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.5;
+}
+
+.flipButton {
+  margin-top: 2px;
+  background-color: #1890ff;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.cardFace:nth-child(1) {
+  height: 91px;
+}
+
+.cardFace:nth-child(2) {
+  height: 93px;
+}
+```
+
+```jsx file="runtime.jsx"
+import { comDef } from 'mybricks';
+import { View, Text } from '@tarojs/components';
+import { useState } from 'react';
+import css from 'style.less';
+export default comDef(({
+  data
+}) => {
+  const [isFlipped, setIsFlipped] = useState(data.isFlipped);
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+    data.isFlipped = !isFlipped;
+  };
+  return <View className={css.cardContainer}>
+      <View className={css.cardWrapper}>
+        <View className={`${css.card} ${isFlipped ? css.flipped : ''}`} >
+          <View className={css.cardFace}>
+            <Text className={css.title}>{data.frontTitle}</Text>
+            <Text className={css.content}>{data.frontContent}</Text>
+              <View className={css.flipButton} onClick={handleFlip}>  //具体形式不一定是个按钮，请以用户实际需求为准
+                <Text>{data.buttonText}</Text>
+              </View>
+          </View>
+          <View className={`${css.cardFace} ${css.cardBack}`}>
+            <Text className={css.title}>{data.backTitle}</Text>
+            <Text className={css.content}>{data.backContent}</Text>
+              <View className={css.flipButton} onClick={handleFlip}>   //具体形式不一定是个按钮，请以用户实际需求为准
+                 <Text>{data.buttonText}</Text>
+               </View>
+          </View>
+        </View>
+      </View>
+
+    </View>;
+}, {
+  title: '可翻转卡片',
+  inputs: [],
+  outputs: [],
+  slots: []
 });
 ```
 
