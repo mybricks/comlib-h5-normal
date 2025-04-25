@@ -223,7 +223,7 @@ export default function (props) {
           {data.iconSlot ? (
             <View>{slots["iconSlot"]?.render({})}</View>
           ) : (
-            <View className={cx(css.icon_placeholder,"mybricks-icon")}>{plus()}</View>
+            <View className={cx(css.icon_placeholder,"mybricks-icon")}>+</View>
           )}
         </View>
       );
