@@ -1,0 +1,19 @@
+{
+  "componentType": "HARMONY",
+  "harmonyComponentPath": "/Users/cocolbell/Desktop/projects/mybricks/harmony-template/src/components",
+  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
+  "comAry": [
+    {
+      "title": "基础",
+      "comAry": [
+        "./src/button/com.json",
+        "./src/text/com.json",
+        "./src/image/com.json",
+        "./src/system/systemPage/com.json"
+      ]
+    }
+  ],
+  "namespace": "mybricks.normal-miniapp.taro",
+  "userName": "moyukai05",
+  "tags": "react"
+}
