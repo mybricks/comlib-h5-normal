@@ -195,7 +195,7 @@ export default function ({
         />
       ) : null}
 
-      <Text className={css.text}>{data.text}</Text>
+      <Text className={cx(css.text,"mybricks-button-text")}>{data.text}</Text>
 
       {/* 后置 */}
       {useAfterIcon ? (

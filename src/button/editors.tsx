@@ -231,19 +231,37 @@ export default {
           {
             title: "按钮",
             catelog: "默认",
-            options: ["font", "border", "padding", "background"],
+            options: ["border", "padding", "background"],
             target: ".mybricks-button",
             defaultOpen: true,
           },
           {
             title: "按钮",
             catelog: "禁用",
-            options: ["font", "border", "padding", "background"],
+            options: ["border", "padding", "background"],
             target: ".mybricks-button-disable",
             defaultOpen: true,
           },
         ],
       },
+      {
+        items: [
+          {
+            title: "按钮文本",
+            catelog: "默认",
+            options: ["font"],
+            target: ".mybricks-button-text",
+            defaultOpen: true,
+          },
+          {
+            title: "按钮文本",
+            catelog: "禁用",
+            options: ["font"],
+            target: ".mybricks-button-disable-text",
+            defaultOpen: true,
+          },
+        ]
+      }
     ],
     items: [
       {
