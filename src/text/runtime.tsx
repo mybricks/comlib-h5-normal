@@ -55,7 +55,6 @@ export default function ({ id, env, data, style, inputs, outputs }) {
 
   const textCx = useMemo(() => {
     return cx({
-      [css.text]: true,
       ["mybricks-text"]: true,
       [id]: true,
     });
@@ -206,7 +205,7 @@ export default function ({ id, env, data, style, inputs, outputs }) {
     <View>
       {display ? (
         <View
-          // className={textCx}
+          className={textCx}
           onClick={onClick}
           onLongPress={onLongPress}
           onTouchEnd={onTouchEnd}
@@ -217,7 +216,7 @@ export default function ({ id, env, data, style, inputs, outputs }) {
             </View>
           ) : null}
           <View className={SkeletonCx}>
-            <View ref={textRef} className={cx(textCx,ellipsisCx)} style={textStyle}>
+            <View ref={textRef} className={cx(css.text,ellipsisCx)} style={textStyle}>
               {text}
             </View>
           </View>
