@@ -1,19 +1,49 @@
 {
   "componentType": "HARMONY",
   "harmonyComponentPath": "/Users/cocolbell/Desktop/projects/mybricks/harmony-template/src/components",
-  "debugger": "https://my.mybricks.world/mybricks-app-mpsite/index.html",
   "comAry": [
+    "./src/_connector/com.json",
+    "./src/_connectorGlobalHeaders/com.json",
+    "./src/_muilt-inputJs/com.json",
+    "./src/_format/com.json",
+    "./src/_timer-delay/com.json",
+    "./src/_open/com.json",
+    "./src/_goto/com.json",
+    "./src/_navigateBack/com.json",
+    "./src/_getRouter/com.json",
+    "./src/_toast/com.json",
+    "./src/_showToast/com.json",
+    "./src/_hideToast/com.json",
+    "./src/_showLoading/com.json",
+    "./src/_hideLoading/com.json",
+    "./src/_setNavigationBarTitle/com.json",
+    "./src/_scan-qrcode/com.json",
+    "./src/_call-phone/com.json",
+    {
+      "title": "系统",
+      "visible": false,
+      "comAry": [
+        "./src/system/systemPage/com.json",
+        "./src/popup/com.json"
+      ]
+    },
     {
       "title": "基础",
       "comAry": [
-        "./src/button/com.json",
-        "./src/text/com.json",
         "./src/image/com.json",
-        "./src/system/systemPage/com.json"
+        "./src/button/com.json",
+        "./src/text/com.json"
+      ]
+    },
+    {
+      "title": "数据展示",
+      "visible": false,
+      "comAry": [
+        "./src/checkList/com.json"
       ]
     }
   ],
-  "namespace": "mybricks.normal-miniapp.taro",
+  "namespace": "mybricks.normal-harmony.taro",
   "userName": "moyukai05",
   "tags": "react"
 }
