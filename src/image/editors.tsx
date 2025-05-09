@@ -68,42 +68,42 @@ export default {
                 },
               },
             },
-            {
-              title: "加载过渡",
-              items: [
-                {
-                  title: "淡入动画",
-                  desctiption: "加载图片时支持过渡动画，使图片展示更丝滑",
-                  type: "switch",
-                  value: {
-                    get({ data }) {
-                      return data.loadSmooth;
-                    },
-                    set({ data }, value: string) {
-                      data.loadSmooth = value;
-                    },
-                  },
-                },
-              ],
-            },
-            {
-              title: "其它配置",
-              items: [
-                {
-                  title: "支持长按识别微信二维码或转发、保存图片",
-                  description: "支持长按识别微信二维码或转发、保存图片",
-                  type: "switch",
-                  value: {
-                    get({ data }) {
-                      return data.showMenuByLongpress ?? false;
-                    },
-                    set({ data }, value: string) {
-                      data.showMenuByLongpress = value;
-                    },
-                  },
-                },
-              ],
-            },
+            // {
+            //   title: "加载过渡",
+            //   items: [
+            //     {
+            //       title: "淡入动画",
+            //       desctiption: "加载图片时支持过渡动画，使图片展示更丝滑",
+            //       type: "switch",
+            //       value: {
+            //         get({ data }) {
+            //           return data.loadSmooth;
+            //         },
+            //         set({ data }, value: string) {
+            //           data.loadSmooth = value;
+            //         },
+            //       },
+            //     },
+            //   ],
+            // },
+            // {
+            //   title: "其它配置",
+            //   items: [
+            //     {
+            //       title: "支持长按识别微信二维码或转发、保存图片",
+            //       description: "支持长按识别微信二维码或转发、保存图片",
+            //       type: "switch",
+            //       value: {
+            //         get({ data }) {
+            //           return data.showMenuByLongpress ?? false;
+            //         },
+            //         set({ data }, value: string) {
+            //           data.showMenuByLongpress = value;
+            //         },
+            //       },
+            //     },
+            //   ],
+            // },
           ],
         },
         {
@@ -117,10 +117,10 @@ export default {
                   label: "自定义",
                   value: "",
                 },
-                {
-                  label: "预览图片",
-                  value: "previewImage",
-                },
+                // {
+                //   label: "预览图片",
+                //   value: "previewImage",
+                // },
               ],
               value: {
                 get({ data, outputs }) {

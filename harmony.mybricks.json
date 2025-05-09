@@ -1,0 +1,23 @@
+{
+  "componentType": "HARMONY",
+  "comAry": [
+    {
+      "title": "系统",
+      "visible": false,
+      "comAry": [
+        "./src/system/systemPage/com.json"
+      ]
+    },
+    {
+      "title": "基础",
+      "comAry": [
+        "./src/image/com.json",
+        "./src/button/com.json",
+        "./src/text/com.json"
+      ]
+    }
+  ],
+  "namespace": "mybricks.normal-harmony.taro",
+  "userName": "moyukai05",
+  "tags": "react"
+}

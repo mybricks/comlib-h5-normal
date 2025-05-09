@@ -250,14 +250,14 @@ export default {
           {
             title: "按钮",
             catelog: "默认",
-            options: ["font", "border", "padding", "background"],
+            options: ["font", "border", "background"],
             target: ".mybricks-button",
             defaultOpen: true,
           },
           {
             title: "按钮",
             catelog: "禁用",
-            options: ["font", "border", "padding", "background"],
+            options: ["font", "border", "background"],
             target: ".mybricks-button-disable",
             defaultOpen: true,
           },
@@ -283,72 +283,72 @@ export default {
         //   }
         // }
       },
-      {
-        title: "前置图标",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useBeforeIcon;
-          },
-          set({ data }, value) {
-            data.useBeforeIcon = value;
-          },
-        },
-      },
-      {
-        title: "图标地址",
-        type: "imageSelector",
-        ifVisible({ data }) {
-          return data.useBeforeIcon;
-        },
-        value: {
-          get({ data }) {
-            return data.beforeIconUrl;
-          },
-          set({ data }, value) {
-            data.beforeIconUrl = value;
-          }
-        }
-      },
-      {
-        title: "后置图标",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useAfterIcon;
-          },
-          set({ data }, value) {
-            data.useAfterIcon = value;
-          },
-        },
-      },
-      {
-        title: "图标地址",
-        type: "imageSelector",
-        ifVisible({ data }) {
-          return data.useAfterIcon;
-        },
-        value: {
-          get({ data }) {
-            return data.afterIconUrl;
-          },
-          set({ data }, value) {
-            data.afterIconUrl = value;
-          }
-        }
-      },
-      {
-        title: "禁用按钮",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.disabled;
-          },
-          set({ data }, value) {
-            data.disabled = value;
-          },
-        },
-      },
+      // {
+      //   title: "前置图标",
+      //   type: "switch",
+      //   value: {
+      //     get({ data }) {
+      //       return data.useBeforeIcon;
+      //     },
+      //     set({ data }, value) {
+      //       data.useBeforeIcon = value;
+      //     },
+      //   },
+      // },
+      // {
+      //   title: "图标地址",
+      //   type: "imageSelector",
+      //   ifVisible({ data }) {
+      //     return data.useBeforeIcon;
+      //   },
+      //   value: {
+      //     get({ data }) {
+      //       return data.beforeIconUrl;
+      //     },
+      //     set({ data }, value) {
+      //       data.beforeIconUrl = value;
+      //     }
+      //   }
+      // },
+      // {
+      //   title: "后置图标",
+      //   type: "switch",
+      //   value: {
+      //     get({ data }) {
+      //       return data.useAfterIcon;
+      //     },
+      //     set({ data }, value) {
+      //       data.useAfterIcon = value;
+      //     },
+      //   },
+      // },
+      // {
+      //   title: "图标地址",
+      //   type: "imageSelector",
+      //   ifVisible({ data }) {
+      //     return data.useAfterIcon;
+      //   },
+      //   value: {
+      //     get({ data }) {
+      //       return data.afterIconUrl;
+      //     },
+      //     set({ data }, value) {
+      //       data.afterIconUrl = value;
+      //     }
+      //   }
+      // },
+      // {
+      //   title: "禁用按钮",
+      //   type: "switch",
+      //   value: {
+      //     get({ data }) {
+      //       return data.disabled;
+      //     },
+      //     set({ data }, value) {
+      //       data.disabled = value;
+      //     },
+      //   },
+      // },
       {
         title: "事件",
         items: [
@@ -360,42 +360,42 @@ export default {
                 label: "自定义",
                 value: "",
               },
-              {
-                label: "触发用户转发",
-                value: "share",
-              },
-              {
-                label: "手机号快速验证",
-                value: "getPhoneNumber",
-              },
-              {
-                label: "手机号实时验证",
-                value: "getRealtimePhoneNumber",
-              },
               // {
-              //   label: "获取用户信息",
-              //   value: "getUserInfo",
+              //   label: "触发用户转发",
+              //   value: "share",
               // },
               // {
-              //   label: "打开APP",
-              //   value: "launchApp",
+              //   label: "手机号快速验证",
+              //   value: "getPhoneNumber",
               // },
-              {
-                label: "打开授权设置页",
-                value: "openSetting",
-              },
-              {
-                label: "打开客服会话",
-                value: "contact",
-              },
-              {
-                label: "打开“意见反馈”页面",
-                value: "feedback",
-              },
-              {
-                label: "获取用户头像",
-                value: "chooseAvatar",
-              },
+              // {
+              //   label: "手机号实时验证",
+              //   value: "getRealtimePhoneNumber",
+              // },
+              // // {
+              // //   label: "获取用户信息",
+              // //   value: "getUserInfo",
+              // // },
+              // // {
+              // //   label: "打开APP",
+              // //   value: "launchApp",
+              // // },
+              // {
+              //   label: "打开授权设置页",
+              //   value: "openSetting",
+              // },
+              // {
+              //   label: "打开客服会话",
+              //   value: "contact",
+              // },
+              // {
+              //   label: "打开“意见反馈”页面",
+              //   value: "feedback",
+              // },
+              // {
+              //   label: "获取用户头像",
+              //   value: "chooseAvatar",
+              // },
               // {
               //   label: "用户同意隐私协议按钮",
               //   value: "agreePrivacyAuthorization",

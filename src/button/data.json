@@ -1,28 +1,3 @@
 {
-  "variant": "text",
-  "color": "primary",
-  "size": "",
-  "shape": "",
-  "block": true,
-  "loading": false,
-  "icon": "",
-  "disabled": false,
-  "hairline": true,
-  "style": {
-    "background": "#ea732e",
-    "color": "#ffffff",
-    "border-radius": "0px",
-    "border-width": "0px"
-  },
-  "text": "按钮",
-  "asHotarea": false,
-  "openType": "",
-
-  "useBeforeIcon": false,
-  "beforeIconUrl": "",
-
-  "useAfterIcon": false,
-  "afterIconUrl": "",
-
-  "placeholderIconUrl": ""
+  "text": "按钮"
 }
