@@ -35,75 +35,11 @@
           "type": "any"
         }
       }
-    },
-    {
-      "id": "getDataSource",
-      "title": "获取数据",
-      "desc": "获取列表数据",
-      "schema": {
-        "type": "any"
-      },
-      "rels": ["getDataSourceSuccess"]
-    },
-    {
-      "id": "loading",
-      "title": "切换到加载中",
-      "desc": "提示用户正在加载中",
-      "schema": {
-        "title": "列表数据",
-        "type": "boolean"
-      }
-    },
-    {
-      "id": "noMore",
-      "title": "切换到加载完毕",
-      "desc": "提示用户已经没有数据了",
-      "schema": {
-        "title": "列表数据",
-        "type": "boolean"
-      }
-    },
-    {
-      "id": "error",
-      "title": "切换到加载报错",
-      "desc": "提示用户报错信息",
-      "schema": {
-        "title": "列表数据",
-        "type": "boolean"
-      }
-    },
-    {
-      "id":"empty",
-      "title":"切换到无内容",
-      "desc":"提示用户列表没有内容",
-       "schema":{
-        "title":"列表数据",
-        "type":"boolean"
-      }
     }
   ],
   "outputs": [
-    {
-      "id": "onScrollLoad",
-      "title": "当滚动加载时"
-    },
-    {
-      "id": "onRefresh",
-      "title": "当下拉刷新时"
-    },
-    {
-      "id": "getDataSourceSuccess",
-      "title": "获取瀑布流数据",
-      "schema": {
-        "type": "any"
-      }
-    }
   ],
   "slots": [
-    {
-      "id":"emptySlot",
-      "title":"无内容插槽"
-    },
     {
       "id": "item",
       "capacity": 1,
