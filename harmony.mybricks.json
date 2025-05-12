@@ -1,5 +1,5 @@
 {
-  "componentType": "HARMONY",
+  "componentType": "MP",
   "comAry": [
     {
       "title": "系统",
@@ -14,6 +14,12 @@
         "./src/image/com.json",
         "./src/button/com.json",
         "./src/text/com.json"
+      ]
+    },
+    {
+      "title": "容器",
+      "comAry": [
+        "./src/containerList/com.json"
       ]
     }
   ],
