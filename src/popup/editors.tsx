@@ -90,36 +90,36 @@ export default {
             outputId: "onClickOverlay",
           },
         },
-        {
-          ifVisible({ data }) {
-            return data.position === "center";
-          },
-          title: "关闭按钮",
-          items: [
-            {
-              title: "显示",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.visibleClose;
-                },
-                set({ data }, val) {
-                  data.visibleClose = val;
-                },
-              },
-            },
-          ],
-        },
-        {
-          ifVisible({ data }) {
-            return data.position === "center" && data.visibleClose;
-          },
-          title: "点击关闭时",
-          type: "_event",
-          options: {
-            outputId: "onClose",
-          },
-        },
+        // {
+        //   ifVisible({ data }) {
+        //     return data.position === "center";
+        //   },
+        //   title: "关闭按钮",
+        //   items: [
+        //     {
+        //       title: "显示",
+        //       type: "switch",
+        //       value: {
+        //         get({ data }) {
+        //           return data.visibleClose;
+        //         },
+        //         set({ data }, val) {
+        //           data.visibleClose = val;
+        //         },
+        //       },
+        //     },
+        //   ],
+        // },
+        // {
+        //   ifVisible({ data }) {
+        //     return data.position === "center" && data.visibleClose;
+        //   },
+        //   title: "点击关闭时",
+        //   type: "_event",
+        //   options: {
+        //     outputId: "onClose",
+        //   },
+        // },
         // {
         //   title: "样式",
         //   type: "Style",
