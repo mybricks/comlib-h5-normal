@@ -1,6 +1,13 @@
 {
   "componentType": "MP",
   "comAry": [
+    "./src/_connector/com.json",
+    "./src/_connectorGlobalHeaders/com.json",
+    "./src/_muilt-inputJs/com.json",
+    "./src/_format/com.json",
+    "./src/_open/com.json",
+    "./src/_goto/com.json",
+    "./src/_navigateBack/com.json",
     {
       "title": "系统",
       "visible": false,
