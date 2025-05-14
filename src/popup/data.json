@@ -4,9 +4,6 @@
     "flexDirection": "column"
   },
   "position": "center",
-  "contentStyle": {
-    "background": "#ffffff"
-  },
   "maskClose": true,
   "popupTitle": "标题",
   "visibleClose": false
