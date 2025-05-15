@@ -10,5 +10,6 @@
   "showSearchButton":false,
   "searchButtonText":"搜索",
   "iconDistance":4,
-  "autoFocus":false
+  "autoFocus":false,
+  "clearable":false
 }

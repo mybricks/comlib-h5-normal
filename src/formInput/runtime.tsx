@@ -161,6 +161,7 @@ export default function (props) {
         maxlength={data.maxlength}
         confirmType={"done"}
         onConfirm={onConfirm}
+        clearable={false}
       />
       {$showCount}
       {$clearIcon}

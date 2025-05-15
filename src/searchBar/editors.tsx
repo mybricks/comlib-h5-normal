@@ -99,6 +99,19 @@ export default {
           }
         },
         {
+          title: "展示清除图标",
+          description: "当输入框有内容时可点击图标清除所有文字",
+          type: "Switch",
+          value: {
+            get({ data }) {
+              return data.clearable;
+            },
+            set({ data }, value) {
+              data.clearable = value;
+            },
+          },
+        },
+        {
           title: '上传',
           type: 'ImageSelector',
           description: '上传自定义图标',
@@ -230,7 +243,7 @@ export default {
       {
         title: "样式",
         options: ["border", "background", "size", "font", "margin"],
-        target: `.mybricks-searchButton`,
+        target: `.mybricks-searchBar .mybricks-searchButton`,
       }
     ],
     items: (props, cate1, cate2, cate3) => {

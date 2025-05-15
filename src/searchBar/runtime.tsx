@@ -5,10 +5,11 @@ import { View, Image } from "@tarojs/components";
 import { Search } from "brickd-mobile";
 import { debounce } from "./../utils/core";
 import { Button } from "@tarojs/components";
+import { clearable } from "./clearable";
 
 export default function ({ env, data, inputs, outputs }) {
   const [value, setValue] = useState("");
-  const [autoFocus,setAutoFocus] = useState(false)
+  const [autoFocus, setAutoFocus] = useState(false)
 
   useEffect(() => {
     inputs["setValue"]((val) => {
@@ -19,7 +20,7 @@ export default function ({ env, data, inputs, outputs }) {
       relOutputs["returnValue"](value);
     });
 
-    inputs["focus"]?.((val,relOutputs) => {
+    inputs["focus"]?.((val, relOutputs) => {
       setAutoFocus(true)
       relOutputs['focusDone'](val)
     })
@@ -62,20 +63,33 @@ export default function ({ env, data, inputs, outputs }) {
   const onBlur = useCallback((e) => {
     //防止失去焦点后又自动聚焦
     setAutoFocus(false)
-  },[])
+  }, [])
 
   const onButtonClick = useCallback(() => {
     outputs["onSearch"]?.(value);
   }, [value]);
 
-  const icon = useMemo(()=>{
-    if(data.isCustom && !!data.src){
-      return <Image style={{width:data.contentSize?.[1] ?? 14,height:data.contentSize?.[0] ?? 14,marginRight:data.iconDistance}} src={data?.src} alt={' '} />
-    }else{
+  const icon = useMemo(() => {
+    if (data.isCustom && !!data.src) {
+      return <Image style={{ width: data.contentSize?.[1] ?? 14, height: data.contentSize?.[0] ?? 14, marginRight: data.iconDistance }} src={data?.src} alt={' '} />
+    } else {
       return undefined
     }
-    
-  },[data.contentSize,data.src,data.isCustom,data.iconDistance])
+
+  }, [data.contentSize, data.src, data.isCustom, data.iconDistance])
+
+  const $clearIcon = useMemo(() => {
+    if (data.clearable && value.length > 0) {
+      return <View style={{ width: 18, height: 18 }} onClick={() => {
+        setValue('')
+        outputs?.["onClear"]?.('')
+      }}>
+        <Image style={{ width: 18, height: 18 }} src={clearable}></Image>
+      </View>
+    } else {
+      return null
+    }
+  }, [data.clearable, value.length])
 
   return (
     <View className={cx(css.searchBox, "mybricks-searchBar")}>
@@ -99,6 +113,7 @@ export default function ({ env, data, inputs, outputs }) {
         clearable={false}
         autoFocus={autoFocus}
       />
+      {$clearIcon}
       {data.showSearchButton &&
         <Button
           className={cx(css.searchButton, "mybricks-searchButton")}
