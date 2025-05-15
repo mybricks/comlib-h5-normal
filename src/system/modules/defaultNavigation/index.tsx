@@ -65,7 +65,7 @@ export default function (props) {
           )}
         {/* title */}
         <View
-          className={css.title}
+          className={cx(css.title,"mybricks-navigation-title")}
           style={{ color: data.navigationBarTextStyle }}
         >
           {data.navigationBarTitleText}

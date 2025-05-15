@@ -82,7 +82,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     selectedTextStyle: {
-      fontSize: 12,
+      fontSize: "12px",
       color: "#FD6A00",
     },
     normalIconPath: defaultNormalIconPath,
@@ -91,7 +91,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     normalTextStyle: {
-      fontSize: 12,
+      fontSize: "12px",
       color: "#909093",
     },
   };
@@ -167,7 +167,7 @@ export default {
               value: {
                 get({ data }) {
                   return {
-                    backgroundColor: data.backgroundColor,
+                    backgroundColor: data.background,
                     backgroundImage: data.backgroundImage,
                     backgroundPosition: data.backgroundPosition || "center top",
                     backgroundSize: data.backgroundSize,
@@ -608,4 +608,39 @@ export default {
       },
     ],
   },
+  ".mybricks-navigation-title": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const { data, focusArea } = props;
+          return data.navigationBarTitleText
+        },
+        set(props, value) {
+          const { data, focusArea } = props;
+          data.navigationBarTitleText = value
+        },
+      },
+    }
+  },
+  ".mybricks-tabbar-text": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get(props) {
+          const { data, focusArea } = props;
+          let innerText = focusArea.ele.innerText;
+          return innerText
+        },
+        set(props, value) {
+          const { data, focusArea } = props;
+
+          let tabBar = JSON.parse(JSON.stringify(data.tabBar));
+          tabBar[focusArea.index].text = value;
+          data.tabBar = tabBar;
+          window.__tabbar__?.set(tabBar);
+        },
+      },
+    }
+  }
 };

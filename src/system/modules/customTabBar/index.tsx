@@ -63,7 +63,7 @@ export default ({ data, env, _inputsCallable }) => {
             <Image className={css.icon} style={{ ...iconStyle }} src={icon} />
           </View>
           <View className={css.textSlot}>
-            <View className={css.text} style={{ ...textStyle }}>
+            <View className={cx(css.text,"mybricks-tabbar-text")} style={{ ...textStyle }}>
               {raw.text}
             </View>
           </View>
