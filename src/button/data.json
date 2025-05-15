@@ -24,5 +24,7 @@
   "useAfterIcon": false,
   "afterIconUrl": "",
 
-  "placeholderIconUrl": ""
+  "placeholderIconUrl": "",
+  "useButtonImg":false,
+  "buttonImg": ""
 }

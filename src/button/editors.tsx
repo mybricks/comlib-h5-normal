@@ -225,25 +225,21 @@ function clearOutput(openType, output) {
 }
 
 export default {
-  "@init"({ style, data, output }) {
+  "@init"({ style, data, output,input }) {
     style.width = 120;
     style.height = 42;
+    if (data?.useButtonImg) {
+      input.add("buttonImg", '修改按钮图片', {type:"string"});
+      // input.remove("buttonText");
+    }else{
+      input.add("buttonText", '修改按钮文本', {type:"string"});
+      // input.remove("buttonImg");
+    }
   },
   "@resize": {
     options: ["width", "height"],
   },
   ":root": {
-    "@dblclick": {
-      type: "text",
-      value: {
-        get({ data }) {
-          return data.text;
-        },
-        set({ data }, val) {
-          data.text = val;
-        },
-      },
-    },
     style: [
       {
         items: [
@@ -266,8 +262,46 @@ export default {
     ],
     items: [
       {
+        title: "配置为图片按钮",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.useButtonImg;
+          },
+          set({ data, input }, value) {
+            data.useButtonImg = value;
+            if (data.useButtonImg) {
+              input.add("buttonImg", '修改按钮图片', {type:"string"});
+              input.remove("buttonText");
+            }else{
+              input.add("buttonText", '修改按钮文本', {type:"string"});
+              input.remove("buttonImg");
+            }
+
+          }
+        }
+      },
+      {
+        title: "按钮图片",
+        type: "imageSelector",
+        ifVisible({ data }: EditorResult<Data>) {
+          return data.useButtonImg;
+        },
+        value: {
+          get({ data }) {
+            return data.buttonImg;
+          },
+          set({ data }, value) {
+            data.buttonImg = value;
+          },
+        },
+      },
+      {
         title: "按钮文案",
         type: "text",
+        ifVisible({ data }: EditorResult<Data>) {
+          return !data.useButtonImg;
+        },
         value: {
           get({ data }) {
             return data.text;
@@ -585,4 +619,17 @@ export default {
       },
     ],
   },
+  ".mybricks-button-text": {
+    "@dblclick": {
+      type: "text",
+      value: {
+        get({ data }) {
+          return data.text;
+        },
+        set({ data }, val) {
+          data.text = val;
+        },
+      },
+    },
+  }
 };

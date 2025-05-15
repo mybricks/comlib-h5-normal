@@ -23,8 +23,12 @@ export default function ({
 }) {
   /** TODO 写在useEffect里时序有延迟，容易出现闪屏，先试试这样先 */
   useMemo(() => {
-    inputs["buttonText"]((val: string) => {
+    inputs?.["buttonText"]?.((val: string) => {
       data.text = val;
+    });
+
+    inputs?.["buttonImg"]?.((val: string) => {
+      data.buttonImg = val;
     });
   }, []);
 
@@ -68,9 +72,9 @@ export default function ({
         return {
           openType: "share",
           onClick: (e) => {
-              outputs["share"]({
-                ...e.detail,
-              });
+            outputs["share"]({
+              ...e.detail,
+            });
           },
         };
       }
@@ -164,7 +168,11 @@ export default function ({
   // input禁用按钮
   useEffect(() => {
     inputs["setDisabled"]?.((val, relOutputs) => {
-      data.disabled = !!val;
+      if (val === false) {
+        data.disabled = false;
+      } else {
+        data.disabled = true;
+      }
       relOutputs["setDisabledSuccess"]?.(val);
     });
   }, []);
@@ -177,6 +185,15 @@ export default function ({
     });
   }, []);
 
+  const buttonStyle = useMemo(() => {
+    if (!data?.useButtonImg) return
+
+    return {
+      paddingLeft: 0,
+      paddingRight: 0
+    }
+  }, [data.useButtonImg])
+
   return (
     <Button
       className={cx(
@@ -185,9 +202,10 @@ export default function ({
       )}
       {...disabled}
       {...openType}
+      style={buttonStyle}
     >
       {/* 前置 */}
-      {useBeforeIcon ? (
+      {useBeforeIcon && !data?.useButtonImg ? (
         <Image
           className={cx("mybricks-beforeIcon", css.icon)}
           src={data.beforeIconUrl || extra?.imageUrl}
@@ -195,10 +213,12 @@ export default function ({
         />
       ) : null}
 
-      <Text className={css.text}>{data.text}</Text>
+      {!data?.useButtonImg ? (<Text className={cx(css.text,'mybricks-button-text')}>{data.text}</Text>) : null}
+
+      {data?.useButtonImg ? (<Image style={{ width: "100%", height: "100%" }} src={data.buttonImg}></Image>) : null}
 
       {/* 后置 */}
-      {useAfterIcon ? (
+      {useAfterIcon && !data?.useButtonImg ? (
         <Image
           className={cx("mybricks-afterIcon", css.icon)}
           src={data.afterIconUrl || extra?.imageUrl}

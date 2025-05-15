@@ -12,17 +12,10 @@
   "editors": "./editors.tsx",
   "inputs": [
     {
-      "id": "buttonText",
-      "title": "修改按钮文本",
-      "schema": {
-        "type": "string"
-      }
-    },
-    {
       "id": "setDisabled",
       "title": "设置按钮禁用",
       "schema": {
-        "type": "boolean"
+        "type": "any"
       },
       "rels": [
         "setDisabledSuccess"
