@@ -246,14 +246,14 @@ export default {
           {
             title: "按钮",
             catelog: "默认",
-            options: ["font", "border", "padding", "background"],
+            options: ["font", "border", "padding", "background","boxshadow"],
             target: ".mybricks-button",
             defaultOpen: true,
           },
           {
             title: "按钮",
             catelog: "禁用",
-            options: ["font", "border", "padding", "background"],
+            options: ["font", "border", "padding", "background","boxshadow"],
             target: ".mybricks-button-disable",
             defaultOpen: true,
           },
