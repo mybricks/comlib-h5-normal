@@ -7,7 +7,7 @@ const MAP = {
     output: [
       {
         id: "getPhoneNumberSuccess",
-        title: "获取动态令牌成功",
+        title: "获取动态令牌成功（仅支持真机）",
         schema: {
           type: "object",
           properties: {
@@ -22,7 +22,7 @@ const MAP = {
       },
       {
         id: "getPhoneNumberFail",
-        title: "获取动态令牌失败",
+        title: "获取动态令牌失败（仅支持真机）",
         schema: {
           type: "object",
           properties: {
@@ -54,7 +54,7 @@ const MAP = {
     output: [
       {
         id: "getRealtimePhoneNumberSuccess",
-        title: "获取动态令牌成功",
+        title: "获取动态令牌成功（仅支持真机）",
         schema: {
           type: "object",
           properties: {
@@ -69,7 +69,7 @@ const MAP = {
       },
       {
         id: "getRealtimePhoneNumberFail",
-        title: "获取动态令牌失败",
+        title: "获取动态令牌失败（仅支持真机）",
         schema: {
           type: "object",
           properties: {
@@ -117,7 +117,7 @@ const MAP = {
     output: [
       {
         id: "chooseAvatarSuccess",
-        title: "选择头像成功",
+        title: "选择头像成功（仅支持真机）",
         schema: {
           type: "string"
         }
@@ -523,7 +523,7 @@ export default {
             ifVisible({ data }) {
               return data.openType === "getPhoneNumber";
             },
-            title: "获取动态令牌成功",
+            title: "获取动态令牌成功（仅支持真机）",
             type: "_event",
             options: {
               outputId: "getPhoneNumberSuccess",
@@ -533,7 +533,7 @@ export default {
             ifVisible({ data }) {
               return data.openType === "getPhoneNumber";
             },
-            title: "获取动态令牌失败",
+            title: "获取动态令牌失败（仅支持真机）",
             type: "_event",
             options: {
               outputId: "getPhoneNumberFail",
@@ -543,7 +543,7 @@ export default {
             ifVisible({ data }) {
               return data.openType === "getRealtimePhoneNumber";
             },
-            title: "获取动态令牌成功",
+            title: "获取动态令牌成功（仅支持真机）",
             type: "_event",
             options: {
               outputId: "getRealtimePhoneNumberSuccess",
@@ -553,7 +553,7 @@ export default {
             ifVisible({ data }) {
               return data.openType === "getRealtimePhoneNumber";
             },
-            title: "获取动态令牌失败",
+            title: "获取动态令牌失败（仅支持真机）",
             type: "_event",
             options: {
               outputId: "getRealtimePhoneNumberFail",
@@ -563,7 +563,7 @@ export default {
             ifVisible({ data }) {
               return data.openType === "chooseAvatar";
             },
-            title: "获取头像成功",
+            title: "获取头像成功（仅支持真机）",
             type: "_event",
             options: {
               outputId: "chooseAvatarSuccess",

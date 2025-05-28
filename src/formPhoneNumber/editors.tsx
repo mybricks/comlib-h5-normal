@@ -86,14 +86,14 @@ export default {
           title: "事件",
           items: [
             {
-              title: "获取动态令牌成功",
+              title: "获取动态令牌成功（仅支持真机）",
               type: "_event",
               options: {
                 outputId: "getCodeSuccess",
               },
             },
             {
-              title: "获取动态令牌失败",
+              title: "获取动态令牌失败（仅支持真机）",
               type: "_event",
               options: {
                 outputId: "getCodeFail",

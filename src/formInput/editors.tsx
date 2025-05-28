@@ -57,7 +57,7 @@ export default {
             { value: "idcard", label: "身份证号" },
             { value: "number", label: "整数" },
             { value: "digit", label: "数字（支持小数）" },
-            { value: "nickname", label: "昵称输入键盘" },
+            { value: "nickname", label: "昵称输入键盘（仅支持真机）" },
           ],
           value: {
             get({ data }) {
