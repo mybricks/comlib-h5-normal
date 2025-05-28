@@ -501,6 +501,18 @@ export default {
           },
         },
         {
+          title: "强制加入主包(beta)",
+          type: "switch",
+          value: {
+            get({ data }) {
+              return data.forceMainPackage;
+            },
+            set({ data }, value) {
+              data.forceMainPackage = value;
+            },
+          }
+        },
+        {
           title: "下拉刷新",
           type: "switch",
           value: {
