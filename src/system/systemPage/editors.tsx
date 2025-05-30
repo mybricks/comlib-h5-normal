@@ -488,29 +488,46 @@ export default {
             outputId: "pageDidHide",
           },
         },
+        // {
+        //   title: "分享",
+        //   type: "switch",
+        //   value: {
+        //     get({ data }) {
+        //       return data.enabledShareMessage ?? false;
+        //     },
+        //     set({ data }, value) {
+        //       data.enabledShareMessage = value;
+        //     },
+        //   },
+        // },
         {
-          title: "分享",
+          title: "分享给朋友",
           type: "switch",
+          description:"打开该选项后，才能开启分享到朋友圈",
           value: {
             get({ data }) {
-              return data.enabledShareMessage ?? false;
+              return data.enabledShareAppMessage ?? false;
             },
             set({ data }, value) {
-              data.enabledShareMessage = value;
+              data.enabledShareAppMessage = value;
             },
           },
         },
         {
-          title: "强制加入主包(beta)",
+          title: "分享到朋友圈",
           type: "switch",
+          ifVisible({ data }: EditorResult<Data>) {
+            return data?.enabledShareAppMessage;
+          },
+          description:"开启分享给朋友后，该选项才能生效",
           value: {
             get({ data }) {
-              return data.forceMainPackage;
+              return data.enabledShareTimeline ?? false;
             },
             set({ data }, value) {
-              data.forceMainPackage = value;
+              data.enabledShareTimeline = value;
             },
-          }
+          },
         },
         {
           title: "下拉刷新",
@@ -559,6 +576,19 @@ export default {
 
       (cate2.title = "高级"),
         (cate2.items = [
+          {
+            title: "强制加入主包(beta)",
+            type: "switch",
+            description: "强制加入主包，仅在页面需要分享出去时才可使用",
+            value: {
+              get({ data }) {
+                return data.forceMainPackage;
+              },
+              set({ data }, value) {
+                data.forceMainPackage = value;
+              },
+            }
+          },
           // {
           //   title: "偷偷的upgrade",
           //   type: "button",

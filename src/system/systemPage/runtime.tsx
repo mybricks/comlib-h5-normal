@@ -302,13 +302,29 @@ export default function (props) {
     [scrollRef.current]
   );
 
-  useEffect(() => {
-    if (!data?.enabledShareMessage) {
+  // useEffect(() => {
+  //   if (!data?.enabledShareMessage) {
+  //     Taro.hideShareMenu({
+  //       menus: ["shareAppMessage", "shareTimeline"],
+  //     });
+  //   }
+  // }, [data?.enabledShareMessage]);
+
+  useEffect(()=>{
+    if(!data?.enabledShareAppMessage){
       Taro.hideShareMenu({
-        menus: ["shareAppMessage", "shareTimeline"],
+        menus: ["shareAppMessage"],
       });
     }
-  }, [data?.enabledShareMessage]);
+  },[data?.enabledShareAppMessage])
+
+  useEffect(()=>{
+    if(!data?.enabledShareTimeline){
+      Taro.hideShareMenu({
+        menus: ["shareTimeline"],
+      });
+    }
+  },[data?.enabledShareTimeline])
 
   /**
    * 骨架屏
