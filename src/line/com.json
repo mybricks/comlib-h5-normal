@@ -6,6 +6,7 @@
   "author": "MyBricks",
   "author_name": "MyBricks",
   "icon": "./icon.svg",
+  "ai": "./ai.ts",
   "data": "./data.json",
   "runtime": "./runtime.tsx",
   "editors": "./editors.tsx",

@@ -8,6 +8,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
+  "ai": "./ai.ts",
   "inputs": [
     {
       "id": "setValue",

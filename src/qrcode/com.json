@@ -8,6 +8,7 @@
   "description": "二维码",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
+  "ai": "./ai.ts",
   "editors": "./editors.tsx",
   "inputs": [
     {

@@ -9,6 +9,7 @@
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
   "preview": "./preview.png",
+  "ai": "./ai.ts",
   "inputs": [
     {
       "id": "startCountdown",

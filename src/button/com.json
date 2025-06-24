@@ -9,6 +9,7 @@
   "runtime": "./runtime.tsx",
   "runtime.edit": "./runtime.edit.tsx",
   "data": "./data.json",
+  "ai": "./ai.ts",
   "editors": "./editors.tsx",
   "inputs": [
     {

@@ -9,6 +9,7 @@
   "data": "./data.json",
   "icon": "./icon.svg",
   "editors": "./editors.tsx",
+  "ai": "./ai.ts",
   "inputs": [
     {
       "id": "dataSource",

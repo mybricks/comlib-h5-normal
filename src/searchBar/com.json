@@ -7,6 +7,7 @@
   "runtime": "./runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
+  "ai": "./ai.ts",
   "icon": "./icon.svg",
   "inputs": [
     {

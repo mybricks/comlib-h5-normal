@@ -9,6 +9,7 @@
   "editors": "./editors.tsx",
   "icon": "./icon.svg",
   "preview": "https://assets.mybricks.world/AKbpTc6oYtY0tDaECneZfLh5e42sDKDt-1743578212707.png",
+  "ai": "./ai.ts",
   "inputs": [
     {
       "id": "setValue",
