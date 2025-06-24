@@ -36,7 +36,7 @@ export default {
   ".mybricks-tabBar": {
     items: [
       {
-        title: "设为tab页",
+        title: "作为标签页",
         description: "当标签页数量小于2或大于5时，将不显示底部tab标签栏",
         type: "switch",
         value: {
