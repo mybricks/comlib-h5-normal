@@ -17,7 +17,17 @@ export default {
         target: `.mybricks-cell`,
       },
     ],
-    items: ({ data, output, style }, cate0, cate1, cate2) => {
+    items: ({ data, output, inputs, style }, cate0, cate1, cate2) => {
+      //临时升级
+      if (!inputs.get("swipe")) {
+        inputs.add({
+          id: "swipe",
+          title: "开启左滑",
+          schema: {
+            type: "boolean",
+          },
+        });
+      }
       cate0.title = "常规";
       cate0.items = [
         {
@@ -207,7 +217,7 @@ export default {
               type: "styleNew",
               options: {
                 defaultOpen: true,
-                plugins: ["background","font","size","border"],
+                plugins: ["background", "font", "size", "border"],
               },
               value: {
                 get({ data }) {
@@ -222,6 +232,7 @@ export default {
                   );
                 },
                 set({ data }, value) {
+                  console.log("主按钮样式配置", JSON.parse(JSON.stringify(value)))
                   data.leftSwipeStyle = JSON.parse(JSON.stringify(value));
                 },
               },
@@ -331,7 +342,7 @@ export default {
               type: "styleNew",
               options: {
                 defaultOpen: true,
-                plugins: ["background","font","size","border"],
+                plugins: ["background", "font", "size", "border"],
               },
               value: {
                 get({ data }) {

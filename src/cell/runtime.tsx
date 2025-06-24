@@ -12,7 +12,9 @@ import cx from "classnames";
 
 export default function ({ env, data, slots, inputs, outputs }) {
   const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
   const translateXRef = useRef(0);
+  const SWIPE_THRESHOLD = 30; // 滑动阈值
   const [cellStyle, setCellStyle] = useState({
     transform: `translateX(0px)`,
   });
@@ -22,6 +24,13 @@ export default function ({ env, data, slots, inputs, outputs }) {
       data[key] = val[key];
     });
   });
+
+
+  useEffect(() => {
+    inputs?.["swipe"]?.((val) => {
+        data.useSwipeLeft = !!val
+    })
+  }, [])
 
   const onClick = useCallback(
     (raw) => {
@@ -40,7 +49,6 @@ export default function ({ env, data, slots, inputs, outputs }) {
     outputs["onClickLeftAction"](raw);
   }, []);
 
-
   const onClickLeftActionSecondary = useCallback((raw) => {
     if (!env.runtime) {
       return;
@@ -54,8 +62,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
       touchStartX.current = e.touches[0].clientX;
-
-      // console.log("onTouchStart", e.touches[0].clientX);
+      touchStartY.current = e.touches[0].clientY;
     },
     [data.useSwipeLeft]
   );
@@ -66,36 +73,39 @@ export default function ({ env, data, slots, inputs, outputs }) {
         return;
       }
 
-      e.preventDefault();
-      e.stopPropagation();
-
       const touche = e.touches[0];
       let deltaX = touche.clientX - touchStartX.current;
+      let deltaY = touche.clientY - touchStartY.current;
 
-      // 右滑，且已经在最右边
-      if (translateXRef.current === 0 && deltaX > 0) {
-        return;
+      // console.log("deltaX",deltaX,"SWIPE_THRESHOLD",SWIPE_THRESHOLD,"deltaY",deltaY)
+
+      // 只有水平滑动距离超过阈值，且大于垂直滑动距离时才处理
+      if (Math.abs(deltaX) > SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // 右滑，且已经在最右边
+        if (translateXRef.current === 0 && deltaX > 0) {
+          return;
+        }
+
+        if (translateXRef.current <= -(data.leftSwipeWidth + data.leftSwipeWidthSecondary) && deltaX < 0) {
+          return;
+        }
+
+        let result = deltaX + translateXRef.current;
+        if (result > 0) {
+          result = 0;
+        } else if (result < -(data.leftSwipeWidth + data.leftSwipeWidthSecondary)) {
+          result = -(data.leftSwipeWidth + data.leftSwipeWidthSecondary);
+        }
+
+        setCellStyle({
+          transform: `translateX(${result}px)`,
+        });
       }
-
-      if (translateXRef.current <= -(data.leftSwipeWidth+data.leftSwipeWidthSecondary) && deltaX < 0) {
-        return;
-      }
-
-      // console.log("deltaX",deltaX,"translateXRef.current",translateXRef.current)
-
-      let result = deltaX + translateXRef.current;
-      if (result > 0) {
-        result = 0;
-      } else if (result < -(data.leftSwipeWidth+data.leftSwipeWidthSecondary)) {
-        result = -(data.leftSwipeWidth+data.leftSwipeWidthSecondary);
-      }
-      // console.log("onTouchMove", result);
-
-      setCellStyle({
-        transform: `translateX(${result}px)`,
-      });
     },
-    [data.useSwipeLeft,touchStartX.current]
+    [data.useSwipeLeft, data.leftSwipeWidth, data.leftSwipeWidthSecondary]
   );
 
   const onTouchEnd = useCallback(
@@ -103,8 +113,6 @@ export default function ({ env, data, slots, inputs, outputs }) {
       if (!data.useSwipeLeft) {
         return;
       }
-
-      // console.log("touchend", e.changedTouches[0]);
 
       let touche = e.changedTouches[0];
 
@@ -115,15 +123,14 @@ export default function ({ env, data, slots, inputs, outputs }) {
           transition: "transform 0.3s",
         });
       } else {
-        translateXRef.current = -(parseInt(data.leftSwipeStyle.width)+parseInt(data.leftSwipeStyleSecondary.width));
-        // console.log("data.leftSwipeStyle.width2",parseInt(data.leftSwipeStyle.width),"data.leftSwipeStyleSecondary.width2",parseInt(data.leftSwipeStyleSecondary.width))
+        translateXRef.current = -(parseInt(data.leftSwipeStyle.width) + parseInt(data.leftSwipeStyleSecondary.width));
         setCellStyle({
-          transform: `translateX(${-(parseInt(data.leftSwipeStyle.width)+parseInt(data.leftSwipeStyleSecondary.width))}px)`,
+          transform: `translateX(${-(parseInt(data.leftSwipeStyle.width) + parseInt(data.leftSwipeStyleSecondary.width))}px)`,
           transition: "transform 0.3s",
         });
       }
     },
-    [data.useSwipeLeft]
+    [data.useSwipeLeft, data.leftSwipeStyle.width, data.leftSwipeStyleSecondary.width]
   );
 
   return (
@@ -178,11 +185,11 @@ export default function ({ env, data, slots, inputs, outputs }) {
             <View className={css.contentInner}>
               {data.useChildren
                 ? slots["children"]?.render?.({
-                    style: {
-                      ...data.slotStyle,
-                      minHeight: "12",
-                    },
-                  })
+                  style: {
+                    ...data.slotStyle,
+                    minHeight: "12",
+                  },
+                })
                 : data.content}
             </View>
           </View>
@@ -200,12 +207,12 @@ export default function ({ env, data, slots, inputs, outputs }) {
           ) : null}
         </View>
       </View>
-      
+
       <View
         className={css.action}
         style={{
           ...data.leftSwipeStyleSecondary,
-          right:`${data.leftSwipeStyle?.width ?? 50}px`
+          right: `${data.leftSwipeStyle?.width ?? 50}px`
         }}
         onClick={(e) => {
           if (env.runtime) {
@@ -217,9 +224,9 @@ export default function ({ env, data, slots, inputs, outputs }) {
           });
           onClickLeftActionSecondary({ title: data.title });
         }}
-        >
-          {data.leftSwipeTextSecondary}
-        </View>
+      >
+        {data.leftSwipeTextSecondary}
+      </View>
       <View
         className={css.action}
         style={{

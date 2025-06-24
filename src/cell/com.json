@@ -37,6 +37,13 @@
           }
         }
       }
+    },
+    {
+      "id": "swipe",
+      "title": "开启左滑",
+      "schema": {
+        "type": "boolean"
+      }
     }
   ],
   "outputs": [
