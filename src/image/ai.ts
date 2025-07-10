@@ -10,6 +10,10 @@ mode: ['scaleToFill', 'aspectFill']
 
 styleAry声明
 图片: .mybricks-image
+- 默认样式: 
+  - borderRadius: 0
+  - backgroundColor: #ffffff
+- 可编辑样式: backgroundColor、border相关
 
 注意：
 - 对于图片组件，尽量保证图片的宽高，如果相对父元素，需要保证父元素的宽高

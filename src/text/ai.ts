@@ -7,7 +7,8 @@ export default {
     usage: `
 data声明
 text: string = "文本内容"
-ellipsis: boolean = false 
+ellipsis: boolean = false
+maxLines: number = "0"
 
 slots插槽
 无
@@ -24,16 +25,28 @@ styleAry声明
 \`\`\`dsl file="page.dsl"
 <flex row title="用户信息" layout={{ width: '100%', alignItems: 'center' }}>
 <flex column title="用户详情" layout={{ marginLeft: 10 }}>
-    <mybricks.harmony.text title="用户名" layout={{ width: 'fit-content' }} data={{ text: "健身达人123" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '14px', fontWeight: 'bold', color: '#333333' } }]}></mybricks.taro.text>
-    <mybricks.harmony.text title="评价时间" layout={{ width: 'fit-content' }} data={{ text: "2023-08-15" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '12px', color: '#999999' } }]}></mybricks.taro.text>
+    <mybricks.taro.text title="用户名" layout={{ width: 'fit-content' }} data={{ text: "健身达人123" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '14px', fontWeight: 'bold', color: '#333333' } }]}></mybricks.taro.text>
+    <mybricks.taro.text title="评价时间" layout={{ width: 'fit-content' }} data={{ text: "2023-08-15" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '12px', color: '#999999' } }]}></mybricks.taro.text>
 </flex>
 <flex row title="评分" layout={{ marginLeft: '10' }}> //留左边距，防止紧贴着显示。如果是上下结构，同理需要留上边距。
-    <mybricks.harmony.text title="评分文本" layout={{ width: 'fit-content' }} data={{ text: "9.8" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '16px', fontWeight: 'bold', color: '#FF9933' } }]}></mybricks.taro.text>
+    <mybricks.taro.text title="评分文本" layout={{ width: 'fit-content' }} data={{ text: "9.8" }} styleAry={[{ selector: '.mybricks-text', css: { fontSize: '16px', fontWeight: 'bold', color: '#FF9933' } }]}></mybricks.taro.text>
 </flex>
 </flex>
 \`\`\``
   },
   modifyTptJson: (component) => {
+    const isConfigCenter = component?.data?.styleAry?.some(s => {
+      return s.css?.textAlign === 'center'
+    })
+
+    // 幻觉处理：配置了center代表肯定要居中，此时不能配置非100%，不然不会居中
+    if (isConfigCenter && component?.layout?.width !== '100%') {
+      if (!component.layout) {
+        component.layout = {}
+      }
+      component.layout.width = '100%'
+    }
+
     if (component?.style?.styleAry) {
       component?.style?.styleAry.forEach(item => {
         if (!item.css) {

@@ -1,6 +1,7 @@
 import { uuid } from './../utils'
 
 export default {
+  ignore: true,
   ':root'({ data }) {
     return {}
   },
@@ -11,7 +12,7 @@ export default {
 `,
     usage: `
   data声明
-  submitButtonText: string = "提交"
+  submitButtonText?: string = "提交" ## 提交按钮的文案，如果不配置此属性，则隐藏提交按钮
   items: {
     id: string,
     name: string,
@@ -116,5 +117,9 @@ export default {
         com.name = item.comName
       }
     })
+
+    if (!component.data?.submitButtonText) {
+      component.data.useSubmitButton = false
+    }
   }
 }

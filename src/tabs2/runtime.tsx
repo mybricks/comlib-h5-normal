@@ -641,7 +641,7 @@ export default function ({ data, inputs, outputs, title, slots, env }) {
           </ScrollView>}
 
         {/* 切换显示 */}
-        {(data.contentShowType === ContentShowType.Switch || !data.contentShowType) && SwitchContent}
+        {(data.contentShowType === ContentShowType.Switch || !data.contentShowType)&& !data?.hideContent && SwitchContent}
       </View>
     )
   );

@@ -65,6 +65,9 @@ export default {
   - 侧边栏高度默认铺满整个页面`
   },
   modifyTptJson: (component) => {
-    
+    if (component?.data) {
+      component.data = {}
+    }
+    component.data.contentShowType = 'switch'
   }
 }

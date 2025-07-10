@@ -339,6 +339,19 @@ export default {
           },
         },
         {
+          title: "隐藏内容",
+          type: "switch",
+          description: "开启后tab内容项不展示",
+          value: {
+            get({data}){
+              return data.hideContent
+            },
+            set({ data }, value) {
+              data.hideContent = value
+            }
+          }
+        },
+        {
           title: "内容展示方式",
           type: "radio",
           description:
