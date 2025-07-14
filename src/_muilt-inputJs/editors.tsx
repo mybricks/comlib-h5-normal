@@ -134,43 +134,43 @@ export default {
         },
       },
     },
-    {
-      type: "editorRender",
-      options: {
-        render: (props) => {
-          return (
-            <div style={{ fontSize: 12, lineHeight: 1.8, color: "#999999" }}>
-              输入注释，例如
-              <code
-                style={{
-                  background: "#ffffff",
-                  color: "#008000",
-                  padding: "2px 4px",
-                  borderRadius: 4,
-                  marginLeft: 4,
-                  marginRight: 4,
-                }}
-              >
-                // 时间格式化函数，输入时间戳，返回格式 YYYY/MM/DD
-              </code>
-              敲击回车，即可智能生成代码提示，点击{" "}
-              <code
-                style={{
-                  color: "#000000",
-                  background: "#ffffff",
-                  padding: "2px 4px",
-                  borderRadius: 4,
-                  marginLeft: 4,
-                  marginRight: 4,
-                }}
-              >
-                Tab键
-              </code>
-              可快速应用代码。
-            </div>
-          );
-        },
-      },
-    },
+    // {
+    //   type: "editorRender",
+    //   options: {
+    //     render: (props) => {
+    //       return (
+    //         <div style={{ fontSize: 12, lineHeight: 1.8, color: "#999999" }}>
+    //           输入注释，例如
+    //           <code
+    //             style={{
+    //               background: "#ffffff",
+    //               color: "#008000",
+    //               padding: "2px 4px",
+    //               borderRadius: 4,
+    //               marginLeft: 4,
+    //               marginRight: 4,
+    //             }}
+    //           >
+    //             // 时间格式化函数，输入时间戳，返回格式 YYYY/MM/DD
+    //           </code>
+    //           敲击回车，即可智能生成代码提示，点击{" "}
+    //           <code
+    //             style={{
+    //               color: "#000000",
+    //               background: "#ffffff",
+    //               padding: "2px 4px",
+    //               borderRadius: 4,
+    //               marginLeft: 4,
+    //               marginRight: 4,
+    //             }}
+    //           >
+    //             Tab键
+    //           </code>
+    //           可快速应用代码。
+    //         </div>
+    //       );
+    //     },
+    //   },
+    // },
   ],
 };
