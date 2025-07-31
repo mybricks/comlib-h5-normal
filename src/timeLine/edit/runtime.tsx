@@ -1,6 +1,6 @@
 import * as React from 'react';
-import  TimeLine  from "./../runtime";
-import { useDisabledArea } from './useDisabledArea'
+import  Runtime  from './../runtime'
+import { useDisabledArea } from './../../utils/hooks';
 
 export default (props) => {
 
@@ -8,7 +8,7 @@ export default (props) => {
 
   return (
     <DisabledArea>
-      <TimeLine {...props} />
+      <Runtime {...props} />
     </DisabledArea>
   )
   

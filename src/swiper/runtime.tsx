@@ -116,6 +116,7 @@ export default function ({ env, data, inputs, outputs, style }) {
         className={css.swiperItem}
       >
         <SkeletonImage
+          useHtml={env.edit}
           className={css.thumbnail}
           mode="aspectFill"
           src={data.items[current]?.thumbnail}
@@ -139,6 +140,7 @@ export default function ({ env, data, inputs, outputs, style }) {
             }}
           >
             <SkeletonImage
+              useHtml={env.edit}
               className={css.thumbnail}
               mode="aspectFill"
               src={shouldLoad ? item.thumbnail : ""}

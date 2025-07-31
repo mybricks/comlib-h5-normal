@@ -5,7 +5,6 @@
   "author_name": "板砖团队",
   "version": "1.0.1",
   "runtime": "./runtime.tsx",
-  "runtime.edit": "./edit/runtime.tsx",
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.png",

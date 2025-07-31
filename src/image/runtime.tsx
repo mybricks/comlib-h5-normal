@@ -9,6 +9,7 @@ import css from "./style.less";
 import cx from "classnames";
 import { View, Image } from "@tarojs/components";
 import SkeletonImage from "./../components/skeleton-image";
+import { useRedirectedImageUrl } from "./../utils/hooks";
 import * as Taro from "@tarojs/taro";
 
 export default function ({ env, data, inputs, outputs, title, style, extra }) {
@@ -38,6 +39,10 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
       data.src = src;
     });
   }, []);
+
+  useRedirectedImageUrl(env?.edit ? data.src : undefined, (redirectedUrl) => {
+    data.src = redirectedUrl
+  })
 
   const onLoad = useCallback(() => {
     if (!env.runtim) {
@@ -95,6 +100,7 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
   return (
     <View className={css.com} ref={ele}>
       <SkeletonImage
+        useHtml={env.edit}
         skeleton={env.edit ? false : !!data?.loadSmooth}
         className={cx(css.image, h5PolyfillClass, "mybricks-image")}
         // src={!!data.src ? data.src : extra?.imageUrl}

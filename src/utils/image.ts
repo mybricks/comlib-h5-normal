@@ -77,6 +77,19 @@ const dpr = pixelRatio ?? window?.devicePixelRatio;
 //   return base + '?imageView2/2/w/' + width + '/format/jpg/interlace/1/q/85';
 // }
 
+export enum IMAGE_MODE {
+  ASPECTFILL = "aspectFill",
+  OBJECTFIT = "objectFit",
+  TOP = "top",
+  LEFT = "left",
+  RIGHT = "right",
+  BOTTOM = "bottom",
+  ASPECTFIT = "aspectFit",
+  SCALETOFILL = "scaleToFill",
+  WIDTHFIX = "widthFix",
+  HEIGHTFIX = 'heightFix'
+}
+
 interface CdnCutOptions {
   quality?: number
 }
