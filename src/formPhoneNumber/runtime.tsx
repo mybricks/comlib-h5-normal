@@ -7,7 +7,6 @@ import * as Taro from "@tarojs/taro";
 import { isEmpty, isString, isNumber, isObject } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isH5 } from "../utils/env";
-import cx from "classnames";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -36,7 +35,7 @@ export default function (props) {
 
   useEffect(() => {
     /* 设置值 */
-    inputs["setValue"]((val, outputRels) => {
+    inputs?.["setValue"]((val, outputRels) => {
       let result;
 
       switch (true) {
@@ -56,18 +55,18 @@ export default function (props) {
     });
 
     /* 获取值 */
-    inputs["getValue"]((val, outputRels) => {
+    inputs?.["getValue"]((val, outputRels) => {
       outputRels["returnValue"](getValue());
     });
 
     /* 重置值 */
-    inputs["resetValue"]((val, outputRels) => {
+    inputs?.["resetValue"]((val, outputRels) => {
       setValue("");
       outputRels["resetValueComplete"]?.("");
     });
 
     /* 设置标题 */
-    inputs["setLabel"]?.((val) => {
+    inputs?.["setLabel"]?.((val) => {
       if (!isString(val)) {
         return;
       }
@@ -82,12 +81,12 @@ export default function (props) {
     });
 
     /* 设置提示内容 */
-    inputs["setPlaceholder"]((val) => {
+    inputs?.["setPlaceholder"]((val) => {
       data.placeholder = val;
     });
 
     /* 设置禁用 */
-    inputs["setDisabled"]?.((val, outputRels) => {
+    inputs?.["setDisabled"]?.((val, outputRels) => {
       data.disabled = !!val;
       outputRels["setDisabledComplete"]?.(data.disabled);
     });
