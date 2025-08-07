@@ -1,10 +1,10 @@
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "auto";
+    style.height = "fit-content";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width","height"],
   },
   ":slot": {},
 

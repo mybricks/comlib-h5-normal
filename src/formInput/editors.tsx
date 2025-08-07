@@ -1,10 +1,10 @@
 export default {
   "@init": ({ style, data }) => {
     style.width = "100%";
-    style.height = "auto";
+    style.height = "fit-content";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width","height"],
   },
   ":root": {
     style: [
@@ -34,6 +34,8 @@ export default {
       },
     ],
     items: ({ data, inputs, output, style }, cate0, cate1, cate2) => {
+      //配置为适应高度
+      style.height = "fit-content";
       cate0.title = "常规";
       cate0.items = [
         {

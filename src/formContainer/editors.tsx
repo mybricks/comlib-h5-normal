@@ -132,7 +132,7 @@ export default {
     style.height = "auto";
   },
   "@resize": {
-    options: ["width"],
+    options: ["width","height"],
   },
   "@childAdd"({ data, inputs, outputs, logs, slots }, child, curSlot) {
     if (curSlot.id === "content") {
