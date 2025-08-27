@@ -7,7 +7,7 @@ export default {
   },
   ":slot": {},
   "@resize": {
-    options: ["width"],
+    options: ["width","height"],
   },
   "@inputConnected"({ data, input, output, slots }, fromPin, toPin) {
     if (toPin.id === "dataSource") {
