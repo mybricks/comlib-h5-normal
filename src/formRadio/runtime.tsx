@@ -159,6 +159,7 @@ export default function (props) {
             className={cx({
               ["mybricks-inactive"]: value != item.value,
               ["mybricks-active"]: value == item.value,
+              [css.box]: true
             })}
             name={item.value}
             style={gapStyle}

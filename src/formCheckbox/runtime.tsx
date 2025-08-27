@@ -4,6 +4,7 @@ import { isObject, isString, isEmpty, isNumber } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import cx from "classnames";
 import { View } from "@tarojs/components";
+import css from "./style.less";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -165,6 +166,7 @@ export default function (props) {
             className={cx({
               ["mybricks-inactive"]: value?.indexOf?.(item.value) === -1,
               ["mybricks-active"]: value?.indexOf?.(item.value) !== -1,
+              [css.box]: true
             })}
             name={item.value}
             shape="square"

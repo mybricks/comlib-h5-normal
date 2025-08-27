@@ -1,0 +1,18 @@
+.box {
+    :global {
+        .van-icon-success:before {
+            content: '';
+            /* 默认为空 */
+        }
+
+        /* 只在选中状态显示图标 */
+        .taroify-checkbox__icon--checked .van-icon-success:before {
+            content: url('data:image/svg+xml;base64,PHN2ZyB0PSIxNzU0NTM3ODk3NTU5IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDE0NDIgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjEyNjk2IiB3aWR0aD0iMTQiIGhlaWdodD0iMTQiPjxwYXRoIGQ9Ik03Mi43MTEyNjczOSA1NTguMDI2NzYwMjZBMTUuNDY0Nzg4NzcgMTUuNDY0Nzg4NzcgMCAwIDEgNzEuNDU2MzM3NzkgNTM4LjYxOTcxODM2bDUzLjA4NzMyNDQyLTcyLjIyODE2OTM0YTEyLjQwOTg1OTE3IDEyLjQwOTg1OTE3IDAgMCAxIDE3LjYxOTcxODM2LTIuNTg1OTE1MzNsMzE1Ljc4NTkxNTMzIDI0Mi4wMzY2MTk0M2M1LjU1MjExMjMxIDQuMjU5MTU1MDggMTQuNDc2MDU2MTUgNC4wMDU2MzM2OSAxOS43MjM5NDM4NC0wLjM2NzYwNTE3TDEyNDYuMzc0NjQ3OTUgNjUuMDkyOTU4MWExNC4yNDc4ODc3IDE0LjI0Nzg4NzcgMCAwIDEgMTguNzM1MjExMjIgMC44ODczMjM1NGw1MC4wODMwOTg5MyA0OS40NjE5NzE0OWExMi40NjA1NjMyOCAxMi40NjA1NjMyOCAwIDAgMSAwLjAyNTM1MjA2IDE3Ljg0Nzg4NzY5TDQ3Ny4wMTQwODQ2NyA5NTguMTk3MTgyNzFhMTIuNTg3MzIzNTQgMTIuNTg3MzIzNTQgMCAwIDEtMTcuODYwNTYzMjktMC4yMjgxNjg0NUw3Mi43MTEyNjczOSA1NTguMDI2NzYwMjZ6IiBwLWlkPSIxMjY5NyIgZGF0YS1zcG0tYW5jaG9yLWlkPSJhMzEzeC5zZWFyY2hfaW5kZXguMC5pMTUuNGFhNjNhODFabmQwSmEiIGNsYXNzPSJzZWxlY3RlZCIgZmlsbD0iI2ZmZmZmZiI+PC9wYXRoPjwvc3ZnPg==');
+        }
+
+        .taroify-checkbox__icon--checked .taroify-icon {
+            background-color: #fa6400;
+            border: #fa6400 1px solid;
+        }
+    }
+}
