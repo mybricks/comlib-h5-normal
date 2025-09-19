@@ -156,7 +156,7 @@ export default function (props) {
 
     Taro.chooseImage({
       count: data.maxCount - value.length,
-      sizeType: ["original", "compressed"],
+      sizeType: data.sizeType && data.sizeType !== "all" ? [data.sizeType] : ["original", "compressed"],
       sourceType: isH5() ? ["album"] : ["album", "camera"],
       success: async (res) => {
         for (const tempFile of res.tempFiles) {

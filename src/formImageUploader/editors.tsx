@@ -137,6 +137,23 @@ export default {
             },
           },
         },
+        {
+          title: "图片质量类型",
+          type:"radio",
+          options: [
+            { label: "原图", value: "original" },
+            { label: "压缩", value: "compressed" },
+            { label: "不限", value: "all" },
+          ],
+          value: {
+            get({ data }) {
+              return data.sizeType || "";
+            },
+            set({ data }, value: string) {
+              data.sizeType = value;
+            },
+          },
+        },
         // {
         //   title: "升级",
         //   type: "button",
