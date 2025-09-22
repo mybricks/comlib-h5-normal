@@ -7,6 +7,7 @@ import { isNumber, isObject, isString, isEmpty } from "./../utils/type";
 import useFormItemValue from "../utils/hooks/useFormItemValue.ts";
 import { isDesigner, isH5 } from "../utils/env";
 import { plus } from "./icon"
+import { compressImage } from "./../utils/h5-compress";
 
 export default function (props) {
   const { env, data, inputs, outputs, slots, parentSlot } = props;
@@ -161,13 +162,17 @@ export default function (props) {
       success: async (res) => {
         for (const tempFile of res.tempFiles) {
           console.log("tempFile", tempFile);
-
           let result = {
             filePath: tempFile.path,
             size: tempFile.size,
           };
 
           if (isH5()) {
+            if (data.compressImage) {
+              const compressedFile = await compressImage(tempFile.originalFileObj!, data.compressQuality);
+              result.filePath = URL.createObjectURL(compressedFile);
+              result.size = compressedFile.size;
+            }
             result.fileName = tempFile.originalFileObj?.name;
             result.type = tempFile.originalFileObj?.type;
 

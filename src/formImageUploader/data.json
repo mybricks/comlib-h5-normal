@@ -7,5 +7,7 @@
   "placeholderText": "",
   "placeholder": "",
   "required": false,
-  "chooseAvatar": false
+  "chooseAvatar": false,
+  "compressImage": false,
+  "compressQuality": 0.7
 }
