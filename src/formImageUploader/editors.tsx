@@ -138,21 +138,33 @@ export default {
           },
         },
         {
-          title: "图片质量类型",
-          type:"radio",
-          options: [
-            { label: "原图", value: "original" },
-            { label: "压缩", value: "compressed" },
-            { label: "不限", value: "all" },
-          ],
+          title: "是否压缩图片(h5生效)",
+          type:"switch",
           value: {
             get({ data }) {
-              return data.sizeType || "";
+              return data.compressImage;
             },
-            set({ data }, value: string) {
-              data.sizeType = value;
-            },
+            set({ data }, value: boolean) {
+              data.compressImage = value;
+            }
           },
+        },
+        {
+          title: '压缩质量',
+          type: 'Inputnumber',
+          description: '图片压缩质量, 数值越小, 图片质量越差, 但文件体积更小',
+          options: [{min: 0.1, max: 1 }],
+          ifVisible({ data }: EditorResult<Data>) {
+            return !!data.compressImage;
+          },
+          value: {
+            get({ data }: EditorResult<Data>) {
+              return [data.compressQuality || 0.7];
+            },
+            set({ data }: EditorResult<Data>, value: number[]) {
+              data.compressQuality = value[0];
+            }
+          }
         },
         // {
         //   title: "升级",

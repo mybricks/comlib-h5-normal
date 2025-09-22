@@ -8,5 +8,6 @@
   "placeholder": "",
   "required": false,
   "chooseAvatar": false,
-  "sizeType": "all"
+  "compressImage": false,
+  "compressQuality": 0.7
 }
