@@ -253,7 +253,7 @@ export default function (props) {
           // H5
           if (isH5()) {
             let anchor = document.querySelector(id);
-            if(anchor){
+            if (anchor) {
               document.querySelector("#root_scroll").scrollTo({
                 top: anchor.offsetTop,
                 behavior: isAnimte ? "smooth" : "auto",
@@ -310,21 +310,21 @@ export default function (props) {
   //   }
   // }, [data?.enabledShareMessage]);
 
-  useEffect(()=>{
-    if(!data?.enabledShareAppMessage){
+  useEffect(() => {
+    if (!data?.enabledShareAppMessage) {
       Taro.hideShareMenu({
         menus: ["shareAppMessage"],
       });
     }
-  },[data?.enabledShareAppMessage])
+  }, [data?.enabledShareAppMessage])
 
-  useEffect(()=>{
-    if(!data?.enabledShareTimeline){
+  useEffect(() => {
+    if (!data?.enabledShareTimeline) {
       Taro.hideShareMenu({
         menus: ["shareTimeline"],
       });
     }
-  },[data?.enabledShareTimeline])
+  }, [data?.enabledShareTimeline])
 
   /**
    * 骨架屏
@@ -393,12 +393,44 @@ export default function (props) {
     );
   }
 
+  const enhanced = useMemo(() => {
+    const systemInfo = Taro.getSystemInfoSync();
+    if (isIOS) {
+      if (data.enabledPulldown) {
+        return false
+      } else {
+        //判断下是否是iOS26，需要返回false（兼容该系统版本下 enhanced true 导致的 ScrollView高度塌陷问题）
+        if (systemInfo.system == "iOS 26.0") {
+          return false
+        } else {
+          return true
+        }
+      }
+    } else {
+      return true
+    }
+  }, [data.enabledPulldown, isIOS])
+
+  const iOS26scrollViewStyle = useMemo(() => {
+    //iOS26版本，scrollView必须给定一个具体的值，否则会塌陷
+    const systemInfo = Taro.getSystemInfoSync();
+    if (isIOS && systemInfo.system == "iOS 26.0") {
+      return {
+        height: systemInfo.windowHeight
+      }
+    } else {
+      return {}
+    }
+
+  }, [])
+
+
   return (
     <View
-      className={cx({ 
-        [css.page]: true, 
-        [css.h5page]: isH5(), 
-        [css.debug]: isDesigner(env) 
+      className={cx({
+        [css.page]: true,
+        [css.h5page]: isH5(),
+        [css.debug]: isDesigner(env)
       })}
       style={{ ...background }}
     >
@@ -469,7 +501,7 @@ export default function (props) {
           id="root_scroll"
           scrollY={!data.disableScroll && !disableScrollWhenPulling}
           // scrollY={!data.disableScroll}
-          enhanced={isIOS && data.enabledPulldown ? false : true}
+          enhanced={enhanced}
           // enhanced={true}
           // enhancedBounce={false}
           bounce={false}
@@ -482,7 +514,7 @@ export default function (props) {
           scrollTop={scrollRef.current}
           {...pulldownProps}
           className={css.contentScrollView}
-          // style={{ height: contentScrollViewHeight }}
+          style={iOS26scrollViewStyle}
         >
           {slots["content"]?.render?.({
             style: {
