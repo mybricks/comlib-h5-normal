@@ -170,8 +170,12 @@ export default function (props) {
           if (isH5()) {
             if (data.compressImage) {
               const compressedFile = await compressImage(tempFile.originalFileObj!, data.compressQuality);
-              result.filePath = URL.createObjectURL(compressedFile);
-              result.size = compressedFile.size;
+              if (compressedFile.size < result.size) {
+                result.filePath = URL.createObjectURL(compressedFile);
+                result.size = compressedFile.size;
+              } else {
+                console.log("由于源文件自身就是高压缩率，压缩后文件更大，故仍使用源文件");
+              }
             }
             result.fileName = tempFile.originalFileObj?.name;
             result.type = tempFile.originalFileObj?.type;
