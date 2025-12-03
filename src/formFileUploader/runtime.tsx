@@ -100,6 +100,13 @@ export default function (props) {
       }
     });
 
+    /* 重置值 */
+    inputs["resetValue"]?.((val, outputRels) => {
+      setValue([]);
+      setFileName([]);
+      outputRels["resetValueComplete"]?.();
+    });
+
     // 上传完成
     slots["customUpload"]?.outputs["setFileInfo"]?.((filePath) => {
       if (!filePath && typeof filePath !== "string") {
@@ -126,17 +133,28 @@ export default function (props) {
 
   }, [value, data.maxCount, fileName]);
 
+  useEffect(() => {
+    // 设置禁用
+    inputs["setDisabled"]?.((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
+    });
+  }, []);
+
   const onRemoveFile = useCallback(
     (e, index) => {
       e.stopPropagation();
+      if (data.disabled) {
+        return;
+      }
       const newValue = value.filter((_, i) => i !== index);
       setValue(newValue);
     },
-    [value]
+    [value, data.disabled]
   );
 
   const onChooseFile = useCallback(() => {
-    if (env.edit) {
+    if (env.edit || data.disabled) {
       return;
     }
 
@@ -160,10 +178,13 @@ export default function (props) {
         console.log("err", err);
       },
     });
-  }, [env.edit, value, data.maxCount, slots["customUpload"]]);
+  }, [env.edit, data.disabled, value, data.maxCount, slots["customUpload"]]);
 
   const handleFileChange = useCallback(
     (e) => {
+      if (data.disabled) {
+        return;
+      }
       let file = e.target.files[0];
       if (!file) return;
 
@@ -190,6 +211,7 @@ export default function (props) {
           <input
             className={css.input}
             type="file"
+            disabled={data.disabled}
             onChange={handleFileChange}
           />
           <div className={css.icon_placeholder}>+上传文件</div>
@@ -198,44 +220,56 @@ export default function (props) {
     }
 
     return (
-      <View className={cx(css.uploader, "mybricks-square")} onClick={onChooseFile}>
+      <View 
+        className={cx(css.uploader, "mybricks-square")} 
+        onClick={onChooseFile}
+      >
         <View className={css.icon_placeholder}>+上传文件</View>
       </View>
     );
-  }, [env, value, data.maxCount, data.iconSlot]);
+  }, [env, value, data.maxCount, data.iconSlot, data.disabled]);
 
   const uploaderSlot = useMemo(() => {
     if (data.maxCount && value.length >= data.maxCount) {
       return null;
     }
     if (isH5()) {
-      return <label>
-        <input
-        className={css.input}
-        type={env.runtime ? "file" : "text"} //防止在搭建态的时候触发文件选择
-        onChange={handleFileChange}
-         />
-        {slots["iconSlot"]?.render({})}
+      return (
+        <label>
+          <input
+            className={css.input}
+            type={env.runtime ? "file" : "text"} //防止在搭建态的时候触发文件选择
+            disabled={data.disabled}
+            onChange={handleFileChange}
+          />
+          {slots["iconSlot"]?.render({})}
         </label>
+      );
     }
-    return <View onClick={onChooseFile}>{slots["iconSlot"]?.render({})}</View>
-  }, [data.iconSlot])
+    return (
+      <View onClick={onChooseFile}>
+        {slots["iconSlot"]?.render({})}
+      </View>
+    );
+  }, [data.iconSlot, data.disabled, env.runtime, handleFileChange, onChooseFile, slots])
 
   const thumbnails = useMemo(() => {
     return value.map((raw, index) => {
       return (
         <View className={cx(css.item)} key={raw + "_" + index}>
           <View className={cx(css.thumbnail,"mybricks-thumbnail")}>{fileName[index] ? fileName[index] : raw}</View>
-          <View
-            className={css.remove}
-            onClick={(e) => {
-              onRemoveFile(e, index);
-            }}
-          ></View>
+          {!data.disabled && (
+            <View
+              className={css.remove}
+              onClick={(e) => {
+                onRemoveFile(e, index);
+              }}
+            ></View>
+          )}
         </View>
       );
     });
-  }, [value, fileName]);
+  }, [value, fileName, data.disabled]);
 
   const placeholderText = useMemo(() => {
     if (!data.placeholderText) return null;

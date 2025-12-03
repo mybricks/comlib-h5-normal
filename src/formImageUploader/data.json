@@ -9,5 +9,6 @@
   "required": false,
   "chooseAvatar": false,
   "compressImage": false,
-  "compressQuality": 0.7
+  "compressQuality": 0.7,
+  "disabled": false
 }

@@ -115,6 +115,12 @@ export default function (props) {
     inputs["setPlaceholder"]?.((val, outputRels) => {
       data.placeholderText = val;
     });
+
+    // 设置禁用
+    inputs["setDisabled"]?.((val, outputRels) => {
+      data.disabled = !!val;
+      outputRels["setDisabledComplete"]?.(data.disabled);
+    });
   }, []);
 
   // const onChange = useCallback(
@@ -144,14 +150,18 @@ export default function (props) {
   const onRemoveImage = useCallback(
     (e, index) => {
       e.stopPropagation();
+      if (data.disabled) {
+        return;
+      }
       const newValue = value.filter((_, i) => i !== index);
       setValue(newValue);
     },
-    [value]
+    [value, data.disabled]
   );
 
   const onChooseImage = useCallback(() => {
-    if (env.edit) {
+    console.log("data.disabled", data.disabled);
+    if (env.edit || data.disabled) {
       return;
     }
 
@@ -199,14 +209,17 @@ export default function (props) {
         }
       },
     });
-  }, [env.edit, value, data.maxCount, slots["customUpload"]]);
+  }, [env.edit, data.disabled, value, data.maxCount, slots["customUpload"]]);
 
   const onChooseAvatar = useCallback((res) => {
+    if (data.disabled) {
+      return;
+    }
     let tempPath = res.detail.avatarUrl;
     slots["customUpload"]?.inputs["fileData"]({
       filePath: tempPath,
     });
-  }, []);
+  }, [data.disabled, slots]);
 
   const uploader = useMemo(() => {
     if (data.maxCount && value.length >= data.maxCount) {
@@ -237,7 +250,7 @@ export default function (props) {
         </View>
       );
     }
-  }, [env, value, data.maxCount, data.chooseAvatar, data.iconSlot]);
+  }, [env, value, data.maxCount, data.chooseAvatar, data.iconSlot, data.disabled]);
 
   const thumbnails = useMemo(() => {
     return value.map((raw, index) => {
@@ -254,16 +267,18 @@ export default function (props) {
             mode={"aspectFill"}
             src={raw}
           ></Image>
-          <View
-            className={css.remove}
-            onClick={(e) => {
-              onRemoveImage(e, index);
-            }}
-          ></View>
+          {!data.disabled && (
+            <View
+              className={css.remove}
+              onClick={(e) => {
+                onRemoveImage(e, index);
+              }}
+            ></View>
+          )}
         </View>
       );
     });
-  }, [value]);
+  }, [value, data.disabled]);
 
   const placeholder = useMemo(() => {
     if (!data.placeholder) return null;

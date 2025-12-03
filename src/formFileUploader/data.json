@@ -7,5 +7,6 @@
   "placeholderText": "",
   "required": false,
   "extension": [],
-  "iconSlot": false
+  "iconSlot": false,
+  "disabled": false
 }
