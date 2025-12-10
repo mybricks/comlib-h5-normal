@@ -215,11 +215,14 @@ export default function (props) {
               {displayValue || data.placeholder}
             </View>
             <ArrowRight
-              className={cx({
+              className={cx(
+                {
                 [css.right]: data.arrow === "right",
                 [css.down]: data.arrow === "down",
                 [css.none]: data.arrow === "none",
-              })}
+              },
+              "mybricks-arrow"
+            )}
             />
           </View>
         </Picker>}
@@ -235,11 +238,14 @@ export default function (props) {
               {displayValue || data.placeholder}
             </View>
             <ArrowRight
-              className={cx({
+              className={cx(
+                {
                 [css.right]: data.arrow === "right",
                 [css.down]: data.arrow === "down",
                 [css.none]: data.arrow === "none",
-              })}
+              },
+              "mybricks-arrow"
+            )}
             />
           </View>}
 

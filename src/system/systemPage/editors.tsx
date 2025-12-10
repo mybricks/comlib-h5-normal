@@ -136,74 +136,14 @@ export default {
       cate0.title = "页面";
       cate0.items = [
         {
-          title: "布局",
-          type: "layout",
-          value: {
-            get({ data, slots }) {
-              return data.layout;
-            },
-            set({ data, slots }, value) {
-              data.layout = value;
-              setSlotLayout( slots.get("content"), value);
-            },
-          },
-        },
-        { ...entryPagePathEditor },
-          MybricksTabBarEditor[".mybricks-tabBar"].items[0],
-        {
-          title: "顶部导航栏",
-          items: MybricksNavigationEditor[".mybricks-navigation"].items,
-        },
-        {
-          title: "页面",
+          title: "基础属性",
           items: [
-            {
-              title: "背景配置",
-              type: "styleNew",
-              options: {
-                defaultOpen: true,
-                plugins: ["background"],
-              },
-              value: {
-                get({ data }) {
-                  return {
-                    backgroundColor: data.background,
-                    backgroundImage: data.backgroundImage,
-                    backgroundPosition: data.backgroundPosition || "center top",
-                    backgroundSize: data.backgroundSize,
-                    backgroundRepeat: data.backgroundRepeat || "repeat",
-                  };
-                },
-                set({ data }, value) {
-                  console.log("set", value);
-                  data.backgroundImage =
-                    value?.backgroundImage !== undefined
-                      ? value.backgroundImage
-                      : data.backgroundImage;
-                  let backgroundPosition =
-                    value?.backgroundPosition !== undefined
-                      ? value.backgroundPosition
-                      : data.backgroundPosition;
-                  data.backgroundPosition =
-                    positionTransform(backgroundPosition);
-                  data.backgroundSize =
-                    value?.backgroundSize !== undefined
-                      ? value.backgroundSize
-                      : data.backgroundSize;
-                  data.backgroundRepeat =
-                    value?.backgroundRepeat !== undefined
-                      ? value.backgroundRepeat
-                      : data.backgroundRepeat;
-                  data.background =
-                    value?.backgroundColor !== undefined
-                      ? value.backgroundColor
-                      : data.backgroundColor;
-                },
-              },
-            },
+            { ...entryPagePathEditor },
+            MybricksTabBarEditor[".mybricks-tabBar"].items[0],
             {
               title: "底部空间留存",
               type: "text",
+              description: "设置底部留白空间，避免页面底部内容被遮挡",
               options: {
                 type: "number",
                 min: 0,
@@ -217,180 +157,206 @@ export default {
                 },
               },
             },
+          ]
+        },
+        {
+          title: "顶部栏",
+          items: MybricksNavigationEditor[".mybricks-navigation"].items,
+        },
+        {
+          title: "内容区",
+          items: [
             {
-              title: "禁用页面滚动",
+              title: "布局",
+              type: "layout",
+              value: {
+                get({ data, slots }) {
+                  return data.layout;
+                },
+                set({ data, slots }, value) {
+                  data.layout = value;
+                  setSlotLayout(slots.get("content"), value);
+                },
+              },
+            }
+          ]
+        },
+        {
+          title: "事件",
+          items: [
+            {
+              title: "当页面重新显示时",
+              description:
+                "请注意，当页面第一次显示时，不会触发该事件。仅当页面被打开后，重新显示/切入前台时触发。",
+              type: "_event",
+              options: {
+                outputId: "pageDidShow",
+              },
+            },
+            {
+              title: "当页面隐藏时",
+              type: "_event",
+              options: {
+                outputId: "pageDidHide",
+              },
+            },
+            // {
+            //   title: "分享",
+            //   type: "switch",
+            //   value: {
+            //     get({ data }) {
+            //       return data.enabledShareMessage ?? false;
+            //     },
+            //     set({ data }, value) {
+            //       data.enabledShareMessage = value;
+            //     },
+            //   },
+            // },
+            {
+              title: "分享给朋友",
               type: "switch",
+              description: "打开该选项后，才能开启分享到朋友圈",
               value: {
                 get({ data }) {
-                  return data.disableScroll;
+                  return data.enabledShareAppMessage ?? false;
                 },
                 set({ data }, value) {
-                  data.disableScroll = value;
+                  data.enabledShareAppMessage = value;
                 },
               },
             },
-
             {
-              ifVisible({ data }) {
-                return !data.useTabBar;
+              title: "分享到朋友圈",
+              type: "switch",
+              ifVisible({ data }: EditorResult<Data>) {
+                return data?.enabledShareAppMessage;
               },
-              title: "开启页脚容器",
+              description: "开启分享给朋友后，该选项才能生效",
+              value: {
+                get({ data }) {
+                  return data.enabledShareTimeline ?? false;
+                },
+                set({ data }, value) {
+                  data.enabledShareTimeline = value;
+                },
+              },
+            },
+            {
+              title: "下拉刷新",
               type: "switch",
               value: {
                 get({ data }) {
-                  return data.useFooter;
+                  return data.enabledPulldown;
                 },
-                set({ data, slot }, value) {
-                  data.useFooter = value;
-    
+                set({ data, slots }, value) {
+                  data.enabledPulldown = value;
+                },
+              },
+            },
+            {
+              title: "当下拉刷新触发时",
+              ifVisible({ data }) {
+                return data.enabledPulldown;
+              },
+              type: "_event",
+              options: {
+                outputId: "pulldown",
+              },
+            },
+            {
+              title: "开启页面 Loading",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.useLoading;
+                },
+                set({ data, input }, value) {
+                  data.useLoading = value;
+
                   if (value) {
-                    slot.add("footerBar", "页脚容器");
+                    input.add("ready", "初始化完成", { type: "any" });
                   } else {
-                    slot.remove("footerBar");
+                    input.remove("ready");
                   }
                 },
               },
             },
-            {
-              title: "页面地址",
-              type: "editorRender",
-              options: {
-                render: (props) => {
-                  let url = `/pages/${props.editConfig.value.get()}/index`;
-    
-                  const onCopy = (text) => {
-                    const textarea = document.createElement("textarea");
-                    textarea.value = text;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(textarea);
-    
-                    message.success("复制成功");
-                  };
-    
-                  return (
-                    <div
-                      className={css.pagePath}
-                      onClick={() => {
-                        onCopy(url);
-                      }}
-                    >
-                      <div className={css.url}>{url}</div>
-                      <div className={css.copy}></div>
-                    </div>
-                  );
-                },
-              },
-              value: {
-                get({ data }) {
-                  return data.id;
-                },
-              },
-            },
-            {
-              title: "页面别名",
-              description: "如果设置了页面别名，则将使用别名覆盖默认页面地址，多张页面设置别名时，所设置的值请勿重复",
-              type: "editorRender",
-              options: {
-                render: (props) => {
-                  let url = `/pages/${props.editConfig.value.get()}/index`;
-    
-                  return (
-                    <div className={css.pageAlias}>
-                      <div className={css.url}>
-                        {
-                          <Input
-                            className={css.input}
-                            defaultValue={props.editConfig.value.get()}
-                            onChange={(e) => {
-                              let value = e.target.value;
-                              props.editConfig.value.set(value);
-                            }}
-                          />
-                        }
-                      </div>
-                    </div>
-                  );
-                },
-              },
-              value: {
-                get({ data }) {
-                  return data.alias || "";
-                },
-                set({ data }, val) {
-                  data.alias = val;
-                },
-              },
-            },
-            // {
-            //   title: "大小",
-            //   type: "select",
-            //   options: [
-            //     { label: "填充（无留白）", value: "cover" },
-            //     { label: "适应（有留白）", value: "contain" },
-            //     { label: "拉伸", value: "100% 100%" },
-            //     { label: "原始大小", value: "auto" },
-            //   ],
-            //   value: {
-            //     get({ data }) {
-            //       return data.backgroundSize || "cover";
-            //     },
-            //     set({ data }, value) {
-            //       data.backgroundSize = value;
-            //     },
-            //   },
-            // },
-            // {
-            //   title: "平铺",
-            //   type: "select",
-            //   options: [
-            //     { label: "平铺", value: "repeat" },
-            //     { label: "不平铺", value: "no-repeat" },
-            //   ],
-            //   ifVisible({ data }: EditorResult<Data>) {
-            //     return (
-            //       data.backgroundSize === "contain" ||
-            //       data.backgroundSize === "auto"
-            //     );
-            //   },
-            //   value: {
-            //     get({ data }) {
-            //       return data.backgroundRepeat || "repeat";
-            //     },
-            //     set({ data }, value) {
-            //       data.backgroundRepeat = value;
-            //     },
-            //   },
-            // },
-            // {
-            //   title: "位置",
-            //   type: "select",
-            //   options: [
-            //     { label: "居上", value: "top" },
-            //     { label: "居中", value: "center" },
-            //     { label: "居下", value: "bottom" },
-            //     { label: "居左", value: "left" },
-            //     { label: "居右", value: "right" },
-            //     { label: "左上", value: "top left" },
-            //     { label: "左下", value: "bottom left" },
-            //     { label: "右上", value: "top right" },
-            //     { label: "右下", value: "bottom right" },
-            //   ],
-            //   ifVisible({ data }: EditorResult<Data>) {
-            //     return data.backgroundSize !== "100% 100%";
-            //   },
-            //   value: {
-            //     get({ data }) {
-            //       return data.backgroundPosition || "top";
-            //     },
-            //     set({ data }, value) {
-            //       data.backgroundPosition = value;
-            //     },
-            //   },
-            // },
-          ],
+          ]
         },
+        // {
+        //   title: "页面",
+        //   items: [
+
+
+            
+        //     // {
+        //     //   title: "大小",
+        //     //   type: "select",
+        //     //   options: [
+        //     //     { label: "填充（无留白）", value: "cover" },
+        //     //     { label: "适应（有留白）", value: "contain" },
+        //     //     { label: "拉伸", value: "100% 100%" },
+        //     //     { label: "原始大小", value: "auto" },
+        //     //   ],
+        //     //   value: {
+        //     //     get({ data }) {
+        //     //       return data.backgroundSize || "cover";
+        //     //     },
+        //     //     set({ data }, value) {
+        //     //       data.backgroundSize = value;
+        //     //     },
+        //     //   },
+        //     // },
+        //     // {
+        //     //   title: "平铺",
+        //     //   type: "select",
+        //     //   options: [
+        //     //     { label: "平铺", value: "repeat" },
+        //     //     { label: "不平铺", value: "no-repeat" },
+        //     //   ],
+        //     //   ifVisible({ data }: EditorResult<Data>) {
+        //     //     return (
+        //     //       data.backgroundSize === "contain" ||
+        //     //       data.backgroundSize === "auto"
+        //     //     );
+        //     //   },
+        //     //   value: {
+        //     //     get({ data }) {
+        //     //       return data.backgroundRepeat || "repeat";
+        //     //     },
+        //     //     set({ data }, value) {
+        //     //       data.backgroundRepeat = value;
+        //     //     },
+        //     //   },
+        //     // },
+        //     // {
+        //     //   title: "位置",
+        //     //   type: "select",
+        //     //   options: [
+        //     //     { label: "居上", value: "top" },
+        //     //     { label: "居中", value: "center" },
+        //     //     { label: "居下", value: "bottom" },
+        //     //     { label: "居左", value: "left" },
+        //     //     { label: "居右", value: "right" },
+        //     //     { label: "左上", value: "top left" },
+        //     //     { label: "左下", value: "bottom left" },
+        //     //     { label: "右上", value: "top right" },
+        //     //     { label: "右下", value: "bottom right" },
+        //     //   ],
+        //     //   ifVisible({ data }: EditorResult<Data>) {
+        //     //     return data.backgroundSize !== "100% 100%";
+        //     //   },
+        //     //   value: {
+        //     //     get({ data }) {
+        //     //       return data.backgroundPosition || "top";
+        //     //     },
+        //     //     set({ data }, value) {
+        //     //       data.backgroundPosition = value;
+        //     //     },
+        //     //   },
+        //     // },
+        //   ],
+        // },
 
         // {
         //   title: "顶部下拉背景色",
@@ -418,12 +384,12 @@ export default {
         //     },
         //   },
         // },
-        
 
-        
-        
-        
-       
+
+
+
+
+
         // {
         //   title: "骨架屏",
         //   items: [
@@ -470,108 +436,97 @@ export default {
         // },
       ];
 
-      cate1.title = "事件";
+      cate1.title = "样式";
       cate1.items = [
         {
-          title: "当页面重新显示时",
-          description:
-            "请注意，当页面第一次显示时，不会触发该事件。仅当页面被打开后，重新显示/切入前台时触发。",
-          type: "_event",
-          options: {
-            outputId: "pageDidShow",
-          },
-        },
-        {
-          title: "当页面隐藏时",
-          type: "_event",
-          options: {
-            outputId: "pageDidHide",
-          },
-        },
-        // {
-        //   title: "分享",
-        //   type: "switch",
-        //   value: {
-        //     get({ data }) {
-        //       return data.enabledShareMessage ?? false;
-        //     },
-        //     set({ data }, value) {
-        //       data.enabledShareMessage = value;
-        //     },
-        //   },
-        // },
-        {
-          title: "分享给朋友",
-          type: "switch",
-          description:"打开该选项后，才能开启分享到朋友圈",
+          title: "导航栏标题颜色",
+          type: "radio",
+          options: [
+            {
+              label: "黑色",
+              value: "black",
+            },
+            {
+              label: "白色",
+              value: "white",
+            },
+          ],
           value: {
             get({ data }) {
-              return data.enabledShareAppMessage ?? false;
+              return data.navigationBarTextStyle;
             },
             set({ data }, value) {
-              data.enabledShareAppMessage = value;
+              data.navigationBarTextStyle = value;
             },
           },
         },
         {
-          title: "分享到朋友圈",
-          type: "switch",
-          ifVisible({ data }: EditorResult<Data>) {
-            return data?.enabledShareAppMessage;
-          },
-          description:"开启分享给朋友后，该选项才能生效",
-          value: {
-            get({ data }) {
-              return data.enabledShareTimeline ?? false;
-            },
-            set({ data }, value) {
-              data.enabledShareTimeline = value;
-            },
-          },
-        },
-        {
-          title: "下拉刷新",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.enabledPulldown;
-            },
-            set({ data, slots }, value) {
-              data.enabledPulldown = value;
-            },
-          },
-        },
-        {
-          title: "当下拉刷新触发时",
           ifVisible({ data }) {
-            return data.enabledPulldown;
+            return data.useNavigationStyle === "default";
           },
-          type: "_event",
-          options: {
-            outputId: "pulldown",
-          },
-        },
-        {
-          title: "开启页面 Loading",
-          type: "switch",
+          title: "导航栏背景颜色",
+          description: "只能支持单色，不支持渐变色",
+          type: "colorpicker",
           value: {
             get({ data }) {
-              return data.useLoading;
+              return data.navigationBarBackgroundColor;
             },
-            set({ data, input }, value) {
-              data.useLoading = value;
-
-              if (value) {
-                input.add("ready", "初始化完成", { type: "any" });
-              } else {
-                input.remove("ready");
-              }
+            set({ data }, value) {
+              data.navigationBarBackgroundColor = value;
+            },
+          },
+          // binding: {
+          //   with: 'data.navigationBarBackgroundColor',
+          //   scheme: {
+          //     type: 'string'
+          //   }
+          // }
+        },
+        {
+          title: "背景配置",
+          type: "styleNew",
+          description: "配置页面背景颜色或图片（支持渐变色）",
+          options: {
+            defaultOpen: true,
+            plugins: ["background"],
+          },
+          value: {
+            get({ data }) {
+              return {
+                backgroundColor: data.background,
+                backgroundImage: data.backgroundImage,
+                backgroundPosition: data.backgroundPosition || "center top",
+                backgroundSize: data.backgroundSize,
+                backgroundRepeat: data.backgroundRepeat || "repeat",
+              };
+            },
+            set({ data }, value) {
+              console.log("set", value);
+              data.backgroundImage =
+                value?.backgroundImage !== undefined
+                  ? value.backgroundImage
+                  : data.backgroundImage;
+              let backgroundPosition =
+                value?.backgroundPosition !== undefined
+                  ? value.backgroundPosition
+                  : data.backgroundPosition;
+              data.backgroundPosition =
+                positionTransform(backgroundPosition);
+              data.backgroundSize =
+                value?.backgroundSize !== undefined
+                  ? value.backgroundSize
+                  : data.backgroundSize;
+              data.backgroundRepeat =
+                value?.backgroundRepeat !== undefined
+                  ? value.backgroundRepeat
+                  : data.backgroundRepeat;
+              data.background =
+                value?.backgroundColor !== undefined
+                  ? value.backgroundColor
+                  : data.backgroundColor;
             },
           },
         },
-        
-        
-
       ];
 
       (cate2.title = "高级"),
@@ -589,6 +544,112 @@ export default {
               },
             }
           },
+          {
+              title: "禁用页面滚动",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.disableScroll;
+                },
+                set({ data }, value) {
+                  data.disableScroll = value;
+                },
+              },
+            },
+
+            {
+              ifVisible({ data }) {
+                return !data.useTabBar;
+              },
+              title: "开启页脚容器",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.useFooter;
+                },
+                set({ data, slot }, value) {
+                  data.useFooter = value;
+
+                  if (value) {
+                    slot.add("footerBar", "页脚容器");
+                  } else {
+                    slot.remove("footerBar");
+                  }
+                },
+              },
+            },
+            {
+              title: "页面地址",
+              type: "editorRender",
+              options: {
+                render: (props) => {
+                  let url = `/pages/${props.editConfig.value.get()}/index`;
+
+                  const onCopy = (text) => {
+                    const textarea = document.createElement("textarea");
+                    textarea.value = text;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(textarea);
+
+                    message.success("复制成功");
+                  };
+
+                  return (
+                    <div
+                      className={css.pagePath}
+                      onClick={() => {
+                        onCopy(url);
+                      }}
+                    >
+                      <div className={css.url}>{url}</div>
+                      <div className={css.copy}></div>
+                    </div>
+                  );
+                },
+              },
+              value: {
+                get({ data }) {
+                  return data.id;
+                },
+              },
+            },
+            {
+              title: "页面别名",
+              description: "如果设置了页面别名，则将使用别名覆盖默认页面地址，多张页面设置别名时，所设置的值请勿重复",
+              type: "editorRender",
+              options: {
+                render: (props) => {
+                  let url = `/pages/${props.editConfig.value.get()}/index`;
+
+                  return (
+                    <div className={css.pageAlias}>
+                      <div className={css.url}>
+                        {
+                          <Input
+                            className={css.input}
+                            defaultValue={props.editConfig.value.get()}
+                            onChange={(e) => {
+                              let value = e.target.value;
+                              props.editConfig.value.set(value);
+                            }}
+                          />
+                        }
+                      </div>
+                    </div>
+                  );
+                },
+              },
+              value: {
+                get({ data }) {
+                  return data.alias || "";
+                },
+                set({ data }, val) {
+                  data.alias = val;
+                },
+              },
+            },
           // {
           //   title: "偷偷的upgrade",
           //   type: "button",

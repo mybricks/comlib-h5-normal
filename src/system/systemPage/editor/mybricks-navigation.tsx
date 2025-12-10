@@ -33,7 +33,7 @@ export default {
                 data.navigationStyle = "default";
                 try {
                   slot.remove("mainSlot");
-                } catch (e) {}
+                } catch (e) { }
                 break;
               case "custom":
                 data.navigationStyle = "custom";
@@ -44,7 +44,7 @@ export default {
                 data.navigationStyle = "custom";
                 try {
                   slot.remove("mainSlot");
-                } catch (e) {}
+                } catch (e) { }
                 break;
             }
           },
@@ -119,54 +119,12 @@ export default {
         }
       },
       {
-        title: "导航栏标题颜色",
-        type: "radio",
-        options: [
-          {
-            label: "黑色",
-            value: "black",
-          },
-          {
-            label: "白色",
-            value: "white",
-          },
-        ],
-        value: {
-          get({ data }) {
-            return data.navigationBarTextStyle;
-          },
-          set({ data }, value) {
-            data.navigationBarTextStyle = value;
-          },
-        },
-      },
-      {
-        ifVisible({ data }) {
-          return data.useNavigationStyle === "default";
-        },
-        title: "导航栏背景颜色",
-        type: "colorpicker",
-        value: {
-          get({ data }) {
-            return data.navigationBarBackgroundColor;
-          },
-          set({ data }, value) {
-            data.navigationBarBackgroundColor = value;
-          },
-        },
-        // binding: {
-        //   with: 'data.navigationBarBackgroundColor',
-        //   scheme: {
-        //     type: 'string'
-        //   }
-        // }
-      },
-      {
         ifVisible({ data }) {
           return data.useNavigationStyle === "default";
         },
         title:
-          "在非首页、非页面栈最底层页面或非tabbar内页面中的导航栏展示home键",
+          "展示home键",
+        description: "仅在非首页、非页面栈最底层页面或非tabbar内页面中展示",
         type: "switch",
         value: {
           get({ data }) {
@@ -254,7 +212,7 @@ export default {
     style: [
       {
         title: "样式",
-        options: ["size","color"],
+        options: ["size", "color"],
         target: ".mybricks-navTitle",
       },
     ],

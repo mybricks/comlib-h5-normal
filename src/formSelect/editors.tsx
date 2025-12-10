@@ -30,6 +30,18 @@ export default {
         },
       },
       {
+        title: "箭头样式",
+        options: [
+          "font",
+          "border",
+          "padding",
+          "background",
+          "boxShadow",
+          "margin",
+        ],
+        target: [".mybricks-arrow"],
+      },
+      {
         title: "输入框",
         options: ["border", "size", "padding", "background"],
         target({ id }) {

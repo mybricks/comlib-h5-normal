@@ -14,12 +14,9 @@
     "mainSlotStyle": {},
     "useFixed": true
   },
-
   "useTabBar": true,
   "tabBar": [],
-
   "background": "#ffffff",
-
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
   "backgroundColor": "#464646",
@@ -29,7 +26,6 @@
   "disableScroll": false,
   "disableSwipeBack": false,
   "useFooter": false,
-
   "useSkeleton": false,
   "skeleton": [
     {
@@ -45,6 +41,9 @@
       "type": "paragraph"
     }
   ],
+  "layout": {
+    "position": "smart"
+  },
   "bottomSpace": 30,
   "useLoading": false,
   "backgroundSize": "cover",
