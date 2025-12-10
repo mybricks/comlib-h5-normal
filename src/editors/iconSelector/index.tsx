@@ -77,7 +77,6 @@ export default function ({ value }) {
         closable={false}
         destroyOnClose={true}
         visible={visible}
-        onClose={close}
         width={390}
         getContainer={() => document.querySelector('div[class^="lyStage-"]')}
         style={{ position: "absolute" }}
@@ -85,7 +84,7 @@ export default function ({ value }) {
         <div className={css.sticky}>
           <div className={css["drawerTitle"]}>
             {"选择图标"}
-            <Cross onClick={close} />
+            <Cross onClick={toggle} />
           </div>
           <div className={css.styleChoose}>
             <div>
