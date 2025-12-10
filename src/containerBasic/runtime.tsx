@@ -22,7 +22,7 @@ export default function ({ env, data, slots, inputs, outputs }) {
     <View className={cx(css.container, "mybricks-container")} onClick={onClick}>
       {slots["content"].render({
         style: {
-          ...data.layout,
+          ...data.layout || { position: "smart"},
         },
       })}
     </View>

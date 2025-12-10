@@ -10,22 +10,21 @@ label: string = "密码输入"
 name: string = "密码输入"
 placeholder: string = "请输入密码"
 
-schema声明
-form-item
+schema=mybricks.taro.formContainer/formItem
 
 styleAry声明
-输入框: .input
+输入框:
   - 默认样式:
     - border: none
   - 可编辑样式: 
     - 无（非必要不加边框，不然会有割裂感）
-内容文本: .text
+内容文本:
   - 默认样式:
     - color: #323233
     - textAlign: left
     - fontSize: 14px
   - 可编辑样式: color、fontSize、textAlign
-提示文本: .placeholder
+提示文本:
   - 默认样式: 
     - color: #c0c0c0
   - 可编辑样式: color、fontSize

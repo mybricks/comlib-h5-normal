@@ -1,8 +1,8 @@
 {
   "useNavigationStyle": "default",
   "navigationStyle": "default",
-  "navigationBarBackgroundColor": "#464646",
-  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
   "navigationBarTitleText": "页面标题",
   "backgroundColorTop": "#ffffff",
   "backgroundColorBottom": "#ffffff",
@@ -45,9 +45,6 @@
       "type": "paragraph"
     }
   ],
-  "layout": {
-    "position": "smart"
-  },
   "bottomSpace": 30,
   "useLoading": false,
   "backgroundSize": "cover",

@@ -1,5 +1,5 @@
 export default {
-  // ignore: true,
+  ignore: false,
   ':root' ({ data }) {
     return {}
   },

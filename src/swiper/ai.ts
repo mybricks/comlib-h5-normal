@@ -3,34 +3,16 @@ export default {
     return {}
   },
   prompts: {
-    summary: '轮播，支持图片轮播',
-    usage: `data声明
-items: [
-  {
-    _id: string
-    thumbnail: string
-  }
-]
-
+    summary: `轮播，下方带指示器的轮播容器，支持图片轮播，自定义内容轮播。
+何时使用：不是用于横滑的组件，横滑使用容器配置内容溢出为滚动即可。`,
+    usage: `轮播，下方带指示器的轮播容器，支持图片轮播，自定义内容轮播。
 slots插槽
-无
+slot_{_id}: 轮播插槽内容，跟着当前item的_id走，仅在自定义内容时存在
 
-styleAry声明
-轮播容器: .mybricks-swiper-wrapper
-
-使用案例：展示轮播图
-\`\`\`dsl file="page.dsl"
-<mybricks.harmony.swiper
-  title="tab"
-  layout={{ width: '100%', height: 120 }}
-  data={{ 
-    items: [{ _id: "item1", thumbnail: "https://" },{ _id: "item2", thumbnail: "https://" }],
-    contentType: 'image',
-  }}
-> // 注意: contentType为image时，没有插槽
-</mybricks.harmony.swiper>
-\`\`\`
-
-注意：对于轮播图必须给定高度。`
+注意：
+- 轮播类型，如果是图片，配置链接即可，如果是自定义内容，需要配置轮播项，并且向插槽内添加子组件来渲染，注意自定义轮播项的插槽key=slot_{_id}
+- 对于轮播图必须给定高度、自定义内容轮播组件则建议fit-content。
+- 对于展示轮播内容，你要作为一个产品经理进行深度思考（比如：有些自定义轮播是一个轮播项里面可以放多个子项目的，整体有多个轮播项；不是一个轮播项对应一个子项目，这样信息效率会很低，不合理）
+`
   }
 }

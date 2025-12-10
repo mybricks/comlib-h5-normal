@@ -27,7 +27,9 @@ export default {
           type: "layout",
           value: {
             get({ data }) {
-              return data.layout;
+              return data?.layout || {
+                "position": "smart"
+              };
             },
             set({ data, slots }, val) {
               data.layout = val;
