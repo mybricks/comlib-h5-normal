@@ -5,20 +5,12 @@
   "author_name": "板砖团队",
   "icon": "./icon.svg",
   "version": "1.0.0",
-  "description": "按钮",
+  "description": "图标",
   "runtime": "./runtime.tsx",
   "data": "./data.json",
+  "ai": "./ai.ts",
   "editors": "./editors.tsx",
-  "inputs": [
-    {
-      "id": "setBadgeContent",
-      "title": "设置徽标内容",
-      "description": "徽标内容",
-      "schema": {
-        "type": "string"
-      }
-    }
-  ],
+  "inputs": [],
   "outputs": [
     {
       "id": "onClick",

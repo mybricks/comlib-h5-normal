@@ -1,25 +1,19 @@
 import React, { useCallback, useMemo, useState } from "react";
-import * as Icons from "@taroify/icons";
 import { Cross } from "@taroify/icons";
 import css from "./index.less";
-import { basicIcons, filledIcons, outlinedIcons } from "./icons";
+import { TaroifyIcons } from "../../components/dynamic-icon/icons";
+import DynamicIcon from "../../components/dynamic-icon";
 
-const { Drawer, Radio } = window.antd ?? {}
+const { Drawer, Radio } = window.antd ?? {};
 
 const Icon = (props: any) => {
   const { type, size, className } = props;
-
-  // @ts-ignore
-  const RenderIcon = Icons[type];
-
-  if (!RenderIcon) return <></>;
-
-  return <RenderIcon className={className} size={size || 24} />;
+  return <DynamicIcon className={className} size={size || 24} name={type} />;
 };
 
 export default function ({ value }) {
   const [visible, setVisible] = useState(false);
-  const [iconSet, setIconSet] = useState("basic");
+  const [iconSet, setIconSet] = useState(TaroifyIcons[0]?.title);
 
   const _setValue = useCallback(
     (icon) => {
@@ -33,10 +27,10 @@ export default function ({ value }) {
     setVisible(!visible);
   }, [visible]);
 
-  const renderBasicIcons = useMemo(() => {
+  const renderIcons = useCallback((icons) => {
     return (
       <div className={css["icon-list"]}>
-        {basicIcons.map((icon) => {
+        {Object.keys(icons).map((icon) => {
           return (
             <div
               className={css["icon-item"]}
@@ -57,59 +51,7 @@ export default function ({ value }) {
         <div className={css["icon-item-placeholder"]}></div>
       </div>
     );
-  }, [basicIcons]);
-
-  const renderOutlinedIcons = useMemo(() => {
-    return (
-      <div className={css["icon-list"]}>
-        {outlinedIcons.map((icon) => {
-          return (
-            <div
-              className={css["icon-item"]}
-              onClick={() => {
-                _setValue(icon);
-              }}
-              key={icon}
-            >
-              <Icon type={icon} />
-            </div>
-          );
-        })}
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-      </div>
-    );
-  }, [outlinedIcons]);
-
-  const renderFilledIcons = useMemo(() => {
-    return (
-      <div className={css["icon-list"]}>
-        {filledIcons.map((icon) => {
-          return (
-            <div
-              className={css["icon-item"]}
-              onClick={() => {
-                _setValue(icon);
-              }}
-              key={icon}
-            >
-              <Icon type={icon} />
-            </div>
-          );
-        })}
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-        <div className={css["icon-item-placeholder"]}></div>
-      </div>
-    );
-  }, [filledIcons]);
+  }, []);
 
   return (
     <div className={css["editor-icon"]}>
@@ -151,17 +93,19 @@ export default function ({ value }) {
                 value={iconSet}
                 onChange={(e) => setIconSet(e.target.value)}
               >
-                <Radio.Button value="basic">基础图标</Radio.Button>
-                <Radio.Button value="outLined">线框风格</Radio.Button>
-                <Radio.Button value="Filled">实底风格</Radio.Button>
+                {TaroifyIcons.map((icons) => {
+                  return (
+                    <Radio.Button value={icons.title}>
+                      {icons.title}
+                    </Radio.Button>
+                  );
+                })}
               </Radio.Group>
             </div>
           </div>
         </div>
         <div>
-          {iconSet === "basic" ? renderBasicIcons : null}
-          {iconSet === "outLined" ? renderOutlinedIcons : null}
-          {iconSet === "Filled" ? renderFilledIcons : null}
+          {renderIcons(TaroifyIcons.find((t) => t.title === iconSet)?.icons)}
         </div>
       </Drawer>
     </div>

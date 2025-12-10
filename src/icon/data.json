@@ -1,12 +1,5 @@
 {
-  "useLabel": false,
-  "labelContent": "",
-  "labelStyle": {},
-
-  "icon": "ChatOutlined",
-  "iconColor": "#1989fa",
-  "iconSize": "40",
-
-  "badgeContent": "",
-  "autoClearBadgeWhenClick": true
+  "icon": "SettingOutlined",
+  "fontColor": "#000000",
+  "fontSize": 24
 }
