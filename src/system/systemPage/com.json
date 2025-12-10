@@ -9,6 +9,7 @@
   "data": "./data.json",
   "upgrade": "./upgrade.ts",
   "editors": "./editors.tsx",
+  "ai": "./ai.ts",
   "icon": "./icon.svg",
   "inputs": [
     {

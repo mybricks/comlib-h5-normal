@@ -336,7 +336,7 @@ export default function (props) {
   }, []);
 
   const slotStyle = useMemo(() => {
-    if (data.layout?.position === "smart") {
+    if (data?.layout?.position === "smart") {
       return {
         overflow: "visible", // overflow 必须是visible，用于覆盖render-web给的overflow: hidden，否则子元素的sticky不生效
         // overflow: "hidden auto", // auto 会导致页面出现滚动条
@@ -349,9 +349,9 @@ export default function (props) {
       height: "fit-content !important", // 防止margin重叠用，触发BFC，不可以删除
       // display: "inline-block", // 防止margin重叠用，触发BFC，不可以删除
       // paddingBottom: `${data.bottomSpace}px`,
-      ...data.layout,
+      ...data?.layout,
     };
-  }, [data.layout, data.bottomSpace]);
+  }, [data?.layout, data.bottomSpace]);
 
   let background = useMemo(() => {
     let result = {};
