@@ -147,205 +147,17 @@ export default {
   },
   ":root"({ data, output, style }, cate0, cate1, cate2) {
     cate0.title = "常规";
+    cate0.catelogChange = {
+      value: {
+        get({ data }) {
+          return data._edit_status_;
+        },
+        set({ data, catelog }) {
+          data._edit_status_ = catelog;
+        },
+      },
+    };
     cate0.items = [
-      {
-        title: "列表初始高度",
-        description: "如果设置为 0，组件将不展示占位状态",
-        type: "Text",
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.layout.minHeight;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.layout.minHeight = +value;
-            }
-          },
-        },
-      },
-      {},
-      {
-        catelogChange: {
-          value: {
-            get({ data }) {
-              return data._edit_status_;
-            },
-            set({ data, catelog }) {
-              data._edit_status_ = catelog;
-            },
-          },
-        },
-        items: [
-          {
-            title: "类型",
-            type: "select",
-            catelog: "默认",
-            options: [
-              {
-                label: "网格布局",
-                value: "grid",
-              },
-              {
-                label: "瀑布流布局",
-                value: "waterfall",
-              },
-            ],
-            value: {
-              get({ data }) {
-                return data.layout.type;
-              },
-              set({ data }, value: string) {
-                data.layout.type = value;
-              },
-            },
-          },
-          {
-            title: "列数",
-            type: "Text",
-            catelog: "默认",
-            options: {
-              type: "number",
-            },
-            value: {
-              get({ data }) {
-                return data.layout.column;
-              },
-              set({ data }, value: number) {
-                if (value) {
-                  data.layout.column = +value;
-                }
-              },
-            },
-          },
-          {
-            title: "列表项间距",
-            type: "inputnumber",
-            catelog: "默认",
-            options: [
-              { title: "行间距", min: 0, width: 80 },
-              { title: "列间距", min: 0, width: 80 },
-            ],
-            value: {
-              get({ data }) {
-                return data.layout.gutter;
-              },
-              set({ data }, value: number[]) {
-                data.layout.gutter = value;
-              },
-            },
-          },
-          {
-            catelog: "加载中",
-            type: "editorRender",
-            options: {
-              render: () => {
-                return <></>;
-              },
-            },
-          },
-          {
-            title: "初始状态",
-            catelog: "加载中",
-            items: [...loadingOptions],
-          },
-          {
-            title: "状态条",
-            catelog: "加载中",
-            items: [...loadingBarOptions],
-          },
-          {
-            title: "初始状态",
-            catelog: "加载失败",
-            items: [...errorOptions],
-          },
-          {
-            title: "状态条",
-            catelog: "加载失败",
-            items: [...errorBarOptions],
-          },
-          {
-            title: "初始状态",
-            catelog: "没有更多",
-            items: [...emptyOptions],
-          },
-          {
-            title: "状态条",
-            catelog: "没有更多",
-            items: [...emptyBarOptions],
-          },
-        ],
-      },
-      {},
-      {
-        title: "分页配置",
-        items: [
-          {
-            title: "开启触底加载",
-            type: "switch",
-            value: {
-              get({ data }) {
-                return data.enableLoadMore;
-              },
-              set({ data }, value) {
-                data.enableLoadMore = value;
-              },
-            },
-          },
-          {
-            title: "起始页码",
-            type: "Text",
-            ifVisible: ({ data }) => {
-              return data.enableLoadMore;
-            },
-            options: {
-              type: "number",
-            },
-            value: {
-              get({ data }) {
-                return data.pagenation.page;
-              },
-              set({ data }, value: number) {
-                if (value) {
-                  data.pagenation.page = +value;
-                }
-              },
-            },
-          },
-          {
-            title: "每次加载条数",
-            type: "Text",
-            ifVisible: ({ data }) => {
-              return data.enableLoadMore;
-            },
-            options: {
-              type: "number",
-            },
-            value: {
-              get({ data }) {
-                return data.pagenation.pageSize;
-              },
-              set({ data }, value: number) {
-                if (value) {
-                  data.pagenation.pageSize = +value;
-                }
-              },
-            },
-          },
-          {
-            title: "当触发加载时",
-            type: "_event",
-            ifVisible: ({ data }) => {
-              return data.enableLoadMore;
-            },
-            options: {
-              outputId: "onScrollLoad",
-            },
-          },
-        ],
-      },
       {
         type: "editorRender",
         options: {
@@ -380,9 +192,181 @@ export default {
           },
         },
       },
+      {
+        title: "列表初始高度",
+        description: "如果设置为 0，组件将不展示占位状态",
+        type: "Text",
+        catelog: "默认",
+        options: {
+          type: "number",
+        },
+        value: {
+          get({ data }) {
+            return data.layout.minHeight;
+          },
+          set({ data }, value: number) {
+            if (value) {
+              data.layout.minHeight = +value;
+            }
+          },
+        },
+      },
+      {
+        title: "类型",
+        type: "select",
+        catelog: "默认",
+        options: [
+          {
+            label: "网格布局",
+            value: "grid",
+          },
+          {
+            label: "瀑布流布局",
+            value: "waterfall",
+          },
+        ],
+        value: {
+          get({ data }) {
+            return data.layout.type;
+          },
+          set({ data }, value: string) {
+            data.layout.type = value;
+          },
+        },
+      },
+      {
+        title: "列数",
+        type: "Text",
+        catelog: "默认",
+        options: {
+          type: "number",
+        },
+        value: {
+          get({ data }) {
+            return data.layout.column;
+          },
+          set({ data }, value: number) {
+            if (value) {
+              data.layout.column = +value;
+            }
+          },
+        },
+      },
+      {
+        title: "列表项间距",
+        type: "inputnumber",
+        catelog: "默认",
+        options: [
+          { title: "行间距", min: 0, width: 80 },
+          { title: "列间距", min: 0, width: 80 },
+        ],
+        value: {
+          get({ data }) {
+            return data.layout.gutter;
+          },
+          set({ data }, value: number[]) {
+            data.layout.gutter = value;
+          },
+        },
+      },
+      {
+        title: "初始状态",
+        catelog: "加载中",
+        items: [...loadingOptions],
+      },
+      {
+        title: "状态条",
+        catelog: "加载中",
+        items: [...loadingBarOptions],
+      },
+      {
+        title: "初始状态",
+        catelog: "加载失败",
+        items: [...errorOptions],
+      },
+      {
+        title: "状态条",
+        catelog: "加载失败",
+        items: [...errorBarOptions],
+      },
+      {
+        title: "初始状态",
+        catelog: "没有更多",
+        items: [...emptyOptions],
+      },
+      {
+        title: "状态条",
+        catelog: "没有更多",
+        items: [...emptyBarOptions],
+      },
     ];
-    cate1.title = "高级";
+    cate1.title = "分页";
     cate1.items = [
+      {
+        title: "开启触底加载",
+        type: "switch",
+        value: {
+          get({ data }) {
+            return data.enableLoadMore;
+          },
+          set({ data }, value) {
+            data.enableLoadMore = value;
+          },
+        },
+      },
+      {
+        title: "起始页码",
+        type: "Text",
+        ifVisible: ({ data }) => {
+          return data.enableLoadMore;
+        },
+        options: {
+          type: "number",
+        },
+        value: {
+          get({ data }) {
+            return data.pagenation.page;
+          },
+          set({ data }, value: number) {
+            if (value) {
+              data.pagenation.page = +value;
+            }
+          },
+        },
+      },
+      {
+        title: "每次加载条数",
+        type: "Text",
+        ifVisible: ({ data }) => {
+          return data.enableLoadMore;
+        },
+        options: {
+          type: "number",
+        },
+        value: {
+          get({ data }) {
+            return data.pagenation.pageSize;
+          },
+          set({ data }, value: number) {
+            if (value) {
+              data.pagenation.pageSize = +value;
+            }
+          },
+        },
+      },
+      {
+        title: "当触发加载时",
+        type: "_event",
+        ifVisible: ({ data }) => {
+          return data.enableLoadMore;
+        },
+        options: {
+          outputId: "onScrollLoad",
+        },
+      },
+    ];
+    cate2.title = "高级";
+    cate2.items = [
       {
         title: "唯一主键",
         type: "text",

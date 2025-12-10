@@ -95,9 +95,10 @@ export default {
         //   },
         // },
         {
-          title:"默认展示状态",
-          type:"radio",
-          description:"静态：原样显示文本；隐藏：在加载完成之前不显示任何内容；骨架：加载过程显示动效",
+          title: "默认展示状态",
+          type: "radio",
+          description:
+            "静态：原样显示文本；隐藏：在加载完成之前不显示任何内容；骨架：加载过程显示动效",
           options: [
             { label: "静态", value: "static" },
             { label: "隐藏", value: "hidden" },
@@ -124,40 +125,36 @@ export default {
             },
             {
               title: "长按",
-              items: [
-                {
-                  type: "select",
-                  options: [
-                    { label: "无", value: "none" },
-                    { label: "提示气泡框", value: "tooltip" },
-                    { label: "自定义", value: "custom" },
-                  ],
-                  value: {
-                    get({ data }) {
-                      return data.useLongPress;
-                    },
-                    set({ data }, val) {
-                      data.useLongPress = val;
-
-                      if (val === "custom") {
-                        output.add("onLongPress", "长按", { type: "string" });
-                      } else {
-                        output.remove("onLongPress");
-                      }
-                    },
-                  },
-                },
-                {
-                  ifVisible({ data }) {
-                    return data.useLongPress === "custom";
-                  },
-                  title: "自定义事件",
-                  type: "_event",
-                  options: {
-                    outputId: "onLongPress",
-                  },
-                },
+              type: "select",
+              options: [
+                { label: "无", value: "none" },
+                { label: "提示气泡框", value: "tooltip" },
+                { label: "自定义", value: "custom" },
               ],
+              value: {
+                get({ data }) {
+                  return data.useLongPress;
+                },
+                set({ data }, val) {
+                  data.useLongPress = val;
+
+                  if (val === "custom") {
+                    output.add("onLongPress", "长按", { type: "string" });
+                  } else {
+                    output.remove("onLongPress");
+                  }
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useLongPress === "custom";
+              },
+              title: "长按自定义事件",
+              type: "_event",
+              options: {
+                outputId: "onLongPress",
+              },
             },
           ],
         },
