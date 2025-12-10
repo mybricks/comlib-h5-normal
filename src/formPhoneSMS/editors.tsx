@@ -37,64 +37,69 @@ export default {
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
+      cate0.title = "验证码输入框";
       cate0.items = [
         {
-          title: "提示内容",
-          description: "该提示内容会在值为空时显示",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.placeholder;
+          title: "基础属性",
+          items: [
+            {
+              title: "提示内容",
+              description: "该提示内容会在值为空时显示",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.placeholder;
+                },
+                set({ data }, value) {
+                  data.placeholder = value;
+                },
+              },
             },
-            set({ data }, value) {
-              data.placeholder = value;
+            {
+              title: "按钮文案",
+              type: "text",
+              ifVisible({ data }) {
+                return !data.customInput;
+              },
+              value: {
+                get({ data }) {
+                  return data.buttonText;
+                },
+                set({ data }, value) {
+                  return (data.buttonText = value);
+                },
+              },
             },
-          },
-        },
-        {
-          title: "按钮文案",
-          type: "text",
-          ifVisible({ data }) {
-            return !data.customInput;
-          },
-          value: {
-            get({ data }) {
-              return data.buttonText;
+            {
+              title: "重新获取文案",
+              type: "text",
+              ifVisible({ data }) {
+                return !data.customInput;
+              },
+              value: {
+                get({ data }) {
+                  return data.buttonTextRetry;
+                },
+                set({ data }, value) {
+                  return (data.buttonTextRetry = value);
+                },
+              },
             },
-            set({ data }, value) {
-              return (data.buttonText = value);
+            {
+              title: "验证码倒计时",
+              type: "InputNumber",
+              options: [{ min: 30 }],
+              description: "单位：秒（最小值 30秒）",
+              value: {
+                get({ data }) {
+                  return [data.smsCountdown];
+                },
+                set({ data }, value) {
+                  data.smsCountdown = value[0];
+                },
+              },
             },
-          },
-        },
-        {
-          title: "重新获取文案",
-          type: "text",
-          ifVisible({ data }) {
-            return !data.customInput;
-          },
-          value: {
-            get({ data }) {
-              return data.buttonTextRetry;
-            },
-            set({ data }, value) {
-              return (data.buttonTextRetry = value);
-            },
-          },
-        },
-        {
-          title: "验证码倒计时",
-          type: "InputNumber",
-          options: [{ min: 30 }],
-          description: "单位：秒（最小值 30秒）",
-          value: {
-            get({ data }) {
-              return [data.smsCountdown];
-            },
-            set({ data }, value) {
-              data.smsCountdown = value[0];
-            },
-          },
+          ],
         },
         {
           title: "事件",
@@ -195,13 +200,13 @@ export default {
     "@dblclick": {
       type: "text",
       value: {
-        get({data}) {
-          return data.buttonText
+        get({ data }) {
+          return data.buttonText;
         },
         set({ data, focusArea }, value) {
-          data.buttonText = value
-        }
-      }
-    }
+          data.buttonText = value;
+        },
+      },
+    },
   },
 };

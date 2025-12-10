@@ -85,25 +85,34 @@ export default {
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
+      cate0.title = "筛选栏";
       cate0.items = [
         {
-          title: "添加筛选项",
-          type: "comSelector",
-          options: {
-            schema: "mybricks.taro.filters/item*",
-            type: "add",
-          },
-          value: {
-            set({ data, slot }: EditorResult<Data>, namespace: string) {
-              slot
-                .get("content")
-                .addCom(namespace, false, { deletable: true, movable: true });
+          title: "基础属性",
+          items: [
+            {
+              title: "添加筛选项",
+              type: "comSelector",
+              options: {
+                schema: "mybricks.taro.filters/item*",
+                type: "add",
+              },
+              value: {
+                set({ data, slot }: EditorResult<Data>, namespace: string) {
+                  slot
+                    .get("content")
+                    .addCom(namespace, false, {
+                      deletable: true,
+                      movable: true,
+                    });
+                },
+              },
             },
-          },
+          ],
         },
+
         {
-          title: "更多筛选项",
+          title: "高级属性",
           items: [
             {
               title: "显示「更多筛选项」",
@@ -131,13 +140,17 @@ export default {
             },
           ],
         },
-        {},
         {
-          title: "数据变化时",
-          type: "_event",
-          options: {
-            outputId: "onChange",
-          },
+          title: "事件",
+          items: [
+            {
+              title: "数据变化时",
+              type: "_event",
+              options: {
+                outputId: "onChange",
+              },
+            },
+          ],
         },
       ];
     },
@@ -165,17 +178,17 @@ export default {
     ],
   },
   ".mbs-filters_extra": {
-    title:"筛选",
+    title: "筛选",
     "@dblclick": {
       type: "text",
       value: {
         get(props) {
-          return props.data?.extraButtonText
+          return props.data?.extraButtonText;
         },
         set({ data }, val: string) {
-          data.extraButtonText = val
+          data.extraButtonText = val;
         },
       },
     },
-  }
+  },
 };

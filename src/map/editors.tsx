@@ -17,7 +17,7 @@ export default {
       },
     ],
     items({ data, output, style }, cate0, cate1, cate2) {
-      cate0.title = "常规";
+      cate0.title = "地图";
       cate0.items = [
         // {
         //   title: '图标',
@@ -32,7 +32,7 @@ export default {
         //   }
         // },
         {
-          title: "控件配置",
+          title: "基础属性",
           items: [
             {
               title: "展示比例尺",
@@ -58,11 +58,6 @@ export default {
                 },
               },
             },
-          ],
-        },
-        {
-          title: "地图交互",
-          items: [
             {
               title: "支持缩放",
               type: "switch",
@@ -87,6 +82,11 @@ export default {
                 },
               },
             },
+          ],
+        },
+        {
+          title: "高级属性",
+          items: [
             {
               title: "展示实时路况",
               type: "switch",
@@ -101,22 +101,23 @@ export default {
             },
           ],
         },
-        {
-          title: "覆盖物配置",
-          type: "editorRender",
-          // description: '展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用',
-          options: {
-            render: GeoConfig,
-          },
-          value: {
-            get({ data, style }) {
-              return data.geos;
-            },
-            set({}, value) {
-              data.geos = value;
-            },
-          },
-        },
+
+        // {
+        //   title: "覆盖物配置",
+        //   type: "editorRender",
+        //   // description: '展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用',
+        //   options: {
+        //     render: GeoConfig,
+        //   },
+        //   value: {
+        //     get({ data, style }) {
+        //       return data.geos;
+        //     },
+        //     set({}, value) {
+        //       data.geos = value;
+        //     },
+        //   },
+        // },
       ];
       // cate1.title = '样式'
       // cate1.items = [

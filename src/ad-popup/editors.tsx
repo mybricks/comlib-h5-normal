@@ -1,9 +1,9 @@
 import React from "react";
-import { AdType } from './constants'
+import { AdType } from "./constants";
 
 export default {
   "@init": ({ style, data }) => {
-    style.width = '100%';
+    style.width = "100%";
     style.height = "100%";
   },
   ":root": [
@@ -14,9 +14,7 @@ export default {
         render: (props) => {
           return (
             <div>
-              <div>
-                小程序广告需要开通「流量主」功能，并在后台创建好广告位
-              </div>
+              <div>小程序广告需要开通「流量主」功能，并在后台创建好广告位</div>
               <a
                 target="_blank"
                 // href="https://ad.weixin.qq.com/pdf.html?id=851"
@@ -31,42 +29,50 @@ export default {
     },
     {},
     {
-      title: "广告类型",
-      type: 'select',
-      options: [
-        { value: AdType.popup, label: "插屏广告" },
-        { value: AdType.rewardVideo, label: "激励视频" }
+      title: "基础属性",
+      items: [
+        {
+          title: "广告类型",
+          type: "select",
+          options: [
+            { value: AdType.popup, label: "插屏广告" },
+            { value: AdType.rewardVideo, label: "激励视频" },
+          ],
+          value: {
+            get({ data }) {
+              return data.type ?? AdType.popup;
+            },
+            set({ data, output }, value) {
+              data.type = value;
+              const rel = output.get("onFinishRewardVideo");
+              if (value === AdType.rewardVideo && !rel) {
+                output.add("onFinishRewardVideo", "广告播放完毕", {
+                  type: "any",
+                });
+              }
+              if (value === AdType.popup && rel) {
+                output.remove("onFinishRewardVideo");
+              }
+            },
+          },
+        },
+        {
+          title: "广告ID",
+          type: "text",
+          value: {
+            get({ data }) {
+              return data.adUnitId;
+            },
+            set({ data }, value: string) {
+              data.adUnitId = value;
+            },
+          },
+        },
       ],
-      value: {
-        get({ data }) {
-          return data.type ?? AdType.popup;
-        },
-        set({ data, output }, value) {
-          data.type = value;
-          const rel = output.get('onFinishRewardVideo');
-          if (value === AdType.rewardVideo && !rel) {
-            output.add('onFinishRewardVideo', '广告播放完毕', { type: 'any' });
-          }
-          if (value === AdType.popup && rel) {
-            output.remove('onFinishRewardVideo');
-          }
-        },
-      },
     },
+
     {
-      title: "广告ID",
-      type: 'text',
-      value: {
-        get({ data }) {
-          return data.adUnitId;
-        },
-        set({ data }, value: string) {
-          data.adUnitId = value;
-        },
-      },
-    },
-    {
-      title: '事件',
+      title: "事件",
       items: [
         {
           title: "广告加载成功",
@@ -91,8 +97,8 @@ export default {
           options: {
             outputId: "onFinishRewardVideo",
           },
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
 };

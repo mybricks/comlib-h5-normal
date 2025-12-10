@@ -1,27 +1,28 @@
 export default {
-  '@init'({style, data}) {
+  "@init"({ style, data }) {
     style.width = 200;
     style.height = "auto";
   },
-  '@resize': {
-    options: ['width'],
+  "@resize": {
+    options: ["width"],
   },
-  ':root': [
+  ":root": [
     {
+      title: "基础属性",
       items: [
         {
-          title: '版权所有',
-          type: 'text',
+          title: "版权所有",
+          type: "text",
           value: {
-            get({data}) {
+            get({ data }) {
               return data.copyright;
             },
-            set({data}, value: string) {
+            set({ data }, value: string) {
               data.copyright = value;
             },
-          }
-        }
-      ]
-    }
+          },
+        },
+      ],
+    },
   ],
 };

@@ -7,9 +7,10 @@ export default {
     options: ["width"],
   },
   ":root"({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = "常规";
+    cate0.title = "二维码";
     cate0.items = [
       {
+        title: "基础属性",
         items: [
           {
             title: "二维码内容",

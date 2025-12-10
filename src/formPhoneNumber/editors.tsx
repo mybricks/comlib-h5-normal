@@ -38,50 +38,56 @@ export default {
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
+      cate0.title = "手机输入框";
       cate0.items = [
         {
-          title: "手机号获取方式",
-          type: "radio",
-          description: "实时验证仅微信小程序端支持",
-          options: [
-            { label: "实时验证", value: "getRealtimePhoneNumber" },
-            { label: "快速验证", value: "getPhoneNumber" },
+          title: "基础属性",
+          items: [
+            {
+              title: "手机号获取方式",
+              type: "radio",
+              description: "实时验证仅微信小程序端支持",
+              options: [
+                { label: "实时验证", value: "getRealtimePhoneNumber" },
+                { label: "快速验证", value: "getPhoneNumber" },
+              ],
+              value: {
+                get({ data }) {
+                  return data.getPhoneNumberMethods;
+                },
+                set({ data, output }, value) {
+                  data.getPhoneNumberMethods = value;
+                },
+              },
+            },
+            {
+              title: "提示内容",
+              description: "该提示内容会在值为空时显示",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.placeholder;
+                },
+                set({ data }, value) {
+                  data.placeholder = value;
+                },
+              },
+            },
+            {
+              title: "按钮文案",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.buttonText;
+                },
+                set({ data }, value) {
+                  data.buttonText = value;
+                },
+              },
+            },
           ],
-          value: {
-            get({ data }) {
-              return data.getPhoneNumberMethods;
-            },
-            set({ data, output }, value) {
-              data.getPhoneNumberMethods = value;
-            },
-          },
         },
-        {
-          title: "提示内容",
-          description: "该提示内容会在值为空时显示",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.placeholder;
-            },
-            set({ data }, value) {
-              data.placeholder = value;
-            },
-          },
-        },
-        {
-          title: "按钮文案",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.buttonText;
-            },
-            set({ data }, value) {
-              data.buttonText = value;
-            },
-          },
-        },
+
         {
           title: "事件",
           items: [
@@ -150,13 +156,13 @@ export default {
     "@dblclick": {
       type: "text",
       value: {
-        get({data}) {
-          return data.buttonText
+        get({ data }) {
+          return data.buttonText;
         },
         set({ data, focusArea }, value) {
-          data.buttonText = value
-        }
-      }
-    }
+          data.buttonText = value;
+        },
+      },
+    },
   },
 };

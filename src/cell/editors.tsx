@@ -28,62 +28,82 @@ export default {
           },
         });
       }
-      cate0.title = "常规";
+      cate0.title = "单元格";
       cate0.items = [
         {
-          title: "展示图标",
-          type: "switch",
-          value: {
-            get({ data }) {
-              return data.useThumb;
-            },
-            set({ data }, value: boolean) {
-              data.useThumb = value;
-            },
-          },
-        },
-        {
-          ifVisible({ data }) {
-            return data.useThumb;
-          },
-          title: "图标",
-          type: "imageSelector",
-          value: {
-            get({ data }) {
-              return data.thumb;
-            },
-            set({ data }, value) {
-              data.thumb = value;
-            },
-          },
-        },
-        {
-          title: "标题",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.title;
-            },
-            set({ data }, val) {
-              data.title = val;
-            },
-          },
-        },
-        {
-          title: "描述",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.brief;
-            },
-            set({ data }, val) {
-              data.brief = val;
-            },
-          },
-        },
-        {
-          title: "内容",
+          title: "基础属性",
           items: [
+            {
+              title: "标题",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.title;
+                },
+                set({ data }, val) {
+                  data.title = val;
+                },
+              },
+            },
+            {
+              title: "描述",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.brief;
+                },
+                set({ data }, val) {
+                  data.brief = val;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return !data.useChildren;
+              },
+              title: "内容",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.content;
+                },
+                set({ data }, val) {
+                  data.content = val;
+                },
+              },
+            },
+          ],
+        },
+        {
+          title: "高级属性",
+          items: [
+            {
+              title: "展示图标",
+              type: "switch",
+              value: {
+                get({ data }) {
+                  return data.useThumb;
+                },
+                set({ data }, value: boolean) {
+                  data.useThumb = value;
+                },
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useThumb;
+              },
+              title: "图标",
+              type: "imageSelector",
+              value: {
+                get({ data }) {
+                  return data.thumb;
+                },
+                set({ data }, value) {
+                  data.thumb = value;
+                },
+              },
+            },
             {
               title: "开启内容插槽",
               type: "switch",
@@ -123,21 +143,7 @@ export default {
                 },
               },
             },
-            {
-              ifVisible({ data }) {
-                return !data.useChildren;
-              },
-              title: "内容",
-              type: "text",
-              value: {
-                get({ data }) {
-                  return data.content;
-                },
-                set({ data }, val) {
-                  data.content = val;
-                },
-              },
-            },
+
             {
               title: "显示右箭头",
               type: "switch",
@@ -165,11 +171,6 @@ export default {
                 },
               },
             },
-          ],
-        },
-        {
-          title: "卡片滑动",
-          items: [
             {
               title: "支持左滑",
               type: "switch",
@@ -232,7 +233,10 @@ export default {
                   );
                 },
                 set({ data }, value) {
-                  console.log("主按钮样式配置", JSON.parse(JSON.stringify(value)))
+                  console.log(
+                    "主按钮样式配置",
+                    JSON.parse(JSON.stringify(value))
+                  );
                   data.leftSwipeStyle = JSON.parse(JSON.stringify(value));
                 },
               },
@@ -282,16 +286,6 @@ export default {
             //     },
             //   },
             // },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeft;
-              },
-              title: "单击主按钮",
-              type: "_event",
-              options: {
-                outputId: "onClickLeftAction",
-              },
-            },
             {
               title: "开启左滑副按钮",
               type: "switch",
@@ -357,7 +351,9 @@ export default {
                   );
                 },
                 set({ data }, value) {
-                  data.leftSwipeStyleSecondary = JSON.parse(JSON.stringify(value));
+                  data.leftSwipeStyleSecondary = JSON.parse(
+                    JSON.stringify(value)
+                  );
                 },
               },
             },
@@ -406,18 +402,9 @@ export default {
             //     },
             //   },
             // },
-            {
-              ifVisible({ data }) {
-                return data.useSwipeLeftSecondary;
-              },
-              title: "单击副按钮",
-              type: "_event",
-              options: {
-                outputId: "onClickLeftActionSecondary",
-              },
-            },
           ],
         },
+
         {
           title: "事件",
           items: [
@@ -426,6 +413,26 @@ export default {
               type: "_event",
               options: {
                 outputId: "onClick",
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeft;
+              },
+              title: "单击主按钮",
+              type: "_event",
+              options: {
+                outputId: "onClickLeftAction",
+              },
+            },
+            {
+              ifVisible({ data }) {
+                return data.useSwipeLeftSecondary;
+              },
+              title: "单击副按钮",
+              type: "_event",
+              options: {
+                outputId: "onClickLeftActionSecondary",
               },
             },
           ],

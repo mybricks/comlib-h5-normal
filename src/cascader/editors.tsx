@@ -80,20 +80,26 @@ export default {
       },
     ],
     items({ data, slot }, cate0, cate1, cate2) {
-      cate0.title = "常规";
+      cate0.title = "级联选择";
       cate0.items = [
         {
-          title: "未选择的提示文案",
-          type: "text",
-          value: {
-            get({ data }) {
-              return data.placeholder;
+          title: "基础属性",
+          items: [
+            {
+              title: "未选择的提示文案",
+              type: "text",
+              value: {
+                get({ data }) {
+                  return data.placeholder;
+                },
+                set({ data }, value: string) {
+                  data.placeholder = value;
+                },
+              },
             },
-            set({ data }, value: string) {
-              data.placeholder = value;
-            },
-          },
+          ],
         },
+
         {
           title: "事件",
           items: [
