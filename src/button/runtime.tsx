@@ -8,8 +8,9 @@ import React, {
 import css from "./style.less";
 import { ButtonType } from "./constant";
 import cx from "classnames";
-import { Button, Text, Image } from "@tarojs/components";
+import { Button, Text, Image, View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
+import DynamicIcon from "../components/dynamic-icon";
 
 export default function ({
   env,
@@ -143,17 +144,37 @@ export default function ({
     if (env.edit) {
       return data.useBeforeIcon;
     } else {
-      return data.useBeforeIcon && data.beforeIconUrl;
+      return (
+        data.useBeforeIcon &&
+        ((data.useBeforeIconImg !== false && data.beforeIconUrl) ||
+          (data.useBeforeIconImg === false && data.beforeIcon))
+      );
     }
-  }, [env, data.useBeforeIcon, data.beforeIconUrl]);
+  }, [
+    env,
+    data.useBeforeIcon,
+    data.beforeIconUrl,
+    data.useBeforeIconImg,
+    data.beforeIcon,
+  ]);
 
   const useAfterIcon = useMemo(() => {
     if (env.edit) {
       return data.useAfterIcon;
     } else {
-      return data.useAfterIcon && data.afterIconUrl;
+      return (
+        data.useAfterIcon &&
+        ((data.useAfterIconImg !== false && data.afterIconUrl) ||
+          (data.useAfterIconImg === false && data.afterIcon))
+      );
     }
-  }, [env, data.useAfterIcon, data.afterIconUrl]);
+  }, [
+    env,
+    data.useAfterIcon,
+    data.afterIconUrl,
+    data.useAfterIconImg,
+    data.afterIcon,
+  ]);
 
   const disabled = useMemo(() => {
     if (data.disabled) {
@@ -186,13 +207,13 @@ export default function ({
   }, []);
 
   const buttonStyle = useMemo(() => {
-    if (!data?.useButtonImg) return
+    if (!data?.useButtonImg) return;
 
     return {
       paddingLeft: 0,
-      paddingRight: 0
-    }
-  }, [data.useButtonImg])
+      paddingRight: 0,
+    };
+  }, [data.useButtonImg]);
 
   return (
     <Button
@@ -206,24 +227,61 @@ export default function ({
     >
       {/* 前置 */}
       {useBeforeIcon && !data?.useButtonImg ? (
-        <Image
-          className={cx("mybricks-beforeIcon", css.icon)}
-          src={data.beforeIconUrl || extra?.imageUrl}
-          mode="scaleToFill"
-        />
+        <View
+          style={{
+            marginRight: data.beforeIconSpacing ?? 8,
+          }}
+        >
+          {data?.useBeforeIconImg === false ? (
+            <DynamicIcon
+              name={data.beforeIcon ?? "Plus"}
+              size={data.beforeIconSize ?? 16}
+              color={data.beforeIconColor ?? "#fff"}
+            />
+          ) : (
+            <Image
+              className={cx("mybricks-beforeIcon", css.icon)}
+              src={data.beforeIconUrl || extra?.imageUrl}
+              mode="scaleToFill"
+            />
+          )}
+        </View>
       ) : null}
 
-      {!data?.useButtonImg ? (<Text className={cx(css.text,'mybricks-button-text')}>{data.text}</Text>) : null}
+      {!data?.useButtonImg ? (
+        <Text className={cx(css.text, "mybricks-button-text")}>
+          {data.text}
+        </Text>
+      ) : null}
 
-      {data?.useButtonImg ? (<Image style={{ width: "100%", height: "100%" }} src={data.buttonImg}></Image>) : null}
+      {data?.useButtonImg ? (
+        <Image
+          style={{ width: "100%", height: "100%" }}
+          src={data.buttonImg}
+        ></Image>
+      ) : null}
 
       {/* 后置 */}
       {useAfterIcon && !data?.useButtonImg ? (
-        <Image
-          className={cx("mybricks-afterIcon", css.icon)}
-          src={data.afterIconUrl || extra?.imageUrl}
-          mode="scaleToFill"
-        />
+        <View
+          style={{
+            marginLeft: data.afterIconSpacing ?? 8,
+          }}
+        >
+          {data?.useAfterIconImg === false ? (
+            <DynamicIcon
+              name={data.afterIcon ?? "Plus"}
+              size={data.afterIconSize ?? 16}
+              color={data.afterIconColor ?? "#fff"}
+            />
+          ) : (
+            <Image
+              className={cx("mybricks-afterIcon", css.icon)}
+              src={data.afterIconUrl || extra?.imageUrl}
+              mode="scaleToFill"
+            />
+          )}
+        </View>
       ) : null}
     </Button>
   );

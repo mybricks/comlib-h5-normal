@@ -19,12 +19,22 @@
   "openType": "",
 
   "useBeforeIcon": false,
+  "useBeforeIconImg": true,
   "beforeIconUrl": "",
+  "beforeIconSize": 16,
+  "beforeIcon": "Plus",
+  "beforeIconColor": "#ffffff",
+  "beforeIconSpacing": 8,
 
   "useAfterIcon": false,
+  "useAfterIconImg": true,
   "afterIconUrl": "",
+  "afterIconSize": 16,
+  "afterIcon": "Plus",
+  "afterIconColor": "#ffffff",
+  "afterIconSpacing": 8,
 
   "placeholderIconUrl": "",
-  "useButtonImg":false,
+  "useButtonImg": false,
   "buttonImg": ""
 }
