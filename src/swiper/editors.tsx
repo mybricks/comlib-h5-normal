@@ -39,6 +39,7 @@ export default {
             {
               title: "轮播项",
               type: "array",
+              description:"配置轮播展示的图片列表",
               options: {
                 getTitle: (item, index) => {
                   return [
@@ -94,6 +95,7 @@ export default {
           items: [
             {
               title: "自动播放",
+              description:"是否自动开始轮播",
               type: "switch",
               value: {
                 get({ data }) {
@@ -107,6 +109,7 @@ export default {
             {
               title: "自动切换时间间隔(ms)",
               type: "text",
+              description:"自动切换轮播项的时间间隔，单位为毫秒",
               options: {
                 type: "number",
               },
@@ -151,6 +154,7 @@ export default {
           items: [
             {
               title: "展示指示器",
+              description:"是否显示轮播指示器（小圆点）",
               type: "switch",
               value: {
                 get({ data }) {

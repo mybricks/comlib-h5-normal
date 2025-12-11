@@ -24,6 +24,7 @@ export default {
           items: [
             {
               title: "图片链接",
+              description: "填入正确有效的图片链接地址",
               type: "imageSelector",
               value: {
                 get({ data }) {
@@ -73,10 +74,10 @@ export default {
         },
         {
           title: "高级属性",
-          items:[
+          items: [
             {
               title: "淡入动画",
-              desctiption: "加载图片时支持过渡动画，使图片展示更丝滑",
+              description: "加载图片时支持过渡动画，使图片展示更丝滑",
               type: "switch",
               value: {
                 get({ data }) {
@@ -87,8 +88,8 @@ export default {
                 },
               },
             },
-                        {
-              title: "支持长按识别微信二维码或转发、保存图片",
+            {
+              title: "长按识别",
               description: "支持长按识别微信二维码或转发、保存图片",
               type: "switch",
               value: {
@@ -107,6 +108,7 @@ export default {
           items: [
             {
               title: "单击事件类型",
+              description:"设置图片单击时的行为",
               type: "select",
               options: [
                 {

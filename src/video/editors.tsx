@@ -14,6 +14,7 @@ export default {
         items: [
           {
             title: "视频资源地址",
+            description:"填写正确有效的视频链接地址",
             type: "text",
             value: {
               get({ data }) {
@@ -30,6 +31,7 @@ export default {
               return !!data.controls;
             },
             title: "视频封面",
+            description:"视频在未播放时显示的图片",
             type: "imageSelector",
             value: {
               get({ data }) {
@@ -48,6 +50,7 @@ export default {
         items: [
           {
             title: "是否为直播源",
+            description:"开启后，视频将以直播流的形式播放",
             type: "Switch",
             value: {
               get({ data }) {
@@ -60,6 +63,7 @@ export default {
           },
           {
             title: "是否显示默认播放控件",
+            description:"显示视频的默认播放控件，如播放/暂停按钮、进度条等",
             type: "Switch",
             value: {
               get({ data }) {
@@ -72,6 +76,7 @@ export default {
           },
           {
             title: "是否自动播放",
+            description:"页面加载完成后自动开始播放视频",
             type: "Switch",
             value: {
               get({ data }) {
@@ -84,6 +89,7 @@ export default {
           },
           {
             title: "是否循环播放",
+            description:"视频播放结束后重新开始播放",
             type: "Switch",
             value: {
               get({ data }) {
@@ -96,6 +102,7 @@ export default {
           },
           {
             title: "是否静音播放",
+            description:"视频播放时是否静音",
             type: "Switch",
             value: {
               get({ data }) {

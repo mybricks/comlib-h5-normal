@@ -23,6 +23,7 @@ export default {
             {
               title: "内容",
               type: "richtext",
+              description:"填写要显示的富文本内容",
               options: {
                 type: "h5",
               },

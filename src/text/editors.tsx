@@ -62,6 +62,7 @@ export default {
             {
               title: "文本内容",
               type: "textarea",
+              description:"填写要显示的文本内容",
               value: {
                 get({ data }) {
                   return data.text;
