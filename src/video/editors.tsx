@@ -10,6 +10,7 @@ export default {
     cate0.title = "常规";
     cate0.items = [
       {
+        title: "基础属性",
         items: [
           {
             title: "视频资源地址",
@@ -23,6 +24,28 @@ export default {
               },
             },
           },
+
+          {
+            ifVisible({ data }) {
+              return !!data.controls;
+            },
+            title: "视频封面",
+            type: "imageSelector",
+            value: {
+              get({ data }) {
+                return data.poster;
+              },
+              set({ data }, poster: string) {
+                data.poster = poster;
+              },
+            },
+          },
+
+        ],
+      },
+      {
+        title: "高级属性",
+        items: [
           {
             title: "是否为直播源",
             type: "Switch",
@@ -44,21 +67,6 @@ export default {
               },
               set({ data }, controls: boolean) {
                 data.controls = controls;
-              },
-            },
-          },
-          {
-            ifVisible({ data }) {
-              return !!data.controls;
-            },
-            title: "视频封面",
-            type: "imageSelector",
-            value: {
-              get({ data }) {
-                return data.poster;
-              },
-              set({ data }, poster: string) {
-                data.poster = poster;
               },
             },
           },
@@ -98,8 +106,55 @@ export default {
               },
             },
           },
-        ],
+        ]
       },
+      {
+        title: "事件",
+        items: [
+          {
+            title: "当开始/继续播放时",
+            type: "_event",
+            options: {
+              outputId: "onPlay",
+            },
+          },
+          {
+            title: "当暂停播放时",
+            type: "_event",
+            options: {
+              outputId: "onPause",
+            },
+          },
+          {
+            title: "当播放到末尾时",
+            type: "_event",
+            options: {
+              outputId: "onEnded",
+            },
+          },
+          {
+            title: "当播放进度改变时",
+            type: "_event",
+            options: {
+              outputId: "onTimeUpdate",
+            },
+          },
+          {
+            title: "当视频出现缓冲时",
+            type: "_event",
+            options: {
+              outputId: "onWaiting",
+            },
+          },
+          {
+            title: "当视频出错时",
+            type: "_event",
+            options: {
+              outputId: "onError",
+            },
+          },
+        ]
+      }
     ];
 
     cate1.title = "样式";
@@ -130,52 +185,6 @@ export default {
           },
         },
       },
-    ];
-
-    cate2.title = "动作";
-    cate2.items = [
-      {
-        title: "当开始/继续播放时",
-        type: "_event",
-        options: {
-          outputId: "onPlay",
-        },
-      },
-      {
-        title: "当暂停播放时",
-        type: "_event",
-        options: {
-          outputId: "onPause",
-        },
-      },
-      {
-        title: "当播放到末尾时",
-        type: "_event",
-        options: {
-          outputId: "onEnded",
-        },
-      },
-      {
-        title: "当播放进度改变时",
-        type: "_event",
-        options: {
-          outputId: "onTimeUpdate",
-        },
-      },
-      {
-        title: "当视频出现缓冲时",
-        type: "_event",
-        options: {
-          outputId: "onWaiting",
-        },
-      },
-      {
-        title: "当视频出错时",
-        type: "_event",
-        options: {
-          outputId: "onError",
-        },
-      },
-    ];
+    ]
   },
 };
