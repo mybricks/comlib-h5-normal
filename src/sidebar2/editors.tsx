@@ -117,183 +117,181 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: "标签项",
-          type: "array",
-          options: {
-            selectable: true,
-            editable: false,
-            getTitle: (item, index) => {
-              return [`${item.tabName || "未命名"}`];
-            },
-            onAdd() {
-              return defaultItem;
-            },
-            onSelect(_id, index) {
-              if (index !== -1) {
-                data.edit.currentTabId = data.tabs[index]?._id;
-              }
-            },
-            items: [
-              {
-                title: "标签名",
-                type: "text",
-                value: "tabName",
-              },
-            ],
-          },
-          value: {
-            get({ data }) {
-              return data.tabs;
-            },
-            set({ data, slot, outputs }, value) {
-              let action = computedAction({
-                before: data.tabs,
-                after: value,
-              });
-
-              switch (action?.name) {
-                case "remove":
-                  console.log("remove",`changeTab_${action?.value._id}`)
-                  outputs.remove(`changeTab_${action?.value._id}`);
-                  slot.remove(action?.value._id);
-                  break;
-                case "add":
-                  slot.add({
-                    id: action?.value._id,
-                    title: defaultItem.tabName,
-                  });
-                  outputs.add({
-                    id: `changeTab_${action?.value._id}`,
-                    title: action?.value.tabName,
-                    schema: {
-                      type: "object",
-                      properties: {
-                        id: {
-                          type: "string",
-                        },
-                        tabName: {
-                          type: "string",
-                        },
-                        index: {
-                          type: "number",
-                        },
-                      },
-                    },
-                  });
-                  break;
-                case "update":
-                  // slot.setTitle(action?.value._id, action?.value.tabName);
-                  break;
-              }
-
-              data.tabs = value;
-            },
-          },
-        },
-        {
-          title: "动态标签",
-          type: "switch",
-          description: "开启后，可通过连线动态配置左侧的选项列表",
-          value: {
-            get({ data, slot }) {
-              if (data.useDynamicTab === false) {
-                if (slot.get("tabItem")) {
-                  slot.remove("tabItem")
-                }
-              }
-              return data.useDynamicTab;
-            },
-            set({ data, slot,output }, value) {
-              data.useDynamicTab = value;
-              //当动态标签开启时，把目前的全部output存起来，后面可以还原
-              if (value) {
-                data.slotStorage = data.tabs.map((item) => {
-                  output.remove(`changeTab_${item._id}`)
-                  return {
-                    id: `changeTab_${item._id}`,
-                    title: item.tabName,
-                    schema: {
-                      type: "object",
-                      properties: {
-                        id: {
-                          type: "string",
-                        },
-                        tabName: {
-                          type: "string",
-                        },
-                        index: {
-                          type: "number",
-                        },
-                      },
-                    },
-                  };
-                });
-                //追加固定标签页
-                slot.add(comJson.slots[2])
-              } else {
-                //动态标签页关闭时，还原存储的output
-                data.slotStorage.forEach((item) => {
-                  output.add(item)
-                });
-                slot.remove("tabItem")
-                data.slotStorage = []
-              }
-
-            },
-          }
-        },
-        {
-          title: "标签名key",
-          type: "text",
-          description: "开启动态标签后，可通过此key获取标签名",
-          value: {
-            get({ data }) {
-              return data.tabNameKey;
-            },
-            set({ data }, value) {
-              data.tabNameKey = value;
-            },
-          }
-        },
-        {
-          title: "内容展示方式",
-          type: "radio",
-          description:
-            "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
-          options: [
-            { label: "锚定显示", value: "roll" },
-            { label: "切换显示", value: "switch" },
-          ],
-          value: {
-            get({ data }) {
-              return data.contentShowType;
-            },
-            set({ data }, value) {
-              data.contentShowType = value;
-            },
-          },
-        },
-        {
-          title: "顶部插槽",
-          type: "switch",
-          description: "开启后，可在侧边栏顶部插入自定义内容（如搜索框）",
-          value: {
-            get({ data }) {
-              return data.useTopSlot;
-            },
-            set({ data }, value) {
-              data.useTopSlot = value;
-            },
-          },
-        },
-        {
-          title: "事件",
+          title: "基础属性",
           items: [
             {
-              title: "标签切换",
-              type: "_event",
+              title: "标签项",
+              description: "侧边栏的静态标签项数据",
+              type: "array",
               options: {
-                outputId: "changeTab",
+                selectable: true,
+                editable: false,
+                getTitle: (item, index) => {
+                  return [`${item.tabName || "未命名"}`];
+                },
+                onAdd() {
+                  return defaultItem;
+                },
+                onSelect(_id, index) {
+                  if (index !== -1) {
+                    data.edit.currentTabId = data.tabs[index]?._id;
+                  }
+                },
+                items: [
+                  {
+                    title: "标签名",
+                    type: "text",
+                    value: "tabName",
+                  },
+                ],
+              },
+              value: {
+                get({ data }) {
+                  return data.tabs;
+                },
+                set({ data, slot, outputs }, value) {
+                  let action = computedAction({
+                    before: data.tabs,
+                    after: value,
+                  });
+
+                  switch (action?.name) {
+                    case "remove":
+                      console.log("remove", `changeTab_${action?.value._id}`);
+                      outputs.remove(`changeTab_${action?.value._id}`);
+                      slot.remove(action?.value._id);
+                      break;
+                    case "add":
+                      slot.add({
+                        id: action?.value._id,
+                        title: defaultItem.tabName,
+                      });
+                      outputs.add({
+                        id: `changeTab_${action?.value._id}`,
+                        title: action?.value.tabName,
+                        schema: {
+                          type: "object",
+                          properties: {
+                            id: {
+                              type: "string",
+                            },
+                            tabName: {
+                              type: "string",
+                            },
+                            index: {
+                              type: "number",
+                            },
+                          },
+                        },
+                      });
+                      break;
+                    case "update":
+                      // slot.setTitle(action?.value._id, action?.value.tabName);
+                      break;
+                  }
+
+                  data.tabs = value;
+                },
+              },
+            },
+          ],
+        },
+        {
+          title: "高级属性",
+          items: [
+            {
+              title: "动态标签",
+              type: "switch",
+              description: "开启后，可通过连线动态配置左侧的选项列表",
+              value: {
+                get({ data, slot }) {
+                  if (data.useDynamicTab === false) {
+                    if (slot.get("tabItem")) {
+                      slot.remove("tabItem");
+                    }
+                  }
+                  return data.useDynamicTab;
+                },
+                set({ data, slot, output }, value) {
+                  data.useDynamicTab = value;
+                  //当动态标签开启时，把目前的全部output存起来，后面可以还原
+                  if (value) {
+                    data.slotStorage = data.tabs.map((item) => {
+                      output.remove(`changeTab_${item._id}`);
+                      return {
+                        id: `changeTab_${item._id}`,
+                        title: item.tabName,
+                        schema: {
+                          type: "object",
+                          properties: {
+                            id: {
+                              type: "string",
+                            },
+                            tabName: {
+                              type: "string",
+                            },
+                            index: {
+                              type: "number",
+                            },
+                          },
+                        },
+                      };
+                    });
+                    //追加固定标签页
+                    slot.add(comJson.slots[2]);
+                  } else {
+                    //动态标签页关闭时，还原存储的output
+                    data.slotStorage.forEach((item) => {
+                      output.add(item);
+                    });
+                    slot.remove("tabItem");
+                    data.slotStorage = [];
+                  }
+                },
+              },
+            },
+            {
+              title: "标签名key",
+              type: "text",
+              description: "开启动态标签后，可通过此key获取标签名",
+              value: {
+                get({ data }) {
+                  return data.tabNameKey;
+                },
+                set({ data }, value) {
+                  data.tabNameKey = value;
+                },
+              },
+            },
+            {
+              title: "内容展示方式",
+              type: "radio",
+              description:
+                "锚定显示：在同一个页面显示所有内容，点击后滚动到对应区域；切换显示：在不同页面显示对应的侧边栏内容",
+              options: [
+                { label: "锚定显示", value: "roll" },
+                { label: "切换显示", value: "switch" },
+              ],
+              value: {
+                get({ data }) {
+                  return data.contentShowType;
+                },
+                set({ data }, value) {
+                  data.contentShowType = value;
+                },
+              },
+            },
+            {
+              title: "顶部插槽",
+              type: "switch",
+              description: "开启后，可在侧边栏顶部插入自定义内容（如搜索框）",
+              value: {
+                get({ data }) {
+                  return data.useTopSlot;
+                },
+                set({ data }, value) {
+                  data.useTopSlot = value;
+                },
               },
             },
             {
@@ -306,6 +304,19 @@ export default {
                 set({ data }, value) {
                   data.initChangeTab = value;
                 },
+              },
+            },
+          ],
+        },
+
+        {
+          title: "事件",
+          items: [
+            {
+              title: "标签切换",
+              type: "_event",
+              options: {
+                outputId: "changeTab",
               },
             },
           ],
@@ -349,11 +360,11 @@ export default {
           title: "删除标签项",
           type: "Button",
           value: {
-            set({ data,outputs, slot, focusArea }) {
+            set({ data, outputs, slot, focusArea }) {
               if (!focusArea) return;
               data.tabs.splice(focusArea.index, 1);
               // const _id = getFocusTab({ data, focusArea })?._id
-              console.log("remove",`changeTab_${focusItem._id}`)
+              console.log("remove", `changeTab_${focusItem._id}`);
               outputs.remove(`changeTab_${focusItem._id}`);
               slot.remove(focusItem._id);
               data.edit.currentTabId = data.tabs[0]?._id;

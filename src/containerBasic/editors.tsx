@@ -20,30 +20,41 @@ export default {
       },
     ],
     items: ({ data, output, style }, cate0, cate1, cate2) => {
-      cate0.title = "常规";
+      cate0.title = "普通容器";
       cate0.items = [
         {
-          title: "布局",
-          type: "layout",
-          value: {
-            get({ data }) {
-              return data?.layout || {
-                "position": "smart"
-              };
+          title: "基础属性",
+          items: [
+            {
+              title: "布局",
+              type: "layout",
+              value: {
+                get({ data }) {
+                  return (
+                    data?.layout || {
+                      position: "smart",
+                    }
+                  );
+                },
+                set({ data, slots }, val) {
+                  data.layout = val;
+                  setSlotLayout(slots.get("content"), val);
+                },
+              },
             },
-            set({ data, slots }, val) {
-              data.layout = val;
-              setSlotLayout(slots.get("content"), val);
-            },
-          },
+          ],
         },
-        {},
         {
-          title: "单击",
-          type: "_event",
-          options: {
-            outputId: "onClick",
-          },
+          title: "事件",
+          items: [
+            {
+              title: "单击",
+              type: "_event",
+              options: {
+                outputId: "onClick",
+              },
+            },
+          ],
         },
       ];
     },

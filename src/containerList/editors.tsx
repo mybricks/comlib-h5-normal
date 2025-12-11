@@ -7,7 +7,7 @@ export default {
   },
   ":slot": {},
   "@resize": {
-    options: ["width","height"],
+    options: ["width", "height"],
   },
   "@inputConnected"({ data, input, output, slots }, fromPin, toPin) {
     if (toPin.id === "dataSource") {
@@ -20,56 +20,101 @@ export default {
     }
   },
   ":root"({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = "常规";
+    cate0.title = "循环列表";
     cate0.items = [
       {
-        title: "排列方向",
-        type: "select",
-        options: [
-          { label: "竖向排列", value: Direction.Column },
-          { label: "横向排列", value: Direction.Row },
+        title: "基础属性",
+        items: [
+          {
+            title: "排列方向",
+            description:
+              "列表项的排列方向，竖向排列时，列表项垂直排列；横向排列时，列表项水平排列",
+            type: "select",
+            options: [
+              { label: "竖向排列", value: Direction.Column },
+              { label: "横向排列", value: Direction.Row },
+            ],
+            value: {
+              get({ data }) {
+                return data.direction ?? Direction.Column;
+              },
+              set({ data }, value) {
+                data.direction = value;
+              },
+            },
+          },
+          {
+            title: "间距",
+            description: "当竖向排列时，为垂直间距；当横向排列时，为水平间距",
+            type: "text",
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.spacing;
+              },
+              set({ data }, value) {
+                data.spacing = value;
+              },
+            },
+          },
+          {
+            title: "开启换行",
+            description:
+              "当横向排列时，开启换行功能，列表项会在到达容器边界时换行",
+            type: "switch",
+            ifVisible({ data }) {
+              return data.direction === Direction.Row;
+            },
+            value: {
+              get({ data }) {
+                return data.wrap;
+              },
+              set({ data }, value) {
+                data.wrap = value;
+              },
+            },
+          },
+          {
+            title: "默认展示",
+            description:
+              "列表初始化时，默认展示的状态，无表示不展示任何内容，加载中表示展示加载中的状态",
+            type: "select",
+            options: [
+              {
+                label: "无",
+                value: "none",
+              },
+              {
+                label: "加载中",
+                value: "loading",
+              },
+            ],
+            value: {
+              get({ data }) {
+                return data.defaultActive ?? "none";
+              },
+              set({ data, slot }, value) {
+                data.defaultActive = value;
+              },
+            },
+          },
+          {
+            title: "自动展示无内容状态",
+            description: "当传入的数据源为一个空数组[]时，自动切换列表到空状态",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.autoEmptyCondition;
+              },
+              set({ data, slot }, value) {
+                data.autoEmptyCondition = value;
+              },
+            },
+          },
         ],
-        value: {
-          get({ data }) {
-            return data.direction ?? Direction.Column;
-          },
-          set({ data }, value) {
-            data.direction = value;
-          },
-        },
       },
-      {
-        title: "间距",
-        description: "当竖向排列时，为垂直间距；当横向排列时，为水平间距",
-        type: "text",
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.spacing;
-          },
-          set({ data }, value) {
-            data.spacing = value;
-          },
-        },
-      },
-      {
-        title: "开启换行",
-        type: "switch",
-        ifVisible({ data }) {
-          return data.direction === Direction.Row;
-        },
-        value: {
-          get({ data }) {
-            return data.wrap;
-          },
-          set({ data }, value) {
-            data.wrap = value;
-          },
-        },
-      },
-      {},
       {
         catelogChange: {
           value: {
@@ -92,6 +137,7 @@ export default {
           },
           {
             title: "提示文案",
+            description: "列表加载中时，展示的加载中的文案",
             type: "text",
             catelog: "加载中",
             value: {
@@ -105,6 +151,7 @@ export default {
           },
           {
             title: "提示文案",
+            description: "列表加载失败时，展示的加载失败文案",
             type: "text",
             catelog: "加载失败",
             value: {
@@ -118,6 +165,7 @@ export default {
           },
           {
             title: "提示文案",
+            description: "列表没有更多数据时，展示的没有更多文案",
             type: "text",
             catelog: "没有更多",
             value: {
@@ -131,6 +179,7 @@ export default {
           },
           {
             title: "提示文案",
+            description: "列表初始化时，展示的空状态文案",
             type: "text",
             catelog: "无内容",
             value: {
@@ -144,6 +193,7 @@ export default {
           },
           {
             title: "无内容插槽",
+            description: "是否展示无内容插槽，用于自定义空状态的展示",
             type: "switch",
             catelog: "无内容",
             value: {
@@ -158,43 +208,7 @@ export default {
         ],
       },
       {
-        title: "默认展示",
-        type: "select",
-        options: [
-          {
-            label: "无",
-            value: "none",
-          },
-          {
-            label: "加载中",
-            value: "loading",
-          }
-        ],
-        value: {
-          get({ data }) {
-            return data.defaultActive ?? "none";
-          },
-          set({ data, slot }, value) {
-            data.defaultActive = value;
-          },
-        },
-      },
-      {
-        title:"自动展示无内容状态",
-        description:"当传入的数据源为一个空数组[]时，自动切换列表到空状态",
-        type:"switch",
-        value: {
-          get({ data }) {
-            return data.autoEmptyCondition;
-          },
-          set({ data, slot }, value) {
-            data.autoEmptyCondition = value;
-          },
-        },
-      },
-      {},
-      {
-        title: "瀑布流配置",
+        title: "事件",
         items: [
           {
             title: "开启滚动加载",

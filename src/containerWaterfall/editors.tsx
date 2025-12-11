@@ -2,7 +2,9 @@ import setSlotLayout from "../utils/setSlotLayout";
 
 const loadingOptions = [
   {
-    title: "提示图标",
+    title: "[初始状态]提示图标",
+    description: "列表初始化时，展示的加载中的图标",
+    catelog: "加载中",
     type: "imageselector",
     value: {
       get({ data }) {
@@ -14,7 +16,9 @@ const loadingOptions = [
     },
   },
   {
-    title: "提示文案",
+    title: "[初始状态]提示文案",
+    description: "列表初始化时，展示的加载中的文案",
+    catelog: "加载中",
     type: "text",
     value: {
       get({ data }) {
@@ -29,7 +33,9 @@ const loadingOptions = [
 
 const loadingBarOptions = [
   {
-    title: "提示文案",
+    title: "[状态条]提示文案",
+    description: "列表加载中时，展示的状态条文案",
+    catelog: "加载中",
     type: "text",
     value: {
       get({ data }) {
@@ -44,7 +50,9 @@ const loadingBarOptions = [
 
 const errorOptions = [
   {
-    title: "提示图标",
+    title: "[初始状态]提示图标",
+    description: "列表加载失败时，展示的加载失败图标",
+    catelog: "加载失败",
     type: "imageselector",
     value: {
       get({ data }) {
@@ -56,7 +64,9 @@ const errorOptions = [
     },
   },
   {
-    title: "提示文案",
+    title: "[初始状态]提示文案",
+    description: "列表加载失败时，展示的加载失败文案",
+    catelog: "加载失败",
     type: "text",
     value: {
       get({ data }) {
@@ -71,7 +81,9 @@ const errorOptions = [
 
 const errorBarOptions = [
   {
-    title: "提示文案",
+    title: "[状态条]提示文案",
+    description: "列表加载失败时，展示的状态条文案",
+    catelog: "加载失败",
     type: "text",
     value: {
       get({ data }) {
@@ -86,7 +98,9 @@ const errorBarOptions = [
 
 const emptyOptions = [
   {
-    title: "提示图标",
+    title: "[初始状态]提示图标",
+    description: "列表没有更多数据时，展示的没有更多图标",
+    catelog: "没有更多",
     type: "imageselector",
     value: {
       get({ data }) {
@@ -98,7 +112,9 @@ const emptyOptions = [
     },
   },
   {
-    title: "提示文案",
+    title: "[初始状态]提示文案",
+    description: "列表没有更多数据时，展示的没有更多文案",
+    catelog: "没有更多",
     type: "text",
     value: {
       get({ data }) {
@@ -113,7 +129,9 @@ const emptyOptions = [
 
 const emptyBarOptions = [
   {
-    title: "提示文案",
+    title: "[状态条]提示文案",
+    description: "列表没有更多数据时，展示的状态条文案",
+    catelog: "没有更多",
     type: "text",
     value: {
       get({ data }) {
@@ -146,7 +164,7 @@ export default {
     }
   },
   ":root"({ data, output, style }, cate0, cate1, cate2) {
-    cate0.title = "常规";
+    cate0.title = "瀑布流";
     cate0.catelogChange = {
       value: {
         get({ data }) {
@@ -159,210 +177,198 @@ export default {
     };
     cate0.items = [
       {
-        type: "editorRender",
-        options: {
-          render: (props) => {
-            console.warn("~~~~~!!!!!!");
-            console.warn(props.editConfig.value.get());
-            return <div></div>;
-          },
-        },
-        value: {
-          get({ inputs, outputs }) {
-            console.log("~~~~~~~~~~~~~~~~");
-            if (!outputs.get("afterRefreshDataSource")) {
-              outputs.add("afterRefreshDataSource", "覆盖数据后", {
-                type: "any",
-              });
-
-              inputs
-                .get("refreshDataSource")
-                .setRels(["afterRefreshDataSource"]);
-            }
-
-            if (!outputs.get("afterAddDataSource")) {
-              outputs.add("afterAddDataSource", "添加数据后", {
-                type: "any",
-              });
-
-              inputs.get("addDataSource").setRels(["afterAddDataSource"]);
-            }
-
-            return "";
-          },
-        },
-      },
-      {
-        title: "列表初始高度",
-        description: "如果设置为 0，组件将不展示占位状态",
-        type: "Text",
-        catelog: "默认",
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.layout.minHeight;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.layout.minHeight = +value;
-            }
-          },
-        },
-      },
-      {
-        title: "类型",
-        type: "select",
-        catelog: "默认",
-        options: [
+        title: "基础属性",
+        items: [
           {
-            label: "网格布局",
-            value: "grid",
+            type: "editorRender",
+            options: {
+              render: (props) => {
+                console.warn("~~~~~!!!!!!");
+                console.warn(props.editConfig.value.get());
+                return <div></div>;
+              },
+            },
+            value: {
+              get({ inputs, outputs }) {
+                console.log("~~~~~~~~~~~~~~~~");
+                if (!outputs.get("afterRefreshDataSource")) {
+                  outputs.add("afterRefreshDataSource", "覆盖数据后", {
+                    type: "any",
+                  });
+
+                  inputs
+                    .get("refreshDataSource")
+                    .setRels(["afterRefreshDataSource"]);
+                }
+
+                if (!outputs.get("afterAddDataSource")) {
+                  outputs.add("afterAddDataSource", "添加数据后", {
+                    type: "any",
+                  });
+
+                  inputs.get("addDataSource").setRels(["afterAddDataSource"]);
+                }
+
+                return "";
+              },
+            },
           },
           {
-            label: "瀑布流布局",
-            value: "waterfall",
+            title: "列表初始高度",
+            description: "如果设置为 0，组件将不展示占位状态",
+            type: "Text",
+            catelog: "默认",
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.layout.minHeight;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.layout.minHeight = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "类型",
+            description:
+              "列表项的布局类型，网格布局时，列表项会以网格形式展示；瀑布流布局时，列表项会以瀑布流形式展示",
+            type: "select",
+            catelog: "默认",
+            options: [
+              {
+                label: "网格布局",
+                value: "grid",
+              },
+              {
+                label: "瀑布流布局",
+                value: "waterfall",
+              },
+            ],
+            value: {
+              get({ data }) {
+                return data.layout.type;
+              },
+              set({ data }, value: string) {
+                data.layout.type = value;
+              },
+            },
+          },
+          {
+            title: "列数",
+            description: "一行展示的列表项数量",
+            type: "Text",
+            catelog: "默认",
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.layout.column;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.layout.column = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "列表项间距",
+            description: "列表项之间的间距",
+            type: "inputnumber",
+            catelog: "默认",
+            options: [
+              { title: "行间距", min: 0, width: 80 },
+              { title: "列间距", min: 0, width: 80 },
+            ],
+            value: {
+              get({ data }) {
+                return data.layout.gutter;
+              },
+              set({ data }, value: number[]) {
+                data.layout.gutter = value;
+              },
+            },
+          },
+          ...loadingOptions,
+          ...loadingBarOptions,
+          ...errorOptions,
+          ...errorBarOptions,
+          ...emptyOptions,
+          ...emptyBarOptions,
+        ],
+      },
+      {
+        title: "高级属性",
+        items: [
+          {
+            title: "开启触底加载",
+            description: "开启后，当列表滚动到底部时，会触发加载事件",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.enableLoadMore;
+              },
+              set({ data }, value) {
+                data.enableLoadMore = value;
+              },
+            },
+          },
+          {
+            title: "起始页码",
+            type: "Text",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.pagenation.page;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.pagenation.page = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "每次加载条数",
+            type: "Text",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
+            options: {
+              type: "number",
+            },
+            value: {
+              get({ data }) {
+                return data.pagenation.pageSize;
+              },
+              set({ data }, value: number) {
+                if (value) {
+                  data.pagenation.pageSize = +value;
+                }
+              },
+            },
+          },
+          {
+            title: "当触发加载时",
+            type: "_event",
+            ifVisible: ({ data }) => {
+              return data.enableLoadMore;
+            },
+            options: {
+              outputId: "onScrollLoad",
+            },
           },
         ],
-        value: {
-          get({ data }) {
-            return data.layout.type;
-          },
-          set({ data }, value: string) {
-            data.layout.type = value;
-          },
-        },
-      },
-      {
-        title: "列数",
-        type: "Text",
-        catelog: "默认",
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.layout.column;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.layout.column = +value;
-            }
-          },
-        },
-      },
-      {
-        title: "列表项间距",
-        type: "inputnumber",
-        catelog: "默认",
-        options: [
-          { title: "行间距", min: 0, width: 80 },
-          { title: "列间距", min: 0, width: 80 },
-        ],
-        value: {
-          get({ data }) {
-            return data.layout.gutter;
-          },
-          set({ data }, value: number[]) {
-            data.layout.gutter = value;
-          },
-        },
-      },
-      {
-        title: "初始状态",
-        catelog: "加载中",
-        items: [...loadingOptions],
-      },
-      {
-        title: "状态条",
-        catelog: "加载中",
-        items: [...loadingBarOptions],
-      },
-      {
-        title: "初始状态",
-        catelog: "加载失败",
-        items: [...errorOptions],
-      },
-      {
-        title: "状态条",
-        catelog: "加载失败",
-        items: [...errorBarOptions],
-      },
-      {
-        title: "初始状态",
-        catelog: "没有更多",
-        items: [...emptyOptions],
-      },
-      {
-        title: "状态条",
-        catelog: "没有更多",
-        items: [...emptyBarOptions],
-      },
-    ];
-    cate1.title = "分页";
-    cate1.items = [
-      {
-        title: "开启触底加载",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.enableLoadMore;
-          },
-          set({ data }, value) {
-            data.enableLoadMore = value;
-          },
-        },
-      },
-      {
-        title: "起始页码",
-        type: "Text",
-        ifVisible: ({ data }) => {
-          return data.enableLoadMore;
-        },
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.pagenation.page;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.pagenation.page = +value;
-            }
-          },
-        },
-      },
-      {
-        title: "每次加载条数",
-        type: "Text",
-        ifVisible: ({ data }) => {
-          return data.enableLoadMore;
-        },
-        options: {
-          type: "number",
-        },
-        value: {
-          get({ data }) {
-            return data.pagenation.pageSize;
-          },
-          set({ data }, value: number) {
-            if (value) {
-              data.pagenation.pageSize = +value;
-            }
-          },
-        },
-      },
-      {
-        title: "当触发加载时",
-        type: "_event",
-        ifVisible: ({ data }) => {
-          return data.enableLoadMore;
-        },
-        options: {
-          outputId: "onScrollLoad",
-        },
       },
     ];
     cate2.title = "高级";
