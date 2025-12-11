@@ -57,29 +57,60 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: "文本内容",
-          type: "textarea",
-          value: {
-            get({ data }) {
-              return data.text;
-            },
-            set({ data, setTitle }, value: string) {
-              data.text = value;
+          title: "基础属性",
+          items: [
+            {
+              title: "文本内容",
+              type: "textarea",
+              description:"填写要显示的文本内容",
+              value: {
+                get({ data }) {
+                  return data.text;
+                },
+                set({ data, setTitle }, value: string) {
+                  data.text = value;
 
-              // if (value.length > 5) {
-              //   setTitle(value.slice(0, 5) + "...");
-              // } else {
-              //   setTitle(value);
+                  // if (value.length > 5) {
+                  //   setTitle(value.slice(0, 5) + "...");
+                  // } else {
+                  //   setTitle(value);
+                  // }
+                },
+              },
+              // binding: {
+              //   with: 'data.text',
+              //   scheme: {
+              //     type: 'string'
+              //   }
               // }
             },
-          },
-          // binding: {
-          //   with: 'data.text',
-          //   scheme: {
-          //     type: 'string'
-          //   }
-          // }
+          ]
         },
+        {
+          title: "高级属性",
+          items: [
+            {
+              title: "默认展示状态",
+              type: "radio",
+              description:
+                "静态：原样显示文本；隐藏：在加载完成之前不显示任何内容；骨架：加载过程显示动效",
+              options: [
+                { label: "静态", value: "static" },
+                { label: "隐藏", value: "hidden" },
+                { label: "骨架", value: "skeleton" },
+              ],
+              value: {
+                get({ data }) {
+                  return data.displayState || "static";
+                },
+                set({ data }, value: string) {
+                  data.displayState = value;
+                },
+              },
+            },
+          ]
+        },
+
         // {
         //   title: "仅使用动态渲染",
         //   description:
@@ -94,25 +125,7 @@ export default {
         //     },
         //   },
         // },
-        {
-          title: "默认展示状态",
-          type: "radio",
-          description:
-            "静态：原样显示文本；隐藏：在加载完成之前不显示任何内容；骨架：加载过程显示动效",
-          options: [
-            { label: "静态", value: "static" },
-            { label: "隐藏", value: "hidden" },
-            { label: "骨架", value: "skeleton" },
-          ],
-          value: {
-            get({ data }) {
-              return data.displayState || "static";
-            },
-            set({ data }, value: string) {
-              data.displayState = value;
-            },
-          },
-        },
+
         {
           title: "事件",
           items: [

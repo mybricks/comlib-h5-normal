@@ -25,6 +25,7 @@ export default {
             {
               title: "图标",
               type: "editorRender",
+              description:"选择要显示的图标",
               options: {
                 render: (props) => {
                   return <IconSelector value={props.editConfig.value} />;
@@ -42,6 +43,7 @@ export default {
             {
               title: "大小",
               type: "inputnumber",
+              description:"设置图标的大小，单位为像素",
               options: [{ min: 1 }],
               value: {
                 get({ data }) {
@@ -59,6 +61,7 @@ export default {
             {
               title: "颜色",
               type: "colorpicker",
+              description:"设置图标的颜色，只支持纯色",
               value: {
                 get({ data }) {
                   return data.fontColor;

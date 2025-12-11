@@ -20,58 +20,64 @@ export default {
       cate0.title = "常规";
       cate0.items = [
         {
-          title: "图片链接",
-          type: "imageSelector",
-          value: {
-            get({ data }) {
-              return data.src;
-            },
-            set({ data }, src: string) {
-              data.src = src;
+          title: "基础属性",
+          items: [
+            {
+              title: "图片链接",
+              description: "填入正确有效的图片链接地址",
+              type: "imageSelector",
+              value: {
+                get({ data }) {
+                  return data.src;
+                },
+                set({ data }, src: string) {
+                  data.src = src;
 
-              // 如果 src 是 svg 标签，就转为 base64
-              if (src && src.startsWith("<svg")) {
-                let base64 = window.btoa(src);
-                data.svgPolyfill = `data:image/svg+xml;base64,${base64}`;
-              } else {
-                data.svgPolyfill = "";
-              }
+                  // 如果 src 是 svg 标签，就转为 base64
+                  if (src && src.startsWith("<svg")) {
+                    let base64 = window.btoa(src);
+                    data.svgPolyfill = `data:image/svg+xml;base64,${base64}`;
+                  } else {
+                    data.svgPolyfill = "";
+                  }
+                },
+              },
+              // binding: {
+              //   with: 'data.src',
+              //   scheme: {
+              //     type: 'string'
+              //   }
+              // }
             },
-          },
-          // binding: {
-          //   with: 'data.src',
-          //   scheme: {
-          //     type: 'string'
-          //   }
-          // }
+            {
+              title: "展示方式",
+              type: "editorRender",
+              description:
+                "展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用",
+              options: {
+                render: ImageShow,
+              },
+              value: {
+                get({ data, style }) {
+                  return {
+                    mode: data.mode,
+                    style: style,
+                  };
+                },
+                set({ }, value) {
+                  console.log(data.mode);
+                  data.mode = value;
+                },
+              },
+            },
+          ]
         },
         {
-          title: "展示方式",
-          type: "editorRender",
-          description:
-            "展示方式的区别主要在图片尺寸与配置尺寸对不齐的情况下起作用",
-          options: {
-            render: ImageShow,
-          },
-          value: {
-            get({ data, style }) {
-              return {
-                mode: data.mode,
-                style: style,
-              };
-            },
-            set({}, value) {
-              console.log(data.mode);
-              data.mode = value;
-            },
-          },
-        },
-        {
-          title: "加载过渡",
+          title: "高级属性",
           items: [
             {
               title: "淡入动画",
-              desctiption: "加载图片时支持过渡动画，使图片展示更丝滑",
+              description: "加载图片时支持过渡动画，使图片展示更丝滑",
               type: "switch",
               value: {
                 get({ data }) {
@@ -82,13 +88,8 @@ export default {
                 },
               },
             },
-          ],
-        },
-        {
-          title: "其它配置",
-          items: [
             {
-              title: "支持长按识别微信二维码或转发、保存图片",
+              title: "长按识别",
               description: "支持长按识别微信二维码或转发、保存图片",
               type: "switch",
               value: {
@@ -100,13 +101,14 @@ export default {
                 },
               },
             },
-          ],
+          ]
         },
         {
           title: "事件",
           items: [
             {
               title: "单击事件类型",
+              description:"设置图片单击时的行为",
               type: "select",
               options: [
                 {
