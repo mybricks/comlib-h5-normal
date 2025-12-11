@@ -225,14 +225,14 @@ function clearOutput(openType, output) {
 }
 
 export default {
-  "@init"({ style, data, output,input }) {
+  "@init"({ style, data, output, input }) {
     style.width = 120;
     style.height = 42;
     if (data?.useButtonImg) {
-      input.add("buttonImg", '修改按钮图片', {type:"string"});
+      input.add("buttonImg", '修改按钮图片', { type: "string" });
       // input.remove("buttonText");
-    }else{
-      input.add("buttonText", '修改按钮文本', {type:"string"});
+    } else {
+      input.add("buttonText", '修改按钮文本', { type: "string" });
       // input.remove("buttonImg");
     }
   },
@@ -246,14 +246,14 @@ export default {
           {
             title: "按钮",
             catelog: "默认",
-            options: ["font", "border", "padding", "background","boxshadow"],
+            options: ["font", "border", "padding", "background", "boxshadow"],
             target: ".mybricks-button",
             defaultOpen: true,
           },
           {
             title: "按钮",
             catelog: "禁用",
-            options: ["font", "border", "padding", "background","boxshadow"],
+            options: ["font", "border", "padding", "background", "boxshadow"],
             target: ".mybricks-button-disable",
             defaultOpen: true,
           },
@@ -262,126 +262,137 @@ export default {
     ],
     items: [
       {
-        title: "配置为图片按钮",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useButtonImg;
+        title: "基础属性",
+        items: [
+          {
+            title: "按钮文案",
+            type: "text",
+            ifVisible({ data }: EditorResult<Data>) {
+              return !data.useButtonImg;
+            },
+            value: {
+              get({ data }) {
+                return data.text;
+              },
+              set({ data, outputs }, value: string) {
+                data.text = value;
+              },
+            },
+            // binding: {
+            //   with: 'data.text',
+            //   scheme: {
+            //     type: 'string'
+            //   }
+            // }
           },
-          set({ data, input }, value) {
-            data.useButtonImg = value;
-            if (data.useButtonImg) {
-              input.add("buttonImg", '修改按钮图片', {type:"string"});
-              input.remove("buttonText");
-            }else{
-              input.add("buttonText", '修改按钮文本', {type:"string"});
-              input.remove("buttonImg");
-            }
+          {
+            title: "禁用按钮",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.disabled;
+              },
+              set({ data }, value) {
+                data.disabled = value;
+              },
+            },
+          }
+        ]
+      },
+      {
+        title: "高级属性",
+        items: [
+          {
+            title: "配置为图片按钮",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.useButtonImg;
+              },
+              set({ data, input }, value) {
+                data.useButtonImg = value;
+                if (data.useButtonImg) {
+                  input.add("buttonImg", '修改按钮图片', { type: "string" });
+                  input.remove("buttonText");
+                } else {
+                  input.add("buttonText", '修改按钮文本', { type: "string" });
+                  input.remove("buttonImg");
+                }
 
+              }
+            }
+          },
+          {
+            title: "按钮图片",
+            type: "imageSelector",
+            ifVisible({ data }: EditorResult<Data>) {
+              return data.useButtonImg;
+            },
+            value: {
+              get({ data }) {
+                return data.buttonImg;
+              },
+              set({ data }, value) {
+                data.buttonImg = value;
+              },
+            },
+          },
+
+          {
+            title: "前置图标",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.useBeforeIcon;
+              },
+              set({ data }, value) {
+                data.useBeforeIcon = value;
+              },
+            },
+          },
+          {
+            title: "图标地址",
+            type: "imageSelector",
+            ifVisible({ data }) {
+              return data.useBeforeIcon;
+            },
+            value: {
+              get({ data }) {
+                return data.beforeIconUrl;
+              },
+              set({ data }, value) {
+                data.beforeIconUrl = value;
+              }
+            }
+          },
+          {
+            title: "后置图标",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.useAfterIcon;
+              },
+              set({ data }, value) {
+                data.useAfterIcon = value;
+              },
+            },
+          },
+          {
+            title: "图标地址",
+            type: "imageSelector",
+            ifVisible({ data }) {
+              return data.useAfterIcon;
+            },
+            value: {
+              get({ data }) {
+                return data.afterIconUrl;
+              },
+              set({ data }, value) {
+                data.afterIconUrl = value;
+              }
+            }
           }
-        }
-      },
-      {
-        title: "按钮图片",
-        type: "imageSelector",
-        ifVisible({ data }: EditorResult<Data>) {
-          return data.useButtonImg;
-        },
-        value: {
-          get({ data }) {
-            return data.buttonImg;
-          },
-          set({ data }, value) {
-            data.buttonImg = value;
-          },
-        },
-      },
-      {
-        title: "按钮文案",
-        type: "text",
-        ifVisible({ data }: EditorResult<Data>) {
-          return !data.useButtonImg;
-        },
-        value: {
-          get({ data }) {
-            return data.text;
-          },
-          set({ data, outputs }, value: string) {
-            data.text = value;
-          },
-        },
-        // binding: {
-        //   with: 'data.text',
-        //   scheme: {
-        //     type: 'string'
-        //   }
-        // }
-      },
-      {
-        title: "前置图标",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useBeforeIcon;
-          },
-          set({ data }, value) {
-            data.useBeforeIcon = value;
-          },
-        },
-      },
-      {
-        title: "图标地址",
-        type: "imageSelector",
-        ifVisible({ data }) {
-          return data.useBeforeIcon;
-        },
-        value: {
-          get({ data }) {
-            return data.beforeIconUrl;
-          },
-          set({ data }, value) {
-            data.beforeIconUrl = value;
-          }
-        }
-      },
-      {
-        title: "后置图标",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.useAfterIcon;
-          },
-          set({ data }, value) {
-            data.useAfterIcon = value;
-          },
-        },
-      },
-      {
-        title: "图标地址",
-        type: "imageSelector",
-        ifVisible({ data }) {
-          return data.useAfterIcon;
-        },
-        value: {
-          get({ data }) {
-            return data.afterIconUrl;
-          },
-          set({ data }, value) {
-            data.afterIconUrl = value;
-          }
-        }
-      },
-      {
-        title: "禁用按钮",
-        type: "switch",
-        value: {
-          get({ data }) {
-            return data.disabled;
-          },
-          set({ data }, value) {
-            data.disabled = value;
-          },
-        },
+        ]
       },
       {
         title: "事件",
