@@ -126,6 +126,7 @@ export default {
           items: [
             {
               title: "选项",
+              description: "可选择列表的静态选项",
               type: "array",
               options: {
                 getTitle: (item, index) => {
@@ -178,6 +179,7 @@ export default {
                 );
               },
               title: "默认选中项",
+              description: "单选模式下，默认选中的选项",
               type: "select",
               options: [
                 {
@@ -204,6 +206,7 @@ export default {
                 return data.defaultRenderMode !== "dynamic" && data.useMultiple;
               },
               title: "默认选中项",
+              description: "多选模式下，默认选中的选项，可多选",
               type: "select",
               options: {
                 mode: "tags",
@@ -231,6 +234,7 @@ export default {
             },
             {
               title: "启用换行",
+              description: "开启后，选项会换行显示",
               type: "switch",
               value: {
                 get({ data }) {
@@ -246,6 +250,7 @@ export default {
                 return !data.useWrap;
               },
               title: "最小宽度",
+              description: "不开启换行时，每个选项的最小宽度",
               type: "inputnumber",
               options: [{ min: 75 }],
               value: {
@@ -262,6 +267,7 @@ export default {
                 return data.useWrap;
               },
               title: "每行列数",
+              description: "开启换行后，每行显示的选项数量",
               type: "inputnumber",
               options: [{ min: 1 }],
               value: {
@@ -275,6 +281,7 @@ export default {
             },
             {
               title: "列表项间距",
+              description: "选项之间的间距，不换行时行间距无效",
               type: "inputnumber",
               catelog: "默认",
               options: [
@@ -315,6 +322,8 @@ export default {
             },
             {
               title: "选择模式",
+              description:
+                "单选模式下，用户只能选择一个选项；多选模式下，用户可以选择多个选项",
               type: "radio",
               options: [
                 { label: "单选", value: false },

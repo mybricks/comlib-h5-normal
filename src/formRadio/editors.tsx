@@ -67,6 +67,7 @@ export default {
           items: [
             {
               title: "选项排列方向",
+              description: "水平：选项排列在一排；垂直：选项排列在一列",
               type: "radio",
               options: [
                 { label: "水平", value: "horizontal" },
@@ -99,6 +100,7 @@ export default {
             },
             {
               title: "单选项",
+              description: "静态的选项数据",
               type: "array",
               options: {
                 getTitle: (item, index) => {
@@ -146,6 +148,7 @@ export default {
             },
             {
               title: "禁用编辑",
+              description: "是否禁用编辑",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -181,6 +184,8 @@ export default {
             },
             {
               title: "选项间距",
+              description:
+                "选项之间的间距，排列方向水平时为水平间距，垂直时为垂直间距",
               type: "number",
               value: {
                 get({ data }) {
@@ -217,6 +222,7 @@ export default {
       cate1.items = [
         {
           title: "标题",
+          description: "选项标题",
           type: "text",
           value: {
             get({ data, focusArea }) {

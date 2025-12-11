@@ -23,6 +23,7 @@ export default {
           items: [
             {
               title: "最大上传数量",
+              description: "最多可以上传的图片数量",
               type: "text",
               options: {
                 plugins: ["number"],
@@ -38,6 +39,7 @@ export default {
             },
             {
               title: "提示内容",
+              description: "上传图片下方显示的提示文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -50,6 +52,7 @@ export default {
             },
             {
               title: "上传name(h5生效)",
+              description: "上传图片时，后端接收的参数名",
               type: "text",
               value: {
                 get({ data }) {
@@ -62,6 +65,7 @@ export default {
             },
             {
               title: "上传filename(h5生效)",
+              description: "上传图片时，后端接收的文件名参数名",
               type: "text",
               value: {
                 get({ data }) {
@@ -79,6 +83,7 @@ export default {
           items: [
             {
               title: "示例图",
+              description: "上传图片右侧显示的示例图",
               type: "imageSelector",
               options: {
                 fileSizeLimit: 2,
@@ -94,6 +99,7 @@ export default {
             },
             {
               title: "支持获取微信头像",
+              description: "是否支持用户选择微信头像",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -106,6 +112,7 @@ export default {
             },
             {
               title: "开启占位插槽",
+              description: "是否开启占位插槽, 用于自定义上传按钮",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -131,6 +138,7 @@ export default {
             },
             {
               title: "是否压缩图片(h5生效)",
+              description: "是否压缩上传的图片",
               type: "switch",
               value: {
                 get({ data }) {

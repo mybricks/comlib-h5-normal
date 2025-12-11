@@ -60,6 +60,7 @@ export default {
             },
             {
               title: "禁用编辑",
+              description: "是否禁用编辑",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -77,6 +78,7 @@ export default {
           items: [
             {
               title: "配置为插槽",
+              description: "开启后可自定义省市区选择的触发区域",
               type: "switch",
               value: {
                 get({ data }) {

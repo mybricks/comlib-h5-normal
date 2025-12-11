@@ -49,6 +49,7 @@ export default {
             },
             {
               title: "时间类型",
+              description: "选择要显示的时间类型",
               type: "select",
               options: [
                 { label: "日期", value: "date" },
@@ -71,6 +72,7 @@ export default {
             },
             {
               title: "输出日期格式",
+              description: "选择要输出的日期格式",
               type: "select",
               ifVisible({ data }) {
                 return data.type == "date";
@@ -90,6 +92,7 @@ export default {
             },
             {
               title: "禁用编辑",
+              description: "是否禁用编辑",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -107,6 +110,7 @@ export default {
           items: [
             {
               title: "开启清空按钮",
+              description: "可点击图标清除所选时间",
               type: "switch",
               value: {
                 get({ data }) {
@@ -119,6 +123,7 @@ export default {
             },
             {
               title: "可选的最小时间",
+              description: "选择可选的最小时间",
               type: "editorRender",
               options: {
                 render: DatePicker,
@@ -134,6 +139,7 @@ export default {
             },
             {
               title: "可选的最大时间",
+              description: "选择可选的最大时间",
               type: "editorRender",
               options: {
                 render: DatePicker,
@@ -149,6 +155,7 @@ export default {
             },
             {
               title: "配置为插槽",
+              description: "开启后可自定义时间选择的触发区域",
               type: "switch",
               value: {
                 get({ data }) {

@@ -44,6 +44,7 @@ export default {
             },
             {
               title: "禁用编辑",
+              description: "是否禁用编辑",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -61,6 +62,7 @@ export default {
           items: [
             {
               title: "显示撤销重做",
+              description: "是否显示撤销重做按钮",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -73,6 +75,7 @@ export default {
             },
             {
               title: "单次图片上传数",
+              description: "每次上传图片时最多可以上传的图片数量",
               type: "number",
               value: {
                 get({ data }) {

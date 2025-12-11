@@ -51,6 +51,7 @@ export default {
           items: [
             {
               title: "总分值",
+              description: "评分的总分数值",
               type: "inputnumber",
               options: [{ title: "", width: "100%" }],
               value: {
@@ -64,6 +65,7 @@ export default {
             },
             {
               title: "允许打半星",
+              description: "是否允许用户打半星",
               type: "switch",
               value: {
                 get({ data }: any) {

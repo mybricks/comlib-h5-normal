@@ -35,6 +35,7 @@ export default {
           items: [
             {
               title: "标题",
+              description: "单元格的标题",
               type: "text",
               value: {
                 get({ data }) {
@@ -47,6 +48,7 @@ export default {
             },
             {
               title: "描述",
+              description: "单元格的描述，用于显示补充信息",
               type: "text",
               value: {
                 get({ data }) {
@@ -62,6 +64,7 @@ export default {
                 return !data.useChildren;
               },
               title: "内容",
+              description: "单元格右侧的内容，用于显示主要信息",
               type: "text",
               value: {
                 get({ data }) {
@@ -79,6 +82,7 @@ export default {
           items: [
             {
               title: "展示图标",
+              description: "开启后可上传图标，用于显示在标题左侧",
               type: "switch",
               value: {
                 get({ data }) {
@@ -94,6 +98,7 @@ export default {
                 return data.useThumb;
               },
               title: "图标",
+              description: "上传图标，用于显示在标题左侧",
               type: "imageSelector",
               value: {
                 get({ data }) {
@@ -106,6 +111,7 @@ export default {
             },
             {
               title: "开启内容插槽",
+              description: "开启后可在单元格右侧内容区域中添加自定义内容",
               type: "switch",
               value: {
                 get({ data }) {
@@ -146,6 +152,7 @@ export default {
 
             {
               title: "显示右箭头",
+              description: "开启后可在单元格右侧内容区域中添加右箭头图标",
               type: "switch",
               value: {
                 get({ data }) {
@@ -173,6 +180,7 @@ export default {
             },
             {
               title: "支持左滑",
+              description: "开启后可左滑单元格显示操作按钮",
               type: "switch",
               value: {
                 get({ data }) {
@@ -200,6 +208,7 @@ export default {
                 return data.useSwipeLeft;
               },
               title: "左滑主按钮文案",
+              description: "左滑单元格时显示的主按钮文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -215,6 +224,7 @@ export default {
                 return data.useSwipeLeft;
               },
               title: "主按钮样式",
+              description: "左滑单元格时显示的主按钮样式",
               type: "styleNew",
               options: {
                 defaultOpen: true,
@@ -288,6 +298,7 @@ export default {
             // },
             {
               title: "开启左滑副按钮",
+              description: "开启后可左滑单元格显示副按钮",
               type: "switch",
               ifVisible({ data }) {
                 return data.useSwipeLeft;
@@ -318,6 +329,7 @@ export default {
                 return data.useSwipeLeftSecondary;
               },
               title: "左滑副按钮文案",
+              description: "左滑单元格时显示的副按钮文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -333,6 +345,7 @@ export default {
                 return data.useSwipeLeftSecondary;
               },
               title: "副按钮样式",
+              description: "左滑单元格时显示的副按钮样式",
               type: "styleNew",
               options: {
                 defaultOpen: true,

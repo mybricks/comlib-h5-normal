@@ -57,6 +57,7 @@ export default {
             },
             {
               title: "按钮文案",
+              description: "获取验证码按钮上显示的文案",
               type: "text",
               ifVisible({ data }) {
                 return !data.customInput;
@@ -72,6 +73,7 @@ export default {
             },
             {
               title: "重新获取文案",
+              description: "重新获取验证码按钮上显示的文案",
               type: "text",
               ifVisible({ data }) {
                 return !data.customInput;
@@ -154,6 +156,7 @@ export default {
     items: [
       {
         title: "按钮文案",
+        description: "获取验证码按钮上显示的文案",
         type: "text",
         ifVisible({ data }) {
           return !data.customInput;
@@ -169,6 +172,7 @@ export default {
       },
       {
         title: "重新获取文案",
+        description: "重新获取验证码按钮上显示的文案",
         type: "text",
         ifVisible({ data }) {
           return !data.customInput;

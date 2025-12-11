@@ -36,6 +36,7 @@ export default {
           items: [
             {
               title: "展示比例尺",
+              description: "开启后，地图上会展示比例尺",
               type: "switch",
               value: {
                 get({ data }) {
@@ -48,6 +49,7 @@ export default {
             },
             {
               title: "展示指南针",
+              description: "开启后，地图上会展示指南针",
               type: "switch",
               value: {
                 get({ data }) {
@@ -60,6 +62,7 @@ export default {
             },
             {
               title: "支持缩放",
+              description: "开启后，用户可以通过缩放地图来改变地图的缩放级别",
               type: "switch",
               value: {
                 get({ data }) {
@@ -72,6 +75,7 @@ export default {
             },
             {
               title: "支持拖动",
+              description: "开启后，用户可以通过拖动地图来改变地图的中心位置",
               type: "switch",
               value: {
                 get({ data }) {
@@ -89,6 +93,7 @@ export default {
           items: [
             {
               title: "展示实时路况",
+              description: "开启后，地图上会展示实时路况",
               type: "switch",
               value: {
                 get({ data }) {

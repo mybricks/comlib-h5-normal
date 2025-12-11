@@ -75,6 +75,7 @@ export default {
             },
             {
               title: "按钮文案",
+              description: "按钮上显示的文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -142,6 +143,7 @@ export default {
     items: [
       {
         title: "按钮文案",
+        description: "按钮上显示的文案",
         type: "text",
         value: {
           get({ data }) {

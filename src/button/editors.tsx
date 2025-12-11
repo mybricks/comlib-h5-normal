@@ -46,8 +46,8 @@ const MAP = {
         schema: {
           type: "any",
         },
-      }
-    ]
+      },
+    ],
   },
   getRealtimePhoneNumber: {
     title: "手机号实时验证",
@@ -119,10 +119,11 @@ const MAP = {
         id: "chooseAvatarSuccess",
         title: "选择头像成功（仅支持真机）",
         schema: {
-          type: "string"
-        }
-      }]
-  }
+          type: "string",
+        },
+      },
+    ],
+  },
 };
 
 function clearOutput(openType, output) {
@@ -225,14 +226,14 @@ function clearOutput(openType, output) {
 }
 
 export default {
-  "@init"({ style, data, output,input }) {
+  "@init"({ style, data, output, input }) {
     style.width = 120;
     style.height = 42;
     if (data?.useButtonImg) {
-      input.add("buttonImg", '修改按钮图片', {type:"string"});
+      input.add("buttonImg", "修改按钮图片", { type: "string" });
       // input.remove("buttonText");
-    }else{
-      input.add("buttonText", '修改按钮文本', {type:"string"});
+    } else {
+      input.add("buttonText", "修改按钮文本", { type: "string" });
       // input.remove("buttonImg");
     }
   },
@@ -246,14 +247,14 @@ export default {
           {
             title: "按钮",
             catelog: "默认",
-            options: ["font", "border", "padding", "background","boxshadow"],
+            options: ["font", "border", "padding", "background", "boxshadow"],
             target: ".mybricks-button",
             defaultOpen: true,
           },
           {
             title: "按钮",
             catelog: "禁用",
-            options: ["font", "border", "padding", "background","boxshadow"],
+            options: ["font", "border", "padding", "background", "boxshadow"],
             target: ".mybricks-button-disable",
             defaultOpen: true,
           },
@@ -261,6 +262,10 @@ export default {
       },
     ],
     items: [
+      {
+        title: "test",
+        type: "style",
+      },
       {
         title: "配置为图片按钮",
         type: "switch",
@@ -271,15 +276,14 @@ export default {
           set({ data, input }, value) {
             data.useButtonImg = value;
             if (data.useButtonImg) {
-              input.add("buttonImg", '修改按钮图片', {type:"string"});
+              input.add("buttonImg", "修改按钮图片", { type: "string" });
               input.remove("buttonText");
-            }else{
-              input.add("buttonText", '修改按钮文本', {type:"string"});
+            } else {
+              input.add("buttonText", "修改按钮文本", { type: "string" });
               input.remove("buttonImg");
             }
-
-          }
-        }
+          },
+        },
       },
       {
         title: "按钮图片",
@@ -341,8 +345,8 @@ export default {
           },
           set({ data }, value) {
             data.beforeIconUrl = value;
-          }
-        }
+          },
+        },
       },
       {
         title: "后置图标",
@@ -368,8 +372,8 @@ export default {
           },
           set({ data }, value) {
             data.afterIconUrl = value;
-          }
-        }
+          },
+        },
       },
       {
         title: "禁用按钮",
@@ -631,5 +635,5 @@ export default {
         },
       },
     },
-  }
+  },
 };

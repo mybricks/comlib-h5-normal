@@ -43,6 +43,7 @@ export default {
           items: [
             {
               title: "搜索框左侧文本",
+              description: "搜索框左侧显示的文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -55,6 +56,7 @@ export default {
             },
             {
               title: "提示文字",
+              description: "该提示内容会在值为空时显示",
               type: "text",
               value: {
                 get({ data }) {
@@ -67,6 +69,7 @@ export default {
             },
             {
               title: "展示搜索按钮",
+              description: "是否展示搜索按钮",
               type: "switch",
               value: {
                 get({ data }) {
@@ -79,6 +82,7 @@ export default {
             },
             {
               title: "搜索按钮文本",
+              description: "搜索按钮显示的文案",
               type: "text",
               ifVisible({ data }) {
                 return data.showSearchButton;
@@ -94,6 +98,7 @@ export default {
             },
             {
               title: "是否禁用输入框",
+              description: "是否禁用输入框",
               type: "switch",
               value: {
                 get({ data }) {

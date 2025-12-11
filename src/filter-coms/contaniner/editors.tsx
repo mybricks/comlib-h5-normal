@@ -99,12 +99,10 @@ export default {
               },
               value: {
                 set({ data, slot }: EditorResult<Data>, namespace: string) {
-                  slot
-                    .get("content")
-                    .addCom(namespace, false, {
-                      deletable: true,
-                      movable: true,
-                    });
+                  slot.get("content").addCom(namespace, false, {
+                    deletable: true,
+                    movable: true,
+                  });
                 },
               },
             },
@@ -116,6 +114,7 @@ export default {
           items: [
             {
               title: "显示「更多筛选项」",
+              description: "开启后，会在筛选栏右侧显示一个「筛选」按钮",
               type: "switch",
               value: {
                 get({ id, data }: any) {
@@ -128,6 +127,7 @@ export default {
             },
             {
               title: "文案",
+              description: "筛选按钮的文案",
               type: "text",
               value: {
                 get({ id, data }: any) {

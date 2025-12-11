@@ -54,6 +54,7 @@ export default {
             },
             {
               title: "验证码倒数秒数",
+              description: "验证码发送后倒数秒数",
               type: "InputNumber",
               options: [{ min: 1 }],
               value: {
@@ -67,6 +68,7 @@ export default {
             },
             {
               title: "倒数文案",
+              description: "验证码发送后，倒数秒数后显示的文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -79,6 +81,7 @@ export default {
             },
             {
               title: "重试文案",
+              description: "倒计时结束后，重新发送验证码的文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -91,6 +94,7 @@ export default {
             },
             {
               title: "错误文案",
+              description: "验证码输入错误时显示的文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -108,6 +112,7 @@ export default {
           items: [
             {
               title: "显示中间分割线",
+              description: "验证码输入框中间显示分割符，只支持偶数的验证码位数",
               type: "switch",
               value: {
                 get({ data }) {

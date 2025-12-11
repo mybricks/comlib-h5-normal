@@ -64,6 +64,7 @@ export default {
           items: [
             {
               title: "最大上传数量",
+              description: "最多可以上传的文件数量",
               type: "text",
               options: {
                 plugins: ["number"],
@@ -79,6 +80,7 @@ export default {
             },
             {
               title: "提示内容",
+              description: "上传文件下方显示的提示文案",
               type: "text",
               value: {
                 get({ data }) {
@@ -96,6 +98,7 @@ export default {
           items: [
             {
               title: "开启占位插槽",
+              description: "是否开启占位插槽, 用于自定义上传按钮",
               type: "Switch",
               value: {
                 get({ data }) {

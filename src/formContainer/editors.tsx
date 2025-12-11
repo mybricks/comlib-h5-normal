@@ -43,6 +43,7 @@ const defaultRules = [
 const submitEditorItems = [
   {
     title: "显示提交按钮",
+    description: "开启后，会在表单底部显示提交按钮",
     type: "switch",
     value: {
       get({ data }) {
@@ -58,6 +59,7 @@ const submitEditorItems = [
       return data.useSubmitButton;
     },
     title: "按钮文案",
+    description: "提交按钮的文案",
     type: "text",
     value: {
       get({ data }) {
@@ -237,6 +239,8 @@ export default {
             },
             {
               title: "表单项布局",
+              description:
+                "水平：标题和表单项左右水平分布；垂直：标题和表单项上下垂直分布",
               type: "radio",
               options: [
                 { label: "水平", value: "horizontal" },
@@ -290,6 +294,7 @@ export default {
         items: [
           {
             title: "隐藏标题",
+            description: "开启后，表单项的标题将不会显示",
             type: "switch",
             value: {
               get({ id, data, name }: any) {
@@ -306,6 +311,8 @@ export default {
           },
           {
             title: "表单项布局",
+            description:
+              "跟随：根据表单容器的布局来确定表单项的布局；水平：标题和表单项左右水平分布；垂直：标题和表单项上下垂直分布",
             type: "radio",
             options: [
               { label: "跟随", value: "unset" },
@@ -331,6 +338,7 @@ export default {
               return !item?.hideLabel;
             },
             title: "图标",
+            description: "可在表单项标题前显示图标",
             type: "imageSelector",
             value: {
               get({ id, data, name }: any) {
@@ -349,6 +357,7 @@ export default {
               return !item?.hideLabel;
             },
             title: "标题",
+            description: "表单项的标题",
             type: "text",
             value: {
               get({ id, data, name }: any) {
@@ -371,6 +380,7 @@ export default {
           },
           {
             title: "字段",
+            description: "表单项的字段名，用于提交时的参数名",
             type: "text",
             value: {
               get({ id, data, name }: any) {

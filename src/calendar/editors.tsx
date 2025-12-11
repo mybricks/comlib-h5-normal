@@ -25,6 +25,7 @@ export default {
           items: [
             {
               title: "选择类型",
+              description: "配置选择日期的类型，选择单个日期或日期范围",
               type: "select",
               options: [
                 {
@@ -51,6 +52,8 @@ export default {
             },
             {
               title: "时间范围选择",
+              description:
+                "开启后，可配置起始日期和终止日期，用户只能选择在起始日期和终止日期之间的日期",
               type: "switch",
               value: {
                 get({ data }) {
@@ -67,6 +70,8 @@ export default {
             },
             {
               title: "起始时间",
+              description:
+                "配置用户可选择的最小日期，Date()可识别的日期时间格式",
               ifVisible({ data }) {
                 return data.showRange;
               },
@@ -82,6 +87,8 @@ export default {
             },
             {
               title: "终止时间",
+              description:
+                "配置用户可选择的最大日期，Date()可识别的日期时间格式",
               ifVisible({ data }) {
                 return data.showRange;
               },

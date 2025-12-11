@@ -98,6 +98,7 @@ export default {
           items: [
             {
               title: "表格列",
+              description: "表格的列配置，可配置列名、列字段",
               type: "array",
               options: {
                 getTitle: (item, index) => {
@@ -161,6 +162,7 @@ export default {
             },
             {
               title: "展示列边框",
+              description: "列与列之间的边框",
               type: "switch",
               value: {
                 get({ data }) {
@@ -178,6 +180,7 @@ export default {
           items: [
             {
               title: "隐藏表头",
+              description: "是否隐藏表格的表头",
               type: "switch",
               value: {
                 get({ data }) {
@@ -193,6 +196,7 @@ export default {
                 return data.columns.length > 1;
               },
               title: "固定首列",
+              description: "是否固定表格的首列",
               type: "switch",
               value: {
                 get({ data }) {
@@ -208,6 +212,7 @@ export default {
                 return data.columns.length > 1;
               },
               title: "固定末列",
+              description: "是否固定表格的末列",
               type: "switch",
               value: {
                 get({ data }) {
@@ -220,6 +225,7 @@ export default {
             },
             {
               title: "开启触底加载",
+              description: "开启后，表格滚动到底部时，会触发加载事件",
               type: "switch",
               value: {
                 get({ data }) {
@@ -365,6 +371,7 @@ export default {
       cate0.items = [
         {
           title: "列名",
+          description: "表格列的显示名称",
           type: "text",
           value: {
             get({ data }) {
@@ -397,6 +404,7 @@ export default {
         },
         {
           title: "列字段",
+          description: "表格列的数据字段，用于绑定数据",
           type: "text",
           value: {
             get({ data }) {
@@ -429,6 +437,7 @@ export default {
         },
         {
           title: "类型",
+          description: "表格列的显示类型，文本或自定义插槽",
           type: "select",
           options: [
             { label: "文本", value: "text" },
@@ -493,6 +502,7 @@ export default {
         {},
         {
           title: "列宽",
+          description: "表格列的宽度设置，适应剩余宽度或固定宽度",
           type: "radio",
           options: [
             { label: "适应剩余宽度", value: "auto" },

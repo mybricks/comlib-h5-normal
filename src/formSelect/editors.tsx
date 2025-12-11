@@ -86,6 +86,7 @@ export default {
             },
             {
               title: "选项",
+              description: "静态的选项数据",
               type: "array",
               options: {
                 getTitle: (item, index) => {
@@ -121,6 +122,7 @@ export default {
             },
             {
               title: "禁用编辑",
+              description: "是否禁用编辑",
               type: "Switch",
               value: {
                 get({ data }) {
@@ -156,6 +158,7 @@ export default {
             },
             {
               title: "配置为插槽",
+              description: "开启后可自定义下拉框的触发区域",
               type: "switch",
               value: {
                 get({ data }) {
