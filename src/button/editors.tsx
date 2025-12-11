@@ -272,7 +272,7 @@ function iconEditor(type: string) {
       },
       value: {
         get({ data }) {
-          return data[curKey.useIconImg] ?? true;
+          return data[curKey.useIconImg] ?? false;
         },
         set({ data }, value) {
           data[curKey.useIconImg] = value;
@@ -284,7 +284,7 @@ function iconEditor(type: string) {
       description: `上传${typeStr}图标的自定义图标图片`,
       type: "imageSelector",
       ifVisible({ data }) {
-        return data[curKey.useIcon] && data[curKey.useIconImg] !== false;
+        return data[curKey.useIcon] && data[curKey.useIconImg];
       },
       value: {
         get({ data }) {
@@ -305,7 +305,7 @@ function iconEditor(type: string) {
         },
       },
       ifVisible({ data }) {
-        return data[curKey.useIcon] && data[curKey.useIconImg] === false;
+        return data[curKey.useIcon] && !data[curKey.useIconImg];
       },
       value: {
         get({ data }) {
@@ -322,7 +322,7 @@ function iconEditor(type: string) {
       type: "inputnumber",
       options: [{ min: 1 }],
       ifVisible({ data }) {
-        return data[curKey.useIcon] && data[curKey.useIconImg] === false;
+        return data[curKey.useIcon] && !data[curKey.useIconImg];
       },
       value: {
         get({ data }) {
@@ -342,7 +342,7 @@ function iconEditor(type: string) {
       description: `${typeStr}图标颜色`,
       type: "colorpicker",
       ifVisible({ data }) {
-        return data[curKey.useIcon] && data[curKey.useIconImg] === false;
+        return data[curKey.useIcon] && !data[curKey.useIconImg];
       },
       value: {
         get({ data }) {

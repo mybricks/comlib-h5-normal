@@ -146,8 +146,8 @@ export default function ({
     } else {
       return (
         data.useBeforeIcon &&
-        ((data.useBeforeIconImg !== false && data.beforeIconUrl) ||
-          (data.useBeforeIconImg === false && data.beforeIcon))
+        ((data.useBeforeIconImg && data.beforeIconUrl) ||
+          (!data.useBeforeIconImg && data.beforeIcon))
       );
     }
   }, [
@@ -164,8 +164,8 @@ export default function ({
     } else {
       return (
         data.useAfterIcon &&
-        ((data.useAfterIconImg !== false && data.afterIconUrl) ||
-          (data.useAfterIconImg === false && data.afterIcon))
+        ((data.useAfterIconImg && data.afterIconUrl) ||
+          (!data.useAfterIconImg && data.afterIcon))
       );
     }
   }, [
@@ -232,7 +232,7 @@ export default function ({
             marginRight: data.beforeIconSpacing ?? 8,
           }}
         >
-          {data?.useBeforeIconImg === false ? (
+          {!data?.useBeforeIconImg ? (
             <DynamicIcon
               name={data.beforeIcon ?? "Plus"}
               size={data.beforeIconSize ?? 16}
@@ -268,7 +268,7 @@ export default function ({
             marginLeft: data.afterIconSpacing ?? 8,
           }}
         >
-          {data?.useAfterIconImg === false ? (
+          {!data?.useAfterIconImg ? (
             <DynamicIcon
               name={data.afterIcon ?? "Plus"}
               size={data.afterIconSize ?? 16}

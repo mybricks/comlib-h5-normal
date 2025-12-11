@@ -19,7 +19,7 @@
   "openType": "",
 
   "useBeforeIcon": false,
-  "useBeforeIconImg": true,
+  "useBeforeIconImg": false,
   "beforeIconUrl": "",
   "beforeIconSize": 16,
   "beforeIcon": "Plus",
@@ -27,7 +27,7 @@
   "beforeIconSpacing": 8,
 
   "useAfterIcon": false,
-  "useAfterIconImg": true,
+  "useAfterIconImg": false,
   "afterIconUrl": "",
   "afterIconSize": 16,
   "afterIcon": "Plus",
