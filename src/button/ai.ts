@@ -1,3 +1,4 @@
+import { AllTaroifyIconsKey } from "../components/dynamic-icon/icons";
 export default {
   ':root' ({ data }) {
     return {}
@@ -10,18 +11,18 @@ text: string = "按钮"
 slots插槽
 无
 
-styleAry声明
-按钮: .mybricks-button
-- 默认样式: 
-  - borderRadius: 60
-  - backgroundColor: #FA6400
-  - fontColor: #FFFFFF
-  - fontSize: 14px
-- 可编辑样式: backgroundColor、border、font相关
-
 美观度注意事项
 - 内容文本默认是水平垂直居中的，可以配置固定高度；
-- 如果按钮的宽度配置fit-content，请先配置左右padding，否则会紧贴文本；`
+- 如果按钮的宽度配置fit-content，请先配置左右padding，否则会紧贴文本；
+- 优先使用内置的图标
+
+
+  <允许使用的图标>
+  以下图标，可作为 data.afterIcon 以及 data.beforeIcon 的值使用：
+  ${AllTaroifyIconsKey}
+  </允许使用的图标>
+
+`
   },
   modifyTptJson: (component) => {
     let hasConfigStyle = false
