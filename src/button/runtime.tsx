@@ -11,6 +11,7 @@ import cx from "classnames";
 import { Button, Text, Image, View } from "@tarojs/components";
 import * as Taro from "@tarojs/taro";
 import DynamicIcon from "../components/dynamic-icon";
+import { isEmpty } from "./../utils/core";
 
 export default function ({
   env,
@@ -229,7 +230,7 @@ export default function ({
       {useBeforeIcon && !data?.useButtonImg ? (
         <View
           style={{
-            marginRight: data.beforeIconSpacing ?? 8,
+            marginRight: !isEmpty(data.text) ? data.beforeIconSpacing ?? 8 : 0,
           }}
         >
           {!data?.useBeforeIconImg ? (
@@ -265,7 +266,7 @@ export default function ({
       {useAfterIcon && !data?.useButtonImg ? (
         <View
           style={{
-            marginLeft: data.afterIconSpacing ?? 8,
+            marginLeft: !isEmpty(data.text) ? data.afterIconSpacing ?? 8 : 0,
           }}
         >
           {!data?.useAfterIconImg ? (
