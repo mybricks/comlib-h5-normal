@@ -21,6 +21,7 @@ const Icon = (props: any) => {
 export default function ({ value }) {
   const [visible, setVisible] = useState(false);
   const [iconSet, setIconSet] = useState(HarmonyIcons[0]?.title);
+  const tabsRef = useRef<HTMLDivElement>(null);
   const cateRef = useRef(null);
   const cateItemRefs = useRef({}) as MutableRefObject<{
     [key: string]: HTMLElement;
@@ -120,6 +121,37 @@ export default function ({ value }) {
     return () => observer.disconnect();
   }, [visible, isScrollingRef]);
 
+  // tab居中显示
+  let tabScrollTimeout;
+  useEffect(() => {
+    const tabsWrapWidth = (
+      tabsRef.current?.querySelector(".ant-tabs-nav-wrap") as HTMLElement
+    )?.offsetWidth;
+    const tabsEl = tabsRef.current?.querySelector(
+      ".ant-tabs-nav-list"
+    ) as HTMLElement;
+    if (tabsEl) {
+      const tahIndex = HarmonyIcons.findIndex((item) => item.title === iconSet);
+      const curTab = tabsEl.querySelectorAll(".ant-tabs-tab")[
+        tahIndex
+      ] as HTMLElement;
+      if (curTab) {
+        const curTabWidth = curTab.offsetWidth;
+        const curTabLeft = curTab.offsetLeft;
+        const move = tabsWrapWidth / 2 - curTabLeft - curTabWidth / 2;
+        const minScrollTo = tabsWrapWidth - tabsEl.offsetWidth;
+        const maxScrollTo = 0;
+        const scrollTo = Math.max(minScrollTo, Math.min(maxScrollTo, move));
+        if (tabScrollTimeout) {
+          clearTimeout(tabScrollTimeout);
+        }
+        tabScrollTimeout = setTimeout(() => {
+          tabsEl.style.transform = `translate(${scrollTo}px,0)`;
+        }, 300);
+      }
+    }
+  }, [iconSet]);
+
   return (
     <div className={css["editor-icon"]}>
       <button className={css["editor-icon__button"]} onClick={toggle}>
@@ -153,7 +185,7 @@ export default function ({ value }) {
             {"选择图标"}
             <Cross onClick={toggle} />
           </div>
-          <div className={css.styleChoose}>
+          <div ref={tabsRef} className={css.styleChoose}>
             <Tabs
               type="card"
               activeKey={iconSet}
