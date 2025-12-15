@@ -235,7 +235,7 @@ export default function ({
         >
           {!data?.useBeforeIconImg ? (
             <DynamicIcon
-              name={data.beforeIcon ?? "Plus"}
+              name={data.beforeIcon ?? "HM_plus"}
               size={data.beforeIconSize ?? 16}
               color={data.beforeIconColor ?? "#fff"}
             />
@@ -271,7 +271,7 @@ export default function ({
         >
           {!data?.useAfterIconImg ? (
             <DynamicIcon
-              name={data.afterIcon ?? "Plus"}
+              name={data.afterIcon ?? "HM_plus"}
               size={data.afterIconSize ?? 16}
               color={data.afterIconColor ?? "#fff"}
             />

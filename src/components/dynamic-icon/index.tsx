@@ -1,13 +1,23 @@
-import { TaroifyIcons } from "./icons";
+import HarmonyIcon from "./harmony-icons";
+import TaroiIcon from "./taroify-icons";
 
-export default function ({ name, ...props }) {
-  const allIcons = TaroifyIcons.reduce((prev, cur) => {
-    return Object.assign(prev, cur.icons);
-  }, {});
+type DynamicIconProps = {
+  name: string;
+  size?: number;
+  color?: string;
+  className?: string;
+};
 
-  if (!name || !allIcons[name]) {
+export default function (props: DynamicIconProps) {
+  const { name } = props;
+  if (!name) {
     return null;
   }
 
-  return allIcons[name](props);
+  // 兼容taroi图标
+  if (!name.startsWith("HM_")) {
+    return TaroiIcon(props);
+  }
+
+  return HarmonyIcon(props);
 }

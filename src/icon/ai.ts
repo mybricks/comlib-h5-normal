@@ -1,4 +1,4 @@
-import { AllTaroifyIconsKey } from "../components/dynamic-icon/icons";
+import { AllHarmonyIconsKey } from "../components/dynamic-icon/harmony-icons/icons";
 
 export default {
   ":root"({ data }) {
@@ -11,10 +11,9 @@ export default {
     usage: `图标，内置丰富的图标类型，也可作为图标样式的按钮使用
 何时使用：任何时候优先推荐此组件，当明确发现导航入口、图标时，使用此组件，而不是图片。
   data声明
-  icon: string = "camera"
+  icon: string = "HM_plus"
   fontColor: string = "#000000"
   fontSize: number = 24
-  fontWeight: number = 400
 
   styleAry声明
   图标: .mybricks-icon 
@@ -30,7 +29,7 @@ export default {
   注意：如果配置背景，建议宽高和大小配置有区别，否则图标会占满背景。
 
   <允许使用的图标>
-  ${AllTaroifyIconsKey.join("\n")}
+  ${AllHarmonyIconsKey.join("\n")}
   </允许使用的图标>`,
   },
   modifyTptJson: (component) => {
@@ -39,12 +38,12 @@ export default {
     }
     if (
       !component.data?.icon ||
-      !AllTaroifyIconsKey.includes(component?.data?.icon)
+      !AllHarmonyIconsKey.includes(component?.data?.icon)
     ) {
       if (!component?.data) {
         component.data = {};
       }
-      component.data.icon = "picture";
+      component.data.icon = "HM_plus";
     }
   },
 };

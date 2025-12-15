@@ -1,10 +1,10 @@
-import { AllTaroifyIconsKey } from "../components/dynamic-icon/icons";
+import { AllHarmonyIconsKey } from "../components/dynamic-icon/harmony-icons/icons";
 export default {
-  ':root' ({ data }) {
-    return {}
+  ":root"({ data }) {
+    return {};
   },
   prompts: {
-    summary: '按钮，必须推荐此组件',
+    summary: "按钮，必须推荐此组件",
     usage: `data声明
 text: string = "按钮"
 
@@ -19,35 +19,39 @@ slots插槽
 
   <允许使用的图标>
   以下图标，可作为 data.afterIcon 以及 data.beforeIcon 的值使用：
-  ${AllTaroifyIconsKey}
+  ${AllHarmonyIconsKey}
   </允许使用的图标>
 
-`
+`,
   },
   modifyTptJson: (component) => {
-    let hasConfigStyle = false
+    let hasConfigStyle = false;
 
     component.style?.styleAry?.forEach?.((style, index) => {
       if (style.selector === ".mybricks-button") {
-        hasConfigStyle = true
-        if (style.css?.padding === undefined && style.css.paddingLeft === undefined && style.css.paddingRight === undefined) {
-          style.css.paddingLeft = 0
-          style.css.paddingRight = 0
+        hasConfigStyle = true;
+        if (
+          style.css?.padding === undefined &&
+          style.css.paddingLeft === undefined &&
+          style.css.paddingRight === undefined
+        ) {
+          style.css.paddingLeft = 0;
+          style.css.paddingRight = 0;
         }
       }
-    })
+    });
 
     if (!hasConfigStyle) {
       if (!Array.isArray(component.style?.styleAry)) {
-        component.style.styleAry = []
+        component.style.styleAry = [];
       }
       component.style.styleAry.push({
-        selector: '.mybricks-button',
+        selector: ".mybricks-button",
         css: {
           paddingLeft: 0,
-          paddingRight: 0
-        }
-      })
+          paddingRight: 0,
+        },
+      });
     }
-  }
-}
+  },
+};

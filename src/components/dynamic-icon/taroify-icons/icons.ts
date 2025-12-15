@@ -161,3 +161,11 @@ export const TaroifyIcons = [
 export const AllTaroifyIconsKey = TaroifyIcons.flatMap((item) =>
   Object.keys(item.icons)
 );
+
+export default TaroifyIcons.reduce((acc, cur) => {
+  const icons = cur.icons;
+  Object.keys(icons).forEach((iconName) => {
+    acc[iconName] = icons[iconName];
+  });
+  return acc;
+}, {});

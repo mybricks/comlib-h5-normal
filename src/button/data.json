@@ -22,7 +22,7 @@
   "useBeforeIconImg": false,
   "beforeIconUrl": "",
   "beforeIconSize": 16,
-  "beforeIcon": "Plus",
+  "beforeIcon": "HM_plus",
   "beforeIconColor": "#ffffff",
   "beforeIconSpacing": 8,
 
@@ -30,7 +30,7 @@
   "useAfterIconImg": false,
   "afterIconUrl": "",
   "afterIconSize": 16,
-  "afterIcon": "Plus",
+  "afterIcon": "HM_plus",
   "afterIconColor": "#ffffff",
   "afterIconSpacing": 8,
 
