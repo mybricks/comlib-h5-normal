@@ -147,7 +147,7 @@ export default function ({ value }) {
         }
         tabScrollTimeout = setTimeout(() => {
           tabsEl.style.transform = `translate(${scrollTo}px,0)`;
-        }, 300);
+        }, 30);
       }
     }
   }, [iconSet]);
