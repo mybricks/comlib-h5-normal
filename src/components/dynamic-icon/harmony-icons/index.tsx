@@ -9,7 +9,7 @@ export default function ({ size = 24, color = "#000", name, className = "" }) {
       class={`${css.hmIcon} ${className}`}
       style={{ fontSize: size, color }}
     >
-      {SystemIcons[name]}
+      {SystemIcons[name] || SystemIcons["HM_plus"]}
     </View>
   );
 }

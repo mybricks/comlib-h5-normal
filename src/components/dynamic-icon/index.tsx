@@ -11,7 +11,10 @@ type DynamicIconProps = {
 export default function (props: DynamicIconProps) {
   const { name } = props;
   if (!name) {
-    return null;
+    return HarmonyIcon({
+      ...props,
+      name: "HM_plus",
+    });
   }
 
   // 兼容taroi图标
