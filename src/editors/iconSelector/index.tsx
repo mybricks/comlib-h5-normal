@@ -11,7 +11,7 @@ import css from "./index.less";
 import { HarmonyIcons } from "../../components/dynamic-icon/harmony-icons/icons";
 import DynamicIcon from "../../components/dynamic-icon";
 
-const { Drawer, Tabs } = window.antd ?? {};
+const { Drawer, Tabs, Radio } = window.antd ?? {};
 
 const Icon = (props: any) => {
   const { type, size, className } = props;
@@ -62,6 +62,7 @@ export default function ({ value }) {
 
   let scrollTimeout;
   const handleChangeTab = (activeKey: string) => {
+    console.log("activeKey", activeKey);
     setIconSet(activeKey);
     // 滚动到对应的分类
     isScrollingRef.current = true;
@@ -122,34 +123,22 @@ export default function ({ value }) {
   }, [visible, isScrollingRef]);
 
   // tab居中显示
-  let tabScrollTimeout;
   useEffect(() => {
-    const tabsWrapWidth = (
-      tabsRef.current?.querySelector(".ant-tabs-nav-wrap") as HTMLElement
-    )?.offsetWidth;
-    const tabsEl = tabsRef.current?.querySelector(
-      ".ant-tabs-nav-list"
-    ) as HTMLElement;
-    if (tabsEl) {
-      const tahIndex = HarmonyIcons.findIndex((item) => item.title === iconSet);
-      const curTab = tabsEl.querySelectorAll(".ant-tabs-tab")[
-        tahIndex
-      ] as HTMLElement;
-      if (curTab) {
-        const curTabWidth = curTab.offsetWidth;
-        const curTabLeft = curTab.offsetLeft;
-        const move = tabsWrapWidth / 2 - curTabLeft - curTabWidth / 2;
-        const minScrollTo = tabsWrapWidth - tabsEl.offsetWidth;
-        const maxScrollTo = 0;
-        const scrollTo = Math.max(minScrollTo, Math.min(maxScrollTo, move));
-        if (tabScrollTimeout) {
-          clearTimeout(tabScrollTimeout);
-        }
-        tabScrollTimeout = setTimeout(() => {
-          tabsEl.style.transform = `translate(${scrollTo}px,0)`;
-        }, 30);
-      }
-    }
+    const activeIndex = HarmonyIcons.findIndex(
+      (item) => item.title === iconSet
+    );
+    const activeEl = tabsRef.current?.querySelectorAll(
+      ".ant-radio-button-wrapper"
+    )?.[activeIndex] as HTMLElement;
+    const tabsWrapWidth = tabsRef.current?.offsetWidth ?? 0;
+    const curTabWidth = activeEl?.offsetWidth;
+    const curTabLeft = activeEl?.offsetLeft;
+    const scrollTo = curTabLeft - tabsWrapWidth / 2 + curTabWidth / 2;
+
+    tabsRef.current?.scrollTo({
+      left: scrollTo,
+      behavior: "smooth",
+    });
   }, [iconSet]);
 
   return (
@@ -185,17 +174,22 @@ export default function ({ value }) {
             {"选择图标"}
             <Cross onClick={toggle} />
           </div>
-          <div ref={tabsRef} className={css.styleChoose}>
-            <Tabs
-              type="card"
-              activeKey={iconSet}
-              tabPosition="top"
-              onChange={handleChangeTab}
-            >
-              {HarmonyIcons.map((icons) => {
-                return <Tabs.TabPane tab={icons.title} key={icons.title} />;
-              })}
-            </Tabs>
+          <div className={css.styleChoose}>
+            <div ref={tabsRef} style={{ overflowX: "auto" }}>
+              <Radio.Group
+                value={iconSet}
+                onChange={(e) => handleChangeTab(e.target.value)}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                {HarmonyIcons.map((icons) => {
+                  return (
+                    <Radio.Button value={icons.title} key={icons.title}>
+                      {icons.title}
+                    </Radio.Button>
+                  );
+                })}
+              </Radio.Group>
+            </div>
           </div>
           <div className={css["icon-cate-list"]} ref={cateRef}>
             {HarmonyIcons.map((itemCate) => {
