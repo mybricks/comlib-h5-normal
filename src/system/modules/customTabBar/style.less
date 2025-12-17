@@ -11,6 +11,7 @@
   }
 
   .item {
+    position: relative;
     flex: 1;
     height: 100%;
     padding-top: 6px;
@@ -19,24 +20,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .iconSlot {
-      position: relative;
-      width: 22px;
-      height: 22px;
-
-      .icon {
-        display: block;
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translate(-50%, 0);
-      }
-
-      &.iconSlotCenter .icon {
-        bottom: 50%;
-        transform: translate(-50%, 50%);
-      }
+    justify-content: center;
+    .fontIcon {
+      display: block;
     }
 
     .textSlot {

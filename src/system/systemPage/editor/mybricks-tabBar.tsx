@@ -26,6 +26,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     selectedTextStyle: {
+      marginTop: "6px",
       fontSize: 12,
       color: "#FD6A00",
     },
@@ -38,6 +39,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     normalTextStyle: {
+      marginTop: "6px",
       fontSize: 12,
       color: "#909093",
     },
@@ -313,7 +315,7 @@ export default {
             type: "styleNew",
             options: {
               defaultOpen: true,
-              plugins: ["font"],
+              plugins: ["font", "margin"],
             },
             value: {
               get({ data, focusArea }) {
@@ -337,7 +339,7 @@ export default {
             type: "styleNew",
             options: {
               defaultOpen: true,
-              plugins: ["font"],
+              plugins: ["font", "margin"],
             },
             value: {
               get({ data, focusArea }) {

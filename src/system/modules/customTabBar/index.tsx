@@ -45,12 +45,17 @@ export default ({ data, env, _inputsCallable }) => {
       <View className={iconSlotCx}>
         {useImgIcon ? (
           <Image
-            className={css.icon}
-            style={{ ...imgIconStyle }}
+            style={{
+              display: "block",
+              width: "22px",
+              height: "22px",
+              ...imgIconStyle,
+            }}
             src={imgIcon}
           />
         ) : (
           <DynamicIcon
+            className={css.fontIcon}
             name={icon}
             size={iconStyle?.fontSize}
             color={iconStyle?.color}
@@ -95,14 +100,14 @@ export default ({ data, env, _inputsCallable }) => {
           }}
         >
           {iconRender(raw, isSelected)}
-          <View className={css.textSlot}>
+          {raw.text && (
             <View
-              className={cx(css.text, "mybricks-tabbar-text")}
+              className={cx(css.textSlot, "mybricks-tabbar-text")}
               style={{ ...textStyle }}
             >
               {raw.text}
             </View>
-          </View>
+          )}
         </View>
       );
     });

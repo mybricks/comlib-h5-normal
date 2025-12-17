@@ -91,6 +91,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     selectedTextStyle: {
+      marginTop: "6px",
       fontSize: "12px",
       color: "#FD6A00",
     },
@@ -103,6 +104,7 @@ const getDefaultTabItem = (id) => {
       height: "22px",
     },
     normalTextStyle: {
+      marginTop: "6px",
       fontSize: "12px",
       color: "#909093",
     },
