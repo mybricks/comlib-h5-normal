@@ -2,5 +2,6 @@
   "label": "评分",
   "name": "评分",
   "allowHalf": false,
-  "count": 5
+  "count": 5,
+  "disabled": false
 }

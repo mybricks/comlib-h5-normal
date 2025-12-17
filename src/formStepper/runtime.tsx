@@ -100,7 +100,6 @@ export default function (props) {
       max={data.max ?? Infinity}
       disabled={data.disabled}
       shape="circular"
-      size={24}
       value={value ?? 0}
       onChange={onChange}
     ></Stepper>

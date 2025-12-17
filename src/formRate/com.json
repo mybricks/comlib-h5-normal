@@ -59,6 +59,13 @@
       "schema": {
         "type": "number"
       }
+    },
+    {
+      "id": "setDisabledComplete",
+      "title": "是否禁用设置完成",
+      "schema": {
+        "type": "boolean"
+      }
     }
   ],
   "schema": ["mybricks.taro.formContainer/formItem", "*"]

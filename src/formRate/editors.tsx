@@ -76,6 +76,19 @@ export default {
                 },
               },
             },
+            {
+              title: "禁用编辑",
+              description: "是否禁用编辑",
+              type: "Switch",
+              value: {
+                get({ data }) {
+                  return data.disabled ?? false;
+                },
+                set({ data }, value) {
+                  data.disabled = value;
+                },
+              },
+            },
           ],
         },
         {
