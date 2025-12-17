@@ -309,7 +309,7 @@ function iconEditor(type: string) {
       },
       value: {
         get({ data }) {
-          return data[curKey.icon] ?? "Plus";
+          return data[curKey.icon] ?? "HM_plus";
         },
         set({ data }, value: string) {
           data[curKey.icon] = value;

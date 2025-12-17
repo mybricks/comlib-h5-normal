@@ -2,7 +2,13 @@ import MybricksNavigationEditor from "./editor/mybricks-navigation";
 import MybricksTabBarEditor from "./editor/mybricks-tabBar";
 import css from "./editors.less";
 import SkeletonEditor from "./editor/skeleton";
-import { defaultSelectedIconPath, defaultNormalIconPath } from "./const";
+import {
+  defaultSelectedIconPath,
+  defaultNormalIconPath,
+  defaultIcon,
+  defaultNormalFontIconStyle,
+  defaultSelectedFontIconStyle,
+} from "./const";
 import setSlotLayout from "../../utils/setSlotLayout";
 import entryPagePathEditor from "./editor/entryPagePath";
 
@@ -77,6 +83,9 @@ const getDefaultTabItem = (id) => {
     },
     text: "标签项",
     selectedIconPath: defaultSelectedIconPath,
+    selectedIconUseImg: false,
+    selectedIcon: defaultIcon,
+    selectedFontIconStyle: defaultSelectedFontIconStyle,
     selectedIconStyle: {
       width: "22px",
       height: "22px",
@@ -85,7 +94,10 @@ const getDefaultTabItem = (id) => {
       fontSize: "12px",
       color: "#FD6A00",
     },
+    normalIconUseImg: false,
     normalIconPath: defaultNormalIconPath,
+    normalIcon: defaultIcon,
+    normalFontIconStyle: defaultNormalFontIconStyle,
     normalIconStyle: {
       width: "22px",
       height: "22px",
@@ -157,7 +169,7 @@ export default {
                 },
               },
             },
-          ]
+          ],
         },
         {
           title: "顶部栏",
@@ -178,8 +190,8 @@ export default {
                   setSlotLayout(slots.get("content"), value);
                 },
               },
-            }
-          ]
+            },
+          ],
         },
         {
           title: "事件",
@@ -281,14 +293,12 @@ export default {
                 },
               },
             },
-          ]
+          ],
         },
         // {
         //   title: "页面",
         //   items: [
 
-
-            
         //     // {
         //     //   title: "大小",
         //     //   type: "select",
@@ -384,11 +394,6 @@ export default {
         //     },
         //   },
         // },
-
-
-
-
-
 
         // {
         //   title: "骨架屏",
@@ -510,8 +515,7 @@ export default {
                 value?.backgroundPosition !== undefined
                   ? value.backgroundPosition
                   : data.backgroundPosition;
-              data.backgroundPosition =
-                positionTransform(backgroundPosition);
+              data.backgroundPosition = positionTransform(backgroundPosition);
               data.backgroundSize =
                 value?.backgroundSize !== undefined
                   ? value.backgroundSize
@@ -542,114 +546,115 @@ export default {
               set({ data }, value) {
                 data.forceMainPackage = value;
               },
-            }
+            },
           },
           {
-              title: "禁用页面滚动",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.disableScroll;
-                },
-                set({ data }, value) {
-                  data.disableScroll = value;
-                },
+            title: "禁用页面滚动",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.disableScroll;
+              },
+              set({ data }, value) {
+                data.disableScroll = value;
               },
             },
+          },
 
-            {
-              ifVisible({ data }) {
-                return !data.useTabBar;
+          {
+            ifVisible({ data }) {
+              return !data.useTabBar;
+            },
+            title: "开启页脚容器",
+            type: "switch",
+            value: {
+              get({ data }) {
+                return data.useFooter;
               },
-              title: "开启页脚容器",
-              type: "switch",
-              value: {
-                get({ data }) {
-                  return data.useFooter;
-                },
-                set({ data, slot }, value) {
-                  data.useFooter = value;
+              set({ data, slot }, value) {
+                data.useFooter = value;
 
-                  if (value) {
-                    slot.add("footerBar", "页脚容器");
-                  } else {
-                    slot.remove("footerBar");
-                  }
-                },
+                if (value) {
+                  slot.add("footerBar", "页脚容器");
+                } else {
+                  slot.remove("footerBar");
+                }
               },
             },
-            {
-              title: "页面地址",
-              type: "editorRender",
-              options: {
-                render: (props) => {
-                  let url = `/pages/${props.editConfig.value.get()}/index`;
+          },
+          {
+            title: "页面地址",
+            type: "editorRender",
+            options: {
+              render: (props) => {
+                let url = `/pages/${props.editConfig.value.get()}/index`;
 
-                  const onCopy = (text) => {
-                    const textarea = document.createElement("textarea");
-                    textarea.value = text;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(textarea);
+                const onCopy = (text) => {
+                  const textarea = document.createElement("textarea");
+                  textarea.value = text;
+                  document.body.appendChild(textarea);
+                  textarea.select();
+                  document.execCommand("copy");
+                  document.body.removeChild(textarea);
 
-                    message.success("复制成功");
-                  };
+                  message.success("复制成功");
+                };
 
-                  return (
-                    <div
-                      className={css.pagePath}
-                      onClick={() => {
-                        onCopy(url);
-                      }}
-                    >
-                      <div className={css.url}>{url}</div>
-                      <div className={css.copy}></div>
+                return (
+                  <div
+                    className={css.pagePath}
+                    onClick={() => {
+                      onCopy(url);
+                    }}
+                  >
+                    <div className={css.url}>{url}</div>
+                    <div className={css.copy}></div>
+                  </div>
+                );
+              },
+            },
+            value: {
+              get({ data }) {
+                return data.id;
+              },
+            },
+          },
+          {
+            title: "页面别名",
+            description:
+              "如果设置了页面别名，则将使用别名覆盖默认页面地址，多张页面设置别名时，所设置的值请勿重复",
+            type: "editorRender",
+            options: {
+              render: (props) => {
+                let url = `/pages/${props.editConfig.value.get()}/index`;
+
+                return (
+                  <div className={css.pageAlias}>
+                    <div className={css.url}>
+                      {
+                        <Input
+                          className={css.input}
+                          defaultValue={props.editConfig.value.get()}
+                          onChange={(e) => {
+                            let value = e.target.value;
+                            props.editConfig.value.set(value);
+                          }}
+                        />
+                      }
                     </div>
-                  );
-                },
-              },
-              value: {
-                get({ data }) {
-                  return data.id;
-                },
+                  </div>
+                );
               },
             },
-            {
-              title: "页面别名",
-              description: "如果设置了页面别名，则将使用别名覆盖默认页面地址，多张页面设置别名时，所设置的值请勿重复",
-              type: "editorRender",
-              options: {
-                render: (props) => {
-                  let url = `/pages/${props.editConfig.value.get()}/index`;
-
-                  return (
-                    <div className={css.pageAlias}>
-                      <div className={css.url}>
-                        {
-                          <Input
-                            className={css.input}
-                            defaultValue={props.editConfig.value.get()}
-                            onChange={(e) => {
-                              let value = e.target.value;
-                              props.editConfig.value.set(value);
-                            }}
-                          />
-                        }
-                      </div>
-                    </div>
-                  );
-                },
+            value: {
+              get({ data }) {
+                return data.alias || "";
               },
-              value: {
-                get({ data }) {
-                  return data.alias || "";
-                },
-                set({ data }, val) {
-                  data.alias = val;
-                },
+              set({ data }, val) {
+                data.alias = val;
               },
             },
+          },
           // {
           //   title: "偷偷的upgrade",
           //   type: "button",
@@ -717,14 +722,14 @@ export default {
       value: {
         get(props) {
           const { data, focusArea } = props;
-          return data.navigationBarTitleText
+          return data.navigationBarTitleText;
         },
         set(props, value) {
           const { data, focusArea } = props;
-          data.navigationBarTitleText = value
+          data.navigationBarTitleText = value;
         },
       },
-    }
+    },
   },
   ".mybricks-tabbar-text": {
     "@dblclick": {
@@ -733,7 +738,7 @@ export default {
         get(props) {
           const { data, focusArea } = props;
           let innerText = focusArea.ele.innerText;
-          return innerText
+          return innerText;
         },
         set(props, value) {
           const { data, focusArea } = props;
@@ -744,6 +749,6 @@ export default {
           window.__tabbar__?.set(tabBar);
         },
       },
-    }
-  }
+    },
+  },
 };

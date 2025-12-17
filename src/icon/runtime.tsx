@@ -7,7 +7,9 @@ import DynamicIcon from "../components/dynamic-icon";
 export default function ({ env, data, logger, slots, inputs, outputs, title }) {
   const onClick = useCallback((e) => {
     if (env.runtime) {
-      e.stopPropagation();
+      if (outputs["onClick"].getConnections().length) {
+        e.stopPropagation();
+      }
       outputs["onClick"](true);
     }
   }, []);
