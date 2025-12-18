@@ -270,11 +270,14 @@ export default {
       },
     ],
   },
-  ".mybricks-tabItem"({ data, output, style }, cate0, cate1, cate2) {
+  ".mybricks-tabItem": {
+    title:"标签项",
+    items: (props,cate0, cate1, cate2, cate3) => {
     cate0.title = "常规";
     cate0.items = [
       {
         title: "标签名",
+        description:"一般和页面标题保持一致，建议不超过4个字",
         type: "text",
         value: {
           get({ data, focusArea }) {
@@ -282,6 +285,7 @@ export default {
             return data.tabBar[focusArea.index]?.text;
           },
           set({ data, focusArea, slot }, value) {
+            console.log("set tab item text", value,focusArea);
             if (!focusArea) return;
             let tabBar = JSON.parse(JSON.stringify(data.tabBar));
             tabBar[focusArea.index].text = value;
@@ -508,5 +512,8 @@ export default {
         },
       },
     ];
+    }
+
+    
   },
 };

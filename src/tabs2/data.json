@@ -20,6 +20,7 @@
   "slotStyle":{
     "position": "smart"
   },
+  "tabItemGap":0,
   "lastTabHeight": -1,
   "contentShowType":"switch"
 }

@@ -48,7 +48,7 @@ export default {
             return [data.maxLines];
           },
           set({ data }, val) {
-            data.maxLines = val[0];
+            data.maxLines = Array.isArray(val) ? val[0] : val;
           },
         },
       },

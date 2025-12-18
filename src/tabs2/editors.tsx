@@ -59,6 +59,7 @@ export default {
           {
             title: "宽度",
             type: "select",
+            description: "拉伸铺满指的是标签项宽度平分整个标签栏宽度；适应内容指的是标签项宽度根据内容自适应",
             options: [
               { label: "拉伸铺满", value: "fill" },
               { label: "适应内容", value: "fit" },
@@ -75,6 +76,7 @@ export default {
           {
             title: "标签项间距",
             type: "InputNumber",
+            description: "仅在宽度为适应内容时生效,用于设置标签项之间的间距",
             options: [{ min: 0 }],
             ifVisible({ data }) {
               return data.tabWidthType == "fit";
@@ -84,7 +86,7 @@ export default {
                 return [data.tabItemGap];
               },
               set({ data }, value) {
-                data.tabItemGap = value[0];
+                data.tabItemGap = Array.isArray(value) ? value[0] : value;
               },
             },
           },
@@ -285,7 +287,7 @@ export default {
                   if (!data.useDynamicTab) {
                     try {
                       slot.remove("tabItem");
-                    } catch (e) {}
+                    } catch (e) { }
                   }
                   return data.useDynamicTab;
                 },

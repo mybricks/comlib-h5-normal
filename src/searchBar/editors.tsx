@@ -265,6 +265,7 @@ export default {
         target: `.mybricks-searchBar .mybricks-searchButton`,
       },
     ],
+    title: "搜索按钮",
     items: (props, cate1, cate2, cate3) => {
       cate1.title = "常规";
       cate1.items = [
