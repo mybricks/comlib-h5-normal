@@ -68,9 +68,13 @@ function iconEditor(type: string) {
   return [
     {
       catelog: `${typeStr}图标`,
-      title: "图标自定义",
-      description: `开启后可上传自定义${typeStr}图标`,
-      type: "switch",
+      title: "图标类型",
+      description: `图标库：从图标库中选取图标；自定义图标：上传自定义图片图标`,
+      type: "radio",
+      options: [
+        { label: "图标库", value: false },
+        { label: "自定义图标", value: true },
+      ],
       value: {
         get({ data, focusArea }) {
           if (!focusArea) return;
@@ -79,6 +83,16 @@ function iconEditor(type: string) {
         set({ data, focusArea }, value) {
           let tabBar = JSON.parse(JSON.stringify(data.tabBar));
           tabBar[focusArea.index][curKey.useIconImg] = value;
+
+          // 兼容没有图标库之前的项目，赋值初始值
+          tabBar[focusArea.index][curKey.icon] =
+            tabBar[focusArea.index][curKey.icon] ?? defaultIcon;
+          tabBar[focusArea.index][curKey.iconStyle] =
+            tabBar[focusArea.index][curKey.iconStyle] ??
+            (type === "normal"
+              ? defaultNormalFontIconStyle
+              : defaultSelectedFontIconStyle);
+
           data.tabBar = tabBar;
 
           window.__tabbar__?.set(tabBar);
