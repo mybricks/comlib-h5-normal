@@ -519,6 +519,7 @@ export default function (props) {
           {slots["content"]?.render?.({
             style: {
               ...slotStyle,
+              transform: 'none'
             },
           })}
         </ScrollView>
