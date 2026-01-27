@@ -41,11 +41,11 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
   }, []);
 
   useRedirectedImageUrl(env?.edit ? data.src : undefined, (redirectedUrl) => {
-    data.src = redirectedUrl
-  })
+    data.src = redirectedUrl;
+  });
 
   const onLoad = useCallback(() => {
-    if (!env.runtim) {
+    if (!env.runtime) {
       return;
     }
     outputs["onLoad"](data.src);
@@ -65,13 +65,13 @@ export default function ({ env, data, inputs, outputs, title, style, extra }) {
         e.stopPropagation();
         return;
       }
-    // 当配置了单击事件，阻止事件冒泡
-    if (outputs["onClick"].getConnections().length) {
-      e.stopPropagation();
-    }
+      // 当配置了单击事件，阻止事件冒泡
+      if (outputs["onClick"].getConnections().length) {
+        e.stopPropagation();
+      }
       outputs["onClick"](data.src);
     },
-    [data.clickType, data.src,data.stopPropagation]
+    [data.clickType, data.src, data.stopPropagation]
   );
 
   const onError = useCallback(() => {
