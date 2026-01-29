@@ -17,9 +17,7 @@
       "schema": {
         "type": "string"
       },
-      "rels": [
-        "setValueComplete"
-      ]
+      "rels": ["setValueComplete"]
     },
     {
       "id": "getValue",
@@ -28,9 +26,7 @@
       "schema": {
         "type": "string"
       },
-      "rels": [
-        "returnValue"
-      ]
+      "rels": ["returnValue"]
     },
     {
       "id": "resetValue",
@@ -39,9 +35,7 @@
       "schema": {
         "type": "any"
       },
-      "rels": [
-        "resetValueComplete"
-      ]
+      "rels": ["resetValueComplete"]
     },
     {
       "id": "setLabel",
@@ -116,9 +110,5 @@
       "id": "content",
       "title": "可点击插槽"
     }
-  ],
-  "schema": [
-    "mybricks.taro.formContainer/formItem",
-    "*"
   ]
 }
