@@ -8,6 +8,7 @@
   "data": "./data.json",
   "editors": "./editors.tsx",
   "icon": "./icon.png",
+  "ai": "./ai.ts",
   "slots": [],
   "inputs": [
     {
