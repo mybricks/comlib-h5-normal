@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/ktaro-common-lib",
-  "version": "0.5.16",
+  "version": "0.5.18",
   "description": "小程序通用组件库",
   "main": "./dist/index.js",
   "scripts": {
@@ -51,5 +51,8 @@
   },
   "resolutions": {
     "ics": "3.5.0"
+  },
+  "volta": {
+    "node": "16.17.0"
   }
 }
