@@ -11,19 +11,18 @@ export default {
 
 data声明
 # 导航栏配置
-useNavigationStyle: "default" | "custom" = "default"  # 导航栏样式类型
+useNavigationStyle: "default" | "none" = "default"  # 导航栏样式类型，一般使用「默认」和「隐藏」两种类型，不配置则为「默认」类型
+  # 默认：为包含返回按钮和标题的导航栏样式，可以配置 返回按钮 和 标题 ，也可以通过「顶部栏」样式配置背景和字体颜色；
+    - 注意：背景仅允许配置背景色；
+  # 隐藏：直接隐藏导航栏，此时内部组件需要考虑
+    -「顶部间距」：提供顶部安全区域，建议配置44；
+    - 右上角「胶囊按钮」：布局必须避开，不能被遮挡；
+    - 需要考虑组件背景同内部组件(重点第一个组件)的样式衔接，避免出现背景不一致的情况；
+    - 导航栏不建议右侧操作按钮；或者设置paddingRight: 100，避开安全区域；
 navigationStyle: "default" | "custom" = "default"  # 导航栏风格
 navigationBarBackgroundColor: string = "#ffffff"  # 导航栏背景色（仅支持单色）
 navigationBarTextStyle: "black" | "white" = "black"  # 导航栏标题颜色
 navigationBarTitleText: string = "页面标题"  # 导航栏标题文字
-showNavigationBarCapsule: boolean = true  # 是否显示右上角胶囊按钮
-
-# 自定义导航栏配置（useNavigationStyle为custom时有效）
-customNavigation: object = {
-  style: { backgroundColor: "#464646" },
-  mainSlotStyle: {},
-  useFixed: true
-}
 
 # 页面背景配置
 background: string = "#ffffff"  # 页面背景色
@@ -37,6 +36,7 @@ backgroundRepeat: "repeat" | "no-repeat" = "repeat"  # 背景图片平铺
 
 # TabBar配置
 useTabBar: boolean = true  # 是否使用底部标签栏
+  # 如果用户提到了要使用「底部导航栏」「作为标签页」「作为tabbar」等关键词，则需要配置 useTabBar 为 true；不能在页面上使用tab组件来模拟tabbar；
 tabBar: array = []  # 标签栏配置（在systemTabbar中详细配置）
 
 # 页面功能配置

@@ -13,14 +13,14 @@ data声明
 columns: array = []  # 列配置数组
   - title: string  # 列标题
   - dataIndex: string  # 列数据字段名
-  - type: "text" | "slot"  # 列类型
-  - autoWidth: boolean  # 是否自动宽度
-  - width: string  # 列宽度
-  - minWidth: string  # 列最小宽度
-  - bgColor: string  # 列背景颜色
-  - uid: string  # 列唯一标识
-  - id: string  # 列id
-  - _id: string  # 列内部id
+  - type: "text" | "slot"  # 列类型，默认text
+  - autoWidth: boolean  # 是否自动宽度，默认true
+  - width: string  # 列宽度，默认100
+  - minWidth: string  # 列最小宽度，默认90
+  - bgColor: string  # 列背景颜色，默认#FFFFFF
+  - uid: string  # 列唯一标识，默认随机生成
+  - id: string  # 列id，column_加uid生成
+  - _id: string  # 列内部id，跟id保持一致
 
 bordered: boolean = false  # 是否展示列边框
 hiddenTableHeader: boolean = false  # 是否隐藏表头

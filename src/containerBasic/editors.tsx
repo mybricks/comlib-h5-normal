@@ -8,6 +8,22 @@ export default {
   "@resize": {
     options: ["width", "height"],
   },
+  
+  '@setLayout'({data,slots,style},val) {
+    if (val.position === 'smart') {
+      if (style.height === 'auto') {
+        style.height = style.heightFact;
+        style.heightAuto = undefined;
+      }
+      if (style.width === 'auto') {
+        style.width = style.widthFact;
+        style.widthAuto = undefined;
+      }
+    }
+    data.layout = val;
+    style.slots.content.layout = val;
+    setSlotLayout(slots.get("content"), val);
+  },
   ":slot": {},
   ":root": {
     style: [
@@ -29,15 +45,17 @@ export default {
               title: "布局",
               type: "layout",
               value: {
-                get({ data }) {
-                  return (
-                    data?.layout || {
-                      position: "smart",
-                    }
-                  );
+                get({ data, style, slots }) {
+                  if (!data?.layout) {
+                    data.layout = style.slots.content.layout;
+                  }
+                  return style.slots.content.layout || {
+                    position: "smart"
+                  };
                 },
-                set({ data, slots }, val) {
+                set({ data, style, slots }, val) {
                   data.layout = val;
+                  style.slots.content.layout = val;
                   setSlotLayout(slots.get("content"), val);
                 },
               },
