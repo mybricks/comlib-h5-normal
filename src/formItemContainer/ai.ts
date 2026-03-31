@@ -1,19 +1,38 @@
+import { safeModifyTptJson } from "../utils/ai-helpers";
+
 export default {
-  ':root'({ data }) {
-    return {}
+  ":root"({ data }) {
+    return {};
   },
   prompts: {
-    summary: `自定义表单项，内部支持渲染任意子元素来自定义UI，最终与formContainer通信完成表单信息的收集和渲染
-何时使用：仅在现有其他表单项UI不能满足用户需求时，用自定义表单项可以渲染特殊样式的UI，在formContainer被推荐时可以推荐。`,
-    usage: `自定义表单项，内部支持渲染任意子元素来自定义UI，最终与formContainer通信完成表单信息的收集和渲染
-何时使用：仅在现有其它表单项UI不能满足用户需求时，用自定义表单项可以渲染特殊样式的UI，代价是配置变复杂，非必要不使用。
+    summary:
+      "表单项容器，用于在表单中放置非表单组件",
+    usage: `表单项容器
 
-  schema=mybricks.taro.formContainer/formItem
+schema=mybricks.taro.formContainer/formItem
 
-  slots插槽
-  formItem: 内容`
+data声明
+label: string = ""  # 表单项标签
+hideLabel: boolean = false  # 是否隐藏标签
+
+slots插槽
+content: 内容插槽，用于放置任意组件
+
+styleAry声明
+无
+
+layout声明
+width: 可配置
+height: 可配置
+
+注意事项
+- 表单项容器用于在表单中放置非表单组件，如自定义按钮、图片等
+- 该组件本身不收集数据，仅作为布局容器使用
+`,
   },
   modifyTptJson: (component) => {
- 
-  }
-}
+    safeModifyTptJson(() => {
+      // 暂无特殊处理逻辑
+    }, component, "formItemContainer");
+  },
+};

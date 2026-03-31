@@ -1,19 +1,40 @@
+import { safeModifyTptJson } from "../utils/ai-helpers";
+
 export default {
-  ':root' ({ data }) {
-    return {}
+  ":root"({ data }) {
+    return {};
   },
   prompts: {
-    summary: '瀑布流列表组件，支持一行N列卡片不等高的瀑布流',
-    usage: `瀑布流列表组件，支持一行N列卡片不等高的瀑布流
-  slots插槽
-  item # 列表项插槽
+    summary:
+      "瀑布流容器，用于展示瀑布流布局的数据列表",
+    usage: `瀑布流容器
 
-  注意事项
-  - 在列表中，插槽仅放置一个组件即可，因为列表会遍历这个组件，不要开发多个，仅需开发一个示例即可；
-  
-  高度计算
-  因为无论几列，瀑布流会自动循环三行，所以
-    瀑布流的高度 = 插槽内容的高度*3列 + 行间距*2。
-    `
-  }
-}
+data声明
+dataSource: array = []  # 数据源数组
+columnCount: number = 2  # 列数
+
+slots插槽
+item: 列表项插槽
+
+styleAry声明
+无
+
+layout声明
+width: 可配置
+height: 可配置
+
+事件
+onItemClick: 当点击列表项时触发
+
+注意事项
+- 瀑布流容器用于展示高度不一致的列表项，如图片墙
+- columnCount配置列数，默认为2列
+- 列表项高度不固定，会根据内容自动撑开
+`,
+  },
+  modifyTptJson: (component) => {
+    safeModifyTptJson(() => {
+      // 暂无特殊处理逻辑
+    }, component, "containerWaterfall");
+  },
+};

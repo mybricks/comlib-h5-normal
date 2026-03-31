@@ -1,27 +1,39 @@
+import { safeModifyTptJson } from "../../utils/ai-helpers";
+
 export default {
-  ':root'({ data }) {
-    return {}
+  ":root"({ data }) {
+    return {};
   },
   prompts: {
-    usage: `对于当前组件，有以下注意事项：
-  1. 关于「导航栏类型」，一般使用「默认」和「隐藏」两种类型，不配置则为「默认」类型
-  1.1 默认：为包含返回按钮和标题的导航栏样式，可以配置 返回按钮 和 标题 ，也可以通过「顶部栏」样式配置背景和字体颜色；
-      注意：背景仅允许配置背景色；
-  1.2 隐藏：直接隐藏导航栏，此时内部组件需要考虑
-      -「顶部间距」：提供顶部安全区域，建议配置30；
-      - 右上角「胶囊按钮」：布局必须避开，不能被遮挡；
-      - 需要考虑组件背景同内部组件(重点第一个组件)的样式衔接，避免出现背景不一致的情况；
-      - 自定义导航栏不建议右侧操作按钮；或者设置paddingTop: 88，避开安全区域，再设置背景保证界面和谐；
+    summary:
+      "系统页面容器，用于承载页面级配置和布局",
+    usage: `系统页面容器
 
-  2.如果用户提到了要使用「底部导航栏」「作为标签页」「作为tabbar」等关键词，则需要配置 data.useTabBar 为 true；不能在页面上使用tab组件来模拟tabbar；
+data声明
+无
 
-  3.如果设置了页面的标题，建议底部导航栏的标签名和页面标题保持一致，提升用户体验；
+slots插槽
+content: 页面内容插槽
 
-  4.确认当前布局信息，必须配置；
+styleAry声明
+页面背景: .mybricks-page
+  - 可编辑样式: background
 
-  data定义：
-  data.useTabBar：boolean，是否使用底部导航栏（底部标签页）
+layout声明
+width: 固定为100%
+height: 固定为100%
 
-`
-  }
-}
+事件
+无
+
+注意事项
+- 系统页面容器是每个页面的根容器
+- 页面背景色通常通过styleAry配置
+`,
+  },
+  modifyTptJson: (component) => {
+    safeModifyTptJson(() => {
+      // 暂无特殊处理逻辑
+    }, component, "system/systemPage");
+  },
+};
